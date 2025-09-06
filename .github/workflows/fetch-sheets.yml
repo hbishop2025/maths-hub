@@ -1,32 +1,35 @@
-name: Fetch Google Sheets
+name: Fetch Google Sheets → JSON
 
 on:
-  schedule:
-    - cron: "0 * * * *"   # every hour
   workflow_dispatch:
+  schedule:
+    - cron: "0 */2 * * *" # every 2 hours
+
+# Allow this workflow to push commits
+permissions:
+  contents: write
 
 jobs:
-  build:
+  fetch-and-commit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repo
+      # Uses the default GITHUB_TOKEN (no extra setup needed)
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js 20
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Run fetch-sheets
-        working-directory: ./Revision Hub V3
-        run: node "assets/scripts/fetch-sheets.mjs"
-
-      - name: Commit and push data
-        working-directory: ./Revision Hub V3
+      - name: Run fetch-sheets.mjs
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add "assets/data/*.json"
-          git commit -m "Update JSON data from Google Sheets" || echo "No changes to commit"
-          git push
+          node "Revision Hub V3/assets/scripts/fetch-sheets.mjs"
+
+      # Auto-commit any JSON changes under assets/data
+      - name: Commit JSON updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update JSON data from Google Sheets"
+          file_pattern: 'Revision Hub V3/assets/data/*.json'
