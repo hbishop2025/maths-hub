@@ -1,0 +1,28 @@
+name: Fetch Google Sheets
+
+on:
+  workflow_dispatch:   # run manually
+  schedule:
+    - cron: "0 * * * *"   # every hour
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Run fetch-sheets script
+        run: node assets/scripts/fetch-sheets.mjs
+
+      - name: Commit and push JSON
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add assets/data/*.json
+          git commit -m "Update JSON from Sheets" || echo "No changes"
+          git push
