@@ -5,90 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>KS3 Maths Hub — Year 9</title>
 
-<!-- Tailwind (CDN for quick prototyping) -->
+<!-- Tailwind (CDN) -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
 <!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+<!-- Shared CSS -->
+<link rel="stylesheet" href="assets/main.css"/>
+
 <style>
   :root{
-    --accent:#7B61FF;     /* lilac / purple */
-    --accent-2:#A28BFF;   /* lighter */
+    --accent:#7B61FF;
+    --accent-2:#A28BFF;
   }
   body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
 
-  /* === Card flip === */
-  .flip{
-    perspective:1000px;
-  }
+  /* Flip cards */
+  .flip{ perspective:1000px; }
   .flip-inner{
-    position:relative;
-    width:100%;
-    height:100%;
-    transform-style:preserve-3d;
-    transition: transform .6s;
+    position:relative; width:100%; height:100%;
+    transform-style:preserve-3d; transition: transform .6s;
   }
   .flip:hover .flip-inner{ transform: rotateY(180deg); }
   .flip-face{
-    position:absolute; inset:0;
-    backface-visibility:hidden;
-    border-radius:14px;
-    overflow:hidden;
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:14px; overflow:hidden;
     box-shadow:0 8px 24px rgba(0,0,0,.08);
     border:1px solid rgba(0,0,0,.06);
     display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
     padding:16px;
   }
-  .flip-front{
-    background:linear-gradient(135deg, #ffffff, #f7f4ff);
-  }
+  .flip-front{ background:linear-gradient(135deg, #ffffff, #f7f4ff); }
   .flip-front .bar{
     position:absolute; left:0; right:0; top:0; height:5px;
     background:linear-gradient(90deg, var(--accent), var(--accent-2));
   }
-  .flip-back{
-    transform: rotateY(180deg);
-    background:#ffffff;
-  }
+  .flip-back{ transform: rotateY(180deg); background:#ffffff; }
   .unit-badge{
-    font-weight:800; font-size:14px;
-    color: #fff; background: var(--accent);
-    padding:4px 10px; border-radius:999px;
-    box-shadow:0 6px 16px rgba(123,97,255,.2);
+    font-weight:800; font-size:14px; color:#fff; background:var(--accent);
+    padding:4px 10px; border-radius:999px; box-shadow:0 6px 16px rgba(123,97,255,.2);
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:2.25rem;
   }
-  .unit-title{
-    font-weight:800;
-    font-size: clamp(18px, 2.4vw, 20px);
-    color:#1a1a1a;
-  }
+  .unit-title{ font-weight:800; font-size: clamp(18px, 2.4vw, 20px); color:#1a1a1a; }
   .subtopic{
-    background:#f6f3ff; color:#44397c;
-    border:1px solid #e6dfff; border-radius:999px;
-    padding:6px 10px; font-size:12px; font-weight:700;
-    white-space:nowrap;
+    background:#f6f3ff; color:#44397c; border:1px solid #e6dfff;
+    border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700; white-space:nowrap;
   }
-
-  /* Accessible focus flip (keyboard users) */
-  .flip:focus-within .flip-inner{ transform: rotateY(180deg); }
-
-  /* Tap-to-flip helper on mobile (JS adds .toggled) */
-  .flip.toggled .flip-inner{ transform: rotateY(180deg); }
 </style>
 </head>
 
-<body class="bg-gray-100">
-	<style>
-  /* Reserve the sidebar's width while sidebar.html loads */
-  #sidebar { width: 16rem; } /* = w-64 */
-  @media (max-width: 1024px){
-    #sidebar { width: 100%; } /* if you later stack it on small screens */
-  }
-</style>
+<body class="bg-gray-100" data-page="year9">
   <div class="flex h-screen">
 
-    <!-- Sidebar (same style as Explore; Year 9 active) -->
+    <!-- Sidebar -->
     <div id="sidebar"></div>
 
     <!-- Main -->
@@ -113,299 +85,264 @@
           <p class="text-gray-600">
             Exam details will be posted closer to the time. Navigate this page by clicking the cards below for revision of each unit. Good luck!
           </p>
-		  
-		  <div class="flex items-center gap-3 mt-4">
-  <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-    End of year guidance <span class="material-icons ml-2">arrow_forward</span>
-  </a>
-</div>
+          <!-- add a bit of space above the button -->
+          <div class="flex items-center gap-3 mt-4">
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              End of year guidance <span class="material-icons ml-2">arrow_forward</span>
+            </a>
+          </div>
         </div>
       </section>
 
       <!-- Units grid -->
-<section aria-label="Year 9 Units">
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-2xl font-bold text-gray-800">Units</h2>
-  </div>
+      <section aria-label="Year 9 Units">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">Units</h2>
+        </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-    <!-- Unit 01 -->
-    <a href="year9_unit01.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 01">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">01</span>
-          <h3 class="unit-title">Powers &amp; Roots</h3>
-          <p class="text-sm text-gray-500 mt-1">Algebra / Number</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">1.1 Reciprocals</span>
-            <span class="subtopic">1.2 Indices</span>
-            <span class="subtopic">1.3 Standard form</span>
-            <span class="subtopic">1.4 Calc. with std form</span>
-            <span class="subtopic">1.5 Fractional indices</span>
-            <span class="subtopic">1.6 Surds</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 01 -->
+          <a href="year_9/year9_unit01.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 01">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">01</span>
+                <h3 class="unit-title">Powers &amp; Roots</h3>
+                <p class="text-sm text-gray-500 mt-1">Algebra / Number</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">1.1 Reciprocals</span>
+                  <span class="subtopic">1.2 Indices</span>
+                  <span class="subtopic">1.3 Standard form</span>
+                  <span class="subtopic">1.4 Calc. with std form</span>
+                  <span class="subtopic">1.5 Fractional indices</span>
+                  <span class="subtopic">1.6 Surds</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 02 -->
-    <a href="year9_unit02.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 02">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">02</span>
-          <h3 class="unit-title">Quadratics</h3>
-          <p class="text-sm text-gray-500 mt-1">Algebra</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">2.1 Sequences</span>
-            <span class="subtopic">2.2 Expanding</span>
-            <span class="subtopic">2.3 Factorising</span>
-            <span class="subtopic">2.4 Solving</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 02 -->
+          <a href="year_9/year9_unit02.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 02">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">02</span>
+                <h3 class="unit-title">Quadratics</h3>
+                <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">2.1 Sequences</span>
+                  <span class="subtopic">2.2 Expanding</span>
+                  <span class="subtopic">2.3 Factorising</span>
+                  <span class="subtopic">2.4 Solving</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 03 -->
-    <a href="year9_unit03.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 03">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">03</span>
-          <h3 class="unit-title">Inequalities, Equations &amp; Formulae</h3>
-          <p class="text-sm text-gray-500 mt-1">Algebra</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">3.1 Inequalities</span>
-            <span class="subtopic">3.2 Index laws</span>
-            <span class="subtopic">3.3 Solving equations</span>
-            <span class="subtopic">3.4 Changing the subject</span>
-            <span class="subtopic">3.5 Algebraic fractions</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 03 -->
+          <a href="year_9/year9_unit03.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 03">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">03</span>
+                <h3 class="unit-title">Inequalities, Equations &amp; Formulae</h3>
+                <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">3.1 Inequalities</span>
+                  <span class="subtopic">3.2 Index laws</span>
+                  <span class="subtopic">3.3 Solving equations</span>
+                  <span class="subtopic">3.4 Changing the subject</span>
+                  <span class="subtopic">3.5 Algebraic fractions</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 04 -->
-    <a href="year9_unit04.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 04">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">04</span>
-          <h3 class="unit-title">Collecting &amp; Analysing Data</h3>
-          <p class="text-sm text-gray-500 mt-1">Data Handling</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">4.1 Collecting data</span>
-            <span class="subtopic">4.2/3 Working with statistics</span>
-            <span class="subtopic">4.4 Box plots</span>
-            <span class="subtopic">4.6 Histograms</span>
-            <span class="subtopic">4.5 Cumulative frequency</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 04 -->
+          <a href="year_9/year9_unit04.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 04">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">04</span>
+                <h3 class="unit-title">Collecting &amp; Analysing Data</h3>
+                <p class="text-sm text-gray-500 mt-1">Data Handling</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">4.1 Collecting data</span>
+                  <span class="subtopic">4.2/3 Working with statistics</span>
+                  <span class="subtopic">4.4 Box plots</span>
+                  <span class="subtopic">4.6 Histograms</span>
+                  <span class="subtopic">4.5 Cumulative frequency</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 05 -->
-    <a href="year9_unit05.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 05">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">05</span>
-          <h3 class="unit-title">Multiplicative Reasoning</h3>
-          <p class="text-sm text-gray-500 mt-1">Number</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">5.1 Direct proportion</span>
-            <span class="subtopic">5.2 Problem solving</span>
-            <span class="subtopic">5.3 Non-linear proportion</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 05 -->
+          <a href="year_9/year9_unit05.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 05">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">05</span>
+                <h3 class="unit-title">Multiplicative Reasoning</h3>
+                <p class="text-sm text-gray-500 mt-1">Number</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">5.1 Direct proportion</span>
+                  <span class="subtopic">5.2 Problem solving</span>
+                  <span class="subtopic">5.3 Non-linear proportion</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 06 -->
-    <a href="year9_unit06.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 06">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">06</span>
-          <h3 class="unit-title">Non-linear Graphs</h3>
-          <p class="text-sm text-gray-500 mt-1">Algebra</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">6.1 Quadratic functions</span>
-            <span class="subtopic">6.2 Solving quadratics</span>
-            <span class="subtopic">6.3 Cubic functions</span>
-            <span class="subtopic">6.4 Reciprocal graphs</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 06 -->
+          <a href="year_9/year9_unit06.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 06">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">06</span>
+                <h3 class="unit-title">Non-linear Graphs</h3>
+                <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">6.1 Quadratic functions</span>
+                  <span class="subtopic">6.2 Solving quadratics</span>
+                  <span class="subtopic">6.3 Cubic functions</span>
+                  <span class="subtopic">6.4 Reciprocal graphs</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 07 -->
-    <a href="year9_unit07.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 07">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">07</span>
-          <h3 class="unit-title">Accuracy &amp; Measures</h3>
-          <p class="text-sm text-gray-500 mt-1">Number</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">7.1 Rates of change</span>
-            <span class="subtopic">7.2 Density &amp; pressure</span>
-            <span class="subtopic">7.3/4 Calculating with bounds</span>
-            <span class="subtopic">7.5 Accurate measures</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 07 -->
+          <a href="year_9/year9_unit07.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 07">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">07</span>
+                <h3 class="unit-title">Accuracy &amp; Measures</h3>
+                <p class="text-sm text-gray-500 mt-1">Number</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">7.1 Rates of change</span>
+                  <span class="subtopic">7.2 Density &amp; pressure</span>
+                  <span class="subtopic">7.3/4 Calculating with bounds</span>
+                  <span class="subtopic">7.5 Accurate measures</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 08 -->
-    <a href="year9_unit08.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 08">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">08</span>
-          <h3 class="unit-title">Graphical Solutions</h3>
-          <p class="text-sm text-gray-500 mt-1">Algebra</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">8.1/3 Simultaneous eqns</span>
-            <span class="subtopic">8.2 Using y = mx + c</span>
-            <span class="subtopic">8.4 Graphs of simult. eqns</span>
-            <span class="subtopic">8.5 Solving inequalities</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 08 -->
+          <a href="year_9/year9_unit08.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 08">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">08</span>
+                <h3 class="unit-title">Graphical Solutions</h3>
+                <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">8.1/3 Simultaneous eqns</span>
+                  <span class="subtopic">8.2 Using y = mx + c</span>
+                  <span class="subtopic">8.4 Graphs of simult. eqns</span>
+                  <span class="subtopic">8.5 Solving inequalities</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 09 -->
-    <a href="year9_unit09.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 09">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">09</span>
-          <h3 class="unit-title">Trigonometry</h3>
-          <p class="text-sm text-gray-500 mt-1">Geometry</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">9.1–9.3 SOHCAHTOA</span>
-            <span class="subtopic">9.4 Finding angles</span>
-            <span class="subtopic">9.5 Problem solving</span>
-            <span class="subtopic">9.6 Trig graphs</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 09 -->
+          <a href="year_9/year9_unit09.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 09">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">09</span>
+                <h3 class="unit-title">Trigonometry</h3>
+                <p class="text-sm text-gray-500 mt-1">Geometry</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">9.1–9.3 SOHCAHTOA</span>
+                  <span class="subtopic">9.4 Finding angles</span>
+                  <span class="subtopic">9.5 Problem solving</span>
+                  <span class="subtopic">9.6 Trig graphs</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-    <!-- Unit 10 -->
-    <a href="year9_unit10.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 10">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3">10</span>
-          <h3 class="unit-title">Proof (Not in EOY)</h3>
-          <p class="text-sm text-gray-500 mt-1">Number</p>
-        </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">10.1 Explain / justify</span>
-            <span class="subtopic">10.2 Modelling</span>
-            <span class="subtopic">10.3 Proof</span>
-            <span class="subtopic">10.4 More proof</span>
-          </div>
-        </div>
-      </div>
-    </a>
+          <!-- Unit 10 -->
+          <a href="year_9/year9_unit10.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 10">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">10</span>
+                <h3 class="unit-title">Proof (Not in EOY)</h3>
+                <p class="text-sm text-gray-500 mt-1">Number</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">10.1 Explain / justify</span>
+                  <span class="subtopic">10.2 Modelling</span>
+                  <span class="subtopic">10.3 Proof</span>
+                  <span class="subtopic">10.4 More proof</span>
+                </div>
+              </div>
+            </div>
+          </a>
 
-	<!-- Unit 11 -->
-    <a href="year9_games.html" class="block focus:outline-none flip h-56" aria-label="Open Unit 10">
-      <div class="flip-inner h-full">
-        <div class="flip-face flip-front">
-          <div class="bar"></div>
-          <span class="unit-badge mb-3 flex items-center justify-center">
-  <span class="material-icons text-white text-lg">sports_esports</span>
-</span>
-          <h3 class="unit-title">Interactive</h3>
-          <p class="text-sm text-gray-500 mt-1">Games</p>
+          <!-- Unit 11 (Interactive) -->
+          <a href="year_9/year9_games.html" class="block focus:outline-none flip h-56" aria-label="Open Interactive">
+            <div class="flip-inner h-full">
+              <div class="flip-face flip-front">
+                <div class="bar"></div>
+                <span class="unit-badge mb-3">
+                  <span class="material-icons text-white text-lg">sports_esports</span>
+                </span>
+                <h3 class="unit-title">Interactive</h3>
+                <p class="text-sm text-gray-500 mt-1">Games</p>
+              </div>
+              <div class="flip-face flip-back overflow-y-auto">
+                <p class="font-bold text-gray-800 mb-2">Subtopics</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="subtopic">Games</span>
+                  <span class="subtopic">Quizzes</span>
+                  <span class="subtopic">Experimental</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
         </div>
-        <div class="flip-face flip-back overflow-y-auto">
-          <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="subtopic">Games</span>
-            <span class="subtopic">Quizzes</span>
-            <span class="subtopic">Experimental</span>
-          </div>
-        </div>
-      </div>
-    </a>
-	
-  </div>
-</section>
+      </section>
     </main>
   </div>
 
-  <script>
-    // Mobile-friendly: tap to flip (toggle class) without blocking navigation
-    // (Tap once to peek, tap again or navigate by tapping near the top title)
-    document.querySelectorAll('.flip').forEach(card=>{
-      let toggled = false;
-      card.addEventListener('click', function(e){
-        // If the card is already toggled, allow the link to proceed (click-through)
-        if(!toggled){
-          e.preventDefault();
-          card.classList.toggle('toggled');
-          toggled = true;
-          // auto-untoggle after a short delay for UX
-          setTimeout(()=>{ card.classList.remove('toggled'); toggled = false; }, 1500);
-        }
-      }, {passive:false});
-    });
-  </script>
-  <script>
-  fetch("sidebar.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-
-      // === Highlight active year ===
-      const path = window.location.pathname;
-
-      if (path.includes("year9")) {
-        const link = document.querySelector('#sidebar a[href="year9_hub.html"]');
-        if (link) {
-          link.classList.add("text-white");
-          link.style.background = "var(--accent)";
-          link.querySelector(".material-icons").classList.add("text-white");
-        }
-      }
-      // Later you can add rules here for year7, year8, gcse...
-    });
-</script>
+  <!-- Sidebar loader -->
+  <script src="assets/sidebar-loader.js"></script>
 </body>
 </html>
