@@ -3,9 +3,8 @@ name: Fetch Google Sheets → JSON
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */2 * * *" # every 2 hours
+    - cron: "0 */2 * * *"  # every 2 hours (UTC)
 
-# Allow this workflow to push commits
 permissions:
   contents: write
 
@@ -15,11 +14,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-      # Uses the default GITHUB_TOKEN (no extra setup needed)
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Use Node.js 20
-      - uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -27,7 +25,6 @@ jobs:
         run: |
           node "Revision Hub V3/assets/scripts/fetch-sheets.mjs"
 
-      # Auto-commit any JSON changes under assets/data
       - name: Commit JSON updates
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
