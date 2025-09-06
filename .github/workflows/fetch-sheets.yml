@@ -3,7 +3,7 @@ name: Fetch Google Sheets
 on:
   schedule:
     - cron: "0 * * * *"   # every hour
-  workflow_dispatch:      # allow manual run
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,12 +19,14 @@ jobs:
           node-version: 20
 
       - name: Run fetch-sheets
+        working-directory: ./Revision Hub V3
         run: node "assets/scripts/fetch-sheets.mjs"
 
       - name: Commit and push data
+        working-directory: ./Revision Hub V3
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/data/*.json
+          git add "assets/data/*.json"
           git commit -m "Update JSON data from Google Sheets" || echo "No changes to commit"
           git push
