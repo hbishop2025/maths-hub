@@ -25,6 +25,12 @@
   },
   {
     "year": "9",
+    "title": "Laws of indices",
+    "url": "https://www.youtube.com/watch?v=BUJKEDqGp1U",
+    "addediso": "45906"
+  },
+  {
+    "year": "9",
     "title": "Box Plots",
     "url": "https://www.youtube.com/watch?v=nV8jR8M8C74",
     "addediso": "45906"
@@ -64,11 +70,5 @@
     "title": "Expanding double brackets",
     "url": "https://www.youtube.com/watch?v=Dvo1Q-yBBhk",
     "addediso": "45900"
-  },
-  {
-    "year": "9",
-    "title": "Index laws poster",
-    "url": "https://www.century.tech/wp-content/uploads/2022/04/Index-Laws-Higher-poster.pdf",
-    "addediso": "45897"
   }
 ]
