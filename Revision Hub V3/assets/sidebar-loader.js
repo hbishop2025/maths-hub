@@ -11,28 +11,29 @@
       </div>`;
   }
 
-  fetch('assets/sidebar.html') // <-- put sidebar.html in /assets
+  // Root-relative so it works from / and /year_9/ etc.
+  fetch('/assets/sidebar.html')
     .then(r => r.text())
     .then(html => {
       wrap.innerHTML = `<div class="panel">${html}</div>`;
 
-      // Decide which link to mark as active
-      const file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      const pathname = location.pathname.toLowerCase();
+      const file = (pathname.split('/').pop() || 'index.html');
 
-      function isYear9Page(f){
-        return /^year9_(hub|unit\d{2}|games)\.html$/.test(f);
-      }
+      // Any page inside /year_9/ OR specific year9 pages at root
+      const isYear9Path = pathname.includes('/year_9/');
+      const isYear9File = /^year9_(hub|unit\d{2}|games)\.html$/.test(file);
 
       // Map of routes to href in the sidebar
       const routes = [
-        { test: f => f === '' || f === 'index.html', href: 'index.html' },
-        { test: f => f === 'policy.html',            href: 'policy.html' },
-        { test: f => f === 'ai_usage.html',          href: 'ai_usage.html' },
-        { test: f => isYear9Page(f),                 href: 'year9_hub.html' },
-        { test: f => f === 'year9_hub.html',         href: 'year9_hub.html' },
+        { test: () => file === '' || file === 'index.html', href: 'index.html' },
+        { test: () => file === 'policy.html',              href: 'policy.html' },
+        { test: () => file === 'ai_usage.html',            href: 'ai_usage.html' },
+        { test: () => isYear9Path || isYear9File,          href: 'year9_hub.html' },
+        { test: () => file === 'year9_hub.html',           href: 'year9_hub.html' },
       ];
 
-      const active = routes.find(r => r.test(file));
+      const active = routes.find(r => r.test());
       if(active){
         const link = wrap.querySelector(`nav a[href="${active.href}"]`);
         if(link){
