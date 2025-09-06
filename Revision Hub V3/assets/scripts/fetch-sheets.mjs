@@ -10,8 +10,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // 🔗 PUBLISHED CSV URLS
 // Year 7 & 8 are from your single Google Sheet by gid:
 const SHEET_ID_Y78 = "1BNLmpyXbyo_TuHql3s36thOVKwgcQrtZiCv_qdxTCcE";
-const YEAR7_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID_Y78}/export?format=csv&gid=0`;
-const YEAR8_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID_Y78}/export?format=csv&gid=794689788`;
+const YEAR7_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=0&single=true&output=csv";
+const YEAR8_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=794689788&single=true&output=csv";
 
 // Year 9 (your working published “Year_9” tab CSV):
 const YEAR9_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=1806966889&single=true&output=csv";
