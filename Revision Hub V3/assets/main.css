@@ -28,6 +28,13 @@ body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sa
 main {
   margin-left: 16rem;
 }
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;   /* this fixes the “not full width” bug */
+}
+
 /* The injected sidebar becomes fixed on desktop (Chromebook) */
 #sidebar .panel {
   position: fixed; left:0; top:0;
