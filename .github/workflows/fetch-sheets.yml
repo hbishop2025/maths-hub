@@ -17,7 +17,8 @@ jobs:
           node-version: 20
 
       - name: Run fetch-sheets script
-        run: node assets/scripts/fetch-sheets.mjs
+        run: node Revision Hub V3/assets/scripts/fetch-sheets.mjs
+        
 
       - name: Commit and push JSON
         run: |
