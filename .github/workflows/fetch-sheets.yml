@@ -1,29 +1,30 @@
 name: Fetch Google Sheets
 
 on:
-  workflow_dispatch:   # run manually
   schedule:
     - cron: "0 * * * *"   # every hour
+  workflow_dispatch:      # allow manual run
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Run fetch-sheets script
-        run: node "/assets/scripts/fetch-sheets.mjs"
-        
+      - name: Run fetch-sheets
+        run: node "assets/scripts/fetch-sheets.mjs"
 
-      - name: Commit and push JSON
+      - name: Commit and push data
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/data/*.json
-          git commit -m "Update JSON from Sheets" || echo "No changes"
+          git commit -m "Update JSON data from Google Sheets" || echo "No changes to commit"
           git push
