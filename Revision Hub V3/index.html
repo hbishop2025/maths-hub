@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Maths Hub</title>
+
+  <!-- Tailwind (CDN for now) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="assets/main.css"/>
+</head>
+<body class="bg-gray-100" data-page="explore">
+<div class="flex h-screen">
+
+  <!-- Sidebar (loaded via assets/sidebar-loader.js) -->
+  <div id="sidebar"></div>
+
+  <!-- Main -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8">
+      <div class="flex items-center">
+        <button class="mr-4"><span class="material-icons">menu</span></button>
+        <h1 class="text-2xl font-bold text-gray-800">Explore</h1>
+      </div>
+      <div class="flex items-center">
+        <a class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center" href="#resources">
+          Go to Resources <span class="material-icons ml-2">arrow_downward</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- No-JS fallback -->
+    <noscript>
+      <div class="p-4 bg-yellow-50 text-yellow-800 rounded-lg mb-6">
+        This site needs JavaScript to load the latest resources and information.
+      </div>
+    </noscript>
+
+    <!-- Welcome -->
+    <section>
+      <div class="bg-white p-6 rounded-xl shadow-sm mb-10">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Welcome to the Maths Hub!</h2>
+        <p class="text-gray-600">
+          This is a central place for all revision materials for Year 7, 8 and 9.
+          All resources are free to access or available on the Google Drive.
+          There’s no need to log in or create an account. Happy revising!
+        </p>
+      </div>
+    </section>
+
+    <!-- Latest Resources -->
+    <section class="mt-10" id="resources">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Latest Resources</h2>
+        <button id="latest-toggle" class="text-blue-500 font-semibold">View All</button>
+      </div>
+      <div id="latest-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      <p id="latest-empty" class="text-gray-500" hidden>No recent items yet.</p>
+    </section>
+
+    <!-- Latest Information -->
+    <section class="mt-10">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Latest Information</h2>
+      </div>
+      <div id="info-list" class="space-y-4"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Shared scripts -->
+<script src="assets/sidebar-loader.js"></script>
+<script src="assets/cards.js"></script>
+
+<script>
+  // CSV sources
+  const EXPLORE_CSV =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=1718705208&single=true&output=csv";
+  const INFO_CSV =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=362373857&single=true&output=csv";
+
+  /* === Load Latest Resources ===
+     Depends on: parseCSV, parseDate, makeCard (from assets/cards.js) */
+  let latestAll = [];
+  let showingAll = false;
+
+  async function loadLatest(){
+    const grid  = document.getElementById('latest-grid');
+    const empty = document.getElementById('latest-empty');
+    if(!grid) return;
+
+    const txt = await fetch(EXPLORE_CSV, {cache:'no-store'}).then(r=>r.text());
+    const rows = parseCSV(txt);
+
+    // Expect columns: Year, Unit, Title, URL, AddedISO
+    const valid = rows.filter(r => (r.title && r.url) && (r.year || r.unit));
+    valid.sort((a,b)=> (parseDate(b.addediso)?.getTime()||0) - (parseDate(a.addediso)?.getTime()||0));
+
+    latestAll = valid;
+    renderLatest();
+    if(empty) empty.hidden = latestAll.length > 0;
+  }
+
+  function renderLatest(){
+    const grid  = document.getElementById('latest-grid');
+    const max = showingAll ? 8 : 4;
+    grid.innerHTML = '';
+    latestAll.slice(0, max).forEach(item => grid.appendChild(makeCard(item)));
+    const toggle = document.getElementById('latest-toggle');
+    if(toggle){
+      toggle.textContent = showingAll ? 'Show Less' : 'View All';
+    }
+  }
+
+  /* === Load Latest Info ===
+     Depends on: parseCSV, parseDate, makeInfoCard (from assets/cards.js) */
+  async function loadInfo(){
+    const txt = await fetch(INFO_CSV, {cache:'no-store'}).then(r=>r.text());
+    const rows = parseCSV(txt);
+    const now  = new Date();
+
+    // Show future-dated (or today) items only
+    const valid = rows.filter(r => r.text && r.date && parseDate(r.date) >= now);
+    valid.sort((a,b)=> parseDate(a.date) - parseDate(b.date));
+
+    const container = document.getElementById('info-list');
+    container.innerHTML = '';
+    if(!valid.length){
+      container.innerHTML = '<p class="text-gray-500">No upcoming information.</p>';
+      return;
+    }
+    valid.forEach(r => container.appendChild(makeInfoCard(r)));
+  }
+
+  /* === Init === */
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const toggle = document.getElementById('latest-toggle');
+    if(toggle){
+      toggle.addEventListener('click', ()=>{
+        showingAll = !showingAll;
+        renderLatest();
+      });
+    }
+    loadLatest().catch(e=>console.error('Latest load error:', e));
+    loadInfo().catch(e=>console.error('Info load error:', e));
+  });
+</script>
+</body>
+</html>

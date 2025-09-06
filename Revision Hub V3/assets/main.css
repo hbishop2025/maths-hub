@@ -1,0 +1,119 @@
+/* ========= Root theme ========= */
+:root{
+  --accent: #7B61FF;   /* Year 9 purple */
+  --accent-2: #A28BFF;
+  --sidebar-w: 16rem;  /* 256px */
+  --shadow-sm: 0 8px 24px rgba(0,0,0,.08);
+}
+
+/* ========= Base ========= */
+html { scroll-behavior: smooth; }
+body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.material-icons { font-size: 24px; }
+
+/* ========= Layout: Sidebar + Main ========= */
+/* Reserve space so content never overlaps while sidebar loads */
+.layout { display:flex; min-height:100vh; }
+/* Fixed sidebar */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16rem;   /* same as w-64 */
+  height: 100dvh; /* full screen height */
+  z-index: 40;
+}
+
+/* Main offset (so it doesn’t sit under sidebar) */
+main {
+  margin-left: 16rem;
+}
+/* The injected sidebar becomes fixed on desktop (Chromebook) */
+#sidebar .panel {
+  position: fixed; left:0; top:0;
+  width: var(--sidebar-w);
+  height: 100dvh;
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,.05);
+}
+
+/* Optional skeleton while loading */
+#sidebar .skeleton {
+  display:flex; align-items:center; justify-content:center; height:64px;
+}
+#sidebar .skeleton .bar {
+  width:70%; height:40px; border-radius:8px; background:#f3f4f6;
+}
+
+/* ========= Sidebar link states ========= */
+#sidebar nav a {
+  color: #4b5563;                 /* gray-600 */
+  border-radius: .5rem;           /* matches rounded-lg */
+}
+#sidebar nav a:hover { color:#111827; }      /* gray-900 */
+
+#sidebar nav a.active {
+  background: var(--accent);
+  color: #fff !important;
+}
+#sidebar nav a.active .material-icons { color:#fff !important; }
+
+/* ========= Cards / panels (common look) ========= */
+.card {
+  background:#fff; border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+/* ========= Flip cards (AI page + unit flashcards) ========= */
+.flip{ perspective:1000px; height:240px; }
+@media (min-width:768px){ .flip{ height:260px; } }
+.flip-inner{
+  position:relative; width:100%; height:100%;
+  transform-style:preserve-3d; transition: transform .5s ease;
+}
+.flip:hover .flip-inner,
+.flip:focus-within .flip-inner,
+.flip.flipped .flip-inner{ transform: rotateY(180deg); }
+.flip-face{
+  position:absolute; inset:0; backface-visibility:hidden;
+  border-radius: .75rem; display:flex; flex-direction:column; justify-content:center;
+}
+.flip-back{ transform: rotateY(180deg); }
+
+/* ========= Unit tiles (hub) ========= */
+.unit-badge{
+  font-weight:800; font-size:14px; color:#fff; background: var(--accent);
+  padding:4px 10px; border-radius:999px; box-shadow:0 6px 16px rgba(123,97,255,.2);
+}
+.unit-title{
+  font-weight:800; font-size: clamp(18px, 2.4vw, 20px); color:#1a1a1a;
+}
+.subtopic{
+  background:#f6f3ff; color:#44397c; border:1px solid #e6dfff;
+  border-radius:999px; padding:6px 10px; font-size:12px; font-weight:700; white-space:nowrap;
+}
+.flip-front{ background:linear-gradient(135deg, #ffffff, #f7f4ff); }
+.flip-front .bar{ position:absolute; left:0; right:0; top:0; height:5px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+/* === Flip cards (shared) === */
+.flip{ perspective:1000px; height:240px; }
+@media (min-width:768px){ .flip{ height:260px; } }
+.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .5s ease; }
+.flip:hover .flip-inner,
+.flip:focus-within .flip-inner,
+.flip.flipped .flip-inner{ transform:rotateY(180deg); }
+.flip-face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:.75rem; display:flex; flex-direction:column; justify-content:center; }
+.flip-back{ transform:rotateY(180deg); }
+.flip button.flip-toggle{ position:absolute; inset:0; opacity:0; }
+
+.card { background:#fff; border-radius:0.75rem; box-shadow:0 1px 2px rgba(0,0,0,.05); padding:1.5rem; }
+.card-title { font-weight:600; color:#1f2937; }         /* gray-800 */
+.card-text  { color:#4b5563; }                          /* gray-600 */
+
+/* ========= MathJax inline (prevent line breaks) ========= */
+mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+mjx-container[display="true"]{ display:block !important; text-align:center; margin:.5rem 0; }

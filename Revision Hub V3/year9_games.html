@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Year 9 — Interactive</title>
+
+  <!-- Tailwind (CDN while prototyping) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <style>
+    :root{
+      /* Year 9 accent (purple / lilac) */
+      --accent:#7C4DFF;
+      --accent-600:#6A3FE6;
+      --accent-700:#5A35C8;
+    }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+  <!-- Sidebar (same as other pages) -->
+  <div id="sidebar"></div>
+
+  <!-- Main -->
+  <main class="flex-1 p-8 overflow-y-auto ml-64">
+    <!-- Top: back + title -->
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div class="flex items-center gap-3">
+        <a href="year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+          <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="bg-white p-6 rounded-xl shadow-sm mb-8">
+      <div class="flex items-start justify-between flex-wrap gap-4">
+        <div>
+          <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 9 • Interactive</p>
+          <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Interactive — Games & Activities</h1>
+          <p class="text-gray-600 mt-2 max-w-2xl">
+            Practice key skills with quick games and interactive challenges. Click a card to start playing.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="#games" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+            Jump to Games <span class="material-icons ml-2">arrow_downward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games (manual links) -->
+    <section id="games" class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Games</h2>
+
+      <!-- Group 1: Key Skills -->
+      <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-800">Key Skills</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- Card -->
+          <a href="/games/year9_indices_quiz.html" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
+            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
+              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
+            </div>
+            <p class="text-sm text-gray-500">Indices</p>
+            <h4 class="font-semibold text-gray-800 mb-2">Indices beat the clock</h4>
+            <p class="text-sm text-gray-600 mb-3">Select the correct indices to gain a second to your time. One wrong move and the game is over!</p>
+            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
+              Play <span class="material-icons ml-1">play_arrow</span>
+            </span>
+          </a>
+
+          <!-- Card -->
+          <a href="#" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
+            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
+              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
+            </div>
+            <p class="text-sm text-gray-500">Coming soon</p>
+            <h4 class="font-semibold text-gray-800 mb-2">Coming soon</h4>
+            <p class="text-sm text-gray-600 mb-3">???</p>
+            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
+              Play <span class="material-icons ml-1">play_arrow</span>
+            </span>
+          </a>
+
+
+        </div>
+      </div>
+
+      <!-- Group 2: Interactive Tools -->
+      <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-800">Interactive Tools</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <a href="/games/Cube_Manipulation.html" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
+            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
+              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
+            </div>
+            <p class="text-sm text-gray-500">Geometry</p>
+            <h4 class="font-semibold text-gray-800 mb-2">Cube manipulation</h4>
+            <p class="text-sm text-gray-600 mb-3">Add and subtract cubes to view plans and side elevations.</p>
+            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
+              Start <span class="material-icons ml-1">play_arrow</span>
+            </span>
+          </a>
+
+        </div>
+      </div>
+
+      
+
+    </section>
+  </main>
+</div>
+<script>
+  fetch("sidebar.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("sidebar").innerHTML = html;
+
+      // === Highlight active year ===
+      const path = window.location.pathname;
+
+      if (path.includes("year9")) {
+        const link = document.querySelector('#sidebar a[href="year9_hub.html"]');
+        if (link) {
+          link.classList.add("text-white");
+          link.style.background = "var(--accent)";
+          link.querySelector(".material-icons").classList.add("text-white");
+        }
+      }
+      // Later you can add rules here for year7, year8, gcse...
+    });
+</script>
+</body>
+</html>

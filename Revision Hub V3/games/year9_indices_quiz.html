@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indices — 3-Choice Quickfire (Year 9)</title>
+<style>
+  :root{
+    --ink:#0d0d0d; --bg:#f6f8f7; --accent:#038C4C; /* Year 9 green */
+    --bad:#8a1a1a; --ok:#0a6e3a; --card:#fff; --muted:#555;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:900px;margin:24px auto;padding:16px}
+  .card{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:18px}
+  h1{margin:0 0 6px}
+  .meta{color:var(--muted);margin:0 0 16px}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .pill{padding:6px 10px;border-radius:999px;border:1px solid #e3e3e3;background:#fafafa;font-weight:700}
+  button.btn{height:44px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}
+  button.btn:disabled{opacity:.6;cursor:not-allowed}
+  .board{border:1px solid #eee;background:#fff;border-radius:12px;padding:14px}
+  .q{font-size:24px;font-weight:800;text-align:center;min-height:40px}
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
+  .choice{border:1px solid #eaeaea;border-radius:12px;padding:12px;background:#fff;cursor:pointer;text-align:center;font-weight:700}
+  .choice:hover{box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  .choice.correct{outline:3px solid rgba(10,110,58,.25)}
+  .choice.wrong{outline:3px solid rgba(138,26,26,.25)}
+  .feedback{margin-top:10px;min-height:24px;text-align:center;font-weight:700}
+  .ok{color:var(--ok)} .bad{color:var(--bad)}
+  /* Collapsible history */
+  details.history-wrap{margin-top:14px}
+  details.history-wrap summary{
+    list-style:none; cursor:pointer; user-select:none;
+    border:1px solid #eaeaea; background:#fff; padding:10px 12px;
+    border-radius:10px; font-weight:700;
+  }
+  details.history-wrap summary::-webkit-details-marker{display:none}
+  .history{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+  .tile{border:1px solid #eaeaea;border-radius:12px;padding:10px;background:#fff}
+  .muted{color:#666}
+  /* Superscripts tidy */
+  sup{font-size:.8em; vertical-align: super; line-height:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Indices — Quickfire (Year 9)</h1>
+    <p class="meta">You have <strong>20s</strong>. Each correct answer adds <strong>+1s</strong>. One mistake ends the game. Difficulty increases every <strong>10</strong> correct answers.</p>
+
+    <div class="row" style="margin-bottom:10px">
+      <span class="pill">Score: <span id="score">0</span></span>
+      <span class="pill">Time: <span id="time">20</span>s</span>
+      <span class="pill">Streak: <span id="streak">0</span></span>
+      <span class="pill">Level: <span id="level">1</span></span>
+      <button id="start" class="btn">Start</button>
+    </div>
+
+    <div class="board">
+      <div class="q" id="question">Press Start</div>
+      <div class="choices" id="choices"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <!-- Collapsible history (dropdown) -->
+    <details class="history-wrap" id="historyWrap">
+      <summary>Previous answers (<span id="histCount">0</span>)</summary>
+      <div class="history" id="history"></div>
+    </details>
+  </div>
+</div>
+
+<script>
+(function(){
+  const qEl = document.getElementById('question');
+  const cEl = document.getElementById('choices');
+  const sEl = document.getElementById('score');
+  const tEl = document.getElementById('time');
+  const streakEl = document.getElementById('streak');
+  const levelEl = document.getElementById('level');
+  const fb = document.getElementById('feedback');
+  const hist = document.getElementById('history');
+  const histCount = document.getElementById('histCount');
+  const startBtn = document.getElementById('start');
+
+  let score=0, time=20, streak=0, timer=null, current=null, locked=true, historyN=0;
+  let endTime = 0; // deadline (ms since epoch)
+
+  function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  // Pretty printers
+  const sup = n => `<sup>${n}</sup>`;
+  const frac = (n,d) => `(${n}/${d})`;
+  const recip = a => `1/${a}`;
+
+  // Difficulty control: level = 1 + floor(score / 10)
+  function level(){ return 1 + Math.floor(score / 10); }
+
+  // Helpers to choose parameters by level
+  function levelledBases(){
+    const L = level();
+    if (L === 1) return [2,3,4,5,6,7,8,9,10];
+    if (L === 2) return [2,3,4,5,6,7,8,9,10,11,12];
+    return [2,3,4,5,6,7,8,9,10,11,12,13,14];
+  }
+  function levelledPowersBasic(){
+    const L = level();
+    if (L === 1) return [2,3,2,2,3];          // bias to 2–3
+    if (L === 2) return [2,3,3,4];
+    return [3,4,5];                            // harder
+  }
+  function levelledPowersTen(){
+    const L = level();
+    if (L === 1) return [-2,-1,1,2,3];
+    if (L === 2) return [-3,-2,-1,1,2,3,4];
+    return [-4,-3,-2,-1,1,2,3,4,5];
+  }
+  function levelledRoots(){
+    const L = level();
+    const squares = L===1 ? [4,9,16,25,36,49,64,81,100]
+                          : [4,9,16,25,36,49,64,81,100,121,144,169];
+    const cubes   = L===1 ? [8,27,64] : [8,27,64,125,216];
+    const ds      = L>=3 ? [2,3,3,4] : [2,2,3];
+    return { squares, cubes, ds };
+  }
+  function levelledPowerOfPower(){
+    const L = level();
+    if (L === 1) return [[2,2,2],[2,2,3],[2,3,2],[3,2,2],[4,2,2]];
+    if (L === 2) return [[2,3,3],[3,2,3],[3,3,2],[5,2,3]];
+    return [[3,3,3],[4,2,3],[5,3,2]]; // tougher but still reasonable
+  }
+
+  // Generators: return { html, answer, distractors[] }
+  const gens = [
+    // a^b basics
+    () => {
+      const base = rnd(levelledBases());
+      const pow  = rnd(levelledPowersBasic());
+      const ans = String(base**pow);
+      const d1  = String((base+1)**pow);
+      const d2  = String(base**(pow+1));
+      return { html: `${base}${sup(pow)}`, answer: ans, distractors:[d1,d2] };
+    },
+    // 10^n
+    () => {
+      const n = rnd(levelledPowersTen());
+      const ans = n>=0 ? String(10**n) : `1/${10**Math.abs(n)}`;
+      const d1 = n>=0 ? String(10**(n+1)) : `1/${10**(Math.abs(n)+1)}`;
+      const d2 = n>=0 ? String(10**Math.max(0,n-1)) : `1/${10**Math.max(1,Math.abs(n)-1)}`;
+      return { html: `10${sup(n)}`, answer: ans, distractors:[d1,d2] };
+    },
+    // reciprocal a^-1
+    () => {
+      const a = rnd(levelledBases());
+      return { html: `${a}${sup(-1)}`, answer: recip(a), distractors:[recip(a+1), recip(Math.max(2,a-1))] };
+    },
+    // fractional index a^(1/d) with perfect roots
+    () => {
+      const { squares, cubes, ds } = levelledRoots();
+      const d = rnd(ds);
+      if (d === 2){
+        const a = rnd(squares);
+        const root = Math.round(Math.sqrt(a));
+        const ans = String(root);
+        const d1  = String(root+1);
+        const d2  = String(Math.max(1,root-1));
+        return { html: `${a}${sup(frac(1,2))}`, answer: ans, distractors:[d1,d2] };
+      } else if (d === 3){
+        const a = rnd(cubes);
+        const root = Math.round(Math.cbrt(a));
+        const ans = String(root);
+        const d1  = String(root+1);
+        const d2  = String(Math.max(1,root-1));
+        return { html: `${a}${sup(frac(1,3))}`, answer: ans, distractors:[d1,d2] };
+      } else {
+        // gentle fourth roots at higher levels
+        const fourths = [16,81,256]; // 2,3,4
+        const a = rnd(fourths);
+        const root = Math.round(Math.pow(a, 1/4));
+        const ans = String(root);
+        const d1  = String(root+1);
+        const d2  = String(Math.max(1,root-1));
+        return { html: `${a}${sup(frac(1,4))}`, answer: ans, distractors:[d1,d2] };
+      }
+    },
+    // power of a power: (a^m)^n
+    () => {
+      const [a,m,n] = rnd(levelledPowerOfPower());
+      const ans = String(a**(m*n));
+      const d1  = String(a**(m*(n+1)));
+      const d2  = String((Math.max(2,a-1))**(m*n));
+      return { html: `(${a}${sup(m)})${sup(n)}`, answer: ans, distractors:[d1,d2] };
+    }
+  ];
+
+  function newQuestion(){
+    const g = rnd(gens)();
+    current = {
+      html: g.html,
+      answer: g.answer,
+      options: shuffle([g.answer, ...g.distractors].slice(0,3))
+    };
+    qEl.innerHTML = current.html;
+    renderChoices(current.options);
+    fb.textContent = '';
+    fb.className = 'feedback';
+    locked = false;
+  }
+
+  function renderChoices(opts){
+    cEl.innerHTML = '';
+    opts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'choice';
+      btn.type = 'button';
+      btn.innerHTML = opt;
+      btn.addEventListener('click', () => pick(opt, btn));
+      cEl.appendChild(btn);
+    });
+  }
+
+  function pick(opt, btn){
+    if (locked) return;
+    locked = true;
+    const correct = (norm(opt) === norm(current.answer));
+    if (correct){
+      btn.classList.add('correct');
+      score++; streak++;
+      endTime += 1000; // +1s to the deadline (no drift)
+      updateHUD();
+      fb.textContent = 'Correct! +1s';
+      fb.classList.add('ok');
+      addHistory(current.html, opt, true, current.answer);
+      setTimeout(newQuestion, 350);
+    } else {
+      btn.classList.add('wrong');
+      end(`Wrong — answer: ${current.answer}`);
+      addHistory(current.html, opt, false, current.answer);
+    }
+  }
+
+  function updateHUD(){
+    sEl.textContent = score;
+    streakEl.textContent = streak;
+    tEl.textContent = time;
+    levelEl.textContent = level();
+  }
+
+  function start(){
+    score=0; time=20; streak=0; historyN=0; updateHUD();
+    hist.innerHTML=''; histCount.textContent = '0';
+    fb.textContent=''; fb.className='feedback';
+
+    endTime = Date.now() + 20*1000; // set countdown deadline
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, 250); // smooth updates
+
+    startBtn.disabled = true;
+    newQuestion();
+  }
+
+  function end(message){
+    clearInterval(timer); timer=null;
+    fb.innerHTML = `<span class="bad">${message}</span> • Final score: <strong>${score}</strong>`;
+    startBtn.disabled = false;
+  }
+
+  function tick(){
+    const now = Date.now();
+    const remainingMs = Math.max(0, endTime - now);
+    const remaining = Math.ceil(remainingMs / 1000);
+
+    time = remaining;
+    tEl.textContent = time;
+
+    if (remaining <= 0){
+      end('Time!');
+    }
+  }
+
+  function norm(x){
+    return String(x).replace(/\s+/g,'').toLowerCase();
+  }
+
+  function addHistory(q, a, ok, ans){
+    const div = document.createElement('div');
+    div.className='tile';
+    div.innerHTML = `<div><strong>${q}</strong></div>
+      <div>${ok ? '✅' : '❌'} You: ${a}${ok?'':` &nbsp;|&nbsp; Ans: ${ans}`}</div>`;
+    hist.prepend(div);
+    historyN++; histCount.textContent = String(historyN);
+  }
+
+  startBtn.addEventListener('click', start);
+})();
+</script>
+</body>
+</html>

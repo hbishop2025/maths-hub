@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Maths Hub — Policy</title>
+
+  <!-- Shared CSS (layout + sidebar + cards etc.) -->
+  <link rel="stylesheet" href="assets/main.css">
+
+  <!-- Tailwind (CDN while prototyping) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100" data-page="policy">
+  <div class="layout">
+    <!-- Sidebar placeholder (injected by sidebar-loader.js) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main content -->
+    <main class="main p-8 overflow-y-auto">
+      <header class="flex items-center justify-between mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Privacy & Policy</h1>
+      </header>
+
+      <section class="card mb-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Our Commitment</h2>
+        <p class="card-text mb-4">
+          This Maths Hub is a revision platform for students. We keep things simple and private:
+        </p>
+        <ul class="list-disc pl-6 text-gray-700 space-y-2">
+          <li>No personal data is collected from students or teachers.</li>
+          <li>No logins or accounts are required to access resources.</li>
+          <li>Resources are linked from trusted, teacher-approved sources only.</li>
+          <li>We comply with GDPR because no identifying data is processed or stored.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions?</h2>
+        <p class="card-text">
+          If you have any questions about how this site works, please speak to the
+          <strong>Maths Hub website administrator</strong>.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Shared sidebar loader (injects sidebar.html and highlights the active link) -->
+  <script src="assets/sidebar-loader.js" defer></script>
+</body>
+</html>

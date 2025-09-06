@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AI Use — Maths Hub</title>
+
+  <!-- Shared CSS (your layout, sidebar, flip-cards, etc.) -->
+  <link rel="stylesheet" href="assets/main.css">
+
+  <!-- Tailwind (CDN is fine for now on this page; no plugins needed here) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100" data-page="ai">
+  <div class="layout">
+    <!-- Sidebar placeholder (filled by sidebar-loader.js) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main content -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <button class="mr-4 md:hidden"><span class="material-icons">menu</span></button>
+          <h1 class="text-2xl font-bold text-gray-800">Using AI Sensibly</h1>
+        </div>
+        <div class="flex items-center">
+          <a class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center" href="#prompts">
+            Prompt Ideas <span class="material-icons ml-2">lightbulb</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- What is AI -->
+      <section class="mb-10">
+        <div class="card">
+          <h2 class="text-xl font-bold text-gray-800 mb-2">What is AI?</h2>
+          <p class="card-text">
+            AI (Artificial Intelligence) is software that can understand prompts and generate helpful responses—like step-by-step explanations,
+            examples, summaries, or quizzes. It’s brilliant for revision if you use it to learn, not to shortcut the learning.
+          </p>
+        </div>
+      </section>
+
+      <!-- Do's and Don'ts -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+        <div class="card">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+            <span class="material-icons mr-2 text-green-600">check_circle</span> Do’s
+          </h3>
+          <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <li>Ask for <strong>worked examples</strong> and then try similar questions yourself.</li>
+            <li>Request step-by-step explanations and <strong>spot where you went wrong</strong>.</li>
+            <li>Use AI to <strong>generate practice questions</strong> at the right difficulty.</li>
+            <li>Ask it to <strong>explain keywords</strong> in simple terms.</li>
+            <li>Compare your method to AI’s and <strong>write your own solution</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+            <span class="material-icons mr-2 text-red-600">cancel</span> Don’ts
+          </h3>
+          <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <li>Don’t copy answers—<strong>you won’t learn it</strong> and it’s against school rules.</li>
+            <li>Don’t enter personal data; keep prompts <strong>anonymous and safe</strong>.</li>
+            <li>Don’t assume it’s always right—<strong>check your answers</strong> with your notes.</li>
+            <li>Don’t rely on AI to do homework—<strong>use it to understand</strong>, not to submit.</li>
+            <li>Don’t ask for exam answers or restricted content.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Flippable FAQs (flip styles & tap handled by assets/main.css + assets/cards.js) -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold text-gray-800 mb-3">Common Questions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">Can I use AI for homework?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 1"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  Yes—to <strong>understand</strong> methods, check your approach, and create practice questions.
+                  No—to <strong>generate final answers</strong> to hand in.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">Is AI always correct?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 2"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  No. Treat AI like a helpful peer—<strong>verify</strong> answers with your notes, teacher, or textbook.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">What should I write in a prompt?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 3"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  Be specific: topic, level (Year 7–9), what you’re stuck on, and what format you want (steps, hints, quiz).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">Is using AI cheating?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 4"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  Using AI to learn is fine. <strong>Submitting AI’s work as your own is not</strong>. Always produce your own final answers.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">Is my data safe?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 5"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  Keep prompts anonymous. Don’t share names, emails, or personal info. Follow school <strong>GDPR</strong> guidance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face card">
+                <h4 class="font-semibold text-gray-800 mb-2">How do I learn with AI?</h4>
+                <p class="card-text">Hover/tap to see the guidance.</p>
+                <button class="flip-toggle" aria-label="Flip card 6"></button>
+              </div>
+              <div class="flip-face flip-back card" style="background:#eef2ff">
+                <p class="text-gray-800">
+                  Ask for steps → try a similar question → compare → correct → repeat. <strong>Practice</strong> is what sticks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt Ideas -->
+      <section id="prompts" class="mb-16">
+        <h2 class="text-xl font-bold text-gray-800 mb-3">Prompt Ideas (copy & tweak)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Prompt 1 -->
+          <div class="card">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Worked Example + Practice</h4>
+              <button class="text-blue-600 hover:text-blue-800" data-copy="#p1">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p1" class="text-gray-700 mt-2 text-sm">
+Explain this Year 9 topic: standard form. Show one worked example. Then give me 3 practice questions (no answers). After I try them, reveal the answers step by step.
+            </p>
+          </div>
+
+          <!-- Prompt 2 -->
+          <div class="card">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Find the Error</h4>
+              <button class="text-blue-600 hover:text-blue-800" data-copy="#p2">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p2" class="text-gray-700 mt-2 text-sm">
+I solved this indices question but I’m not sure it’s right: 3^2 × 3^4 = 3^6 → 9 × 81 = 729. Check my working, point out errors if any, and explain the correct reasoning.
+            </p>
+          </div>
+
+          <!-- Prompt 3 -->
+          <div class="card">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Targeted Practice (Tiered)</h4>
+              <button class="text-blue-600 hover:text-blue-800" data-copy="#p3">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p3" class="text-gray-700 mt-2 text-sm">
+Give me 5 questions on factorising quadratics for Year 9: 2 easy, 2 medium, 1 challenging. After each question, wait for my attempt before giving the solution.
+            </p>
+          </div>
+
+          <!-- Prompt 4 -->
+          <div class="card">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Explain Like I’m New</h4>
+              <button class="text-blue-600 hover:text-blue-800" data-copy="#p4">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p4" class="text-gray-700 mt-2 text-sm">
+Explain Pythagoras’ theorem to a Year 8 student using a diagram description and a real-life example. Include 2 quick checks to test understanding.
+            </p>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-3">Tip: be specific about your year group, topic, and the help you want (examples, hints, or practice).</p>
+      </section>
+
+      <!-- Footer / breathing room -->
+      <footer class="text-center text-gray-400 text-sm pb-4">
+        <p>This guidance helps you use AI <em>to learn</em>, not to shortcut learning.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Shared JS -->
+  <script src="assets/sidebar-loader.js" defer></script>
+  <script src="assets/flipcards.js" defer></script>
+
+  <!-- Tiny page-only helper: copy prompt buttons -->
+  <script>
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-copy]');
+      if(!btn) return;
+      const sel = btn.getAttribute('data-copy');
+      const el = document.querySelector(sel);
+      if(!el) return;
+      const text = el.textContent.trim();
+      navigator.clipboard?.writeText(text).then(()=>{
+        btn.innerHTML = '<span class="material-icons">check</span>';
+        setTimeout(()=> btn.innerHTML = '<span class="material-icons">content_copy</span>', 1200);
+      });
+    });
+  </script>
+</body>
+</html>
