@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maths Hub — KS3 Hub</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="assets/main.css"/>
+
+  <style>
+    :root{
+      --accent:#7B61FF; /* site accent (lilac) */
+    }
+    body{ font-family: 'Inter', sans-serif; }
+    .material-icons{ font-size:24px; }
+
+    /* Subtle bounce on hover for tiles */
+    .lift { transition: transform .18s ease, box-shadow .18s ease; }
+    .lift:hover { transform: translateY(-4px); box-shadow: 0 16px 28px rgba(0,0,0,.10); }
+
+    /* Coming soon badge */
+    .badge {
+      font-size:.75rem; font-weight:700; line-height:1;
+      padding:.35rem .55rem; border-radius:999px;
+      background:#F3F4F6; color:#374151;
+    }
+  </style>
+</head>
+<body class="bg-gray-100" data-page="ks3">
+  <div class="layout">
+    <!-- Sidebar (injected) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Header -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center">
+          <button class="mr-4 md:hidden"><span class="material-icons">menu</span></button>
+          <h1 class="text-3xl font-extrabold text-gray-800">Key Stage 3 Hub</h1>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="mb-8">
+        <div class="rounded-2xl shadow-lg p-8 text-white bg-gradient-to-br from-indigo-500 to-violet-600">
+          <div class="flex items-start gap-6">
+            <span class="material-icons text-yellow-300 text-[56px] leading-none">school</span>
+            <div>
+              <h2 class="text-2xl font-bold mb-2">Your learning journey starts here</h2>
+              <p class="text-indigo-100">
+                Choose your year group to find revision materials, worksheets, videos and more. Year 7 &amp; 8 are coming soon—Year 9 is ready now.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Year tiles -->
+      <section aria-label="KS3 year groups" class="mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <!-- Year 7 (coming soon) -->
+          <div class="bg-white p-8 rounded-xl shadow-md text-center lift">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-blue-200 bg-blue-100 flex items-center justify-center">
+              <span class="material-icons text-blue-500 text-[48px]">looks_one</span>
+            </div>
+            <h3 class="font-semibold text-2xl text-gray-800 mb-1">Year 7</h3>
+            <p class="text-sm text-gray-600 mb-4">Explore topics and resources tailored for Year 7.</p>
+            <div class="inline-flex items-center gap-2 opacity-70 cursor-not-allowed">
+              <span class="badge">Coming soon</span>
+            </div>
+          </div>
+
+          <!-- Year 8 (coming soon) -->
+          <div class="bg-white p-8 rounded-xl shadow-md text-center lift">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-green-200 bg-green-100 flex items-center justify-center">
+              <span class="material-icons text-green-500 text-[48px]">looks_two</span>
+            </div>
+            <h3 class="font-semibold text-2xl text-gray-800 mb-1">Year 8</h3>
+            <p class="text-sm text-gray-600 mb-4">Access unit overviews and materials designed for Year 8.</p>
+            <div class="inline-flex items-center gap-2 opacity-70 cursor-not-allowed">
+              <span class="badge">Coming soon</span>
+            </div>
+          </div>
+
+          <!-- Year 9 (live) -->
+          <a href="year9_hub.html" class="bg-white p-8 rounded-xl shadow-md text-center lift group focus:outline-none focus:ring-2 focus:ring-violet-500">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-rose-200 bg-rose-100 flex items-center justify-center group-hover:bg-rose-200 transition-colors">
+              <span class="material-icons text-rose-500 text-[48px]">looks_3</span>
+            </div>
+            <h3 class="font-semibold text-2xl text-gray-800 mb-1">Year 9</h3>
+            <p class="text-sm text-gray-600 mb-4">Prepare for the final KS3 year with dedicated resources and unit pages.</p>
+            <span class="inline-flex items-center bg-rose-500 text-white px-6 py-2 rounded-full font-semibold group-hover:bg-rose-600 transition-colors">
+              View resources <span class="material-icons ml-2">arrow_forward</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- EOY Exams (placeholder) -->
+      <section aria-label="End of Year Exams">
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-800 mb-1">End of Year Exams</h2>
+              <p class="text-gray-600">
+                Details for KS3 end-of-year exams will appear here closer to the time, including dates, equipment lists and revision guidance.
+              </p>
+            </div>
+            <div class="opacity-70 cursor-not-allowed">
+              <span class="badge">Not available yet</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+    </main>
+  </div>
+
+  <!-- Sidebar loader (uses assets/sidebar.html) -->
+  <script src="assets/sidebar-loader.js"></script>
+
+  <script>
+    // Optional: make the correct nav item highlight if you add a KS3 link in sidebar.html later.
+    // If your sidebar has: <a href="ks3_hub.html">KS3 Hub</a>, the loader can mark it 'active'.
+    // If needed, extend your sidebar-loader's route map to include:
+    // { test: f => f === 'ks3_hub.html', href: 'ks3_hub.html' }
+  </script>
+</body>
+</html>
