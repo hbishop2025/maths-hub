@@ -4,424 +4,167 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Year 9 — Unit 03 (Inequalities, Equations & Formulae)</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="../assets/main.css"/>
+
   <style>
-  :root{
-    /* Year 9 accent (purple / lilac) */
-    --accent:#7C4DFF;      /* main */
-    --accent-600:#6A3FE6;  /* hover */
-    --accent-700:#5A35C8;  /* active */
-  }
-  /* Flip-card micro CSS (works alongside Tailwind) */
-  .flipcard{ perspective:1000px; }
-  .flipcard .inner{
-    position:relative; transform-style:preserve-3d; transition: transform .5s ease;
-  }
-  .flipcard.is-flipped .inner{ transform: rotateY(180deg); }
-  .flipcard .face{
-    position:absolute; inset:0; backface-visibility:hidden; border-radius:0.75rem;
-  }
-  .flipcard .back{ transform: rotateY(180deg); }  
+    :root{
+      --accent:#7C4DFF;      /* main */
+      --accent-600:#6A3FE6;  /* hover */
+      --accent-700:#5A35C8;  /* active */
+    }
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
-	html { scroll-behavior: smooth;}
+    html { scroll-behavior: smooth; }
   </style>
-  <style>
-  /* ensure flip cards stay readable */
-  .flipcard .inner { height: 14rem; }          /* ~224px consistent height */
-  .flipcard .face  { overflow:auto; }          /* scroll if content is long */
-</style>
-<style>
-/* Keep all MathJax inline — no forced line breaks */
-mjx-container[display="false"] {
-  display: inline !important;
-  vertical-align: -0.1em;
-  margin: 0 .05em;
-}
-mjx-container[display="true"] {
-  display: block !important;
-  text-align: center;
-  margin: .5rem 0;
-}
-</style>
-<style>
-  /* Keep inline math inline, and don’t let it force a break */
-  mjx-container[display="true"] { display:block !important; margin:.5rem 0; text-align:center; }
-  mjx-container[display="false"] { display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-  /* If any flex layout is being grumpy, this helps keep inline maths on the same row */
-  .keep-inline mjx-container { display:inline !important; }
-</style>
 </head>
-<body class="bg-gray-100">
-<div class="flex min-h-screen">
-  <!-- Sidebar (Year 9 purple theme) -->
-<div id="sidebar"></div>
+<body class="bg-gray-100" data-page="year9">
+  <div class="layout">
+    <!-- Sidebar (space reserved by CSS) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
 
-  <!-- Main -->
-  <main class="flex-1 p-8 overflow-y-auto ml-64">
-    <!-- Top: back + title -->
-    <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
-      <div class="flex items-center gap-3">
-        <a href="year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-          <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
-        </a>
-      </div>
-    </header>
-
-    <!-- Hero / Unit header -->
-    <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
-      <div class="flex items-start justify-between flex-wrap gap-4">
-        <div>
-          <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 9 • Unit 03</p>
-          <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Inequalities, Equations & Formulae</h1>
-          <p class="text-gray-600 mt-2 max-w-2xl">
-            Revise working with inequalities, equations and formulae. Work through topic worksheets first, then consolidate with videos.
-          </p>
-        </div>
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Top: back + title -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <a href="#flashcards" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-            Jump to Flashcards <span class="material-icons ml-2">arrow_downward</span>
+          <a href="../year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
           </a>
         </div>
-      </div>
+        <div class="flex items-center gap-3">
+          <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+            Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
+          </a>
+        </div>
+      </header>
 
-      <!-- Subtopics chips -->
-      <div class="mt-4 flex flex-wrap gap-2">
-        <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.1 Inequalities</span>
-        <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.2 Index Laws</span>
-        <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.3 Solving equations</span>
-        <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.4 Changing the subject</span>
-        <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.5 Algebraic fractions</span>
-      </div>
-    </section>
-
-   <!-- Unit Resources -->
-<section class="mt-10" id="unit-resources">
-  <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 3 — Resources</h2>
-
-  <!-- Worksheets -->
-  <section class="mb-10">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Worksheets</h3>
-    <div id="grid-worksheets"
-         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </section>
-
-  <!-- Videos -->
-  <section class="mb-10">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Videos</h3>
-    <div id="grid-videos"
-         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </section>
-
-  <!-- Other -->
-  <section class="mb-10">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Other</h3>
-    <div id="grid-other"
-         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </section>
-
-  <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
-</section>
-
-<section class="mt-12" id="flashcards">
-  <h2 class="text-2xl font-bold text-gray-800 mb-6">Quick How-To Cards</h2>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <!-- How-to 1: Solving a simple linear equation -->
-    <div class="flipcard">
-      <div class="inner relative w-full">
-        <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Equations</div>
-          <div class="text-gray-800 font-semibold text-base leading-tight flex-1">
-            How do I solve \( 3x + 5 = 17 \)?
+      <!-- Hero / Unit header -->
+      <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 9 • Unit 03</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Inequalities, Equations &amp; Formulae</h1>
+            <p class="text-gray-600 mt-2 max-w-2xl">
+              Revise working with inequalities, equations and formulae. Work through topic worksheets first, then consolidate with videos.
+            </p>
           </div>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">
-            Show steps
-          </button>
         </div>
-        <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Steps</div>
-          <ol class="list-decimal list-inside text-gray-800 text-sm space-y-1 flex-1">
-            <li>Subtract 5 → \( 3x = 12 \).</li>
-            <li>Divide by 3 → \( x = 4 \).</li>
-          </ol>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">
-            Back
-          </button>
-        </div>
-      </div>
-    </div>
 
-    <!-- How-to 2: Solving an inequality -->
-    <div class="flipcard">
-      <div class="inner relative w-full">
-        <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Inequalities</div>
-          <div class="text-gray-800 font-semibold text-base leading-tight flex-1">
-            How do I solve \( 2x + 1 < 7 \)?
-          </div>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">
-            Show steps
-          </button>
+        <!-- Subtopics chips -->
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.1 Inequalities</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.2 Index Laws</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.3 Solving equations</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.4 Changing the subject</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.5 Algebraic fractions</span>
         </div>
-        <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Steps</div>
-          <ol class="list-decimal list-inside text-gray-800 text-sm space-y-1 flex-1">
-            <li>Subtract 1 → \( 2x < 6 \).</li>
-            <li>Divide by 2 → \( x < 3 \).</li>
-          </ol>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">
-            Back
-          </button>
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- How-to 3: Solving equation with brackets -->
-    <div class="flipcard">
-      <div class="inner relative w-full">
-        <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Equations with Brackets</div>
-          <div class="text-gray-800 font-semibold text-base leading-tight flex-1">
-            How do I solve \( 2(x+3) = 14 \)?
-          </div>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">
-            Show steps
-          </button>
-        </div>
-        <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Steps</div>
-          <ol class="list-decimal list-inside text-gray-800 text-sm space-y-1 flex-1">
-            <li>Expand first → \( 2x + 6 = 14 \).</li>
-            <li>Subtract 6 → \( 2x = 8 \).</li>
-            <li>Divide by 2 → \( x = 4 \).</li>
-            <li><em>OR</em> divide both sides by 2 first → \( x+3 = 7 \), then subtract 3 → \( x = 4 \).</li>
-          </ol>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">
-            Back
-          </button>
-        </div>
-      </div>
-    </div>
+      <!-- Unit Resources -->
+      <section class="mt-10" id="unit-resources">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 3 — Resources</h2>
 
-    <!-- How-to 4: Inequalities on a number line -->
-    <div class="flipcard">
-      <div class="inner relative w-full">
-        <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Graphing Inequalities</div>
-          <div class="text-gray-800 font-semibold text-base leading-tight flex-1">
-            How do I show \( x > 2 \) on a number line?
-          </div>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">
-            Show steps
-          </button>
-        </div>
-        <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-          <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Steps</div>
-          <ol class="list-decimal list-inside text-gray-800 text-sm space-y-1 flex-1">
-            <li>Draw a number line with a point at \( 2 \).</li>
-            <li>Use an <strong>open circle</strong> at \( 2 \) (since it's >, not ≥).</li>
-            <li>Shade the line to the right of \( 2 \).</li>
-          </ol>
-          <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">
-            Back
-          </button>
-        </div>
-      </div>
-    </div>
+        <!-- Worksheets -->
+        <section class="mb-10">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Worksheets</h3>
+          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- Videos -->
+        <section class="mb-10" id="videos">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Videos</h3>
+          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- Other -->
+        <section class="mb-10">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Other</h3>
+          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
+      </section>
+    </main>
   </div>
-</section>
-  </main>
-</div>
 
-<!-- ===== Optional: Sheet loader (filters Unit=1, Active=TRUE) ===== -->
-<script>
-/* ====== Year 9 Unit 1: load resources directly from the Year_9 sheet ======
-   Sheet columns (case-insensitive): Unit, BlockKey, Title, URL, AddedISO, Active
-   This page: UNIT = "1"
-========================================================================== */
-const CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSKY5Fr86c9vJRRmFeRquLr0QJb7lpw-yGSioJcjPxz77C-AMKuCiflJ1UZ5vViLO9B3xIJMA0MPy1u/pub?gid=1806966889&single=true&output=csv";
-const UNIT = "3";
+  <!-- Sidebar loader (fetches /assets/sidebar.html) -->
+  <script src="../assets/sidebar-loader.js"></script>
+  <!-- Shared cards + helpers (makeCard, parseCSV/parseDate, stripes, YouTube thumbs) -->
+  <script src="../assets/cards.js"></script>
 
-/* -------- CSV (quotes-aware) -------- */
-function parseCSV(text){
-  const rows=[]; let r=[], f="", q=false;
-  for (let i=0;i<text.length;i++){
-    const c=text[i];
-    if(q){
-      if(c==='"'){
-        if(text[i+1]==='"'){ f+='"'; i++; } else { q=false; }
-      } else { f+=c; }
-    } else {
-      if(c==='"'){ q=true; }
-      else if(c===','){ r.push(f.trim()); f=""; }
-      else if(c==='\r'){ /* ignore */ }
-      else if(c==='\n'){ r.push(f.trim()); rows.push(r); r=[]; f=""; }
-      else { f+=c; }
-    }
-  }
-  if (f.length || r.length){ r.push(f.trim()); rows.push(r); }
-  const header = rows.shift().map(h => String(h||'').trim().toLowerCase());
-  return rows.map(row => {
-    const o={}; header.forEach((h,idx)=> o[h] = (row[idx]||'').trim()); return o;
-  });
-}
+  <!-- Page JS -->
+  <script>
+    const DATA_URL = "../assets/data/year9.json"; // static JSON written by GitHub Action
+    const UNIT = "3";
 
-/* -------- Helpers -------- */
-function iconFor(url){
-  const u=(url||'').toLowerCase();
-  if(u.endsWith('.pdf')) return {icon:"picture_as_pdf", cta:"View"};
-  if(u.includes('youtube') || u.includes('youtu.be') || u.includes('watch')) return {icon:"videocam", cta:"Watch Now"};
-  if(u.includes('quiz') || u.includes('forms.gle') || u.includes('form')) return {icon:"quiz", cta:"Take Quiz"};
-  return {icon:"description", cta:"View"};
-}
-function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ('https://' + u); }
+    const GRID_FOR = {
+      worksheets: document.getElementById("grid-worksheets"),
+      videos:     document.getElementById("grid-videos"),
+      other:      document.getElementById("grid-other"),
+    };
 
-/* Build one resource card that matches your Tailwind look */
-function makeCard({title, url}){
-  const {icon, cta} = iconFor(url);
-  let thumbHtml =
-    `<div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-       <span class="material-icons text-4xl text-gray-400">${icon}</span>
-     </div>`;
-
-  // Detect YouTube links
-  const yt = (url||'').match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  if (yt){
-    const videoId = yt[1];
-    const ytThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-    thumbHtml =
-      `<div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-         <img src="${ytThumb}" alt="Video thumbnail" class="w-full h-full object-cover">
-         <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-       </div>`;
-  }
-
-  const card = document.createElement('div');
-card.className = "bg-white p-4 rounded-xl shadow-sm";
-card.innerHTML = `
-  ${thumbHtml}
-  <h3 class="font-semibold text-gray-800 mb-2">${title || 'Untitled'}</h3>
-  <a class="flex items-center font-semibold"
-     href="${ensureHttps(url)}"
-     target="_blank" rel="noopener"
-     style="color:var(--accent);">
-    ${cta} 
-    <span class="material-icons ml-1">${cta==='Watch Now' ? 'play_arrow' : (cta==='Take Quiz' ? 'arrow_forward' : 'download')}</span>
-  </a>
-`;
-  return card;
-}
-
-/* Where to drop each BlockKey */
-const GRID_FOR = {
-  worksheets: document.getElementById('grid-worksheets'),
-  videos:     document.getElementById('grid-videos'),
-  other:      document.getElementById('grid-other'),
-};
-
-function hideEmptyBlocks(){
-  ['worksheets','videos','other'].forEach(key=>{
-    const grid  = document.getElementById(`grid-${key}`);
-    const title = grid?.previousElementSibling; // the <h3> heading
-    if(grid && grid.children.length === 0){
-      grid.style.display = 'none';
-      if(title) title.style.display = 'none';
-    }
-  });
-
-  const emptyMsg = document.getElementById('unit-empty');
-  if(emptyMsg){
-    const any = ['worksheets','videos','other'].some(
-      key => document.getElementById(`grid-${key}`)?.children.length > 0
-    );
-    emptyMsg.hidden = any;
-  }
-}
-
-/* Load and render for Unit 1 only (Active not FALSE) */
-async function loadUnit(){
-  const txt  = await fetch(CSV_URL + '&cb=' + Date.now(), {cache:'no-store'}).then(r=>r.text());
-  const rows = parseCSV(txt);
-
-  // Expect: unit, blockkey, title, url, addediso, active
-  const items = rows.filter(r =>
-    (String(r.unit) === UNIT) &&
-    r.title && r.url &&
-    (String((r.active||'').toLowerCase()) !== 'false')
-  );
-
-  // Optional: sort by AddedISO desc if you want newest first in each block
-  items.sort((a,b)=>{
-    const da = new Date(a.addediso || 0).getTime() || 0;
-    const db = new Date(b.addediso || 0).getTime() || 0;
-    return db - da;
-  });
-
-  items.forEach(r=>{
-    const grid = GRID_FOR[(r.blockkey||'').toLowerCase()];
-    if (!grid) return;
-    grid.appendChild(makeCard({title:r.title, url:r.url}));
-  });
-
-  hideEmptyBlocks();
-}
-
-document.addEventListener('DOMContentLoaded', loadUnit);
-</script>
-<script>
-  // Click or keyboard flip
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('[data-flip]');
-    if(!btn) return;
-    const card = btn.closest('.flipcard');
-    if(card) card.classList.toggle('is-flipped');
-  });
-  document.addEventListener('keydown', (e)=>{
-    if((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-flip]')){
-      e.preventDefault();
-      const card = e.target.closest('.flipcard');
-      if(card) card.classList.toggle('is-flipped');
-    }
-  });
-</script>
-<!-- MathJax for rendering \( ... \) inline LaTeX -->
-<!-- Replace your existing MathJax config + script with this pair -->
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['\\(', '\\)'], ['$', '$']],
-      displayMath: [['\\[','\\]']],   // keep display math if you ever need it
-      processEscapes: true
-    },
-    chtml: { matchFontHeight: false }, // helps baseline alignment
-    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
-  };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" defer></script>
-<script>
-  fetch("sidebar.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-
-      // === Highlight active year ===
-      const path = window.location.pathname;
-
-      if (path.includes("year9")) {
-        const link = document.querySelector('#sidebar a[href="year9_hub.html"]');
-        if (link) {
-          link.classList.add("text-white");
-          link.style.background = "var(--accent)";
-          link.querySelector(".material-icons").classList.add("text-white");
+    function hideEmptyBlocks(){
+      ["worksheets","videos","other"].forEach(key=>{
+        const grid  = document.getElementById(`grid-${key}`);
+        const title = grid?.previousElementSibling; // the <h3>
+        if(grid && grid.children.length===0){
+          grid.style.display="none";
+          if(title) title.style.display="none";
         }
+      });
+      const empty=document.getElementById("unit-empty");
+      if(empty){
+        const any=["worksheets","videos","other"].some(k=>document.getElementById(`grid-${k}`)?.children.length>0);
+        empty.hidden=any;
       }
-      // Later you can add rules here for year7, year8, gcse...
-    });
-</script>
+    }
 
+    async function loadUnit(){
+      const text = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.text());
+      let rows = [];
+      try { rows = JSON.parse(text); } catch(e){ console.error("Bad JSON", e); }
+
+      // Expect: unit, blockkey, title, url, addediso, active
+      const items = rows.filter(r =>
+        String(r.unit)===UNIT &&
+        r.title && r.url &&
+        String((r.active||"").toLowerCase())!=="false"
+      );
+
+      // Sort newest first by AddedISO (optional)
+      items.sort((a,b)=>{
+        const da = new Date(a.addediso||0).getTime()||0;
+        const db = new Date(b.addediso||0).getTime()||0;
+        return db - da;
+      });
+
+      items.forEach(r=>{
+        const key = (r.blockkey||"").toLowerCase();
+        const grid = GRID_FOR[key];
+        if(!grid) return;
+
+        // Use the shared card factory (adds YouTube thumbs + diagonal stripes)
+        grid.appendChild(makeCard({
+          year: 9,
+          unit: UNIT,
+          title: r.title,
+          url: r.url
+        }));
+      });
+
+      hideEmptyBlocks();
+    }
+
+    document.addEventListener("DOMContentLoaded", loadUnit);
+  </script>
 </body>
 </html>
