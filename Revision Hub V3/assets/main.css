@@ -73,6 +73,18 @@ main {
   border: 1px solid rgba(0,0,0,.06);
 }
 
+/* Subtle diagonal stripes for non-YouTube cards */
+.bg-stripes {
+  background-color: #f3f4f6; /* base (tailwind gray-100) */
+  background-image: repeating-linear-gradient(
+    45deg,
+    #e0e7ff,            /* indigo-100 */
+    #e0e7ff 10px,
+    #f3f4f6 10px,
+    #f3f4f6 20px
+  );
+}
+
 /* ========= Flip cards (AI page + unit flashcards) ========= */
 .flip{ perspective:1000px; height:240px; }
 @media (min-width:768px){ .flip{ height:260px; } }
