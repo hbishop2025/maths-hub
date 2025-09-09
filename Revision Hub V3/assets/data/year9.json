@@ -192,12 +192,12 @@
     "active": "TRUE"
   },
   {
-    "unit": "",
-    "blockkey": "",
-    "title": "",
-    "url": "",
-    "addediso": "",
-    "active": "FALSE"
+    "unit": "3",
+    "blockkey": "other",
+    "title": "Inequalities (Corbett)",
+    "url": "https://corbettmaths.com/wp-content/uploads/2020/10/Inequalities-textbook.pdf",
+    "addediso": "2025-09-09",
+    "active": "TRUE"
   },
   {
     "unit": "",

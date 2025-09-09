@@ -19,6 +19,12 @@
   },
   {
     "year": "9",
+    "title": "Inequalities (Corbett)",
+    "url": "https://corbettmaths.com/wp-content/uploads/2020/10/Inequalities-textbook.pdf",
+    "addediso": "45909"
+  },
+  {
+    "year": "9",
     "title": "Laws of indices",
     "url": "https://www.youtube.com/watch?v=BUJKEDqGp1U",
     "addediso": "45906"
@@ -57,12 +63,6 @@
     "year": "9",
     "title": "Factorising into double brackets",
     "url": "https://www.youtube.com/watch?v=3kE_Q-JdlO4",
-    "addediso": "45900"
-  },
-  {
-    "year": "9",
-    "title": "Expanding double brackets",
-    "url": "https://www.youtube.com/watch?v=Dvo1Q-yBBhk",
     "addediso": "45900"
   }
 ]
