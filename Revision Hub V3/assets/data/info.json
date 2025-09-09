@@ -1,8 +1,14 @@
 [
   {
     "type": "Announcement",
-    "text": "Launch of a new KS3 Revision Hub",
+    "text": "Launch of a new Year 9 Revision Hub",
     "date": "2025-11-11",
     "url": "https://mathshub.netlify.app/year9_hub"
+  },
+  {
+    "type": "Is it cheating",
+    "text": "Learn how to use AI correctly to enhance your learning and revision!",
+    "date": "2026-1-1",
+    "url": "https://mathshub.netlify.app/ai_usage"
   }
 ]
