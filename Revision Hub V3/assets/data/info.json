@@ -1,9 +1,15 @@
 [
   {
     "type": "Announcement",
-    "text": "Launch of a new Year 9 Revision Hub",
+    "text": "Launch of Year 9 Unit 3 Now Live",
+    "date": "2025-09-15",
+    "url": "https://mathshub.netlify.app/year_9/year9_unit03"
+  },
+  {
+    "type": "Announcement",
+    "text": "Launch of a new KS3 Revision Hub",
     "date": "2025-11-11",
-    "url": "https://mathshub.netlify.app/year9_hub"
+    "url": "https://mathshub.netlify.app/ks3_hub.html"
   },
   {
     "type": "Is AI cheating?",
