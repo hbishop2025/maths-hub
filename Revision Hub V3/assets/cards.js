@@ -61,10 +61,10 @@ function makeCard({year, unit, title, url}){
          <img src="${yt}" alt="Video thumbnail" class="w-full h-full object-cover">
          <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
        </div>`
-    : `<div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-         <span class="material-icons text-4xl text-gray-400">${icon}</span>
-       </div>`;
-
+    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes">
+     <span class="material-icons text-4xl text-gray-600">${icon}</span>
+   </div>`;
+  
   const meta =
     `${year ? `Year ${year}` : ''}${unit ? (year ? ' – ' : '') + `Unit ${String(unit).padStart(2,'0')}` : ''}`;
 
