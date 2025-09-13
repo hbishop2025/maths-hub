@@ -47,15 +47,21 @@
 
     <!-- Welcome -->
     <section>
-      <div class="bg-white p-6 rounded-xl shadow-sm mb-10">
-        <h2 class="text-xl font-bold text-gray-800 mb-2">Welcome to the Maths Hub!</h2>
-        <p class="text-gray-600">
-          This is a central place for all revision materials for Year 7, 8 and 9.
-          All resources are free to access or available on the Google Drive.
-          There’s no need to log in or create an account. Happy revising!
-        </p>
-      </div>
-    </section>
+  <div class="bg-white p-6 rounded-xl shadow-sm mb-10">
+    <h2 id="explore-hero-headline" class="text-xl font-bold text-gray-800 mb-2">Loading…</h2>
+    <p id="explore-hero-body" class="text-gray-600"></p>
+  </div>
+</section>
+
+<script>
+  fetch("assets/data/explore_hero.json", {cache:"no-store"})
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById("explore-hero-headline").textContent = d.headline || "";
+      document.getElementById("explore-hero-body").textContent = d.body || "";
+    })
+    .catch(()=>{ /* keep defaults if needed */ });
+</script>
 
     <!-- Latest Resources -->
     <section class="mt-10" id="resources">
