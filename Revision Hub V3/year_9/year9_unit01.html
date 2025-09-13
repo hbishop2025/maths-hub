@@ -222,28 +222,23 @@
     }
 
     async function loadUnit(){
-      const rows = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json()).catch(()=>[]);
-      const items = rows.filter(r =>
-      r.title && r.url && String((r.active||"").toLowerCase()) !== "false"
-      );
-
-      // Newest first (optional)
-      items.sort((a,b)=>{
-        const da = new Date(a.addediso||0).getTime()||0;
-        const db = new Date(b.addediso||0).getTime()||0;
-        return db - da;
-      });
-
-      items.forEach(r=>{
-        const grid = GRID_FOR[(r.blockkey||"").toLowerCase()];
-        if(grid){
-          // Reuse the shared card builder from /assets/cards.js
-          grid.appendChild(makeCard({ title:r.title, url:r.url }));
-        }
-      });
-
-      hideEmptyBlocks();
-    }
+  const data = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json());
+  const items = Array.isArray(data) ? data : (data.items || []);
+  // no need to filter by unit; this file is already the unit
+  const filtered = items.filter(r =>
+    r.title && r.url && String((r.active||"").toLowerCase())!=="false"
+  );
+  filtered.sort((a,b)=>{
+    const da = new Date(a.addediso||0).getTime()||0;
+    const db = new Date(b.addediso||0).getTime()||0;
+    return db - da;
+  });
+  filtered.forEach(r=>{
+    const grid = GRID_FOR[(r.blockkey||"").toLowerCase()];
+    if(grid) grid.appendChild(makeResCard({title:r.title, url:r.url}));
+  });
+  hideEmptyBlocks();
+}
 
     // Flip handlers
     document.addEventListener("click", (e)=>{
