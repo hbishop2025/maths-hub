@@ -50,19 +50,27 @@
       </header>
 
       <!-- Hero -->
-      <section class="mb-8">
-        <div class="rounded-2xl shadow-lg p-8 text-white bg-gradient-to-br from-indigo-500 to-violet-600">
-          <div class="flex items-start gap-6">
-            <span class="material-icons text-yellow-300 text-[56px] leading-none">school</span>
-            <div>
-              <h2 class="text-2xl font-bold mb-2">Your learning journey starts here</h2>
-              <p class="text-indigo-100">
-                Choose your year group to find revision materials, worksheets, videos and more. Year 7 &amp; 8 are coming soon—Year 9 is ready now.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section class="bg-white p-8 rounded-2xl shadow-lg mb-8 bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+  <div class="flex items-center">
+    <div class="mr-6">
+      <span class="material-icons text-7xl text-yellow-300">school</span>
+    </div>
+    <div>
+      <h2 id="ks3-hero-headline" class="text-2xl font-bold mb-2">Loading…</h2>
+      <p id="ks3-hero-body" class="text-purple-100"> </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  fetch("assets/data/ks3_hero.json", {cache:"no-store"})
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById("ks3-hero-headline").textContent = d.headline || "";
+      document.getElementById("ks3-hero-body").textContent = d.body || "";
+    })
+    .catch(()=>{ /* keep defaults if needed */ });
+</script>
 
       <!-- Year tiles -->
       <section aria-label="KS3 year groups" class="mb-12">
