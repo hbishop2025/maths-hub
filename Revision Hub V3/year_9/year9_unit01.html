@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Year 9 — Unit 01 (Powers & Roots)</title>
 
   <!-- Tailwind -->
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS -->
+  <!-- Shared CSS (has layout, sidebar spacing, bg-stripes, etc.) -->
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
@@ -34,14 +34,14 @@
     .flipcard .face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:0.75rem; overflow:auto; }
     .flipcard .back{ transform: rotateY(180deg); }
 
-    /* Keep MathJax inline maths inline (no forced line breaks) */
+    /* MathJax inline rendering */
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
 </head>
 <body class="bg-gray-100" data-page="year9">
   <div class="layout">
-    <!-- Sidebar container (space is reserved by CSS) -->
+    <!-- Sidebar container (space reserved by CSS) -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
@@ -181,8 +181,10 @@
     </main>
   </div>
 
-  <!-- Sidebar loader (make sure its fetch() uses an ABSOLUTE path like /sidebar.html) -->
-  <script src="../assets/sidebar-loader.js"></script>
+  <!-- Sidebar loader (absolute path) -->
+  <script src="/assets/sidebar-loader.js"></script>
+  <!-- Shared cards/helpers -->
+  <script src="/assets/cards.js"></script>
 
   <!-- MathJax -->
   <script>
@@ -195,49 +197,8 @@
 
   <!-- Page JS -->
   <script>
-    const DATA_URL = "../assets/data/year9.json"; // static JSON
+    const DATA_URL = "/assets/data/year9.json"; // static JSON (Decap-managed or GitHub Action-managed)
     const UNIT = "1";
-
-    function iconFor(url){
-      const u=(url||"").toLowerCase();
-      if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View"};
-      if(u.includes("youtube")||u.includes("youtu.be")||u.includes("watch")) return {icon:"videocam", cta:"Watch Now"};
-      if(u.includes("quiz")||u.includes("forms.gle")||u.includes("form")) return {icon:"quiz", cta:"Take Quiz"};
-      return {icon:"description", cta:"View"};
-    }
-    function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
-
-    function makeResCard({title,url}){
-      const {icon,cta} = iconFor(url);
-      let thumbHtml =
-        `<div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-           <span class="material-icons text-4xl text-gray-400">${icon}</span>
-         </div>`;
-
-      const yt=(url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-      if(yt){
-        const id=yt[1], img=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-        thumbHtml =
-          `<div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-             <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
-             <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-           </div>`;
-      }
-
-      const el = document.createElement("div");
-      el.className = "bg-white p-4 rounded-xl shadow-sm";
-      el.innerHTML = `
-        ${thumbHtml}
-        <h3 class="font-semibold text-gray-800 mb-2">${title||"Untitled"}</h3>
-        <a class="flex items-center font-semibold"
-           href="${ensureHttps(url)}" target="_blank" rel="noopener"
-           style="color:var(--accent);">
-          ${cta}
-          <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'download')}</span>
-        </a>
-      `;
-      return el;
-    }
 
     const GRID_FOR = {
       worksheets: document.getElementById("grid-worksheets"),
@@ -262,15 +223,13 @@
     }
 
     async function loadUnit(){
-      const text = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.text());
-      let rows = [];
-      try { rows = JSON.parse(text); } catch(e){ console.error("Bad JSON", e); }
-
-      const items = rows.filter(r =>
+      const rows = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json()).catch(()=>[]);
+      const items = (rows||[]).filter(r =>
         String(r.unit)===UNIT && r.title && r.url &&
         String((r.active||"").toLowerCase())!=="false"
       );
 
+      // Newest first (optional)
       items.sort((a,b)=>{
         const da = new Date(a.addediso||0).getTime()||0;
         const db = new Date(b.addediso||0).getTime()||0;
@@ -279,7 +238,10 @@
 
       items.forEach(r=>{
         const grid = GRID_FOR[(r.blockkey||"").toLowerCase()];
-        if(grid) grid.appendChild(makeResCard({title:r.title, url:r.url}));
+        if(grid){
+          // Reuse the shared card builder from /assets/cards.js
+          grid.appendChild(makeCard({ title:r.title, url:r.url }));
+        }
       });
 
       hideEmptyBlocks();
