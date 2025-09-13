@@ -136,34 +136,40 @@
   }
   function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
 
-  function makeResCard({title,url}){
-    const {icon,cta} = iconFor(url);
-    // Try YouTube thumb
-    const m = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    const yt = m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
+  function makeResCard({ title, url }){
+  const safeUrl = ensureHttps(url);
+  const { icon, cta } = iconFor(url);
+  const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  const media = yt
+    ? (() => {
+        const id = yt[1];
+        const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        return `
+          <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
+            <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
+            <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
+          </div>`;
+      })()
+    : `
+      <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
+        <span class="material-icons text-4xl text-gray-600">${icon}</span>
+      </div>`;
 
-    const el = document.createElement("div");
-    el.className = "bg-white p-4 rounded-xl shadow-sm";
-
-    el.innerHTML = `
-      ${yt
-        ? `<div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-             <img src="${yt}" alt="Video thumbnail" class="w-full h-full object-cover">
-             <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-           </div>`
-        : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes">
-             <span class="material-icons text-4xl text-gray-600">${icon}</span>
-           </div>`}
-      <h3 class="font-semibold text-gray-800 mb-2">${title||"Untitled"}</h3>
-      <a class="flex items-center font-semibold"
-         href="${ensureHttps(url)}" target="_blank" rel="noopener"
-         style="color:var(--accent);">
-        ${cta}
-        <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'download')}</span>
-      </a>
-    `;
-    return el;
-  }
+  const card = document.createElement("a");
+  card.href = safeUrl;
+  card.target = "_blank";
+  card.rel = "noopener";
+  card.className = "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+  card.innerHTML = `
+    ${media}
+    <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
+    <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
+      ${cta}
+      <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'open_in_new')}</span>
+    </div>
+  `;
+  return card;
+}
 
   const GRID_FOR = {
     worksheets: document.getElementById("grid-worksheets"),
