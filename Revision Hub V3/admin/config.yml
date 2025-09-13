@@ -18,9 +18,9 @@ editor:
 collections:
   # KS3 hero (kept)
   - name: "ks3_hero"
-    label: "KS3 Hero"
+    label: "KS3 Hero - Hero Text"
     files:
-      - file: "assets/data/ks3_hero.json"
+      - file: "Revision Hub V3/assets/data/ks3_hero.json"
         label: "KS3 Hero Content"
         name: "ks3_hero"
         format: json
@@ -29,11 +29,26 @@ collections:
           - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
           - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
 
+# Explore hero (kept)
+  - name: "explore_hero"
+    label: "Explore - Welcome Text"
+    files:
+      - file: "Revision Hub V3/assets/data/explore_hero.json"
+        label: "Explore Hero Content"
+        name: "explore_hero"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
+
+
+
   # 🔴 NEW: Featured Sites (replaces “Latest Resources”)
   - name: "featured_sites"
     label: "Featured Sites"
     files:
-      - file: "assets/data/featured_sites.json"
+      - file: "Revision Hub V3/assets/data/featured_sites.json"
         label: "Sites"
         name: "featured_sites"
         format: json
@@ -56,7 +71,7 @@ collections:
   - name: "info"
     label: "Info (Homepage Notices)"
     files:
-      - file: "assets/data/info.json"
+      - file: "Revision Hub V3/assets/data/info.json"
         label: "Info Items"
         name: "info_items"
         format: json
@@ -74,7 +89,7 @@ collections:
   - name: "year7"
     label: "Year 7 Resources"
     files:
-      - file: "assets/data/year7.json"
+      - file: "Revision Hub V3/assets/data/year7.json"
         label: "Year 7 Items"
         name: "year7_items"
         format: json
@@ -94,7 +109,7 @@ collections:
   - name: "year8"
     label: "Year 8 Resources"
     files:
-      - file: "assets/data/year8.json"
+      - file: "Revision Hub V3/assets/data/year8.json"
         label: "Year 8 Items"
         name: "year8_items"
         format: json
@@ -114,7 +129,7 @@ collections:
   - name: "year9"
     label: "Year 9 Resources"
     files:
-      - file: "assets/data/year9.json"
+      - file: "Revision Hub V3/assets/data/year9.json"
         label: "Year 9 Items"
         name: "year9_items"
         format: json
@@ -129,88 +144,3 @@ collections:
               - { label: "URL",   name: "url",   widget: "string" }
               - { label: "Type",  name: "type",  widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
               - { label: "Active", name: "active", widget: "boolean", default: true }
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
-            fields:
-              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
-              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], required: false }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
-              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
-              - { label: "Active", name: "active", widget: "boolean", default: true }
-      - label: "Year 9"
-        name: "year9"
-        file: "Revision Hub V3/assets/data/year9.json"
-        format: "json"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
-            fields:
-              - { label: "Unit (e.g. 01)", name: "unit", widget: "string" }
-              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
-              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
-              - { label: "Active", name: "active", widget: "boolean", default: true }
-
-  # 2) Explore (Latest resources on the homepage)
-  - label: "Explore (Homepage)"
-    name: "explore"
-    files:
-      - label: "Latest Resources"
-        name: "latest"
-        file: "Revision Hub V3/assets/data/explore.json"
-        format: "json"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            summary: "Y{{fields.year | default('?')}} U{{fields.unit | default('?')}} — {{fields.title}}"
-            fields:
-              - { label: "Year (7/8/9)", name: "year", widget: "select", options: ["7","8","9"], required: false }
-              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "URL", name: "url", widget: "string", pattern: ["^https?://", "Must start with http(s)://"] }
-              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-
-  # 3) Info (Notices on the homepage)
-  - label: "Info / Notices"
-    name: "info"
-    files:
-      - label: "Homepage Notices"
-        name: "notices"
-        file: "Revision Hub V3/assets/data/info.json"
-        format: "json"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.date}} — {{fields.text}}"
-            fields:
-              - { label: "Type (optional)", name: "type", widget: "string", required: false }
-              - { label: "Text", name: "text", widget: "text" }
-              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-              - { label: "Link (optional)", name: "url", widget: "string", required: false, pattern: ["^https?://.*|^$", "Must be a full http(s):// URL or empty"] }
-
-  # 4) Hero Banners
-  - label: "Site Text"
-    name: "site_text"
-    files:
-      - label: "KS3 Hub — Hero Text"
-        name: "ks3_hero"
-        file: "Revision Hub V3/assets/data/ks3_hero.json"
-        format: "json"
-        fields:
-          - { label: "Headline", name: "headline", widget: "string", default: "Your Learning Journey Starts Here" }
-          - { label: "Body", name: "body", widget: "text", default: "Select your year group to find all the revision materials and resources you need to succeed." }
-      - label: "Explore — Welcome Text"
-        name: "explore_hero"
-        file: "Revision Hub V3/assets/data/explore_hero.json"
-        format: "json"
-        fields:
-          - { label: "Headline", name: "headline", widget: "string", default: "Welcome to the Maths Hub!" }
-          - { label: "Body", name: "body", widget: "text", default: "This is a central place for all revision materials for Year 7, 8 and 9. All resources are free to access or available on the Google Drive. There’s no need to log in or create an account. Happy revising!" }
