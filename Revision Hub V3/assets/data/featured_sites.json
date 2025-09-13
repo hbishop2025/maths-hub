@@ -20,6 +20,13 @@
       "name": "My Maths",
       "url": "https://login.mymaths.co.uk/login",
       "logo": "https://static.mymaths.co.uk/assets/v18-2-1/mymaths/logo-primary-new-blue-bf1d54b5c338397e7a778c907934a47e46856b3cfb6c45093f1365aefbdf28c8.svg"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "SPARX Maths",
+      "url": "https://selectschool.sparx-learning.com/?app=sparx_learning&route=https%3A%2F%2Fmaths.sparx-learning.com%2F",
+      "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg"
     }
   ]
 }
