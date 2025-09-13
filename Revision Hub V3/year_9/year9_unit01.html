@@ -66,8 +66,8 @@
             </p>
           </div>
           <div class="flex items-center gap-3">
-            <a href="#flashcards" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-              Jump to Flashcards <span class="material-icons ml-2">arrow_downward</span>
+            <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
             </a>
           </div>
         </div>
@@ -94,7 +94,7 @@
         </section>
 
         <!-- Videos -->
-        <section class="mb-10">
+        <section class="mb-10" id="videos">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Videos</h3>
           <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
@@ -107,79 +107,6 @@
 
         <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
       </section>
-
-      <!-- Flashcards -->
-      <section class="mt-12" id="flashcards">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Quick Revision Flashcards</h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Card 1 -->
-          <div class="flipcard">
-            <div class="inner relative w-full">
-              <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Indices</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">\( a^3 \times a^4 \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">Flip</button>
-              </div>
-              <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Answer</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">\( a^{7} \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">Back</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="flipcard">
-            <div class="inner relative w-full">
-              <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Standard Form</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">Write \( 0.00032 \) in standard form</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">Flip</button>
-              </div>
-              <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Answer</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">\( 3.2 \times 10^{-4} \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">Back</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="flipcard">
-            <div class="inner relative w-full">
-              <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Fractional Indices</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">Evaluate \( 27^{\,2/3} \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">Flip</button>
-              </div>
-              <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Answer</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">\( 9 \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">Back</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="flipcard">
-            <div class="inner relative w-full">
-              <div class="face front bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Surds</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">Simplify \( \sqrt{50} \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent);">Flip</button>
-              </div>
-              <div class="face back bg-white shadow-sm rounded-xl p-4 flex flex-col">
-                <div class="text-xs font-semibold text-gray-500 tracking-wide mb-2">Answer</div>
-                <div class="text-gray-800 font-semibold text-lg flex-1">\( 5\sqrt{2} \)</div>
-                <button data-flip type="button" class="self-end mt-3 px-3 py-1 rounded-lg text-white" style="background:var(--accent-600);">Back</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
 
   <!-- Sidebar loader (absolute path) -->
   <script src="/assets/sidebar-loader.js"></script>
@@ -284,21 +211,6 @@
 
     hideEmptyBlocks();
   }
-
-  // Flip handlers (unchanged)
-  document.addEventListener("click", (e)=>{
-    const btn = e.target.closest("[data-flip]");
-    if(!btn) return;
-    const card = btn.closest(".flipcard");
-    if(card) card.classList.toggle("is-flipped");
-  });
-  document.addEventListener("keydown", (e)=>{
-    if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-flip]")){
-      e.preventDefault();
-      const card = e.target.closest(".flipcard");
-      if(card) card.classList.toggle("is-flipped");
-    }
-  });
 
   document.addEventListener("DOMContentLoaded", loadUnit);
 </script>
