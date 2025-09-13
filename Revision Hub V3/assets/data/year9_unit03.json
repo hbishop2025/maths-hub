@@ -1,1 +1,32 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "active": true,
+      "title": "Rearranging formulae",
+      "url": "https://youtu.be/ablcp1ulGwg?si=VFoZYFFIt3MdOyic",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T19:04:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Solving inequalities",
+      "url": "https://youtu.be/saASveF7jlY?si=7bd1fZ3xTTa2s185",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T19:04:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Inequalities diagrams",
+      "url": "https://youtu.be/TbvD-tkn6UI?si=77c2a0dqaTPZ6THY",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T19:04:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Inequalities (Corbett)",
+      "url": "https://corbettmaths.com/wp-content/uploads/2020/10/Inequalities-textbook.pdf",
+      "blockkey": "other",
+      "addediso": "2025-09-13T19:05:00.000+01:00"
+    }
+  ]
+}
