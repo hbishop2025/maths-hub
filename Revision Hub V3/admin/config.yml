@@ -142,7 +142,8 @@ collections:
       - name: "year9_unit02"
         label: "Year 9 — Unit 02"
         file: "Revision Hub V3/assets/data/year9_unit02.json"
-        fields: - {label: "Title", name: "title", widget: "string"}
+        fields: 
+            - {label: "Title", name: "title", widget: "string"}
             - {label: "URL", name: "url", widget: "string"}
             - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
             - {label: "Date Added", name: "addediso", widget: "datetime"}
@@ -161,7 +162,8 @@ collections:
       - name: "year9_unit04"
         label: "Year 9 — Unit 04"
         file: "Revision Hub V3/assets/data/year9_unit04.json"
-        fields: - {label: "Title", name: "title", widget: "string"}
+        fields: 
+            - {label: "Title", name: "title", widget: "string"}
             - {label: "URL", name: "url", widget: "string"}
             - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
             - {label: "Date Added", name: "addediso", widget: "datetime"}
@@ -180,7 +182,8 @@ collections:
       - name: "year9_unit06"
         label: "Year 9 — Unit 06"
         file: "Revision Hub V3/assets/data/year9_unit06.json"
-        fields: - {label: "Title", name: "title", widget: "string"}
+        fields: 
+            - {label: "Title", name: "title", widget: "string"}
             - {label: "URL", name: "url", widget: "string"}
             - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
             - {label: "Date Added", name: "addediso", widget: "datetime"}
@@ -199,7 +202,8 @@ collections:
       - name: "year9_unit08"
         label: "Year 9 — Unit 08"
         file: "Revision Hub V3/assets/data/year9_unit08.json"
-        fields: - {label: "Title", name: "title", widget: "string"}
+        fields: 
+            - {label: "Title", name: "title", widget: "string"}
             - {label: "URL", name: "url", widget: "string"}
             - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
             - {label: "Date Added", name: "addediso", widget: "datetime"}
@@ -218,7 +222,8 @@ collections:
       - name: "year9_unit10"
         label: "Year 9 — Unit 10"
         file: "Revision Hub V3/assets/data/year9_unit10.json"
-        fields: - {label: "Title", name: "title", widget: "string"}
+        fields: 
+            - {label: "Title", name: "title", widget: "string"}
             - {label: "URL", name: "url", widget: "string"}
             - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
             - {label: "Date Added", name: "addediso", widget: "datetime"}
