@@ -2,39 +2,128 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+site_url: /
+logo_url: /assets/cms-logo.svg # optional
+
+media_folder: "assets/media"
+public_folder: "/assets/media"
+
+publish_mode: simple
+
+# Optional: clean editor UI
+editor:
+  preview: false
 
 collections:
-  - name: "explore"
-    label: "Explore (Latest Resources)"
+  # 1) KS3 Resources (three separate JSON files)
+  - label: "KS3 Resources"
+    name: "ks3_resources"
+    icon: "book"
+    # 'files' lets us manage multiple single JSON files in one section
     files:
-      - label: "Explore list"
-        name: "explore"
-        file: "assets/data/explore.json"
+      - label: "Year 7"
+        name: "year7"
+        file: "assets/data/year7.json"
+        format: "json"
         fields:
           - label: "Items"
             name: "items"
             widget: "list"
+            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
             fields:
-              - {label: "Title", name: "title", widget: "string"}
-              - {label: "URL", name: "url", widget: "string"}
-              - {label: "Year", name: "year", widget: "string", required: false}
-              - {label: "Unit", name: "unit", widget: "string", required: false}
-              - {label: "Added ISO", name: "addediso", widget: "datetime", required: false}
+              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
+              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+      - label: "Year 8"
+        name: "year8"
+        file: "assets/data/year8.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
+            fields:
+              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
+              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+      - label: "Year 9"
+        name: "year9"
+        file: "assets/data/year9.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
+            fields:
+              - { label: "Unit (e.g. 01)", name: "unit", widget: "string" }
+              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
 
-  - name: "info"
-    label: "Info (Announcements)"
+  # 2) Explore (Latest resources on the homepage)
+  - label: "Explore (Homepage)"
+    name: "explore"
     files:
-      - label: "Info list"
-        name: "info"
-        file: "assets/data/info.json"
+      - label: "Latest Resources"
+        name: "latest"
+        file: "assets/data/explore.json"
+        format: "json"
         fields:
           - label: "Items"
             name: "items"
             widget: "list"
+            summary: "Y{{fields.year | default('?')}} U{{fields.unit | default('?')}} — {{fields.title}}"
             fields:
-              - {label: "Type", name: "type", widget: "string", required: false}
-              - {label: "Text", name: "text", widget: "string"}
-              - {label: "Date", name: "date", widget: "datetime"}
-              - {label: "Link", name: "url", widget: "string", required: false}
+              - { label: "Year (7/8/9)", name: "year", widget: "select", options: ["7","8","9"], required: false }
+              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", pattern: ["^https?://", "Must start with http(s)://"] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+
+  # 3) Info (Notices on the homepage)
+  - label: "Info / Notices"
+    name: "info"
+    files:
+      - label: "Homepage Notices"
+        name: "notices"
+        file: "assets/data/info.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.text}}"
+            fields:
+              - { label: "Type (optional)", name: "type", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Link (optional)", name: "url", widget: "string", required: false, pattern: ["^https?://.*|^$", "Must be a full http(s):// URL or empty"] }
+
+  # 4) Hero Banners
+  - label: "Site Text"
+    name: "site_text"
+    files:
+      - label: "KS3 Hub — Hero Text"
+        name: "ks3_hero"
+        file: "assets/data/ks3_hero.json"
+        format: "json"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string", default: "Your Learning Journey Starts Here" }
+          - { label: "Body", name: "body", widget: "text", default: "Select your year group to find all the revision materials and resources you need to succeed." }
+      - label: "Explore — Welcome Text"
+        name: "explore_hero"
+        file: "assets/data/explore_hero.json"
+        format: "json"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string", default: "Welcome to the Maths Hub!" }
+          - { label: "Body", name: "body", widget: "text", default: "This is a central place for all revision materials for Year 7, 8 and 9. All resources are free to access or available on the Google Drive. There’s no need to log in or create an account. Happy revising!" }
