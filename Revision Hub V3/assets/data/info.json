@@ -5,6 +5,12 @@
       "date": "2025-09-14",
       "type": "Announcement",
       "text": "Launch of the New KS3 Hub"
+    },
+    {
+      "type": "Information",
+      "text": "Learn how to master AI as a revision tool!",
+      "url": "https://mathshub.netlify.app/ai_usage",
+      "date": "2025-09-13"
     }
   ]
 }
