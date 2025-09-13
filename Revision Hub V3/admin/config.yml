@@ -129,18 +129,97 @@ collections:
   - name: "year9"
     label: "Year 9 Resources"
     files:
-      - file: "Revision Hub V3/assets/data/year9.json"
-        label: "Year 9 Items"
-        name: "year9_items"
-        format: json
+      - name: "year9_unit01"
+        label: "Year 9 — Unit 01"
+        file: "assets/data/year9_unit01.json"
         fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Unit", name: "unit", widget: "string" }
-              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "URL",   name: "url",   widget: "string" }
-              - { label: "Type",  name: "type",  widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
-              - { label: "Active", name: "active", widget: "boolean", default: true }
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit02"
+        label: "Year 9 — Unit 02"
+        file: "assets/data/year9_unit02.json"
+        fields: - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit03"
+        label: "Year 9 — Unit 03"
+        file: "assets/data/year9_unit03.json"
+        fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit04"
+        label: "Year 9 — Unit 04"
+        file: "assets/data/year9_unit04.json"
+        fields: - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit05"
+        label: "Year 9 — Unit 05"
+        file: "assets/data/year9_unit05.json"
+        fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit06"
+        label: "Year 9 — Unit 06"
+        file: "assets/data/year9_unit06.json"
+        fields: - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit07"
+        label: "Year 9 — Unit 07"
+        file: "assets/data/year9_unit07.json"
+        fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit08"
+        label: "Year 9 — Unit 08"
+        file: "assets/data/year9_unit08.json"
+        fields: - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit09"
+        label: "Year 9 — Unit 09"
+        file: "assets/data/year9_unit09.json"
+        fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
+
+      - name: "year9_unit10"
+        label: "Year 9 — Unit 10"
+        file: "assets/data/year9_unit10.json"
+        fields: - {label: "Title", name: "title", widget: "string"}
+            - {label: "URL", name: "url", widget: "string"}
+            - {label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"]}
+            - {label: "Date Added", name: "addediso", widget: "datetime"}
+            - {label: "Active", name: "active", widget: "boolean", default: true}
