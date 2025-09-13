@@ -1,17 +1,13 @@
 backend:
-  name: github
-  repo: hbishop2025/maths-hub        # <-- your GitHub repo
+  name: git-gateway
   branch: main
 
-media_folder: "assets/uploads"       # where images would go (kept simple)
+media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
-
-locale: "en"
 
 collections:
   - name: "explore"
     label: "Explore (Latest Resources)"
-    label_singular: "Resource"
     files:
       - label: "Explore list"
         name: "explore"
