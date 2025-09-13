@@ -58,34 +58,42 @@ function ytThumbFor(url){
 }
 
 /* ---------- Resource card (used by index + unit pages) ---------- */
-function makeCard({year, unit, title, url}){
-  const {icon, cta} = iconFor(url);
-  const yt = ytThumbFor(url);
+// “Latest Information” card (index)
+function makeInfoCard({ type, text, date, url }) {
+  const hasLink = url && url.trim();
+  const div = document.createElement("div");
 
-  const div = document.createElement('div');
-  div.className = "bg-white p-4 rounded-xl shadow-sm";
+  // Card container
+  div.className =
+    "bg-white p-4 rounded-xl shadow-sm";
 
-  const media = yt
-    ? `<div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-         <img src="${yt}" alt="Video thumbnail" class="w-full h-full object-cover">
-         <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-       </div>`
-    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes">
-         <span class="material-icons text-4xl text-gray-600">${icon}</span>
-       </div>`;
-
-  const meta =
-    `${year ? `Year ${year}` : ''}${unit ? (year ? ' – ' : '') + `Unit ${String(unit).padStart(2,'0')}` : ''}`;
-
+  // Inner layout: text on left, button on right (stacks on small screens)
   div.innerHTML = `
-    ${media}
-    ${meta ? `<p class="text-sm text-gray-500">${meta}</p>` : ``}
-    <h3 class="font-semibold text-gray-800 mb-2">${title || 'Untitled'}</h3>
-    <a class="flex items-center font-semibold" href="${ensureHttps(url)}" target="_blank" rel="noopener" style="color:var(--accent);">
-      ${cta}
-      <span class="material-icons ml-1">${cta==='Watch Now' ? 'play_arrow' : (cta==='Take Quiz' ? 'arrow_forward' : 'download')}</span>
-    </a>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
+        <p class="font-semibold text-gray-800">${text || ""}</p>
+        ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
+      </div>
+
+      ${
+        hasLink
+          ? `
+        <a
+          class="inline-flex items-center px-6 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition"
+          href="${url}"
+          target="_blank"
+          rel="noopener"
+          aria-label="More info about: ${text || type || "item"}"
+        >
+          More Info
+          <span class="material-icons ml-2">arrow_forward</span>
+        </a>`
+          : ``
+      }
+    </div>
   `;
+
   return div;
 }
 
