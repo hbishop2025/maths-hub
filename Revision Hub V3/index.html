@@ -84,103 +84,137 @@
   const FEATURED_JSON     = "assets/data/featured_sites.json";
   const INFO_JSON         = "assets/data/info.json";
 
-  // ---- Helpers ----
   const cacheOpt = { cache: "no-store" };
 
   async function getJSON(url){
-    const r = await fetch(url, cacheOpt);
-    return r.ok ? r.json() : null;
+    const res = await fetch(url, cacheOpt);
+    if(!res.ok){
+      console.error("Fetch failed:", url, res.status);
+      return null;
+    }
+    return res.json();
   }
-
-  // Accept array or { items: [...] }
-  function asItems(data, key = "items"){
-    if (Array.isArray(data)) return data;
-    if (data && Array.isArray(data[key])) return data[key];
+  function asItems(data){
+    if(Array.isArray(data)) return data;
+    if(data && Array.isArray(data.items)) return data.items;
     return [];
   }
-
-  // Date helper (tolerates YYYY-MM-DD and ISO)
   function parseDateSafe(s){
-    if (!s) return null;
     const d = new Date(s);
     return isNaN(d) ? null : d;
   }
 
-  // ---- Hero ----
-  (async function loadHero(){
-    const d = await getJSON(EXPLORE_HERO_JSON);
-    if (!d) return;
-    // Support both {title, subtitle} and {headline, body}
-    const title = d.title ?? d.headline ?? "Welcome to the Maths Hub!";
-    const body  = d.subtitle ?? d.body ?? "";
-
-    const h = document.getElementById("explore-hero-headline");
-    const p = document.getElementById("explore-hero-body");
-    if (h) h.textContent = title;
-    if (p) p.textContent = body;
+  // ---- HERO ----
+  (async()=>{
+    try{
+      const d = await getJSON(EXPLORE_HERO_JSON);
+      if(!d) return;
+      const title = d.title ?? d.headline ?? "Welcome to the Maths Hub!";
+      const body  = d.subtitle ?? d.body ?? "";
+      const h = document.getElementById("explore-hero-headline");
+      const p = document.getElementById("explore-hero-body");
+      if(h) h.textContent = title;
+      if(p) p.textContent = body;
+    }catch(e){ console.error("Hero load error:", e); }
   })();
 
-  // ---- Featured Sites ----
+  // ---- FEATURED ----
   let featuredAll = [];
-  let showingAll  = false;
+  let showingAll = false;
 
   async function loadFeatured(){
-    const data  = await getJSON(FEATURED_JSON);
-    const items = asItems(data).filter(s => s && s.active !== false);
-    featuredAll = items;
-    renderFeatured();
-
-    const empty = document.getElementById("featured-empty");
-    if (empty) empty.hidden = featuredAll.length > 0;
+    try{
+      const data  = await getJSON(FEATURED_JSON);
+      const items = asItems(data).filter(s => s && s.active !== false);
+      featuredAll = items;
+      console.log("FEATURED items:", items);
+      renderFeatured();
+      const empty = document.getElementById("featured-empty");
+      if (empty) empty.hidden = featuredAll.length > 0;
+    }catch(e){ console.error("Featured load error:", e); }
   }
-
   function renderFeatured(){
     const grid = document.getElementById("featured-grid");
-    if (!grid) return;
+    if(!grid) return;
     const max = showingAll ? 12 : 4;
-
     grid.innerHTML = "";
-    featuredAll.slice(0, max).forEach(site => {
-      // makeSiteCard is defined in assets/cards.js
-      grid.appendChild(makeSiteCard(site));
+    featuredAll.slice(0,max).forEach(site=>{
+      if(typeof makeSiteCard === "function"){
+        grid.appendChild(makeSiteCard(site));
+      }else{
+        // very simple fallback
+        const div = document.createElement("div");
+        div.className="bg-white p-4 rounded-xl shadow-sm";
+        div.innerHTML = `<h3 class="font-semibold">${site.name||"Untitled"}</h3>
+                         <p class="text-sm text-gray-600">${site.desc||""}</p>
+                         ${site.url ? `<a class="text-blue-600 underline" href="${site.url}" target="_blank" rel="noopener">Open</a>` : ""}`;
+        grid.appendChild(div);
+      }
     });
-
     const toggle = document.getElementById("featured-toggle");
     if (toggle) toggle.textContent = showingAll ? "Show Less" : "View All";
   }
 
-  // ---- Latest Information ----
+  // ---- INFO ----
   async function loadInfo(){
-    const data = await getJSON(INFO_JSON);
-    const rows = asItems(data);
+    try{
+      const data = await getJSON(INFO_JSON);
+      console.log("INFO raw JSON:", data);
+      const rows = asItems(data);
+      console.log("INFO normalized items:", rows);
 
-    // sort newest first; require at least text
-    const sorted = rows
-      .filter(r => r && r.text)
-      .sort((a, b) => (parseDateSafe(b.date)?.getTime() || 0) - (parseDateSafe(a.date)?.getTime() || 0));
+      // Sort newest first if date present; keep items without date at the end
+      rows.sort((a,b)=>{
+        const da = parseDateSafe(a.date)?.getTime() ?? -Infinity;
+        const db = parseDateSafe(b.date)?.getTime() ?? -Infinity;
+        return db - da;
+      });
 
-    const container = document.getElementById("info-list");
-    if (!container) return;
+      const container = document.getElementById("info-list");
+      if(!container){
+        console.warn("#info-list not found in DOM");
+        return;
+      }
+      container.innerHTML = "";
 
-    container.innerHTML = "";
-    if (!sorted.length){
-      container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
-      return;
+      if(!rows.length){
+        container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
+        return;
+      }
+
+      rows.forEach(r=>{
+        if(typeof makeInfoCard === "function"){
+          container.appendChild(makeInfoCard(r));
+        }else{
+          // Simple fallback if cards.js didn't load
+          const div = document.createElement("div");
+          div.className = "bg-white p-4 rounded-xl shadow-sm";
+          div.innerHTML = `
+            <p class="text-sm text-gray-500">${r.type||""}</p>
+            <p class="font-semibold text-gray-800">${r.text||""}</p>
+            ${r.date ? `<p class="text-sm text-gray-500">${r.date}</p>` : ""}
+            ${r.url ? `<a class="inline-flex items-center mt-2 text-blue-600 underline" href="${r.url}" target="_blank" rel="noopener">More info</a>` : ""}
+          `;
+          container.appendChild(div);
+        }
+      });
+    }catch(e){
+      console.error("Info load error:", e);
+      const container = document.getElementById("info-list");
+      if(container){
+        container.innerHTML = '<p class="text-red-600">Could not load information.</p>';
+      }
     }
-    sorted.forEach(r => container.appendChild(makeInfoCard(r)));
   }
 
-  // ---- Init ----
-  document.addEventListener("DOMContentLoaded", () => {
+  // ---- INIT ----
+  document.addEventListener("DOMContentLoaded", ()=>{
     const toggle = document.getElementById("featured-toggle");
     if (toggle){
-      toggle.addEventListener("click", () => {
-        showingAll = !showingAll;
-        renderFeatured();
-      });
+      toggle.addEventListener("click", ()=>{ showingAll = !showingAll; renderFeatured(); });
     }
-    loadFeatured().catch(e => console.error("Featured load error:", e));
-    loadInfo().catch(e => console.error("Info load error:", e));
+    loadFeatured();
+    loadInfo();
   });
 </script>
 </body>
