@@ -6,6 +6,13 @@
       "name": "Dr Frost",
       "url": "https://www.drfrost.org/login",
       "logo": "https://pbs.twimg.com/profile_images/1963361810037309440/yzQb7Xh-_400x400.jpg"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "Online Textbooks",
+      "url": "https://login.pearson.com/",
+      "logo": "https://login.pearson.com/v1/piapi/iesui/static/media/PearsonLogo_Horizontal_Blk_RGB.236878eb12bcef8a8d01.png"
     }
   ]
 }
