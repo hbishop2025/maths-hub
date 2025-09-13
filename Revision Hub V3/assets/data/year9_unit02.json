@@ -1,1 +1,60 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "active": true,
+      "title": "Expanding double brackets Worksheet",
+      "url": "https://drive.google.com/file/d/15yacuhusvBpuVJqigylpDCphwdfqvDP6/view?usp=drivesdk",
+      "blockkey": "worksheets",
+      "addediso": "2025-09-13T17:50:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Factorising quadratics Worksheet",
+      "url": "https://drive.google.com/file/d/1_w-OlzX4Cgy5uCFEqYbiHa42pj2Pdv7j/view?usp=drivesdk",
+      "blockkey": "worksheets",
+      "addediso": "2025-09-13T17:50:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Quadratic Sequences",
+      "url": "https://drive.google.com/file/d/1IOBZBM7Gz0Orb4P0UH82RvyRpJtufUJ5/view?usp=drivesdk",
+      "blockkey": "worksheets",
+      "addediso": "2025-09-13T17:51:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Factorising (Corbett)",
+      "url": "https://corbettmaths.com/wp-content/uploads/2018/09/Factorising-Quadratics-pdf.pdf",
+      "blockkey": "other",
+      "addediso": "2025-09-13T17:51:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Sequences (Google slides examples)",
+      "url": "https://docs.google.com/presentation/d/1K4_i3gOhbkjGBBiJO-SEp-msOpBnjQfingez7vLpkCc/edit?usp=drivesdk",
+      "blockkey": "other",
+      "addediso": "2025-09-13T17:52:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Factorising into double brackets",
+      "url": "https://www.youtube.com/watch?v=3kE_Q-JdlO4",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T17:52:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Expanding double brackets",
+      "url": "https://www.youtube.com/watch?v=Dvo1Q-yBBhk",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T17:53:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Finding the nth term",
+      "url": "https://www.youtube.com/watch?v=7Isa4P8lISc",
+      "blockkey": "videos",
+      "addediso": "2025-09-13T17:53:00.000+01:00"
+    }
+  ]
+}
