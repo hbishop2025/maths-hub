@@ -28,12 +28,21 @@ function parseCSV(text){
 function parseDate(s){
   if(!s) return null;
   if(/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)){
-    const [d,m,y]=s.split('/').map(Number); const dt=new Date(y,m-1,d); return isNaN(dt)?null:dt;
+    const [d,m,y]=s.split('/').map(Number);
+    const dt=new Date(y,m-1,d);
+    return isNaN(dt)?null:dt;
   }
-  const dt=new Date(s); return isNaN(dt)?null:dt;
+  const dt=new Date(s);
+  return isNaN(dt)?null:dt;
 }
 
-// Pick icon/cta
+// Normalise URL
+function ensureHttps(u){
+  if(!u) return "#";
+  return /^https?:\/\//i.test(u) ? u : ("https://" + u);
+}
+
+// Pick icon/cta for resource links
 function iconFor(url){
   const u=(url||'').toLowerCase();
   if(u.endsWith('.pdf')) return {icon:"picture_as_pdf", cta:"View"};
@@ -48,7 +57,7 @@ function ytThumbFor(url){
   return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
 }
 
-// Shared resource card (index & units)
+/* ---------- Resource card (used by index + unit pages) ---------- */
 function makeCard({year, unit, title, url}){
   const {icon, cta} = iconFor(url);
   const yt = ytThumbFor(url);
@@ -62,9 +71,9 @@ function makeCard({year, unit, title, url}){
          <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
        </div>`
     : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes">
-     <span class="material-icons text-4xl text-gray-600">${icon}</span>
-   </div>`;
-  
+         <span class="material-icons text-4xl text-gray-600">${icon}</span>
+       </div>`;
+
   const meta =
     `${year ? `Year ${year}` : ''}${unit ? (year ? ' – ' : '') + `Unit ${String(unit).padStart(2,'0')}` : ''}`;
 
@@ -72,7 +81,7 @@ function makeCard({year, unit, title, url}){
     ${media}
     ${meta ? `<p class="text-sm text-gray-500">${meta}</p>` : ``}
     <h3 class="font-semibold text-gray-800 mb-2">${title || 'Untitled'}</h3>
-    <a class="flex items-center font-semibold" href="${url}" target="_blank" rel="noopener" style="color:var(--accent);">
+    <a class="flex items-center font-semibold" href="${ensureHttps(url)}" target="_blank" rel="noopener" style="color:var(--accent);">
       ${cta}
       <span class="material-icons ml-1">${cta==='Watch Now' ? 'play_arrow' : (cta==='Take Quiz' ? 'arrow_forward' : 'download')}</span>
     </a>
@@ -80,21 +89,84 @@ function makeCard({year, unit, title, url}){
   return div;
 }
 
-// “Latest Information” card (index)
-function makeInfoCard({type,text,date,url}){
-  const hasLink = url && url.trim();
-  const div=document.createElement('div');
-  div.className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center";
-  div.innerHTML=`
-    <div>
-      ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
-      <p class="font-semibold text-gray-800">${text||''}</p>
-      ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
-    </div>
-    ${hasLink ? `
-      <a class="px-6 py-2 rounded-lg font-semibold flex items-center" href="${url}" target="_blank" rel="noopener" style="background:#EEF2FF;color:#4F46E5;">
-        More Info <span class="material-icons ml-2">arrow_forward</span>
-      </a>` : ``}
+/* ---------- Featured Site card (Explore page) ---------- */
+/*
+Expected object shape (from assets/data/featured_sites.json):
+{
+  "name": "DrFrostMaths",
+  "url": "https://www.drfrostmaths.com/",
+  "description": "Worksheets, videos, DFM tasks…",
+  "type": "site" | "drive" | "quiz" | "textbook",
+  "brand": {
+    "bg": "#FEE2E2",        // optional: tile background
+    "fg": "#B91C1C",        // optional: icon/heading colour
+    "stripe": "rgba(...)"   // optional: diagonal accent
+  },
+  "logo": "assets/img/dfm.svg", // optional: path to logo image
+  "cta": "Open"                 // optional: defaults to "Visit"
+}
+*/
+function makeSiteCard(site){
+  const name = site?.name || "Resource";
+  const url  = ensureHttps(site?.url);
+  const desc = site?.description || "";
+  const cta  = site?.cta || "Visit";
+
+  // Brand colours with sensible defaults
+  const bg     = site?.brand?.bg     || "#F3F4F6";  // gray-100
+  const fg     = site?.brand?.fg     || "var(--accent)";
+  const stripe = site?.brand?.stripe || "rgba(0,0,0,0.03)";
+
+  // Icon fallback by type
+  const typeIcon =
+    site?.type === "drive"   ? "folder" :
+    site?.type === "quiz"    ? "quiz" :
+    site?.type === "textbook"? "menu_book" :
+    "link";
+
+  // Media block: logo circle OR large type icon
+  const media = site?.logo
+    ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center"
+            style="background:
+                   linear-gradient(135deg, ${bg}, #ffffff);
+                   position:relative;">
+         <div class="absolute inset-0" style="
+              background: repeating-linear-gradient(
+                -45deg,
+                ${stripe},
+                ${stripe} 8px,
+                transparent 8px,
+                transparent 16px
+              );
+              opacity:.6;"></div>
+         <img src="${site.logo}" alt="${name} logo" class="relative h-12 w-auto object-contain">
+       </div>`
+    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center"
+            style="background:
+                   linear-gradient(135deg, ${bg}, #ffffff);
+                   position:relative;">
+         <div class="absolute inset-0" style="
+              background: repeating-linear-gradient(
+                -45deg,
+                ${stripe},
+                ${stripe} 8px,
+                transparent 8px,
+                transparent 16px
+              );
+              opacity:.6;"></div>
+         <span class="material-icons text-5xl" style="color:${fg};">${typeIcon}</span>
+       </div>`;
+
+  const card = document.createElement('div');
+  card.className = "bg-white p-4 rounded-xl shadow-sm";
+  card.innerHTML = `
+    ${media}
+    <h3 class="font-semibold mb-1" style="color:${fg};">${name}</h3>
+    ${desc ? `<p class="text-sm text-gray-600 mb-2">${desc}</p>` : ``}
+    <a class="flex items-center font-semibold" href="${url}" target="_blank" rel="noopener" style="color:${fg};">
+      ${cta}
+      <span class="material-icons ml-1">open_in_new</span>
+    </a>
   `;
-  return div;
+  return card;
 }
