@@ -197,8 +197,7 @@
 
   <!-- Page JS -->
   <script>
-    const DATA_URL = "Revision Hub V3/assets/data/year9.json"; // static JSON (Decap-managed or GitHub Action-managed)
-    const UNIT = "1";
+    const DATA_URL = "../assets/data/year9_unit01.json";
 
     const GRID_FOR = {
       worksheets: document.getElementById("grid-worksheets"),
@@ -224,9 +223,8 @@
 
     async function loadUnit(){
       const rows = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json()).catch(()=>[]);
-      const items = (rows||[]).filter(r =>
-        String(r.unit)===UNIT && r.title && r.url &&
-        String((r.active||"").toLowerCase())!=="false"
+      const items = rows.filter(r =>
+      r.title && r.url && String((r.active||"").toLowerCase()) !== "false"
       );
 
       // Newest first (optional)
