@@ -23,7 +23,7 @@ collections:
     files:
       - label: "Year 7"
         name: "year7"
-        file: "assets/data/year7.json"
+        file: "Revision Hub V3/assets/data/year7.json"
         format: "json"
         fields:
           - label: "Items"
@@ -39,7 +39,7 @@ collections:
               - { label: "Active", name: "active", widget: "boolean", default: true }
       - label: "Year 8"
         name: "year8"
-        file: "assets/data/year8.json"
+        file: "Revision Hub V3/assets/data/year8.json"
         format: "json"
         fields:
           - label: "Items"
@@ -55,7 +55,7 @@ collections:
               - { label: "Active", name: "active", widget: "boolean", default: true }
       - label: "Year 9"
         name: "year9"
-        file: "assets/data/year9.json"
+        file: "Revision Hub V3/assets/data/year9.json"
         format: "json"
         fields:
           - label: "Items"
@@ -76,7 +76,7 @@ collections:
     files:
       - label: "Latest Resources"
         name: "latest"
-        file: "assets/data/explore.json"
+        file: "Revision Hub V3/assets/data/explore.json"
         format: "json"
         fields:
           - label: "Items"
@@ -96,7 +96,7 @@ collections:
     files:
       - label: "Homepage Notices"
         name: "notices"
-        file: "assets/data/info.json"
+        file: "Revision Hub V3/assets/data/info.json"
         format: "json"
         fields:
           - label: "Items"
@@ -115,14 +115,14 @@ collections:
     files:
       - label: "KS3 Hub — Hero Text"
         name: "ks3_hero"
-        file: "assets/data/ks3_hero.json"
+        file: "Revision Hub V3/assets/data/ks3_hero.json"
         format: "json"
         fields:
           - { label: "Headline", name: "headline", widget: "string", default: "Your Learning Journey Starts Here" }
           - { label: "Body", name: "body", widget: "text", default: "Select your year group to find all the revision materials and resources you need to succeed." }
       - label: "Explore — Welcome Text"
         name: "explore_hero"
-        file: "assets/data/explore_hero.json"
+        file: "Revision Hub V3/assets/data/explore_hero.json"
         format: "json"
         fields:
           - { label: "Headline", name: "headline", widget: "string", default: "Welcome to the Maths Hub!" }
