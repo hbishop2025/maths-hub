@@ -118,11 +118,11 @@ function makeSiteCard(site){
   const name = site?.name || "Resource";
   const url  = ensureHttps(site?.url);
   const desc = site?.description || "";
-  const cta  = site?.cta || "Visit";
+  const cta  = site?.cta || "Open";
 
-  // Brand colours with sensible defaults
-  const bg     = site?.brand?.bg     || "#F3F4F6";  // gray-100
-  const fg     = site?.brand?.fg     || "#2563EB";  // default blue-600
+  // Brand colours (for logo/icon backgrounds)
+  const bg     = site?.brand?.bg     || "#F3F4F6";  // light gray
+  const fg     = site?.brand?.fg     || "#2563EB";  // blue-600
   const stripe = site?.brand?.stripe || "rgba(0,0,0,0.03)";
 
   // Icon fallback by type
@@ -132,7 +132,7 @@ function makeSiteCard(site){
     site?.type === "textbook"? "menu_book" :
     "link";
 
-  // Media block: logo circle OR large type icon
+  // Media block: logo or icon
   const media = site?.logo
     ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
             style="background:linear-gradient(135deg, ${bg}, #ffffff);">
@@ -160,18 +160,22 @@ function makeSiteCard(site){
          <span class="material-icons text-5xl" style="color:${fg};">${typeIcon}</span>
        </div>`;
 
-  const card = document.createElement('div');
-  card.className = "bg-white p-4 rounded-xl shadow-sm";
+  const card = document.createElement("a");
+  card.href = url;
+  card.target = "_blank";
+  card.rel = "noopener";
+  card.className =
+    "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform";
+
   card.innerHTML = `
     ${media}
     <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
     ${desc ? `<p class="text-sm text-gray-500 mb-4">${desc}</p>` : ``}
-    <a class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-white"
-       href="${url}" target="_blank" rel="noopener"
-       style="background:${fg};">
+    <span class="inline-flex items-center px-4 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition">
       ${cta}
       <span class="material-icons ml-1">open_in_new</span>
-    </a>
+    </span>
   `;
+
   return card;
 }
