@@ -1,0 +1,7 @@
+[build]
+  base    = "Revision Hub V3"
+  publish = "Revision Hub V3"
+  command = ""            # empty = just deploy static files, no build
+
+[build.environment]
+  NODE_VERSION = "20"
