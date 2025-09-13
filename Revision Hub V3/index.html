@@ -79,89 +79,108 @@
 <script src="assets/cards.js"></script>
 
 <script>
-  // Data sources
+  // ---- Data sources ----
   const EXPLORE_HERO_JSON = "assets/data/explore_hero.json";
-  const FEATURED_JSON     = "assets/data/featured_sites.json"; // Decap-managed
-  const INFO_JSON         = "assets/data/info.json";           // Decap-managed
+  const FEATURED_JSON     = "assets/data/featured_sites.json";
+  const INFO_JSON         = "assets/data/info.json";
 
-  // ---- Hero ----
-  fetch(EXPLORE_HERO_JSON, {cache:"no-store"})
-    .then(r => r.json())
-    .then(d => {
-      document.getElementById("explore-hero-headline").textContent = d.headline || "Welcome to the Maths Hub!";
-      document.getElementById("explore-hero-body").textContent = d.body || "";
-    })
-    .catch(()=>{ /* leave defaults */ });
+  // ---- Helpers ----
+  const cacheOpt = { cache: "no-store" };
 
-  // Helper: tolerate array or {items:[]}
-  function normalizeJsonArray(data){
+  async function getJSON(url){
+    const r = await fetch(url, cacheOpt);
+    return r.ok ? r.json() : null;
+  }
+
+  // Accept array or { items: [...] }
+  function asItems(data, key = "items"){
     if (Array.isArray(data)) return data;
-    if (data && Array.isArray(data.items)) return data.items;
+    if (data && Array.isArray(data[key])) return data[key];
     return [];
   }
 
-  // ---- Featured Sites (uses makeSiteCard from assets/cards.js) ----
-  let featuredAll = [];
-  let showingAll  = false;
-
-  async function loadFeatured(){
-    const res  = await fetch(FEATURED_JSON, {cache:'no-store'});
-    const data = await res.json();
-    const items = normalizeJsonArray(data).filter(s => s && s.active !== false);
-
-    featuredAll = items;
-    renderFeatured();
-
-    // Empty message toggle
-    document.getElementById("featured-empty").hidden = (featuredAll.length > 0);
-  }
-
-  function renderFeatured(){
-    const grid   = document.getElementById("featured-grid");
-    const max    = showingAll ? 12 : 4;
-    grid.innerHTML = '';
-    (featuredAll.slice(0, max)).forEach(site => {
-      // makeSiteCard should exist in assets/cards.js
-      grid.appendChild(makeSiteCard(site));
-    });
-    const toggle = document.getElementById("featured-toggle");
-    if (toggle){
-      toggle.textContent = showingAll ? "Show Less" : "View All";
-    }
-  }
-
-  // ---- Latest Info (uses makeInfoCard from assets/cards.js) ----
-  function parseDate(s){
-    if(!s) return null;
+  // Date helper (tolerates YYYY-MM-DD and ISO)
+  function parseDateSafe(s){
+    if (!s) return null;
     const d = new Date(s);
     return isNaN(d) ? null : d;
   }
 
-  async function loadInfo(){
-  const rows = await fetch(INFO_JSON, {cache:'no-store'}).then(r=>r.json());
+  // ---- Hero ----
+  (async function loadHero(){
+    const d = await getJSON(EXPLORE_HERO_JSON);
+    if (!d) return;
+    // Support both {title, subtitle} and {headline, body}
+    const title = d.title ?? d.headline ?? "Welcome to the Maths Hub!";
+    const body  = d.subtitle ?? d.body ?? "";
 
-  const valid = (rows || []).filter(r => r.text && r.date);
-  valid.sort((a,b)=> parseDate(b.date) - parseDate(a.date));
+    const h = document.getElementById("explore-hero-headline");
+    const p = document.getElementById("explore-hero-body");
+    if (h) h.textContent = title;
+    if (p) p.textContent = body;
+  })();
 
-  const container = document.getElementById('info-list');
-  container.innerHTML = '';
-  if(!valid.length){
-    container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
-    return;
+  // ---- Featured Sites ----
+  let featuredAll = [];
+  let showingAll  = false;
+
+  async function loadFeatured(){
+    const data  = await getJSON(FEATURED_JSON);
+    const items = asItems(data).filter(s => s && s.active !== false);
+    featuredAll = items;
+    renderFeatured();
+
+    const empty = document.getElementById("featured-empty");
+    if (empty) empty.hidden = featuredAll.length > 0;
   }
-  valid.forEach(r => container.appendChild(makeInfoCard(r)));
-}
+
+  function renderFeatured(){
+    const grid = document.getElementById("featured-grid");
+    if (!grid) return;
+    const max = showingAll ? 12 : 4;
+
+    grid.innerHTML = "";
+    featuredAll.slice(0, max).forEach(site => {
+      // makeSiteCard is defined in assets/cards.js
+      grid.appendChild(makeSiteCard(site));
+    });
+
+    const toggle = document.getElementById("featured-toggle");
+    if (toggle) toggle.textContent = showingAll ? "Show Less" : "View All";
+  }
+
+  // ---- Latest Information ----
+  async function loadInfo(){
+    const data = await getJSON(INFO_JSON);
+    const rows = asItems(data);
+
+    // sort newest first; require at least text
+    const sorted = rows
+      .filter(r => r && r.text)
+      .sort((a, b) => (parseDateSafe(b.date)?.getTime() || 0) - (parseDateSafe(a.date)?.getTime() || 0));
+
+    const container = document.getElementById("info-list");
+    if (!container) return;
+
+    container.innerHTML = "";
+    if (!sorted.length){
+      container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
+      return;
+    }
+    sorted.forEach(r => container.appendChild(makeInfoCard(r)));
+  }
+
   // ---- Init ----
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const toggle = document.getElementById('featured-toggle');
-    if(toggle){
-      toggle.addEventListener('click', ()=>{
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("featured-toggle");
+    if (toggle){
+      toggle.addEventListener("click", () => {
         showingAll = !showingAll;
         renderFeatured();
       });
     }
-    loadFeatured().catch(e=>console.error('Featured load error:', e));
-    loadInfo().catch(e=>console.error('Info load error:', e));
+    loadFeatured().catch(e => console.error("Featured load error:", e));
+    loadInfo().catch(e => console.error("Info load error:", e));
   });
 </script>
 </body>
