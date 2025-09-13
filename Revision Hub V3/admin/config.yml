@@ -24,8 +24,8 @@ collections:
         name: "ks3_hero"
         format: json
         fields:
-          - { label: "headline", name: "title", widget: "string" }
-          - { label: "body", name: "subtitle", widget: "text", required: false }
+          - { label: "Title", name: "headline", widget: "string" }
+          - { label: "body", name: "body", widget: "text" }
 
   # Explore Hero
   - name: "explore_hero"
@@ -36,8 +36,8 @@ collections:
         name: "explore_hero"
         format: json
         fields:
-          - { label: "headline", name: "title", widget: "string" }
-          - { label: "body", name: "subtitle", widget: "text", required: false }
+          - { label: "Title", name: "headline", widget: "string" }
+          - { label: "body", name: "body", widget: "text" }
 
   # Featured Sites
   - name: "featured_sites"
