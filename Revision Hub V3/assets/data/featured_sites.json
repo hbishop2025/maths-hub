@@ -27,6 +27,20 @@
       "name": "SPARX Maths",
       "url": "https://selectschool.sparx-learning.com/?app=sparx_learning&route=https%3A%2F%2Fmaths.sparx-learning.com%2F",
       "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "BBC Bitesize (GCSE)",
+      "url": "https://www.bbc.co.uk/bitesize/examspecs/z9p3mnb",
+      "logo": "https://ichef.bbci.co.uk/images/ic/1200xn/p0dpbj2m.jpg"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "Maths Genie",
+      "url": "https://www.mathsgenie.co.uk/",
+      "logo": "https://www.mathsgenie.co.uk/genie10.png"
     }
   ]
 }
