@@ -75,7 +75,7 @@ collections:
             name: "items"
             widget: "list"
             fields:
-              - { label: "Type", name: "type", widget: "string", required: false }
+              - { label: "Type", name: "type", widget: "select", options: ["Announcement","Update","Information"], default: "Announcement" }
               - { label: "Text", name: "text", widget: "string" }
               - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
               - { label: "URL (optional)", name: "url", widget: "string", required: false }
