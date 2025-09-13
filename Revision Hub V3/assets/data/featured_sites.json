@@ -13,6 +13,13 @@
       "name": "Online Textbooks",
       "url": "https://www.pearsonactivelearn.com/app/home",
       "logo": "https://login.pearson.com/v1/piapi/iesui/static/media/PearsonLogo_Horizontal_Blk_RGB.236878eb12bcef8a8d01.png"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "My Maths",
+      "url": "https://login.mymaths.co.uk/login",
+      "logo": "https://static.mymaths.co.uk/assets/v18-2-1/mymaths/logo-primary-new-blue-bf1d54b5c338397e7a778c907934a47e46856b3cfb6c45093f1365aefbdf28c8.svg"
     }
   ]
 }
