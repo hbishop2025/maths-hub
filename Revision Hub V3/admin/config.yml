@@ -1,5 +1,6 @@
 backend:
   name: git-gateway
+  repo: hbishop2025/maths-hub   # <- your repo
   branch: main
 
 site_url: /
@@ -15,33 +16,119 @@ editor:
   preview: false
 
 collections:
-  # 1) KS3 Resources (three separate JSON files)
-  - label: "KS3 Resources"
-    name: "ks3_resources"
-    icon: "book"
-    # 'files' lets us manage multiple single JSON files in one section
+  # KS3 hero (kept)
+  - name: "ks3_hero"
+    label: "KS3 Hero"
     files:
-      - label: "Year 7"
-        name: "year7"
-        file: "Revision Hub V3/assets/data/year7.json"
-        format: "json"
+      - file: "assets/data/ks3_hero.json"
+        label: "KS3 Hero Content"
+        name: "ks3_hero"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
+
+  # 🔴 NEW: Featured Sites (replaces “Latest Resources”)
+  - name: "featured_sites"
+    label: "Featured Sites"
+    files:
+      - file: "assets/data/featured_sites.json"
+        label: "Sites"
+        name: "featured_sites"
+        format: json
+        fields:
+          - label: "Sites"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name",        name: "name",  widget: "string" }        # e.g. DrFrost, ActiveLearn
+              - { label: "URL",         name: "url",   widget: "string" }
+              - { label: "Description", name: "desc",  widget: "text", required: false }
+              - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
+              - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
+              - { label: "Category",    name: "category", widget: "select", options: ["Practice","Textbook","Video","Tools","Other"], required: false }
+              - { label: "Accent Color",name: "accent", widget: "string", required: false, hint: "Any CSS color (e.g. #EF4444 or rgb(...))" }
+              - { label: "Active",      name: "active", widget: "boolean", default: true }
+
+  # Info (kept)
+  - name: "info"
+    label: "Info (Homepage Notices)"
+    files:
+      - file: "assets/data/info.json"
+        label: "Info Items"
+        name: "info_items"
+        format: json
         fields:
           - label: "Items"
             name: "items"
             widget: "list"
-            summary: "{{fields.unit | default('—')}} — {{fields.title}}"
             fields:
-              - { label: "Unit (e.g. 01)", name: "unit", widget: "string", required: false }
-              - { label: "Block (worksheets/videos/other)", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], required: false }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "URL", name: "url", widget: "string", hint: "Full https:// link", pattern: ["^https?://", "Must start with http(s)://"] }
-              - { label: "Added (ISO)", name: "addediso", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
-              - { label: "Active", name: "active", widget: "boolean", default: true }
-      - label: "Year 8"
-        name: "year8"
-        file: "Revision Hub V3/assets/data/year8.json"
-        format: "json"
+              - { label: "Type", name: "type", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "string" }
+              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+              - { label: "URL (optional)", name: "url", widget: "string", required: false }
+
+  # Year 7 (ready for future)
+  - name: "year7"
+    label: "Year 7 Resources"
+    files:
+      - file: "assets/data/year7.json"
+        label: "Year 7 Items"
+        name: "year7_items"
+        format: json
         fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Unit", name: "unit", widget: "string" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL",   name: "url",   widget: "string" }
+              - { label: "Type",  name: "type",  widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+
+  # Year 8 (ready for future)
+  - name: "year8"
+    label: "Year 8 Resources"
+    files:
+      - file: "assets/data/year8.json"
+        label: "Year 8 Items"
+        name: "year8_items"
+        format: json
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Unit", name: "unit", widget: "string" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL",   name: "url",   widget: "string" }
+              - { label: "Type",  name: "type",  widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+
+  # Year 9 (kept)
+  - name: "year9"
+    label: "Year 9 Resources"
+    files:
+      - file: "assets/data/year9.json"
+        label: "Year 9 Items"
+        name: "year9_items"
+        format: json
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Unit", name: "unit", widget: "string" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL",   name: "url",   widget: "string" }
+              - { label: "Type",  name: "type",  widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
           - label: "Items"
             name: "items"
             widget: "list"
