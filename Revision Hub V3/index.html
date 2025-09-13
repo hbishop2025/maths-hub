@@ -138,23 +138,19 @@
   }
 
   async function loadInfo(){
-    const res  = await fetch(INFO_JSON, {cache:'no-store'});
-    const data = await res.json();
-    const now  = new Date();
+  const rows = await fetch(INFO_JSON, {cache:'no-store'}).then(r=>r.json());
 
-    const items = normalizeJsonArray(data)
-      .filter(r => r && r.text && r.date && parseDate(r.date) && parseDate(r.date) >= now)
-      .sort((a,b)=> parseDate(a.date) - parseDate(b.date));
+  const valid = (rows || []).filter(r => r.text && r.date);
+  valid.sort((a,b)=> parseDate(b.date) - parseDate(a.date));
 
-    const container = document.getElementById('info-list');
-    container.innerHTML = '';
-    if(!items.length){
-      container.innerHTML = '<p class="text-gray-500">No upcoming information.</p>';
-      return;
-    }
-    items.forEach(r => container.appendChild(makeInfoCard(r)));
+  const container = document.getElementById('info-list');
+  container.innerHTML = '';
+  if(!valid.length){
+    container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
+    return;
   }
-
+  valid.forEach(r => container.appendChild(makeInfoCard(r)));
+}
   // ---- Init ----
   document.addEventListener('DOMContentLoaded', ()=>{
     const toggle = document.getElementById('featured-toggle');
