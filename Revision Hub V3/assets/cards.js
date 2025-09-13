@@ -61,39 +61,42 @@ function ytThumbFor(url){
 // “Latest Information” card (index)
 function makeInfoCard({ type, text, date, url }) {
   const hasLink = url && url.trim();
-  const div = document.createElement("div");
+  const baseClasses =
+    "bg-white p-4 rounded-xl shadow-sm transition";
 
-  // Card container
-  div.className =
-    "bg-white p-4 rounded-xl shadow-sm";
+  if (hasLink) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.className = baseClasses + " block hover:shadow-md hover:-translate-y-0.5 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+    a.setAttribute("aria-label", `More info: ${text || type || ""}`);
 
-  // Inner layout: text on left, button on right (stacks on small screens)
-  div.innerHTML = `
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
-        <p class="font-semibold text-gray-800">${text || ""}</p>
-        ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
-      </div>
-
-      ${
-        hasLink
-          ? `
-        <a
-          class="inline-flex items-center px-6 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition"
-          href="${url}"
-          target="_blank"
-          rel="noopener"
-          aria-label="More info about: ${text || type || "item"}"
-        >
+    a.innerHTML = `
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
+          <p class="font-semibold text-gray-800">${text || ""}</p>
+          ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
+        </div>
+        <span class="inline-flex items-center px-6 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition">
           More Info
           <span class="material-icons ml-2">arrow_forward</span>
-        </a>`
-          : ``
-      }
+        </span>
+      </div>
+    `;
+    return a;
+  }
+
+  const div = document.createElement("div");
+  div.className = baseClasses;
+  div.innerHTML = `
+    <div>
+      ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
+      <p class="font-semibold text-gray-800">${text || ""}</p>
+      ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
     </div>
   `;
-
   return div;
 }
 
@@ -118,11 +121,10 @@ function makeSiteCard(site){
   const name = site?.name || "Resource";
   const url  = ensureHttps(site?.url);
   const desc = site?.description || "";
-  const cta  = site?.cta || "Open";
 
   // Brand colours (for logo/icon backgrounds)
   const bg     = site?.brand?.bg     || "#F3F4F6";  // light gray
-  const fg     = site?.brand?.fg     || "#2563EB";  // blue-600
+  const fg     = site?.brand?.fg     || "#2563EB";  // blue-600 (used for small icon only)
   const stripe = site?.brand?.stripe || "rgba(0,0,0,0.03)";
 
   // Icon fallback by type
@@ -132,7 +134,6 @@ function makeSiteCard(site){
     site?.type === "textbook"? "menu_book" :
     "link";
 
-  // Media block: logo or icon
   const media = site?.logo
     ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
             style="background:linear-gradient(135deg, ${bg}, #ffffff);">
@@ -144,8 +145,7 @@ function makeSiteCard(site){
                 transparent 8px,
                 transparent 16px
               ); opacity:.6;"></div>
-         <img src="${site.logo}" alt="${name} logo"
-              class="relative h-12 w-auto object-contain">
+         <img src="${site.logo}" alt="${name} logo" class="relative h-12 w-auto object-contain">
        </div>`
     : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
             style="background:linear-gradient(135deg, ${bg}, #ffffff);">
@@ -160,22 +160,23 @@ function makeSiteCard(site){
          <span class="material-icons text-5xl" style="color:${fg};">${typeIcon}</span>
        </div>`;
 
+  // Whole card is the link
   const card = document.createElement("a");
   card.href = url;
   card.target = "_blank";
   card.rel = "noopener";
   card.className =
-    "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform";
+    "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
 
   card.innerHTML = `
     ${media}
-    <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
-    ${desc ? `<p class="text-sm text-gray-500 mb-4">${desc}</p>` : ``}
-    <span class="inline-flex items-center px-4 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition">
-      ${cta}
-      <span class="material-icons ml-1">open_in_new</span>
-    </span>
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
+        ${desc ? `<p class="text-sm text-gray-500">${desc}</p>` : ``}
+      </div>
+      <span class="material-icons text-gray-400 mt-1">open_in_new</span>
+    </div>
   `;
-
   return card;
 }
