@@ -122,7 +122,7 @@ function makeSiteCard(site){
 
   // Brand colours with sensible defaults
   const bg     = site?.brand?.bg     || "#F3F4F6";  // gray-100
-  const fg     = site?.brand?.fg     || "var(--accent)";
+  const fg     = site?.brand?.fg     || "#2563EB";  // default blue-600
   const stripe = site?.brand?.stripe || "rgba(0,0,0,0.03)";
 
   // Icon fallback by type
@@ -134,10 +134,8 @@ function makeSiteCard(site){
 
   // Media block: logo circle OR large type icon
   const media = site?.logo
-    ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center"
-            style="background:
-                   linear-gradient(135deg, ${bg}, #ffffff);
-                   position:relative;">
+    ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
+            style="background:linear-gradient(135deg, ${bg}, #ffffff);">
          <div class="absolute inset-0" style="
               background: repeating-linear-gradient(
                 -45deg,
@@ -145,14 +143,12 @@ function makeSiteCard(site){
                 ${stripe} 8px,
                 transparent 8px,
                 transparent 16px
-              );
-              opacity:.6;"></div>
-         <img src="${site.logo}" alt="${name} logo" class="relative h-12 w-auto object-contain">
+              ); opacity:.6;"></div>
+         <img src="${site.logo}" alt="${name} logo"
+              class="relative h-12 w-auto object-contain">
        </div>`
-    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center"
-            style="background:
-                   linear-gradient(135deg, ${bg}, #ffffff);
-                   position:relative;">
+    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
+            style="background:linear-gradient(135deg, ${bg}, #ffffff);">
          <div class="absolute inset-0" style="
               background: repeating-linear-gradient(
                 -45deg,
@@ -160,8 +156,7 @@ function makeSiteCard(site){
                 ${stripe} 8px,
                 transparent 8px,
                 transparent 16px
-              );
-              opacity:.6;"></div>
+              ); opacity:.6;"></div>
          <span class="material-icons text-5xl" style="color:${fg};">${typeIcon}</span>
        </div>`;
 
@@ -169,9 +164,11 @@ function makeSiteCard(site){
   card.className = "bg-white p-4 rounded-xl shadow-sm";
   card.innerHTML = `
     ${media}
-    <h3 class="font-semibold mb-1" style="color:${fg};">${name}</h3>
-    ${desc ? `<p class="text-sm text-gray-600 mb-2">${desc}</p>` : ``}
-    <a class="flex items-center font-semibold" href="${url}" target="_blank" rel="noopener" style="color:${fg};">
+    <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
+    ${desc ? `<p class="text-sm text-gray-500 mb-4">${desc}</p>` : ``}
+    <a class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-white"
+       href="${url}" target="_blank" rel="noopener"
+       style="background:${fg};">
       ${cta}
       <span class="material-icons ml-1">open_in_new</span>
     </a>
