@@ -1,1 +1,10 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "url": "https://mathshub.netlify.app/ks3_hub.html",
+      "date": "2025-09-13",
+      "type": "Announcement",
+      "text": "Launch of the New KS3 Hub"
+    }
+  ]
+}
