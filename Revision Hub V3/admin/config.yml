@@ -1,0 +1,104 @@
+backend:
+  name: git-gateway         # Netlify Identity + Git Gateway
+  branch: main
+
+media_folder: "assets/media"
+public_folder: "/assets/media"
+publish_mode: simple
+locale: "en"
+
+# We will edit the *same JSON files* your site fetches.
+collections:
+  - name: "data"
+    label: "Data"
+    editor: { preview: false }
+    files:
+      # Explore (index “Latest Resources”)
+      - name: "explore"
+        label: "Explore – Latest Resources"
+        file: "assets/data/explore.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            collapsed: false
+            fields:
+              - { label: "Year",  name: "year",  widget: "number", min: 7, max: 9, required: false }
+              - { label: "Unit",  name: "unit",  widget: "number", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL",   name: "url",   widget: "string", pattern: ['^https?://', 'Must be a full URL'] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", time_format: false, format: "YYYY-MM-DD", default: "{{now | date('YYYY-MM-DD')}}" }
+
+      # Info items (index “Latest Information”)
+      - name: "info"
+        label: "Info – Announcements"
+        file: "assets/data/info.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            collapsed: false
+            fields:
+              - { label: "Type", name: "type", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Date", name: "date", widget: "datetime", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "URL",  name: "url",  widget: "string", required: false, pattern: ['^$|^https?://', 'Leave blank or use a full URL'] }
+
+      # Year 9 resources (used by unit pages)
+      - name: "year9"
+        label: "Year 9 – Resources"
+        file: "assets/data/year9.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Resources"
+            name: "items"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { label: "Unit",     name: "unit",     widget: "number", min: 1, max: 12 }
+              - { label: "BlockKey", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
+              - { label: "Title",    name: "title",    widget: "string" }
+              - { label: "URL",      name: "url",      widget: "string", pattern: ['^https?://', 'Must be a full URL'] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", time_format: false, format: "YYYY-MM-DD", default: "{{now | date('YYYY-MM-DD')}}" }
+              - { label: "Active",   name: "active",   widget: "boolean", default: true }
+
+      # (Future) Year 8
+      - name: "year8"
+        label: "Year 8 – Resources"
+        file: "assets/data/year8.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Resources"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Unit",     name: "unit",     widget: "number" }
+              - { label: "BlockKey", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
+              - { label: "Title",    name: "title",    widget: "string" }
+              - { label: "URL",      name: "url",      widget: "string", pattern: ['^https?://', 'Must be a full URL'] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", time_format: false, format: "YYYY-MM-DD", default: "{{now | date('YYYY-MM-DD')}}" }
+              - { label: "Active",   name: "active",   widget: "boolean", default: true }
+
+      # (Future) Year 7
+      - name: "year7"
+        label: "Year 7 – Resources"
+        file: "assets/data/year7.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Resources"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Unit",     name: "unit",     widget: "number" }
+              - { label: "BlockKey", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
+              - { label: "Title",    name: "title",    widget: "string" }
+              - { label: "URL",      name: "url",      widget: "string", pattern: ['^https?://', 'Must be a full URL'] }
+              - { label: "Added (ISO)", name: "addediso", widget: "datetime", time_format: false, format: "YYYY-MM-DD", default: "{{now | date('YYYY-MM-DD')}}" }
+              - { label: "Active",   name: "active",   widget: "boolean", default: true }
