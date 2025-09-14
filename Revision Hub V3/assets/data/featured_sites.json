@@ -49,6 +49,13 @@
       "name": "Third Space Learning",
       "url": "https://thirdspacelearning.com/secondary-resources/",
       "logo": "https://cdn-ildeonj.nitrocdn.com/aqvkkZYZbGuRYrvFWOruinqOcGLcmRRD/assets/images/optimized/rev-0b928fc/thirdspacelearning.com/wp-content/uploads/2020/10/tsl-logo.png"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "Save my exams",
+      "logo": "https://www.savemyexams.com/cdn-cgi/image/f=auto,width=384/https://cdn.savemyexams.com/logo/sme-logo-small.svg",
+      "url": "https://www.savemyexams.com/gcse/"
     }
   ]
 }
