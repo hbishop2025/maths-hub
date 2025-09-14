@@ -22,17 +22,17 @@
       overflow: hidden;
     }
     .bg-stripes::before {
-      content: "";
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        -45deg,
-        rgba(0,0,0,0.035),
-        rgba(0,0,0,0.035) 8px,
-        transparent 8px,
-        transparent 16px
-      );
-      pointer-events: none;
-    }
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.02) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+  pointer-events: none;
+}
   </style>
 </head>
 <body class="bg-gray-100">
@@ -60,21 +60,10 @@
       <section>
         <div class="bg-white rounded-2xl shadow-sm p-8 bg-stripes">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <!-- Icon / Illustration -->
-            <div class="md:col-span-1 flex items-center justify-center">
-              <!-- Material icon as fallback -->
-              <span class="material-icons text-7xl text-gray-400 md:hidden">construction</span>
-
-              <!-- Simple crane SVG (accessible) -->
-              <svg class="hidden md:block w-48 h-48 text-gray-300" viewBox="0 0 256 256" role="img" aria-label="Construction crane">
-                <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M24 224h208M48 224V96l48-48 80 48v128"/>
-                  <path d="M96 48v48m80-0-80-48M48 128h80"/>
-                  <circle cx="168" cy="136" r="16"/>
-                  <path d="M184 136v40"/>
-                </g>
-              </svg>
-            </div>
+            <!-- Icon -->
+<div class="md:col-span-1 flex items-center justify-center">
+  <span class="material-icons text-7xl text-gray-400">construction</span>
+</div>
 
             <!-- Text -->
             <div class="md:col-span-2">
