@@ -201,28 +201,23 @@ collections:
         format: json
         fields: *year9_fields
 
-      - name: "year9_hero"
-        label: "Year 9 — Left Hero"
-        files:
-          - file: "Revision Hub V3/assets/data/year9_hero.json"
-            label: "Year 9 Left Panel"
-            name: "year9_hero_left"
-            format: json
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
-              - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. school" }
-
-      - name: "year9_exam"
-        label: "Year 9 — Right Hero (EOY)"
-        files:
-          - file: "Revision Hub V3/assets/data/year9_exam.json"
-            label: "EOY Exam Panel"
-            name: "year9_exam_right"
-            format: json
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Body", name: "body", widget: "text", required: false }
-              - { label: "CTA Label", name: "cta_label", widget: "string", default: "Revision Page" }
-              - { label: "CTA URL", name: "cta_url", widget: "string" }
-              - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. event_note" }
+      - name: "year9_hero_left"
+        file: "Revision Hub V3/assets/data/year9_hero.json"
+        label: "Year 9 Left Panel"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. school" }
+      
+      
+      - name: "year9_exam_right"
+        file: "Revision Hub V3/assets/data/year9_exam.json"
+        label: "EOY Exam Panel"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "text", required: false }
+          - { label: "CTA Label", name: "cta_label", widget: "string", default: "Revision Page" }
+          - { label: "CTA URL", name: "cta_url", widget: "string" }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. event_note" }
