@@ -16,40 +16,40 @@ editor:
 
 collections:
    # KS3 Hub (Hero + Featured Sites in one section)
-- name: "ks3_hub"
-  label: "KS3 Hub Content"
-  files:
-    # Hero text
-    - file: "Revision Hub V3/assets/data/ks3_hero.json"
-      label: "Hero Text"
-      name: "ks3_hero"
-      format: json
-      fields:
-        - { label: "Title", name: "headline", widget: "string" }
-        - { label: "Body",  name: "body", widget: "text" }
-        # Optional icon if you want it later:
-        # - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
+  - name: "ks3_hub"
+    label: "KS3 Hub Content"
+    files:
+      # Hero text
+      - file: "Revision Hub V3/assets/data/ks3_hero.json"
+        label: "Hero Text"
+        name: "ks3_hero"
+        format: json
+        fields:
+          - { label: "Title", name: "headline", widget: "string" }
+          - { label: "Body",  name: "body", widget: "text" }
+          # Optional icon if you want it later:
+          # - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
 
-    # KS3 Featured Sites
-    - file: "Revision Hub V3/assets/data/ks3_featured_sites.json"
-      label: "Featured Sites"
-      name: "ks3_featured_sites"
-      format: json
-      fields:
-        - label: "Sites"
-          name: "items"
-          widget: "list"
-          summary: "{{fields.name}}"
-          fields:
-            - { label: "Name",        name: "name",  widget: "string" }
-            - { label: "URL",         name: "url",   widget: "string" }
-            - { label: "Description", name: "description", widget: "text", required: false }
-            - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
-            - { label: "Type",        name: "type",  widget: "select", options: ["site","drive","quiz","textbook","tools","other"], required: false }
-            - { label: "Brand BG",    name: "brand.bg", widget: "string", required: false, hint: "e.g. #F3F4F6" }
-            - { label: "Brand FG",    name: "brand.fg", widget: "string", required: false, hint: "e.g. #1F2937" }
-            - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
-            - { label: "Active",      name: "active", widget: "boolean", default: true }
+      # KS3 Featured Sites
+      - file: "Revision Hub V3/assets/data/ks3_featured_sites.json"
+        label: "Featured Sites"
+        name: "ks3_featured_sites"
+        format: json
+        fields:
+          - label: "Sites"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name",        name: "name",  widget: "string" }
+              - { label: "URL",         name: "url",   widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
+              - { label: "Type",        name: "type",  widget: "select", options: ["site","drive","quiz","textbook","tools","other"], required: false }
+              - { label: "Brand BG",    name: "brand.bg", widget: "string", required: false, hint: "e.g. #F3F4F6" }
+              - { label: "Brand FG",    name: "brand.fg", widget: "string", required: false, hint: "e.g. #1F2937" }
+              - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
+              - { label: "Active",      name: "active", widget: "boolean", default: true }
   # Explore Hero
   - name: "explore_hero"
     label: "Explore - Welcome Text"
