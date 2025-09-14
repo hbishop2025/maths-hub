@@ -13,6 +13,13 @@
       "name": "SPARX",
       "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg",
       "url": "https://sparxmaths.com/"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "Mr Gale Maths",
+      "logo": "https://mrgalemaths.weebly.com/uploads/1/1/4/5/114582133/mr-gale-logo_orig.jpg",
+      "url": "https://mrgalemaths.weebly.com/"
     }
   ]
 }
