@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KS3 Maths Hub</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>KS3 Hub</title>
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
@@ -14,73 +14,7 @@
 
   <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css"/>
-
-  <style>
-    :root{ --bar:#1F2937; } /* gray-800 for top strip/badge */
-    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
-
-    /* ===== Card tiles (consistent size, whole-tile clickable) ===== */
-    .flip{ perspective:1000px; }
-    .flip-inner{
-      position:relative; width:100%; height:100%;
-      transform-style:preserve-3d; transition: transform .6s;
-    }
-    .flip:hover .flip-inner{ transform: rotateY(180deg); }
-
-    .unit-card{ height:16rem; }  /* fixed tile height */
-    .flip-inner{ height:100%; }
-
-    .flip-face{
-      position:absolute; inset:0; backface-visibility:hidden;
-      border-radius:14px; overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-      border:1px solid rgba(0,0,0,.06);
-      background:#fff; display:flex; flex-direction:column;
-    }
-    .flip-front{ padding:16px; position:relative; }
-    .flip-front::after{
-      content:""; position:absolute; inset:0; pointer-events:none;
-      background:
-        repeating-linear-gradient(-45deg,
-          rgba(0,0,0,0.03) 0px,
-          rgba(0,0,0,0.03) 8px,
-          transparent 8px,
-          transparent 16px);
-    }
-    .flip-front .bar{
-      position:absolute; left:0; right:0; top:0; height:5px;
-      background: var(--bar);
-    }
-    .flip-back{ padding:16px; transform: rotateY(180deg); }
-    .flip-back .scroll{ flex:1; overflow:auto; }
-
-    .unit-badge{
-      font-weight:800; font-size:14px; color:#fff; background:var(--bar);
-      padding:4px 10px; border-radius:999px; display:inline-flex; min-width:2.25rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.2);
-    }
-    .unit-title{ font-weight:800; font-size: clamp(18px, 2.4vw, 20px); color:#111; }
-    .subtopic{
-      background:#f3f4f6; color:#374151; border:1px solid #e5e7eb;
-      border-radius:999px; padding:4px 8px; font-size:12px; font-weight:600; white-space:nowrap;
-    }
-
-    /* ===== Hero split (neutral) ===== */
-    .hero-left{
-      background:#fff; border:1px solid #e5e7eb;
-    }
-    .hero-right{
-      background:#111827; color:#e5e7eb; border:1px solid #111827;
-    }
-
-    /* Whole tile clickable + focus ring */
-    .tile-link{ display:block; outline:none; height:100%; }
-    .tile-link:focus .flip-face{
-      box-shadow:0 0 0 3px rgba(31,41,55,.3), 0 8px 24px rgba(0,0,0,.10);
-    }
-  </style>
 </head>
-
 <body class="bg-gray-100" data-page="ks3">
   <div class="layout">
     <!-- Sidebar -->
@@ -90,161 +24,168 @@
     <main class="main p-8 overflow-y-auto">
       <!-- Header -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
           <a href="index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-            <span class="material-icons mr-1">arrow_back</span>
-            Back
+            <span class="material-icons mr-1">arrow_back</span> Back to Explore
           </a>
-          <span class="text-gray-400">/</span>
-          <h1 class="text-2xl font-extrabold text-gray-800">KS3 — Hub</h1>
         </div>
+        <h1 class="text-2xl font-extrabold text-gray-800">KS3 Hub</h1>
       </header>
 
-      <!-- Split hero: left welcome (CMS), right exams (CMS) -->
-      <section class="mb-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Left: Welcome -->
-          <div class="hero-left rounded-2xl p-6 lg:col-span-2">
-            <div class="flex items-start gap-4">
-              <span class="material-icons text-[44px] text-gray-700">view_carousel</span>
-              <div>
-                <h2 id="ks3-hero-title" class="text-xl font-bold text-gray-900">Welcome to the KS3 Hub</h2>
-                <p id="ks3-hero-body" class="text-gray-600 mt-2">
-                  Choose your year group to find unit pages, worksheets, videos and more.
-                </p>
-              </div>
+      <!-- Hero row: left = welcome (from JSON), right = EOY box (edit text in file or CMS if you like) -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Welcome -->
+        <article class="bg-white rounded-2xl shadow-sm p-6">
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-5xl text-yellow-500">school</span>
+            <div>
+              <h2 id="ks3-hero-title" class="text-xl font-bold text-gray-800 mb-1">Welcome to KS3</h2>
+              <p id="ks3-hero-sub" class="text-gray-600">
+                A single place for Year 7–9 resources. Choose your year below.
+              </p>
             </div>
           </div>
+        </article>
 
-          <!-- Right: Exams -->
-          <div class="hero-right rounded-2xl p-6">
-            <div class="flex items-start gap-4">
-              <span class="material-icons text-[44px] text-gray-300">event</span>
-              <div class="flex-1">
-                <h3 id="ks3-exam-title" class="text-lg font-bold text-white">End of Year Exams</h3>
-                <p id="ks3-exam-body" class="text-sm text-gray-300 mt-2">
-                  Revision checklists, practice papers and guidance in one place.
-                </p>
-                <a id="ks3-exam-link" href="ks3_eoy.html"
-                   class="mt-4 inline-flex items-center px-4 py-2 rounded-lg font-semibold bg-white text-gray-900 hover:bg-gray-100 transition">
-                  Open revision page <span class="material-icons ml-2">arrow_forward</span>
-                </a>
-              </div>
+        <!-- EOY -->
+        <article class="rounded-2xl p-6 text-white" style="background:#1F2937">
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-5xl text-white/90">event</span>
+            <div class="flex-1">
+              <h2 class="text-xl font-bold mb-1">End of Year Exams</h2>
+              <p class="text-white/80 mb-3">
+                Guidance and revision resources for KS3 end-of-year exams.
+              </p>
+              <a href="eoy_ks3.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold">
+                View EOY Resources <span class="material-icons ml-2">arrow_forward</span>
+              </a>
             </div>
           </div>
-        </div>
+        </article>
       </section>
 
-      <!-- Year tiles -->
-      <section aria-label="KS3 Years">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">Choose a Year</h2>
-        </div>
+      <!-- Year cards (no flip, equal size) -->
+      <section class="mb-10" aria-label="Choose a year">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Choose your year</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
           <!-- Year 7 -->
-          <a href="year7_hub.html" class="tile-link flip unit-card" aria-label="Open Year 7">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">Y7</span>
-                <h3 class="unit-title">Year 7</h3>
-                <p class="text-sm text-gray-600 mt-1">Foundations & Core Skills</p>
+          <a href="year7_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#E0ECFF;">
+                <span class="material-icons" style="color:#2563EB;">looks_one</span>
               </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">What’s inside</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">Number</span>
-                    <span class="subtopic">Algebra basics</span>
-                    <span class="subtopic">Geometry</span>
-                    <span class="subtopic">Data</span>
-                  </div>
-                </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Topics, worksheets, videos, and more.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
               </div>
             </div>
           </a>
 
           <!-- Year 8 -->
-          <a href="year8_hub.html" class="tile-link flip unit-card" aria-label="Open Year 8">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">Y8</span>
-                <h3 class="unit-title">Year 8</h3>
-                <p class="text-sm text-gray-600 mt-1">Next Steps & Extending</p>
+          <a href="year8_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#DCFCE7;">
+                <span class="material-icons" style="color:#16A34A;">looks_two</span>
               </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">What’s inside</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">Expressions</span>
-                    <span class="subtopic">Equations</span>
-                    <span class="subtopic">Area & Volume</span>
-                    <span class="subtopic">Statistics</span>
-                  </div>
-                </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Consolidate and build on foundations.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
               </div>
             </div>
           </a>
 
           <!-- Year 9 -->
-          <a href="year9_hub.html" class="tile-link flip unit-card" aria-label="Open Year 9">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">Y9</span>
-                <h3 class="unit-title">Year 9</h3>
-                <p class="text-sm text-gray-600 mt-1">Ready for GCSE</p>
+          <a href="year9_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#FFE4E6;">
+                <span class="material-icons" style="color:#EF4444;">looks_3</span>
               </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">What’s inside</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">Quadratics</span>
-                    <span class="subtopic">Inequalities</span>
-                    <span class="subtopic">Graphs</span>
-                    <span class="subtopic">Trigonometry</span>
-                  </div>
-                </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Final KS3 year: prepare and push further.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
               </div>
             </div>
           </a>
-
         </div>
       </section>
 
-      <div class="h-8"></div>
+      <!-- KS3 Featured Sites (CMS-controlled) -->
+      <section class="mt-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">KS3 Featured Sites</h2>
+        </div>
+        <div id="ks3-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <p id="ks3-featured-empty" class="text-gray-500" hidden>No featured sites yet.</p>
+      </section>
     </main>
   </div>
 
-  <!-- Sidebar loader -->
+  <!-- Shared scripts -->
   <script src="assets/sidebar-loader.js"></script>
+  <script src="assets/cards.js"></script>
 
-  <!-- Load hero/exam content from CMS JSON -->
   <script>
-    (async function(){
-      // KS3 hero text (Decap: assets/data/ks3_hero.json)
-      try{
-        const hero = await fetch('assets/data/ks3_hero.json', {cache:'no-store'}).then(r=>r.ok?r.json():null);
-        if(hero){
-          if(hero.title)    document.getElementById('ks3-hero-title').textContent = hero.title;
-          if(hero.subtitle) document.getElementById('ks3-hero-body').textContent  = hero.subtitle;
-        }
-      }catch(e){}
+    // JSON sources (all Decap-managed)
+    const KS3_HERO_JSON   = "assets/data/ks3_hero.json";
+    const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
 
-      // KS3 exam panel (optional Decap: assets/data/ks3_exam.json)
+    // ---- Hero text ----
+    fetch(KS3_HERO_JSON, {cache:"no-store"})
+      .then(r => r.json())
+      .then(d => {
+        // Support either {title, subtitle} or {headline, body}
+        const title = d.title || d.headline || "Welcome to KS3";
+        const sub   = d.subtitle || d.body || "A single place for Year 7–9 resources. Choose your year below.";
+        document.getElementById("ks3-hero-title").textContent = title;
+        document.getElementById("ks3-hero-sub").textContent   = sub;
+      })
+      .catch(()=>{});
+
+    // Helper: tolerate array or {items:[]}
+    function normList(data){
+      if(Array.isArray(data)) return data;
+      if(data && Array.isArray(data.items)) return data.items;
+      return [];
+    }
+
+    // ---- KS3 Featured Sites (reuse makeSiteCard from assets/cards.js) ----
+    async function loadKS3Sites(){
       try{
-        const exam = await fetch('assets/data/ks3_exam.json', {cache:'no-store'}).then(r=>r.ok?r.json():null);
-        if(exam){
-          if(exam.title)      document.getElementById('ks3-exam-title').textContent = exam.title;
-          if(exam.subtitle)   document.getElementById('ks3-exam-body').textContent  = exam.subtitle;
-          if(exam.link)       document.getElementById('ks3-exam-link').setAttribute('href', exam.link);
-          if(exam.link_label) document.getElementById('ks3-exam-link').firstChild.textContent = exam.link_label + ' ';
-        }
-      }catch(e){}
-    })();
+        const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
+        const data = await res.json();
+        const items = normList(data).filter(x => x && x.active !== false);
+
+        const grid = document.getElementById("ks3-featured-grid");
+        grid.innerHTML = "";
+        items.forEach(site => grid.appendChild(makeSiteCard(site)));
+
+        document.getElementById("ks3-featured-empty").hidden = items.length > 0;
+      }catch(e){
+        console.error("KS3 featured sites load error:", e);
+        document.getElementById("ks3-featured-empty").hidden = false;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadKS3Sites);
   </script>
 </body>
 </html>
