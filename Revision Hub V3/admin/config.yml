@@ -107,48 +107,170 @@ collections:
   - name: "year7"
     label: "Year 7 Resources"
     files:
-      - file: "Revision Hub V3/assets/data/year7.json"
-        label: "Year 7 Items"
-        name: "year7_items"
+      - name: "year7_unit01"
+        label: "Year 7 — Unit 01"
+        file: "Revision Hub V3/assets/data/year7_unit01.json"
         format: json
-        fields:
+        fields: &year7_fields
           - label: "Items"
             name: "items"
             widget: "list"
             label_singular: "Resource"
             summary: "{{fields.blockkey}} — {{fields.title}}"
             fields:
-              - { label: "Unit", name: "unit", widget: "string" }
-              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Type", name: "type", widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
               - { label: "Date Added", name: "addediso", widget: "datetime" }
               - { label: "Active", name: "active", widget: "boolean", default: true }
+
+      - name: "year7_unit02"
+        label: "Year 7 — Unit 02"
+        file: "Revision Hub V3/assets/data/year7_unit02.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit03"
+        label: "Year 7 — Unit 03"
+        file: "Revision Hub V3/assets/data/year7_unit03.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit04"
+        label: "Year 7 — Unit 04"
+        file: "Revision Hub V3/assets/data/year7_unit04.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit05"
+        label: "Year 7 — Unit 05"
+        file: "Revision Hub V3/assets/data/year7_unit05.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit06"
+        label: "Year 7 — Unit 06"
+        file: "Revision Hub V3/assets/data/year7_unit06.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit07"
+        label: "Year 7 — Unit 07"
+        file: "Revision Hub V3/assets/data/year7_unit07.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit08"
+        label: "Year 7 — Unit 08"
+        file: "Revision Hub V3/assets/data/year7_unit08.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit09"
+        label: "Year 7 — Unit 09"
+        file: "Revision Hub V3/assets/data/year7_unit09.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_unit10"
+        label: "Year 7 — Unit 10"
+        file: "Revision Hub V3/assets/data/year7_unit10.json"
+        format: json
+        fields: *year7_fields
+
+      - name: "year7_hero_left"
+        file: "Revision Hub V3/assets/data/year7_hero.json"
+        label: "Year 7 Left Panel"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. school" }
 
   # Year 8
   - name: "year8"
     label: "Year 8 Resources"
     files:
-      - file: "Revision Hub V3/assets/data/year8.json"
-        label: "Year 8 Items"
-        name: "year8_items"
+      - name: "year8_unit01"
+        label: "Year 8 — Unit 01"
+        file: "Revision Hub V3/assets/data/year8_unit01.json"
         format: json
-        fields:
+        fields: &year8_fields
           - label: "Items"
             name: "items"
             widget: "list"
             label_singular: "Resource"
             summary: "{{fields.blockkey}} — {{fields.title}}"
             fields:
-              - { label: "Unit", name: "unit", widget: "string" }
-              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"], default: "worksheets" }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Type", name: "type", widget: "select", options: ["video","worksheet","pdf","quiz","link"], default: "link" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
               - { label: "Date Added", name: "addediso", widget: "datetime" }
               - { label: "Active", name: "active", widget: "boolean", default: true }
 
+      - name: "year8_unit02"
+        label: "Year 8 — Unit 02"
+        file: "Revision Hub V3/assets/data/year8_unit02.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit03"
+        label: "Year 8 — Unit 03"
+        file: "Revision Hub V3/assets/data/year8_unit03.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit04"
+        label: "Year 8 — Unit 04"
+        file: "Revision Hub V3/assets/data/year8_unit04.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit05"
+        label: "Year 8 — Unit 05"
+        file: "Revision Hub V3/assets/data/year8_unit05.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit06"
+        label: "Year 8 — Unit 06"
+        file: "Revision Hub V3/assets/data/year8_unit06.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit07"
+        label: "Year 8 — Unit 07"
+        file: "Revision Hub V3/assets/data/year8_unit07.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit08"
+        label: "Year 8 — Unit 08"
+        file: "Revision Hub V3/assets/data/year8_unit08.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit09"
+        label: "Year 8 — Unit 09"
+        file: "Revision Hub V3/assets/data/year8_unit09.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_unit10"
+        label: "Year 8 — Unit 10"
+        file: "Revision Hub V3/assets/data/year8_unit10.json"
+        format: json
+        fields: *year8_fields
+
+      - name: "year8_hero_left"
+        file: "Revision Hub V3/assets/data/year8_hero.json"
+        label: "Year 8 Left Panel"
+        format: json
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. school" }
+      
   # Year 9
   - name: "year9"
     label: "Year 9 Resources"
