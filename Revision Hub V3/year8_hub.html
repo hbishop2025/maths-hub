@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Page under construction</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="assets/main.css"/>
+  <style>
+    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    /* light diagonal stripes background card */
+    .bg-stripes {
+      position: relative;
+      overflow: hidden;
+    }
+    
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Header -->
+      <header class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-3">
+          <button class="md:hidden"><span class="material-icons">menu</span></button>
+          <h1 id="wip-title" class="text-2xl font-bold text-gray-800">Page under construction</h1>
+        </div>
+        <div>
+          <a id="wip-cta" href="ks3_hub.html"
+             class="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
+            Back to KS3 Hub <span class="material-icons ml-2">arrow_back</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <section>
+        <div class="bg-white rounded-2xl shadow-sm p-8 bg-stripes">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <!-- Icon -->
+<div class="md:col-span-1 flex items-center justify-center">
+  <span class="material-icons text-7xl text-gray-400">construction</span>
+</div>
+
+            <!-- Text -->
+            <div class="md:col-span-2">
+              <h2 id="wip-heading" class="text-xl md:text-2xl font-semibold text-gray-800 mb-2">
+                Oops! This page is still under construction
+              </h2>
+              <p id="wip-message" class="text-gray-600 mb-6">
+                We’re putting the final touches in place. Please check back soon, or use the button below to continue exploring the site.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a id="wip-primary" href="ks3_hub.html"
+                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
+                  Go to KS3 Hub <span class="material-icons ml-2">arrow_forward</span>
+                </a>
+                <a href="index.html"
+                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition">
+                  Back to Home <span class="material-icons ml-2">home</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+    </main>
+  </div>
+
+  <!-- Sidebar loader -->
+  <script src="assets/sidebar-loader.js"></script>
+
+  <!-- Quick config (edit per page reuse) -->
+  <script>
+    // Change these per page reuse:
+    const WIP_CONFIG = {
+      title:   "KS3 — Coming Soon",
+      heading: "Oops! This page is still under construction",
+      message: "We’re putting the final touches in place. Please check back soon, or use one of the links below.",
+      primaryLabel: "Go to KS3 Hub",
+      primaryHref:  "ks3_hub.html",
+      headerCtaLabel: "Back to KS3 Hub",
+      headerCtaHref:  "ks3_hub.html"
+    };
+
+    // Apply config
+    document.getElementById("wip-title").textContent    = WIP_CONFIG.title;
+    document.getElementById("wip-heading").textContent  = WIP_CONFIG.heading;
+    document.getElementById("wip-message").textContent  = WIP_CONFIG.message;
+
+    const primary = document.getElementById("wip-primary");
+    primary.textContent = WIP_CONFIG.primaryLabel;
+    primary.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_forward</span>');
+    primary.href = WIP_CONFIG.primaryHref;
+
+    const headerCta = document.getElementById("wip-cta");
+    headerCta.textContent = WIP_CONFIG.headerCtaLabel;
+    headerCta.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_back</span>');
+    headerCta.href = WIP_CONFIG.headerCtaHref;
+    headerCta.classList.remove("hidden");
+  </script>
+</body>
+</html>
