@@ -1,0 +1,11 @@
+{
+  "items": [
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "UKMT",
+      "url": "https://ukmt.org.uk/",
+      "logo": "https://ukmt.org.uk/wp-content/uploads/2022/05/UKMT_SecondaryLogo_RGB.png"
+    }
+  ]
+}
