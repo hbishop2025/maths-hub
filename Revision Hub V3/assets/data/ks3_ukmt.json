@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Junior Maths Challenge (Past Papers)",
+      "url": "https://www.ukmt.org.uk/junior-maths-challenge",
+      "description": "Download official past papers and mark schemes to practise for the JMC.",
+      "type": "pdf",
+      "cta": "View Papers",
+      "brand": {
+        "bg": "#F0F9FF",
+        "fg": "#0369A1",
+        "stripe": "rgba(3,105,161,0.08)"
+      }
+    },
+    {
+      "name": "NRICH UKMT Problems",
+      "url": "https://nrich.maths.org/ukmt",
+      "description": "Curated collection of UKMT-style problems with full solutions.",
+      "type": "site",
+      "cta": "Explore",
+      "brand": {
+        "bg": "#F9FAFB",
+        "fg": "#7C3AED",
+        "stripe": "rgba(124,58,237,0.08)"
+      }
+    }
+  ]
+}
