@@ -237,5 +237,65 @@
 
     document.addEventListener("DOMContentLoaded", loadKS3Sites);
   </script>
+  <script>
+  // New JSON sources managed by Decap CMS
+  const KS3_UKMT_JSON     = "assets/data/ks3_ukmt.json";
+  const KS3_PROBLEMS_JSON = "assets/data/ks3_problems.json";
+  const KS3_UKMT_HERO_JSON= "assets/data/ks3_ukmt_hero.json"; // optional hero text
+
+  function normList(data){
+    if(Array.isArray(data)) return data;
+    if(data && Array.isArray(data.items)) return data.items;
+    return [];
+  }
+
+  // Optional: load hero copy for the UKMT light card
+  fetch(KS3_UKMT_HERO_JSON, {cache:"no-store"})
+    .then(r=>r.json())
+    .then(d=>{
+      const t = d.title || d.headline || "UKMT at KS3";
+      const s = d.subtitle || d.body || "Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.";
+      document.getElementById("ks3-ukmt-title").textContent = t;
+      document.getElementById("ks3-ukmt-sub").textContent   = s;
+    })
+    .catch(()=>{ /* leave defaults */ });
+
+  async function loadKs3Ukmt(){
+    try{
+      const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
+      const data = await res.json();
+      const items = normList(data).filter(x => x && x.active !== false);
+
+      const grid = document.getElementById("ks3-ukmt-grid");
+      grid.innerHTML = "";
+      items.forEach(site => grid.appendChild(makeSiteCard(site)));
+      document.getElementById("ks3-ukmt-empty").hidden = items.length > 0;
+    }catch(e){
+      console.error("UKMT load error:", e);
+      document.getElementById("ks3-ukmt-empty").hidden = false;
+    }
+  }
+
+  async function loadKs3Problems(){
+    try{
+      const res = await fetch(KS3_PROBLEMS_JSON, {cache:"no-store"});
+      const data = await res.json();
+      const items = normList(data).filter(x => x && x.active !== false);
+
+      const grid = document.getElementById("ks3-problems-grid");
+      grid.innerHTML = "";
+      items.forEach(site => grid.appendChild(makeSiteCard(site)));
+      document.getElementById("ks3-problems-empty").hidden = items.length > 0;
+    }catch(e){
+      console.error("Problem Solver load error:", e);
+      document.getElementById("ks3-problems-empty").hidden = false;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    loadKs3Ukmt();
+    loadKs3Problems();
+  });
+</script>
 </body>
 </html>
