@@ -17,10 +17,11 @@
 
   <style>
     :root{
-      --accent:#7C4DFF;      /* main */
-      --accent-600:#6A3FE6;  /* hover */
-      --accent-700:#5A35C8;  /* active */
-    }
+    /* Year 8 accent (emerald) */
+    --accent:    #10B981; /* emerald-500 */
+    --accent-600:#059669; /* hover */
+    --accent-700:#047857; /* active */
+  }
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
@@ -38,8 +39,27 @@
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
+  <style>
+  /* Subtle green stripes for Year 8 only */
+  body[data-page="year8"] .bg-stripes{
+    position: relative;
+    background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
+  }
+  body[data-page="year8"] .bg-stripes::after{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(16,185,129,.06) 0px,
+      rgba(16,185,129,.06) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+    opacity:.75;
+  }
+</style>
 </head>
-<body class="bg-gray-100" data-page="year9">
+<body class="bg-gray-100" data-page="year8">
   <div class="layout">
     <!-- Sidebar container (space reserved by CSS) -->
     <div id="sidebar" aria-label="Sidebar"></div>
