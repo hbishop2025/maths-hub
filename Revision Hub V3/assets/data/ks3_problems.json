@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Daily Maths Puzzle",
+      "url": "https://www.transum.org/Software/Puzzles/",
+      "description": "Warm up your brain each day with short puzzles and logic problems.",
+      "type": "puzzle",
+      "cta": "Try Puzzle",
+      "brand": {
+        "bg": "#FFF7ED",
+        "fg": "#EA580C",
+        "stripe": "rgba(234,88,12,0.08)"
+      }
+    },
+    {
+      "name": "NRICH Problem-Solving",
+      "url": "https://nrich.maths.org/secondary-lower",
+      "description": "Rich problem-solving tasks suitable for KS3 learners.",
+      "type": "site",
+      "cta": "Solve Now",
+      "brand": {
+        "bg": "#F0FDF4",
+        "fg": "#16A34A",
+        "stripe": "rgba(22,163,74,0.08)"
+      }
+    }
+  ]
+}
