@@ -15,11 +15,11 @@ editor:
   preview: false
 
 collections:
-   # KS3 Hub (Hero + Featured Sites in one section)
+   # KS3 Hub (Hero + Featured + UKMT + Problem Solvers + AI card)
   - name: "ks3_hub"
     label: "KS3 Hub Content"
     files:
-      # Hero text
+    # --- Hero (left card at top) ---
       - file: "Revision Hub V3/assets/data/ks3_hero.json"
         label: "Hero Text"
         name: "ks3_hero"
@@ -27,10 +27,9 @@ collections:
         fields:
           - { label: "Title", name: "headline", widget: "string" }
           - { label: "Body",  name: "body", widget: "text" }
-          # Optional icon if you want it later:
-          # - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
+        # - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
 
-      # KS3 Featured Sites
+    # --- Featured Sites grid (KS3-specific) ---
       - file: "Revision Hub V3/assets/data/ks3_featured_sites.json"
         label: "Featured Sites"
         name: "ks3_featured_sites"
@@ -46,10 +45,66 @@ collections:
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
               - { label: "Type",        name: "type",  widget: "select", options: ["site","drive","quiz","textbook","tools","other"], required: false }
-              - { label: "Brand BG",    name: "brand.bg", widget: "string", required: false, hint: "e.g. #F3F4F6" }
-              - { label: "Brand FG",    name: "brand.fg", widget: "string", required: false, hint: "e.g. #1F2937" }
+              - label: "Brand"
+                name: "brand"
+                widget: "object"
+                collapsed: true
+                required: false
+                fields:
+                  - { label: "BG",     name: "bg",     widget: "string", required: false, hint: "e.g. #F3F4F6" }
+                  - { label: "FG",     name: "fg",     widget: "string", required: false, hint: "e.g. #111827" }
+                  - { label: "Stripe", name: "stripe", widget: "string", required: false, hint: "e.g. rgba(0,0,0,.05)" }
               - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
               - { label: "Active",      name: "active", widget: "boolean", default: true }
+
+    # --- Split hero (lower row): left = UKMT hero text ---
+      - file: "Revision Hub V3/assets/data/ks3_ukmt_hero.json"
+        label: "UKMT Hero Text"
+        name: "ks3_ukmt_hero"
+        format: json
+        fields:
+          - { label: "Title",    name: "title",    widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+
+    # --- Split hero (lower row): right = AI card (dark) ---
+      - file: "Revision Hub V3/assets/data/ks3_ai_card.json"
+        label: "AI Card"
+        name: "ks3_ai_card"
+        format: json
+        fields:
+          - { label: "Title",        name: "title",  widget: "string", default: "Do you know how to use AI?" }
+          - { label: "Body",         name: "body",   widget: "text", required: false, default: "Quick guide to using AI appropriately in maths." }
+          - { label: "Button Label", name: "cta",    widget: "string", default: "AI Guidance" }
+          - { label: "Button URL",   name: "url",    widget: "string", default: "/ai_usage.html" }
+
+    # --- UKMT grid (cards) ---
+      - file: "Revision Hub V3/assets/data/ks3_ukmt.json"
+        label: "UKMT Items"
+        name: "ks3_ukmt_items"
+        format: json
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name",        name: "name",  widget: "string" }
+              - { label: "URL",         name: "url",   widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
+              - { label: "Type",        name: "type",  widget: "select", options: ["site","pdf","puzzle","quiz","other"], required: false }
+              - label: "Brand"
+                name: "brand"
+                widget: "object"
+                collapsed: true
+                required: false
+                fields:
+                  - { label: "BG",     name: "bg",     widget: "string", required: false }
+                  - { label: "FG",     name: "fg",     widget: "string", required: false }
+                  - { label: "Stripe", name: "stripe", widget: "string", required: false }
+              - { label: "CTA Label",   name: "cta  
+              
+              
   # Explore Hero
   - name: "explore_hero"
     label: "Explore - Welcome Text"
