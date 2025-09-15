@@ -139,6 +139,56 @@
     </main>
   </div>
 
+    <!-- Split hero: UKMT (light) + AI usage (dark) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+  <!-- UKMT promo (light) -->
+  <article class="bg-white rounded-2xl shadow-sm p-6">
+    <div class="flex items-start gap-4">
+      <span class="material-icons text-5xl text-gray-800">emoji_events</span>
+      <div>
+        <h2 id="ks3-ukmt-title" class="text-xl font-bold text-gray-800 mb-1">UKMT at KS3</h2>
+        <p id="ks3-ukmt-sub" class="text-gray-600">
+          Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- AI usage (dark) -->
+  <article class="rounded-2xl p-6 text-white" style="background:#1F2937">
+    <div class="flex items-start gap-4">
+      <span class="material-icons text-5xl text-white/90">psychology</span>
+      <div class="flex-1">
+        <h2 class="text-xl font-bold mb-1">Do you know how to use AI?</h2>
+        <p class="text-white/80 mb-3">
+          Tips, examples and boundaries for using AI safely and effectively in maths.
+        </p>
+        <a href="ai_usage.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold">
+          Open AI Guidance <span class="material-icons ml-2">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- UKMT resources (CMS) -->
+<section class="mt-8">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">UKMT Preparation</h2>
+  </div>
+  <div id="ks3-ukmt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  <p id="ks3-ukmt-empty" class="text-gray-500" hidden>No UKMT items yet.</p>
+</section>
+
+<!-- Problem Solver (CMS) -->
+<section class="mt-8">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Problem Solver</h2>
+  </div>
+  <div id="ks3-problems-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  <p id="ks3-problems-empty" class="text-gray-500" hidden>No problems yet.</p>
+</section>
+  
   <!-- Shared scripts -->
   <script src="assets/sidebar-loader.js"></script>
   <script src="assets/cards.js"></script>
