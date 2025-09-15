@@ -10,6 +10,13 @@
     {
       "cta": "Open",
       "active": true,
+      "name": "Dr Frost",
+      "url": "https://www.drfrost.org/login",
+      "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQH7hI2q1zTpaQ/company-logo_200_200/B4EZktsCW.HEAM-/0/1757408143164/dr_frost_learning_logo?e=2147483647&v=beta&t=q01CvTFpxQyZvP2dnlkkFRTHo72b0HPknshItkBm4OU"
+    },
+    {
+      "cta": "Open",
+      "active": true,
       "name": "SPARX",
       "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg",
       "url": "https://sparxmaths.com/"
