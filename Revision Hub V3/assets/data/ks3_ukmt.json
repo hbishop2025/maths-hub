@@ -10,11 +10,12 @@
         "bg": "#F0F9FF",
         "fg": "#0369A1",
         "stripe": "rgba(3,105,161,0.08)"
-      }
+      },
+      "active": true
     },
     {
-      "name": "NRICH UKMT Problems",
-      "url": "https://nrich.maths.org/ukmt",
+      "name": "ADDvance Maths",
+      "url": "https://addvancemaths.com/ukmt/",
       "description": "Curated collection of UKMT-style problems with full solutions.",
       "type": "site",
       "cta": "Explore",
@@ -22,7 +23,18 @@
         "bg": "#F9FAFB",
         "fg": "#7C3AED",
         "stripe": "rgba(124,58,237,0.08)"
-      }
+      },
+      "logo": "https://addvancemaths.com/wp-content/uploads/2022/09/adsvance-maths-website-banner-update-resized.png",
+      "active": true
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "name": "UKMT Random Question Generator",
+      "url": "https://www.interactive-maths.com/ukmt-random-question-generator.html/",
+      "description": "Click the junior maths challenge (7 and 8) or intermediate (9) challenge to get random questions with solutions to try,",
+      "logo": "https://www.interactive-maths.com/uploads/1/1/3/4/11345755/published/logo-im.png?1740599983",
+      "type": "site"
     }
   ]
 }
