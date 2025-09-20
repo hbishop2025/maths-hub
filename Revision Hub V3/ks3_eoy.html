@@ -1,203 +1,211 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KS3 End of Year – Maths Hub</title>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>KS3 End of Year</title>
 
-  <!--
-    Minimal, page-scoped overrides.
-    This page should already inherit your global site CSS.
-    Keep these AFTER your global CSS if you split them out.
-  -->
+  <!-- Tailwind (same as hub) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons (same as hub) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="assets/main.css"/>
+
+  <!-- Page-scoped overrides for EOY -->
   <style>
-    /* ==== KS3 EOY minimal overrides (scoped via .theme-eoy) ==== */
+    /* Darker theme variables (used by chips and optional panels) */
     .theme-eoy {
-      /* If your site uses CSS variables, these will “just work”.
-         Otherwise they only affect elements that reference them below. */
-      --bg: #0b1020;
-      --ink: #e6e9f5;
-      --muted: #a6b0c9;
-      --panel: #11182b;
-      --accent: #6ea8ff;
-
-      background: radial-gradient(1100px 700px at 10% -10%, #1a2240 0%, #0b1020 55%) fixed;
-      color: var(--ink);
+      --eoy-ink: #e6e9f5;
+      --eoy-muted: #a6b0c9;
+      --eoy-panel: #11182b;
+      --eoy-accent: #6ea8ff;
     }
-    .theme-eoy a { color: var(--accent); }
 
-    /* Keep your hub hero; add a subtle trapezium and rounded feel */
-    .hero--eoy {
+    /* Hero with subtle rounded trapezium (BL lower than BR) */
+    .eoy-hero {
       position: relative;
-      border-radius: 20px;
-      overflow: hidden;
+      border-radius: 1.25rem;       /* rounded-2xl look */
+      overflow: hidden;             /* preserve rounding for the ::after shape */
       background:
-        linear-gradient(180deg, #121938 0%, #0f1530 60%, #0c1126 100%),
-        var(--panel, #11182b);
+        linear-gradient(180deg, #121938 0%, #0f1530 60%, #0c1126 100%);
       color: #fff;
+      isolation: isolate;
     }
-    .hero--eoy .hero__inner {
-      padding: clamp(20px, 5vw, 48px);
-    }
-    /* Trapezium: bottom-left lower than bottom-right */
-    .hero--eoy::after {
+    .eoy-hero::after {
       content: "";
       position: absolute; inset: 0;
+      /* bottom-left lower than bottom-right; adjust 86% for more/less tilt */
       clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
       background:
         linear-gradient(135deg, rgba(110,168,255,.16), rgba(167,123,255,.10) 40%, rgba(12,17,38,0) 70%),
         radial-gradient(800px 300px at 20% 20%, rgba(255,255,255,.08), transparent 55%);
       pointer-events: none;
+      z-index: 0;
     }
+    .eoy-hero__inner { position: relative; z-index: 1; }
 
-    /* Encouragement chips (small + unobtrusive) */
-    .theme-eoy .chips {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
-    }
-    .theme-eoy .chip {
+    /* Encouragement chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: .5rem; }
+    .chip {
       display: inline-flex; align-items: center;
       padding: 6px 10px; border-radius: 999px;
       background: rgba(255,255,255,.08);
       border: 1px solid rgba(255,255,255,.14);
       color: #ecf1ff; font-weight: 600; letter-spacing: .2px;
       backdrop-filter: blur(3px);
+      line-height: 1;
     }
 
-    /* Optional: cards/panels adopt darker tone only on this page */
-    .theme-eoy .card, .theme-eoy .panel {
-      background: var(--panel, #11182b);
-      border-color: rgba(255,255,255,.08);
-    }
-
-    /* Gentle tweaks for small screens; otherwise rely on your site’s responsive CSS */
-    @media (max-width: 900px){
-      .hero--eoy .hero__inner { padding: 20px; }
+    /* Optional: dark-card surface (used below) */
+    .dark-card {
+      background: #0f162b;                 /* deep slate/indigo */
+      border: 1px solid rgba(255,255,255,.08);
     }
   </style>
 </head>
-
-<!-- IMPORTANT: we’re reusing your hub structure; the only changes are class flags -->
-<body class="theme-eoy">
-
-  <!-- If you use a shared header include, keep it. Placeholder below is safe to remove. -->
-  <header class="site-header">
-    <a class="logo" href="/">Maths Hub</a>
-    <!-- any existing nav/actions -->
-  </header>
-
+<body class="bg-gray-900 text-gray-100 theme-eoy" data-page="ks3_eoy">
   <div class="layout">
-    <!-- Replace this with your real sidebar include to match the hub exactly -->
-    <aside class="sidebar" aria-label="Site topics">
-      <h2 class="sidebar__title">Navigation</h2>
-      <nav class="sidebar__nav">
-        <a href="/">Home</a>
-        <a href="/algebra/">Algebra</a>
-        <a href="/geometry/">Geometry</a>
-        <a href="/number/">Number</a>
-        <a href="/statistics/">Statistics</a>
-        <a href="/ks3_hub.html">KS3 Hub</a>
-        <a href="/ks3_eoy.html" aria-current="page">KS3 End of Year</a>
-      </nav>
-    </aside>
+    <!-- Sidebar (same pattern as hub: injected by sidebar-loader.js) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
 
-    <main id="main-content">
-      <!-- Hero: same structure as hub, with a small modifier class -->
-      <section class="hero hero--eoy" aria-labelledby="hero-title">
-        <div class="hero__inner">
-          <h1 id="hero-title">KS3 End-of-Year Practice</h1>
-          <p class="hero__lead">Mixed practice for Years 7, 8 and 9 — review broadly, finish strong.</p>
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Header (mirrors hub style) -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-3">
+          <a href="ks3_hub.html" class="inline-flex items-center text-gray-300 hover:text-white">
+            <span class="material-icons mr-1">arrow_back</span> Back to KS3 Hub
+          </a>
+        </div>
+        <h1 class="text-2xl font-extrabold text-white">KS3 End of Year</h1>
+      </header>
 
-          <!-- Encouragement chips (edit or remove any) -->
-          <div class="chips" aria-label="Encouragement">
-            <span class="chip">✅ you’ve got this</span>
-            <span class="chip">🎯 one step at a time</span>
-            <span class="chip">🌙 steady and calm</span>
+      <!-- HERO: same grid rhythm as hub (single full-width hero here) -->
+      <section class="mb-8">
+        <article class="eoy-hero rounded-2xl shadow-sm">
+          <div class="eoy-hero__inner p-6 sm:p-8">
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-5xl text-white/90">celebration</span>
+              <div class="flex-1">
+                <h2 class="text-xl sm:text-2xl font-bold mb-1">Mixed Practice for Years 7–9</h2>
+                <p class="text-white/80">
+                  Review broadly, spot gaps, and finish strong. Choose your year below.
+                </p>
+                <div class="chips" aria-label="Encouragement">
+                  <span class="chip">✅ you’ve got this</span>
+                  <span class="chip">🎯 one step at a time</span>
+                  <span class="chip">🌙 steady and calm</span>
+                </div>
+              </div>
+            </div>
           </div>
+        </article>
+      </section>
+
+      <!-- Year blocks (mirror hub “card” feel, but darker) -->
+      <section class="mb-10" aria-label="Choose a year">
+        <h2 class="text-2xl font-bold text-white mb-4">Choose your year</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
+          <!-- Year 7 -->
+          <a href="ks3_y7_eoy.html"
+             class="group block h-full rounded-2xl shadow-sm border dark-card hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#1e293b;">
+                <span class="material-icons" style="color:#60A5FA;">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">Year 7</h3>
+              <p class="text-sm text-gray-300 mt-1">
+                Mixed practice sets, revision checklists, and quick wins.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-300">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Year 8 -->
+          <a href="ks3_y8_eoy.html"
+             class="group block h-full rounded-2xl shadow-sm border dark-card hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#172554;">
+                <span class="material-icons" style="color:#34D399;">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">Year 8</h3>
+              <p class="text-sm text-gray-300 mt-1">
+                Balanced sets: ratio, equations, area & data.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-300">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Year 9 -->
+          <a href="ks3_y9_eoy.html"
+             class="group block h-full rounded-2xl shadow-sm border dark-card hover:shadow-md transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:#111827;">
+                <span class="material-icons" style="color:#A78BFA;">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">Year 9</h3>
+              <p class="text-sm text-gray-300 mt-1">
+                Push to the finish: algebra, Pythagoras & trig.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-300">
+                  Open <span class="material-icons ml-1">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
-      <!-- Content mirrors the hub layout: section header + grid of cards/links -->
-      <section aria-labelledby="y7-head">
-        <header class="section-head">
-          <h2 id="y7-head">Year 7</h2>
-          <p class="section-sub">Number sense, fractions & decimals, intro algebra, shapes.</p>
-        </header>
-
-        <div class="grid" role="list">
-          <a class="card" role="listitem" href="/ks3/y7/mixed-a.html">
-            <h3>Mixed Practice A</h3>
-            <p>20 questions · ~25 mins · self-check</p>
-          </a>
-          <a class="card" role="listitem" href="/ks3/y7/mixed-b.html">
-            <h3>Mixed Practice B</h3>
-            <p>20 questions · ~25 mins · self-check</p>
-          </a>
+      <!-- Optional: Featured or Guidance (dark variant of hub’s sections) -->
+      <section class="mt-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-bold text-white">EOY Guidance</h2>
         </div>
-      </section>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article class="rounded-2xl p-6 dark-card">
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-5xl text-white/90">tips_and_updates</span>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-1">How to use these sets</h3>
+                <p class="text-gray-300">
+                  Tackle one mixed set at a time, mark immediately, and use results to choose tomorrow’s focus.
+                </p>
+              </div>
+            </div>
+          </article>
 
-      <section aria-labelledby="y8-head">
-        <header class="section-head">
-          <h2 id="y8-head">Year 8</h2>
-          <p class="section-sub">Indices, ratio & proportion, linear equations, area & volume.</p>
-        </header>
-
-        <div class="grid" role="list">
-          <a class="card" role="listitem" href="/ks3/y8/mixed-a.html">
-            <h3>Mixed Practice A</h3>
-            <p>24 questions · ~30 mins · self-check</p>
-          </a>
-          <a class="card" role="listitem" href="/ks3/y8/mixed-b.html">
-            <h3>Mixed Practice B</h3>
-            <p>24 questions · ~30 mins · self-check</p>
-          </a>
+          <article class="rounded-2xl p-6 dark-card">
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-5xl text-white/90">task_alt</span>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-1">Steady beats perfect</h3>
+                <p class="text-gray-300">
+                  Short daily sessions add up. Get one set done, then rest. You’re building habits.
+                </p>
+              </div>
+            </div>
+          </article>
         </div>
-      </section>
-
-      <section aria-labelledby="y9-head">
-        <header class="section-head">
-          <h2 id="y9-head">Year 9</h2>
-          <p class="section-sub">Quadratics, simultaneous equations, Pythagoras & trig, data.</p>
-        </header>
-
-        <div class="grid" role="list">
-          <a class="card" role="listitem" href="/ks3/y9/mixed-a.html">
-            <h3>Mixed Practice A</h3>
-            <p>30 questions · ~35 mins · self-check</p>
-          </a>
-          <a class="card" role="listitem" href="/ks3/y9/mixed-b.html">
-            <h3>Mixed Practice B</h3>
-            <p>30 questions · ~35 mins · self-check</p>
-          </a>
-        </div>
-      </section>
-
-      <section aria-label="Notes">
-        <p class="muted">Tip: aim for steady progress. Use your results to choose tomorrow’s focus.</p>
       </section>
     </main>
   </div>
 
-  <!-- Keep your existing site footer/include -->
-  <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Maths Hub</p>
-  </footer>
-
-  <!-- Optional: tiny enhancement to highlight the current nav link and year -->
-  <script>
-    (function () {
-      var y = document.getElementById('year');
-      if (y) y.textContent = new Date().getFullYear();
-
-      var here = location.pathname.replace(/\/+$/, '');
-      document.querySelectorAll('.sidebar a[href]').forEach(function(a){
-        var href = a.getAttribute('href').replace(/\/+$/, '');
-        if (href && here.endsWith(href)) {
-          a.setAttribute('aria-current','page');
-          a.style.background = 'rgba(255,255,255,.10)';
-          a.style.outline = '1px solid rgba(255,255,255,.18)';
-        }
-      });
-    })();
-  </script>
+  <!-- Shared scripts -->
+  <script src="assets/sidebar-loader.js"></script>
+  <script src="assets/cards.js"></script>
 </body>
 </html>
