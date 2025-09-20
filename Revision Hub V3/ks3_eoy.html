@@ -2,285 +2,197 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KS3 End of Year – Maths Hub</title>
 
-  <!-- Page theme: darker aesthetic, still “Maths Hub” vibes -->
+  <!--
+    Minimal, page-scoped overrides.
+    This page should already inherit your global site CSS.
+    Keep these AFTER your global CSS if you split them out.
+  -->
   <style>
-    :root{
-      /* Darker palette for this EOY page */
-      --bg: #0b1020;           /* page background */
-      --panel: #11182b;        /* cards / panels */
-      --ink: #e5e9f5;          /* primary text */
-      --muted: #a9b3ca;        /* secondary text */
-      --accent: #6ea8ff;       /* links / accents */
-      --accent-2: #a77bff;     /* extra accent */
-      --good: #4ade80;         /* success chip */
-      --warn: #facc15;         /* focus chip */
-      --radius: 22px;
-      --radius-lg: 28px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
+    /* ==== KS3 EOY minimal overrides (scoped via .theme-eoy) ==== */
+    .theme-eoy {
+      /* If your site uses CSS variables, these will “just work”.
+         Otherwise they only affect elements that reference them below. */
+      --bg: #0b1020;
+      --ink: #e6e9f5;
+      --muted: #a6b0c9;
+      --panel: #11182b;
+      --accent: #6ea8ff;
 
-    html, body { height: 100%; }
-    body{
-      margin:0;
-      background: radial-gradient(1200px 800px at 10% -10%, #1a2240 0%, #0b1020 55%) no-repeat fixed;
+      background: radial-gradient(1100px 700px at 10% -10%, #1a2240 0%, #0b1020 55%) fixed;
       color: var(--ink);
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
+    .theme-eoy a { color: var(--accent); }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover, a:focus { text-decoration: underline; }
-
-    /* Layout: keep your existing two-column feel if you have one */
-    .layout{
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
-      align-items: start;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    /* Sidebar placeholder — use your site’s existing sidebar here */
-    aside.sidebar{
-      position: sticky; top: 16px;
-      max-height: calc(100dvh - 32px);
-      overflow: auto;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      padding: 14px;
-      backdrop-filter: blur(6px);
-    }
-    .sidebar h2{
-      margin: 6px 0 10px; font-size: 1rem; color: var(--muted);
-    }
-    .sidebar a{
-      display:block; padding: 6px 8px; border-radius: 10px; color: var(--ink);
-    }
-    .sidebar a:hover{ background: rgba(255,255,255,.06); text-decoration: none; }
-
-    main { display: grid; gap: 24px; }
-
-    /* --- HERO with rounded trapezium bottom edge --- */
-    .hero-wrap{
-      border-radius: var(--radius-lg);
-      overflow: hidden;            /* keeps the rounded shape */
-      box-shadow: var(--shadow);
+    /* Keep your hub hero; add a subtle trapezium and rounded feel */
+    .hero--eoy {
       position: relative;
-      isolation: isolate;          /* ensures blending stays inside */
-    }
-    .hero{
-      position: relative;
-      padding: clamp(24px, 6vw, 56px) clamp(20px, 5vw, 48px);
-      color: white;
-      /* Subtle animated starfield gradient */
+      border-radius: 20px;
+      overflow: hidden;
       background:
-        radial-gradient(1200px 600px at -10% -20%, rgba(110,168,255,.25), transparent 50%),
-        radial-gradient(900px 500px at 120% -30%, rgba(167,123,255,.22), transparent 60%),
-        linear-gradient(180deg, #121938 0%, #0f1530 60%, #0c1126 100%);
+        linear-gradient(180deg, #121938 0%, #0f1530 60%, #0c1126 100%),
+        var(--panel, #11182b);
+      color: #fff;
     }
-    /* Trapezium: pseudo-element creates a slanted bottom while wrapper keeps corners rounded */
-    .hero::after{
-      content:"";
+    .hero--eoy .hero__inner {
+      padding: clamp(20px, 5vw, 48px);
+    }
+    /* Trapezium: bottom-left lower than bottom-right */
+    .hero--eoy::after {
+      content: "";
       position: absolute; inset: 0;
-      /* Clip to a subtle trapezium: BL lower than BR */
       clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
       background:
-        linear-gradient(135deg, rgba(110,168,255,.15), rgba(167,123,255,.10) 40%, rgba(12,17,38,0) 70%),
+        linear-gradient(135deg, rgba(110,168,255,.16), rgba(167,123,255,.10) 40%, rgba(12,17,38,0) 70%),
         radial-gradient(800px 300px at 20% 20%, rgba(255,255,255,.08), transparent 55%);
-      z-index: -1;
+      pointer-events: none;
     }
 
-    .hero h1{
-      margin: 0 0 8px;
-      font-size: clamp(28px, 5vw, 44px);
-      letter-spacing: .2px;
+    /* Encouragement chips (small + unobtrusive) */
+    .theme-eoy .chips {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
     }
-    .hero p.lead{
-      margin: 0 0 18px;
-      color: #d6def7;
-      font-size: clamp(16px, 2.6vw, 20px);
-    }
-
-    /* Encouragement chips */
-    .chips{
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 10px;
-    }
-    .chip{
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
+    .theme-eoy .chip {
+      display: inline-flex; align-items: center;
+      padding: 6px 10px; border-radius: 999px;
       background: rgba(255,255,255,.08);
       border: 1px solid rgba(255,255,255,.14);
-      color: #ecf1ff;
-      font-weight: 600;
-      letter-spacing:.2px;
-      backdrop-filter: blur(4px);
+      color: #ecf1ff; font-weight: 600; letter-spacing: .2px;
+      backdrop-filter: blur(3px);
     }
-    .chip--good{ background: rgba(74,222,128,.12); border-color: rgba(74,222,128,.3); }
-    .chip--focus{ background: rgba(250,204,21,.12); border-color: rgba(250,204,21,.3); }
-    .chip--calm{ background: rgba(167,123,255,.14); border-color: rgba(167,123,255,.35); }
 
-    /* Section header row */
-    .section-head{
-      display:flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    /* Optional: cards/panels adopt darker tone only on this page */
+    .theme-eoy .card, .theme-eoy .panel {
+      background: var(--panel, #11182b);
+      border-color: rgba(255,255,255,.08);
     }
-    .section-head h2{ margin:0; font-size: 1.2rem; color: var(--ink); }
-    .section-head p{ margin:0; color: var(--muted); }
 
-    /* Year grids */
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-    .card{
-      grid-column: span 6;
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 10px 20px rgba(0,0,0,.25);
-      transition: transform .15s ease, box-shadow .15s ease, border-color .2s;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 16px 28px rgba(0,0,0,.35);
-      border-color: rgba(110,168,255,.35);
-      text-decoration: none;
-    }
-    .card h3{
-      margin: 0 0 6px; font-size: 1.05rem;
-    }
-    .meta{
-      display:flex; gap:10px; align-items:center; color: var(--muted);
-      font-size: .9rem;
-    }
-    .meta .dot{ width:6px; height:6px; border-radius:50%; background: rgba(255,255,255,.35); display:inline-block; }
-
-    /* Responsive */
+    /* Gentle tweaks for small screens; otherwise rely on your site’s responsive CSS */
     @media (max-width: 900px){
-      .layout{ grid-template-columns: 1fr; }
-      aside.sidebar{ position: static; max-height: none; order: 2; }
-      .card{ grid-column: span 12; }
+      .hero--eoy .hero__inner { padding: 20px; }
     }
   </style>
 </head>
-<body>
+
+<!-- IMPORTANT: we’re reusing your hub structure; the only changes are class flags -->
+<body class="theme-eoy">
+
+  <!-- If you use a shared header include, keep it. Placeholder below is safe to remove. -->
+  <header class="site-header">
+    <a class="logo" href="/">Maths Hub</a>
+    <!-- any existing nav/actions -->
+  </header>
 
   <div class="layout">
-    <!-- Replace this aside with your site’s real sidebar include -->
+    <!-- Replace this with your real sidebar include to match the hub exactly -->
     <aside class="sidebar" aria-label="Site topics">
-      <h2>Navigation</h2>
-      <a href="/">Home</a>
-      <a href="/algebra/">Algebra</a>
-      <a href="/geometry/">Geometry</a>
-      <a href="/number/">Number</a>
-      <a href="/statistics/">Statistics</a>
-      <a href="/ks3_eoy.html" aria-current="page">KS3 End of Year</a>
+      <h2 class="sidebar__title">Navigation</h2>
+      <nav class="sidebar__nav">
+        <a href="/">Home</a>
+        <a href="/algebra/">Algebra</a>
+        <a href="/geometry/">Geometry</a>
+        <a href="/number/">Number</a>
+        <a href="/statistics/">Statistics</a>
+        <a href="/ks3_hub.html">KS3 Hub</a>
+        <a href="/ks3_eoy.html" aria-current="page">KS3 End of Year</a>
+      </nav>
     </aside>
 
     <main id="main-content">
-      <!-- HERO -->
-      <section class="hero-wrap" aria-labelledby="hero-title">
-        <div class="hero">
+      <!-- Hero: same structure as hub, with a small modifier class -->
+      <section class="hero hero--eoy" aria-labelledby="hero-title">
+        <div class="hero__inner">
           <h1 id="hero-title">KS3 End-of-Year Practice</h1>
-          <p class="lead">
-            Mixed practice sets for Year 7, 8 and 9 — sharpen skills, spot gaps, finish strong.
-          </p>
+          <p class="hero__lead">Mixed practice for Years 7, 8 and 9 — review broadly, finish strong.</p>
 
+          <!-- Encouragement chips (edit or remove any) -->
           <div class="chips" aria-label="Encouragement">
-            <span class="chip chip--good">✅ you’ve got this</span>
-            <span class="chip chip--focus">🎯 focus on the next step</span>
-            <span class="chip chip--calm">🌙 steady and calm</span>
+            <span class="chip">✅ you’ve got this</span>
+            <span class="chip">🎯 one step at a time</span>
+            <span class="chip">🌙 steady and calm</span>
           </div>
         </div>
       </section>
 
-      <!-- Year 7 -->
+      <!-- Content mirrors the hub layout: section header + grid of cards/links -->
       <section aria-labelledby="y7-head">
-        <div class="section-head">
+        <header class="section-head">
           <h2 id="y7-head">Year 7</h2>
-          <p>Number sense, fractions & decimals, intro algebra, shapes.</p>
-        </div>
+          <p class="section-sub">Number sense, fractions & decimals, intro algebra, shapes.</p>
+        </header>
 
         <div class="grid" role="list">
-          <a class="card" role="listitem" href="#y7-mixed-a">
+          <a class="card" role="listitem" href="/ks3/y7/mixed-a.html">
             <h3>Mixed Practice A</h3>
-            <p>20 questions · 25 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Number & Fractions</span></div>
+            <p>20 questions · ~25 mins · self-check</p>
           </a>
-          <a class="card" role="listitem" href="#y7-mixed-b">
+          <a class="card" role="listitem" href="/ks3/y7/mixed-b.html">
             <h3>Mixed Practice B</h3>
-            <p>20 questions · 25 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Algebra & Angles</span></div>
+            <p>20 questions · ~25 mins · self-check</p>
           </a>
         </div>
       </section>
 
-      <!-- Year 8 -->
       <section aria-labelledby="y8-head">
-        <div class="section-head">
+        <header class="section-head">
           <h2 id="y8-head">Year 8</h2>
-          <p>Indices, ratio & proportion, linear equations, area & volume.</p>
-        </div>
+          <p class="section-sub">Indices, ratio & proportion, linear equations, area & volume.</p>
+        </header>
 
         <div class="grid" role="list">
-          <a class="card" role="listitem" href="#y8-mixed-a">
+          <a class="card" role="listitem" href="/ks3/y8/mixed-a.html">
             <h3>Mixed Practice A</h3>
-            <p>24 questions · 30 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Ratio & Algebra</span></div>
+            <p>24 questions · ~30 mins · self-check</p>
           </a>
-          <a class="card" role="listitem" href="#y8-mixed-b">
+          <a class="card" role="listitem" href="/ks3/y8/mixed-b.html">
             <h3>Mixed Practice B</h3>
-            <p>24 questions · 30 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Area & Statistics</span></div>
+            <p>24 questions · ~30 mins · self-check</p>
           </a>
         </div>
       </section>
 
-      <!-- Year 9 -->
       <section aria-labelledby="y9-head">
-        <div class="section-head">
+        <header class="section-head">
           <h2 id="y9-head">Year 9</h2>
-          <p>Quadratics, simultaneous equations, Pythagoras & trigonometry, data.</p>
-        </div>
+          <p class="section-sub">Quadratics, simultaneous equations, Pythagoras & trig, data.</p>
+        </header>
 
         <div class="grid" role="list">
-          <a class="card" role="listitem" href="#y9-mixed-a">
+          <a class="card" role="listitem" href="/ks3/y9/mixed-a.html">
             <h3>Mixed Practice A</h3>
-            <p>30 questions · 35 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Algebra & Graphs</span></div>
+            <p>30 questions · ~35 mins · self-check</p>
           </a>
-          <a class="card" role="listitem" href="#y9-mixed-b">
+          <a class="card" role="listitem" href="/ks3/y9/mixed-b.html">
             <h3>Mixed Practice B</h3>
-            <p>30 questions · 35 mins · self-check</p>
-            <div class="meta"><span class="dot"></span><span>Pythagoras & Trig</span></div>
+            <p>30 questions · ~35 mins · self-check</p>
           </a>
         </div>
       </section>
 
-      <!-- Footer note -->
       <section aria-label="Notes">
-        <p class="muted" style="color:var(--muted); margin-top:8px;">
-          Tip: aim for steady progress. Use results to decide tomorrow’s focus.
-        </p>
+        <p class="muted">Tip: aim for steady progress. Use your results to choose tomorrow’s focus.</p>
       </section>
     </main>
   </div>
 
-  <!-- Optional: tiny script to add ‘active’ state to the nav link for this page -->
+  <!-- Keep your existing site footer/include -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Maths Hub</p>
+  </footer>
+
+  <!-- Optional: tiny enhancement to highlight the current nav link and year -->
   <script>
-    (function(){
-      document.querySelectorAll('.sidebar a[href]').forEach(a=>{
-        if (a.getAttribute('href') && location.pathname.endsWith(a.getAttribute('href'))) {
+    (function () {
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+
+      var here = location.pathname.replace(/\/+$/, '');
+      document.querySelectorAll('.sidebar a[href]').forEach(function(a){
+        var href = a.getAttribute('href').replace(/\/+$/, '');
+        if (href && here.endsWith(href)) {
+          a.setAttribute('aria-current','page');
           a.style.background = 'rgba(255,255,255,.10)';
           a.style.outline = '1px solid rgba(255,255,255,.18)';
         }
