@@ -1,118 +1,291 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Page under construction</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KS3 End of Year – Maths Hub</title>
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="assets/main.css"/>
+  <!-- Page theme: darker aesthetic, still “Maths Hub” vibes -->
   <style>
-    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    /* light diagonal stripes background card */
-    .bg-stripes {
-      position: relative;
-      overflow: hidden;
+    :root{
+      /* Darker palette for this EOY page */
+      --bg: #0b1020;           /* page background */
+      --panel: #11182b;        /* cards / panels */
+      --ink: #e5e9f5;          /* primary text */
+      --muted: #a9b3ca;        /* secondary text */
+      --accent: #6ea8ff;       /* links / accents */
+      --accent-2: #a77bff;     /* extra accent */
+      --good: #4ade80;         /* success chip */
+      --warn: #facc15;         /* focus chip */
+      --radius: 22px;
+      --radius-lg: 28px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    
+
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 10% -10%, #1a2240 0%, #0b1020 55%) no-repeat fixed;
+      color: var(--ink);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover, a:focus { text-decoration: underline; }
+
+    /* Layout: keep your existing two-column feel if you have one */
+    .layout{
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Sidebar placeholder — use your site’s existing sidebar here */
+    aside.sidebar{
+      position: sticky; top: 16px;
+      max-height: calc(100dvh - 32px);
+      overflow: auto;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 14px;
+      backdrop-filter: blur(6px);
+    }
+    .sidebar h2{
+      margin: 6px 0 10px; font-size: 1rem; color: var(--muted);
+    }
+    .sidebar a{
+      display:block; padding: 6px 8px; border-radius: 10px; color: var(--ink);
+    }
+    .sidebar a:hover{ background: rgba(255,255,255,.06); text-decoration: none; }
+
+    main { display: grid; gap: 24px; }
+
+    /* --- HERO with rounded trapezium bottom edge --- */
+    .hero-wrap{
+      border-radius: var(--radius-lg);
+      overflow: hidden;            /* keeps the rounded shape */
+      box-shadow: var(--shadow);
+      position: relative;
+      isolation: isolate;          /* ensures blending stays inside */
+    }
+    .hero{
+      position: relative;
+      padding: clamp(24px, 6vw, 56px) clamp(20px, 5vw, 48px);
+      color: white;
+      /* Subtle animated starfield gradient */
+      background:
+        radial-gradient(1200px 600px at -10% -20%, rgba(110,168,255,.25), transparent 50%),
+        radial-gradient(900px 500px at 120% -30%, rgba(167,123,255,.22), transparent 60%),
+        linear-gradient(180deg, #121938 0%, #0f1530 60%, #0c1126 100%);
+    }
+    /* Trapezium: pseudo-element creates a slanted bottom while wrapper keeps corners rounded */
+    .hero::after{
+      content:"";
+      position: absolute; inset: 0;
+      /* Clip to a subtle trapezium: BL lower than BR */
+      clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
+      background:
+        linear-gradient(135deg, rgba(110,168,255,.15), rgba(167,123,255,.10) 40%, rgba(12,17,38,0) 70%),
+        radial-gradient(800px 300px at 20% 20%, rgba(255,255,255,.08), transparent 55%);
+      z-index: -1;
+    }
+
+    .hero h1{
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: .2px;
+    }
+    .hero p.lead{
+      margin: 0 0 18px;
+      color: #d6def7;
+      font-size: clamp(16px, 2.6vw, 20px);
+    }
+
+    /* Encouragement chips */
+    .chips{
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 10px;
+    }
+    .chip{
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #ecf1ff;
+      font-weight: 600;
+      letter-spacing:.2px;
+      backdrop-filter: blur(4px);
+    }
+    .chip--good{ background: rgba(74,222,128,.12); border-color: rgba(74,222,128,.3); }
+    .chip--focus{ background: rgba(250,204,21,.12); border-color: rgba(250,204,21,.3); }
+    .chip--calm{ background: rgba(167,123,255,.14); border-color: rgba(167,123,255,.35); }
+
+    /* Section header row */
+    .section-head{
+      display:flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    }
+    .section-head h2{ margin:0; font-size: 1.2rem; color: var(--ink); }
+    .section-head p{ margin:0; color: var(--muted); }
+
+    /* Year grids */
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .card{
+      grid-column: span 6;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .2s;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(0,0,0,.35);
+      border-color: rgba(110,168,255,.35);
+      text-decoration: none;
+    }
+    .card h3{
+      margin: 0 0 6px; font-size: 1.05rem;
+    }
+    .meta{
+      display:flex; gap:10px; align-items:center; color: var(--muted);
+      font-size: .9rem;
+    }
+    .meta .dot{ width:6px; height:6px; border-radius:50%; background: rgba(255,255,255,.35); display:inline-block; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .layout{ grid-template-columns: 1fr; }
+      aside.sidebar{ position: static; max-height: none; order: 2; }
+      .card{ grid-column: span 12; }
+    }
   </style>
 </head>
-<body class="bg-gray-100">
+<body>
+
   <div class="layout">
-    <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
+    <!-- Replace this aside with your site’s real sidebar include -->
+    <aside class="sidebar" aria-label="Site topics">
+      <h2>Navigation</h2>
+      <a href="/">Home</a>
+      <a href="/algebra/">Algebra</a>
+      <a href="/geometry/">Geometry</a>
+      <a href="/number/">Number</a>
+      <a href="/statistics/">Statistics</a>
+      <a href="/ks3_eoy.html" aria-current="page">KS3 End of Year</a>
+    </aside>
 
-    <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
-      <!-- Header -->
-      <header class="flex items-center justify-between mb-8">
-        <div class="flex items-center gap-3">
-          <button class="md:hidden"><span class="material-icons">menu</span></button>
-          <h1 id="wip-title" class="text-2xl font-bold text-gray-800">Page under construction</h1>
-        </div>
-        <div>
-          <a id="wip-cta" href="ks3_hub.html"
-             class="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
-            Back to KS3 Hub <span class="material-icons ml-2">arrow_back</span>
-          </a>
-        </div>
-      </header>
+    <main id="main-content">
+      <!-- HERO -->
+      <section class="hero-wrap" aria-labelledby="hero-title">
+        <div class="hero">
+          <h1 id="hero-title">KS3 End-of-Year Practice</h1>
+          <p class="lead">
+            Mixed practice sets for Year 7, 8 and 9 — sharpen skills, spot gaps, finish strong.
+          </p>
 
-      <!-- Content -->
-      <section>
-        <div class="bg-white rounded-2xl shadow-sm p-8 bg-stripes">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <!-- Icon -->
-<div class="md:col-span-1 flex items-center justify-center">
-  <span class="material-icons text-7xl text-gray-400">construction</span>
-</div>
-
-            <!-- Text -->
-            <div class="md:col-span-2">
-              <h2 id="wip-heading" class="text-xl md:text-2xl font-semibold text-gray-800 mb-2">
-                Oops! This page is still under construction
-              </h2>
-              <p id="wip-message" class="text-gray-600 mb-6">
-                We’re putting the final touches in place. Please check back soon, or use the button below to continue exploring the site.
-              </p>
-              <div class="flex flex-wrap gap-3">
-                <a id="wip-primary" href="ks3_hub.html"
-                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
-                  Go to KS3 Hub <span class="material-icons ml-2">arrow_forward</span>
-                </a>
-                <a href="index.html"
-                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition">
-                  Back to Home <span class="material-icons ml-2">home</span>
-                </a>
-              </div>
-            </div>
+          <div class="chips" aria-label="Encouragement">
+            <span class="chip chip--good">✅ you’ve got this</span>
+            <span class="chip chip--focus">🎯 focus on the next step</span>
+            <span class="chip chip--calm">🌙 steady and calm</span>
           </div>
         </div>
       </section>
 
-      <!-- Spacer -->
-      <div class="h-8"></div>
+      <!-- Year 7 -->
+      <section aria-labelledby="y7-head">
+        <div class="section-head">
+          <h2 id="y7-head">Year 7</h2>
+          <p>Number sense, fractions & decimals, intro algebra, shapes.</p>
+        </div>
+
+        <div class="grid" role="list">
+          <a class="card" role="listitem" href="#y7-mixed-a">
+            <h3>Mixed Practice A</h3>
+            <p>20 questions · 25 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Number & Fractions</span></div>
+          </a>
+          <a class="card" role="listitem" href="#y7-mixed-b">
+            <h3>Mixed Practice B</h3>
+            <p>20 questions · 25 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Algebra & Angles</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Year 8 -->
+      <section aria-labelledby="y8-head">
+        <div class="section-head">
+          <h2 id="y8-head">Year 8</h2>
+          <p>Indices, ratio & proportion, linear equations, area & volume.</p>
+        </div>
+
+        <div class="grid" role="list">
+          <a class="card" role="listitem" href="#y8-mixed-a">
+            <h3>Mixed Practice A</h3>
+            <p>24 questions · 30 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Ratio & Algebra</span></div>
+          </a>
+          <a class="card" role="listitem" href="#y8-mixed-b">
+            <h3>Mixed Practice B</h3>
+            <p>24 questions · 30 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Area & Statistics</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Year 9 -->
+      <section aria-labelledby="y9-head">
+        <div class="section-head">
+          <h2 id="y9-head">Year 9</h2>
+          <p>Quadratics, simultaneous equations, Pythagoras & trigonometry, data.</p>
+        </div>
+
+        <div class="grid" role="list">
+          <a class="card" role="listitem" href="#y9-mixed-a">
+            <h3>Mixed Practice A</h3>
+            <p>30 questions · 35 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Algebra & Graphs</span></div>
+          </a>
+          <a class="card" role="listitem" href="#y9-mixed-b">
+            <h3>Mixed Practice B</h3>
+            <p>30 questions · 35 mins · self-check</p>
+            <div class="meta"><span class="dot"></span><span>Pythagoras & Trig</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer note -->
+      <section aria-label="Notes">
+        <p class="muted" style="color:var(--muted); margin-top:8px;">
+          Tip: aim for steady progress. Use results to decide tomorrow’s focus.
+        </p>
+      </section>
     </main>
   </div>
 
-  <!-- Sidebar loader -->
-  <script src="assets/sidebar-loader.js"></script>
-
-  <!-- Quick config (edit per page reuse) -->
+  <!-- Optional: tiny script to add ‘active’ state to the nav link for this page -->
   <script>
-    // Change these per page reuse:
-    const WIP_CONFIG = {
-      title:   "KS3 — Coming Soon",
-      heading: "Oops! This page is still under construction",
-      message: "We’re putting the final touches in place. Please check back soon, or use one of the links below.",
-      primaryLabel: "Go to KS3 Hub",
-      primaryHref:  "ks3_hub.html",
-      headerCtaLabel: "Back to KS3 Hub",
-      headerCtaHref:  "ks3_hub.html"
-    };
-
-    // Apply config
-    document.getElementById("wip-title").textContent    = WIP_CONFIG.title;
-    document.getElementById("wip-heading").textContent  = WIP_CONFIG.heading;
-    document.getElementById("wip-message").textContent  = WIP_CONFIG.message;
-
-    const primary = document.getElementById("wip-primary");
-    primary.textContent = WIP_CONFIG.primaryLabel;
-    primary.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_forward</span>');
-    primary.href = WIP_CONFIG.primaryHref;
-
-    const headerCta = document.getElementById("wip-cta");
-    headerCta.textContent = WIP_CONFIG.headerCtaLabel;
-    headerCta.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_back</span>');
-    headerCta.href = WIP_CONFIG.headerCtaHref;
-    headerCta.classList.remove("hidden");
+    (function(){
+      document.querySelectorAll('.sidebar a[href]').forEach(a=>{
+        if (a.getAttribute('href') && location.pathname.endsWith(a.getAttribute('href'))) {
+          a.style.background = 'rgba(255,255,255,.10)';
+          a.style.outline = '1px solid rgba(255,255,255,.18)';
+        }
+      });
+    })();
   </script>
 </body>
 </html>
