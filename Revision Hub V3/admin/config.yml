@@ -130,7 +130,7 @@ collections:
               - { label: "Label", name: "label", widget: "string", default: "Paper 1" }
               # Store as string in YYYY-MM-DD (no time needed)
               - label: "Date (YYYY-MM-DD)"
-                name: "date"
+                name: "datetime"
                 widget: "string"
                 pattern:
                   - "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
