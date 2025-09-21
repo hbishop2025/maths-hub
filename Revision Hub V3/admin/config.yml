@@ -103,7 +103,64 @@ collections:
                   - { label: "FG",     name: "fg",     widget: "string", required: false } 
               - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
               - { label: "Active",      name: "active", widget: "boolean", default: true }
-              
+
+    # =========================== KS3 EOY (End of Year) ===========================
+  - name: "ks3_eoy"
+    label: "KS3 EOY Content"
+    files:
+
+    # --- EOY exam dates (feeds countdowns) ---
+      - file: "Revision Hub V3/assets/data/ks3_eoy_dates.json"
+        label: "EOY Exam Dates"
+        name: "ks3_eoy_dates"
+        format: json
+        fields:
+          - label: "Exams"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.year}} – {{fields.label}} ({{fields.date}})"
+            fields:
+              - label: "Year"
+                name: "year"
+                widget: "select"
+                options:
+                  - { label: "Year 7", value: "y7" }
+                  - { label: "Year 8", value: "y8" }
+                  - { label: "Year 9", value: "y9" }
+              - { label: "Label", name: "label", widget: "string", default: "Paper 1" }
+              # Use a date only; the page ignores time and shows just days/hours remaining
+              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+
+      # --- EOY resources (feeds Year 7/8/9 resource grids) ---
+      - file: "Revision Hub V3/assets/data/ks3_eoy_resources.json"
+        label: "EOY Resources"
+        name: "ks3_eoy_resources"
+        format: json
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.year}} – {{fields.title}}"
+            fields:
+              - label: "Year"
+                name: "year"
+                widget: "select"
+                options:
+                  - { label: "Year 7", value: "y7" }
+                  - { label: "Year 8", value: "y8" }
+                  - { label: "Year 9", value: "y9" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                required: false
+                options: ["pdf", "video", "quiz", "site", "other"]
+              - { label: "Description", name: "description", widget: "text", required: false }
+              # Optional: helps sort newest first on the page if present
+              - { label: "Added (ISO date)", name: "addediso", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
               
   # Explore Hero
   - name: "explore_hero"
