@@ -42,21 +42,9 @@
         }
       }
 
-      /* ===== NEW: Mobile off-canvas controls ===== */
+      /* ===== Mobile off-canvas controls ===== */
 (function(){
-  const sb = wrap; // #sidebar element already defined above
-
-  // Add a close header row inside the sidebar (mobile)
-  if (!sb.querySelector('.mobile-close')) {
-    const closeBar = document.createElement('div');
-    closeBar.className = 'mobile-close';
-    closeBar.innerHTML = `
-      <span class="material-icons">chevron_left</span>
-      <span>Close menu</span>
-    `;
-    closeBar.addEventListener('click', () => setNavOpen(false));
-    sb.prepend(closeBar);
-  }
+  const sb = wrap; // #sidebar already defined above
 
   // Overlay (click to close)
   if (!document.querySelector('.nav-overlay')) {
@@ -72,8 +60,7 @@
     openBtn.id = 'nav-toggle';
     openBtn.setAttribute('aria-label','Open menu');
     openBtn.className = [
-      'md:hidden',
-      'fixed','top-4','left-4','z-50',
+      'md:hidden','fixed','top-4','left-4','z-50',
       'rounded-xl','shadow','bg-white','border','border-gray-200',
       'px-3','py-2','text-gray-700','hover:bg-gray-50',
       'focus:outline-none','focus:ring-2','focus:ring-gray-300'
@@ -83,32 +70,28 @@
     document.body.appendChild(openBtn);
   }
 
-  // Floating Close (X) button when menu is open
+  // Floating Close (X)
   if (!document.getElementById('nav-close')) {
     const closeBtn = document.createElement('button');
     closeBtn.id = 'nav-close';
     closeBtn.setAttribute('aria-label','Close menu');
     closeBtn.className = [
-      'md:hidden',
-      'fixed','top-4','right-4','z-50',
+      'md:hidden','fixed','top-4','right-4','z-50',
       'rounded-xl','shadow','bg-white','border','border-gray-200',
       'px-3','py-2','text-gray-700','hover:bg-gray-50',
       'focus:outline-none','focus:ring-2','focus:ring-gray-300',
-      'hidden' // only show when open
+      'hidden'
     ].join(' ');
     closeBtn.innerHTML = `<span class="material-icons">close</span>`;
     closeBtn.addEventListener('click', () => setNavOpen(false));
     document.body.appendChild(closeBtn);
   }
 
-  // Helper: sync which button is visible
   function syncButtons(){
     const open = document.body.classList.contains('nav-open');
     document.getElementById('nav-toggle')?.classList.toggle('hidden', open);
     document.getElementById('nav-close')?.classList.toggle('hidden', !open);
   }
-
-  // Open/close in one place
   function setNavOpen(state){
     document.body.classList.toggle('nav-open', state);
     syncButtons();
@@ -125,7 +108,7 @@
     if (a) setNavOpen(false);
   });
 
-  // Optional: swipe left to close
+  // Optional: swipe left to close (when using side-drawer variant)
   let startX = null;
   sb.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
   sb.addEventListener('touchmove', (e)=>{
@@ -134,7 +117,7 @@
     if (dx < -50) { setNavOpen(false); startX = null; }
   }, {passive:true});
 
-  // Initial sync in case of SSR/rehydration quirks
+  // First sync
   syncButtons();
 })();
       /* ===== END mobile controls ===== */
