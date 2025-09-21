@@ -128,8 +128,14 @@ collections:
                   - { label: "Year 8", value: "y8" }
                   - { label: "Year 9", value: "y9" }
               - { label: "Label", name: "label", widget: "string", default: "Paper 1" }
-              # Use a date only; the page ignores time and shows just days/hours remaining
-              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              # Store as string in YYYY-MM-DD (no time needed)
+              - label: "Date (YYYY-MM-DD)"
+                name: "date"
+                widget: "string"
+                pattern:
+                  - "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+                  - "Use YYYY-MM-DD, e.g. 2025-06-10"
+                hint: "Enter date like 2025-06-10. Time is ignored on the site."
               - { label: "Active", name: "active", widget: "boolean", default: true }
 
       # --- EOY resources (feeds Year 7/8/9 resource grids) ---
@@ -159,7 +165,7 @@ collections:
                 options: ["pdf", "video", "quiz", "site", "other"]
               - { label: "Description", name: "description", widget: "text", required: false }
               # Optional: helps sort newest first on the page if present
-              - { label: "Added (ISO date)", name: "addediso", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
               - { label: "Active", name: "active", widget: "boolean", default: true }
               
   # Explore Hero
