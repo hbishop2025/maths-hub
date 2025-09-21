@@ -340,7 +340,7 @@ main {
 
 /* ---------- Extra: Drawer popup on very small phones ---------- */
 /* Presents the sidebar as a centered modal drawer with rounded corners */
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   #sidebar {
     left: 50%;
     right: auto;
