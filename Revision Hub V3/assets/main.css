@@ -338,26 +338,91 @@ main {
   body.nav-open { overflow: hidden; touch-action: none; }
 }
 
-/* ---------- Extra: Drawer popup on very small phones ---------- */
-/* Presents the sidebar as a centered modal drawer with rounded corners */
-@media (max-width: 1024px) {
+/* ---------- Layout: stack on mobile, grid on desktop ---------- */
+.layout { display: block; }
+.main  { margin-left: 0 !important; }
+
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 18rem 1fr; /* sidebar + main */
+  }
   #sidebar {
-    left: 50%;
-    right: auto;
-    top: 6vh;
-    bottom: 6vh;
-    width: min(22rem, 92vw);
-    max-width: 92vw;
-    height: auto;
-    max-height: 88vh;
-    border: 1px solid #e5e7eb;
-    border-radius: 1rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,.18);
-    transform: translateX(-150%); /* off-screen by default */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
   }
-  body.nav-open #sidebar {
-    transform: translateX(-50%); /* centered */
-  }
+}
+
+/* Hide the sidebar entirely on mobile/tablet (we use a modal instead) */
+@media (max-width: 1023.98px) {
+  #sidebar { display: none !important; }
+}
+
+/* ---------- Modal popup menu for mobile ---------- */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 40;
+}
+.mobile-menu {
+  position: fixed;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-52%) scale(.98);
+  width: min(24rem, 94vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 1rem;
+  box-shadow: 0 20px 48px rgba(0,0,0,.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 50;
+  padding: .5rem 0; /* breathing room for the nav */
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%,-50%) scale(1);
+}
+.nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal header row (logo + close button) */
+.mobile-menu .mm-header {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  z-index: 1;
+}
+.mobile-menu .mm-body {
+  padding: .5rem .75rem 1rem .75rem;
+}
+.mobile-menu .mm-close {
+  display: inline-flex; align-items: center;
+  gap: .25rem; padding: .4rem .6rem;
+  border: 1px solid #e5e7eb; border-radius: .5rem;
+  background:#fff; color:#374151;
+}
+
+/* When menu is open, prevent page scroll but keep modal scrollable */
+body.nav-open { overflow: hidden; touch-action: none; }
+
+/* Hide the floating buttons on desktop */
+@media (min-width: 1024px) {
+  #nav-toggle, #nav-close { display: none !important; }
 }
 
 /* Hide any internal close strip; we use a floating X button instead */
