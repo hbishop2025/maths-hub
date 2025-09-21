@@ -133,6 +133,77 @@ main {
 .card-title { font-weight:600; color:#1f2937; }         /* gray-800 */
 .card-text  { color:#4b5563; }                          /* gray-600 */
 
+/* ===== Mobile off-canvas sidebar ===== */
+@media (max-width: 1024px) { /* lg breakpoint and below */
+  /* Sidebar panel becomes fixed off-canvas */
+  #sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;        /* left, full height */
+    width: 18rem;             /* 288px */
+    max-width: 85vw;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 50;
+    overflow-y: auto;
+    border-right: 1px solid #e5e7eb; /* gray-200 */
+  }
+
+  /* When nav is open, slide in */
+  body.nav-open #sidebar {
+    transform: translateX(0);
+  }
+
+  /* Dark overlay behind the menu */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    z-index: 40;
+  }
+  body.nav-open .nav-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Prevent background scroll when menu open */
+  body.nav-open {
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  /* Main area should not assume grid-gap from desktop */
+  .layout {
+    display: block; /* stack */
+  }
+}
+
+/* Optional: tiny close button visible only on mobile at top of sidebar */
+#sidebar .mobile-close {
+  display: none;
+}
+@media (max-width: 1024px) {
+  #sidebar .mobile-close {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    font-weight: 600;
+    color: #374151; /* gray-700 */
+  }
+}
+
+
 /* ========= MathJax inline (prevent line breaks) ========= */
 mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
 mjx-container[display="true"]{ display:block !important; text-align:center; margin:.5rem 0; }
