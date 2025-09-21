@@ -1,8 +1,8 @@
 /* ========= Root theme ========= */
 :root{
-  --accent: #7B61FF;   /* Year 9 purple */
+  --accent: #7B61FF;         /* Year 9 purple */
   --accent-2: #A28BFF;
-  --sidebar-w: 16rem;  /* 256px */
+  --sidebar-w: 16rem;        /* 256px — keep in sync with sidebar HTML */
   --shadow-sm: 0 8px 24px rgba(0,0,0,.08);
 }
 
@@ -12,54 +12,36 @@ body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sa
 .material-icons { font-size: 24px; }
 
 /* ========= Layout: Sidebar + Main ========= */
-/* Reserve space so content never overlaps while sidebar loads */
-.layout { display:flex; min-height:100vh; }
-/* Fixed sidebar */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 16rem;   /* same as w-64 */
-  height: 100dvh; /* full screen height */
-  z-index: 40;
-}
+/* Mobile/tablet default: stack (sidebar hidden; see modal section below) */
+.layout { display: block; }
+.main  { margin-left: 0; }
 
-/* Main offset (so it doesn’t sit under sidebar) */
-main {
-  margin-left: 16rem;
-}
-
-.main {
-  flex: 1;
-  overflow-y: auto;
-  min-width: 0;   /* this fixes the “not full width” bug */
-}
-
-/* The injected sidebar becomes fixed on desktop (Chromebook) */
-#sidebar .panel {
-  position: fixed; left:0; top:0;
-  width: var(--sidebar-w);
-  height: 100dvh;
-  overflow-y: auto;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,.05);
-}
-
-/* Optional skeleton while loading */
-#sidebar .skeleton {
-  display:flex; align-items:center; justify-content:center; height:64px;
-}
-#sidebar .skeleton .bar {
-  width:70%; height:40px; border-radius:8px; background:#f3f4f6;
+/* Desktop (≥1024px): real two-column grid with sticky sidebar */
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr; /* match the variable width */
+  }
+  #sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: var(--sidebar-w); /* keep column and panel locked together */
+    box-shadow: none;
+  }
+  /* Slightly tighter desktop padding than Tailwind p-8 (32px) */
+  .main {
+    padding: 1.25rem !important; /* 20px. Try 1.5rem (24px) if you prefer. */
+  }
 }
 
 /* ========= Sidebar link states ========= */
 #sidebar nav a {
-  color: #4b5563;                 /* gray-600 */
-  border-radius: .5rem;           /* matches rounded-lg */
+  color: #4b5563;            /* gray-600 */
+  border-radius: .5rem;      /* rounded-lg */
 }
-#sidebar nav a:hover { color:#111827; }      /* gray-900 */
-
+#sidebar nav a:hover { color:#111827; } /* gray-900 */
 #sidebar nav a.active {
   background: var(--accent);
   color: #fff !important;
@@ -68,14 +50,18 @@ main {
 
 /* ========= Cards / panels (common look) ========= */
 .card {
-  background:#fff; border-radius: 0.75rem;
+  background:#fff;
+  border-radius: 0.75rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid rgba(0,0,0,.06);
+  padding: 1.5rem;
 }
+.card-title { font-weight:600; color:#1f2937; } /* gray-800 */
+.card-text  { color:#4b5563; }                  /* gray-600 */
 
 /* Subtle diagonal stripes for non-YouTube cards */
 .bg-stripes {
-  background-color: #f3f4f6; /* base (tailwind gray-100) */
+  background-color: #f3f4f6; /* gray-100 */
   background-image: repeating-linear-gradient(
     45deg,
     #e0e7ff,            /* indigo-100 */
@@ -100,6 +86,7 @@ main {
   border-radius: .75rem; display:flex; flex-direction:column; justify-content:center;
 }
 .flip-back{ transform: rotateY(180deg); }
+.flip button.flip-toggle{ position:absolute; inset:0; opacity:0; }
 
 /* ========= Unit tiles (hub) ========= */
 .unit-badge{
@@ -118,255 +105,13 @@ main {
   background:linear-gradient(90deg, var(--accent), var(--accent-2));
 }
 
-/* === Flip cards (shared) === */
-.flip{ perspective:1000px; height:240px; }
-@media (min-width:768px){ .flip{ height:260px; } }
-.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .5s ease; }
-.flip:hover .flip-inner,
-.flip:focus-within .flip-inner,
-.flip.flipped .flip-inner{ transform:rotateY(180deg); }
-.flip-face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:.75rem; display:flex; flex-direction:column; justify-content:center; }
-.flip-back{ transform:rotateY(180deg); }
-.flip button.flip-toggle{ position:absolute; inset:0; opacity:0; }
-
-.card { background:#fff; border-radius:0.75rem; box-shadow:0 1px 2px rgba(0,0,0,.05); padding:1.5rem; }
-.card-title { font-weight:600; color:#1f2937; }         /* gray-800 */
-.card-text  { color:#4b5563; }                          /* gray-600 */
-
-/* ===== Mobile off-canvas sidebar ===== */
-@media (max-width: 1024px) { /* lg breakpoint and below */
-  /* Sidebar panel becomes fixed off-canvas */
-  #sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;        /* left, full height */
-    width: 18rem;             /* 288px */
-    max-width: 85vw;
-    height: 100vh;
-    background: #fff;
-    box-shadow: 0 10px 25px rgba(0,0,0,.12);
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 50;
-    overflow-y: auto;
-    border-right: 1px solid #e5e7eb; /* gray-200 */
-  }
-
-  /* When nav is open, slide in */
-  body.nav-open #sidebar {
-    transform: translateX(0);
-  }
-
-  /* Dark overlay behind the menu */
-  .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.35);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s ease;
-    z-index: 40;
-  }
-  body.nav-open .nav-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Prevent background scroll when menu open */
-  body.nav-open {
-    overflow: hidden;
-    touch-action: none;
-  }
-
-  /* Main area should not assume grid-gap from desktop */
-  .layout {
-    display: block; /* stack */
-  }
-}
-
-/* Optional: tiny close button visible only on mobile at top of sidebar */
-#sidebar .mobile-close {
-  display: none;
-}
-@media (max-width: 1024px) {
-  #sidebar .mobile-close {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-    padding: .75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 1;
-    font-weight: 600;
-    color: #374151; /* gray-700 */
-  }
-}
-/* ----- Base: stack the layout on small screens ----- */
-.layout { display: block; }
-
-/* Remove any legacy left spacing on the main column */
-.main { margin-left: 0 !important; }
-
-/* Desktop/tablet: two-column layout with reserved sidebar space */
-@media (min-width: 1024px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 18rem 1fr; /* match your sidebar width */
-  }
-  /* Sidebar behaves like a regular static column on desktop */
-  #sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    transform: none !important;   /* ensure no off-canvas transform on desktop */
-    box-shadow: none;
-  }
-  /* Overlay is not used on desktop */
-  .nav-overlay { display: none !important; }
-}
-
-/* Mobile off-canvas: scrollable panel + momentum scrolling */
-@media (max-width: 1024px) {
-  #sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 18rem;
-    max-width: 85vw;
-    height: 100dvh;               /* use viewport height that respects mobile UI */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
-    box-shadow: 0 10px 25px rgba(0,0,0,.12);
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 50;
-  }
-  body.nav-open #sidebar { transform: translateX(0); }
-
-  .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.35);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s ease;
-    z-index: 40;
-  }
-  body.nav-open .nav-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Prevent background page scroll while panel is open (sidebar still scrolls) */
-  body.nav-open {
-    overflow: hidden;
-    touch-action: none;
-  }
-
-  /* Optional: sticky close row at top of the sidebar */
-  #sidebar .mobile-close {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-    padding: .75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 1;
-    font-weight: 600;
-    color: #374151;
-  }
-}
-
-@media (min-width: 1024px) {
-  .main {
-    padding: 1.5rem !important; /* 24px instead of 32px */
-  }
-}
-
-/* ---------- Shared layout: stack on mobile, grid on desktop ---------- */
-.layout { display: block; }
-.main { margin-left: 0 !important; }
-
-@media (min-width: 1024px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 18rem 1fr; /* sidebar + main */
-  }
-  #sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    transform: none !important;
-    box-shadow: none;
-  }
-  .nav-overlay { display: none !important; }
-}
-
-/* ---------- Mobile off-canvas (default) ---------- */
-@media (max-width: 1024px) {
-  #sidebar {
-    position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 18rem;
-    max-width: 85vw;
-    height: 100dvh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
-    box-shadow: 0 10px 25px rgba(0,0,0,.12);
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 50;
-  }
-  body.nav-open #sidebar { transform: translateX(0); }
-
-  .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.35);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s ease;
-    z-index: 40;
-  }
-  body.nav-open .nav-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  body.nav-open { overflow: hidden; touch-action: none; }
-}
-
-/* ---------- Layout: stack on mobile, grid on desktop ---------- */
-.layout { display: block; }
-.main  { margin-left: 0 !important; }
-
-@media (min-width: 1024px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 18rem 1fr; /* sidebar + main */
-  }
-  #sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-  }
-}
-
-/* Hide the sidebar entirely on mobile/tablet (we use a modal instead) */
+/* ========= Mobile navigation (modal popup) ========= */
+/* Hide the desktop sidebar below 1024px; use modal instead */
 @media (max-width: 1023.98px) {
   #sidebar { display: none !important; }
 }
 
-/* ---------- Modal popup menu for mobile ---------- */
+/* Modal overlay */
 .nav-overlay {
   position: fixed;
   inset: 0;
@@ -376,6 +121,12 @@ main {
   transition: opacity .2s ease;
   z-index: 40;
 }
+.nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Centered modal that clones sidebar <nav> for mobile/tablet */
 .mobile-menu {
   position: fixed;
   left: 50%; top: 50%;
@@ -392,19 +143,15 @@ main {
   pointer-events: none;
   transition: opacity .2s ease, transform .2s ease;
   z-index: 50;
-  padding: .5rem 0; /* breathing room for the nav */
+  padding: .5rem 0;
 }
 .mobile-menu.open {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%,-50%) scale(1);
 }
-.nav-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
 
-/* Modal header row (logo + close button) */
+/* Modal header/body/close */
 .mobile-menu .mm-header {
   position: sticky; top: 0;
   display: flex; align-items: center; justify-content: space-between;
@@ -413,9 +160,9 @@ main {
   background: #fff;
   z-index: 1;
 }
-.mobile-menu .mm-body {
-  padding: .5rem .75rem 1rem .75rem;
-}
+.mobile-menu .mm-brand { display:flex; align-items:center; gap:.5rem; }
+.mobile-menu .mm-brand img { max-height: 28px; }
+.mobile-menu .mm-body  { padding: .5rem .75rem 1rem .75rem; }
 .mobile-menu .mm-close {
   display: inline-flex; align-items: center;
   gap: .25rem; padding: .4rem .6rem;
@@ -423,15 +170,15 @@ main {
   background:#fff; color:#374151;
 }
 
-/* When menu is open, prevent page scroll but keep modal scrollable */
+/* Prevent background scroll while modal open */
 body.nav-open { overflow: hidden; touch-action: none; }
 
-/* Hide the floating buttons on desktop */
+/* Hide the floating hamburger/close on desktop */
 @media (min-width: 1024px) {
   #nav-toggle, #nav-close { display: none !important; }
 }
 
-/* Hide any internal close strip; we use a floating X button instead */
+/* If any internal mobile close strip exists in sidebar HTML, keep it hidden; modal handles close */
 #sidebar .mobile-close { display: none !important; }
 
 /* ========= MathJax inline (prevent line breaks) ========= */
