@@ -41,6 +41,60 @@
           link.setAttribute('aria-current','page');
         }
       }
+
+      /* ===== NEW: Mobile off-canvas controls ===== */
+      (function(){
+        // Add a close bar inside sidebar (only mobile)
+        if (!wrap.querySelector('.mobile-close')) {
+          const closeBar = document.createElement('div');
+          closeBar.className = 'mobile-close';
+          closeBar.innerHTML = `
+            <span class="material-icons">chevron_left</span>
+            <span>Close menu</span>
+          `;
+          closeBar.addEventListener('click', () => document.body.classList.remove('nav-open'));
+          wrap.prepend(closeBar);
+        }
+
+        // Add overlay once
+        if (!document.querySelector('.nav-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.className = 'nav-overlay';
+          overlay.addEventListener('click', () => document.body.classList.remove('nav-open'));
+          document.body.appendChild(overlay);
+        }
+
+        // Add hamburger button (mobile only)
+        if (!document.getElementById('nav-toggle')) {
+          const btn = document.createElement('button');
+          btn.id = 'nav-toggle';
+          btn.setAttribute('aria-label','Open menu');
+          btn.className = [
+            'md:hidden',
+            'fixed', 'top-4', 'left-4', 'z-50',
+            'rounded-xl', 'shadow', 'bg-white', 'border', 'border-gray-200',
+            'px-3', 'py-2', 'text-gray-700', 'hover:bg-gray-50',
+            'focus:outline-none', 'focus:ring-2', 'focus:ring-gray-300'
+          ].join(' ');
+          btn.innerHTML = `<span class="material-icons">menu</span>`;
+          btn.addEventListener('click', () => {
+            document.body.classList.add('nav-open');
+          });
+          document.body.appendChild(btn);
+        }
+
+        // ESC closes
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') document.body.classList.remove('nav-open');
+        });
+
+        // Close when clicking any link in sidebar
+        wrap.addEventListener('click', (e) => {
+          const a = e.target.closest('a');
+          if (a) document.body.classList.remove('nav-open');
+        });
+      })();
+      /* ===== END mobile controls ===== */
     })
     .catch(() => {
       wrap.innerHTML = `<div class="panel" style="padding:16px;font-weight:600;">Menu unavailable</div>`;
