@@ -282,6 +282,87 @@ main {
   }
 }
 
+/* ---------- Shared layout: stack on mobile, grid on desktop ---------- */
+.layout { display: block; }
+.main { margin-left: 0 !important; }
+
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 18rem 1fr; /* sidebar + main */
+  }
+  #sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transform: none !important;
+    box-shadow: none;
+  }
+  .nav-overlay { display: none !important; }
+}
+
+/* ---------- Mobile off-canvas (default) ---------- */
+@media (max-width: 1024px) {
+  #sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 18rem;
+    max-width: 85vw;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 50;
+  }
+  body.nav-open #sidebar { transform: translateX(0); }
+
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    z-index: 40;
+  }
+  body.nav-open .nav-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.nav-open { overflow: hidden; touch-action: none; }
+}
+
+/* ---------- Extra: Drawer popup on very small phones ---------- */
+/* Presents the sidebar as a centered modal drawer with rounded corners */
+@media (max-width: 640px) {
+  #sidebar {
+    left: 50%;
+    right: auto;
+    top: 6vh;
+    bottom: 6vh;
+    width: min(22rem, 92vw);
+    max-width: 92vw;
+    height: auto;
+    max-height: 88vh;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
+    transform: translateX(-150%); /* off-screen by default */
+  }
+  body.nav-open #sidebar {
+    transform: translateX(-50%); /* centered */
+  }
+}
+
+/* Hide any internal close strip; we use a floating X button instead */
+#sidebar .mobile-close { display: none !important; }
+
 /* ========= MathJax inline (prevent line breaks) ========= */
 mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
 mjx-container[display="true"]{ display:block !important; text-align:center; margin:.5rem 0; }
