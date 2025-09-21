@@ -17,6 +17,12 @@
       "url": "https://mathshub.netlify.app/year9_hub",
       "text": "All year 9 resource pages are live!",
       "date": "2025-09-14"
+    },
+    {
+      "type": "Update",
+      "text": "KS3 EOY page is now live!",
+      "date": "2025-09-21",
+      "url": "https://mathshub.netlify.app/ks3_eoy"
     }
   ]
 }
