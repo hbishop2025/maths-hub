@@ -62,15 +62,18 @@
     const logoEl = sb.querySelector('.logo, img[alt*="logo"], img[alt*="Logo"]');
     const logoHTML = logoEl ? logoEl.outerHTML : `<strong class="text-gray-800">Menu</strong>`;
     modal.innerHTML = `
-      <div class="mm-header">
-        <div class="mm-brand">${logoHTML}</div>
-        <button class="mm-close" type="button">
-          <span class="material-icons" aria-hidden="true">close</span>
-          <span class="sr-only">Close</span>
-        </button>
-      </div>
-      <div class="mm-body"></div>
-    `;
+  <div class="mm-header">
+    <div class="mm-brand" style="display:flex;align-items:center;gap:.5rem;">
+      ${logoHTML}
+      <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths Hub</span>
+    </div>
+    <button class="mm-close" type="button">
+      <span class="material-icons" aria-hidden="true">close</span>
+      <span class="sr-only">Close</span>
+    </button>
+  </div>
+  <div class="mm-body"></div>
+`;
     document.body.appendChild(modal);
   }
 
@@ -89,7 +92,7 @@
     openBtn.id = 'nav-toggle';
     openBtn.setAttribute('aria-label','Open menu');
     openBtn.className = [
-      'md:hidden','fixed','top-4','left-4','z-50',
+      'lg:hidden','fixed','top-4','left-4','z-50',
       'rounded-xl','shadow','bg-white','border','border-gray-200',
       'px-3','py-2','text-gray-700','hover:bg-gray-50',
       'focus:outline-none','focus:ring-2','focus:ring-gray-300'
@@ -103,7 +106,7 @@
     closeBtn.id = 'nav-close';
     closeBtn.setAttribute('aria-label','Close menu');
     closeBtn.className = [
-      'md:hidden','fixed','top-4','right-4','z-50',
+      'lg:hidden','fixed','top-4','right-4','z-50',
       'rounded-xl','shadow','bg-white','border','border-gray-200',
       'px-3','py-2','text-gray-700','hover:bg-gray-50',
       'focus:outline-none','focus:ring-2','focus:ring-gray-300','hidden'
