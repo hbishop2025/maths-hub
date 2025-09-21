@@ -10,7 +10,7 @@
     ]
   },
   "items": [
-    { "year": "y9", "label": "Paper 1", "datetime": "2025-06-12T09:00:00+01:00" },
-    { "year": "y9", "label": "Paper 2", "datetime": "2025-06-19T09:00:00+01:00" }
+    { "year": "y9", "label": "Paper 1", "datetime": "2025-10-12T09:00:00+01:00" },
+    { "year": "y9", "label": "Paper 2", "datetime": "2025-11-19T09:00:00+01:00" }
   ]
 }
