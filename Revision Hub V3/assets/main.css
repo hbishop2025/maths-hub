@@ -282,6 +282,12 @@ main {
   }
 }
 
+@media (min-width: 1024px) {
+  .main {
+    padding: 1.5rem !important; /* 24px instead of 32px */
+  }
+}
+
 /* ---------- Shared layout: stack on mobile, grid on desktop ---------- */
 .layout { display: block; }
 .main { margin-left: 0 !important; }
