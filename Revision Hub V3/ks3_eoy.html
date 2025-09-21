@@ -89,10 +89,8 @@
               <p class="text-gray-600">
                 Tackle one mixed set at a time. Mark immediately, then use results to choose tomorrow’s focus.
               </p>
+              <!-- Removed "See countdowns" button since countdowns are directly below -->
               <div class="mt-3 flex flex-wrap gap-2">
-                <a href="#countdowns" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700">
-                  See countdowns <span class="material-icons ml-1">hourglass_bottom</span>
-                </a>
                 <a href="#unit-resources" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700">
                   Browse resources <span class="material-icons ml-1">arrow_downward</span>
                 </a>
@@ -244,7 +242,7 @@
       return {icon:"description", cta:"Open"};
     }
 
-    // Resource card factory (white card, striped media by year, coloured top border)
+    // Resource card factory (white card, striped media by year, coloured top border, year-coloured text)
     function makeResCard({ title, url, year }){
       const safeUrl = ensureHttps(url);
       const { icon, cta } = iconFor(url);
@@ -253,6 +251,7 @@
       const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
       const stripeClass = year==="y7" ? "stripe-y7" : year==="y8" ? "stripe-y8" : "stripe-y9";
       const topClass    = year==="y7" ? "card-y7"   : year==="y8" ? "card-y8"   : "card-y9";
+      const textColor   = year==="y7" ? "var(--y7)" : year==="y8" ? "var(--y8)" : "var(--y9)";
 
       const media = yt
         ? (() => {
@@ -273,8 +272,8 @@
       el.className = `block bg-white border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 ${topClass}`;
       el.innerHTML = `
         ${media}
-        <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
-        <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
+        <h3 class="font-semibold mb-2" style="color:${textColor}">${title || "Untitled"}</h3>
+        <div class="flex items-center text-sm font-semibold" style="color:${textColor}">
           ${cta}
           <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'open_in_new')}</span>
         </div>
@@ -305,10 +304,9 @@
       return `${days}d ${hours}h`;
     }
 
-    // Format date (no time)
+    // Date display (no time)
     function formatDateOnly(iso){
       const d = new Date(iso);
-      // e.g., "Tue, 10 Jun 2025" without time
       return d.toLocaleDateString(undefined, { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
     }
 
