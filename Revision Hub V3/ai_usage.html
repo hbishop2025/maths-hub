@@ -5,10 +5,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>AI Use — Maths Hub</title>
 
-  <!-- Shared CSS (layout, sidebar, etc.) -->
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css">
 
-  <!-- Tailwind (match the rest of the site) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
@@ -17,24 +17,30 @@
 
   <style>
     :root{
-      /* sampled from your logo */
       --school-yellow: #F4C500;
-      --school-yellow-soft: #FEF3C7; /* gentle background */
-      --school-yellow-border: #FACC15; /* subtle border/hover */
+      --school-yellow-soft: #FEF3C7;
+      --school-yellow-border: #FACC15;
     }
-    body{ font-family: 'Inter', sans-serif; }
-    .material-icons{ font-size: 24px; }
-    html{ scroll-behavior:smooth; }
-    /* small helper for yellow top-accent on cards */
+    body{ font-family:'Inter',sans-serif; }
+    .material-icons{ font-size:24px; line-height:1; }
+
+    /* Fix list wrapping under bullets: use outside markers and a hanging indent */
+    .hang-list{
+      list-style: disc outside;
+      padding-left: 1.5rem; /* space for the bullet */
+    }
+    .hang-list li{
+      padding-left: .25rem; /* small breathing room after the bullet */
+    }
+
+    /* Card accent */
     .card-top-accent{ border-top: 4px solid var(--school-yellow); }
   </style>
 </head>
 <body class="bg-gray-100" data-page="ai">
   <div class="layout">
-    <!-- Sidebar (filled by sidebar-loader.js) -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
-    <!-- Main -->
     <main class="main p-8 overflow-y-auto">
       <!-- Back + title -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
@@ -43,15 +49,14 @@
         </a>
         <h1 class="text-2xl font-extrabold text-gray-800">Using AI Sensibly</h1>
         <a class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-gray-900"
-           style="background:var(--school-yellow);"
-           href="#prompts">
-          Prompt Ideas <span class="material-icons ml-2">lightbulb</span>
+           style="background:var(--school-yellow);" href="#prompts">
+          Prompt ideas <span class="material-icons ml-2">lightbulb</span>
         </a>
       </header>
 
       <!-- Split header cards -->
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <!-- Left (light, yellow-accent) -->
+        <!-- Left (light guidance) -->
         <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 card-top-accent">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl" style="color:var(--school-yellow);">sparkles</span>
@@ -59,8 +64,8 @@
               <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Guidance</p>
               <h2 class="text-xl font-bold text-gray-800 mb-1">What is AI?</h2>
               <p class="text-gray-700">
-                AI can explain steps, generate examples, spot mistakes, and create practice. It’s brilliant
-                for revision when you use it to <strong>learn</strong>—not to shortcut the learning.
+                AI can explain steps, generate examples, spot mistakes, and create practice. It is brilliant
+                for revision when you use it to learn. Do not use it to short-cut the learning.
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
                 <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700">
@@ -75,22 +80,17 @@
           </div>
         </article>
 
-        <!-- Right (dark, with yellow CTA) -->
-        <article class="rounded-2xl p-6 text-white shadow-sm"
-                 style="background:#1F2937;">
+        <!-- Right (dark policy) -->
+        <article class="rounded-2xl p-6 text-white shadow-sm" style="background:#1F2937;">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl text-white/90">policy</span>
             <div class="flex-1">
               <h2 class="text-xl font-bold mb-1">School policy</h2>
               <p class="text-white/80 mb-3">
-                Use AI to understand methods and practise. Don’t submit AI-generated answers as your own.
+                Use AI to understand methods and to practise. Do not submit AI-generated answers as your own work.
               </p>
-              <div class="flex flex-wrap gap-2">
-                <a href="#dos-donts"
-                   class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-gray-900"
-                   style="background:var(--school-yellow);">
-                  See the do’s & don’ts <span class="material-icons ml-2">arrow_downward</span>
-                </a>
+              <div class="rounded-xl px-4 py-3" style="background:var(--school-yellow-soft); color:#111827; border:1px solid var(--school-yellow-border);">
+                <strong>Golden rule:</strong> If it feels like cheating, it is.
               </div>
             </div>
           </div>
@@ -103,12 +103,12 @@
           <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
             <span class="material-icons mr-2 text-green-600">check_circle</span> Do’s
           </h3>
-          <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>Ask for <strong>worked examples</strong> and then try similar questions yourself.</li>
-            <li>Request step-by-step explanations and <strong>spot where you went wrong</strong>.</li>
-            <li>Generate <strong>practice questions</strong> at the right difficulty.</li>
-            <li>Ask it to <strong>explain keywords</strong> in simple terms.</li>
-            <li>Compare your method to AI’s and <strong>write your own solution</strong>.</li>
+          <ul class="hang-list text-gray-700 space-y-2 leading-relaxed">
+            <li>Ask for worked examples, then try similar questions yourself.</li>
+            <li>Request step-by-step explanations and spot where you went wrong.</li>
+            <li>Generate practice questions at the right difficulty.</li>
+            <li>Ask for simple explanations of keywords.</li>
+            <li>Compare your method to AI and write your own solution.</li>
           </ul>
         </div>
 
@@ -116,33 +116,33 @@
           <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
             <span class="material-icons mr-2 text-red-600">cancel</span> Don’ts
           </h3>
-          <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>Don’t copy answers—<strong>you won’t learn it</strong> and it’s against school rules.</li>
-            <li>Don’t enter personal data; keep prompts <strong>anonymous and safe</strong>.</li>
-            <li>Don’t assume it’s always right—<strong>check your answers</strong> with your notes.</li>
-            <li>Don’t rely on AI to do homework—<strong>use it to understand</strong>, not to submit.</li>
-            <li>Don’t ask for exam answers or restricted content.</li>
+          <ul class="hang-list text-gray-700 space-y-2 leading-relaxed">
+            <li>Do not copy answers. You will not learn it and it breaks school rules.</li>
+            <li>Do not enter personal data. Keep prompts anonymous and safe.</li>
+            <li>Do not assume it is always right. Check with notes or a teacher.</li>
+            <li>Do not rely on AI to do homework. Use it to understand, not to submit.</li>
+            <li>Do not ask for exam answers or restricted content.</li>
           </ul>
         </div>
       </section>
 
       <!-- Common Questions (flip cards) -->
       <section class="mb-10">
-        <h2 class="text-xl font-bold text-gray-800 mb-3">Common Questions</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-3">Common questions</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           <!-- Card 1 -->
           <div class="flip">
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">Can I use AI for homework?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 1"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  Yes—to <strong>understand</strong> methods, check your approach, and create practice questions.
-                  No—to <strong>generate final answers</strong> to hand in.
+                  Yes, to understand methods, check your approach, and create practice questions.
+                  No, to generate final answers to hand in.
                 </p>
               </div>
             </div>
@@ -153,13 +153,13 @@
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">Is AI always correct?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 2"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  No. Treat AI like a helpful peer—<strong>verify</strong> answers with your notes, teacher, or textbook.
+                  No. Treat AI like a helpful peer. Verify answers with your notes, teacher, or textbook.
                 </p>
               </div>
             </div>
@@ -170,13 +170,13 @@
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">What should I write in a prompt?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 3"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  Be specific: topic, year group, what you’re stuck on, and what you want (steps, hints, quiz).
+                  Be specific: topic, year group, what you are stuck on, and the format you want. Steps, hints, or a quiz.
                 </p>
               </div>
             </div>
@@ -187,14 +187,13 @@
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">Is using AI cheating?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 4"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  Using AI to learn is fine. <strong>Submitting AI’s work as your own is not</strong>.
-                  Always produce your own final answers.
+                  Using AI to learn is fine. Submitting AI work as your own is not. Always produce your own final answers.
                 </p>
               </div>
             </div>
@@ -205,13 +204,13 @@
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">Is my data safe?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 5"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  Keep prompts anonymous. Don’t share names, emails, or personal info. Follow school <strong>GDPR</strong> guidance.
+                  Keep prompts anonymous. Do not share names, emails, or personal info. Follow the school GDPR guidance.
                 </p>
               </div>
             </div>
@@ -222,14 +221,13 @@
             <div class="flip-inner">
               <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-800 mb-2">How do I learn with AI?</h4>
-                <p class="text-gray-700">Hover/tap to see the guidance.</p>
+                <p class="text-gray-700">Hover or tap to see the guidance.</p>
                 <button class="flip-toggle" aria-label="Flip card 6"></button>
               </div>
               <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6"
                    style="background:var(--school-yellow-soft);">
                 <p class="text-gray-800">
-                  Ask for steps → try a similar question → compare → correct → repeat.
-                  <strong>Practice</strong> is what sticks.
+                  Ask for steps. Try a similar question. Compare. Correct. Repeat. Practice is what sticks.
                 </p>
               </div>
             </div>
@@ -237,73 +235,101 @@
         </div>
       </section>
 
-      <!-- Prompt Ideas -->
+      <!-- Prompt ideas -->
       <section id="prompts" class="mb-16">
-        <h2 class="text-xl font-bold text-gray-800 mb-3">Prompt Ideas (copy & tweak)</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-3">Prompt ideas (copy and tweak)</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Prompt 1 -->
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <div class="flex items-start justify-between">
-              <h4 class="font-semibold text-gray-800">Worked Example + Practice</h4>
+              <h4 class="font-semibold text-gray-800">Worked example and practice</h4>
               <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
                       style="background:var(--school-yellow);" data-copy="#p1">
                 <span class="material-icons">content_copy</span>
               </button>
             </div>
             <p id="p1" class="text-gray-700 mt-2 text-sm">
-Explain this Year 9 topic: standard form. Show one worked example. Then give me 3 practice questions (no answers). After I try them, reveal the answers step by step.
+Explain this Year 9 topic: standard form. Show one worked example. Then give me three practice questions without answers. After I try them, reveal the answers step by step.
             </p>
           </div>
 
           <!-- Prompt 2 -->
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <div class="flex items-start justify-between">
-              <h4 class="font-semibold text-gray-800">Find the Error</h4>
+              <h4 class="font-semibold text-gray-800">Find the error</h4>
               <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
                       style="background:var(--school-yellow);" data-copy="#p2">
                 <span class="material-icons">content_copy</span>
               </button>
             </div>
             <p id="p2" class="text-gray-700 mt-2 text-sm">
-I solved this indices question but I’m not sure it’s right: 3^2 × 3^4 = 3^6 → 9 × 81 = 729. Check my working, point out errors if any, and explain the correct reasoning.
+I solved this indices question but I am not sure it is right: 3^2 × 3^4 = 3^6 → 9 × 81 = 729. Check my working. Point out any errors. Explain the correct reasoning.
             </p>
           </div>
 
           <!-- Prompt 3 -->
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <div class="flex items-start justify-between">
-              <h4 class="font-semibold text-gray-800">Targeted Practice (Tiered)</h4>
+              <h4 class="font-semibold text-gray-800">Targeted practice with tiers</h4>
               <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
                       style="background:var(--school-yellow);" data-copy="#p3">
                 <span class="material-icons">content_copy</span>
               </button>
             </div>
             <p id="p3" class="text-gray-700 mt-2 text-sm">
-Give me 5 questions on factorising quadratics for Year 9: 2 easy, 2 medium, 1 challenging. After each question, wait for my attempt before giving the solution.
+Give me five questions on factorising quadratics for Year 9. Make two easy, two medium, and one challenging. After each question, wait for my attempt before giving the solution.
             </p>
           </div>
 
           <!-- Prompt 4 -->
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <div class="flex items-start justify-between">
-              <h4 class="font-semibold text-gray-800">Explain Like I’m New</h4>
+              <h4 class="font-semibold text-gray-800">Explain like I am new</h4>
               <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
                       style="background:var(--school-yellow);" data-copy="#p4">
                 <span class="material-icons">content_copy</span>
               </button>
             </div>
             <p id="p4" class="text-gray-700 mt-2 text-sm">
-Explain Pythagoras’ theorem to a Year 8 student using a diagram description and a real-life example. Include 2 quick checks to test understanding.
+Explain Pythagoras’ theorem to a Year 8 student using a diagram description and a real-life example. Include two short checks to test understanding.
+            </p>
+          </div>
+
+          <!-- Prompt 5 -->
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Make a revision plan</h4>
+              <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
+                      style="background:var(--school-yellow);" data-copy="#p5">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p5" class="text-gray-700 mt-2 text-sm">
+I am in Year 8 and I have a fractions test in two weeks. Make a ten-day revision plan with 20 minute sessions. Include a mix of explanations, practice, and quick checks.
+            </p>
+          </div>
+
+          <!-- Prompt 6 -->
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-start justify-between">
+              <h4 class="font-semibold text-gray-800">Socratic hints only</h4>
+              <button class="text-gray-900 hover:opacity-80 rounded px-2 py-1"
+                      style="background:var(--school-yellow);" data-copy="#p6">
+                <span class="material-icons">content_copy</span>
+              </button>
+            </div>
+            <p id="p6" class="text-gray-700 mt-2 text-sm">
+I will paste a question. Do not give the answer. Ask me short guiding questions and give one hint at a time. If I am stuck, show the next step only.
             </p>
           </div>
         </div>
         <p class="text-xs text-gray-500 mt-3">
-          Tip: be specific about your year group, topic, and the help you want (examples, hints, or practice).
+          Tip: be specific about your year group, topic, and the help you want. Examples, hints, or practice.
         </p>
       </section>
 
       <footer class="text-center text-gray-400 text-sm pb-4">
-        <p>This guidance helps you use AI <em>to learn</em>, not to shortcut learning.</p>
+        <p>This guidance helps you use AI to learn, not to short-cut learning.</p>
       </footer>
     </main>
   </div>
