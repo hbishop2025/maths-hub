@@ -45,6 +45,7 @@
       /* ===== Mobile modal menu (popup) ===== */
 (function(){
   const sb = wrap; // #sidebar already filled with sidebar.html
+
   // Create overlay once
   let overlay = document.querySelector('.nav-overlay');
   if (!overlay) {
@@ -62,35 +63,35 @@
     const logoEl = sb.querySelector('.logo, img[alt*="logo"], img[alt*="Logo"]');
     const logoHTML = logoEl ? logoEl.outerHTML : `<strong class="text-gray-800">Menu</strong>`;
     modal.innerHTML = `
-  <div class="mm-header">
-    <div class="mm-brand" style="display:flex;align-items:center;gap:.5rem;">
-      ${logoHTML}
-      <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths Hub</span>
-    </div>
-    <button class="mm-close" type="button">
-      <span class="material-icons" aria-hidden="true">close</span>
-      <span class="sr-only">Close</span>
-    </button>
-  </div>
-  <div class="mm-body"></div>
-`;
+      <div class="mm-header">
+        <div class="mm-brand" style="display:flex;align-items:center;gap:.5rem;">
+          ${logoHTML}
+          <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths Hub</span>
+        </div>
+        <button class="mm-close" type="button" aria-label="Close menu">
+          <span class="material-icons" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="mm-body"></div>
+    `;
     document.body.appendChild(modal);
   }
 
   // Copy the sidebar's nav/content into the modal body
   const bodySlot = modal.querySelector('.mm-body');
   if (bodySlot) {
-    // Clone only the <nav> (preferred). If not present, clone all inner HTML.
     const nav = sb.querySelector('nav');
     bodySlot.innerHTML = "";
     bodySlot.appendChild((nav ? nav.cloneNode(true) : sb.cloneNode(true)));
   }
 
-  // Floating open/close buttons (mobile only)
-  if (!document.getElementById('nav-toggle')) {
-    const openBtn = document.createElement('button');
+  // Hamburger (open) — visible on < 1024px
+  let openBtn = document.getElementById('nav-toggle');
+  if (!openBtn) {
+    openBtn = document.createElement('button');
     openBtn.id = 'nav-toggle';
     openBtn.setAttribute('aria-label','Open menu');
+    openBtn.setAttribute('aria-expanded','false');
     openBtn.className = [
       'lg:hidden','fixed','top-4','left-4','z-50',
       'rounded-xl','shadow','bg-white','border','border-gray-200',
@@ -101,22 +102,8 @@
     openBtn.addEventListener('click', () => setOpen(true));
     document.body.appendChild(openBtn);
   }
-  if (!document.getElementById('nav-close')) {
-    const closeBtn = document.createElement('button');
-    closeBtn.id = 'nav-close';
-    closeBtn.setAttribute('aria-label','Close menu');
-    closeBtn.className = [
-      'lg:hidden','fixed','top-4','right-4','z-50',
-      'rounded-xl','shadow','bg-white','border','border-gray-200',
-      'px-3','py-2','text-gray-700','hover:bg-gray-50',
-      'focus:outline-none','focus:ring-2','focus:ring-gray-300','hidden'
-    ].join(' ');
-    closeBtn.innerHTML = `<span class="material-icons">close</span>`;
-    closeBtn.addEventListener('click', () => setOpen(false));
-    document.body.appendChild(closeBtn);
-  }
 
-  // Close actions
+  // Close actions (no floating #nav-close anymore)
   modal.querySelector('.mm-close')?.addEventListener('click', () => setOpen(false));
   overlay.addEventListener('click', () => setOpen(false));
   modal.addEventListener('click', (e) => {
@@ -132,8 +119,8 @@
     document.body.classList.toggle('nav-open', state);
     modal.classList.toggle('open', state);
     overlay.classList.toggle('open', state);
-    document.getElementById('nav-toggle')?.classList.toggle('hidden', state);
-    document.getElementById('nav-close')?.classList.toggle('hidden', !state);
+    openBtn?.classList.toggle('hidden', state);
+    openBtn?.setAttribute('aria-expanded', String(state));
   }
 })();
       /* ===== END mobile controls ===== */
