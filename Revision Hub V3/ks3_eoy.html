@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS (has layout, sidebar spacing, bg-stripes, etc.) -->
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
@@ -25,23 +25,24 @@
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
 
-    /* Flip-card micro CSS */
-    .flipcard{ perspective:1000px; }
-    .flipcard .inner{
-      position:relative; transform-style:preserve-3d; transition: transform .5s ease; height: 12rem;
-    }
-    .flipcard.is-flipped .inner{ transform: rotateY(180deg); }
-    .flipcard .face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:0.75rem; overflow:auto; }
-    .flipcard .back{ transform: rotateY(180deg); }
+    /* Optional dark card helper */
+    .dark-card { background:#0f162b; border:1px solid rgba(255,255,255,.08); }
 
-    /* MathJax inline rendering */
+    /* Small tag chip */
+    .chip {
+      display:inline-flex; align-items:center; gap:.35rem;
+      padding:.3rem .6rem; border-radius:999px;
+      background:#F3F4F6; color:#374151; font-weight:600; font-size:.8rem;
+    }
+
+    /* MathJax inline rendering (if you later add maths here) */
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
 </head>
 <body class="bg-gray-100" data-page="ks3_eoy">
   <div class="layout">
-    <!-- Sidebar container -->
+    <!-- Sidebar -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
@@ -55,9 +56,9 @@
         </div>
       </header>
 
-      <!-- Split hero cards -->
+      <!-- Split intro cards -->
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <!-- Left: light card -->
+        <!-- Left: light -->
         <article class="bg-white rounded-2xl shadow-sm p-6">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl text-gray-800">tips_and_updates</span>
@@ -68,6 +69,9 @@
                 Tackle one mixed set at a time. Mark immediately, then use results to choose tomorrow’s focus.
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
+                <a href="#countdowns" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700">
+                  See countdowns <span class="material-icons ml-1">hourglass_bottom</span>
+                </a>
                 <a href="#unit-resources" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700">
                   Browse resources <span class="material-icons ml-1">arrow_downward</span>
                 </a>
@@ -76,7 +80,7 @@
           </div>
         </article>
 
-        <!-- Right: dark card -->
+        <!-- Right: dark -->
         <article class="rounded-2xl p-6 text-white" style="background:#1F2937">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl text-white/90">task_alt</span>
@@ -86,8 +90,8 @@
                 Short daily sessions add up. Get one set done, then rest. You’ve got this.
               </p>
               <div class="flex flex-wrap gap-2">
-                <a href="#unit-resources" class="inline-flex items-center px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold">
-                  Start now <span class="material-icons ml-2">arrow_forward</span>
+                <a href="#daily-tasks" class="inline-flex items-center px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold">
+                  Daily tasks <span class="material-icons ml-2">arrow_forward</span>
                 </a>
               </div>
             </div>
@@ -95,26 +99,104 @@
         </article>
       </section>
 
-      <!-- Unit Resources -->
+      <!-- ===================== COUNTDOWNS ===================== -->
+      <section id="countdowns" class="mb-10" aria-label="EOY Countdowns">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Countdown to EOY exams</h2>
+        <p class="text-gray-600 mb-4">Each year has two papers. Times update automatically.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Y7 -->
+          <article class="bg-white rounded-2xl shadow-sm p-6">
+            <div class="flex items-start gap-3 mb-4">
+              <span class="material-icons text-4xl text-blue-600">hourglass_bottom</span>
+              <div>
+                <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
+                <p class="text-sm text-gray-500">Two papers</p>
+              </div>
+            </div>
+            <div class="space-y-4" id="y7-countdowns">
+              <!-- injected: two rows -->
+            </div>
+          </article>
+
+          <!-- Y8 -->
+          <article class="bg-white rounded-2xl shadow-sm p-6">
+            <div class="flex items-start gap-3 mb-4">
+              <span class="material-icons text-4xl text-green-600">hourglass_bottom</span>
+              <div>
+                <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
+                <p class="text-sm text-gray-500">Two papers</p>
+              </div>
+            </div>
+            <div class="space-y-4" id="y8-countdowns"></div>
+          </article>
+
+          <!-- Y9 -->
+          <article class="bg-white rounded-2xl shadow-sm p-6">
+            <div class="flex items-start gap-3 mb-4">
+              <span class="material-icons text-4xl text-purple-600">hourglass_bottom</span>
+              <div>
+                <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
+                <p class="text-sm text-gray-500">Two papers</p>
+              </div>
+            </div>
+            <div class="space-y-4" id="y9-countdowns"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===================== DAILY TASKS (COMING SOON) ===================== -->
+      <section id="daily-tasks" class="mb-10" aria-label="Daily Tasks">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Daily tasks</h2>
+        <p class="text-gray-600 mb-4">Short, focused prompts for each year group.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <article class="rounded-2xl p-6 bg-white shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
+              <span class="chip">Coming soon</span>
+            </div>
+            <p class="text-gray-600 mt-2">Daily mini tasks will appear here.</p>
+          </article>
+
+          <article class="rounded-2xl p-6 bg-white shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
+              <span class="chip">Coming soon</span>
+            </div>
+            <p class="text-gray-600 mt-2">Daily mini tasks will appear here.</p>
+          </article>
+
+          <article class="rounded-2xl p-6 bg-white shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
+              <span class="chip">Coming soon</span>
+            </div>
+            <p class="text-gray-600 mt-2">Daily mini tasks will appear here.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===================== RESOURCES ===================== -->
       <section class="mt-10" id="unit-resources">
         <h2 class="text-2xl font-bold text-gray-800 mb-8">KS3 — Mixed Resources</h2>
 
-        <!-- Worksheets -->
+        <!-- Year 7 -->
         <section class="mb-10">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 7</h3>
-          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y7" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- Videos -->
+        <!-- Year 8 -->
         <section class="mb-10" id="videos">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 8</h3>
-          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y8" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- Other -->
+        <!-- Year 9 -->
         <section class="mb-10">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 9</h3>
-          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y9" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
         <p id="unit-empty" class="text-gray-500" hidden>No resources available yet. Please check back later.</p>
@@ -122,33 +204,31 @@
     </main>
   </div>
 
-  <!-- Sidebar loader -->
+  <!-- Shared scripts -->
   <script src="/assets/sidebar-loader.js"></script>
-  <!-- Shared cards/helpers -->
   <script src="/assets/cards.js"></script>
-
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 
   <!-- Page JS -->
   <script>
-    // === Example data source (update per year JSON) ===
-    const DATA_URL = "../assets/data/year9_unit02.json";
+    // --------- Config (CMS JSON endpoints) ----------
+    const EOY_DATES_URL     = "/assets/data/ks3_eoy_dates.json";
+    const EOY_RESOURCES_URL = "/assets/data/ks3_eoy_resources.json";
+
+    // --------- Helpers ----------
+    function normList(data){
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.items)) return data.items;
+      return [];
+    }
+    function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
 
     function iconFor(url){
       const u=(url||"").toLowerCase();
       if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View"};
       if(u.includes("youtube")||u.includes("youtu.be")||u.includes("watch")) return {icon:"videocam", cta:"Watch Now"};
       if(u.includes("quiz")||u.includes("forms.gle")||u.includes("form")) return {icon:"quiz", cta:"Take Quiz"};
-      return {icon:"description", cta:"View"};
+      return {icon:"description", cta:"Open"};
     }
-    function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
 
     function makeResCard({ title, url }){
       const safeUrl = ensureHttps(url);
@@ -169,12 +249,10 @@
             <span class="material-icons text-4xl text-gray-600">${icon}</span>
           </div>`;
 
-      const card = document.createElement("a");
-      card.href = safeUrl;
-      card.target = "_blank";
-      card.rel = "noopener";
-      card.className = "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
-      card.innerHTML = `
+      const el = document.createElement("a");
+      el.href = safeUrl; el.target = "_blank"; el.rel = "noopener";
+      el.className = "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+      el.innerHTML = `
         ${media}
         <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
         <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
@@ -182,52 +260,140 @@
           <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'open_in_new')}</span>
         </div>
       `;
-      return card;
+      return el;
     }
 
-    const GRID_FOR = {
-      worksheets: document.getElementById("grid-worksheets"),
-      videos:     document.getElementById("grid-videos"),
-      other:      document.getElementById("grid-other"),
+    // --------- COUNTDOWNS ----------
+    const countdownTargets = {
+      y7: document.getElementById("y7-countdowns"),
+      y8: document.getElementById("y8-countdowns"),
+      y9: document.getElementById("y9-countdowns"),
     };
 
-    function hideEmptyBlocks(){
-      ["worksheets","videos","other"].forEach(key=>{
-        const grid=document.getElementById(`grid-${key}`);
-        const title=grid?.previousElementSibling;
-        if(grid && grid.children.length===0){
-          grid.style.display="none";
-          if(title) title.style.display="none";
-        }
+    // Accept multiple CMS shapes:
+    // {
+    //   "year7":[{"label":"Paper 1","datetime":"2025-06-10T09:00:00+01:00"},{"label":"Paper 2","datetime":"..."}],
+    //   "year8":{ "exams":[{...},{...}] },
+    //   "items":[{"year":"y7","label":"Paper 1","datetime":"..."}, ...]
+    // }
+    function extractExams(data, key){
+      if (Array.isArray(data[key])) return data[key];
+      if (data[key] && Array.isArray(data[key].exams)) return data[key].exams;
+      const items = normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
+      return items;
+    }
+
+    function formatDiff(ms){
+      if (ms <= 0) return "Started / finished";
+      const s = Math.floor(ms/1000);
+      const d = Math.floor(s/86400);
+      const h = Math.floor((s%86400)/3600);
+      const m = Math.floor((s%3600)/60);
+      const sec = s%60;
+      return `${d}d ${h}h ${m}m ${sec}s`;
+    }
+
+    function makeCountdownRow({label, datetime}){
+      const row = document.createElement("div");
+      row.className = "flex items-center justify-between rounded-lg border border-gray-200 p-3";
+      row.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-gray-600">schedule</span>
+          <div>
+            <div class="font-semibold text-gray-800">${label || "Exam"}</div>
+            <div class="text-xs text-gray-500">${datetime ? new Date(datetime).toLocaleString() : ""}</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="font-extrabold text-gray-800 text-lg" data-eta>--</div>
+          <div class="text-xs text-gray-500">remaining</div>
+        </div>
+      `;
+      const etaEl = row.querySelector("[data-eta]");
+      const target = datetime ? new Date(datetime).getTime() : 0;
+
+      function tick(){
+        const now = Date.now();
+        etaEl.textContent = formatDiff(target - now);
+      }
+      tick();
+      // update each second; keep a reference if you want to clear later
+      const iid = setInterval(tick, 1000);
+      // stop when removed
+      const obs = new MutationObserver(() => {
+        if (!document.body.contains(row)) { clearInterval(iid); obs.disconnect(); }
       });
-      const empty=document.getElementById("unit-empty");
-      if(empty){
-        const any=["worksheets","videos","other"].some(k=>document.getElementById(`grid-${k}`)?.children.length>0);
-        empty.hidden=any;
+      obs.observe(document.body, {subtree:true, childList:true});
+      return row;
+    }
+
+    async function loadCountdowns(){
+      try{
+        const data = await fetch(EOY_DATES_URL, {cache:"no-store"}).then(r=>r.json());
+        ["y7","y8","y9"].forEach(key=>{
+          const box = countdownTargets[key]; if (!box) return;
+          box.innerHTML = "";
+          const exams = (extractExams(data, key) || []).slice(0,2); // show two
+          if (exams.length === 0) {
+            box.innerHTML = `<p class="text-sm text-gray-500">Dates coming soon.</p>`;
+          } else {
+            exams.forEach(ex => box.appendChild(makeCountdownRow({
+              label: ex.label || ex.name || ex.paper || "Exam",
+              datetime: ex.datetime || ex.date || ex.iso
+            })));
+          }
+        });
+      }catch(e){
+        console.error("EOY countdown load error", e);
+        Object.values(countdownTargets).forEach(box=>{
+          if (box) box.innerHTML = `<p class="text-sm text-gray-500">Countdown unavailable.</p>`;
+        });
       }
     }
 
-    async function loadUnit(){
-      const data = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json()).catch(()=>({items:[]}));
-      const rows = Array.isArray(data) ? data : (data.items || []);
-      const items = rows.filter(r =>
-        r && r.title && r.url &&
-        String((r.active ?? true)).toLowerCase() !== "false"
-      );
-      items.sort((a,b)=>{
-        const da = new Date(a.addediso||0).getTime()||0;
-        const db = new Date(b.addediso||0).getTime()||0;
-        return db - da;
-      });
-      items.forEach(r=>{
-        const key = (r.blockkey||"").toLowerCase();
-        const grid = GRID_FOR[key];
-        if(grid) grid.appendChild(makeResCard({title:r.title, url:r.url}));
-      });
-      hideEmptyBlocks();
+    // --------- RESOURCES ----------
+    const GRID = {
+      y7: document.getElementById("grid-y7"),
+      y8: document.getElementById("grid-y8"),
+      y9: document.getElementById("grid-y9"),
+    };
+
+    // Accept shapes:
+    // { items:[{year:"y7", title, url}, ...] }
+    // or { y7:[{title,url},...], y8:[...], y9:[...] }
+    function extractYearResources(data, key){
+      if (Array.isArray(data[key])) return data[key];
+      const items = normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
+      return items;
     }
 
-    document.addEventListener("DOMContentLoaded", loadUnit);
+    async function loadResources(){
+      try{
+        const data = await fetch(EOY_RESOURCES_URL, {cache:"no-store"}).then(r=>r.json());
+        let total = 0;
+        ["y7","y8","y9"].forEach(key=>{
+          const grid = GRID[key]; if (!grid) return;
+          grid.innerHTML = "";
+          const items = extractYearResources(data, key) || [];
+          items.forEach(item=>{
+            if (item && item.title && item.url) {
+              grid.appendChild(makeResCard({title:item.title, url:item.url}));
+              total++;
+            }
+          });
+        });
+        document.getElementById("unit-empty").hidden = total > 0;
+      }catch(e){
+        console.error("EOY resources load error", e);
+        document.getElementById("unit-empty").hidden = false;
+      }
+    }
+
+    // --------- Boot ---------
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCountdowns();
+      loadResources();
+    });
   </script>
 </body>
 </html>
