@@ -19,17 +19,16 @@
   <link rel="stylesheet" href="assets/main.css"/>
 </head>
 <body class="bg-gray-100" data-page="explore">
-<div class="flex h-screen">
+  <div class="layout">  <!-- was: <div class="flex h-screen"> -->
 
-  <!-- Sidebar (loaded via assets/sidebar-loader.js) -->
-  <div id="sidebar"></div>
+    <!-- Sidebar -->
+    <div id="sidebar" aria-label="Sidebar"></div>
 
-  <!-- Main -->
-  <main class="flex-1 p-8 overflow-y-auto">
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto"> <!-- was: class="flex-1 p-8 overflow-y-auto" -->
     <!-- Header -->
     <header class="flex justify-between items-center mb-8">
       <div class="flex items-center">
-        <button class="mr-4"><span class="material-icons">menu</span></button>
         <h1 class="text-2xl font-bold text-gray-800">Explore</h1>
       </div>
       <div class="flex items-center">
