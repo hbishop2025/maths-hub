@@ -20,24 +20,45 @@
       --accent:#7C4DFF;
       --accent-600:#6A3FE6;
       --accent-700:#5A35C8;
+
+      /* Year colours (match KS3 hub vibe) */
+      --y7:#F97316;    /* orange */
+      --y8:#16A34A;    /* green */
+      --y9:#7B61FF;    /* purple */
+
+      --y7-soft:#FFEDD5; /* light orange */
+      --y8-soft:#DCFCE7; /* light green */
+      --y9-soft:#EDE9FE; /* light purple */
     }
+
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
 
-    /* Optional dark card helper */
-    .dark-card { background:#0f162b; border:1px solid rgba(255,255,255,.08); }
-
-    /* Small tag chip */
     .chip {
       display:inline-flex; align-items:center; gap:.35rem;
       padding:.3rem .6rem; border-radius:999px;
       background:#F3F4F6; color:#374151; font-weight:600; font-size:.8rem;
     }
 
-    /* MathJax inline rendering (if you later add maths here) */
-    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
+    /* Inner media box stripes by year */
+    .stripe-y7 {
+      background: repeating-linear-gradient(45deg, var(--y7-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #FED7AA;
+    }
+    .stripe-y8 {
+      background: repeating-linear-gradient(45deg, var(--y8-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #86EFAC;
+    }
+    .stripe-y9 {
+      background: repeating-linear-gradient(45deg, var(--y9-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #C4B5FD;
+    }
+
+    /* Card top border accent by year */
+    .card-y7 { border-top: 4px solid var(--y7); }
+    .card-y8 { border-top: 4px solid var(--y8); }
+    .card-y9 { border-top: 4px solid var(--y9); }
   </style>
 </head>
 <body class="bg-gray-100" data-page="ks3_eoy">
@@ -47,7 +68,7 @@
 
     <!-- Main -->
     <main class="main p-8 overflow-y-auto">
-      <!-- Top: back -->
+      <!-- Back link -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
           <a href="/ks3_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
@@ -99,30 +120,28 @@
         </article>
       </section>
 
-      <!-- ===================== COUNTDOWNS ===================== -->
+      <!-- Countdowns -->
       <section id="countdowns" class="mb-10" aria-label="EOY Countdowns">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Countdown to EOY exams</h2>
-        <p class="text-gray-600 mb-4">Each year has two papers. Times update automatically.</p>
+        <p class="text-gray-600 mb-4">Each year has two papers. Timers show days and hours remaining.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Y7 -->
           <article class="bg-white rounded-2xl shadow-sm p-6">
             <div class="flex items-start gap-3 mb-4">
-              <span class="material-icons text-4xl text-blue-600">hourglass_bottom</span>
+              <span class="material-icons text-4xl" style="color:var(--y7);">hourglass_bottom</span>
               <div>
                 <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
                 <p class="text-sm text-gray-500">Two papers</p>
               </div>
             </div>
-            <div class="space-y-4" id="y7-countdowns">
-              <!-- injected: two rows -->
-            </div>
+            <div class="space-y-4" id="y7-countdowns"></div>
           </article>
 
           <!-- Y8 -->
           <article class="bg-white rounded-2xl shadow-sm p-6">
             <div class="flex items-start gap-3 mb-4">
-              <span class="material-icons text-4xl text-green-600">hourglass_bottom</span>
+              <span class="material-icons text-4xl" style="color:var(--y8);">hourglass_bottom</span>
               <div>
                 <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
                 <p class="text-sm text-gray-500">Two papers</p>
@@ -134,7 +153,7 @@
           <!-- Y9 -->
           <article class="bg-white rounded-2xl shadow-sm p-6">
             <div class="flex items-start gap-3 mb-4">
-              <span class="material-icons text-4xl text-purple-600">hourglass_bottom</span>
+              <span class="material-icons text-4xl" style="color:var(--y9);">hourglass_bottom</span>
               <div>
                 <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
                 <p class="text-sm text-gray-500">Two papers</p>
@@ -145,7 +164,7 @@
         </div>
       </section>
 
-      <!-- ===================== DAILY TASKS (COMING SOON) ===================== -->
+      <!-- Daily tasks -->
       <section id="daily-tasks" class="mb-10" aria-label="Daily Tasks">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Daily tasks</h2>
         <p class="text-gray-600 mb-4">Short, focused prompts for each year group.</p>
@@ -177,23 +196,23 @@
         </div>
       </section>
 
-      <!-- ===================== RESOURCES ===================== -->
+      <!-- Resources -->
       <section class="mt-10" id="unit-resources">
         <h2 class="text-2xl font-bold text-gray-800 mb-8">KS3 — Mixed Resources</h2>
 
-        <!-- Year 7 -->
+        <!-- Y7 -->
         <section class="mb-10">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 7</h3>
           <div id="grid-y7" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- Year 8 -->
-        <section class="mb-10" id="videos">
+        <!-- Y8 -->
+        <section class="mb-10">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 8</h3>
           <div id="grid-y8" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- Year 9 -->
+        <!-- Y9 -->
         <section class="mb-10">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Year 9</h3>
           <div id="grid-y9" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -210,18 +229,13 @@
 
   <!-- Page JS -->
   <script>
-    // --------- Config (CMS JSON endpoints) ----------
+    // CMS endpoints
     const EOY_DATES_URL     = "/assets/data/ks3_eoy_dates.json";
     const EOY_RESOURCES_URL = "/assets/data/ks3_eoy_resources.json";
 
-    // --------- Helpers ----------
-    function normList(data){
-      if (Array.isArray(data)) return data;
-      if (data && Array.isArray(data.items)) return data.items;
-      return [];
-    }
+    // Helpers
+    function normList(d){ if(Array.isArray(d)) return d; if(d && Array.isArray(d.items)) return d.items; return []; }
     function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
-
     function iconFor(url){
       const u=(url||"").toLowerCase();
       if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View"};
@@ -230,28 +244,33 @@
       return {icon:"description", cta:"Open"};
     }
 
-    function makeResCard({ title, url }){
+    // Resource card factory (white card, striped media by year, coloured top border)
+    function makeResCard({ title, url, year }){
       const safeUrl = ensureHttps(url);
       const { icon, cta } = iconFor(url);
+
+      // YouTube thumb if video, else striped box
       const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+      const stripeClass = year==="y7" ? "stripe-y7" : year==="y8" ? "stripe-y8" : "stripe-y9";
+      const topClass    = year==="y7" ? "card-y7"   : year==="y8" ? "card-y8"   : "card-y9";
+
       const media = yt
         ? (() => {
             const id = yt[1];
             const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
             return `
-              <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
+              <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative border border-gray-200">
                 <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
                 <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
               </div>`;
           })()
-        : `
-          <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
-            <span class="material-icons text-4xl text-gray-600">${icon}</span>
-          </div>`;
+        : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center ${stripeClass}">
+             <span class="material-icons text-4xl text-gray-700">${icon}</span>
+           </div>`;
 
       const el = document.createElement("a");
       el.href = safeUrl; el.target = "_blank"; el.rel = "noopener";
-      el.className = "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+      el.className = `block bg-white border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 ${topClass}`;
       el.innerHTML = `
         ${media}
         <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
@@ -263,34 +282,34 @@
       return el;
     }
 
-    // --------- COUNTDOWNS ----------
+    // COUNTDOWNS
     const countdownTargets = {
       y7: document.getElementById("y7-countdowns"),
       y8: document.getElementById("y8-countdowns"),
       y9: document.getElementById("y9-countdowns"),
     };
 
-    // Accept multiple CMS shapes:
-    // {
-    //   "year7":[{"label":"Paper 1","datetime":"2025-06-10T09:00:00+01:00"},{"label":"Paper 2","datetime":"..."}],
-    //   "year8":{ "exams":[{...},{...}] },
-    //   "items":[{"year":"y7","label":"Paper 1","datetime":"..."}, ...]
-    // }
+    // Accepts multiple shapes from CMS
     function extractExams(data, key){
       if (Array.isArray(data[key])) return data[key];
       if (data[key] && Array.isArray(data[key].exams)) return data[key].exams;
-      const items = normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
-      return items;
+      return normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
     }
 
+    // Show only days and hours
     function formatDiff(ms){
-      if (ms <= 0) return "Started / finished";
-      const s = Math.floor(ms/1000);
-      const d = Math.floor(s/86400);
-      const h = Math.floor((s%86400)/3600);
-      const m = Math.floor((s%3600)/60);
-      const sec = s%60;
-      return `${d}d ${h}h ${m}m ${sec}s`;
+      if (ms <= 0) return "Started";
+      const totalHours = Math.floor(ms / 36e5);
+      const days = Math.floor(totalHours / 24);
+      const hours = totalHours % 24;
+      return `${days}d ${hours}h`;
+    }
+
+    // Format date (no time)
+    function formatDateOnly(iso){
+      const d = new Date(iso);
+      // e.g., "Tue, 10 Jun 2025" without time
+      return d.toLocaleDateString(undefined, { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
     }
 
     function makeCountdownRow({label, datetime}){
@@ -301,7 +320,7 @@
           <span class="material-icons text-gray-600">schedule</span>
           <div>
             <div class="font-semibold text-gray-800">${label || "Exam"}</div>
-            <div class="text-xs text-gray-500">${datetime ? new Date(datetime).toLocaleString() : ""}</div>
+            <div class="text-xs text-gray-500">${datetime ? formatDateOnly(datetime) : ""}</div>
           </div>
         </div>
         <div class="text-right">
@@ -312,14 +331,12 @@
       const etaEl = row.querySelector("[data-eta]");
       const target = datetime ? new Date(datetime).getTime() : 0;
 
-      function tick(){
-        const now = Date.now();
-        etaEl.textContent = formatDiff(target - now);
-      }
+      function tick(){ etaEl.textContent = formatDiff(target - Date.now()); }
       tick();
-      // update each second; keep a reference if you want to clear later
-      const iid = setInterval(tick, 1000);
-      // stop when removed
+      // Update every minute (days/hours precision)
+      const iid = setInterval(tick, 60000);
+
+      // Clean up interval if removed
       const obs = new MutationObserver(() => {
         if (!document.body.contains(row)) { clearInterval(iid); obs.disconnect(); }
       });
@@ -333,7 +350,7 @@
         ["y7","y8","y9"].forEach(key=>{
           const box = countdownTargets[key]; if (!box) return;
           box.innerHTML = "";
-          const exams = (extractExams(data, key) || []).slice(0,2); // show two
+          const exams = (extractExams(data, key) || []).slice(0,2);
           if (exams.length === 0) {
             box.innerHTML = `<p class="text-sm text-gray-500">Dates coming soon.</p>`;
           } else {
@@ -351,20 +368,16 @@
       }
     }
 
-    // --------- RESOURCES ----------
+    // RESOURCES
     const GRID = {
       y7: document.getElementById("grid-y7"),
       y8: document.getElementById("grid-y8"),
       y9: document.getElementById("grid-y9"),
     };
 
-    // Accept shapes:
-    // { items:[{year:"y7", title, url}, ...] }
-    // or { y7:[{title,url},...], y8:[...], y9:[...] }
     function extractYearResources(data, key){
       if (Array.isArray(data[key])) return data[key];
-      const items = normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
-      return items;
+      return normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
     }
 
     async function loadResources(){
@@ -377,7 +390,7 @@
           const items = extractYearResources(data, key) || [];
           items.forEach(item=>{
             if (item && item.title && item.url) {
-              grid.appendChild(makeResCard({title:item.title, url:item.url}));
+              grid.appendChild(makeResCard({ title:item.title, url:item.url, year:key }));
               total++;
             }
           });
@@ -389,7 +402,7 @@
       }
     }
 
-    // --------- Boot ---------
+    // Boot
     document.addEventListener("DOMContentLoaded", () => {
       loadCountdowns();
       loadResources();
