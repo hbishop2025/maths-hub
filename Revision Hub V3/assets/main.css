@@ -131,7 +131,7 @@ body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sa
   position: fixed;
   left: 50%; 
   top: 50%;
-  transform: translate(-50%,-48%) scale(.96); /* slightly lower & smaller at rest */
+  transform: translate(-50%,-48%) scale(.92); /* a bit smaller + lower at rest */
   width: min(24rem, 94vw);
   max-height: 88vh;
   overflow-y: auto;
@@ -142,14 +142,14 @@ body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sa
   box-shadow: 0 20px 48px rgba(0,0,0,.2);
   opacity: 0;
   pointer-events: none;
-  transition: opacity .25s ease, transform .25s ease; /* slide + fade */
+  transition: opacity .3s ease, transform .45s cubic-bezier(.22,1.28,.36,1); 
   z-index: 50;
   padding: .5rem 0;
 }
 .mobile-menu.open {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%,-50%) scale(1); /* slide up into place */
+  transform: translate(-50%,-50%) scale(1); /* full size, centered */
 }
 
 /* Modal header/body/close */
