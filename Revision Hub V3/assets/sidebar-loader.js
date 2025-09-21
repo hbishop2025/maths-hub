@@ -42,7 +42,7 @@
         }
       }
 
-      /* ===== Mobile modal menu (popup) ===== */
+      /* ===== Mobile modal menu (popup, header-integrated hamburger) ===== */
 (function(){
   const sb = wrap; // #sidebar already filled with sidebar.html
 
@@ -85,30 +85,43 @@
     bodySlot.appendChild((nav ? nav.cloneNode(true) : sb.cloneNode(true)));
   }
 
-  // Hamburger (open) — visible on < 1024px
+  // Find a suitable header to place the hamburger (prefer header inside .main)
+  const header =
+    document.querySelector('.main header') ||
+    document.querySelector('main header') ||
+    document.querySelector('header');
+
+  // If header exists and no inline button yet, inject a tidy inline hamburger
   let openBtn = document.getElementById('nav-toggle');
-  if (!openBtn) {
+  if (header && !openBtn) {
     openBtn = document.createElement('button');
     openBtn.id = 'nav-toggle';
     openBtn.setAttribute('aria-label','Open menu');
     openBtn.setAttribute('aria-expanded','false');
     openBtn.className = [
-      'lg:hidden','fixed','top-4','left-4','z-50',
-      'rounded-xl','shadow','bg-white','border','border-gray-200',
-      'px-3','py-2','text-gray-700','hover:bg-gray-50',
-      'focus:outline-none','focus:ring-2','focus:ring-gray-300'
+      'lg:hidden',                 // hide on desktop (≥1024px)
+      'inline-flex','items-center',
+      'rounded-lg','border','border-gray-200','bg-white',
+      'px-2','py-1.5','text-gray-700',
+      'hover:bg-gray-50','focus:outline-none','focus:ring-2','focus:ring-gray-300',
+      'mr-2'                       // small gap before "Back to …"
     ].join(' ');
     openBtn.innerHTML = `<span class="material-icons">menu</span>`;
+
+    // Place it at the very start of the header left cluster
+    // Try to find a left-side group; else prepend to header
+    const leftCluster = header.querySelector('.flex, .items-center, .gap-3');
+    (leftCluster || header).prepend(openBtn);
+
     openBtn.addEventListener('click', () => setOpen(true));
-    document.body.appendChild(openBtn);
   }
 
-  // Close actions (no floating #nav-close anymore)
+  // Close actions
   modal.querySelector('.mm-close')?.addEventListener('click', () => setOpen(false));
   overlay.addEventListener('click', () => setOpen(false));
   modal.addEventListener('click', (e) => {
     const a = e.target.closest('a');
-    if (a) setOpen(false); // close when choosing a link
+    if (a) setOpen(false);
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setOpen(false);
@@ -119,8 +132,10 @@
     document.body.classList.toggle('nav-open', state);
     modal.classList.toggle('open', state);
     overlay.classList.toggle('open', state);
-    openBtn?.classList.toggle('hidden', state);
-    openBtn?.setAttribute('aria-expanded', String(state));
+    if (openBtn) {
+      openBtn.classList.toggle('hidden', state);         // hide while open (optional)
+      openBtn.setAttribute('aria-expanded', String(state));
+    }
   }
 })();
       /* ===== END mobile controls ===== */
