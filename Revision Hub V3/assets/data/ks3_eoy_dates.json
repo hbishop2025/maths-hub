@@ -1,16 +1,40 @@
 {
   "year7": [
-    { "label": "Paper 1", "datetime": "2025-06-10T09:00:00+01:00" },
-    { "label": "Paper 2", "datetime": "2025-06-14T09:00:00+01:00" }
+    {
+      "label": "Paper 1",
+      "datetime": "2025-06-10T09:00:00+01:00"
+    },
+    {
+      "label": "Paper 2",
+      "datetime": "2025-06-14T09:00:00+01:00"
+    }
   ],
   "year8": {
     "exams": [
-      { "label": "Paper 1", "datetime": "2025-06-11T09:00:00+01:00" },
-      { "label": "Paper 2", "datetime": "2025-06-18T09:00:00+01:00" }
+      {
+        "label": "Paper 1",
+        "datetime": "2025-06-11T09:00:00+01:00"
+      },
+      {
+        "label": "Paper 2",
+        "datetime": "2025-06-18T09:00:00+01:00"
+      }
     ]
   },
   "items": [
-    { "year": "y9", "label": "Paper 1", "datetime": "2025-10-12T09:00:00+01:00" },
-    { "year": "y9", "label": "Paper 2", "datetime": "2025-11-19T09:00:00+01:00" }
+    {
+      "year": "y9",
+      "label": "Paper 1",
+      "datetime": "2025-10-12T09:00:00+01:00",
+      "date": "2025-10-10",
+      "active": true
+    },
+    {
+      "year": "y9",
+      "label": "Paper 2",
+      "datetime": "2025-11-19T09:00:00+01:00",
+      "date": "2026-10-10",
+      "active": true
+    }
   ]
 }
