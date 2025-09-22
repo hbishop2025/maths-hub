@@ -295,7 +295,7 @@
     }
 
     function formatDiff(ms){
-      if (ms <= 0) return "Started";
+      if (ms <= 0) return "N/A";
       const totalHours = Math.floor(ms / 36e5);
       const days = Math.floor(totalHours / 24);
       const hours = totalHours % 24;
