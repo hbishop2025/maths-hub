@@ -1,23 +1,11 @@
 {
   "items": [
     {
-      "label": "Test",
+      "label": "Admin Test",
       "active": true,
       "year": "y9",
       "date": "2025-10-10",
       "datetime": "2025-10-13"
-    },
-    {
-      "label": "Test",
-      "active": true,
-      "year": "y8",
-      "datetime": "2025-09-23"
-    },
-    {
-      "label": "Test",
-      "active": true,
-      "year": "y7",
-      "datetime": "2025-09-22"
     }
   ]
 }
