@@ -189,193 +189,191 @@
 
   <!-- Game logic -->
   <script>
-  (function(){
-    // Elements
-    const qEl = document.getElementById('question');
-    const inA = document.getElementById('inA');
-    const inB = document.getElementById('inB');
-    const feedback = document.getElementById('feedback');
-    const working = document.getElementById('working');
-    const scoreEl = document.getElementById('score');
-    const streakEl = document.getElementById('streak');
-    const bestEl = document.getElementById('best');
+/* ===== Year 9 Surds Game — fixed MathJax handling ===== */
+(function(){
+  // Elements
+  const qEl = document.getElementById('question');
+  const inA = document.getElementById('inA');
+  const inB = document.getElementById('inB');
+  const feedback = document.getElementById('feedback');
+  const working = document.getElementById('working');
+  const scoreEl = document.getElementById('score');
+  const streakEl = document.getElementById('streak');
+  const bestEl = document.getElementById('best');
 
-    const diffSel = document.getElementById('diff');
-    const btnNew = document.getElementById('newQ');
-    const btnCheck = document.getElementById('check');
-    const btnSteps = document.getElementById('steps');
-    const btnHint = document.getElementById('hint');
-    const btnSkip = document.getElementById('skip');
+  const diffSel = document.getElementById('diff');
+  const btnNew = document.getElementById('newQ');
+  const btnCheck = document.getElementById('check');
+  const btnSteps = document.getElementById('steps');
+  const btnHint = document.getElementById('hint');
+  const btnSkip = document.getElementById('skip');
 
-    // State
-    let currentN = 50;
-    let expected = {a:5, b:2};
-    let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
+  // State
+  let currentN = 50;
+  let expected = {a:5, b:2};
+  let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
+  bestEl.textContent = 'best ' + best;
 
-    bestEl.textContent = 'best ' + best;
+  /* ---------- Utilities ---------- */
+  function randint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+  function hasSquareFactor(n){
+    for(let r=2; r*r<=n; r++) if(n%(r*r)===0) return true;
+    return false;
+  }
+  function simplifyRoot(N){
+    // Largest square factor k^2 dividing N
+    let k = 1;
+    for(let r = Math.floor(Math.sqrt(N)); r>=2; r--){
+      if(N % (r*r) === 0){ k = r; break; }
+    }
+    return { a:k, b: N/(k*k) };
+  }
+  function primeFactors(n){
+    const f=[]; let d=2; let x=n;
+    while(x>1 && d*d<=x){
+      while(x%d===0){ f.push(d); x/=d; }
+      d++;
+    }
+    if(x>1) f.push(x);
+    return f;
+  }
+  function squareFreePart(n){
+    const f = primeFactors(n);
+    const counts = {};
+    f.forEach(p => counts[p]=(counts[p]||0)+1);
+    const outside=[], inside=[];
+    Object.entries(counts).forEach(([p,c])=>{
+      const pairs = Math.floor(c/2), rem = c%2;
+      for(let i=0;i<pairs;i++) outside.push(+p);
+      if(rem) inside.push(+p);
+    });
+    const a = outside.reduce((x,y)=>x*y,1) || 1;
+    const b = inside.reduce((x,y)=>x*y,1) || 1;
+    return {a,b,factors:f,counts};
+  }
 
-    // Helpers
-    function randint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-    function isSquare(n){ const r = Math.floor(Math.sqrt(n)); return r*r===n; }
-    function simplifyRoot(N){
-      // find largest square factor k^2 dividing N
-      let k = 1;
-      for(let r = Math.floor(Math.sqrt(N)); r>=2; r--){
-        if(N % (r*r) === 0){ k = r; break; }
+  /* ---------- MathJax helpers ---------- */
+  function mjxInline(tex){ return `\$begin:math:text$${tex}\\$end:math:text$`; }   // single backslashes, inline math
+  function typeset(el){
+    if(window.MathJax && MathJax.typesetPromise){
+      MathJax.typesetPromise([el]).catch(()=>{});
+    }
+  }
+
+  /* ---------- UI rendering ---------- */
+  function renderQuestion(){
+    // Use textContent to avoid accidental HTML injection; MathJax will parse \(...\)
+    qEl.textContent = mjxInline(`\\sqrt{${currentN}}`);
+    typeset(qEl);
+  }
+  function setFeedback(ok, html){
+    feedback.classList.remove('hidden');
+    feedback.className = 'mt-4 rounded-lg p-3 ' + (ok
+        ? 'bg-green-50 text-green-800 border border-green-200'
+        : 'bg-red-50 text-red-800 border border-red-200');
+    feedback.innerHTML = html;
+    typeset(feedback);
+  }
+  function clearFeedback(){
+    feedback.classList.add('hidden');
+    working.classList.add('hidden');
+  }
+  function showSteps(){
+    const simp = simplifyRoot(currentN);
+    const a2 = simp.a * simp.a;
+    // Build tidy stacked lines without <br> splitting formulas
+    const lines = [
+      mjxInline(`\\sqrt{${currentN}} = \\sqrt{${a2}\\cdot ${simp.b}} = ${simp.a>1 ? simp.a + '\\\\sqrt{'+simp.b+'}' : '\\\\sqrt{'+simp.b+'}'}`)
+    ];
+    working.classList.remove('hidden');
+    working.innerHTML = lines.map(l => `<div>${l}</div>`).join('');
+    typeset(working);
+  }
+
+  /* ---------- Question generation ---------- */
+  function generate(difficulty){
+    let aRange=[2,6], bPool=[2,3,5,6,7,10,11,13,15];
+    if(difficulty==='easy'){ aRange=[2,4]; bPool=[2,3,5,6,7,10,11]; }
+    if(difficulty==='hard'){ aRange=[3,9]; bPool=[2,3,5,6,7,10,11,13,15,17,19]; }
+
+    let tries=0;
+    while(tries++<100){
+      const a = randint(aRange[0], aRange[1]);
+      const b = bPool[randint(0,bPool.length-1)];
+      const N = (a*a) * b;
+      const simp = simplifyRoot(N);
+      if(simp.a>1 && !hasSquareFactor(simp.b)){
+        currentN = N;
+        expected = simp;
+        break;
       }
-      const a = k, b = N/(k*k);
-      return {a, b};
     }
-    function primeFactors(n){
-      const f=[]; let d=2;
-      while(n>1 && d*d<=n){
-        while(n%d===0){ f.push(d); n/=d; }
-        d++;
-      }
-      if(n>1) f.push(n);
-      return f;
+    inA.value=''; inB.value='';
+    clearFeedback();
+    renderQuestion();
+  }
+
+  /* ---------- Answer checking ---------- */
+  function check(){
+    const A = parseInt(inA.value,10);
+    const B = parseInt(inB.value,10);
+
+    if(!Number.isFinite(A) || !Number.isFinite(B)){
+      setFeedback(false, 'Enter whole numbers for a and b.');
+      return;
     }
-    function squareFreePart(n){
-      // not strictly needed (for hint display)
-      const f = primeFactors(n);
-      const counts = {};
-      f.forEach(p => counts[p]=(counts[p]||0)+1);
-      const outside=[], inside=[];
-      Object.entries(counts).forEach(([p,c])=>{
-        const pairs = Math.floor(c/2);
-        const rem = c%2;
-        for(let i=0;i<pairs;i++) outside.push(+p);
-        if(rem) inside.push(+p);
-      });
-      const a = outside.reduce((x,y)=>x*y,1) || 1;
-      const b = inside.reduce((x,y)=>x*y,1) || 1;
-      return {a,b, factors:f, counts};
+    if(A<=0 || B<=0){
+      setFeedback(false, 'a and b must be positive integers.');
+      return;
     }
 
-    function formatMath(tex){ return `\\\$begin:math:text$ ${tex} \\\\\\$end:math:text$`; }
-    function renderQuestion(){
-      qEl.innerHTML = formatMath(`\\sqrt{${currentN}}`);
-      if(window.MathJax) MathJax.typesetPromise?.();
-    }
-    function setFeedback(ok, msg){
-      feedback.classList.remove('hidden');
-      feedback.className = 'mt-4 rounded-lg p-3 ' + (ok ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200');
-      feedback.innerHTML = msg;
-    }
-    function clearFeedback(){
-      feedback.classList.add('hidden');
-      working.classList.add('hidden');
-    }
-    function showSteps(){
-      const {a,b,factors} = squareFreePart(currentN);
-      const pairs = factors.length ? factors.slice().sort((x,y)=>x-y) : [];
-      const stepLines = [];
-      stepLines.push(formatMath(`\\sqrt{${currentN}} = \\sqrt{${a*a}\\cdot ${b}} = ${a>1? a+ '\\\\sqrt{'+b+'}':'\\\\sqrt{'+b+'}'}`));
-      stepLines.push(`<div class="text-xs text-gray-500 mt-2">Prime factors: ${pairs.join(' \$begin:math:text$\\\\times\\$end:math:text$ ') || '–'}</div>`);
-      working.classList.remove('hidden');
-      working.innerHTML = stepLines.join('<br/>');
-      if(window.MathJax) MathJax.typesetPromise?.();
-    }
+    const recon = (A*A)*B;
+    const squarefree = !hasSquareFactor(B);
 
-    function generate(difficulty){
-      // Choose a^2 * b with b square-free, try to avoid trivial b=1 too often
-      let aRange=[2,6], bPool=[2,3,5,6,7,10,11,13,15]; // square-free-ish choices
-      if(difficulty==='easy'){ aRange=[2,4]; bPool=[2,3,5,6,7,10,11]; }
-      if(difficulty==='hard'){ aRange=[3,9]; bPool=[2,3,5,6,7,10,11,13,15,17,19]; }
+    if(recon === currentN && squarefree){
+      const pretty = (A>1 ? A : '') + (B>1 ? `\\\\sqrt{${B}}` : (A>1 ? '' : `${Math.sqrt(currentN)}`));
+      setFeedback(true, `Correct! ${mjxInline(`\\sqrt{${currentN}} = ${pretty}`)}`);
+      score += 1; streak += 1; best = Math.max(best, streak);
+      scoreEl.textContent = score;
+      streakEl.textContent = streak;
+      bestEl.textContent = 'best ' + best;
+      try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
+      setTimeout(()=>generate(diffSel.value), 700);
+    }else{
+      streak = 0; streakEl.textContent = streak;
+      setFeedback(false, `Not quite. Try again or choose <em>Show steps</em>.<div class="mt-1 text-sm text-gray-700">Hint: pull out the largest perfect square factor.</div>`);
+    }
+  }
 
-      let tries=0;
-      while(tries++<100){
-        const a = randint(aRange[0], aRange[1]);
-        const square = a*a;
-        const b = bPool[randint(0,bPool.length-1)];
-        const N = square * b;
-        const simp = simplifyRoot(N);
-        // prefer genuinely reducible (a>1) and square-free b
-        if(simp.a>1 && !hasSquareFactor(simp.b)){
-          currentN = N;
-          expected = simp;
-          break;
-        }
-      }
+  /* ---------- Wire up ---------- */
+  btnNew.addEventListener('click', ()=>generate(diffSel.value));
+  diffSel.addEventListener('change', ()=>generate(diffSel.value));
+  btnCheck.addEventListener('click', check);
+  btnSkip.addEventListener('click', ()=>{ streak=0; streakEl.textContent=streak; generate(diffSel.value); });
+  btnSteps.addEventListener('click', showSteps);
+  btnHint.addEventListener('click', ()=>{
+    const s = simplifyRoot(currentN);
+    setFeedback(false, `Look for the largest square dividing ${currentN}. For example, ${s.a*s.a} divides ${currentN}.`);
+  });
+  inA.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+  inB.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+
+  // Quick preset buttons like √12, √18, ...
+  document.querySelectorAll('.qbtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const m = btn.textContent.match(/\d+/);
+      if(!m) return;
+      currentN = parseInt(m[0],10);
+      expected = simplifyRoot(currentN);
       inA.value=''; inB.value='';
       clearFeedback();
       renderQuestion();
-    }
-
-    function hasSquareFactor(n){
-      for(let r=2;r*r<=n;r++){
-        if(n%(r*r)===0) return true;
-      }
-      return false;
-    }
-
-    function check(){
-      const A = parseInt(inA.value,10);
-      const B = parseInt(inB.value,10);
-
-      // Accept alternative but equivalent forms:
-      //  - If B=1 and A equals sqrt(N), that's correct (integer result).
-      //  - If inputs reconstruct N: (A^2)*B === currentN and B is square-free, accept.
-      if(!Number.isFinite(A) || !Number.isFinite(B)){
-        setFeedback(false, 'Enter whole numbers for a and b.');
-        return;
-      }
-      if(A<=0 || B<=0){
-        setFeedback(false, 'a and b must be positive integers.');
-        return;
-      }
-
-      const recon = (A*A)*B;
-      const squarefree = !hasSquareFactor(B);
-
-      if(recon === currentN && squarefree){
-        // Canonical expected is expected.a, expected.b, but accept any equivalent square-free b
-        setFeedback(true, `Correct! ${formatMath(`\\sqrt{${currentN}} = ${A>1?A:''}${B>1?'\\sqrt{'+B+'}':''}`)}`);
-        score += 1; streak += 1; best = Math.max(best, streak);
-        scoreEl.textContent = score;
-        streakEl.textContent = streak;
-        bestEl.textContent = 'best ' + best;
-        try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
-        // queue next after a short delay
-        setTimeout(()=>generate(diffSel.value), 800);
-      }else{
-        streak = 0;
-        streakEl.textContent = streak;
-        const exp = expected;
-        setFeedback(false, `Not quite. Try again or view steps.<br/>Hint: pull out perfect squares.`);
-      }
-      if(window.MathJax) MathJax.typesetPromise?.();
-    }
-
-    // Wire up
-    btnNew.addEventListener('click', ()=>generate(diffSel.value));
-    diffSel.addEventListener('change', ()=>generate(diffSel.value));
-    btnCheck.addEventListener('click', check);
-    btnSkip.addEventListener('click', ()=>{ streak=0; streakEl.textContent=streak; generate(diffSel.value); });
-    btnSteps.addEventListener('click', showSteps);
-    btnHint.addEventListener('click', ()=>{
-      const {a,b}=simplifyRoot(currentN);
-      setFeedback(false, `Look for the largest perfect square dividing ${currentN}. For example, ${a*a} divides ${currentN}.`);
     });
-    inA.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
-    inB.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+  });
 
-    // Quick set buttons
-    document.querySelectorAll('.qbtn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const m = btn.textContent.match(/\d+/);
-        if(!m) return;
-        currentN = parseInt(m[0],10);
-        expected = simplifyRoot(currentN);
-        inA.value=''; inB.value='';
-        clearFeedback();
-        renderQuestion();
-      });
-    });
-
-    // Start
-    generate('med');
-  })();
-  </script>
+  // Start
+  generate('med');
+})();
+</script>
 </body>
 </html>
