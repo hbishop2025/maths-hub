@@ -16,19 +16,21 @@
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
-    :root{
-      --accent:#7B61FF; /* your Year 9 purple */
-    }
+    :root{ --accent:#7B61FF; }
     body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     html { scroll-behavior: smooth; }
-    .btn-grad {
-      background-image: linear-gradient(90deg, #7B61FF 0%, #3B82F6 100%); /* purple → blue */
-    }
-    .btn-grad:hover {
-      filter: brightness(0.95);
-      transform: translateY(-1px);
-    }
+    .btn-grad { background-image: linear-gradient(90deg, #7B61FF 0%, #3B82F6 100%); }
+    .btn-grad:hover { filter: brightness(0.95); transform: translateY(-1px); }
   </style>
+
+  <!-- MathJax config MUST be defined before loading the script -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], processEscapes: true },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 </head>
 <body class="bg-gray-100" data-page="year9">
   <div class="layout">
@@ -40,9 +42,6 @@
       <!-- Header -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <button id="nav-toggle" class="lg:hidden inline-flex items-center rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2" aria-label="Open menu" aria-expanded="false">
-            <span class="material-icons">menu</span>
-          </button>
           <a href="/year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
             <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
           </a>
@@ -50,39 +49,37 @@
         <h1 class="text-2xl font-extrabold text-gray-800">Simplify the Surd</h1>
       </header>
 
-      <!-- Intro / CTA row -->
+      <!-- Intro / tips -->
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <!-- Light intro -->
         <article class="bg-white rounded-2xl shadow-sm p-6">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl text-gray-800">calculate</span>
             <div>
               <h2 class="text-xl font-bold text-gray-800 mb-1">Practice simplifying surds</h2>
               <p class="text-gray-600">
-                Write <span class="font-semibold">\( \sqrt{N} \)</span> in the form <span class="font-semibold">\( a\sqrt{b} \)</span> where \(b\) has no square factors other than 1.
+                Write \\( \\sqrt{N} \\) in the form \\( a\\sqrt{b} \\) where \\(b\\) has no square factors other than 1.
                 Build your streak and view the steps if you get stuck.
               </p>
             </div>
           </div>
         </article>
 
-        <!-- Dark quick tips -->
         <article class="rounded-2xl p-6 text-white" style="background:#1F2937">
           <div class="flex items-start gap-4">
             <span class="material-icons text-5xl text-white/90">tips_and_updates</span>
             <div class="flex-1">
               <h2 class="text-xl font-bold mb-1">Quick tips</h2>
               <ul class="list-disc list-inside text-white/85 space-y-1">
-                <li>Factor \(N\) to find square pairs.</li>
-                <li>\( \sqrt{ab} = \sqrt{a}\sqrt{b} \), pull perfect squares out.</li>
-                <li>Fully simplify: \(b\) should be square-free.</li>
+                <li>Factor \\(N\\) to find square pairs.</li>
+                <li>Use \\( \\sqrt{ab} = \\sqrt{a}\\,\\sqrt{b} \\) and pull perfect squares out.</li>
+                <li>Fully simplify: \\(b\\) should be square-free.</li>
               </ul>
             </div>
           </div>
         </article>
       </section>
 
-      <!-- Game card -->
+      <!-- Game -->
       <section class="bg-white rounded-2xl shadow-sm p-6 mb-10">
         <!-- Controls -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -105,16 +102,13 @@
 
         <hr class="my-4"/>
 
-        <!-- Question -->
+        <!-- Question + inputs -->
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div class="flex-1">
             <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Question</p>
-            <div id="question" class="text-3xl font-extrabold text-gray-900">
-              <!-- \( \sqrt{50} \) -->
-            </div>
+            <div id="question" class="text-3xl font-extrabold text-gray-900"></div>
           </div>
 
-          <!-- Answer inputs -->
           <div class="flex items-end gap-3">
             <div>
               <label class="text-xs text-gray-500">Coefficient (a)</label>
@@ -146,20 +140,18 @@
             <span class="material-icons mr-1">skip_next</span> Skip
           </button>
 
-          <!-- Gradient CTA to keep it visible on this page too -->
-          <a id="aiBtn" href="/year9_unit01.html#ai" class="ml-auto inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white btn-grad shadow">
+          <!-- Optional link back to AI quiz from here -->
+          <a href="/year9_unit01.html#ai" class="ml-auto inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white btn-grad shadow">
             <span class="material-icons mr-2">auto_awesome</span> Try the AI Quiz
           </a>
         </div>
 
-        <!-- Feedback -->
+        <!-- Feedback + working -->
         <div id="feedback" class="mt-4 hidden rounded-lg p-3"></div>
-
-        <!-- Working -->
         <div id="working" class="mt-4 hidden bg-gray-50 rounded-xl border border-gray-200 p-4 text-gray-800 text-sm leading-6"></div>
       </section>
 
-      <!-- Quick practice set (optional short list students can click) -->
+      <!-- Quick practice -->
       <section class="mb-10">
         <h2 class="text-xl font-bold text-gray-800 mb-3">Try these quickly</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -181,199 +173,154 @@
   <!-- Sidebar / mobile modal loader -->
   <script src="/assets/sidebar-loader.js" defer></script>
 
-  <!-- MathJax (render √ nicely) -->
-  <script>
-    window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true }, svg: { fontCache: 'global' } };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
-
   <!-- Game logic -->
   <script>
-/* ===== Year 9 Surds Game — fixed MathJax handling ===== */
-(function(){
-  // Elements
-  const qEl = document.getElementById('question');
-  const inA = document.getElementById('inA');
-  const inB = document.getElementById('inB');
-  const feedback = document.getElementById('feedback');
-  const working = document.getElementById('working');
-  const scoreEl = document.getElementById('score');
-  const streakEl = document.getElementById('streak');
-  const bestEl = document.getElementById('best');
+  (function(){
+    // Elements
+    const qEl = document.getElementById('question');
+    const inA = document.getElementById('inA');
+    const inB = document.getElementById('inB');
+    const feedback = document.getElementById('feedback');
+    const working = document.getElementById('working');
+    const scoreEl = document.getElementById('score');
+    const streakEl = document.getElementById('streak');
+    const bestEl = document.getElementById('best');
 
-  const diffSel = document.getElementById('diff');
-  const btnNew = document.getElementById('newQ');
-  const btnCheck = document.getElementById('check');
-  const btnSteps = document.getElementById('steps');
-  const btnHint = document.getElementById('hint');
-  const btnSkip = document.getElementById('skip');
+    const diffSel = document.getElementById('diff');
+    const btnNew = document.getElementById('newQ');
+    const btnCheck = document.getElementById('check');
+    const btnSteps = document.getElementById('steps');
+    const btnHint = document.getElementById('hint');
+    const btnSkip = document.getElementById('skip');
 
-  // State
-  let currentN = 50;
-  let expected = {a:5, b:2};
-  let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
-  bestEl.textContent = 'best ' + best;
+    // State
+    let currentN = 50;
+    let expected = {a:5, b:2};
+    let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
+    bestEl.textContent = 'best ' + best;
 
-  /* ---------- Utilities ---------- */
-  function randint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-  function hasSquareFactor(n){
-    for(let r=2; r*r<=n; r++) if(n%(r*r)===0) return true;
-    return false;
-  }
-  function simplifyRoot(N){
-    // Largest square factor k^2 dividing N
-    let k = 1;
-    for(let r = Math.floor(Math.sqrt(N)); r>=2; r--){
-      if(N % (r*r) === 0){ k = r; break; }
+    /* ---------- Utilities ---------- */
+    const randint = (a,b)=> Math.floor(Math.random()*(b-a+1))+a;
+    const hasSquareFactor = (n)=>{ for(let r=2; r*r<=n; r++) if(n%(r*r)===0) return true; return false; };
+    function simplifyRoot(N){
+      let k = 1;
+      for(let r = Math.floor(Math.sqrt(N)); r>=2; r--){
+        if(N % (r*r) === 0){ k = r; break; }
+      }
+      return { a:k, b: N/(k*k) };
     }
-    return { a:k, b: N/(k*k) };
-  }
-  function primeFactors(n){
-    const f=[]; let d=2; let x=n;
-    while(x>1 && d*d<=x){
-      while(x%d===0){ f.push(d); x/=d; }
-      d++;
-    }
-    if(x>1) f.push(x);
-    return f;
-  }
-  function squareFreePart(n){
-    const f = primeFactors(n);
-    const counts = {};
-    f.forEach(p => counts[p]=(counts[p]||0)+1);
-    const outside=[], inside=[];
-    Object.entries(counts).forEach(([p,c])=>{
-      const pairs = Math.floor(c/2), rem = c%2;
-      for(let i=0;i<pairs;i++) outside.push(+p);
-      if(rem) inside.push(+p);
-    });
-    const a = outside.reduce((x,y)=>x*y,1) || 1;
-    const b = inside.reduce((x,y)=>x*y,1) || 1;
-    return {a,b,factors:f,counts};
-  }
 
-  /* ---------- MathJax helpers ---------- */
-  function mjxInline(tex){ return `\$begin:math:text$${tex}\\$end:math:text$`; }   // single backslashes, inline math
-  function typeset(el){
-    if(window.MathJax && MathJax.typesetPromise){
-      MathJax.typesetPromise([el]).catch(()=>{});
-    }
-  }
+    /* ---------- MathJax helpers ---------- */
+    const mjx = (tex)=> `\$begin:math:text$${tex}\\$end:math:text$`;
+    const typeset = (el)=> window.MathJax?.typesetPromise?.([el]);
 
-  /* ---------- UI rendering ---------- */
-  function renderQuestion(){
-    // Use textContent to avoid accidental HTML injection; MathJax will parse \(...\)
-    qEl.textContent = mjxInline(`\\sqrt{${currentN}}`);
-    typeset(qEl);
-  }
-  function setFeedback(ok, html){
-    feedback.classList.remove('hidden');
-    feedback.className = 'mt-4 rounded-lg p-3 ' + (ok
+    /* ---------- UI rendering ---------- */
+    function renderQuestion(){
+      qEl.innerHTML = mjx(`\\sqrt{${currentN}}`);
+      typeset(qEl);
+    }
+    function setFeedback(ok, html){
+      feedback.classList.remove('hidden');
+      feedback.className = 'mt-4 rounded-lg p-3 ' + (ok
         ? 'bg-green-50 text-green-800 border border-green-200'
         : 'bg-red-50 text-red-800 border border-red-200');
-    feedback.innerHTML = html;
-    typeset(feedback);
-  }
-  function clearFeedback(){
-    feedback.classList.add('hidden');
-    working.classList.add('hidden');
-  }
-  function showSteps(){
-    const simp = simplifyRoot(currentN);
-    const a2 = simp.a * simp.a;
-    // Build tidy stacked lines without <br> splitting formulas
-    const lines = [
-      mjxInline(`\\sqrt{${currentN}} = \\sqrt{${a2}\\cdot ${simp.b}} = ${simp.a>1 ? simp.a + '\\\\sqrt{'+simp.b+'}' : '\\\\sqrt{'+simp.b+'}'}`)
-    ];
-    working.classList.remove('hidden');
-    working.innerHTML = lines.map(l => `<div>${l}</div>`).join('');
-    typeset(working);
-  }
+      feedback.innerHTML = html;
+      typeset(feedback);
+    }
+    function clearFeedback(){
+      feedback.classList.add('hidden');
+      working.classList.add('hidden');
+    }
+    function showSteps(){
+      const s = simplifyRoot(currentN);
+      const a2 = s.a * s.a;
+      working.classList.remove('hidden');
+      working.innerHTML = `
+        <div>${mjx(`\\sqrt{${currentN}} = \\sqrt{${a2}\\cdot ${s.b}} = ${s.a>1 ? s.a + '\\\\sqrt{'+s.b+'}' : '\\\\sqrt{'+s.b+'}'}`)}</div>
+      `;
+      typeset(working);
+    }
 
-  /* ---------- Question generation ---------- */
-  function generate(difficulty){
-    let aRange=[2,6], bPool=[2,3,5,6,7,10,11,13,15];
-    if(difficulty==='easy'){ aRange=[2,4]; bPool=[2,3,5,6,7,10,11]; }
-    if(difficulty==='hard'){ aRange=[3,9]; bPool=[2,3,5,6,7,10,11,13,15,17,19]; }
+    /* ---------- Question generation ---------- */
+    function generate(difficulty){
+      let aRange=[2,6], bPool=[2,3,5,6,7,10,11,13,15];
+      if(difficulty==='easy'){ aRange=[2,4]; bPool=[2,3,5,6,7,10,11]; }
+      if(difficulty==='hard'){ aRange=[3,9]; bPool=[2,3,5,6,7,10,11,13,15,17,19]; }
 
-    let tries=0;
-    while(tries++<100){
-      const a = randint(aRange[0], aRange[1]);
-      const b = bPool[randint(0,bPool.length-1)];
-      const N = (a*a) * b;
-      const simp = simplifyRoot(N);
-      if(simp.a>1 && !hasSquareFactor(simp.b)){
-        currentN = N;
-        expected = simp;
-        break;
+      let tries=0;
+      while(tries++<100){
+        const a = randint(aRange[0], aRange[1]);
+        const b = bPool[randint(0,bPool.length-1)];
+        const N = (a*a) * b;
+        const s = simplifyRoot(N);
+        if(s.a>1 && !hasSquareFactor(s.b)){ currentN=N; expected=s; break; }
       }
-    }
-    inA.value=''; inB.value='';
-    clearFeedback();
-    renderQuestion();
-  }
-
-  /* ---------- Answer checking ---------- */
-  function check(){
-    const A = parseInt(inA.value,10);
-    const B = parseInt(inB.value,10);
-
-    if(!Number.isFinite(A) || !Number.isFinite(B)){
-      setFeedback(false, 'Enter whole numbers for a and b.');
-      return;
-    }
-    if(A<=0 || B<=0){
-      setFeedback(false, 'a and b must be positive integers.');
-      return;
-    }
-
-    const recon = (A*A)*B;
-    const squarefree = !hasSquareFactor(B);
-
-    if(recon === currentN && squarefree){
-      const pretty = (A>1 ? A : '') + (B>1 ? `\\\\sqrt{${B}}` : (A>1 ? '' : `${Math.sqrt(currentN)}`));
-      setFeedback(true, `Correct! ${mjxInline(`\\sqrt{${currentN}} = ${pretty}`)}`);
-      score += 1; streak += 1; best = Math.max(best, streak);
-      scoreEl.textContent = score;
-      streakEl.textContent = streak;
-      bestEl.textContent = 'best ' + best;
-      try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
-      setTimeout(()=>generate(diffSel.value), 700);
-    }else{
-      streak = 0; streakEl.textContent = streak;
-      setFeedback(false, `Not quite. Try again or choose <em>Show steps</em>.<div class="mt-1 text-sm text-gray-700">Hint: pull out the largest perfect square factor.</div>`);
-    }
-  }
-
-  /* ---------- Wire up ---------- */
-  btnNew.addEventListener('click', ()=>generate(diffSel.value));
-  diffSel.addEventListener('change', ()=>generate(diffSel.value));
-  btnCheck.addEventListener('click', check);
-  btnSkip.addEventListener('click', ()=>{ streak=0; streakEl.textContent=streak; generate(diffSel.value); });
-  btnSteps.addEventListener('click', showSteps);
-  btnHint.addEventListener('click', ()=>{
-    const s = simplifyRoot(currentN);
-    setFeedback(false, `Look for the largest square dividing ${currentN}. For example, ${s.a*s.a} divides ${currentN}.`);
-  });
-  inA.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
-  inB.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
-
-  // Quick preset buttons like √12, √18, ...
-  document.querySelectorAll('.qbtn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const m = btn.textContent.match(/\d+/);
-      if(!m) return;
-      currentN = parseInt(m[0],10);
-      expected = simplifyRoot(currentN);
       inA.value=''; inB.value='';
       clearFeedback();
       renderQuestion();
-    });
-  });
+    }
 
-  // Start
-  generate('med');
-})();
-</script>
+    /* ---------- Answer checking ---------- */
+    function check(){
+      const A = parseInt(inA.value,10);
+      const B = parseInt(inB.value,10);
+
+      if(!Number.isFinite(A) || !Number.isFinite(B)){
+        setFeedback(false, 'Enter whole numbers for a and b.');
+        return;
+      }
+      if(A<=0 || B<=0){
+        setFeedback(false, 'a and b must be positive integers.');
+        return;
+      }
+
+      const recon = (A*A)*B;
+      const squarefree = !hasSquareFactor(B);
+
+      if(recon === currentN && squarefree){
+        const pretty = (A>1 ? A : '') + (B>1 ? `\\\\sqrt{${B}}` : (A>1 ? '' : `${Math.sqrt(currentN)}`));
+        setFeedback(true, `Correct! ${mjx(`\\sqrt{${currentN}} = ${pretty}`)}`);
+        score += 1; streak += 1; best = Math.max(best, streak);
+        scoreEl.textContent = score;
+        streakEl.textContent = streak;
+        bestEl.textContent = 'best ' + best;
+        try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
+        setTimeout(()=>generate(diffSel.value), 700);
+      }else{
+        streak = 0; streakEl.textContent = streak;
+        setFeedback(false, `Not quite. Try again or choose <span class="font-semibold">Show steps</span>.
+          <div class="mt-1 text-sm text-gray-700">Hint: pull out the largest perfect square factor.</div>`);
+      }
+    }
+
+    /* ---------- Wire up ---------- */
+    btnNew.addEventListener('click', ()=>generate(diffSel.value));
+    diffSel.addEventListener('change', ()=>generate(diffSel.value));
+    btnCheck.addEventListener('click', check);
+    btnSkip.addEventListener('click', ()=>{ streak=0; streakEl.textContent=streak; generate(diffSel.value); });
+    btnSteps.addEventListener('click', showSteps);
+    btnHint.addEventListener('click', ()=>{
+      const s = simplifyRoot(currentN);
+      setFeedback(false, `Look for the largest square dividing ${currentN}. For example, ${s.a*s.a} divides ${currentN}.`);
+    });
+    inA.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+    inB.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+
+    document.querySelectorAll('.qbtn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const m = btn.textContent.match(/\\d+/);
+        if(!m) return;
+        currentN = parseInt(m[0],10);
+        expected = simplifyRoot(currentN);
+        inA.value=''; inB.value='';
+        clearFeedback();
+        renderQuestion();
+      });
+    });
+
+    // Start once MathJax has loaded; if not ready, we still generate and typeset the element afterward.
+    generate('med');
+  })();
+  </script>
 </body>
 </html>
