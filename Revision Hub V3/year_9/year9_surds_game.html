@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Year 9 — Surds Game (Simplify the Surd)</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
+  <style>
+    :root{
+      --accent:#7B61FF; /* your Year 9 purple */
+    }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    html { scroll-behavior: smooth; }
+    .btn-grad {
+      background-image: linear-gradient(90deg, #7B61FF 0%, #3B82F6 100%); /* purple → blue */
+    }
+    .btn-grad:hover {
+      filter: brightness(0.95);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="bg-gray-100" data-page="year9">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Header -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <button id="nav-toggle" class="lg:hidden inline-flex items-center rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2" aria-label="Open menu" aria-expanded="false">
+            <span class="material-icons">menu</span>
+          </button>
+          <a href="/year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
+          </a>
+        </div>
+        <h1 class="text-2xl font-extrabold text-gray-800">Simplify the Surd</h1>
+      </header>
+
+      <!-- Intro / CTA row -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <!-- Light intro -->
+        <article class="bg-white rounded-2xl shadow-sm p-6">
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-5xl text-gray-800">calculate</span>
+            <div>
+              <h2 class="text-xl font-bold text-gray-800 mb-1">Practice simplifying surds</h2>
+              <p class="text-gray-600">
+                Write <span class="font-semibold">\( \sqrt{N} \)</span> in the form <span class="font-semibold">\( a\sqrt{b} \)</span> where \(b\) has no square factors other than 1.
+                Build your streak and view the steps if you get stuck.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Dark quick tips -->
+        <article class="rounded-2xl p-6 text-white" style="background:#1F2937">
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-5xl text-white/90">tips_and_updates</span>
+            <div class="flex-1">
+              <h2 class="text-xl font-bold mb-1">Quick tips</h2>
+              <ul class="list-disc list-inside text-white/85 space-y-1">
+                <li>Factor \(N\) to find square pairs.</li>
+                <li>\( \sqrt{ab} = \sqrt{a}\sqrt{b} \), pull perfect squares out.</li>
+                <li>Fully simplify: \(b\) should be square-free.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Game card -->
+      <section class="bg-white rounded-2xl shadow-sm p-6 mb-10">
+        <!-- Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2">
+            <label for="diff" class="text-sm text-gray-600">Difficulty</label>
+            <select id="diff" class="rounded-lg border-gray-300 text-sm">
+              <option value="easy">Easy</option>
+              <option value="med" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <button id="newQ" class="ml-2 inline-flex items-center px-3 py-2 rounded-lg bg-gray-800 text-white text-sm hover:opacity-95">
+              <span class="material-icons mr-1">refresh</span> New question
+            </button>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-sm text-gray-700">Score: <span id="score" class="font-bold">0</span></div>
+            <div class="text-sm text-gray-700">Streak: <span id="streak" class="font-bold">0</span> (<span id="best" class="text-gray-500">best 0</span>)</div>
+          </div>
+        </div>
+
+        <hr class="my-4"/>
+
+        <!-- Question -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div class="flex-1">
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Question</p>
+            <div id="question" class="text-3xl font-extrabold text-gray-900">
+              <!-- \( \sqrt{50} \) -->
+            </div>
+          </div>
+
+          <!-- Answer inputs -->
+          <div class="flex items-end gap-3">
+            <div>
+              <label class="text-xs text-gray-500">Coefficient (a)</label>
+              <input id="inA" type="number" inputmode="numeric" class="mt-1 w-24 rounded-lg border-gray-300" placeholder="a">
+            </div>
+            <div class="text-2xl font-bold text-gray-700 mb-2">×</div>
+            <div>
+              <label class="text-xs text-gray-500">Inside root (b)</label>
+              <div class="mt-1 flex items-center gap-2">
+                <span class="text-xl text-gray-700">&radic;</span>
+                <input id="inB" type="number" inputmode="numeric" class="w-24 rounded-lg border-gray-300" placeholder="b">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="check" class="inline-flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:opacity-95">
+            <span class="material-icons mr-1">done</span> Check
+          </button>
+          <button id="steps" class="inline-flex items-center px-4 py-2 rounded-lg border border-gray-300 text-gray-800 hover:bg-gray-50">
+            <span class="material-icons mr-1">menu_book</span> Show steps
+          </button>
+          <button id="hint" class="inline-flex items-center px-4 py-2 rounded-lg border border-gray-300 text-gray-800 hover:bg-gray-50">
+            <span class="material-icons mr-1">lightbulb</span> Hint
+          </button>
+          <button id="skip" class="inline-flex items-center px-4 py-2 rounded-lg border border-gray-300 text-gray-800 hover:bg-gray-50">
+            <span class="material-icons mr-1">skip_next</span> Skip
+          </button>
+
+          <!-- Gradient CTA to keep it visible on this page too -->
+          <a id="aiBtn" href="/year9_unit01.html#ai" class="ml-auto inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white btn-grad shadow">
+            <span class="material-icons mr-2">auto_awesome</span> Try the AI Quiz
+          </a>
+        </div>
+
+        <!-- Feedback -->
+        <div id="feedback" class="mt-4 hidden rounded-lg p-3"></div>
+
+        <!-- Working -->
+        <div id="working" class="mt-4 hidden bg-gray-50 rounded-xl border border-gray-200 p-4 text-gray-800 text-sm leading-6"></div>
+      </section>
+
+      <!-- Quick practice set (optional short list students can click) -->
+      <section class="mb-10">
+        <h2 class="text-xl font-bold text-gray-800 mb-3">Try these quickly</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{12} \)</button>
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{18} \)</button>
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{27} \)</button>
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{45} \)</button>
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{72} \)</button>
+          <button class="qbtn bg-white rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50">\( \sqrt{98} \)</button>
+        </div>
+      </section>
+
+      <footer class="text-center text-gray-400 text-sm pb-4">
+        <p>Tip: if your \(b=1\), write just the whole number. Example: \( \sqrt{49} = 7 \).</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Sidebar / mobile modal loader -->
+  <script src="/assets/sidebar-loader.js" defer></script>
+
+  <!-- MathJax (render √ nicely) -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true }, svg: { fontCache: 'global' } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
+  <!-- Game logic -->
+  <script>
+  (function(){
+    // Elements
+    const qEl = document.getElementById('question');
+    const inA = document.getElementById('inA');
+    const inB = document.getElementById('inB');
+    const feedback = document.getElementById('feedback');
+    const working = document.getElementById('working');
+    const scoreEl = document.getElementById('score');
+    const streakEl = document.getElementById('streak');
+    const bestEl = document.getElementById('best');
+
+    const diffSel = document.getElementById('diff');
+    const btnNew = document.getElementById('newQ');
+    const btnCheck = document.getElementById('check');
+    const btnSteps = document.getElementById('steps');
+    const btnHint = document.getElementById('hint');
+    const btnSkip = document.getElementById('skip');
+
+    // State
+    let currentN = 50;
+    let expected = {a:5, b:2};
+    let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
+
+    bestEl.textContent = 'best ' + best;
+
+    // Helpers
+    function randint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+    function isSquare(n){ const r = Math.floor(Math.sqrt(n)); return r*r===n; }
+    function simplifyRoot(N){
+      // find largest square factor k^2 dividing N
+      let k = 1;
+      for(let r = Math.floor(Math.sqrt(N)); r>=2; r--){
+        if(N % (r*r) === 0){ k = r; break; }
+      }
+      const a = k, b = N/(k*k);
+      return {a, b};
+    }
+    function primeFactors(n){
+      const f=[]; let d=2;
+      while(n>1 && d*d<=n){
+        while(n%d===0){ f.push(d); n/=d; }
+        d++;
+      }
+      if(n>1) f.push(n);
+      return f;
+    }
+    function squareFreePart(n){
+      // not strictly needed (for hint display)
+      const f = primeFactors(n);
+      const counts = {};
+      f.forEach(p => counts[p]=(counts[p]||0)+1);
+      const outside=[], inside=[];
+      Object.entries(counts).forEach(([p,c])=>{
+        const pairs = Math.floor(c/2);
+        const rem = c%2;
+        for(let i=0;i<pairs;i++) outside.push(+p);
+        if(rem) inside.push(+p);
+      });
+      const a = outside.reduce((x,y)=>x*y,1) || 1;
+      const b = inside.reduce((x,y)=>x*y,1) || 1;
+      return {a,b, factors:f, counts};
+    }
+
+    function formatMath(tex){ return `\\\$begin:math:text$ ${tex} \\\\\\$end:math:text$`; }
+    function renderQuestion(){
+      qEl.innerHTML = formatMath(`\\sqrt{${currentN}}`);
+      if(window.MathJax) MathJax.typesetPromise?.();
+    }
+    function setFeedback(ok, msg){
+      feedback.classList.remove('hidden');
+      feedback.className = 'mt-4 rounded-lg p-3 ' + (ok ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200');
+      feedback.innerHTML = msg;
+    }
+    function clearFeedback(){
+      feedback.classList.add('hidden');
+      working.classList.add('hidden');
+    }
+    function showSteps(){
+      const {a,b,factors} = squareFreePart(currentN);
+      const pairs = factors.length ? factors.slice().sort((x,y)=>x-y) : [];
+      const stepLines = [];
+      stepLines.push(formatMath(`\\sqrt{${currentN}} = \\sqrt{${a*a}\\cdot ${b}} = ${a>1? a+ '\\\\sqrt{'+b+'}':'\\\\sqrt{'+b+'}'}`));
+      stepLines.push(`<div class="text-xs text-gray-500 mt-2">Prime factors: ${pairs.join(' \$begin:math:text$\\\\times\\$end:math:text$ ') || '–'}</div>`);
+      working.classList.remove('hidden');
+      working.innerHTML = stepLines.join('<br/>');
+      if(window.MathJax) MathJax.typesetPromise?.();
+    }
+
+    function generate(difficulty){
+      // Choose a^2 * b with b square-free, try to avoid trivial b=1 too often
+      let aRange=[2,6], bPool=[2,3,5,6,7,10,11,13,15]; // square-free-ish choices
+      if(difficulty==='easy'){ aRange=[2,4]; bPool=[2,3,5,6,7,10,11]; }
+      if(difficulty==='hard'){ aRange=[3,9]; bPool=[2,3,5,6,7,10,11,13,15,17,19]; }
+
+      let tries=0;
+      while(tries++<100){
+        const a = randint(aRange[0], aRange[1]);
+        const square = a*a;
+        const b = bPool[randint(0,bPool.length-1)];
+        const N = square * b;
+        const simp = simplifyRoot(N);
+        // prefer genuinely reducible (a>1) and square-free b
+        if(simp.a>1 && !hasSquareFactor(simp.b)){
+          currentN = N;
+          expected = simp;
+          break;
+        }
+      }
+      inA.value=''; inB.value='';
+      clearFeedback();
+      renderQuestion();
+    }
+
+    function hasSquareFactor(n){
+      for(let r=2;r*r<=n;r++){
+        if(n%(r*r)===0) return true;
+      }
+      return false;
+    }
+
+    function check(){
+      const A = parseInt(inA.value,10);
+      const B = parseInt(inB.value,10);
+
+      // Accept alternative but equivalent forms:
+      //  - If B=1 and A equals sqrt(N), that's correct (integer result).
+      //  - If inputs reconstruct N: (A^2)*B === currentN and B is square-free, accept.
+      if(!Number.isFinite(A) || !Number.isFinite(B)){
+        setFeedback(false, 'Enter whole numbers for a and b.');
+        return;
+      }
+      if(A<=0 || B<=0){
+        setFeedback(false, 'a and b must be positive integers.');
+        return;
+      }
+
+      const recon = (A*A)*B;
+      const squarefree = !hasSquareFactor(B);
+
+      if(recon === currentN && squarefree){
+        // Canonical expected is expected.a, expected.b, but accept any equivalent square-free b
+        setFeedback(true, `Correct! ${formatMath(`\\sqrt{${currentN}} = ${A>1?A:''}${B>1?'\\sqrt{'+B+'}':''}`)}`);
+        score += 1; streak += 1; best = Math.max(best, streak);
+        scoreEl.textContent = score;
+        streakEl.textContent = streak;
+        bestEl.textContent = 'best ' + best;
+        try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
+        // queue next after a short delay
+        setTimeout(()=>generate(diffSel.value), 800);
+      }else{
+        streak = 0;
+        streakEl.textContent = streak;
+        const exp = expected;
+        setFeedback(false, `Not quite. Try again or view steps.<br/>Hint: pull out perfect squares.`);
+      }
+      if(window.MathJax) MathJax.typesetPromise?.();
+    }
+
+    // Wire up
+    btnNew.addEventListener('click', ()=>generate(diffSel.value));
+    diffSel.addEventListener('change', ()=>generate(diffSel.value));
+    btnCheck.addEventListener('click', check);
+    btnSkip.addEventListener('click', ()=>{ streak=0; streakEl.textContent=streak; generate(diffSel.value); });
+    btnSteps.addEventListener('click', showSteps);
+    btnHint.addEventListener('click', ()=>{
+      const {a,b}=simplifyRoot(currentN);
+      setFeedback(false, `Look for the largest perfect square dividing ${currentN}. For example, ${a*a} divides ${currentN}.`);
+    });
+    inA.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+    inB.addEventListener('keydown', e=>{ if(e.key==='Enter') check(); });
+
+    // Quick set buttons
+    document.querySelectorAll('.qbtn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const m = btn.textContent.match(/\d+/);
+        if(!m) return;
+        currentN = parseInt(m[0],10);
+        expected = simplifyRoot(currentN);
+        inA.value=''; inB.value='';
+        clearFeedback();
+        renderQuestion();
+      });
+    });
+
+    // Start
+    generate('med');
+  })();
+  </script>
+</body>
+</html>
