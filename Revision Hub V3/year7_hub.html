@@ -2,118 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>Page under construction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Year 7 — Coming Soon</title>
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="assets/main.css"/>
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
   <style>
-    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    /* light diagonal stripes background card */
-    .bg-stripes {
-      position: relative;
-      overflow: hidden;
+    :root{ --accent:#7B61FF; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    /* Nice soft card on the dark background */
+    .soft-card{
+      background: #0f1115; /* near-black */
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    
+
+    /* Countdown blocks */
+    .time-box{
+      min-width: 5.5rem;
+      background: #111418;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 0.75rem;
+      padding: .9rem .8rem;
+      text-align: center;
+    }
+    .time-num{
+      font-weight: 800;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1;
+      color: #fff;
+      letter-spacing: .5px;
+    }
+    .time-label{
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* Gradient “Coming Soon” like your reference */
+    .mega-gradient{
+      background-image: linear-gradient(90deg, #FDE047 0%, #F59E0B 18%, #F472B6 40%, #A78BFA 65%, #60A5FA 85%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 18px rgba(167,139,250,.25);
+    }
+
+    /* Subtle top nav crumbs (optional) */
+    .crumbs a{ color: rgba(255,255,255,.65); }
+    .crumbs a:hover{ color: #fff; }
   </style>
 </head>
-<body class="bg-gray-100">
+
+<body class="bg-gray-900" data-page="year7">
   <div class="layout">
     <!-- Sidebar -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
     <main class="main p-8 overflow-y-auto">
-      <!-- Header -->
+      <!-- Header row -->
       <header class="flex items-center justify-between mb-8">
-        <div class="flex items-center gap-3">
-          <button class="md:hidden"><span class="material-icons">menu</span></button>
-          <h1 id="wip-title" class="text-2xl font-bold text-gray-800">Page under construction</h1>
-        </div>
-        <div>
-          <a id="wip-cta" href="ks3_hub.html"
-             class="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
-            Back to KS3 Hub <span class="material-icons ml-2">arrow_back</span>
+        <nav class="crumbs text-sm">
+          <a href="/ks3_hub.html" class="inline-flex items-center">
+            <span class="material-icons mr-1">arrow_back</span> Back to KS3 Hub
           </a>
-        </div>
+        </nav>
       </header>
 
-      <!-- Content -->
-      <section>
-        <div class="bg-white rounded-2xl shadow-sm p-8 bg-stripes">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <!-- Icon -->
-<div class="md:col-span-1 flex items-center justify-center">
-  <span class="material-icons text-7xl text-gray-400">construction</span>
-</div>
+      <!-- Centered hero block -->
+      <section class="soft-card rounded-2xl p-8 md:p-12">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="uppercase tracking-widest text-xs text-white/60 mb-3">Year 7 Hub</p>
+          <h1 class="mega-gradient font-extrabold mb-3"
+              style="font-size: clamp(40px, 8vw, 76px); letter-spacing:-.02em;">
+            Coming&nbsp;Soon
+          </h1>
+          <p class="text-white/80 max-w-2xl mx-auto">
+            We’re putting together a single place for Year 7 mixed practice, worksheets, and videos.
+            Check back here on launch day.
+          </p>
 
-            <!-- Text -->
-            <div class="md:col-span-2">
-              <h2 id="wip-heading" class="text-xl md:text-2xl font-semibold text-gray-800 mb-2">
-                Oops! This page is still under construction
-              </h2>
-              <p id="wip-message" class="text-gray-600 mb-6">
-                We’re putting the final touches in place. Please check back soon, or use the button below to continue exploring the site.
-              </p>
-              <div class="flex flex-wrap gap-3">
-                <a id="wip-primary" href="ks3_hub.html"
-                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-gray-800 text-white hover:bg-gray-900 transition">
-                  Go to KS3 Hub <span class="material-icons ml-2">arrow_forward</span>
-                </a>
-                <a href="index.html"
-                   class="inline-flex items-center px-5 py-2.5 rounded-lg bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 transition">
-                  Back to Home <span class="material-icons ml-2">home</span>
-                </a>
-              </div>
+          <!-- Countdown -->
+          <div class="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-4 md:gap-6"
+               aria-label="Countdown to launch">
+            <div class="time-box">
+              <div id="cd-days" class="time-num">–</div>
+              <div class="time-label">Days</div>
             </div>
+            <div class="time-box">
+              <div id="cd-hours" class="time-num">–</div>
+              <div class="time-label">Hours</div>
+            </div>
+            <div class="time-box">
+              <div id="cd-mins" class="time-num">–</div>
+              <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-box">
+              <div id="cd-secs" class="time-num">–</div>
+              <div class="time-label">Seconds</div>
+            </div>
+          </div>
+
+          <!-- Optional helper links -->
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <a href="/explore.html" class="inline-flex items-center bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100">
+              Explore resources <span class="material-icons ml-2">arrow_forward</span>
+            </a>
+            <a href="/ai_usage.html" class="inline-flex items-center px-4 py-2 rounded-lg border border-white/20 text-white hover:bg-white/10">
+              Using AI sensibly
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- Spacer -->
-      <div class="h-8"></div>
+      <!-- Footnote -->
+      <p class="text-center text-white/40 text-xs mt-6">
+        Design in progress — colours inspired by school branding.
+      </p>
     </main>
   </div>
 
   <!-- Sidebar loader -->
-  <script src="assets/sidebar-loader.js"></script>
+  <script src="/assets/sidebar-loader.js" defer></script>
 
-  <!-- Quick config (edit per page reuse) -->
+  <!-- Countdown script -->
   <script>
-    // Change these per page reuse:
-    const WIP_CONFIG = {
-      title:   "KS3 — Coming Soon",
-      heading: "Oops! This page is still under construction",
-      message: "We’re putting the final touches in place. Please check back soon, or use one of the links below.",
-      primaryLabel: "Go to KS3 Hub",
-      primaryHref:  "ks3_hub.html",
-      headerCtaLabel: "Back to KS3 Hub",
-      headerCtaHref:  "ks3_hub.html"
-    };
+    (function(){
+      // Target date: 3rd November (this year or next if already passed)
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const targetThisYear = new Date(currentYear, 10, 3, 0, 0, 0); // Month 10 = November
+      const target = (now <= targetThisYear) ? targetThisYear : new Date(currentYear + 1, 10, 3, 0, 0, 0);
 
-    // Apply config
-    document.getElementById("wip-title").textContent    = WIP_CONFIG.title;
-    document.getElementById("wip-heading").textContent  = WIP_CONFIG.heading;
-    document.getElementById("wip-message").textContent  = WIP_CONFIG.message;
+      const elD = document.getElementById('cd-days');
+      const elH = document.getElementById('cd-hours');
+      const elM = document.getElementById('cd-mins');
+      const elS = document.getElementById('cd-secs');
 
-    const primary = document.getElementById("wip-primary");
-    primary.textContent = WIP_CONFIG.primaryLabel;
-    primary.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_forward</span>');
-    primary.href = WIP_CONFIG.primaryHref;
+      function pad(n){ return String(n).padStart(2,'0'); }
 
-    const headerCta = document.getElementById("wip-cta");
-    headerCta.textContent = WIP_CONFIG.headerCtaLabel;
-    headerCta.insertAdjacentHTML("beforeend", '<span class="material-icons ml-2">arrow_back</span>');
-    headerCta.href = WIP_CONFIG.headerCtaHref;
-    headerCta.classList.remove("hidden");
+      function tick(){
+        const t = target.getTime() - Date.now();
+        if (t <= 0){
+          elD.textContent = '00';
+          elH.textContent = '00';
+          elM.textContent = '00';
+          elS.textContent = '00';
+          clearInterval(timer);
+          return;
+        }
+        const totalSeconds = Math.floor(t/1000);
+        const days  = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins  = Math.floor((totalSeconds % 3600) / 60);
+        const secs  = totalSeconds % 60;
+
+        elD.textContent = pad(days);
+        elH.textContent = pad(hours);
+        elM.textContent = pad(mins);
+        elS.textContent = pad(secs);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
   </script>
 </body>
 </html>
