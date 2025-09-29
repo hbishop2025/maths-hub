@@ -10,33 +10,33 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css"/>
 
   <style>
-    /* Gradient headline style */
-    .mega-gradient {
-      background-image: linear-gradient(
-        90deg,
-        #FDE047 0%,
-        #F59E0B 18%,
-        #F472B6 40%,
-        #A78BFA 65%,
-        #60A5FA 85%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 6px 18px rgba(167,139,250,.25);
+    .mega-gradient{
+      background-image:linear-gradient(90deg,#FDE047 0%,#F59E0B 18%,#F472B6 40%,#A78BFA 65%,#60A5FA 85%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 6px 18px rgba(167,139,250,.25);
+    }
+    .card-soft{
+      background:#fff;border:1px solid rgba(0,0,0,.06);
+      border-radius:1rem; box-shadow:0 8px 24px rgba(0,0,0,.06);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .card-soft:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.10); }
+    .glow{
+      background: radial-gradient(80% 70% at 20% 10%, rgba(124, 58, 237,.12), transparent 60%),
+                  radial-gradient(80% 70% at 100% 30%, rgba(59,130,246,.12), transparent 60%);
     }
   </style>
 </head>
 <body class="bg-gray-100" data-page="gcse">
   <div class="layout">
-    <!-- Sidebar (injected) -->
+    <!-- Sidebar -->
     <div id="sidebar"></div>
 
     <!-- Main -->
@@ -48,7 +48,7 @@
         </a>
       </header>
 
-      <!-- Banner -->
+      <!-- Banner (contained) -->
       <section class="mb-10">
         <div class="bg-black rounded-2xl shadow-md p-10 md:p-16 text-center text-white">
           <h1 class="text-4xl md:text-6xl font-extrabold mega-gradient mb-4">
@@ -60,15 +60,106 @@
         </div>
       </section>
 
-      <!-- Placeholder for future GCSE content -->
-      <section>
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Coming soon…</h2>
-        <p class="text-gray-600">GCSE resources will appear here as the hub grows.</p>
+      <!-- Asymmetric module grid -->
+      <section class="mb-12">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-[12rem]">
+          <!-- Topics (tall) -->
+          <a href="#" class="card-soft row-span-2 p-6 glow flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-3xl text-indigo-600">menu_book</span>
+              <h3 class="text-lg font-bold text-gray-800">Topics & Revision Notes</h3>
+            </div>
+            <p class="text-gray-600 mt-3">
+              Algebra, number, geometry, statistics — clear notes and examples for every topic.
+            </p>
+            <div class="mt-auto pt-3 text-indigo-600 font-semibold inline-flex items-center">
+              Open <span class="material-icons ml-1">arrow_forward</span>
+            </div>
+          </a>
+
+          <!-- Exam Practice -->
+          <a href="#" class="card-soft p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-3xl text-rose-600">edit_note</span>
+              <h3 class="text-lg font-bold text-gray-800">Exam Practice</h3>
+            </div>
+            <p class="text-gray-600 mt-3">
+              Past papers, topic tests, and exam-style questions.
+            </p>
+            <div class="mt-auto pt-3 text-rose-600 font-semibold inline-flex items-center">
+              Open <span class="material-icons ml-1">arrow_forward</span>
+            </div>
+          </a>
+
+          <!-- Video Lessons (tall gradient) -->
+          <a href="#" class="row-span-2 p-0 rounded-2xl overflow-hidden card-soft">
+            <div class="h-full w-full p-6 flex flex-col"
+                 style="background:linear-gradient(135deg,#a78bfa 0%,#60a5fa 60%,#22d3ee 100%);">
+              <div class="flex items-center gap-3 text-white">
+                <span class="material-icons text-3xl">play_circle</span>
+                <h3 class="text-lg font-bold">Video Lessons</h3>
+              </div>
+              <p class="text-white/90 mt-3">
+                Hand-picked video explanations aligned to each topic.
+              </p>
+              <div class="mt-auto pt-3 font-semibold inline-flex items-center text-white">
+                Watch <span class="material-icons ml-1">arrow_forward</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Worksheets -->
+          <a href="#" class="card-soft p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-3xl text-amber-600">description</span>
+              <h3 class="text-lg font-bold text-gray-800">Worksheets & Resources</h3>
+            </div>
+            <p class="text-gray-600 mt-3">
+              Printable worksheets and quick practice sets.
+            </p>
+            <div class="mt-auto pt-3 text-amber-600 font-semibold inline-flex items-center">
+              Open <span class="material-icons ml-1">arrow_forward</span>
+            </div>
+          </a>
+
+          <!-- Problem Solving -->
+          <a href="#" class="card-soft p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-3xl text-emerald-600">psychology</span>
+              <h3 class="text-lg font-bold text-gray-800">Problem Solving & Stretch</h3>
+            </div>
+            <p class="text-gray-600 mt-3">
+              Non-routine problems and challenge tasks to deepen understanding.
+            </p>
+            <div class="mt-auto pt-3 text-emerald-600 font-semibold inline-flex items-center">
+              Try now <span class="material-icons ml-1">arrow_forward</span>
+            </div>
+          </a>
+
+          <!-- AI / Tools (wide on lg) -->
+          <a href="#" class="card-soft lg:col-span-2 p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-3xl text-fuchsia-600">smart_toy</span>
+              <h3 class="text-lg font-bold text-gray-800">AI Helpers & Tools</h3>
+            </div>
+            <p class="text-gray-600 mt-3">
+              AI prompt ideas, safe use guidance, calculators, and quick checkers.
+            </p>
+            <div class="mt-auto pt-3 text-fuchsia-600 font-semibold inline-flex items-center">
+              Explore <span class="material-icons ml-1">arrow_forward</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Placeholder -->
+      <section class="mb-10">
+        <p class="text-gray-500 text-sm">This is a demo layout. When you’re ready, link each module to its page.</p>
       </section>
     </main>
   </div>
 
-  <!-- Shared scripts -->
+  <!-- Scripts -->
   <script src="assets/sidebar-loader.js"></script>
 </body>
 </html>
