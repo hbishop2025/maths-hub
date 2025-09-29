@@ -15,6 +15,23 @@
 
   <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css"/>
+<style>
+  .mega-gradient {
+  background-image: linear-gradient(
+    90deg,
+    #FDE047 0%,
+    #F59E0B 18%,
+    #F472B6 40%,
+    #A78BFA 65%,
+    #60A5FA 85%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 6px 18px rgba(167,139,250,.25);
+}
+</style>
+  
 </head>
 <body class="bg-gray-100" data-page="ks3">
   <div class="layout">
@@ -139,9 +156,11 @@
       </section>
 
 <section class="mt-10">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">Great problem solvers are built, not born.</h2>
-        </div>
+  <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-6 md:p-8 text-center">
+    <h2 class="text-2xl md:text-3xl font-extrabold mega-gradient">
+      Great problem solvers are built, not born.
+    </h2>
+  </div>
 </section>
       
     <!-- Split hero: UKMT (light) + AI usage (dark) -->
