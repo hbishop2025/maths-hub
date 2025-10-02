@@ -66,7 +66,7 @@
       <div class="mm-header">
         <div class="mm-brand" style="display:flex;align-items:center;gap:.5rem;">
           ${logoHTML}
-          <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths Hub</span>
+          <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths</span>
         </div>
         <button class="mm-close" type="button" aria-label="Close menu">
           <span class="material-icons" aria-hidden="true">close</span>
