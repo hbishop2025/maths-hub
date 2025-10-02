@@ -11,7 +11,7 @@
 
 <!-- SVG for modern browsers -->
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-  <title>Maths Hub</title>
+  <title>SJWMS Maths</title>
 
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -116,7 +116,7 @@
     try{
       const d = await getJSON(EXPLORE_HERO_JSON);
       if(!d) return;
-      const title = d.title ?? d.headline ?? "Welcome to the Maths Hub!";
+      const title = d.title ?? d.headline ?? "Welcome to SJWMS Maths!";
       const body  = d.subtitle ?? d.body ?? "";
       const h = document.getElementById("explore-hero-headline");
       const p = document.getElementById("explore-hero-body");
@@ -240,7 +240,7 @@
       <span class="inline-flex h-6 w-6 rounded-md items-center justify-center bg-yellow-400/90">
         <span class="material-icons text-gray-900 text-[18px]">construction</span>
       </span>
-      <p class="font-semibold text-gray-800">SJWMS Maths Hub</p>
+      <p class="font-semibold text-gray-800">SJWMS Maths</p>
     </div>
     <button id="fvClose"
             class="rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-700 hover:bg-gray-50"
