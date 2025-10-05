@@ -18,7 +18,7 @@
       wrap.innerHTML = `<div class="panel">${html}</div>`;
 
       const pathname = location.pathname.toLowerCase();
-      const file = (pathname.split('/index.html').pop() || '/');
+      const file = (pathname.split('/').pop() || '/');
 
       // Any page inside /year_9/ OR specific year9 pages at root
       const isYear9Path = pathname.includes('/year_9/');
@@ -66,7 +66,7 @@ const logoOnly = logoEl ? logoEl.outerHTML : `<span class="font-semibold">SJWMS 
 // Force the brand to be a HOME LINK (root-relative so it works everywhere)
 modal.innerHTML = `
   <div class="mm-header">
-    <a href="/index.html" class="mm-brand" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+    <a href="/" class="mm-brand" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
       ${logoOnly}
       <span class="text-gray-900 font-semibold whitespace-nowrap">SJWMS Maths</span>
     </a>
