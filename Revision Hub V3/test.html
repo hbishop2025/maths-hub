@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SJWMS Maths — Explore</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Optional shared CSS for cards (keeps your existing card look) -->
+  <link rel="stylesheet" href="assets/main.css"/>
+
+  <style>
+    :root{
+      --brand-grad: linear-gradient(90deg, #7C3AED, #3B82F6, #7C3AED);
+    }
+    body{ font-family: Inter, system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#fff; }
+
+    /* Top pill nav */
+    .nav-pill{
+      display:flex; align-items:center; justify-content:center; gap:.5rem; flex-wrap:wrap;
+      background: transparent; border-radius: 9999px; padding:.5rem;
+      max-width: 880px; margin: 1.25rem auto 0 auto;
+    }
+    .nav-pill a{
+      padding:.5rem 1.25rem; border-radius:9999px; font-weight:600; color:#374151; transition: all .5s ease;
+      background-size:200% auto;
+    }
+    .nav-pill a.active{ background:#111827; color:#fff; }
+    .nav-pill a:hover{ background:#f3f4f6; }
+    /* Gradient hover shimmer for active (Explore) */
+    .nav-pill a.active:hover{
+      background-image: var(--brand-grad);
+      animation: shimmer 2s linear infinite;
+      color:#fff; box-shadow: 0 0 12px rgba(124,58,237,.35);
+    }
+    @keyframes shimmer{
+      0%{ background-position: 0% center; }
+      100%{ background-position: 200% center; }
+    }
+
+    /* Mobile navbar row */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: .75rem 1rem; position: sticky; top:0; z-index: 30; background:#fff;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .topbar .brand{ display:flex; align-items:center; gap:.5rem; }
+    .topbar .brand img{ height: 40px; width:auto; }
+
+    /* Mobile menu (modal sheet) */
+    .m-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:.2s ease; z-index:39; }
+    .m-overlay.open{ opacity:1; pointer-events:auto; }
+    .m-menu{
+      position:fixed; left:50%; top:50%; transform:translate(-50%,-46%) scale(.98);
+      width:min(22rem, 92vw); max-height: 85vh; overflow:auto;
+      background:#fff; border:1px solid #e5e7eb; border-radius:1rem; box-shadow:0 20px 50px rgba(0,0,0,.25);
+      opacity:0; pointer-events:none; transition:.2s ease; z-index:40;
+    }
+    .m-menu.open{ opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1); }
+    .m-menu .row{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.75rem 1rem; border-bottom:1px solid #f3f4f6; }
+    .m-menu nav{ padding:.5rem; }
+    .m-menu nav a{ display:block; padding:.6rem .75rem; border-radius:.75rem; color:#374151; font-weight:600; }
+    .m-menu nav a:hover{ background:#f3f4f6; }
+    .m-menu nav a.active{ background:#111827; color:#fff; }
+
+    /* Search pill */
+    .search-pill{
+      display:flex; align-items:center; gap:.75rem; width:100%; max-width: 560px;
+      border:1px solid #e5e7eb; border-radius:9999px; padding:.75rem 1rem;
+      background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.05);
+    }
+    .search-pill input{ border:none; outline:none; flex:1; background:transparent; color:#111827; }
+    .search-pill button{
+      background:#111827; color:#fff; font-weight:700; border-radius:9999px; padding:.5rem 1rem;
+      transition: all .6s ease; background-size:200% auto;
+    }
+    .search-pill button:hover{
+      background-image: var(--brand-grad);
+      animation: shimmer 2s linear infinite;
+      box-shadow: 0 0 12px rgba(124,58,237,.35);
+    }
+
+    /* Suggestion dropdown (reuses your new smart search if you add it here later) */
+    .sug{ position:relative; }
+    .sug-box{
+      position:absolute; left:0; right:0; top: calc(100% + 8px); z-index:50;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.75rem; box-shadow:0 10px 30px rgba(0,0,0,.12);
+      overflow:hidden;
+    }
+
+    /* Decorative dots (light) */
+    .dot{
+      position:absolute; width:10px; height:10px; border-radius:50%;
+      background: radial-gradient(circle, #d1d5db 30%, transparent 70%); opacity:.7; pointer-events:none; z-index:0;
+    }
+
+    /* Cards area spacing */
+    .section-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:1rem; padding:1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal sticky top bar (mobile) -->
+  <div class="topbar lg:hidden">
+    <a href="index.html" class="brand">
+      <img src="assets/hub_logo.png" alt="SJWMS Maths">
+      <span class="font-semibold text-gray-900">SJWMS Maths</span>
+    </a>
+    <button id="mOpen" class="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-1.5 hover:bg-gray-50">
+      <span class="material-icons">menu</span>
+      <span class="font-semibold">Menu</span>
+    </button>
+  </div>
+
+  <!-- Pill nav (desktop / tablet) -->
+  <nav class="nav-pill hidden lg:flex">
+    <a href="index.html" class="flex items-center rounded-full px-2 hover:bg-gray-100 transition">
+      <img src="assets/hub_logo.png" alt="SJWMS Maths" class="h-10 w-auto md:h-12 block">
+    </a>
+    <a href="explore.html" class="active">Explore</a>
+    <a href="ks3_hub.html">KS3</a>
+    <a href="gcse_hub.html">GCSE</a>
+    <a href="alevel_hub.html">A-Level</a>
+  </nav>
+
+  <!-- Mobile modal menu -->
+  <div id="mOverlay" class="m-overlay"></div>
+  <div id="mMenu" class="m-menu">
+    <div class="row">
+      <a href="/index.html" class="flex items-center gap-2">
+        <img src="assets/hub_logo.png" alt="SJWMS Maths" class="h-9 w-auto">
+        <span class="font-semibold text-gray-900">SJWMS Maths</span>
+      </a>
+      <button id="mClose" class="rounded-lg border border-gray-200 px-2 py-1 hover:bg-gray-50">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <nav>
+      <a href="explore.html" class="active">Explore</a>
+      <a href="ks3_hub.html">KS3</a>
+      <a href="gcse_hub.html">GCSE</a>
+      <a href="alevel_hub.html">A-Level</a>
+    </nav>
+  </div>
+
+  <!-- Decorative dots -->
+  <div class="dot top-28 left-[18%]"></div>
+  <div class="dot top-1/3 right-[20%]"></div>
+  <div class="dot bottom-28 left-[30%]"></div>
+  <div class="dot bottom-10 right-[30%]"></div>
+
+  <!-- Header hero -->
+  <header class="text-center mt-8 md:mt-12 px-4">
+    <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900">
+      What will you <span class="bg-clip-text text-transparent" style="background-image:var(--brand-grad);">revise today</span> and master?
+    </h1>
+    <p class="text-gray-600 text-base md:text-lg mt-3 max-w-2xl mx-auto">
+      Explore lessons, worksheets and practice quizzes — all in one place.
+    </p>
+
+    <!-- Search (you can wire in your smart search here later) -->
+    <div class="sug mx-auto mt-5 px-4">
+      <div class="search-pill mx-auto">
+        <span class="material-icons text-gray-400">search</span>
+        <input id="smartSearch" type="text" placeholder="Search topics, units, or exams…" autocomplete="off">
+        <button type="button">Search</button>
+      </div>
+      <!-- <div id="searchSug" class="sug-box hidden"></div>  (enable when wiring smart search) -->
+    </div>
+  </header>
+
+  <main class="mt-10 px-4 max-w-7xl mx-auto">
+    <!-- Hero text from CMS -->
+    <section class="section-card mb-8">
+      <h2 id="explore-hero-headline" class="text-xl font-bold text-gray-900 mb-1">Loading…</h2>
+      <p id="explore-hero-body" class="text-gray-600"></p>
+    </section>
+
+    <!-- Featured -->
+    <section id="featured" class="mb-12">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-2xl font-bold text-gray-900">Featured</h3>
+        <button id="featured-toggle" class="text-gray-800 font-semibold">View All</button>
+      </div>
+      <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      <p id="featured-empty" class="text-gray-500 mt-2" hidden>No featured sites yet.</p>
+    </section>
+
+    <!-- Latest Information -->
+    <section id="info" class="mb-16">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-2xl font-bold text-gray-900">Latest Information</h3>
+      </div>
+      <div id="info-list" class="space-y-4"></div>
+    </section>
+  </main>
+
+  <!-- No-JS fallback -->
+  <noscript>
+    <div class="max-w-3xl mx-auto mt-6 p-4 bg-yellow-50 text-yellow-800 rounded-lg">
+      This site needs JavaScript to load the featured sites and information.
+    </div>
+  </noscript>
+
+  <!-- ===== Data + rendering (reusing your existing logic) ===== -->
+  <script>
+    const EXPLORE_HERO_JSON = "assets/data/explore_hero.json";
+    const FEATURED_JSON     = "assets/data/featured_sites.json";
+    const INFO_JSON         = "assets/data/info.json";
+    const cacheOpt = { cache: "no-store" };
+
+    async function getJSON(url){
+      const res = await fetch(url, cacheOpt);
+      if(!res.ok){ console.error("Fetch failed:", url, res.status); return null; }
+      return res.json();
+    }
+    function asItems(data){ if(Array.isArray(data)) return data; if(data && Array.isArray(data.items)) return data.items; return []; }
+    function parseDateSafe(s){ const d=new Date(s); return isNaN(d)?null:d; }
+
+    // HERO
+    (async()=>{
+      try{
+        const d = await getJSON(EXPLORE_HERO_JSON);
+        const title = d?.title ?? d?.headline ?? "Welcome to SJWMS Maths!";
+        const body  = d?.subtitle ?? d?.body ?? "";
+        const h = document.getElementById("explore-hero-headline");
+        const p = document.getElementById("explore-hero-body");
+        if(h) h.textContent = title;
+        if(p) p.textContent = body;
+      }catch(e){ console.error("Hero load error:", e); }
+    })();
+
+    // FEATURED
+    let featuredAll = [];
+    let showingAll = false;
+
+    async function loadFeatured(){
+      try{
+        const data  = await getJSON(FEATURED_JSON);
+        const items = asItems(data).filter(s => s && s.active !== false);
+        featuredAll = items;
+        renderFeatured();
+        const empty = document.getElementById("featured-empty");
+        if (empty) empty.hidden = featuredAll.length > 0;
+      }catch(e){ console.error("Featured load error:", e); }
+    }
+    function renderFeatured(){
+      const grid = document.getElementById("featured-grid");
+      if(!grid) return;
+      const max = showingAll ? 12 : 4;
+      grid.innerHTML = "";
+      featuredAll.slice(0,max).forEach(site=>{
+        if(typeof makeSiteCard === "function"){
+          grid.appendChild(makeSiteCard(site));
+        }else{
+          const div = document.createElement("div");
+          div.className="bg-white p-4 rounded-xl shadow-sm border border-gray-200";
+          div.innerHTML = `<h3 class="font-semibold">${site.name||"Untitled"}</h3>
+                          <p class="text-sm text-gray-600">${site.desc||""}</p>
+                          ${site.url ? `<a class="text-blue-600 underline" href="${site.url}" target="_blank" rel="noopener">Open</a>` : ""}`;
+          grid.appendChild(div);
+        }
+      });
+      const toggle = document.getElementById("featured-toggle");
+      if (toggle) toggle.textContent = showingAll ? "Show Less" : "View All";
+    }
+
+    // INFO
+    async function loadInfo(){
+      try{
+        const data = await getJSON(INFO_JSON);
+        const rows = asItems(data);
+        rows.sort((a,b)=>{
+          const da = parseDateSafe(a.date)?.getTime() ?? -Infinity;
+          const db = parseDateSafe(b.date)?.getTime() ?? -Infinity;
+          return db - da;
+        });
+        const container = document.getElementById("info-list");
+        if(!container) return;
+        container.innerHTML = "";
+        if(!rows.length){
+          container.innerHTML = '<p class="text-gray-500">No information yet.</p>';
+          return;
+        }
+        rows.forEach(r=>{
+          if(typeof makeInfoCard === "function"){
+            container.appendChild(makeInfoCard(r));
+          }else{
+            const div = document.createElement("div");
+            div.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-200";
+            div.innerHTML = `
+              <p class="text-sm text-gray-500">${r.type||""}</p>
+              <p class="font-semibold text-gray-800">${r.text||""}</p>
+              ${r.date ? `<p class="text-sm text-gray-500">${r.date}</p>` : ""}
+              ${r.url ? `<a class="inline-flex items-center mt-2 text-blue-600 underline" href="${r.url}" target="_blank" rel="noopener">More info</a>` : ""}
+            `;
+            container.appendChild(div);
+          }
+        });
+      }catch(e){
+        console.error("Info load error:", e);
+        const container = document.getElementById("info-list");
+        if(container){
+          container.innerHTML = '<p class="text-red-600">Could not load information.</p>';
+        }
+      }
+    }
+
+    // INIT
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const toggle = document.getElementById("featured-toggle");
+      if (toggle){ toggle.addEventListener("click", ()=>{ showingAll = !showingAll; renderFeatured(); }); }
+      loadFeatured();
+      loadInfo();
+    });
+  </script>
+
+  <!-- Cards helpers (re-use your existing) -->
+  <script src="assets/cards.js"></script>
+
+  <!-- Mobile menu JS -->
+  <script>
+    (function(){
+      const open  = document.getElementById('mOpen');
+      const close = document.getElementById('mClose');
+      const menu  = document.getElementById('mMenu');
+      const ov    = document.getElementById('mOverlay');
+
+      function setOpen(state){
+        menu.classList.toggle('open', state);
+        ov.classList.toggle('open', state);
+        document.body.classList.toggle('overflow-hidden', state);
+      }
+      open?.addEventListener('click', ()=> setOpen(true));
+      close?.addEventListener('click', ()=> setOpen(false));
+      ov?.addEventListener('click', ()=> setOpen(false));
+      menu?.addEventListener('click', (e)=>{
+        const a = e.target.closest('a[href]');
+        if(a){ setOpen(false); }
+      });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') setOpen(false); });
+    })();
+  </script>
+</body>
+</html>
