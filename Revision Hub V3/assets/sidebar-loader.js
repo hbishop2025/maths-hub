@@ -18,7 +18,7 @@
       wrap.innerHTML = `<div class="panel">${html}</div>`;
 
       const pathname = location.pathname.toLowerCase();
-      const file = (pathname.split('/').pop() || 'index.html');
+      const file = (pathname.split('/').pop() || '/');
 
       // Any page inside /year_9/ OR specific year9 pages at root
       const isYear9Path = pathname.includes('/year_9/');
