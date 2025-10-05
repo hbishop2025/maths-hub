@@ -36,8 +36,13 @@
 }
 
 .nav-pill a.active {
-  background: #111827;
+  background: linear-gradient(90deg, #7C3AED, #3B82F6);
+  background-size: 200% 200%;
   color: #fff;
+  transition: background-position 0.5s ease;
+}
+.nav-pill a.active:hover {
+  background-position: right center;
 }
 
 .nav-pill a:hover {
