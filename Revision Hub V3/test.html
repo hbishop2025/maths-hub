@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SJWMS Maths</title>
-  <link rel="icon" type="image/png" href="/assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" href="/assets/favicon-32x32.png">
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -29,9 +29,9 @@
     }
   </style>
 </head>
-<body class="relative min-h-screen flex flex-col items-center">
+<body class="relative min-h-screen flex flex-col items-center justify-center text-center px-4">
 
-  <!-- Top Navigation -->
+  <!-- Top Navigation (Pill) -->
   <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md px-6 py-2 flex items-center space-x-6 z-50">
     <img src="/assets/hub_logo.png" alt="SJWMS Logo" class="h-8 w-auto" />
     <a href="explore.html" class="px-3 py-1 rounded-full bg-gray-800 text-white font-semibold">Explore</a>
@@ -40,29 +40,31 @@
     <a href="alevel_hub.html" class="text-gray-700 font-semibold hover:text-gray-900">A-Level</a>
   </nav>
 
-  <!-- Main Content -->
-  <main class="flex flex-col items-center justify-center flex-grow text-center px-4 mt-32 md:mt-40">
-    <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+  <!-- Main Hero Section -->
+  <main class="flex flex-col items-center justify-center mt-32 md:mt-40 space-y-6">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900">
       What will you revise today and master?
     </h1>
-    <p class="text-gray-600 italic mb-8">
+    <p class="text-gray-600 italic max-w-2xl">
       “Mathematics is the language with which God wrote the universe.” — Galileo
     </p>
 
     <!-- Search Pill -->
-    <div class="w-full max-w-lg rounded-full search-pill flex items-center px-5 py-3 mb-20">
+    <div class="w-full max-w-lg rounded-full search-pill flex items-center px-5 py-3 mt-6">
       <span class="material-icons text-gray-400 mr-3">search</span>
       <input type="text" placeholder="Search topics, units, or exams..." class="flex-grow border-none focus:ring-0 text-gray-700" disabled />
     </div>
   </main>
 
-  <!-- Decorative Icons -->
-  <img src="/assets/pi-svgrepo-com.jpeg" class="icon-bg" style="bottom:80px; left:5%;" />
-  <img src="/assets/square-root-of-x-svgrepo-com.jpeg" class="icon-bg" style="bottom:60px; right:10%;" />
-  <img src="/assets/compass-math-svgrepo-com.jpeg" class="icon-bg" style="bottom:140px; left:30%;" />
-  <img src="/assets/math-divide-svgrepo-com.jpeg" class="icon-bg" style="bottom:100px; right:35%;" />
-  <img src="/assets/variable-svgrepo-com.jpeg" class="icon-bg" style="bottom:40px; left:65%;" />
-  <img src="/assets/paperclip-svgrepo-com.jpeg" class="icon-bg" style="bottom:20px; right:5%;" />
-
+  <!-- Decorative Background Icons -->
+  <img src="/assets/pi-svgrepo-com.jpeg" class="icon-bg" style="bottom:80px; left:8%;" />
+  <img src="/assets/square-root-of-x-svgrepo-com.jpeg" class="icon-bg" style="bottom:60px; right:12%;" />
+  <img src="/assets/compass-math-svgrepo-com.jpeg" class="icon-bg" style="bottom:160px; left:35%;" />
+  <img src="/assets/math-divide-svgrepo-com.jpeg" class="icon-bg" style="bottom:120px; right:40%;" />
+  <img src="/assets/variable-svgrepo-com.jpeg" class="icon-bg" style="bottom:30px; left:60%;" />
+  <img src="/assets/math-plus-minus-svgrepo-com.jpeg" class="icon-bg" style="bottom:90px; right:20%;" />
+  <img src="/assets/paperclip-svgrepo-com.jpeg" class="icon-bg" style="bottom:40px; left:10%;" />
+  <img src="/assets/math-curve-svgrepo-com.jpeg" class="icon-bg" style="bottom:10px; right:5%;" />
+  <img src="/assets/cube-svgrepo-com.jpeg" class="icon-bg" style="bottom:70px; left:75%;" />
 </body>
 </html>
