@@ -1,64 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths Hub — Welcome</title>
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"/>
-
-  <!-- Tailwind -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maths Hub — Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap" rel="stylesheet"/>
-
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .tile {
-      display:flex; align-items:center; justify-content:center;
-      border-radius: 1rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      box-shadow: 0 10px 20px rgba(0,0,0,.35);
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .tile:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(0,0,0,.45); }
-    .grad-brand {
-      background-image: linear-gradient(90deg,#FDE047 0%, #F59E0B 20%, #F472B6 50%, #A78BFA 75%, #60A5FA 100%);
-      color:#111;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white">
-  <main class="min-h-screen flex flex-col items-center justify-center px-6 py-10">
-    
-    <!-- Tiles -->
-    <section class="w-full max-w-6xl">
-      <div class="grid grid-cols-6 gap-4">
-        <!-- Row 1 -->
-        <div class="tile bg-green-700 col-span-2 h-40 text-5xl md:text-7xl">This is</div>
-        <div class="tile bg-green-500 col-span-2 h-44 text-5xl md:text-7xl">Where</div>
-        <div class="tile grad-brand col-span-2 h-28 text-base md:text-lg flex">SJWMS Maths</div>
 
-        <!-- Row 2 -->
-        <div class="tile grad-brand col-span-2 h-28">
-          <img src="/favicon-32x32.png" alt="SJWMS crest" class="w-12 h-12 md:w-16 md:h-16">
-        </div>
-        <div class="tile bg-green-500 col-span-3 h-44 text-5xl md:text-7xl">To Revise</div>
-        <div class="tile bg-green-700 col-span-1 h-40 text-5xl md:text-7xl">Maths</div>
+<body class="bg-gray-50 text-gray-800 font-inter flex flex-col items-center min-h-screen relative overflow-x-hidden">
+
+  <!-- ===== Floating Pill Navigation ===== -->
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md shadow-md rounded-full px-6 py-3 flex items-center gap-6 border border-gray-200 z-50">
+    <a href="/explore.html" class="text-gray-700 font-semibold hover:text-purple-600 transition">Explore</a>
+    <a href="/ks3_hub.html" class="text-gray-700 font-semibold hover:text-purple-600 transition">KS3</a>
+    <a href="/gcse_hub.html" class="text-gray-700 font-semibold hover:text-purple-600 transition">GCSE</a>
+    <a href="/alevel_hub.html" class="text-gray-700 font-semibold hover:text-purple-600 transition">A-Level</a>
+  </nav>
+
+  <!-- ===== Decorative Background Elements (optional) ===== -->
+  <div class="absolute top-16 left-12 w-8 h-8 bg-yellow-300 rounded-full shadow-md rotate-6 opacity-80"></div>
+  <div class="absolute bottom-10 right-10 w-8 h-8 bg-blue-400 rounded-full shadow-md -rotate-6 opacity-80"></div>
+
+  <!-- ===== Main Notice Card ===== -->
+  <main class="flex flex-col items-center justify-center flex-grow w-full px-6 py-24">
+    <div class="bg-white shadow-xl rounded-2xl p-12 w-full max-w-4xl text-center border border-gray-100 relative">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+        What will you <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
+      </h1>
+      <p class="text-gray-600 mb-10">
+        Explore resources across KS3, GCSE, and A-Level — built to help you master every topic.
+      </p>
+
+      <!-- Search bar placeholder -->
+      <div class="mx-auto flex items-center justify-between bg-gray-100 rounded-full shadow-inner p-2 w-full max-w-md">
+        <input type="text" placeholder="Search for topics, exams, or year groups..."
+               class="flex-1 bg-transparent px-4 py-2 focus:outline-none text-gray-700 placeholder-gray-400">
+        <button class="bg-gray-800 text-white px-5 py-2 rounded-full font-semibold hover:bg-gray-700 transition">Search</button>
       </div>
-    </section>
 
-    <!-- Spacer -->
-    <div class="h-12"></div>
-
-    <!-- Hub buttons -->
-    <section class="w-full max-w-4xl">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <a href="/ks3_hub.html" class="tile bg-white/5 border border-white/10 h-20 text-lg font-semibold">KS3 Hub</a>
-        <a href="/gcse_hub.html" class="tile bg-white/5 border border-white/10 h-20 text-lg font-semibold">GCSE Hub</a>
-        <a href="/alevel_hub.html" class="tile bg-white/5 border border-white/10 h-20 text-lg font-semibold">A-level Hub</a>
+      <!-- Hub links -->
+      <div class="mt-12 flex justify-center gap-4 flex-wrap">
+        <a href="/ks3_hub.html" class="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow hover:opacity-90 transition">KS3 Hub</a>
+        <a href="/gcse_hub.html" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold shadow hover:opacity-90 transition">GCSE Hub</a>
+        <a href="/alevel_hub.html" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-green-600 text-white font-semibold shadow hover:opacity-90 transition">A-Level Hub</a>
       </div>
-    </section>
-
+    </div>
   </main>
+
 </body>
 </html>
