@@ -13,10 +13,36 @@
     body{ font-family:'Inter',sans-serif; background:#fff; min-height:100vh; overflow-x:hidden; position:relative; }
     .decor{ position:absolute; opacity:.85; pointer-events:none; }
     .dot{ position:absolute; width:10px; height:10px; background:radial-gradient(circle,#d1d5db 30%,transparent 70%); border-radius:50%; opacity:.7; }
-    .nav-pill{ background:#f5f5f5; border-radius:9999px; padding:.5rem; display:flex; justify-content:center; align-items:center; gap:.5rem; flex-wrap:wrap; max-width:640px; margin:1.5rem auto; box-shadow:0 2px 8px rgba(0,0,0,.08); }
-    .nav-pill a{ padding:.5rem 1.25rem; border-radius:9999px; font-weight:600; color:#374151; transition:all .2s; }
-    .nav-pill a.active{ background:#111827; color:#fff; }
-    .nav-pill a:hover{ background:#e5e7eb; }
+    /* Navigation bar (pill style) */
+.nav-pill {
+  background: transparent;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 640px;
+  margin: 1.5rem auto;
+}
+
+.nav-pill a {
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.nav-pill a.active {
+  background: #111827;
+  color: #fff;
+}
+
+.nav-pill a:hover {
+  background: #f3f4f6;
+}
     .search-pill{ display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #e5e7eb; border-radius:9999px; padding:.75rem 1.25rem; width:100%; max-width:480px; box-shadow:0 4px 12px rgba(0,0,0,.05); margin-top:1rem; }
     .search-pill input{ border:none; outline:none; flex:1; font-size:1rem; background:transparent; }
 
