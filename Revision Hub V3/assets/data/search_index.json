@@ -1,7 +1,63 @@
 [
-  { "level": "Y9", "label": "Surds", "url": "/year_9/year9_unit01.html#surds" },
-  { "level": "Y9", "label": "Standard Form", "url": "/year_9/year9_unit01.html#standardform" },
-  { "level": "Y8", "label": "Area of a Circle", "url": "/year_8/unit04.html#area" },
-  { "level": "GCSE", "label": "Trigonometry Basics", "url": "/gcse/trig.html" },
-  { "level": "A-Level", "label": "Quadratic Graphs", "url": "/alevel/functions.html" }
+  { "level": "Y9", "label": "Reciprocals",                "keywords": ["unit 1", "powers and roots", "1.1", "multiplicative inverse"],                                       "url": "/year_9/year9_unit01.html" },
+  { "level": "Y9", "label": "Indices",                    "keywords": ["unit 1", "powers and roots", "1.2", "index laws", "exponents", "powers"],                         "url": "/year_9/year9_unit01.html" },
+  { "level": "Y9", "label": "Standard Form",              "keywords": ["unit 1", "powers and roots", "1.3", "scientific notation"],                                      "url": "/year_9/year9_unit01.html" },
+  { "level": "Y9", "label": "Calculating with Standard Form", "keywords": ["unit 1", "powers and roots", "1.4", "STEM", "operations in standard form"],               "url": "/year_9/year9_unit01.html" },
+  { "level": "Y9", "label": "Fractional Indices",         "keywords": ["unit 1", "powers and roots", "1.5", "rational exponents"],                                      "url": "/year_9/year9_unit01.html" },
+  { "level": "Y9", "label": "Surds",                      "keywords": ["unit 1", "powers and roots", "1.6", "simplifying surds", "roots"],                              "url": "/year_9/year9_unit01.html" },
+
+  { "level": "Y9", "label": "Sequences",                  "keywords": ["unit 2", "quadratics", "2.1", "term to term", "nth term"],                                      "url": "/year_9/year9_unit02.html" },
+  { "level": "Y9", "label": "Expanding (Quadratics)",     "keywords": ["unit 2", "quadratics", "2.2", "expand brackets", "double brackets"],                            "url": "/year_9/year9_unit02.html" },
+  { "level": "Y9", "label": "Factorising (Quadratics)",   "keywords": ["unit 2", "quadratics", "2.3", "factorize", "trinomial"],                                       "url": "/year_9/year9_unit02.html" },
+  { "level": "Y9", "label": "Solving Quadratics",         "keywords": ["unit 2", "quadratics", "2.4", "solutions", "roots", "zeroes"],                                  "url": "/year_9/year9_unit02.html" },
+
+  { "level": "Y9", "label": "Inequalities",               "keywords": ["unit 3", "inequalities equations and formulae", "3.1", "solve inequalities"],                  "url": "/year_9/year9_unit03.html" },
+  { "level": "Y9", "label": "Using Index Laws",           "keywords": ["unit 3", "inequalities equations and formulae", "3.2", "index rules"],                          "url": "/year_9/year9_unit03.html" },
+  { "level": "Y9", "label": "Solving Equations",          "keywords": ["unit 3", "inequalities equations and formulae", "3.3", "linear equations"],                    "url": "/year_9/year9_unit03.html" },
+  { "level": "Y9", "label": "Changing the Subject",       "keywords": ["unit 3", "inequalities equations and formulae", "3.4", "rearranging formulae"],                "url": "/year_9/year9_unit03.html" },
+  { "level": "Y9", "label": "Algebraic Fractions",        "keywords": ["unit 3", "inequalities equations and formulae", "3.5", "simplify algebraic fractions"],        "url": "/year_9/year9_unit03.html" },
+
+  { "level": "Y9", "label": "Collecting Data",            "keywords": ["unit 4", "collecting and analysing data", "4.1", "STEM", "surveys", "sampling"],                 "url": "/year_9/year9_unit04.html" },
+  { "level": "Y9", "label": "Presenting & Comparing Data","keywords": ["unit 4", "collecting and analysing data", "4.2", "charts", "tables", "compare"],               "url": "/year_9/year9_unit04.html" },
+  { "level": "Y9", "label": "Estimating Statistics",      "keywords": ["unit 4", "collecting and analysing data", "4.3", "mean", "median", "estimate"],                "url": "/year_9/year9_unit04.html" },
+  { "level": "Y9", "label": "Box Plots",                  "keywords": ["unit 4", "collecting and analysing data", "4.4", "quartiles", "IQR"],                          "url": "/year_9/year9_unit04.html" },
+  { "level": "Y9", "label": "Cumulative Frequency Graphs","keywords": ["unit 4", "collecting and analysing data", "4.5", "cf graphs", "median", "quartiles"],          "url": "/year_9/year9_unit04.html" },
+  { "level": "Y9", "label": "Histograms",                 "keywords": ["unit 4", "collecting and analysing data", "4.6", "grouped data"],                              "url": "/year_9/year9_unit04.html" },
+
+  { "level": "Y9", "label": "Direct Proportion",          "keywords": ["unit 5", "multiplicative reasoning", "5.1", "proportionality"],                                "url": "/year_9/year9_unit05.html" },
+  { "level": "Y9", "label": "Problems in Direct Proportion","keywords": ["unit 5", "multiplicative reasoning", "5.2", "scaling problems"],                           "url": "/year_9/year9_unit05.html" },
+  { "level": "Y9", "label": "Non-linear Proportion",      "keywords": ["unit 5", "multiplicative reasoning", "5.3", "inverse proportion", "power law"],               "url": "/year_9/year9_unit05.html" },
+
+  { "level": "Y9", "label": "Quadratic Graphs",           "keywords": ["unit 6", "non-linear graphs", "6.1", "y=ax^2", "parabola"],                                    "url": "/year_9/year9_unit06.html" },
+  { "level": "Y9", "label": "Solving Quadratics (Graphs)","keywords": ["unit 6", "non-linear graphs", "6.2", "intercepts", "roots"],                                 "url": "/year_9/year9_unit06.html" },
+  { "level": "Y9", "label": "Cubic Graphs",               "keywords": ["unit 6", "non-linear graphs", "6.3", "y=ax^3", "inflection"],                                 "url": "/year_9/year9_unit06.html" },
+  { "level": "Y9", "label": "Reciprocal Graphs",          "keywords": ["unit 6", "non-linear graphs", "6.4", "STEM", "y=1/x"],                                       "url": "/year_9/year9_unit06.html" },
+
+  { "level": "Y9", "label": "Rates of Change",            "keywords": ["unit 7", "accuracy and measures", "7.1", "speed", "density", "pressure (rate idea)"],          "url": "/year_9/year9_unit07.html" },
+  { "level": "Y9", "label": "Density & Pressure",         "keywords": ["unit 7", "accuracy and measures", "7.2", "formula triangles"],                               "url": "/year_9/year9_unit07.html" },
+  { "level": "Y9", "label": "Upper & Lower Bounds",       "keywords": ["unit 7", "accuracy and measures", "7.3", "error intervals", "bounds"],                        "url": "/year_9/year9_unit07.html" },
+  { "level": "Y9", "label": "Calculating with Bounds",    "keywords": ["unit 7", "accuracy and measures", "7.4", "error propagation"],                               "url": "/year_9/year9_unit07.html" },
+  { "level": "Y9", "label": "Accurate Measures in Real Life","keywords": ["unit 7", "accuracy and measures", "7.5", "STEM", "practical accuracy"],                  "url": "/year_9/year9_unit07.html" },
+
+  { "level": "Y9", "label": "Simultaneous Equations",     "keywords": ["unit 8", "graphical solutions", "8.1", "simultaneous"],                                      "url": "/year_9/year9_unit08.html" },
+  { "level": "Y9", "label": "Using y = mx + c",           "keywords": ["unit 8", "graphical solutions", "8.2", "gradient", "intercept"],                             "url": "/year_9/year9_unit08.html" },
+  { "level": "Y9", "label": "More Simultaneous Equations","keywords": ["unit 8", "graphical solutions", "8.3", "substitution", "elimination"],                       "url": "/year_9/year9_unit08.html" },
+  { "level": "Y9", "label": "Graphs of Simultaneous Equations", "keywords": ["unit 8", "graphical solutions", "8.4", "intersection"],                               "url": "/year_9/year9_unit08.html" },
+  { "level": "Y9", "label": "Solving Inequalities (Graphs)", "keywords": ["unit 8", "graphical solutions", "8.5", "inequality regions"],                            "url": "/year_9/year9_unit08.html" },
+
+  { "level": "Y9", "label": "Tangent Ratio",              "keywords": ["unit 9", "trigonometry", "9.1", "tan", "right triangle", "SOHCAHTOA"],                                    "url": "/year_9/year9_unit09.html" },
+  { "level": "Y9", "label": "Sine Ratio",                 "keywords": ["unit 9", "trigonometry", "9.2", "sin", "SOHCAHTOA"],                                                     "url": "/year_9/year9_unit09.html" },
+  { "level": "Y9", "label": "Cosine Ratio",               "keywords": ["unit 9", "trigonometry", "9.3", "cos", "SOHCAHTOA"],                                                     "url": "/year_9/year9_unit09.html" },
+  { "level": "Y9", "label": "Find Angles with Trigonometry", "keywords": ["unit 9", "trigonometry", "9.4", "inverse trig"],                                         "url": "/year_9/year9_unit09.html" },
+  { "level": "Y9", "label": "Trigonometry Problem Solving","keywords": ["unit 9", "trigonometry", "9.5", "worded problems"],                                       "url": "/year_9/year9_unit09.html" },
+  { "level": "Y9", "label": "Trigonometric Graphs (Intro)","keywords": ["unit 9", "trigonometry", "9.6", "sine graph", "cosine graph"],                            "url": "/year_9/year9_unit09.html" },
+
+  { "level": "Y9", "label": "Explain, Show and Justify",  "keywords": ["unit 10", "proof", "10.1", "reasons", "explain"],                                           "url": "/year_9/year9_unit10.html" },
+  { "level": "Y9", "label": "Modelling Real-life Situations","keywords": ["unit 10", "proof", "10.2", "modelling", "context"],                                      "url": "/year_9/year9_unit10.html" },
+  { "level": "Y9", "label": "Proof",                      "keywords": ["unit 10", "proof", "10.3", "algebraic proof"],                                              "url": "/year_9/year9_unit10.html" },
+  { "level": "Y9", "label": "More Proof",                 "keywords": ["unit 10", "proof", "10.4", "further proof"],                                                "url": "/year_9/year9_unit10.html" },
+
+  { "level": "Site", "label": "Policy",                   "keywords": ["policies", "privacy", "acceptable use"],                                                    "url": "/policy.html" },
+  { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
+  { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" }
 ]
