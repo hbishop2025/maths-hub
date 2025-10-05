@@ -166,7 +166,7 @@
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
   </script>
   <script>
-/* ===== Smart Search (JSON-powered, clean version) ===== */
+/* ===== Smart Search (JSON-powered, frosted + year colors) ===== */
 (function(){
   const input = document.getElementById('smartSearch');
   const sug   = document.getElementById('searchSug');
@@ -207,12 +207,11 @@
 
   function colorFor(level){
     const map = {
-      "KS3": "bg-green-500",
-      "Y7":  "bg-orange-500",
-      "Y8":  "bg-purple-500",
-      "Y9":  "bg-indigo-500",
-      "GCSE": "bg-blue-600",
-      "A-Level": "bg-pink-600"
+      "Y7": "bg-orange-500",
+      "Y8": "bg-green-500",
+      "Y9": "bg-[#7B61FF]",     // Year 9 purple
+      "GCSE": "bg-blue-500",
+      "A-Level": "bg-yellow-400"
     };
     return map[level] || "bg-gray-400";
   }
@@ -221,13 +220,16 @@
     sug.innerHTML = "";
     list.forEach((r, i) => {
       const el = document.createElement('div');
-      el.className = 'sug-item flex justify-between items-center px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer';
+      el.className = `
+        sug-item flex justify-between items-center px-4 py-2
+        hover:bg-white/60 rounded-lg cursor-pointer transition
+      `;
       el.setAttribute('role', 'option');
       el.setAttribute('data-i', i);
       el.innerHTML = `
         <div class="flex items-center gap-3">
           <span class="sug-badge ${colorFor(r.level)} text-white text-xs px-2 py-0.5 rounded-full font-semibold">${r.level}</span>
-          <span class="text-gray-800 font-medium">${r.label}</span>
+          <span class="text-gray-900 font-medium">${r.label}</span>
         </div>
         <span class="material-icons text-gray-400">arrow_forward</span>
       `;
@@ -253,7 +255,8 @@
 
   function highlight(i){
     Array.from(sug.children).forEach((el, idx)=>{
-      el.classList.toggle('bg-gray-200', idx === i);
+      el.classList.toggle('bg-white/70', idx === i);
+      el.classList.toggle('backdrop-blur-md', idx === i);
     });
   }
 
