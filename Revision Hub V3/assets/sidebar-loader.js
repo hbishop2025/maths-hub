@@ -18,7 +18,7 @@
       wrap.innerHTML = `<div class="panel">${html}</div>`;
 
       const pathname = location.pathname.toLowerCase();
-      const file = (pathname.split('/').pop() || '/');
+      const file = (pathname.split('/index.html').pop() || '/');
 
       // Any page inside /year_9/ OR specific year9 pages at root
       const isYear9Path = pathname.includes('/year_9/');
@@ -26,7 +26,7 @@
 
       // Map of routes to href in the sidebar
       const routes = [
-        { test: () => file === '' || file === 'index.html', href: 'index.html' },
+        { test: () => file === '' || file === 'index.html', href: '/' },
         { test: () => file === 'policy.html',              href: 'policy.html' },
         { test: () => file === 'ai_usage.html',            href: 'ai_usage.html' },
         { test: () => isYear9Path || isYear9File,          href: 'year9_hub.html' },
