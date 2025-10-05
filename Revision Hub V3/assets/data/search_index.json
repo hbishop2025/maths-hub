@@ -1,0 +1,14 @@
+[
+  { "label": "Surds",           "level": "Y9",   "keywords": ["surd", "roots", "simplify surds"],         "url": "/year9_hub.html#surds" },
+  { "label": "Indices Laws",    "level": "Y9",   "keywords": ["indices", "powers", "exponents"],         "url": "/year9_hub.html#indices" },
+  { "label": "Standard Form",   "level": "Y9",   "keywords": ["scientific notation"],                    "url": "/year9_hub.html#standard-form" },
+
+  { "label": "Fractions",       "level": "KS3",  "keywords": ["add fractions", "subtract fractions"],    "url": "/ks3_hub.html#fractions" },
+  { "label": "Decimals",        "level": "KS3",  "keywords": ["rounding", "place value"],                "url": "/ks3_hub.html#decimals" },
+  { "label": "Pythagoras",      "level": "Y8",   "keywords": ["right triangle", "hypotenuse"],           "url": "/year8_hub.html#pythagoras" },
+
+  { "label": "Quadratics",      "level": "GCSE", "keywords": ["factorising", "solving", "completing"],   "url": "/gcse_hub.html#quadratics" },
+  { "label": "Surds",           "level": "GCSE", "keywords": ["simplify surds", "rationalise"],          "url": "/gcse_hub.html#surds" },
+
+  { "label": "Algebraic Proof", "level": "A-Level", "keywords": ["proof", "algebra"],                    "url": "/alevel_hub.html#algebra" }
+]
