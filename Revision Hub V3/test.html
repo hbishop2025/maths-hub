@@ -25,6 +25,23 @@
       .only-desktop{ display:none !important; }
       .dot{ display:none !important; }
     }
+
+    /* Smart search suggestions */
+.sug-item{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:.75rem; padding:.6rem .85rem; cursor:pointer;
+}
+.sug-item:hover, .sug-item[aria-selected="true"]{
+  background:#f9fafb; /* gray-50 */
+}
+.sug-left{ display:flex; align-items:center; gap:.6rem; }
+.sug-badge{
+  font-weight:700; font-size:.75rem; padding:.15rem .5rem; border-radius:999px;
+  background:#eef2ff; color:#4338ca; /* indigo tones */
+}
+.sug-title{ font-weight:600; color:#111827; }
+.sug-sub{ font-size:.8rem; color:#6b7280; } /* gray-500 */
+    
   </style>
 </head>
 <body>
@@ -105,11 +122,21 @@
       Explore lessons, worksheets and practice quizzes — all in one place.
     </p>
 
-    <div class="search-pill">
-      <span class="material-icons text-gray-400 mr-3">search</span>
-      <input type="text" placeholder="Search topics, units, or exams..." disabled>
-      <button class="bg-gray-800 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-700 transition">Search</button>
-    </div>
+    <!-- Search Pill -->
+<div class="w-full max-w-lg rounded-full search-pill flex items-center px-5 py-3 mt-6 relative">
+  <span class="material-icons text-gray-400 mr-3">search</span>
+  <input id="smartSearch" type="text" placeholder="Search topics, units, or exams…"
+         class="flex-grow border-none focus:ring-0 text-gray-700"
+         autocomplete="off" aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+  <button class="bg-gray-800 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-700 transition">Search</button>
+
+  <!-- Suggestions dropdown -->
+  <div id="searchSug"
+       class="absolute left-0 right-0 top-[calc(100%+6px)] z-50 hidden
+              bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+    <!-- suggestions injected here -->
+  </div>
+</div>
   </main>
 
   <!-- Mobile menu JS -->
@@ -138,5 +165,114 @@
     ovl?.addEventListener('click', closeMenu);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
   </script>
+  <script>
+/* ===== Smart Search (JSON-powered) ===== */
+(function(){
+  const input = document.getElementById('smartSearch');
+  const sug   = document.getElementById('searchSug');
+  if(!input || !sug) return;
+
+  let INDEX = [];    // will be filled from JSON
+  let open = false;
+  let active = -1;
+  let current = [];
+
+  function normalize(s){ return (s||"").toLowerCase().trim(); }
+
+  function scoreRow(row, q){
+    const lab = normalize(row.label);
+    const lev = normalize(row.level);
+    const hay = [lab, lev, ...((row.keywords||[]).map(normalize))];
+    if(lab.startsWith(q)) return 100;
+    if(lab.includes(q))   return 70;
+    if(hay.some(h => h.startsWith(q))) return 60;
+    if(hay.some(h => h.includes(q)))   return 40;
+    return 0;
+  }
+
+  function search(q){
+    const Q = normalize(q);
+    if(!Q) return [];
+    return INDEX
+      .map(r => ({row:r, score:scoreRow(r,Q)}))
+      .filter(x => x.score > 0)
+      .sort((a,b)=> b.score - a.score)
+      .slice(0, 8)
+      .map(x => x.row);
+  }
+
+  function navigate(url){
+    if(url) window.location.href = url;
+  }
+
+  function render(list){
+    sug.innerHTML = "";
+    list.forEach((r, i) => {
+      const el = document.createElement('div');
+      el.className = 'sug-item';
+      el.setAttribute('role', 'option');
+      el.setAttribute('data-i', i);
+      el.innerHTML = `
+        <div class="sug-left">
+          <span class="sug-badge">${r.level}</span>
+          <div>
+            <div class="sug-title">${r.label}</div>
+            <div class="sug-sub">${r.level} | ${r.label}</div>
+          </div>
+        </div>
+        <span class="material-icons text-gray-400">arrow_forward</span>
+      `;
+      el.addEventListener('mousedown', (e)=>{ e.preventDefault(); navigate(r.url); });
+      sug.appendChild(el);
+    });
+  }
+
+  function setOpen(state){
+    open = state;
+    sug.classList.toggle('hidden', !open);
+    input.setAttribute('aria-expanded', String(open));
+  }
+
+  function update(){
+    const q = input.value;
+    current = search(q);
+    active = -1;
+    if(current.length === 0){ setOpen(false); return; }
+    render(current);
+    setOpen(true);
+  }
+
+  function highlight(i){
+    Array.from(sug.children).forEach((el, idx)=>{
+      if(idx === i) el.setAttribute('aria-selected','true');
+      else el.removeAttribute('aria-selected');
+    });
+  }
+
+  // Wire events
+  input.addEventListener('input', ()=>{ if(INDEX.length) update(); });
+  input.addEventListener('keydown', (e)=>{
+    if(!open && (e.key === 'ArrowDown' || e.key === 'Tab')){ update(); return; }
+    if(!open) return;
+    if(e.key === 'ArrowDown'){ e.preventDefault(); active = Math.min(active+1, current.length-1); highlight(active); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); active = Math.max(active-1, 0); highlight(active); }
+    else if(e.key === 'Enter'){ e.preventDefault(); if(active>=0) navigate(current[active].url); else if(current.length) navigate(current[0].url); }
+    else if(e.key === 'Escape'){ setOpen(false); }
+  });
+  input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
+  input.addEventListener('blur', ()=>{ setTimeout(()=> setOpen(false), 120); });
+
+  // Load JSON index
+  fetch('/assets/data/search_index.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(data => {
+      INDEX = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
+    })
+    .catch(err => {
+      console.warn('Search index load failed:', err);
+      INDEX = [];
+    });
+})();
+</script>
 </body>
 </html>
