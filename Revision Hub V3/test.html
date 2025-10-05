@@ -166,13 +166,13 @@
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
   </script>
   <script>
-/* ===== Smart Search (JSON-powered) ===== */
+/* ===== Smart Search (JSON-powered, clean version) ===== */
 (function(){
   const input = document.getElementById('smartSearch');
   const sug   = document.getElementById('searchSug');
   if(!input || !sug) return;
 
-  let INDEX = [];    // will be filled from JSON
+  let INDEX = [];
   let open = false;
   let active = -1;
   let current = [];
@@ -205,20 +205,29 @@
     if(url) window.location.href = url;
   }
 
+  function colorFor(level){
+    const map = {
+      "KS3": "bg-green-500",
+      "Y7":  "bg-orange-500",
+      "Y8":  "bg-purple-500",
+      "Y9":  "bg-indigo-500",
+      "GCSE": "bg-blue-600",
+      "A-Level": "bg-pink-600"
+    };
+    return map[level] || "bg-gray-400";
+  }
+
   function render(list){
     sug.innerHTML = "";
     list.forEach((r, i) => {
       const el = document.createElement('div');
-      el.className = 'sug-item';
+      el.className = 'sug-item flex justify-between items-center px-4 py-2 hover:bg-gray-100 rounded-lg cursor-pointer';
       el.setAttribute('role', 'option');
       el.setAttribute('data-i', i);
       el.innerHTML = `
-        <div class="sug-left">
-          <span class="sug-badge">${r.level}</span>
-          <div>
-            <div class="sug-title">${r.label}</div>
-            <div class="sug-sub">${r.level} | ${r.label}</div>
-          </div>
+        <div class="flex items-center gap-3">
+          <span class="sug-badge ${colorFor(r.level)} text-white text-xs px-2 py-0.5 rounded-full font-semibold">${r.level}</span>
+          <span class="text-gray-800 font-medium">${r.label}</span>
         </div>
         <span class="material-icons text-gray-400">arrow_forward</span>
       `;
@@ -244,12 +253,10 @@
 
   function highlight(i){
     Array.from(sug.children).forEach((el, idx)=>{
-      if(idx === i) el.setAttribute('aria-selected','true');
-      else el.removeAttribute('aria-selected');
+      el.classList.toggle('bg-gray-200', idx === i);
     });
   }
 
-  // Wire events
   input.addEventListener('input', ()=>{ if(INDEX.length) update(); });
   input.addEventListener('keydown', (e)=>{
     if(!open && (e.key === 'ArrowDown' || e.key === 'Tab')){ update(); return; }
