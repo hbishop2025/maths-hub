@@ -27,26 +27,31 @@
   margin: 1.5rem auto;
 }
 
+/* Navigation pill links */
 .nav-pill a {
   padding: 0.5rem 1.25rem;
   border-radius: 9999px;
   font-weight: 600;
   color: #374151;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
+/* Active page (Explore) default state */
 .nav-pill a.active {
-  background: linear-gradient(90deg, #7C3AED, #3B82F6);
-  background-size: 200% 200%;
+  background: #111827;
   color: #fff;
-  transition: background-position 0.5s ease;
-}
-.nav-pill a.active:hover {
-  background-position: right center;
 }
 
+/* Hover on other links */
 .nav-pill a:hover {
-  background: #f3f4f6;
+  background: #e5e7eb;
+}
+
+/* Hover effect for active (dark) link — gradient glow */
+.nav-pill a.active:hover {
+  background: linear-gradient(to right, #7C3AED, #3B82F6);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
 }
     .search-pill{ display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #e5e7eb; border-radius:9999px; padding:.75rem 1.25rem; width:100%; max-width:480px; box-shadow:0 4px 12px rgba(0,0,0,.05); margin-top:1rem; }
     .search-pill input{ border:none; outline:none; flex:1; font-size:1rem; background:transparent; }
