@@ -59,21 +59,23 @@
   if (!modal) {
     modal = document.createElement('div');
     modal.className = 'mobile-menu';
-    // Try to find a logo inside the sidebar HTML; fallback to site title
-    const logoEl = sb.querySelector('.logo, img[alt*="logo"], img[alt*="Logo"]');
-    const logoHTML = logoEl ? logoEl.outerHTML : `<strong class="text-gray-800">Menu</strong>`;
-    modal.innerHTML = `
-      <div class="mm-header">
-        <div class="mm-brand" style="display:flex;align-items:center;gap:.5rem;">
-          ${logoHTML}
-          <span class="text-gray-800 font-semibold whitespace-nowrap">SJWMS Maths</span>
-        </div>
-        <button class="mm-close" type="button" aria-label="Close menu">
-          <span class="material-icons" aria-hidden="true">close</span>
-        </button>
-      </div>
-      <div class="mm-body"></div>
-    `;
+    // Try to find a logo inside the sidebar HTML; fallback to text
+const logoEl = sb.querySelector('.logo, img[alt*="logo"], img[alt*="Logo"]');
+const logoOnly = logoEl ? logoEl.outerHTML : `<span class="font-semibold">SJWMS Maths</span>`;
+
+// Force the brand to be a HOME LINK (root-relative so it works everywhere)
+modal.innerHTML = `
+  <div class="mm-header">
+    <a href="/index.html" class="mm-brand" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+      ${logoOnly}
+      <span class="text-gray-900 font-semibold whitespace-nowrap">SJWMS Maths</span>
+    </a>
+    <button class="mm-close" type="button" aria-label="Close menu">
+      <span class="material-icons" aria-hidden="true">close</span>
+    </button>
+  </div>
+  <div class="mm-body"></div>
+`;
     document.body.appendChild(modal);
   }
 
