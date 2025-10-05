@@ -27,32 +27,59 @@
   margin: 1.5rem auto;
 }
 
-/* Navigation pill links */
+/* === Navigation links === */
 .nav-pill a {
   padding: 0.5rem 1.25rem;
   border-radius: 9999px;
   font-weight: 600;
   color: #374151;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  background-size: 200% auto;
 }
 
-/* Active page (Explore) default state */
 .nav-pill a.active {
   background: #111827;
   color: #fff;
 }
 
-/* Hover on other links */
 .nav-pill a:hover {
   background: #e5e7eb;
 }
 
-/* Hover effect for active (dark) link — gradient glow */
+/* --- Gradient hover for active (Explore) --- */
 .nav-pill a.active:hover {
-  background: linear-gradient(to right, #7C3AED, #3B82F6);
+  background-image: linear-gradient(90deg, #7C3AED, #3B82F6, #7C3AED);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
   color: #fff;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+  transition: all 0.6s ease;
 }
+
+/* === Search button === */
+.search-pill button {
+  background: #111827;
+  color: white;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  transition: all 0.6s ease;
+  background-size: 200% auto;
+}
+
+.search-pill button:hover {
+  background-image: linear-gradient(90deg, #7C3AED, #3B82F6, #7C3AED);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+}
+
+/* === Shared shimmer animation === */
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+    
     .search-pill{ display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid #e5e7eb; border-radius:9999px; padding:.75rem 1.25rem; width:100%; max-width:480px; box-shadow:0 4px 12px rgba(0,0,0,.05); margin-top:1rem; }
     .search-pill input{ border:none; outline:none; flex:1; font-size:1rem; background:transparent; }
 
