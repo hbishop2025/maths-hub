@@ -14,15 +14,14 @@
     },
     {
       "type": "Update",
-      "url": "https://www.sjwmsmaths.co.uk/year9_hub",
-      "text": "All year 9 resource pages are live!",
-      "date": "2025-09-14"
-    },
-    {
-      "type": "Update",
       "text": "KS3 EOY page is now live!",
       "date": "2025-09-21",
       "url": "https://www.sjwmsmaths.co.uk/ks3_eoy"
+    },
+    {
+      "type": "Announcement",
+      "text": "New Homepage with a new Smart Search to make revision even easier!",
+      "date": "2025-10-05"
     }
   ]
 }
