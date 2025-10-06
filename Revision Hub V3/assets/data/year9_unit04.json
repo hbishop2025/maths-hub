@@ -5,7 +5,7 @@
       "title": "Box Plots",
       "url": "https://www.youtube.com/watch?v=nV8jR8M8C74",
       "blockkey": "videos",
-      "addediso": "2025-09-13T19:06:00.000+01:00"
+      "addediso": "2025-10-06T09:37:00.000+01:00"
     },
     {
       "active": true,
@@ -19,7 +19,21 @@
       "title": "Stem and Leaf diagrams",
       "url": "https://www.youtube.com/watch?v=vkIsWQAzH5g",
       "blockkey": "videos",
-      "addediso": "2025-09-25T16:24:00.000+01:00"
+      "addediso": "2025-10-06T09:37:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Cumulative frequency",
+      "url": "https://www.youtube.com/watch?v=PzBE82c1dfY",
+      "blockkey": "videos",
+      "addediso": "2025-10-06T09:36:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Drawing Histograms",
+      "url": "https://www.youtube.com/watch?v=g7Jnrf0g2tQ&t=137s",
+      "blockkey": "videos",
+      "addediso": "2025-10-06T09:37:00.000+01:00"
     }
   ]
 }
