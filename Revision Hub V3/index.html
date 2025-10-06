@@ -132,44 +132,7 @@
   transition: opacity .18s ease, transform .18s ease, visibility 0s;
 }
 
-    body {
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-  background:
-    radial-gradient(circle at top left, rgba(255,192,203,0.25), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(173,216,230,0.25), transparent 55%),
-    radial-gradient(circle at top right, rgba(186,85,211,0.15), transparent 70%),
-    #ffffff;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  animation: subtleGlow 60s ease-in-out infinite alternate;
-}
-
-@keyframes subtleGlow {
-  0% {
-    background-position: top left, bottom right, top right;
-  }
-  50% {
-    background-position: top 20px left 10px, bottom 10px right 20px, top 15px right 10px;
-  }
-  100% {
-    background-position: top left, bottom right, top right;
-  }
-}
-
-/* Slightly softer gradients on smaller screens */
-@media (max-width: 768px) {
-  body {
-    background:
-      radial-gradient(circle at top left, rgba(255,192,203,0.15), transparent 60%),
-      radial-gradient(circle at bottom right, rgba(173,216,230,0.15), transparent 60%),
-      radial-gradient(circle at top right, rgba(186,85,211,0.1), transparent 70%),
-      #ffffff;
-  }
-}
+    
     
   </style>
 </head>
