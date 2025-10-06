@@ -34,6 +34,13 @@
       "url": "https://www.youtube.com/watch?v=g7Jnrf0g2tQ&t=137s",
       "blockkey": "videos",
       "addediso": "2025-10-06T09:37:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Drawing Histograms",
+      "url": "https://corbettmaths.com/wp-content/uploads/2020/05/Drawing-Histograms.pdf",
+      "blockkey": "other",
+      "addediso": "2025-10-06T09:39:00.000+01:00"
     }
   ]
 }
