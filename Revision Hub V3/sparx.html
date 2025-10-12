@@ -13,86 +13,125 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS (handles layout, sidebar spacing, background, etc.) -->
+  <!-- Shared site styles -->
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
     body { font-family: 'Inter', sans-serif; }
     html { scroll-behavior: smooth; }
 
-    /* Module cards */
+    /* Content bubbles */
     .module-card {
       background: #fff;
       border: 1px solid rgba(0,0,0,0.05);
       border-radius: 1rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: transform .25s ease, box-shadow .25s ease;
     }
-
     .module-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
 
-    iframe {
+    .aspect-video {
+      position: relative;
       width: 100%;
-      height: 220px;
+      padding-top: 56.25%;
       border-radius: 0.75rem 0.75rem 0 0;
+      overflow: hidden;
+    }
+    .aspect-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
   </style>
 </head>
 
 <body class="bg-gray-100" data-page="sparx">
   <div class="layout">
-    <!-- Sidebar container (auto-filled via JS) -->
+    <!-- Sidebar container (auto-filled) -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
     <main class="main p-8 overflow-y-auto">
-      <section class="bg-white p-6 rounded-xl shadow-sm mb-8">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-          Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">SPARX Maths</span>
-        </h1>
+      <!-- Header: same layout as units, includes existing mobile hamburger from sidebar-loader.js -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <button id="navOpen" class="lg:hidden flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-gray-700 hover:bg-gray-50">
+            <span class="material-icons">menu</span>
+          </button>
+          <h1 class="text-2xl font-bold text-gray-800">SPARX</h1>
+        </div>
+      </header>
 
-        <p class="text-gray-600 max-w-2xl mb-8 text-lg">
-          At SJWMS, SPARX homework is set every week — from <strong>Wednesday to Wednesday</strong>.<br>
-          Watch the guides below to get started and make sure your work meets expectations.
+      <!-- Welcome + intro bubble -->
+      <section class="module-card p-6 mb-8">
+        <div class="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2">
+              Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">SPARX Maths</span>
+            </h2>
+            <p class="text-gray-600 text-lg">
+              At SJWMS, SPARX homework is set every week — from <strong>Wednesday to Wednesday</strong>.
+              Watch the guides below to get started and make sure your work meets expectations.
+            </p>
+          </div>
+          <img src="https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg"
+               alt="SPARX Learning Logo"
+               class="h-10 md:h-12 w-auto opacity-90">
+        </div>
+      </section>
+
+      <!-- Videos -->
+      <section class="mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="module-card">
+            <div class="aspect-video">
+              <iframe src="https://www.youtube.com/embed/a92XCC0MeM0"
+                      allowfullscreen
+                      title="Getting Started with SPARX"></iframe>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg mb-1">Getting Started with SPARX</h3>
+              <p class="text-gray-600 text-sm">
+                Learn how to log in and complete your SPARX tasks effectively.
+              </p>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="aspect-video">
+              <iframe src="https://www.youtube.com/embed/IQUMypfwHnU"
+                      allowfullscreen
+                      title="Top Tips for Success"></iframe>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg mb-1">Top Tips for Success</h3>
+              <p class="text-gray-600 text-sm">
+                See how to get the most from your weekly SPARX homework.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Weekly Task (own bubble, full width) -->
+      <section class="module-card p-6">
+        <h3 class="font-semibold text-xl mb-2">Your Weekly Task</h3>
+        <p class="text-gray-700 leading-relaxed">
+          Complete the <strong>Compulsory Sparx Task</strong>, making sure you write down the bookwork code,
+          working out, and answer in the back of your orange book. Your working will be checked after the deadline,
+          and failure to produce the required working in your orange book will result in a detention being set.
         </p>
-
-        <!-- Video cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <div class="module-card">
-            <iframe src="https://www.youtube.com/embed/a92XCC0MeM0" allowfullscreen></iframe>
-            <div class="p-4 text-left">
-              <h2 class="font-semibold text-lg mb-2">Getting Started with SPARX</h2>
-              <p class="text-gray-600 text-sm">Learn how to log in and complete your SPARX tasks effectively.</p>
-            </div>
-          </div>
-
-          <div class="module-card">
-            <iframe src="https://www.youtube.com/embed/IQUMypfwHnU" allowfullscreen></iframe>
-            <div class="p-4 text-left">
-              <h2 class="font-semibold text-lg mb-2">Top Tips for Success</h2>
-              <p class="text-gray-600 text-sm">See how to get the most from your weekly SPARX homework.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Task instructions -->
-        <div class="bg-gray-50 border border-gray-200 rounded-2xl shadow-sm p-6 max-w-3xl text-left">
-          <h3 class="font-semibold text-lg mb-2">Your Weekly Task</h3>
-          <p class="text-gray-700 leading-relaxed">
-            Complete the <strong>Compulsory Sparx Task</strong>, making sure you write down the bookwork code,
-            working out, and answer in the back of your orange book. Your working will be checked after the deadline,
-            and failure to produce the required working in your orange book will result in a detention being set.
-          </p>
-        </div>
       </section>
     </main>
   </div>
 
-  <!-- Sidebar Loader -->
+  <!-- Load shared sidebar -->
   <script src="/assets/sidebar-loader.js"></script>
 </body>
 </html>
