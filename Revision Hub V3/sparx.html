@@ -3,30 +3,22 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
   <title>SPARX | SJWMS Maths</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/main.css">
 
-  
-</head>
-<style>
-    
+  <!-- Shared CSS (handles layout, sidebar spacing, background, etc.) -->
+  <link rel="stylesheet" href="/assets/main.css"/>
 
-    /* Main content area shifts right when sidebar loads */
-    main {
-      flex: 1;
-      padding: 2rem;
-      margin-left: 260px;
-      max-width: 100%;
-      transition: margin-left 0.3s ease;
-    }
-
-    @media (max-width: 768px) {
-      main { margin-left: 0; padding-top: 5rem; }
-    }
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
 
     /* Module cards */
     .module-card {
@@ -48,84 +40,59 @@
       height: 220px;
       border-radius: 0.75rem 0.75rem 0 0;
     }
-
-    /* Decorative icons */
-    .decor {
-      position: absolute;
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .dot {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(circle, #d1d5db 30%, transparent 70%);
-      border-radius: 50%;
-      opacity: 0.7;
-    }
-
-    @media (max-width: 640px) {
-      .only-desktop { display: none !important; }
-      .dot { display: none !important; }
-    }
   </style>
-<body>
+</head>
 
-  <!-- Shared Sidebar -->
-  <div id="sidebar-container"></div>
+<body class="bg-gray-100" data-page="sparx">
+  <div class="layout">
+    <!-- Sidebar container (auto-filled via JS) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
 
-  <!-- Main Content -->
-  <main>
-  
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-      Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">SPARX Maths</span>
-    </h1>
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <section class="bg-white p-6 rounded-xl shadow-sm mb-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+          Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">SPARX Maths</span>
+        </h1>
 
-    <p class="text-gray-600 max-w-2xl mb-10 text-lg">
-      At SJWMS, SPARX homework is set every week — from <strong>Wednesday to Wednesday</strong>.  
-      Watch the guides below to get started and make sure your work meets expectations.
-    </p>
+        <p class="text-gray-600 max-w-2xl mb-8 text-lg">
+          At SJWMS, SPARX homework is set every week — from <strong>Wednesday to Wednesday</strong>.<br>
+          Watch the guides below to get started and make sure your work meets expectations.
+        </p>
 
-    <!-- Video cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-      <div class="module-card">
-        <iframe src="https://www.youtube.com/embed/a92XCC0MeM0" allowfullscreen></iframe>
-        <div class="p-4 text-left">
-          <h2 class="font-semibold text-lg mb-2">Getting Started with SPARX</h2>
-          <p class="text-gray-600 text-sm">Learn how to log in and complete your SPARX tasks effectively.</p>
+        <!-- Video cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div class="module-card">
+            <iframe src="https://www.youtube.com/embed/a92XCC0MeM0" allowfullscreen></iframe>
+            <div class="p-4 text-left">
+              <h2 class="font-semibold text-lg mb-2">Getting Started with SPARX</h2>
+              <p class="text-gray-600 text-sm">Learn how to log in and complete your SPARX tasks effectively.</p>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <iframe src="https://www.youtube.com/embed/IQUMypfwHnU" allowfullscreen></iframe>
+            <div class="p-4 text-left">
+              <h2 class="font-semibold text-lg mb-2">Top Tips for Success</h2>
+              <p class="text-gray-600 text-sm">See how to get the most from your weekly SPARX homework.</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="module-card">
-        <iframe src="https://www.youtube.com/embed/IQUMypfwHnU" allowfullscreen></iframe>
-        <div class="p-4 text-left">
-          <h2 class="font-semibold text-lg mb-2">Top Tips for Success</h2>
-          <p class="text-gray-600 text-sm">See how to get the most from your weekly SPARX homework.</p>
+        <!-- Task instructions -->
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl shadow-sm p-6 max-w-3xl text-left">
+          <h3 class="font-semibold text-lg mb-2">Your Weekly Task</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Complete the <strong>Compulsory Sparx Task</strong>, making sure you write down the bookwork code,
+            working out, and answer in the back of your orange book. Your working will be checked after the deadline,
+            and failure to produce the required working in your orange book will result in a detention being set.
+          </p>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
+  </div>
 
-    <!-- Task instructions -->
-    <div class="bg-gray-50 border border-gray-200 rounded-2xl shadow-sm p-6 max-w-3xl text-left">
-      <h3 class="font-semibold text-lg mb-2">Your Weekly Task</h3>
-      <p class="text-gray-700 leading-relaxed">
-        Complete the <strong>Compulsory Sparx Task</strong>, making sure you write down the bookwork code,
-        working out, and answer in the back of your orange book. Your working will be checked after the deadline,
-        and failure to produce the required working in your orange book will result in a detention being set.
-      </p>
-    </div>
-  </main>
-
-  <!-- Load shared sidebar -->
-  <script>
-    fetch('/assets/sidebar.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('sidebar-container').innerHTML = html;
-      })
-      .catch(err => console.error('Sidebar failed to load:', err));
-  </script>
-
+  <!-- Sidebar Loader -->
+  <script src="/assets/sidebar-loader.js"></script>
 </body>
 </html>
