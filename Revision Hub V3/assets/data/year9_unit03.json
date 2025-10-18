@@ -70,5 +70,27 @@
       "blockkey": "worksheets",
       "addediso": "2025-09-29T01:04:00.000+01:00"
     }
+  ],
+  "sparx_codes": [
+    {
+      "code": "M983",
+      "note": "Changing the subject"
+    },
+    {
+      "code": "M118",
+      "note": "Solving single inequalities"
+    },
+    {
+      "code": "M732",
+      "note": "Solving inequalities with unknown on both sides"
+    },
+    {
+      "code": "M384",
+      "note": "Reading and drawing inequalities on a number line"
+    },
+    {
+      "code": "M336",
+      "note": "Adding and subtracting algebraic fractions"
+    }
   ]
 }
