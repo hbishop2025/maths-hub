@@ -11,7 +11,7 @@
       "active": true,
       "title": "Mean from a grouped frequency table",
       "url": "https://thirdspacelearning.com/gcse-maths/statistics/mean-from-a-frequency-table/",
-      "blockkey": "other",
+      "blockkey": "worksheets",
       "addediso": "2025-09-25T16:23:00.000+01:00"
     },
     {
@@ -37,10 +37,32 @@
     },
     {
       "active": true,
-      "title": "Drawing Histograms",
+      "title": "Drawing Histograms (Corbett)",
       "url": "https://corbettmaths.com/wp-content/uploads/2020/05/Drawing-Histograms.pdf",
-      "blockkey": "other",
+      "blockkey": "worksheets",
       "addediso": "2025-10-06T09:39:00.000+01:00"
+    }
+  ],
+  "sparx_codes": [
+    {
+      "code": "U879",
+      "note": "Drawing box plots"
+    },
+    {
+      "code": "U837",
+      "note": "Interpreting box plots"
+    },
+    {
+      "code": "U182",
+      "note": "Drawing cumulative frequency"
+    },
+    {
+      "code": "M287",
+      "note": "Averages from grouped data"
+    },
+    {
+      "code": "U983",
+      "note": "Interpreting histograms"
     }
   ]
 }
