@@ -70,6 +70,11 @@
             <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
               Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
             </a>
+			  <a href="#sparx-section"
+   class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+  Jump to SPARX
+  <span class="material-icons ml-2">arrow_downward</span>
+</a>
           </div>
         </div>
 
@@ -108,20 +113,51 @@
         <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
       </section>
 
+
+		<!-- SPARX Quick Revision -->
+<section id="sparx-section" class="mt-12 mb-10 hidden">
+  <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <span class="material-icons text-purple-500">bolt</span>
+        SPARX Quick Revision
+      </h2>
+      <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+         class="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white
+                bg-gradient-to-r from-purple-600 to-blue-500 shadow
+                hover:from-purple-700 hover:to-blue-600 transition transform hover:-translate-y-0.5">
+        <span class="material-icons mr-2">open_in_new</span>
+        Go to SPARX
+      </a>
+    </div>
+    <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
+  </div>
+</section>
+
+
+		<section id="sparx-section" class="mt-12 mb-10 hidden">
+
   <!-- Sidebar loader (absolute path) -->
   <script src="/assets/sidebar-loader.js"></script>
   <!-- Shared cards/helpers -->
   <script src="/assets/cards.js"></script>
 
-  <!-- MathJax -->
   <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
-
+  function renderSparxSection(data){
+    const list = data.sparx_codes || [];
+    if (!list.length) return;
+    const section   = document.getElementById("sparx-section");
+    const container = document.getElementById("sparx-code-list");
+    container.innerHTML = "";
+    list.forEach(item => {
+      const chip = document.createElement("span");
+      chip.className = "px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800 font-mono";
+      chip.textContent = item.code;
+      container.appendChild(chip);
+    });
+    section.classList.remove("hidden");
+  }
+</script>
   <!-- Page JS -->
   <script>
   // === Year 9 • Unit 01 data source (CMS JSON with { items: [...] }) ===
@@ -216,6 +252,7 @@
     });
 
     hideEmptyBlocks();
+	renderSparxSection(data);
   }
 
   document.addEventListener("DOMContentLoaded", loadUnit);
