@@ -410,6 +410,24 @@ collections:
               - { label: "Date Added", name: "addediso", widget: "datetime" }
               - { label: "Active", name: "active", widget: "boolean", default: true }
 
+          # NEW: SPARX codes for optional practice
+          - label: "SPARX Codes"
+            name: "sparx_codes"
+            widget: "list"
+            label_singular: "SPARX Code"
+            summary: "{{fields.code}}"
+            collapsed: false
+            hint: "Add SPARX practice codes for this unit (optional). Leave empty to hide the section."
+            fields:
+              - label: "Code"
+                name: "code"
+                widget: "string"
+                hint: "e.g. ABC123 (letters/numbers, usually 6 chars)"
+                pattern:
+                  - "^[A-Za-z0-9]{4,8}$"
+                  - "Use 4–8 letters/numbers"
+              - { label: "Note (optional)", name: "note", widget: "string", required: false }
+
       - name: "year9_unit02"
         label: "Year 9 — Unit 02"
         file: "Revision Hub V3/assets/data/year9_unit02.json"
