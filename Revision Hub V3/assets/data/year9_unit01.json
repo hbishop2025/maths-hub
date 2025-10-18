@@ -84,5 +84,36 @@
       "blockkey": "other",
       "addediso": "2025-09-13T19:06:00.000+01:00"
     }
+  ],
+  "sparx_codes": [
+    {
+      "code": "U985"
+    },
+    {
+      "code": "U772"
+    },
+    {
+      "code": "U694"
+    },
+    {
+      "code": "U264",
+      "note": "Multiplying and dividing standard form"
+    },
+    {
+      "code": "U290",
+      "note": "Adding and subtracting standard form"
+    },
+    {
+      "code": "U338",
+      "note": "Simplifying Surds"
+    },
+    {
+      "code": "U633",
+      "note": "Multiplying and dividing surds"
+    },
+    {
+      "code": "U872",
+      "note": "Multiplying and dividing surds"
+    }
   ]
 }
