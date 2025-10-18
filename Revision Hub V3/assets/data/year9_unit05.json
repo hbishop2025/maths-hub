@@ -1,1 +1,17 @@
-{ "items": [] }
+{
+  "items": [],
+  "sparx_codes": [
+    {
+      "code": "M472",
+      "note": "Constructing direct proportion equations"
+    },
+    {
+      "code": "M665",
+      "note": "Constructing inverse proportion equations"
+    },
+    {
+      "code": "M448",
+      "note": "Graphs of direct and inverse proportion"
+    }
+  ]
+}
