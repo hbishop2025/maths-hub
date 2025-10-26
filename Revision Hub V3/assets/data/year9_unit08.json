@@ -14,5 +14,19 @@
       "blockkey": "videos",
       "addediso": "2025-10-26T18:08:00.000+00:00"
     }
+  ],
+  "sparx_codes": [
+    {
+      "code": "U760",
+      "note": "Elimination method"
+    },
+    {
+      "code": "U757",
+      "note": "Substitution method"
+    },
+    {
+      "code": "U836",
+      "note": "Simultaneous equations graphically"
+    }
   ]
 }
