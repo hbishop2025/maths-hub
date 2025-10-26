@@ -25,8 +25,9 @@
   { "level": "Y9", "label": "Histograms",                 "keywords": ["unit 4", "collecting and analysing data", "4.6", "grouped data"],                              "url": "/year_9/year9_unit04.html" },
 
   { "level": "Y9", "label": "Direct Proportion",          "keywords": ["unit 5", "multiplicative reasoning", "5.1", "proportionality"],                                "url": "/year_9/year9_unit05.html" },
-  { "level": "Y9", "label": "Problems in Direct Proportion","keywords": ["unit 5", "multiplicative reasoning", "5.2", "scaling problems"],                           "url": "/year_9/year9_unit05.html" },
-  { "level": "Y9", "label": "Non-linear Proportion",      "keywords": ["unit 5", "multiplicative reasoning", "5.3", "inverse proportion", "power law"],               "url": "/year_9/year9_unit05.html" },
+  { "level": "Y9", "label": "Problems in Direct Proportion","keywords": ["unit 5", "multiplicative reasoning", "5.2", "scaling problems"],                             "url": "/year_9/year9_unit05.html" },
+  { "level": "Y9", "label": "Non-linear Proportion",      "keywords": ["unit 5", "multiplicative reasoning", "5.3", "inverse proportion", "power law"],                "url": "/year_9/year9_unit05.html" },
+  { "level": "Y9", "label": "Arcs and Sectors of circles","keywords": ["unit 5", "Arcs", "5.4", "sectors", "circles"],                                                 "url": "/year_9/year9_unit05.html" },
 
   { "level": "Y9", "label": "Quadratic Graphs",           "keywords": ["unit 6", "non-linear graphs", "6.1", "y=ax^2", "parabola"],                                    "url": "/year_9/year9_unit06.html" },
   { "level": "Y9", "label": "Solving Quadratics (Graphs)","keywords": ["unit 6", "non-linear graphs", "6.2", "intercepts", "roots"],                                 "url": "/year_9/year9_unit06.html" },
