@@ -1,1 +1,29 @@
-{ "items": [] }
+{
+  "items": [
+    {
+      "active": true,
+      "title": "Quadratic Graphs",
+      "url": "https://drive.google.com/file/d/1uek63m9Sj3aMa_ht8Q4lw4kVV3FLoDSW/view?usp=sharing",
+      "blockkey": "worksheets",
+      "addediso": "2025-10-26T17:55:00.000+00:00"
+    }
+  ],
+  "sparx_codes": [
+    {
+      "code": "U989",
+      "note": "Plotting graphs of quadratics"
+    },
+    {
+      "code": "U667",
+      "note": "Interpreting quadratic graphs"
+    },
+    {
+      "code": "U980",
+      "note": "Cubic Graphs"
+    },
+    {
+      "code": "U593",
+      "note": "Reciprocal graphs"
+    }
+  ]
+}
