@@ -11,151 +11,140 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style>
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; --hero-max: 1100px; }
-    body{ font-family:'Inter',sans-serif; background:#fff; color:#111827; overflow-x:hidden; }
+    :root{
+      --accent1:#7C3AED; /* purple */
+      --accent2:#3B82F6; /* blue */
+      --hero-max:1100px;
+      --hero-bg:#f3f5f7;
+    }
+    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827; background:#fff; overflow-x:hidden; }
 
-    /* === Top nav row (no container bubble) === */
-    .nav-row{
-      display:flex; align-items:center; justify-content:center; gap:.5rem;
-      padding: 1rem .75rem .5rem;
-      flex-wrap: wrap;
-    }
-    .nav-link{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:9999px; font-weight:600;
-      padding:.5rem 1.1rem; transition: all .25s ease;
-    }
-    .nav-link--active{
-      background:#111827; color:#fff;
-    }
-    .nav-link--light{
-      background:#f3f4f6; color:#374151; border:1px solid rgba(0,0,0,.03);
-    }
-    .nav-link--light:hover{
-      background:#e8eaee;
-    }
+    /* ===== NAV (separate bubbles) ===== */
+    .nav-row{ display:flex; justify-content:center; align-items:center; gap:.5rem; padding:1rem .75rem .5rem; flex-wrap:wrap; }
+    .nav-link{ padding:.5rem 1.1rem; border-radius:9999px; font-weight:600; transition:.25s; }
+    .nav-link--active{ background:#111827; color:#fff; }
+    .nav-link--light{ background:#f3f4f6; color:#374151; border:1px solid rgba(0,0,0,.03); }
+    .nav-link--light:hover{ background:#e8eaee; }
 
-    /* === Hero card (inset, rounded on all corners) === */
+    /* ===== HERO CARD (rounded + faint line pattern) ===== */
     .hero{
+      --padX: clamp(1rem, 4vw, 2.25rem);
+      --padY: clamp(1.5rem, 5vw, 3rem);
       width:min(var(--hero-max), 94vw);
-      margin: .5rem auto 3rem;
-      background:#f5f6f7;
+      margin:.75rem auto 0;
+      background: var(--hero-bg);
       border:1px solid rgba(0,0,0,.06);
-      border-radius:1.5rem;                 /* rounded top + bottom */
+      border-radius:1.5rem 1.5rem 2rem 2rem;
       box-shadow:0 20px 40px rgba(0,0,0,.06);
-      padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2.25rem);
+      padding:var(--padY) var(--padX);
       text-align:center;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    /* subtle “circuit/arc” lines via SVG data-URI */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%23898f97' stroke-opacity='0.25' stroke-width='2'%3E%3Cpath d='M60 420c120-120 240-120 360 0'/%3E%3Ccircle cx='450' cy='420' r='6'/%3E%3Cpath d='M1140 420c-120-120-240-120-360 0'/%3E%3Ccircle cx='750' cy='420' r='6'/%3E%3Cpath d='M100 220c160-160 320-160 480 0'/%3E%3Cpath d='M1100 220c-160-160-320-160-480 0'/%3E%3C/g%3E%3C/svg%3E") center/110% 100% no-repeat;
+      mix-blend-mode:normal;
+      z-index:-1;
     }
 
-    /* === Expanding Smart Search ===
-       idle: smaller than before
-       hover/focus: expands to the previous default size
-    */
-    .smart-wrap{
-      margin: 1.25rem auto 0;
-      position: relative;
-      width: clamp(240px, 42vw, 360px);     /* smaller idle */
-      transition: width .35s ease;
-    }
-    .smart-wrap:hover,
-    .smart-wrap:focus-within{
-      width: clamp(280px, 50vw, 520px);     /* expands to old “default” */
-    }
-    @media (max-width:640px){
-      .smart-wrap{ width: min(92vw, 520px); } /* mobile: comfortably wide */
-    }
+    /* ===== EXPANDING SMART SEARCH ===== */
+    .smart-wrap{ margin:1.5rem auto 0; position:relative; width:clamp(240px,42vw,360px); transition:width .35s ease; }
+    .smart-wrap:hover, .smart-wrap:focus-within{ width:clamp(320px,58vw,680px); }
+    @media (max-width:640px){ .smart-wrap{ width:min(92vw,520px); } }
 
     .smart-pill{
-      position:relative;
-      display:flex; align-items:center; gap:.75rem;
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:9999px;
-      padding:.75rem 1rem;
-      box-shadow:0 6px 18px rgba(0,0,0,.05);
-      transition: box-shadow .25s ease, transform .25s ease;
+      position:relative; display:flex; align-items:center; gap:.75rem;
+      background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:9999px;
+      padding:.75rem 1rem; box-shadow:0 6px 18px rgba(0,0,0,.05); transition:box-shadow .25s, transform .25s;
     }
-    .smart-wrap:hover .smart-pill,
-    .smart-wrap:focus-within .smart-pill{
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 2px rgba(124,58,237,.08),
-        0 0 0 6px rgba(59,130,246,.06),
-        0 16px 32px rgba(0,0,0,.10);
+    .smart-wrap:hover .smart-pill, .smart-wrap:focus-within .smart-pill{
+      transform:translateY(-2px);
+      box-shadow:0 0 0 2px rgba(124,58,237,.08), 0 0 0 6px rgba(59,130,246,.06), 0 16px 32px rgba(0,0,0,.10);
     }
-
-    .smart-input{
-      border:none; outline:none; flex:1; font-size:1rem; background:transparent;
-    }
+    .smart-input{ flex:1; border:none; outline:none; background:transparent; font-size:1rem; }
     .smart-btn{
-      background:#111827; color:#fff; font-weight:600;
-      border-radius:9999px; padding:.5rem 1rem;
-      transition: all .6s ease; background-size:200% auto;
+      background:#111827; color:#fff; font-weight:600; border-radius:9999px; padding:.5rem 1rem;
+      transition:all .6s ease; background-size:200% auto;
     }
     .smart-btn:hover{
-      background-image: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent1));
-      animation: shimmer 2s linear infinite;
-      box-shadow:0 0 14px rgba(124,58,237,.4);
+      background-image:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent1));
+      animation:shimmer 2s linear infinite; box-shadow:0 0 14px rgba(124,58,237,.4);
     }
-    @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+    @keyframes shimmer{ 0%{background-position:0% center} 100%{background-position:200% center} }
 
-    /* === Dropdown (anchors to pill width; no off-screen) === */
+    /* ===== DROPDOWN (anchored, centered) ===== */
     #searchSug{
-      position:absolute; left:0; right:0; top: calc(100% + 8px);
-      transform: translateY(6px);
-      background: rgba(255,255,255,.9); backdrop-filter: blur(10px);
-      border:1px solid rgba(0,0,0,.06);
-      border-radius: 1rem;
-      box-shadow: 0 16px 30px rgba(0,0,0,.12);
-      padding:.25rem; max-height: 60vh; overflow:auto;
-      opacity:0; visibility:hidden;
-      transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
-      z-index: 20;
+      position:absolute; left:0; right:0; top:calc(100% + 8px);
+      background:rgba(255,255,255,.92); backdrop-filter:blur(10px);
+      border:1px solid rgba(0,0,0,.06); border-radius:1rem; box-shadow:0 16px 30px rgba(0,0,0,.12);
+      padding:.25rem; max-height:60vh; overflow:auto; opacity:0; visibility:hidden; transform:translateY(6px);
+      transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s; z-index:20;
     }
-    #searchSug.open{ opacity:1; visibility:visible; transform: translateY(0); }
+    #searchSug.open{ opacity:1; visibility:visible; transform:translateY(0); }
 
-    /* Dropdown items + subtle rail line on hover */
+    /* dropdown items + hover rail */
     .sug-item{
-      position:relative;
-      display:flex; align-items:center; justify-content:space-between;
+      position:relative; display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; padding:.6rem .85rem; cursor:pointer; border-radius:.75rem;
     }
     .sug-item::before{
-      content:""; position:absolute; left:10px; top:8px; bottom:8px; width:2px;
-      border-radius:2px; background:transparent;
-      transition:background .15s ease;
+      content:""; position:absolute; left:10px; top:8px; bottom:8px; width:2px; border-radius:2px;
+      background:transparent; transition:background .15s ease;
     }
-    .sug-item:hover,
-    .sug-item[aria-selected="true"]{ background:#f9fafb; }
-    .sug-item:hover::before,
-    .sug-item[aria-selected="true"]::before{
+    .sug-item:hover, .sug-item[aria-selected="true"]{ background:#f9fafb; }
+    .sug-item:hover::before, .sug-item[aria-selected="true"]::before{
       background:linear-gradient(180deg,var(--accent1),var(--accent2));
     }
-    .sug-badge{
-      font-weight:700; font-size:.75rem; padding:.15rem .5rem; border-radius:999px; color:#fff;
+    .sug-badge{ font-weight:700; font-size:.75rem; padding:.15rem .5rem; border-radius:9999px; color:#fff; }
+
+    /* ===== FEATURES STRIP (floating card, 3 columns) ===== */
+    .features-wrap{
+      width:min(var(--hero-max), 94vw);
+      margin: -1.1rem auto 2.5rem; /* overlap hero */
+      padding:0 var(--padX, 0);
     }
+    .features-card{
+      background:#fff; border:1px solid rgba(0,0,0,.06);
+      border-radius:1rem; box-shadow:0 18px 32px rgba(0,0,0,.08);
+      padding:clamp(.75rem, 2vw, 1rem);
+    }
+    .features-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
+    .feature{
+      border-radius:.75rem; padding:1rem;
+      background:#fff; border:1px solid rgba(0,0,0,.04);
+    }
+    .feature h3{ font-weight:700; margin-bottom:.25rem; }
+    .feature p{ color:#6b7280; font-size:.9rem; line-height:1.35; }
+    @media (max-width:900px){ .features-grid{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
-  <!-- Top navigation (individual pills) -->
+  <!-- NAV -->
   <nav class="nav-row">
     <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto mr-1.5">
-    <a href="explore.html" class="nav-link nav-link--active">Explore</a>
-    <a href="ks3_hub.html" class="nav-link nav-link--light">KS3</a>
-    <a href="#" class="nav-link nav-link--light">GCSE</a>
-    <a href="#" class="nav-link nav-link--light">A-Level</a>
+    <a class="nav-link nav-link--active" href="explore.html">Explore</a>
+    <a class="nav-link nav-link--light" href="ks3_hub.html">KS3</a>
+    <a class="nav-link nav-link--light" href="#">GCSE</a>
+    <a class="nav-link nav-link--light" href="#">A-Level</a>
   </nav>
 
-  <!-- Main hero (inset; rounded bottom + top) -->
+  <!-- HERO -->
   <section class="hero">
     <p class="text-gray-500 text-sm tracking-widest uppercase mb-3">SJWMS Maths</p>
     <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
       What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
     </h1>
-    <p class="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">Use the smart search to find worksheets, videos and practice quizzes.</p>
+    <p class="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">
+      Use the smart search to find worksheets, videos and practice quizzes.
+    </p>
 
-    <!-- Animated Smart Search -->
+    <!-- Smart Search -->
     <div id="smartWrap" class="smart-wrap">
       <div id="smartPill" class="smart-pill">
         <input id="smartSearch" type="text" placeholder="Search topics…" autocomplete="off"
@@ -163,39 +152,54 @@
                role="combobox" class="smart-input">
         <button id="smartBtn" class="smart-btn">Search</button>
 
-        <!-- Suggestions dropdown (width follows pill) -->
+        <!-- Suggestions -->
         <div id="searchSug"></div>
       </div>
     </div>
   </section>
 
-  <!-- Smart Search Script -->
+  <!-- FEATURES (floating card like the reference) -->
+  <section class="features-wrap">
+    <div class="features-card">
+      <div class="features-grid">
+        <div class="feature">
+          <h3>Efficiency</h3>
+          <p>Find what you need fast with smart search and clear, student-first navigation.</p>
+        </div>
+        <div class="feature">
+          <h3>Hand-picked</h3>
+          <p>Every worksheet, video and quiz is chosen or written by our team for quality.</p>
+        </div>
+        <div class="feature">
+          <h3>Compatible</h3>
+          <p>Works smoothly on phones, tablets, Chromebooks and desktops.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SMART SEARCH JS -->
   <script>
   (function(){
-    const input=document.getElementById('smartSearch');
-    const sug=document.getElementById('searchSug');
-    const btn=document.getElementById('smartBtn');
-    if(!input||!sug)return;
+    const input = document.getElementById('smartSearch');
+    const sug   = document.getElementById('searchSug');
+    const btn   = document.getElementById('smartBtn');
+    if(!input || !sug) return;
 
-    /* rotating placeholder hints */
-    const HINTS=["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
-    let hintIdx=0;
-    function cycleHint(){
-      if(document.activeElement!==input&&input.value.trim()===""){
-        input.setAttribute('placeholder',HINTS[hintIdx%HINTS.length]); hintIdx++;
-      }
-    }
-    cycleHint(); setInterval(cycleHint,3000);
+    // rotating hints
+    const HINTS = ["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
+    let hi = 0; function cycle(){ if(document.activeElement!==input && !input.value.trim()){ input.placeholder = HINTS[hi%HINTS.length]; hi++; } }
+    cycle(); setInterval(cycle, 3000);
 
-    const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
-    let INDEX=[],open=false,active=-1,current=[];
+    // debounce
+    const debounce=(fn,ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); } };
+    let INDEX=[], open=false, active=-1, current=[];
     const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"};
-    const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-gray-400";
-    const normalize=s=>(s||"").toLowerCase().trim();
+    const colorFor = l => YEAR_COLOR_CLASS[l] || "bg-gray-400";
+    const norm = s => (s||"").toLowerCase().trim();
 
-    function scoreRow(r,q){
-      const lab=normalize(r.label),lev=normalize(r.level);
-      const hay=[lab,lev,...((r.keywords||[]).map(normalize))];
+    function score(r,q){
+      const lab=norm(r.label), lev=norm(r.level), hay=[lab,lev,...((r.keywords||[]).map(norm))];
       if(lab.startsWith(q))return 100;
       if(lab.includes(q))return 70;
       if(hay.some(h=>h.startsWith(q)))return 60;
@@ -203,75 +207,66 @@
       return 0;
     }
     function search(q){
-      const Q=normalize(q);
-      if(!Q)return[];
-      return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
-        .filter(x=>x.score>0)
-        .sort((a,b)=>b.score-a.score)
-        .slice(0,12)
-        .map(x=>x.r);
+      const Q=norm(q); if(!Q) return [];
+      return INDEX.map(r=>({r,score:score(r,Q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,12).map(x=>x.r);
     }
-    function navigate(url){ if(url) window.location.href=url; }
+    function go(url){ if(url) location.href=url; }
 
     function render(list){
-      sug.innerHTML="";
+      sug.innerHTML='';
       list.forEach((r,i)=>{
         const el=document.createElement('div');
-        el.className="sug-item flex justify-between items-center px-4 py-2 hover:bg-white/60 rounded-lg cursor-pointer transition";
-        el.setAttribute('role','option'); el.setAttribute('data-i',i);
+        el.className='sug-item flex justify-between items-center px-4 py-2 hover:bg-white/60 rounded-lg cursor-pointer transition';
+        el.setAttribute('role','option'); el.dataset.i=i;
         el.innerHTML=`
           <div class="flex items-center gap-3">
             <span class="sug-badge ${colorFor(r.level)} text-white text-xs px-2 py-0.5 rounded-full font-semibold">${r.level}</span>
             <span class="text-gray-900 font-medium">${r.label}</span>
           </div>
-          <span class="material-icons text-gray-400">arrow_forward</span>`;
-        el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
+          <span class="material-icons text-gray-400" aria-hidden="true">arrow_forward</span>`;
+        el.addEventListener('mousedown', e=>{ e.preventDefault(); go(r.url); });
         sug.appendChild(el);
       });
     }
-    const setOpen=s=>{open=s;sug.classList.toggle('open',open);input.setAttribute('aria-expanded',String(open));};
+    const setOpen = v => { open=v; sug.classList.toggle('open', v); input.setAttribute('aria-expanded', String(v)); };
 
     function update(){
-      const q=input.value;
-      current=search(q);
-      active=-1;
-      if(current.length===0){setOpen(false);return;}
+      current = search(input.value); active=-1;
+      if(!current.length){ setOpen(false); return; }
       render(current); setOpen(true);
     }
-
     function highlight(i){
       Array.from(sug.children).forEach((el,idx)=>{
-        el.classList.toggle('bg-white/70',idx===i);
-        el.classList.toggle('backdrop-blur-md',idx===i);
-        if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
+        el.classList.toggle('bg-white/70', idx===i);
+        el.classList.toggle('backdrop-blur-md', idx===i);
+        if(idx===i) el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
       });
     }
     function ensureVisible(i){
-      const c=sug.children[i]; if(!c)return;
-      const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
-      if(chT<vT)sug.scrollTop=chT-8; else if(chB>vB)sug.scrollTop=chB-sug.clientHeight+8;
+      const c=sug.children[i]; if(!c) return;
+      const top=c.offsetTop, bot=top+c.offsetHeight, vT=sug.scrollTop, vB=vT+sug.clientHeight;
+      if(top<vT) sug.scrollTop=top-8; else if(bot>vB) sug.scrollTop=bot-sug.clientHeight+8;
     }
 
-    const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},260);
-    input.addEventListener('input',debouncedUpdate);
-    input.addEventListener('keydown',e=>{
-      if(!open&&(e.key==='ArrowDown'||e.key==='Tab')){update();return;}
-      if(!open)return;
-      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);highlight(active);ensureVisible(active);}
-      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);highlight(active);ensureVisible(active);}
-      else if(e.key==='Enter'){e.preventDefault();if(active>=0)navigate(current[active].url);else if(current.length)navigate(current[0].url);}
-      else if(e.key==='Escape'){setOpen(false);}
+    input.addEventListener('input', debounce(()=>{ if(INDEX.length) update(); }, 260));
+    input.addEventListener('keydown', e=>{
+      if(!open && (e.key==='ArrowDown' || e.key==='Tab')){ update(); return; }
+      if(!open) return;
+      if(e.key==='ArrowDown'){ e.preventDefault(); active=Math.min(active+1,current.length-1); highlight(active); ensureVisible(active); }
+      else if(e.key==='ArrowUp'){ e.preventDefault(); active=Math.max(active-1,0); highlight(active); ensureVisible(active); }
+      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) go(current[active].url); else if(current.length) go(current[0].url); }
+      else if(e.key==='Escape'){ setOpen(false); }
     });
-    btn?.addEventListener('click',()=>{if(current.length)navigate(current[0].url);else{input.focus();update();}});
-    input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
-    input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),120);});
-    document.addEventListener('click',e=>{if(!e.target.closest('#searchSug')&&!e.target.closest('#smartWrap'))setOpen(false);});
+    btn?.addEventListener('click', ()=>{ if(current.length) go(current[0].url); else { input.focus(); update(); } });
+    input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
+    input.addEventListener('blur',  ()=> setTimeout(()=> setOpen(false), 120));
+    document.addEventListener('click', e=>{ if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false); });
 
     fetch('/assets/data/search_index.json',{cache:'no-store'})
-      .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
-      .catch(()=>{INDEX=[];});
+      .then(r=>r.json())
+      .then(d=>{ INDEX = Array.isArray(d) ? d : (Array.isArray(d.items) ? d.items : []); })
+      .catch(()=>{ INDEX=[]; });
   })();
   </script>
-
 </body>
 </html>
