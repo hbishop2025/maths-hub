@@ -95,6 +95,73 @@
       .smart-wrap:hover, .smart-wrap:focus-within{ width:100%; }
       .nav-pill{ margin-top: .75rem; }
     }
+
+    /* ----- Expanding search container ----- */
+.smart-wrap{
+  width: clamp(280px, 48vw, 520px);
+  position: relative;
+  transition: width .35s ease;
+}
+
+/* expand on hover/focus (desktop) */
+.smart-wrap:hover,
+.smart-wrap:focus-within{
+  width: min(860px, 92vw);
+}
+
+/* mobile: always expanded and no “jump” */
+@media (max-width:640px){
+  .smart-wrap{ width: min(92vw, 520px); }
+}
+
+/* ----- Pill styles (keeps your look) ----- */
+.smart-pill{
+  position: relative;
+  display:flex; align-items:center; gap:.75rem;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:9999px;
+  padding:.75rem 1rem;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+
+/* gradient glow when expanded */
+.smart-wrap:hover .smart-pill,
+.smart-wrap:focus-within .smart-pill{
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 2px rgba(124,58,237,.08),
+    0 0 0 6px rgba(59,130,246,.06),
+    0 16px 32px rgba(0,0,0,.10);
+}
+
+/* input + button */
+.smart-input{
+  border:none; outline:none; flex:1; font-size:1rem; background:transparent;
+}
+.smart-btn{
+  background:#111827; color:#fff; font-weight:600;
+  border-radius:9999px; padding:.5rem 1rem;
+  transition: all .6s ease; background-size:200% auto;
+}
+.smart-btn:hover{
+  background-image: linear-gradient(90deg,#7C3AED,#3B82F6,#7C3AED);
+  animation: shimmer 2s linear infinite;
+  box-shadow:0 0 14px rgba(124,58,237,.4);
+}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+
+/* keep your frosted dropdown animation */
+#searchSug{
+  transform: translateX(-50%) translateY(4px);
+  opacity:0; visibility:hidden; transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+}
+#searchSug.open{
+  opacity:1; visibility:visible; transform: translateX(-50%) translateY(0);
+}
+
+    
   </style>
 </head>
 <body>
@@ -116,105 +183,175 @@
     </h1>
     <p class="text-gray-600 text-lg mt-3">Use the smart search to find worksheets, videos and practice quizzes.</p>
 
-    <!-- Expanding smart search -->
-    <div class="smart-wrap" id="smartWrap">
-      <div class="smart">
-        <input id="smartSearch" type="text" placeholder="Type to smart search…" autocomplete="off"
-               aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox">
-        <button id="searchBtn">Search</button>
-      </div>
+   <!-- Smart Search (animated) -->
+<div id="smartWrap" class="smart-wrap mx-auto mt-6">
+  <div id="smartPill" class="smart-pill">
+    <input id="smartSearch"
+           type="text"
+           placeholder="Search topics…"
+           autocomplete="off"
+           aria-autocomplete="list"
+           aria-expanded="false"
+           aria-haspopup="listbox"
+           role="combobox"
+           class="smart-input" />
 
-      <!-- Suggestions -->
-      <div id="searchSug" role="listbox" aria-label="Suggestions"></div>
+    <button id="smartBtn" class="smart-btn">Search</button>
+
+    <!-- Suggestions dropdown (your existing container id) -->
+    <div id="searchSug"
+         class="absolute left-1/2 top-[calc(100%+6px)] -translate-x-1/2 w-full max-w-[860px]
+                bg-white/80 backdrop-blur-md border border-gray-200/60 rounded-xl shadow-lg overflow-hidden">
+      <!-- suggestions injected dynamically -->
     </div>
+  </div>
+</div>
   </section>
 
   <!-- Smart search JS (uses /assets/data/search_index.json) -->
-  <script>
-  (function(){
-    const input = document.getElementById('smartSearch');
-    const sug   = document.getElementById('searchSug');
-    if(!input || !sug) return;
+ <script>
+/* ===== Smart Search (debounced + rotating hints + same dropdown) ===== */
+(function(){
+  const input = document.getElementById('smartSearch');
+  const sug   = document.getElementById('searchSug');
+  const btn   = document.getElementById('smartBtn');
+  if(!input || !sug) return;
 
-    let INDEX = [];
-    let open = false;
-    let active = -1;
-    let current = [];
+  // ---- rotating placeholder hints (only when empty & not focused) ----
+  const HINTS = [
+    "Try ‘Trigonometry’",
+    "Try ‘Surds’",
+    "Try ‘Standard form’",
+    "Try ‘Indices’",
+    "Try ‘KS3 policy’"
+  ];
+  let hintIdx = 0;
+  function cycleHint(){
+    if(document.activeElement !== input && input.value.trim()===""){
+      input.setAttribute('placeholder', HINTS[hintIdx % HINTS.length]);
+      hintIdx++;
+    }
+  }
+  cycleHint();
+  const hintTimer = setInterval(cycleHint, 3000);
 
-    const YEAR_COLOR_CLASS = {
-      "Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"
-    };
-    const colorFor = l => YEAR_COLOR_CLASS[l] || "bg-gray-400";
+  // ---- tiny debounce helper ----
+  const debounce = (fn, ms=250) => {
+    let t; return (...args)=>{ clearTimeout(t); t = setTimeout(()=>fn(...args), ms); };
+  };
 
-    const norm = s => (s||"").toLowerCase().trim();
-    function score(r,q){
-      const lab=norm(r.label), lev=norm(r.level);
-      const hay=[lab,lev,...(r.keywords||[]).map(norm)];
-      if(lab.startsWith(q)) return 100;
-      if(lab.includes(q))   return 70;
-      if(hay.some(h=>h.startsWith(q))) return 60;
-      if(hay.some(h=>h.includes(q)))   return 40;
-      return 0;
-    }
-    function query(q){
-      const Q=norm(q); if(!Q) return [];
-      return INDEX.map(r=>({r, s:score(r,Q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,10).map(x=>x.r);
-    }
-    function goto(url){ if(url) location.href=url; }
+  let INDEX = [];
+  let open = false;
+  let active = -1;
+  let current = [];
 
-    function render(list){
-      sug.innerHTML="";
-      list.forEach((r,i)=>{
-        const el=document.createElement('div');
-        el.className="sug-item";
-        el.setAttribute('role','option');
-        el.setAttribute('data-i',i);
-        el.innerHTML = `
-          <div class="flex items-center gap-3">
-            <span class="sug-badge ${colorFor(r.level)}">${r.level}</span>
-            <span class="sug-title">${r.label}</span>
-          </div>
-          <span class="text-gray-400 material-icons">arrow_forward</span>
-        `;
-        el.addEventListener('mousedown', e=>{ e.preventDefault(); goto(r.url); });
-        sug.appendChild(el);
-      });
-    }
-    function setOpen(v){
-      open=v; sug.classList.toggle('open', v);
-      input.setAttribute('aria-expanded', String(v));
-    }
-    function update(){
-      const q=input.value; current=query(q); active=-1;
-      if(!current.length){ setOpen(false); return; }
-      render(current); setOpen(true);
-    }
-    function highlight(i){
-      Array.from(sug.children).forEach((el,idx)=>{
-        el.toggleAttribute('aria-selected', idx===i);
-        el.classList.toggle('bg-gray-50', idx===i);
-      });
-    }
+  const YEAR_COLOR_CLASS = {
+    "Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"
+  };
+  const colorFor = lvl => YEAR_COLOR_CLASS[lvl] || "bg-gray-400";
+  const normalize = s => (s||"").toLowerCase().trim();
 
-    input.addEventListener('input', ()=> INDEX.length && update());
-    input.addEventListener('keydown', (e)=>{
-      if(!open && (e.key==='ArrowDown' || e.key==='Tab')){ update(); return; }
-      if(!open) return;
-      if(e.key==='ArrowDown'){ e.preventDefault(); active=Math.min(active+1,current.length-1); highlight(active); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); active=Math.max(active-1,0); highlight(active); }
-      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) goto(current[active].url); else if(current.length) goto(current[0].url); }
-      else if(e.key==='Escape'){ setOpen(false); }
+  function scoreRow(row, q){
+    const lab = normalize(row.label);
+    const lev = normalize(row.level);
+    const hay = [lab, lev, ...((row.keywords||[]).map(normalize))];
+    if(lab.startsWith(q)) return 100;
+    if(lab.includes(q))   return 70;
+    if(hay.some(h=>h.startsWith(q))) return 60;
+    if(hay.some(h=>h.includes(q)))   return 40;
+    return 0;
+  }
+  function search(q){
+    const Q = normalize(q);
+    if(!Q) return [];
+    return INDEX.map(r=>({row:r,score:scoreRow(r,Q)}))
+      .filter(x=>x.score>0)
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,12)
+      .map(x=>x.row);
+  }
+  function navigate(url){ if(url) window.location.href = url; }
+
+  function render(list){
+    sug.innerHTML = "";
+    list.forEach((r,i)=>{
+      const el = document.createElement('div');
+      el.className = "sug-item flex justify-between items-center px-4 py-2 hover:bg-white/60 rounded-lg cursor-pointer transition";
+      el.setAttribute('role','option');
+      el.setAttribute('data-i', i);
+      el.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="sug-badge ${colorFor(r.level)} text-white text-xs px-2 py-0.5 rounded-full font-semibold">${r.level}</span>
+          <span class="text-gray-900 font-medium">${r.label}</span>
+        </div>
+        <span class="material-icons text-gray-400">arrow_forward</span>
+      `;
+      el.addEventListener('mousedown', (e)=>{ e.preventDefault(); navigate(r.url); });
+      sug.appendChild(el);
     });
-    input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
-    input.addEventListener('blur', ()=> setTimeout(()=> setOpen(false), 120));
-    document.addEventListener('click', e=>{ if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false); });
+  }
+  const setOpen = (state)=>{
+    open = state;
+    sug.classList.toggle('open', open);
+    input.setAttribute('aria-expanded', String(open));
+  };
 
-    // Load index
-    fetch('/assets/data/search_index.json',{cache:'no-store'})
-      .then(r=>r.json())
-      .then(d=>{ INDEX = Array.isArray(d) ? d : (Array.isArray(d.items)? d.items : []); })
-      .catch(()=> INDEX = []);
-  })();
-  </script>
+  function update(){
+    const q = input.value;
+    current = search(q);
+    active = -1;
+    if(current.length===0){ setOpen(false); return; }
+    render(current);
+    setOpen(true);
+  }
+
+  function highlight(i){
+    Array.from(sug.children).forEach((el,idx)=>{
+      el.classList.toggle('bg-white/70', idx===i);
+      el.classList.toggle('backdrop-blur-md', idx===i);
+      if(idx===i) el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
+    });
+  }
+  function ensureVisible(i){
+    const child = sug.children[i];
+    if(!child) return;
+    const chTop = child.offsetTop, chBot = chTop + child.offsetHeight;
+    const viewTop = sug.scrollTop, viewBot = viewTop + sug.clientHeight;
+    if(chTop < viewTop) sug.scrollTop = chTop - 8;
+    else if(chBot > viewBot) sug.scrollTop = chBot - sug.clientHeight + 8;
+  }
+
+  // debounced input handler
+  const debouncedUpdate = debounce(()=>{ if(INDEX.length) update(); }, 260);
+
+  input.addEventListener('input', debouncedUpdate);
+  input.addEventListener('keydown', (e)=>{
+    if(!open && (e.key==='ArrowDown' || e.key==='Tab')){ update(); return; }
+    if(!open) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); active = Math.min(active+1, current.length-1); highlight(active); ensureVisible(active); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); active = Math.max(active-1, 0); highlight(active); ensureVisible(active); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) navigate(current[active].url); else if(current.length) navigate(current[0].url); }
+    else if(e.key==='Escape'){ setOpen(false); }
+  });
+
+  // button triggers top result
+  btn?.addEventListener('click', ()=>{
+    if(current.length){ navigate(current[0].url); }
+    else{ input.focus(); update(); }
+  });
+
+  input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
+  input.addEventListener('blur',  ()=>{ setTimeout(()=> setOpen(false), 120); });
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false);
+  });
+
+  // Load JSON index (unchanged path)
+  fetch('/assets/data/search_index.json', { cache:'no-store' })
+    .then(r=>r.json())
+    .then(d=>{ INDEX = Array.isArray(d) ? d : (Array.isArray(d.items)? d.items : []); })
+    .catch(()=>{ INDEX = []; });
+})();
+</script>
 </body>
 </html>
