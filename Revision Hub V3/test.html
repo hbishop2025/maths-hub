@@ -125,6 +125,57 @@
       background: linear-gradient(180deg, var(--accent1), var(--accent2));
     }
     .sug-badge { @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
+
+    /* === Siri-like animated glow around the search pill === */
+.glow-wrap{
+  position: relative;
+  border-radius: 9999px;         /* match pill shape */
+  isolation: isolate;            /* keep z-index stacking local */
+}
+
+/* Moving multicolour halo */
+.glow-wrap::before{
+  content:"";
+  position:absolute;
+  inset:-3px;                    /* tiny outside halo */
+  border-radius:9999px;
+  background: linear-gradient(90deg,
+    #7C3AED, #3B82F6, #10B981, #F59E0B, #EC4899, #7C3AED
+  );
+  background-size: 400% 100%;
+  filter: blur(6px);
+  opacity: 0;                    /* hidden until hover/focus */
+  transition: opacity .25s ease-out;
+  z-index: 0;                    /* sits under the pill */
+  animation: siri-glow 8s linear infinite;
+}
+
+/* Show the glow when interacting */
+.glow-wrap:hover::before,
+.glow-wrap:focus-within::before{
+  opacity: 1;
+}
+
+/* Make sure the actual pill/content sits above the glow */
+.glow-wrap > .smart-pill{
+  position: relative;
+  z-index: 1;
+  background: #fff;              /* solid core so the glow looks like a border */
+}
+
+/* Keep suggestions above everything */
+#searchSug{ z-index: 40; }
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce){
+  .glow-wrap::before{ animation: none; }
+}
+
+@keyframes siri-glow{
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 200% 50%; }
+  100% { background-position:   0% 50%; }
+}
   </style>
 </head>
 <body>
@@ -176,16 +227,19 @@
           Use the smart search to find worksheets, videos and practice quizzes.
         </p>
 
-        <!-- Smart Search -->
-        <div id="smartWrap" class="smart-wrap">
-          <div class="smart-pill">
-            <span class="material-symbols-outlined text-gray-400">search</span>
-            <input id="smartSearch" class="smart-input" type="text" placeholder="Search topics…" autocomplete="off"
-                   aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox"/>
-            <button id="smartBtn" class="smart-btn">Search</button>
-          </div>
-          <div id="searchSug"></div>
-        </div>
+       <!-- Smart Search -->
+<div id="smartWrap" class="smart-wrap">
+  <div class="glow-wrap">
+    <div class="smart-pill">
+      <span class="material-symbols-outlined text-gray-400">search</span>
+      <input id="smartSearch" class="smart-input" type="text" placeholder="Search topics…" autocomplete="off"
+             aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox"/>
+      <button id="smartBtn" class="smart-btn">Search</button>
+    </div>
+    <!-- Suggestions dropdown -->
+    <div id="searchSug"></div>
+  </div>
+</div>
       </section>
     </div>
   </main>
