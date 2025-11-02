@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths — Home (Glass Test)</title>
+  <title>SJWMS Maths — Home (Glow Test)</title>
 
-  <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -13,11 +12,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; --accent3:#10B981; }
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Dotted paper background */
+    /* dotted background */
     .math-grid {
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
@@ -28,63 +27,69 @@
               mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Header nav look */
     .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
 
-    /* Hero wrapper (position + spacing) */
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* Glassmorphic hero card */
+    /* glass hero box */
     .hero-glass {
-      /* lowered from the top bar */
-      margin-top: clamp(1.25rem, 5vw, 3.5rem);
-
-      /* glass look */
-      @apply relative rounded-3xl border shadow-xl text-center;
+      margin-top: clamp(1.5rem, 5vw, 3.75rem);
+      @apply relative rounded-3xl border shadow-xl text-center
+             px-6 sm:px-10 md:px-14 py-10 sm:py-14;
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-color: rgba(255,255,255,0.6);
-
-      /* inner padding */
-      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14;
-      /* faint outer glow in accent hues */
       box-shadow:
         0 10px 30px rgba(0,0,0,.08),
         0 0 0 1px rgba(0,0,0,.03),
-        0 12px 48px rgba(124, 58, 237, .06),
-        0 16px 56px rgba(59, 130, 246, .055);
+        0 12px 48px rgba(124,58,237,.06),
+        0 16px 56px rgba(59,130,246,.055);
     }
 
-    /* Expanding smart search */
+    /* siri-style animated glow border */
     .smart-wrap {
-      width: clamp(240px, 40vw, 360px);      /* compact at rest */
-      transition: width .35s ease;
+      width: clamp(240px, 40vw, 360px);
       margin: 1.25rem auto 0;
       position: relative;
+      transition: width .35s ease;
+      border-radius: 9999px;
     }
-    .smart-wrap:hover,
-    .smart-wrap:focus-within {
-      width: clamp(320px, 56vw, 680px);      /* expand on hover/focus */
+
+    .smart-wrap::before {
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius:9999px;
+      background: conic-gradient(
+        from 0deg,
+        var(--accent1),
+        var(--accent2),
+        var(--accent3),
+        var(--accent1)
+      );
+      opacity:0;
+      transition:opacity .4s ease;
+      z-index:-1;
+      animation: spinGlow 6s linear infinite;
     }
+
+    @keyframes spinGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .smart-wrap:focus-within::before,
+    .smart-wrap:hover::before { opacity:1; }
+
     @media (max-width:640px){
       .smart-wrap { width: min(92vw, 560px); }
     }
 
     .smart-pill {
-      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
-      transition: box-shadow .25s ease, transform .25s ease;
-    }
-    .smart-wrap:hover .smart-pill,
-    .smart-wrap:focus-within .smart-pill {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 2px rgba(124,58,237,.08),
-        0 0 0 6px rgba(59,130,246,.06),
-        0 16px 32px rgba(0,0,0,.10);
+      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md relative z-10;
     }
 
-    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base; }
+    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-gray-800; }
 
     .smart-btn {
       @apply h-10 px-4 rounded-full text-white font-semibold bg-[#111827];
@@ -97,7 +102,6 @@
     }
     @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
 
-    /* Dropdown under pill */
     #searchSug {
       position:absolute; left:0; right:0; top: calc(100% + 8px);
       background: rgba(255,255,255,.96);
@@ -125,10 +129,17 @@
       background: linear-gradient(180deg, var(--accent1), var(--accent2));
     }
     .sug-badge { @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
+
+    /* mobile nav menu */
+    #mobileMenu {
+      @apply hidden absolute right-4 top-16 bg-white shadow-xl rounded-xl border border-gray-200 w-48 p-3 flex-col;
+    }
+    #mobileMenu.open { @apply flex; }
+    #mobileMenu a { @apply block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-medium text-sm; }
   </style>
 </head>
-<body>
 
+<body>
   <!-- HEADER -->
   <header class="sticky top-0 z-20 bg-white/85 backdrop-blur border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
@@ -142,25 +153,30 @@
         <a class="nav-link" href="#">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white font-semibold" href="explore.html">Explore</a>
       </nav>
-      <button class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+      <button id="mobileToggle" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
+    <div id="mobileMenu">
+      <a href="ks3_hub.html">KS3</a>
+      <a href="#">GCSE</a>
+      <a href="#">A-Level</a>
+      <a href="explore.html" class="bg-[#111827] text-white text-center">Explore</a>
+    </div>
   </header>
 
-  <!-- BACKGROUND: dotted grid + subtle connected shapes -->
+  <!-- BACKGROUND -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
   <svg class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"
        style="opacity:.22; mask-image: linear-gradient(to bottom, white 55%, transparent 100%);">
-    <!-- soft accent lines & polygons -->
-    <g stroke="rgba(60, 70, 200, 0.25)" stroke-width="2" fill="rgba(60, 70, 200, 0.06)">
+    <g stroke="rgba(60,70,200,0.25)" stroke-width="2" fill="rgba(60,70,200,0.06)">
       <polygon points="140,120 220,160 180,240" />
       <polygon points="360,120 440,160 480,240 400,280" />
     </g>
-    <g stroke="rgba(60, 70, 200, 0.20)" stroke-width="1" fill="none">
+    <g stroke="rgba(60,70,200,0.20)" stroke-width="1" fill="none">
       <path d="M 80% 140 L 86% 200 L 78% 250" />
       <path d="M 12% 78% L 18% 84% L 10% 90%" />
-      <circle cx="14%" cy="86%" r="40" stroke="rgba(60, 70, 200, 0.15)" fill="rgba(60, 70, 200, 0.04)" />
+      <circle cx="14%" cy="86%" r="40" stroke="rgba(60,70,200,0.15)" fill="rgba(60,70,200,0.04)" />
     </g>
   </svg>
 
@@ -176,7 +192,7 @@
           Use the smart search to find worksheets, videos and practice quizzes.
         </p>
 
-        <!-- Smart Search -->
+        <!-- SMART SEARCH -->
         <div id="smartWrap" class="smart-wrap">
           <div class="smart-pill">
             <span class="material-symbols-outlined text-gray-400">search</span>
@@ -190,14 +206,19 @@
     </div>
   </main>
 
-  <!-- SMART SEARCH JS -->
+  <!-- JS -->
   <script>
+  // Mobile nav toggle
+  document.getElementById('mobileToggle').addEventListener('click',()=>{
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  // Smart Search logic
   (function(){
     const input=document.getElementById('smartSearch');
     const sug=document.getElementById('searchSug');
     const btn=document.getElementById('smartBtn');
     if(!input||!sug)return;
-
     const HINTS=["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
     let hintIdx=0;
     function cycleHint(){
@@ -258,25 +279,14 @@
       if(current.length===0){setOpen(false);return;}
       render(current); setOpen(true);
     }
-    function highlight(i){
-      Array.from(sug.children).forEach((el,idx)=>{
-        el.classList.toggle('bg-gray-50',idx===i);
-        if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
-      });
-    }
-    function ensureVisible(i){
-      const c=sug.children[i]; if(!c)return;
-      const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
-      if(chT<vT)sug.scrollTop=chT-8; else if(chB>vB)sug.scrollTop=chB-sug.clientHeight+8;
-    }
 
     const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
     input.addEventListener('input',debouncedUpdate);
     input.addEventListener('keydown',e=>{
       if(!open&&(e.key==='ArrowDown'||e.key==='Tab')){update();return;}
       if(!open)return;
-      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);highlight(active);ensureVisible(active);}
-      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);highlight(active);ensureVisible(active);}
+      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);}
+      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);}
       else if(e.key==='Enter'){e.preventDefault();if(active>=0)navigate(current[active].url);else if(current.length)navigate(current[0].url);}
       else if(e.key==='Escape'){setOpen(false);}
     });
@@ -290,6 +300,5 @@
       .catch(()=>{INDEX=[];});
   })();
   </script>
-
 </body>
 </html>
