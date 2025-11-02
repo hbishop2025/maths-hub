@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths — Home (Light Test)</title>
+  <title>SJWMS Maths — Home (Glass Test)</title>
 
   <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -15,48 +15,60 @@
   <style type="text/tailwindcss">
     :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    body {
-      @apply bg-[#f6f6f8] text-[#212121] font-[Lexend];
-    }
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Dotted/math grid background (light only) */
+    /* Dotted paper background */
     .math-grid {
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
       background-size: 40px 40px;
       background-position: 0 0, 20px 20px;
-      -webkit-mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
-              mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+              mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Header */
-    .nav-link {
-      @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition;
+    /* Header nav look */
+    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+
+    /* Hero wrapper (position + spacing) */
+    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+    /* Glassmorphic hero card */
+    .hero-glass {
+      /* lowered from the top bar */
+      margin-top: clamp(1.25rem, 5vw, 3.5rem);
+
+      /* glass look */
+      @apply relative rounded-3xl border shadow-xl text-center;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: rgba(255,255,255,0.6);
+
+      /* inner padding */
+      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14;
+      /* faint outer glow in accent hues */
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.08),
+        0 0 0 1px rgba(0,0,0,.03),
+        0 12px 48px rgba(124, 58, 237, .06),
+        0 16px 56px rgba(59, 130, 246, .055);
     }
 
-    /* Hero card */
-    .hero-card {
-      @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-    }
-    .hero-inner {
-      @apply mx-auto bg-white border border-gray-200 rounded-b-2xl rounded-t-xl shadow-lg sm:shadow-xl
-             px-5 sm:px-8 md:px-14 py-10 sm:py-14 text-center;
-    }
-
-    /* Smart search */
+    /* Expanding smart search */
     .smart-wrap {
-      width: clamp(260px, 40vw, 360px);
+      width: clamp(240px, 40vw, 360px);      /* compact at rest */
       transition: width .35s ease;
       margin: 1.25rem auto 0;
       position: relative;
     }
     .smart-wrap:hover,
     .smart-wrap:focus-within {
-      width: clamp(320px, 56vw, 680px);
+      width: clamp(320px, 56vw, 680px);      /* expand on hover/focus */
     }
     @media (max-width:640px){
-      .smart-wrap{ width: min(92vw, 560px); }
+      .smart-wrap { width: min(92vw, 560px); }
     }
 
     .smart-pill {
@@ -72,9 +84,7 @@
         0 16px 32px rgba(0,0,0,.10);
     }
 
-    .smart-input {
-      @apply flex-1 bg-transparent border-0 focus:ring-0 text-base;
-    }
+    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base; }
 
     .smart-btn {
       @apply h-10 px-4 rounded-full text-white font-semibold bg-[#111827];
@@ -87,7 +97,7 @@
     }
     @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
 
-    /* Dropdown */
+    /* Dropdown under pill */
     #searchSug {
       position:absolute; left:0; right:0; top: calc(100% + 8px);
       background: rgba(255,255,255,.96);
@@ -114,20 +124,13 @@
     .sug-item:hover::before, .sug-item[aria-selected="true"]::before {
       background: linear-gradient(180deg, var(--accent1), var(--accent2));
     }
-    .sug-badge {
-      @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full;
-    }
-
-    /* Feature cards */
-    .feat-card {
-      @apply flex-1 min-w-[180px] bg-white border border-gray-200 rounded-xl px-4 py-4 text-left shadow-sm;
-    }
+    .sug-badge { @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-200">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-20 bg-white/85 backdrop-blur border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
@@ -145,18 +148,31 @@
     </div>
   </header>
 
-  <!-- Background dots -->
+  <!-- BACKGROUND: dotted grid + subtle connected shapes -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"
+       style="opacity:.22; mask-image: linear-gradient(to bottom, white 55%, transparent 100%);">
+    <!-- soft accent lines & polygons -->
+    <g stroke="rgba(60, 70, 200, 0.25)" stroke-width="2" fill="rgba(60, 70, 200, 0.06)">
+      <polygon points="140,120 220,160 180,240" />
+      <polygon points="360,120 440,160 480,240 400,280" />
+    </g>
+    <g stroke="rgba(60, 70, 200, 0.20)" stroke-width="1" fill="none">
+      <path d="M 80% 140 L 86% 200 L 78% 250" />
+      <path d="M 12% 78% L 18% 84% L 10% 90%" />
+      <circle cx="14%" cy="86%" r="40" stroke="rgba(60, 70, 200, 0.15)" fill="rgba(60, 70, 200, 0.04)" />
+    </g>
+  </svg>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <main class="relative">
-    <div class="hero-card">
-      <section class="hero-inner">
-        <p class="uppercase tracking-widest text-xs text-gray-500">SJWMS Maths</p>
+    <div class="hero-shell">
+      <section class="hero-glass">
+        <p class="uppercase tracking-widest text-xs text-gray-600">SJWMS Maths</p>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2">
           What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
         </h1>
-        <p class="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">
+        <p class="text-gray-700 text-lg mt-3 max-w-2xl mx-auto">
           Use the smart search to find worksheets, videos and practice quizzes.
         </p>
 
@@ -170,27 +186,11 @@
           </div>
           <div id="searchSug"></div>
         </div>
-
-        <!-- Feature cards -->
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
-          <div class="feat-card">
-            <h3 class="font-bold">Efficiency</h3>
-            <p class="text-sm text-gray-600">Find what you need in a few keystrokes.</p>
-          </div>
-          <div class="feat-card">
-            <h3 class="font-bold">Hand-picked</h3>
-            <p class="text-sm text-gray-600">Every resource is selected or designed with care.</p>
-          </div>
-          <div class="feat-card">
-            <h3 class="font-bold">Compatible</h3>
-            <p class="text-sm text-gray-600">Looks great on phones, tablets, and laptops.</p>
-          </div>
-        </div>
       </section>
     </div>
   </main>
 
-  <!-- Smart Search JS -->
+  <!-- SMART SEARCH JS -->
   <script>
   (function(){
     const input=document.getElementById('smartSearch');
