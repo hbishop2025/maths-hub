@@ -1,184 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths (Test)</title>
+  <title>SJWMS Maths — Home (Test)</title>
 
-  <!-- Tailwind + Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <!-- Tailwind + Fonts + Icons -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-  <style>
-    :root{
-      --accent1:#7C3AED; /* purple */
-      --accent2:#3B82F6; /* blue */
-      --hero-max:1100px;
-      --hero-bg:#f3f5f7;
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+
+    body{ @apply bg-[#f6f6f8] text-[#212121] dark:bg-[#101622] dark:text-gray-200 font-[Lexend]; }
+
+    /* Dotted/math grid background (masked to fade toward bottom) */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      -webkit-mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
+              mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
     }
-    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827; background:#fff; overflow-x:hidden; }
-
-    /* ===== NAV (separate bubbles) ===== */
-    .nav-row{ display:flex; justify-content:center; align-items:center; gap:.5rem; padding:1rem .75rem .5rem; flex-wrap:wrap; }
-    .nav-link{ padding:.5rem 1.1rem; border-radius:9999px; font-weight:600; transition:.25s; }
-    .nav-link--active{ background:#111827; color:#fff; }
-    .nav-link--light{ background:#f3f4f6; color:#374151; border:1px solid rgba(0,0,0,.03); }
-    .nav-link--light:hover{ background:#e8eaee; }
-
-    /* ===== HERO CARD (rounded + faint line pattern) ===== */
-    .hero{
-      --padX: clamp(1rem, 4vw, 2.25rem);
-      --padY: clamp(1.5rem, 5vw, 3rem);
-      width:min(var(--hero-max), 94vw);
-      margin:.75rem auto 0;
-      background: var(--hero-bg);
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:1.5rem 1.5rem 2rem 2rem;
-      box-shadow:0 20px 40px rgba(0,0,0,.06);
-      padding:var(--padY) var(--padX);
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-      isolation:isolate;
-    }
-    /* subtle “circuit/arc” lines via SVG data-URI */
-    .hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%23898f97' stroke-opacity='0.25' stroke-width='2'%3E%3Cpath d='M60 420c120-120 240-120 360 0'/%3E%3Ccircle cx='450' cy='420' r='6'/%3E%3Cpath d='M1140 420c-120-120-240-120-360 0'/%3E%3Ccircle cx='750' cy='420' r='6'/%3E%3Cpath d='M100 220c160-160 320-160 480 0'/%3E%3Cpath d='M1100 220c-160-160-320-160-480 0'/%3E%3C/g%3E%3C/svg%3E") center/110% 100% no-repeat;
-      mix-blend-mode:normal;
-      z-index:-1;
+    .dark .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+      -webkit-mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+              mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* ===== EXPANDING SMART SEARCH ===== */
-    .smart-wrap{ margin:1.5rem auto 0; position:relative; width:clamp(240px,42vw,360px); transition:width .35s ease; }
-    .smart-wrap:hover, .smart-wrap:focus-within{ width:clamp(320px,58vw,680px); }
-    @media (max-width:640px){ .smart-wrap{ width:min(92vw,520px); } }
+    /* Header */
+    .nav-link{ @apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#135bec] dark:hover:text-[#135bec] transition; }
+
+    /* Hero shell (rounded main body, inset from edges, rounded bottom) */
+    .hero-card{
+      @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    .hero-inner{
+      @apply mx-auto bg-white dark:bg-gray-800/70 border border-gray-200/70 dark:border-gray-700/60
+             rounded-b-2xl rounded-t-xl shadow-lg sm:shadow-xl
+             px-5 sm:px-8 md:px-14 py-10 sm:py-14 text-center;
+    }
+
+    /* Smart search — compact -> expands on focus/hover */
+    .smart-wrap{
+      width: clamp(260px, 40vw, 360px);
+      transition: width .35s ease;
+      margin: 1.25rem auto 0;
+      position: relative;
+    }
+    .smart-wrap:hover,
+    .smart-wrap:focus-within{
+      width: clamp(320px, 56vw, 680px);
+    }
+    @media (max-width:640px){
+      .smart-wrap{ width: min(92vw, 560px); }
+    }
 
     .smart-pill{
-      position:relative; display:flex; align-items:center; gap:.75rem;
-      background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:9999px;
-      padding:.75rem 1rem; box-shadow:0 6px 18px rgba(0,0,0,.05); transition:box-shadow .25s, transform .25s;
+      @apply flex items-center gap-2 bg-white dark:bg-gray-900/80
+             border border-gray-200/70 dark:border-gray-700/70
+             rounded-full px-4 py-2.5 shadow-md;
+      transition: box-shadow .25s ease, transform .25s ease;
     }
-    .smart-wrap:hover .smart-pill, .smart-wrap:focus-within .smart-pill{
-      transform:translateY(-2px);
-      box-shadow:0 0 0 2px rgba(124,58,237,.08), 0 0 0 6px rgba(59,130,246,.06), 0 16px 32px rgba(0,0,0,.10);
+    .smart-wrap:hover .smart-pill,
+    .smart-wrap:focus-within .smart-pill{
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 2px rgba(124,58,237,.08),
+        0 0 0 6px rgba(59,130,246,.06),
+        0 16px 32px rgba(0,0,0,.10);
     }
-    .smart-input{ flex:1; border:none; outline:none; background:transparent; font-size:1rem; }
+    .smart-input{ @apply flex-1 bg-transparent border-0 focus:ring-0 text-base; }
     .smart-btn{
-      background:#111827; color:#fff; font-weight:600; border-radius:9999px; padding:.5rem 1rem;
-      transition:all .6s ease; background-size:200% auto;
+      @apply h-10 px-4 rounded-full text-white font-semibold bg-[#111827];
+      transition: all .6s ease; background-size:200% auto;
     }
     .smart-btn:hover{
-      background-image:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent1));
-      animation:shimmer 2s linear infinite; box-shadow:0 0 14px rgba(124,58,237,.4);
+      background-image: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent1));
+      animation: shimmer 2s linear infinite;
+      box-shadow: 0 0 14px rgba(124,58,237,.35);
     }
-    @keyframes shimmer{ 0%{background-position:0% center} 100%{background-position:200% center} }
+    @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
 
-    /* ===== DROPDOWN (anchored, centered) ===== */
+    /* Suggestions dropdown */
     #searchSug{
-      position:absolute; left:0; right:0; top:calc(100% + 8px);
-      background:rgba(255,255,255,.92); backdrop-filter:blur(10px);
-      border:1px solid rgba(0,0,0,.06); border-radius:1rem; box-shadow:0 16px 30px rgba(0,0,0,.12);
-      padding:.25rem; max-height:60vh; overflow:auto; opacity:0; visibility:hidden; transform:translateY(6px);
-      transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s; z-index:20;
+      position:absolute; left:0; right:0; top: calc(100% + 8px);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 14px;
+      box-shadow: 0 16px 30px rgba(0,0,0,.12);
+      padding:.25rem; max-height: 60vh; overflow:auto;
+      opacity:0; visibility:hidden; transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+      z-index: 30;
     }
-    #searchSug.open{ opacity:1; visibility:visible; transform:translateY(0); }
+    #searchSug.open{ opacity:1; visibility:visible; transform: translateY(0); }
 
-    /* dropdown items + hover rail */
     .sug-item{
       position:relative; display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; padding:.6rem .85rem; cursor:pointer; border-radius:.75rem;
     }
-    .sug-item::before{
-      content:""; position:absolute; left:10px; top:8px; bottom:8px; width:2px; border-radius:2px;
-      background:transparent; transition:background .15s ease;
-    }
     .sug-item:hover, .sug-item[aria-selected="true"]{ background:#f9fafb; }
+    .sug-item::before{
+      content:""; position:absolute; left:10px; top:8px; bottom:8px; width:2px; border-radius:2px; background:transparent;
+      transition: background .15s ease;
+    }
     .sug-item:hover::before, .sug-item[aria-selected="true"]::before{
-      background:linear-gradient(180deg,var(--accent1),var(--accent2));
+      background: linear-gradient(180deg, var(--accent1), var(--accent2));
     }
-    .sug-badge{ font-weight:700; font-size:.75rem; padding:.15rem .5rem; border-radius:9999px; color:#fff; }
+    .sug-badge{ @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
 
-    /* ===== FEATURES STRIP (floating card, 3 columns) ===== */
-    .features-wrap{
-      width:min(var(--hero-max), 94vw);
-      margin: -1.1rem auto 2.5rem; /* overlap hero */
-      padding:0 var(--padX, 0);
+    /* Tiny features row under search */
+    .feat-card{
+      @apply flex-1 min-w-[180px] bg-white/80 dark:bg-gray-900/60 border border-gray-200/60 dark:border-gray-700/60
+             rounded-xl px-4 py-4 text-left shadow-sm;
     }
-    .features-card{
-      background:#fff; border:1px solid rgba(0,0,0,.06);
-      border-radius:1rem; box-shadow:0 18px 32px rgba(0,0,0,.08);
-      padding:clamp(.75rem, 2vw, 1rem);
-    }
-    .features-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
-    .feature{
-      border-radius:.75rem; padding:1rem;
-      background:#fff; border:1px solid rgba(0,0,0,.04);
-    }
-    .feature h3{ font-weight:700; margin-bottom:.25rem; }
-    .feature p{ color:#6b7280; font-size:.9rem; line-height:1.35; }
-    @media (max-width:900px){ .features-grid{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav class="nav-row">
-    <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto mr-1.5">
-    <a class="nav-link nav-link--active" href="explore.html">Explore</a>
-    <a class="nav-link nav-link--light" href="ks3_hub.html">KS3</a>
-    <a class="nav-link nav-link--light" href="#">GCSE</a>
-    <a class="nav-link nav-link--light" href="#">A-Level</a>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <p class="text-gray-500 text-sm tracking-widest uppercase mb-3">SJWMS Maths</p>
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-      What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
-    </h1>
-    <p class="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">
-      Use the smart search to find worksheets, videos and practice quizzes.
-    </p>
-
-    <!-- Smart Search -->
-    <div id="smartWrap" class="smart-wrap">
-      <div id="smartPill" class="smart-pill">
-        <input id="smartSearch" type="text" placeholder="Search topics…" autocomplete="off"
-               aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox"
-               role="combobox" class="smart-input">
-        <button id="smartBtn" class="smart-btn">Search</button>
-
-        <!-- Suggestions -->
-        <div id="searchSug"></div>
+  <!-- Header -->
+  <header class="sticky top-0 z-20 bg-[#f6f6f8]/80 dark:bg-[#101622]/80 backdrop-blur border-b border-gray-200/70 dark:border-gray-700/60">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="nav-link" href="ks3_hub.html">KS3</a>
+        <a class="nav-link" href="#">GCSE</a>
+        <a class="nav-link" href="#">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white font-semibold" href="explore.html">Explore</a>
+      </nav>
+      <button class="md:hidden p-2 rounded-lg hover:bg-gray-200/60 dark:hover:bg-gray-700/60">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
     </div>
-  </section>
+  </header>
 
-  <!-- FEATURES (floating card like the reference) -->
-  <section class="features-wrap">
-    <div class="features-card">
-      <div class="features-grid">
-        <div class="feature">
-          <h3>Efficiency</h3>
-          <p>Find what you need fast with smart search and clear, student-first navigation.</p>
+  <!-- Background dots -->
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <!-- Hero -->
+  <main class="relative">
+    <div class="hero-card">
+      <section class="hero-inner">
+        <p class="uppercase tracking-widest text-xs text-gray-500">SJWMS Maths</p>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2">
+          What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300 text-lg mt-3 max-w-2xl mx-auto">
+          Use the smart search to find worksheets, videos and practice quizzes.
+        </p>
+
+        <!-- Smart Search -->
+        <div id="smartWrap" class="smart-wrap">
+          <div class="smart-pill">
+            <span class="material-symbols-outlined text-gray-400">search</span>
+            <input id="smartSearch" class="smart-input" type="text" placeholder="Search topics…" autocomplete="off"
+                   aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox"/>
+            <button id="smartBtn" class="smart-btn">Search</button>
+          </div>
+          <div id="searchSug"></div>
         </div>
-        <div class="feature">
-          <h3>Hand-picked</h3>
-          <p>Every worksheet, video and quiz is chosen or written by our team for quality.</p>
+
+        <!-- Tiny features -->
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
+          <div class="feat-card">
+            <h3 class="font-bold">Efficiency</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Find what you need in a few keystrokes.</p>
+          </div>
+          <div class="feat-card">
+            <h3 class="font-bold">Hand-picked</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Every resource is selected or designed with care.</p>
+          </div>
+          <div class="feat-card">
+            <h3 class="font-bold">Compatible</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Looks great on phones, tablets, and laptops.</p>
+          </div>
         </div>
-        <div class="feature">
-          <h3>Compatible</h3>
-          <p>Works smoothly on phones, tablets, Chromebooks and desktops.</p>
-        </div>
-      </div>
+      </section>
     </div>
-  </section>
+  </main>
 
-  <!-- SMART SEARCH JS -->
+  <!-- Smart Search JS (JSON-powered, badges, keyboard nav) -->
   <script>
   (function(){
     const input = document.getElementById('smartSearch');
@@ -186,86 +198,110 @@
     const btn   = document.getElementById('smartBtn');
     if(!input || !sug) return;
 
-    // rotating hints
     const HINTS = ["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
-    let hi = 0; function cycle(){ if(document.activeElement!==input && !input.value.trim()){ input.placeholder = HINTS[hi%HINTS.length]; hi++; } }
-    cycle(); setInterval(cycle, 3000);
+    let hintIdx = 0;
+    function cycleHint(){
+      if(document.activeElement !== input && input.value.trim() === ""){
+        input.setAttribute('placeholder', HINTS[hintIdx % HINTS.length]);
+        hintIdx++;
+      }
+    }
+    cycleHint(); setInterval(cycleHint, 3000);
 
-    // debounce
-    const debounce=(fn,ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); } };
+    const debounce = (fn,ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }};
+
     let INDEX=[], open=false, active=-1, current=[];
-    const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"};
+    const YEAR_COLOR_CLASS = {
+      "Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"
+    };
     const colorFor = l => YEAR_COLOR_CLASS[l] || "bg-gray-400";
-    const norm = s => (s||"").toLowerCase().trim();
+    const normalize = s => (s||"").toLowerCase().trim();
 
-    function score(r,q){
-      const lab=norm(r.label), lev=norm(r.level), hay=[lab,lev,...((r.keywords||[]).map(norm))];
-      if(lab.startsWith(q))return 100;
-      if(lab.includes(q))return 70;
-      if(hay.some(h=>h.startsWith(q)))return 60;
-      if(hay.some(h=>h.includes(q)))return 40;
+    function scoreRow(r,q){
+      const lab = normalize(r.label);
+      const lev = normalize(r.level);
+      const hay = [lab, lev, ...((r.keywords||[]).map(normalize))];
+      if(lab.startsWith(q)) return 100;
+      if(lab.includes(q))   return 70;
+      if(hay.some(h=>h.startsWith(q))) return 60;
+      if(hay.some(h=>h.includes(q)))   return 40;
       return 0;
     }
     function search(q){
-      const Q=norm(q); if(!Q) return [];
-      return INDEX.map(r=>({r,score:score(r,Q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,12).map(x=>x.r);
+      const Q = normalize(q);
+      if(!Q) return [];
+      return INDEX.map(r=>({row:r,score:scoreRow(r,Q)}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,12)
+        .map(x=>x.row);
     }
-    function go(url){ if(url) location.href=url; }
+    function navigate(url){ if(url) window.location.href = url; }
 
     function render(list){
-      sug.innerHTML='';
+      sug.innerHTML = "";
       list.forEach((r,i)=>{
-        const el=document.createElement('div');
-        el.className='sug-item flex justify-between items-center px-4 py-2 hover:bg-white/60 rounded-lg cursor-pointer transition';
-        el.setAttribute('role','option'); el.dataset.i=i;
-        el.innerHTML=`
-          <div class="flex items-center gap-3">
-            <span class="sug-badge ${colorFor(r.level)} text-white text-xs px-2 py-0.5 rounded-full font-semibold">${r.level}</span>
-            <span class="text-gray-900 font-medium">${r.label}</span>
+        const el = document.createElement('div');
+        el.className = "sug-item flex justify-between items-center";
+        el.setAttribute('role','option');
+        el.setAttribute('data-i', i);
+        el.innerHTML = `
+          <div class="flex items-center gap-3 pl-2">
+            <span class="sug-badge ${colorFor(r.level)}">${r.level}</span>
+            <span class="text-gray-900 dark:text-gray-100 font-medium">${r.label}</span>
           </div>
-          <span class="material-icons text-gray-400" aria-hidden="true">arrow_forward</span>`;
-        el.addEventListener('mousedown', e=>{ e.preventDefault(); go(r.url); });
+          <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>
+        `;
+        el.addEventListener('mousedown', (e)=>{ e.preventDefault(); navigate(r.url); });
         sug.appendChild(el);
       });
     }
-    const setOpen = v => { open=v; sug.classList.toggle('open', v); input.setAttribute('aria-expanded', String(v)); };
-
+    function setOpen(state){
+      open = state;
+      sug.classList.toggle('open', open);
+      input.setAttribute('aria-expanded', String(open));
+    }
     function update(){
-      current = search(input.value); active=-1;
-      if(!current.length){ setOpen(false); return; }
-      render(current); setOpen(true);
+      current = search(input.value);
+      active = -1;
+      if(current.length === 0){ setOpen(false); return; }
+      render(current);
+      setOpen(true);
     }
     function highlight(i){
-      Array.from(sug.children).forEach((el,idx)=>{
-        el.classList.toggle('bg-white/70', idx===i);
-        el.classList.toggle('backdrop-blur-md', idx===i);
+      Array.from(sug.children).forEach((el, idx)=>{
+        el.classList.toggle('bg-gray-50', idx===i);
         if(idx===i) el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
       });
     }
     function ensureVisible(i){
-      const c=sug.children[i]; if(!c) return;
-      const top=c.offsetTop, bot=top+c.offsetHeight, vT=sug.scrollTop, vB=vT+sug.clientHeight;
-      if(top<vT) sug.scrollTop=top-8; else if(bot>vB) sug.scrollTop=bot-sug.clientHeight+8;
+      const c = sug.children[i]; if(!c) return;
+      const t = c.offsetTop, b = t + c.offsetHeight;
+      const vt = sug.scrollTop, vb = vt + sug.clientHeight;
+      if(t < vt) sug.scrollTop = t - 8;
+      else if(b > vb) sug.scrollTop = b - sug.clientHeight + 8;
     }
 
-    input.addEventListener('input', debounce(()=>{ if(INDEX.length) update(); }, 260));
-    input.addEventListener('keydown', e=>{
+    const debouncedUpdate = debounce(()=>{ if(INDEX.length) update(); }, 240);
+    input.addEventListener('input', debouncedUpdate);
+    input.addEventListener('keydown', (e)=>{
       if(!open && (e.key==='ArrowDown' || e.key==='Tab')){ update(); return; }
       if(!open) return;
       if(e.key==='ArrowDown'){ e.preventDefault(); active=Math.min(active+1,current.length-1); highlight(active); ensureVisible(active); }
       else if(e.key==='ArrowUp'){ e.preventDefault(); active=Math.max(active-1,0); highlight(active); ensureVisible(active); }
-      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) go(current[active].url); else if(current.length) go(current[0].url); }
+      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) navigate(current[active].url); else if(current.length) navigate(current[0].url); }
       else if(e.key==='Escape'){ setOpen(false); }
     });
-    btn?.addEventListener('click', ()=>{ if(current.length) go(current[0].url); else { input.focus(); update(); } });
+    btn?.addEventListener('click', ()=>{ if(current.length) navigate(current[0].url); else { input.focus(); update(); }});
     input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
-    input.addEventListener('blur',  ()=> setTimeout(()=> setOpen(false), 120));
-    document.addEventListener('click', e=>{ if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false); });
+    input.addEventListener('blur',  ()=>{ setTimeout(()=> setOpen(false), 120); });
+    document.addEventListener('click', (e)=>{ if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false); });
 
-    fetch('/assets/data/search_index.json',{cache:'no-store'})
+    // Load your existing index
+    fetch('/assets/data/search_index.json', { cache:'no-store' })
       .then(r=>r.json())
       .then(d=>{ INDEX = Array.isArray(d) ? d : (Array.isArray(d.items) ? d.items : []); })
-      .catch(()=>{ INDEX=[]; });
+      .catch(()=>{ INDEX = []; });
   })();
   </script>
 </body>
