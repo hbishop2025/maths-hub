@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths — Home (Test)</title>
+  <title>SJWMS Maths — Home (Light Test)</title>
 
   <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -15,9 +15,11 @@
   <style type="text/tailwindcss">
     :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    body{ @apply bg-[#f6f6f8] text-[#212121] dark:bg-[#101622] dark:text-gray-200 font-[Lexend]; }
+    body {
+      @apply bg-[#f6f6f8] text-[#212121] font-[Lexend];
+    }
 
-    /* Dotted/math grid background (masked to fade toward bottom) */
+    /* Dotted/math grid background (light only) */
     .math-grid {
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
@@ -27,70 +29,66 @@
       -webkit-mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
               mask-image: linear-gradient(to bottom, white 55%, transparent 100%);
     }
-    .dark .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
-      -webkit-mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-              mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
 
     /* Header */
-    .nav-link{ @apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#135bec] dark:hover:text-[#135bec] transition; }
+    .nav-link {
+      @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition;
+    }
 
-    /* Hero shell (rounded main body, inset from edges, rounded bottom) */
-    .hero-card{
+    /* Hero card */
+    .hero-card {
       @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
     }
-    .hero-inner{
-      @apply mx-auto bg-white dark:bg-gray-800/70 border border-gray-200/70 dark:border-gray-700/60
-             rounded-b-2xl rounded-t-xl shadow-lg sm:shadow-xl
+    .hero-inner {
+      @apply mx-auto bg-white border border-gray-200 rounded-b-2xl rounded-t-xl shadow-lg sm:shadow-xl
              px-5 sm:px-8 md:px-14 py-10 sm:py-14 text-center;
     }
 
-    /* Smart search — compact -> expands on focus/hover */
-    .smart-wrap{
+    /* Smart search */
+    .smart-wrap {
       width: clamp(260px, 40vw, 360px);
       transition: width .35s ease;
       margin: 1.25rem auto 0;
       position: relative;
     }
     .smart-wrap:hover,
-    .smart-wrap:focus-within{
+    .smart-wrap:focus-within {
       width: clamp(320px, 56vw, 680px);
     }
     @media (max-width:640px){
       .smart-wrap{ width: min(92vw, 560px); }
     }
 
-    .smart-pill{
-      @apply flex items-center gap-2 bg-white dark:bg-gray-900/80
-             border border-gray-200/70 dark:border-gray-700/70
-             rounded-full px-4 py-2.5 shadow-md;
+    .smart-pill {
+      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
       transition: box-shadow .25s ease, transform .25s ease;
     }
     .smart-wrap:hover .smart-pill,
-    .smart-wrap:focus-within .smart-pill{
+    .smart-wrap:focus-within .smart-pill {
       transform: translateY(-1px);
       box-shadow:
         0 0 0 2px rgba(124,58,237,.08),
         0 0 0 6px rgba(59,130,246,.06),
         0 16px 32px rgba(0,0,0,.10);
     }
-    .smart-input{ @apply flex-1 bg-transparent border-0 focus:ring-0 text-base; }
-    .smart-btn{
+
+    .smart-input {
+      @apply flex-1 bg-transparent border-0 focus:ring-0 text-base;
+    }
+
+    .smart-btn {
       @apply h-10 px-4 rounded-full text-white font-semibold bg-[#111827];
       transition: all .6s ease; background-size:200% auto;
     }
-    .smart-btn:hover{
+    .smart-btn:hover {
       background-image: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent1));
       animation: shimmer 2s linear infinite;
       box-shadow: 0 0 14px rgba(124,58,237,.35);
     }
     @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
 
-    /* Suggestions dropdown */
-    #searchSug{
+    /* Dropdown */
+    #searchSug {
       position:absolute; left:0; right:0; top: calc(100% + 8px);
       background: rgba(255,255,255,.96);
       backdrop-filter: blur(10px);
@@ -102,32 +100,34 @@
       transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
       z-index: 30;
     }
-    #searchSug.open{ opacity:1; visibility:visible; transform: translateY(0); }
+    #searchSug.open { opacity:1; visibility:visible; transform: translateY(0); }
 
-    .sug-item{
+    .sug-item {
       position:relative; display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; padding:.6rem .85rem; cursor:pointer; border-radius:.75rem;
     }
-    .sug-item:hover, .sug-item[aria-selected="true"]{ background:#f9fafb; }
-    .sug-item::before{
-      content:""; position:absolute; left:10px; top:8px; bottom:8px; width:2px; border-radius:2px; background:transparent;
-      transition: background .15s ease;
+    .sug-item:hover, .sug-item[aria-selected="true"] { background:#f9fafb; }
+    .sug-item::before {
+      content:""; position:absolute; left:10px; top:8px; bottom:8px;
+      width:2px; border-radius:2px; background:transparent; transition: background .15s ease;
     }
-    .sug-item:hover::before, .sug-item[aria-selected="true"]::before{
+    .sug-item:hover::before, .sug-item[aria-selected="true"]::before {
       background: linear-gradient(180deg, var(--accent1), var(--accent2));
     }
-    .sug-badge{ @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
+    .sug-badge {
+      @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full;
+    }
 
-    /* Tiny features row under search */
-    .feat-card{
-      @apply flex-1 min-w-[180px] bg-white/80 dark:bg-gray-900/60 border border-gray-200/60 dark:border-gray-700/60
-             rounded-xl px-4 py-4 text-left shadow-sm;
+    /* Feature cards */
+    .feat-card {
+      @apply flex-1 min-w-[180px] bg-white border border-gray-200 rounded-xl px-4 py-4 text-left shadow-sm;
     }
   </style>
 </head>
 <body>
+
   <!-- Header -->
-  <header class="sticky top-0 z-20 bg-[#f6f6f8]/80 dark:bg-[#101622]/80 backdrop-blur border-b border-gray-200/70 dark:border-gray-700/60">
+  <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
@@ -139,7 +139,7 @@
         <a class="nav-link" href="#">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white font-semibold" href="explore.html">Explore</a>
       </nav>
-      <button class="md:hidden p-2 rounded-lg hover:bg-gray-200/60 dark:hover:bg-gray-700/60">
+      <button class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
@@ -156,7 +156,7 @@
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2">
           What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
         </h1>
-        <p class="text-gray-600 dark:text-gray-300 text-lg mt-3 max-w-2xl mx-auto">
+        <p class="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">
           Use the smart search to find worksheets, videos and practice quizzes.
         </p>
 
@@ -171,138 +171,125 @@
           <div id="searchSug"></div>
         </div>
 
-        <!-- Tiny features -->
+        <!-- Feature cards -->
         <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
           <div class="feat-card">
             <h3 class="font-bold">Efficiency</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300">Find what you need in a few keystrokes.</p>
+            <p class="text-sm text-gray-600">Find what you need in a few keystrokes.</p>
           </div>
           <div class="feat-card">
             <h3 class="font-bold">Hand-picked</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300">Every resource is selected or designed with care.</p>
+            <p class="text-sm text-gray-600">Every resource is selected or designed with care.</p>
           </div>
           <div class="feat-card">
             <h3 class="font-bold">Compatible</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300">Looks great on phones, tablets, and laptops.</p>
+            <p class="text-sm text-gray-600">Looks great on phones, tablets, and laptops.</p>
           </div>
         </div>
       </section>
     </div>
   </main>
 
-  <!-- Smart Search JS (JSON-powered, badges, keyboard nav) -->
+  <!-- Smart Search JS -->
   <script>
   (function(){
-    const input = document.getElementById('smartSearch');
-    const sug   = document.getElementById('searchSug');
-    const btn   = document.getElementById('smartBtn');
-    if(!input || !sug) return;
+    const input=document.getElementById('smartSearch');
+    const sug=document.getElementById('searchSug');
+    const btn=document.getElementById('smartBtn');
+    if(!input||!sug)return;
 
-    const HINTS = ["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
-    let hintIdx = 0;
+    const HINTS=["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘KS3 policy’"];
+    let hintIdx=0;
     function cycleHint(){
-      if(document.activeElement !== input && input.value.trim() === ""){
-        input.setAttribute('placeholder', HINTS[hintIdx % HINTS.length]);
-        hintIdx++;
+      if(document.activeElement!==input&&input.value.trim()===""){
+        input.setAttribute('placeholder',HINTS[hintIdx%HINTS.length]); hintIdx++;
       }
     }
-    cycleHint(); setInterval(cycleHint, 3000);
+    cycleHint(); setInterval(cycleHint,3000);
 
-    const debounce = (fn,ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }};
-
-    let INDEX=[], open=false, active=-1, current=[];
-    const YEAR_COLOR_CLASS = {
-      "Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"
-    };
-    const colorFor = l => YEAR_COLOR_CLASS[l] || "bg-gray-400";
-    const normalize = s => (s||"").toLowerCase().trim();
+    const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+    let INDEX=[],open=false,active=-1,current=[];
+    const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"};
+    const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-gray-400";
+    const normalize=s=>(s||"").toLowerCase().trim();
 
     function scoreRow(r,q){
-      const lab = normalize(r.label);
-      const lev = normalize(r.level);
-      const hay = [lab, lev, ...((r.keywords||[]).map(normalize))];
-      if(lab.startsWith(q)) return 100;
-      if(lab.includes(q))   return 70;
-      if(hay.some(h=>h.startsWith(q))) return 60;
-      if(hay.some(h=>h.includes(q)))   return 40;
+      const lab=normalize(r.label),lev=normalize(r.level);
+      const hay=[lab,lev,...((r.keywords||[]).map(normalize))];
+      if(lab.startsWith(q))return 100;
+      if(lab.includes(q))return 70;
+      if(hay.some(h=>h.startsWith(q)))return 60;
+      if(hay.some(h=>h.includes(q)))return 40;
       return 0;
     }
     function search(q){
-      const Q = normalize(q);
-      if(!Q) return [];
-      return INDEX.map(r=>({row:r,score:scoreRow(r,Q)}))
+      const Q=normalize(q);
+      if(!Q)return[];
+      return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
         .filter(x=>x.score>0)
         .sort((a,b)=>b.score-a.score)
         .slice(0,12)
-        .map(x=>x.row);
+        .map(x=>x.r);
     }
-    function navigate(url){ if(url) window.location.href = url; }
+    function navigate(url){ if(url) window.location.href=url; }
 
     function render(list){
-      sug.innerHTML = "";
+      sug.innerHTML="";
       list.forEach((r,i)=>{
-        const el = document.createElement('div');
-        el.className = "sug-item flex justify-between items-center";
-        el.setAttribute('role','option');
-        el.setAttribute('data-i', i);
-        el.innerHTML = `
+        const el=document.createElement('div');
+        el.className="sug-item flex justify-between items-center";
+        el.setAttribute('role','option'); el.setAttribute('data-i',i);
+        el.innerHTML=`
           <div class="flex items-center gap-3 pl-2">
             <span class="sug-badge ${colorFor(r.level)}">${r.level}</span>
-            <span class="text-gray-900 dark:text-gray-100 font-medium">${r.label}</span>
+            <span class="text-gray-900 font-medium">${r.label}</span>
           </div>
-          <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>
-        `;
-        el.addEventListener('mousedown', (e)=>{ e.preventDefault(); navigate(r.url); });
+          <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>`;
+        el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
         sug.appendChild(el);
       });
     }
-    function setOpen(state){
-      open = state;
-      sug.classList.toggle('open', open);
-      input.setAttribute('aria-expanded', String(open));
-    }
+    const setOpen=s=>{open=s;sug.classList.toggle('open',open);input.setAttribute('aria-expanded',String(open));};
+
     function update(){
-      current = search(input.value);
-      active = -1;
-      if(current.length === 0){ setOpen(false); return; }
-      render(current);
-      setOpen(true);
+      const q=input.value;
+      current=search(q);
+      active=-1;
+      if(current.length===0){setOpen(false);return;}
+      render(current); setOpen(true);
     }
     function highlight(i){
-      Array.from(sug.children).forEach((el, idx)=>{
-        el.classList.toggle('bg-gray-50', idx===i);
-        if(idx===i) el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
+      Array.from(sug.children).forEach((el,idx)=>{
+        el.classList.toggle('bg-gray-50',idx===i);
+        if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
       });
     }
     function ensureVisible(i){
-      const c = sug.children[i]; if(!c) return;
-      const t = c.offsetTop, b = t + c.offsetHeight;
-      const vt = sug.scrollTop, vb = vt + sug.clientHeight;
-      if(t < vt) sug.scrollTop = t - 8;
-      else if(b > vb) sug.scrollTop = b - sug.clientHeight + 8;
+      const c=sug.children[i]; if(!c)return;
+      const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
+      if(chT<vT)sug.scrollTop=chT-8; else if(chB>vB)sug.scrollTop=chB-sug.clientHeight+8;
     }
 
-    const debouncedUpdate = debounce(()=>{ if(INDEX.length) update(); }, 240);
-    input.addEventListener('input', debouncedUpdate);
-    input.addEventListener('keydown', (e)=>{
-      if(!open && (e.key==='ArrowDown' || e.key==='Tab')){ update(); return; }
-      if(!open) return;
-      if(e.key==='ArrowDown'){ e.preventDefault(); active=Math.min(active+1,current.length-1); highlight(active); ensureVisible(active); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); active=Math.max(active-1,0); highlight(active); ensureVisible(active); }
-      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0) navigate(current[active].url); else if(current.length) navigate(current[0].url); }
-      else if(e.key==='Escape'){ setOpen(false); }
+    const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
+    input.addEventListener('input',debouncedUpdate);
+    input.addEventListener('keydown',e=>{
+      if(!open&&(e.key==='ArrowDown'||e.key==='Tab')){update();return;}
+      if(!open)return;
+      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);highlight(active);ensureVisible(active);}
+      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);highlight(active);ensureVisible(active);}
+      else if(e.key==='Enter'){e.preventDefault();if(active>=0)navigate(current[active].url);else if(current.length)navigate(current[0].url);}
+      else if(e.key==='Escape'){setOpen(false);}
     });
-    btn?.addEventListener('click', ()=>{ if(current.length) navigate(current[0].url); else { input.focus(); update(); }});
-    input.addEventListener('focus', ()=>{ if(input.value.trim() && INDEX.length) update(); });
-    input.addEventListener('blur',  ()=>{ setTimeout(()=> setOpen(false), 120); });
-    document.addEventListener('click', (e)=>{ if(!e.target.closest('#searchSug') && !e.target.closest('#smartWrap')) setOpen(false); });
+    btn?.addEventListener('click',()=>{if(current.length)navigate(current[0].url);else{input.focus();update();}});
+    input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
+    input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),120);});
+    document.addEventListener('click',e=>{if(!e.target.closest('#searchSug')&&!e.target.closest('#smartWrap'))setOpen(false);});
 
-    // Load your existing index
-    fetch('/assets/data/search_index.json', { cache:'no-store' })
-      .then(r=>r.json())
-      .then(d=>{ INDEX = Array.isArray(d) ? d : (Array.isArray(d.items) ? d.items : []); })
-      .catch(()=>{ INDEX = []; });
+    fetch('/assets/data/search_index.json',{cache:'no-store'})
+      .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
+      .catch(()=>{INDEX=[];});
   })();
   </script>
+
 </body>
 </html>
