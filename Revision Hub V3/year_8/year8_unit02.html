@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
-  <title>Year 8 — Unit 03 (2D Shapes &amp; 3D Solids)</title>
+  <title>Year 8 — Unit 02 (Working with powers)</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -18,11 +18,10 @@
 
   <style>
     :root{
-    /* Year 8 accent (emerald) */
-    --accent:    #10B981; /* emerald-500 */
-    --accent-600:#059669; /* hover */
-    --accent-700:#047857; /* active */
-  }
+      --accent:#7C4DFF;      /* main */
+      --accent-600:#6A3FE6;  /* hover */
+      --accent-700:#5A35C8;  /* active */
+    }
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
@@ -40,25 +39,6 @@
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
-  <style>
-  /* Subtle green stripes for Year 8 only */
-  body[data-page="year8"] .bg-stripes{
-    position: relative;
-    background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
-  }
-  body[data-page="year8"] .bg-stripes::after{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
-    background: repeating-linear-gradient(
-      -45deg,
-      rgba(16,185,129,.06) 0px,
-      rgba(16,185,129,.06) 8px,
-      transparent 8px,
-      transparent 16px
-    );
-    opacity:.75;
-  }
-</style>
 </head>
 <body class="bg-gray-100" data-page="year8">
   <div class="layout">
@@ -70,8 +50,8 @@
       <!-- Top: back + title -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <a href="../year8_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-            <span class="material-icons mr-1">arrow_back</span> Back to Year 8 Hub
+          <a href="../year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span> Back
           </a>
         </div>
       </header>
@@ -80,34 +60,35 @@
       <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 8 • Unit 03</p>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">2D Shapes &amp; 3D Solids</h1>
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 8 • Unit 02</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Working with powers</h1>
             <p class="text-gray-600 mt-2 max-w-2xl">
-              Revise this unit. Work through topic worksheets first, then consolidate with videos.
-            </p>
+Revise this unit by completing worksheets, SPARX tasks and watching videos to aid in this.            </p>
           </div>
           <div class="flex items-center gap-3">
             <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
               Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
             </a>
+            <a href="#sparx-section"
+   class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+  Jump to SPARX
+  <span class="material-icons ml-2">arrow_downward</span>
+</a>
           </div>
         </div>
 
         <!-- Subtopics chips -->
         <div class="mt-4 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.1 Plans and elevations</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.2 Surface area of prisms</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.3 Volume of prisms</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.4 Circumference of a circle</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.5 Area of a cricle</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.6 Working with cylinders</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.7 Pythagoras' Theorem</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">2.1 Simplifying expressions</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">2.2 More Simplifying</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">2.3 Expand and Factorising expressions</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">2.4 Substituting and solving</span>
         </div>
       </section>
 
       <!-- Unit Resources -->
       <section class="mt-10" id="unit-resources">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 3 — Resources</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 2 — Resources</h2>
 
         <!-- Worksheets -->
         <section class="mb-10">
@@ -130,23 +111,62 @@
         <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
       </section>
 
+
+      <!-- SPARX Quick Revision -->
+<section id="sparx-section" class="mt-12 mb-10 hidden">
+  <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <span class="material-icons text-purple-500">bolt</span>
+        SPARX Quick Revision
+      </h2>
+      <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+         class="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white
+                bg-gradient-to-r from-purple-600 to-blue-500 shadow
+                hover:from-purple-700 hover:to-blue-600 transition transform hover:-translate-y-0.5">
+        <span class="material-icons mr-2">open_in_new</span>
+        Go to SPARX
+      </a>
+    </div>
+    <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
+  </div>
+</section>
+
+      <section id="sparx-section" class="mt-12 mb-10 hidden">
+
   <!-- Sidebar loader (absolute path) -->
   <script src="/assets/sidebar-loader.js"></script>
   <!-- Shared cards/helpers -->
   <script src="/assets/cards.js"></script>
 
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+ <script>
+  function renderSparxSection(data) {
+  const list = data.sparx_codes || [];
+  if (!list.length) return;
+
+  const section = document.getElementById("sparx-section");
+  const container = document.getElementById("sparx-code-list");
+
+  list.forEach(item => {
+    const chip = document.createElement("span");
+    chip.className =
+      "inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-800 text-sm font-medium border border-gray-200";
+
+    chip.innerHTML = `
+      <span class="font-mono text-purple-600 font-semibold">${item.code}</span>
+      <span class="text-gray-600 text-sm whitespace-nowrap">${item.note || ''}</span>
+    `;
+
+    container.appendChild(chip);
+  });
+
+  section.classList.remove("hidden");
+}
+</script>
 
   <!-- Page JS -->
   <script>
-  // === Year 8 • Unit 01 data source (CMS JSON with { items: [...] }) ===
+  // === Year 9 • Unit 01 data source (CMS JSON with { items: [...] }) ===
   const DATA_URL = "../assets/data/year8_unit02.json";
 
   function iconFor(url){
@@ -238,6 +258,7 @@
     });
 
     hideEmptyBlocks();
+    renderSparxSection(data);
   }
 
   document.addEventListener("DOMContentLoaded", loadUnit);
