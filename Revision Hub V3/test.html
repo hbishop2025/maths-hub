@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths — Home (Glass Test)</title>
+  <title>SJWMS Maths — Home</title>
 
   <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -24,45 +24,47 @@
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
       background-size: 40px 40px;
       background-position: 0 0, 20px 20px;
-      -webkit-mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-              mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Header nav look */
+    /* Header nav link */
     .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
 
-    /* Hero wrapper (position + spacing) */
+    /* Hero container */
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* Glassmorphic hero card */
+    /* Glass hero */
     .hero-glass {
       margin-top: clamp(1.25rem, 5vw, 3.5rem);
       @apply relative rounded-3xl border shadow-xl text-center;
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       border-color: rgba(255,255,255,0.6);
       @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14;
       box-shadow:
         0 10px 30px rgba(0,0,0,.08),
         0 0 0 1px rgba(0,0,0,.03),
-        0 12px 48px rgba(124, 58, 237, .06),
-        0 16px 56px rgba(59, 130, 246, .055);
+        0 12px 48px rgba(124,58,237,.06),
+        0 16px 56px rgba(59,130,246,.055);
     }
 
     /* Expanding smart search */
     .smart-wrap {
-      width: clamp(240px, 40vw, 360px);
+      width: clamp(240px, 42vw, 400px);
       transition: width .35s ease;
-      margin: 1.25rem auto 0;
+      margin: 2rem auto 0;
       position: relative;
     }
     .smart-wrap:hover,
-    .smart-wrap:focus-within { width: clamp(320px, 56vw, 680px); }
+    .smart-wrap:focus-within { width: clamp(320px, 56vw, 640px); }
+
     @media (max-width:640px){
-      .smart-wrap { width: min(92vw, 560px); }
+      .smart-wrap { width: 90vw !important; max-width: 440px; }
+      .smart-pill { padding: .6rem .9rem; }
+      input.smart-input { font-size: .95rem; }
     }
 
+    /* Pill look */
     .smart-pill {
       @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
       transition: box-shadow .25s ease, transform .25s ease;
@@ -76,112 +78,103 @@
         0 16px 32px rgba(0,0,0,.10);
     }
 
-    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base; }
+    /* Siri glow */
+    .glow-wrap{ position: relative; border-radius: 9999px; isolation: isolate; }
+    .glow-wrap::before{
+      content:""; position:absolute; inset:-3px; border-radius:9999px;
+      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
+      background-size: 400% 100%;
+      filter: blur(6px);
+      opacity: 0;
+      transition: opacity .25s ease-out;
+      z-index: 0;
+      animation: siri-glow 8s linear infinite;
+    }
+    .glow-wrap:focus-within::before { opacity: 1; }
+    .glow-wrap > .smart-pill{ position: relative; z-index: 1; background: #fff; }
 
-    /* Dropdown under pill */
-    #searchSug {
-      position:absolute; left:0; right:0; top: calc(100% + 8px);
+    @keyframes siri-glow{
+      0%{background-position:0% 50%}
+      50%{background-position:200% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center; }
+
+    /* Header + Mobile menu */
+    .header { @apply sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    #mobileMenu {
+      @apply hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    /* Suggestions dropdown */
+    #searchSug{
+      position:absolute; left:50%; transform:translateX(-50%) translateY(6px);
+      top: calc(100% + 8px);
+      width: clamp(260px, 48vw, 520px);
       background: rgba(255,255,255,.96);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0,0,0,.06);
       border-radius: 14px;
       box-shadow: 0 16px 30px rgba(0,0,0,.12);
       padding:.25rem; max-height: 60vh; overflow:auto;
-      opacity:0; visibility:hidden; transform: translateY(6px);
+      opacity:0; visibility:hidden;
       transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
       z-index: 40;
     }
-    #searchSug.open { opacity:1; visibility:visible; transform: translateY(0); }
+    #searchSug.open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
 
-    .sug-item {
-      position:relative; display:flex; align-items:center; justify-content:space-between;
+    .sug-item{
+      display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; padding:.6rem .85rem; cursor:pointer; border-radius:.75rem;
     }
-    .sug-item:hover, .sug-item[aria-selected="true"] { background:#f9fafb; }
-    .sug-item::before {
-      content:""; position:absolute; left:10px; top:8px; bottom:8px;
-      width:2px; border-radius:2px; background:transparent; transition: background .15s ease;
+    .sug-item:hover{ background:#f9fafb; }
+    .sug-badge{
+      color:#fff; font-size:11px; font-weight:800; padding:.15rem .5rem; border-radius:9999px;
     }
-    .sug-item:hover::before, .sug-item[aria-selected="true"]::before {
-      background: linear-gradient(180deg, var(--accent1), var(--accent2));
-    }
-    .sug-badge { @apply text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full; }
-
-    /* Siri-like animated glow around the search pill */
-    .glow-wrap{ position: relative; border-radius: 9999px; isolation: isolate; }
-    .glow-wrap::before{
-      content:""; position:absolute; inset:-3px; border-radius:9999px;
-      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
-      background-size: 400% 100%; filter: blur(6px); opacity: 0; transition: opacity .25s ease-out;
-      z-index: 0; animation: siri-glow 8s linear infinite;
-    }
-    .glow-wrap:hover::before, .glow-wrap:focus-within::before{ opacity: 1; }
-    .glow-wrap > .smart-pill{ position: relative; z-index: 1; background: #fff; }
-    @media (prefers-reduced-motion: reduce){ .glow-wrap::before{ animation: none; } }
-    @keyframes siri-glow{ 0%{background-position:0% 50%} 50%{background-position:200% 50%} 100%{background-position:0% 50%} }
-
-    .hero-glass p + .smart-wrap { margin-top: 2rem; }
-
-    /* Mobile tweaks: spacing & font sizes */
-    @media (max-width: 640px) {
-      .hero-glass { margin: 1.5rem 1rem; padding: 1.75rem 1.25rem; }
-      h1 { font-size: 1.9rem; line-height: 2.4rem; }
-      .smart-wrap { width: 90vw !important; }
-    }
-
-    /* Mobile menu fade animation */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to   {opacity: 1; transform: translateY(0);}
-    }
-    .animate-fade { animation: fadeIn .25s ease-out; }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header class="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
         <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
+
       <nav class="hidden md:flex items-center gap-6">
         <a class="nav-link" href="ks3_hub.html">KS3</a>
         <a class="nav-link" href="#">GCSE</a>
         <a class="nav-link" href="#">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white font-semibold" href="explore.html">Explore</a>
       </nav>
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
         <span class="material-symbols-outlined">menu</span>
       </button>
+
+      <div id="mobileMenu">
+        <a href="ks3_hub.html">KS3</a>
+        <a href="#">GCSE</a>
+        <a href="#">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="explore.html">Explore</a>
+      </div>
     </div>
   </header>
 
-  <!-- MOBILE NAV MENU (glassy) -->
-  <div id="mobileMenu" class="md:hidden hidden z-20 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-    <nav class="flex flex-col items-center gap-4 py-4">
-      <a class="nav-link" href="ks3_hub.html">KS3</a>
-      <a class="nav-link" href="#">GCSE</a>
-      <a class="nav-link" href="#">A-Level</a>
-      <a class="px-4 py-2 rounded-full bg-[#111827] text-white font-semibold" href="explore.html">Explore</a>
-    </nav>
-  </div>
-
-  <!-- BACKGROUND: dotted grid + subtle connected shapes -->
+  <!-- Background -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
-  <svg class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"
-       style="opacity:.22; mask-image: linear-gradient(to bottom, white 55%, transparent 100%);">
-    <g stroke="rgba(60, 70, 200, 0.25)" stroke-width="2" fill="rgba(60, 70, 200, 0.06)">
-      <polygon points="140,120 220,160 180,240" />
-      <polygon points="360,120 440,160 480,240 400,280" />
-    </g>
-    <g stroke="rgba(60, 70, 200, 0.20)" stroke-width="1" fill="none">
-      <path d="M 80% 140 L 86% 200 L 78% 250" />
-      <path d="M 12% 78% L 18% 84% L 10% 90%" />
-      <circle cx="14%" cy="86%" r="40" stroke="rgba(60, 70, 200, 0.15)" fill="rgba(60, 70, 200, 0.04)" />
-    </g>
-  </svg>
 
   <!-- HERO -->
   <main class="relative">
@@ -195,15 +188,13 @@
           Use the smart search to find worksheets, videos and practice quizzes.
         </p>
 
-        <!-- Smart Search -->
         <div id="smartWrap" class="smart-wrap">
           <div class="glow-wrap">
             <div class="smart-pill">
               <span class="material-symbols-outlined text-gray-400">search</span>
-              <input id="smartSearch" class="smart-input" type="text" placeholder="Search topics…" autocomplete="off"
+              <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
                      aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" role="combobox"/>
             </div>
-            <!-- Suggestions dropdown -->
             <div id="searchSug"></div>
           </div>
         </div>
@@ -211,43 +202,20 @@
     </div>
   </main>
 
-  <!-- MOBILE MENU SCRIPT -->
+  <!-- Mobile Menu JS -->
   <script>
-    (function(){
-      const btn = document.getElementById('menuBtn');
-      const menu = document.getElementById('mobileMenu');
-
-      function toggleMenu(force){
-        const willShow = force ?? menu.classList.contains('hidden');
-        if (willShow) {
-          menu.classList.remove('hidden');
-          menu.classList.add('animate-fade');
-          btn.setAttribute('aria-expanded', 'true');
-        } else {
-          menu.classList.add('hidden');
-          menu.classList.remove('animate-fade');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      }
-
-      btn.addEventListener('click', () => toggleMenu());
-
-      // close on ESC or outside click
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggleMenu(false); });
-      document.addEventListener('click', (e)=>{
-        if (!menu.classList.contains('hidden') &&
-            !e.target.closest('#mobileMenu') &&
-            !e.target.closest('#menuBtn')) {
-          toggleMenu(false);
-        }
-      });
-
-      // close when selecting a link
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> toggleMenu(false)));
-    })();
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
   </script>
 
-  <!-- SMART SEARCH JS (unchanged, no search button needed) -->
+  <!-- SMART SEARCH JS -->
   <script>
   (function(){
     const input=document.getElementById('smartSearch');
@@ -266,7 +234,7 @@
     const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
     let INDEX=[],open=false,active=-1,current=[];
     const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"};
-    const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-gray-400";
+    const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-blue-500";
     const normalize=s=>(s||"").toLowerCase().trim();
 
     function scoreRow(r,q){
@@ -278,6 +246,7 @@
       if(hay.some(h=>h.includes(q)))return 40;
       return 0;
     }
+
     function search(q){
       const Q=normalize(q);
       if(!Q)return[];
@@ -287,6 +256,7 @@
         .slice(0,12)
         .map(x=>x.r);
     }
+
     function navigate(url){ if(url) window.location.href=url; }
 
     function render(list){
@@ -294,10 +264,11 @@
       list.forEach((r,i)=>{
         const el=document.createElement('div');
         el.className="sug-item flex justify-between items-center";
-        el.setAttribute('role','option'); el.setAttribute('data-i',i);
+        el.setAttribute('role','option');
+        el.setAttribute('data-i',i);
         el.innerHTML=`
           <div class="flex items-center gap-3 pl-2">
-            <span class="sug-badge ${colorFor(r.level)}">${r.level}</span>
+            <span class="sug-badge ${colorFor(r.level)}">${r.level||""}</span>
             <span class="text-gray-900 font-medium">${r.label}</span>
           </div>
           <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>`;
@@ -305,6 +276,7 @@
         sug.appendChild(el);
       });
     }
+
     const setOpen=s=>{open=s;sug.classList.toggle('open',open);input.setAttribute('aria-expanded',String(open));};
 
     function update(){
@@ -314,12 +286,14 @@
       if(current.length===0){setOpen(false);return;}
       render(current); setOpen(true);
     }
+
     function highlight(i){
       Array.from(sug.children).forEach((el,idx)=>{
         el.classList.toggle('bg-gray-50',idx===i);
         if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
       });
     }
+
     function ensureVisible(i){
       const c=sug.children[i]; if(!c)return;
       const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
