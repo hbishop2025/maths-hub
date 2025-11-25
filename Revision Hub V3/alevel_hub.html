@@ -83,6 +83,46 @@
       color:#ffffff;
       border-color:#111827;
     }
+        /* Fancy hero title */
+    .mega-gradient{
+      background:linear-gradient(135deg,#f97316,#ec4899,#6366f1);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    /* Module icon chip */
+    .module-icon{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:2.75rem;
+      width:2.75rem;
+      border-radius:1rem;
+      background:radial-gradient(circle at 0% 0%, #4f46e5, #111827); /* Pure / default */
+      color:#ffffff;
+      box-shadow:0 10px 22px rgba(15,23,42,0.35);
+      font-weight:700;
+      gap:0.1rem;
+    }
+    .module-icon span.material-icons{
+      font-size:1.3rem;
+      line-height:1;
+    }
+    .module-icon-number{
+      font-size:0.7rem;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      opacity:0.9;
+    }
+    /* Colour variants for areas */
+    .module-icon-stat{
+      background:radial-gradient(circle at 0% 0%, #0ea5e9, #1e293b); /* cyan → slate */
+    }
+    .module-icon-mech{
+      background:radial-gradient(circle at 0% 0%, #22c55e, #064e3b); /* green → dark teal */
+    }
   </style>
 </head>
 
@@ -290,7 +330,7 @@
         empty.classList.add("hidden");
       }
 
-      modules.forEach((mod, idx) => {
+            modules.forEach((mod, idx) => {
         const href = mod.path || "#";
         const card = document.createElement("a");
         card.href = href;
@@ -299,13 +339,24 @@
           "hover:shadow-md hover:-translate-y-0.5 transition transform " +
           "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
 
+        // Decide icon style based on area
+        let iconClass = "module-icon";
+        let iconName = "calculate";      // default for Pure
+        if (mod.area === "statistics") {
+          iconClass += " module-icon-stat";
+          iconName = "insights";
+        } else if (mod.area === "mechanics") {
+          iconClass += " module-icon-mech";
+          iconName = "speed";
+        }
+
         card.innerHTML = `
-          <div class="flex items-start gap-3">
+          <div class="flex items-start gap-4">
             <div class="mt-1">
-              <span class="inline-flex items-center justify-center
-                           h-8 w-8 rounded-full bg-gray-900 text-white text-sm font-bold">
-                ${idx + 1}
-              </span>
+              <div class="${iconClass}">
+                <span class="material-icons">${iconName}</span>
+                <span class="module-icon-number">${idx + 1}</span>
+              </div>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800">${mod.title || "Untitled module"}</h3>
