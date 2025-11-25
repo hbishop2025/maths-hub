@@ -91,54 +91,39 @@
       color:transparent;
     }
 
-    /* Module icon chip */
-    .module-icon{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      height:2.75rem;
-      width:2.75rem;
-      border-radius:1rem;
-      background:radial-gradient(circle at 0% 0%, #4f46e5, #111827); /* Pure / default */
-      color:#ffffff;
-      box-shadow:0 10px 22px rgba(15,23,42,0.35);
-      font-weight:700;
-      gap:0.1rem;
-    }
-    .module-icon span.material-icons{
-      font-size:1.3rem;
-      line-height:1;
-    }
-    .module-icon-number{
-      font-size:0.7rem;
-      letter-spacing:0.05em;
-      text-transform:uppercase;
-      opacity:0.9;
-    }
-    /* Colour variants for areas */
-    .module-icon-stat{
-      background:radial-gradient(circle at 0% 0%, #0ea5e9, #1e293b); /* cyan → slate */
-    }
-    .module-icon-mech{
-      background:radial-gradient(circle at 0% 0%, #22c55e, #064e3b); /* green → dark teal */
-    }
-    /* Module card subject strip */
-.module-strip {
-  height: 6px;
-  width: 100%;
-  border-radius: 0.5rem 0.5rem 0 0; /* rounded top corners */
+    /* ===== Module card ===== */
+.module-card {
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
-/* Colour variants */
-.module-strip-pure {
-  background: #4f46e5; /* indigo-600 */
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
-.module-strip-statistics {
-  background: #0284c7; /* sky-600 */
+
+/* ===== Gradient headers ===== */
+.module-header {
+  height: 58px;
+  width: 100%;
 }
-.module-strip-mechanics {
-  background: #059669; /* emerald-600 */
+
+/* Pure: Indigo → Violet */
+.module-header-pure {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+/* Statistics: Sky → Blue */
+.module-header-statistics {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+}
+
+/* Mechanics: Emerald → Teal */
+.module-header-mechanics {
+  background: linear-gradient(135deg, #10b981, #0d9488);
 }
   </style>
 </head>
@@ -367,17 +352,25 @@
           iconName = "speed";
         }
 
-        card.innerHTML = `
-  <div class="module-strip module-strip-${mod.area || 'pure'}"></div>
+        card.classList.add("module-card");
+
+card.innerHTML = `
+  <div class="module-header module-header-${mod.area || 'pure'}"></div>
+
   <div class="p-4">
-    <h3 class="font-semibold text-gray-800 text-lg">${mod.title || "Untitled module"}</h3>
-    ${mod.area
-      ? `<p class="text-xs mt-2 inline-flex px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border">
-           ${mod.area === "statistics" ? "Statistics" :
-             mod.area === "mechanics" ? "Mechanics" :
-             "Pure"}
-         </p>`
-      : ""}
+    <h3 class="font-semibold text-gray-800 text-lg">
+      ${mod.title || "Untitled module"}
+    </h3>
+
+    ${
+      mod.area
+        ? `<p class="text-xs mt-2 inline-flex px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border">
+             ${mod.area === "statistics" ? "Statistics" :
+               mod.area === "mechanics" ? "Mechanics" :
+               "Pure"}
+           </p>`
+        : ""
+    }
   </div>
 `;
 
