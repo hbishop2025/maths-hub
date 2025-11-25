@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>KS5 | A-Level Maths Hub</title>
+  <title>A-Level Maths Hub</title>
 
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -18,49 +18,26 @@
 
   <style>
     :root{
-      --bar:#111827; /* gray-900 */
       --accent:#7C4DFF;
+      --accent-600:#6A3FE6;
+      --accent-700:#5A35C8;
     }
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    }
-    .material-icons { font-size: 24px; }
+    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+    .material-icons{ font-size:24px; }
+    html{ scroll-behavior:smooth; }
 
-    .pill-btn{
-      border-radius:999px;
-      padding:0.4rem 1.1rem;
-      font-size:0.9rem;
-      font-weight:600;
-      display:inline-flex;
-      align-items:center;
-      gap:0.35rem;
-      white-space:nowrap;
-      border:1px solid transparent;
-      cursor:pointer;
-      background:transparent;
-      color:#4b5563; /* gray-600 */
+    /* Pills */
+    .track-pill{
+      @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold cursor-pointer transition;
     }
-    .pill-btn:hover{
-      background-color:#f3f4f6; /* gray-100 */
-    }
-    .pill-btn.is-active{
-      background:linear-gradient(to right,#7C4DFF,#6366F1); /* purple → indigo */
+    .track-pill-active{
+      background: var(--accent);
       color:#fff;
-      box-shadow:0 4px 12px rgba(124,77,255,0.35);
+      box-shadow:0 6px 18px rgba(0,0,0,0.15);
     }
-
-    .module-card{
-      background:#fff;
-      border-radius:0.75rem;
-      padding:1rem;
-      box-shadow:0 1px 4px rgba(15,23,42,.06);
-      border:1px solid rgba(148,163,184,0.25); /* slate-400-ish */
-      transition: box-shadow .2s, transform .2s;
-      display:block;
-    }
-    .module-card:hover{
-      box-shadow:0 8px 20px rgba(15,23,42,.15);
-      transform:translateY(-2px);
+    .track-pill-inactive{
+      background:#e5e7eb;
+      color:#4b5563;
     }
   </style>
 </head>
@@ -77,7 +54,7 @@
         <div class="flex items-center gap-2">
           <a href="index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
             <span class="material-icons mr-1">arrow_back</span>
-            Home
+            Back to Home
           </a>
         </div>
       </header>
@@ -85,69 +62,67 @@
       <!-- Hero -->
       <section class="mb-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Left: Welcome -->
+          <!-- Left: title -->
           <div class="rounded-2xl p-6 bg-white border border-gray-200 lg:col-span-2">
             <div class="flex items-start gap-4">
               <span class="material-icons text-[44px] text-purple-500">functions</span>
               <div>
-                <h2 id="alevel-hero-title" class="text-xl font-bold text-gray-900">
-                  A-Level Maths &amp; Further Maths
-                </h2>
-                <p id="alevel-hero-body" class="text-gray-600 mt-2">
-                  Choose your course strand, pick a chapter, and jump straight into targeted notes,
-                  worksheets and exam practice.
-                </p>
-                <p class="text-sm text-gray-500 mt-3">
-                  Y12 and Y13 are split into Pure and Applied, with optional Further Maths strands.
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  A-Level Mathematics Hub
+                </h1>
+                <p class="text-gray-600 mt-2">
+                  Jump straight to the chapters you need across Year 12, Year 13 and Further Maths.
+                  Pick a course track, choose a chapter, and start revising.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Right: Exams / Revision -->
+          <!-- Right: quick tip / blurb -->
           <div class="rounded-2xl p-6 bg-gray-900 text-gray-100">
             <div class="flex items-start gap-4">
-              <span class="material-icons text-[44px] text-gray-300">timeline</span>
-              <div class="flex-1">
-                <h3 id="alevel-exam-title" class="text-lg font-bold text-white">
-                  Exam Practice &amp; Revision
-                </h3>
-                <p id="alevel-exam-body" class="text-sm text-gray-300 mt-2">
-                  When ready, this will collect past papers, topic-by-topic revision lists and
-                  exam-style question sets for A-Level Maths and Further Maths.
+              <span class="material-icons text-[40px] text-indigo-300">insights</span>
+              <div>
+                <h2 class="text-lg font-bold">How to use this hub</h2>
+                <p class="text-sm text-gray-300 mt-2">
+                  Use the pills below to switch between Year 12 Pure, Applied, Year 13, and Further.
+                  Each chapter card links to a dedicated revision page.
                 </p>
-                <a id="alevel-exam-link" href="#"
-                   class="mt-4 inline-flex items-center px-4 py-2 rounded-lg font-semibold bg-white text-gray-900 hover:bg-gray-100 transition">
-                  Coming soon
-                  <span class="material-icons ml-2">hourglass_empty</span>
-                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Track selector (pills) -->
-      <section aria-label="A-level course options" class="mb-6">
-        <div class="flex justify-center">
-          <div class="inline-flex bg-white border border-gray-200 rounded-full shadow-sm px-2 py-1 gap-1"
-               id="track-tabs" role="tablist" aria-label="A-level strands">
+      <!-- Track selector -->
+      <section aria-label="A-Level course tracks" class="mb-6">
+        <div class="flex flex-col items-center">
+          <div id="track-pills"
+               class="flex flex-wrap justify-center gap-3">
             <!-- Pills injected by JS -->
           </div>
         </div>
       </section>
 
-      <!-- Modules grid -->
-      <section aria-label="Modules for selected strand">
-        <div class="flex items-center justify-between mb-4">
-          <h2 id="modules-heading" class="text-2xl font-bold text-gray-800">
-            Year 12 Pure – Chapters
+      <!-- Modules list -->
+      <section aria-label="Modules for selected track">
+        <div class="flex items-center justify-between mb-3">
+          <h2 id="modules-heading" class="text-xl font-bold text-gray-800">
+            Modules
           </h2>
+          <p id="modules-subheading" class="text-sm text-gray-500 hidden">
+            <!-- optional subheading -->
+          </p>
         </div>
 
-        <div id="module-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <!-- Cards injected by JS -->
+        <div id="module-grid"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Module cards injected by JS -->
         </div>
+
+        <p id="modules-empty" class="text-gray-500 mt-4 hidden">
+          No modules available for this track yet.
+        </p>
       </section>
 
       <!-- Spacer -->
@@ -158,144 +133,130 @@
   <!-- Sidebar loader -->
   <script src="assets/sidebar-loader.js"></script>
 
+  <!-- Hub JS -->
   <script>
-    // ------- DATA MODEL: edit this with your real chapters + URLs -------
+    const DATA_URL = "assets/data/alevel_structure.json";
 
-    const TRACKS = [
-      {
-        key: "y12-pure",
-        label: "Y12 Pure",
-        heading: "Year 12 Pure – Chapters",
-        modules: [
-          { code: "P1", title: "Algebra & Functions", href: "alevel/y12_pure_01.html" },
-          { code: "P2", title: "Coordinate Geometry", href: "alevel/y12_pure_02.html" },
-          { code: "P3", title: "Differentiation", href: "alevel/y12_pure_03.html" },
-          { code: "P4", title: "Integration", href: "alevel/y12_pure_04.html" },
-          { code: "P5", title: "Exponentials & Logarithms", href: "alevel/y12_pure_05.html" },
-          { code: "P6", title: "Trigonometry", href: "alevel/y12_pure_06.html" }
-        ]
-      },
-      {
-        key: "y12-applied",
-        label: "Y12 Applied",
-        heading: "Year 12 Applied – Mechanics & Statistics",
-        modules: [
-          { code: "A1", title: "Data & Statistical Models", href: "alevel/y12_applied_01.html" },
-          { code: "A2", title: "Probability & Distributions", href: "alevel/y12_applied_02.html" },
-          { code: "A3", title: "Forces & Motion", href: "alevel/y12_applied_03.html" },
-          { code: "A4", title: "Kinematics", href: "alevel/y12_applied_04.html" }
-        ]
-      },
-      {
-        key: "y13-pure",
-        label: "Y13 Pure",
-        heading: "Year 13 Pure – Chapters",
-        modules: [
-          { code: "P7", title: "Sequences & Series", href: "alevel/y13_pure_01.html" },
-          { code: "P8", title: "Advanced Trigonometry", href: "alevel/y13_pure_02.html" },
-          { code: "P9", title: "Parametric Equations", href: "alevel/y13_pure_03.html" },
-          { code: "P10", title: "Further Calculus", href: "alevel/y13_pure_04.html" },
-          { code: "P11", title: "Vectors", href: "alevel/y13_pure_05.html" }
-        ]
-      },
-      {
-        key: "y13-applied",
-        label: "Y13 Applied",
-        heading: "Year 13 Applied – Mechanics & Statistics",
-        modules: [
-          { code: "A5", title: "Hypothesis Testing", href: "alevel/y13_applied_01.html" },
-          { code: "A6", title: "Moments & Equilibrium", href: "alevel/y13_applied_02.html" },
-          { code: "A7", title: "Projectiles & Forces", href: "alevel/y13_applied_03.html" }
-        ]
-      },
-      {
-        key: "further-1",
-        label: "Further 1",
-        heading: "Further Maths – Option 1",
-        modules: [
-          { code: "F1", title: "Complex Numbers", href: "alevel/further1_01.html" },
-          { code: "F2", title: "Matrices", href: "alevel/further1_02.html" },
-          { code: "F3", title: "Further Algebra", href: "alevel/further1_03.html" }
-        ]
-      },
-      {
-        key: "further-2",
-        label: "Further 2",
-        heading: "Further Maths – Option 2",
-        modules: [
-          { code: "F4", title: "Further Calculus", href: "alevel/further2_01.html" },
-          { code: "F5", title: "Polar Coordinates", href: "alevel/further2_02.html" },
-          { code: "F6", title: "Hyperbolic Functions", href: "alevel/further2_03.html" }
-        ]
-      }
-    ];
+    let tracks = [];
+    let activeTrackId = null;
 
-    // ------- RENDERING LOGIC -------
+    function createPill(track){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "track-pill track-pill-inactive";
+      btn.dataset.trackId = track.id;
+      btn.textContent = track.label;
+      btn.addEventListener("click", () => {
+        setActiveTrack(track.id);
+      });
+      return btn;
+    }
 
-    function renderTabs(selectedKey){
-      const tabsEl = document.getElementById("track-tabs");
-      tabsEl.innerHTML = "";
-      TRACKS.forEach(track => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "pill-btn" + (track.key === selectedKey ? " is-active" : "");
-        btn.dataset.trackKey = track.key;
-        btn.setAttribute("role", "tab");
-        btn.setAttribute("aria-selected", track.key === selectedKey ? "true" : "false");
-        btn.textContent = track.label;
-        tabsEl.appendChild(btn);
+    function renderPills(){
+      const wrap = document.getElementById("track-pills");
+      wrap.innerHTML = "";
+      tracks.forEach(track => {
+        wrap.appendChild(createPill(track));
+      });
+      updatePillClasses();
+    }
+
+    function updatePillClasses(){
+      const pills = document.querySelectorAll("#track-pills .track-pill");
+      pills.forEach(pill => {
+        const tId = pill.dataset.trackId;
+        if(tId === activeTrackId){
+          pill.classList.remove("track-pill-inactive");
+          pill.classList.add("track-pill-active");
+        }else{
+          pill.classList.remove("track-pill-active");
+          pill.classList.add("track-pill-inactive");
+        }
       });
     }
 
-    function renderModules(selectedKey){
-      const track = TRACKS.find(t => t.key === selectedKey) || TRACKS[0];
-      const grid  = document.getElementById("module-grid");
+    function renderModules(){
+      const grid = document.getElementById("module-grid");
+      const empty = document.getElementById("modules-empty");
       const heading = document.getElementById("modules-heading");
 
-      heading.textContent = track.heading || track.label;
       grid.innerHTML = "";
 
-      track.modules.forEach(mod => {
-        const a = document.createElement("a");
-        a.href = mod.href || "#";
-        a.className = "module-card";
-        a.innerHTML = `
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">
-                ${mod.code || ""}
-              </p>
-              <h3 class="font-semibold text-gray-800">${mod.title || "Chapter"}</h3>
+      const track = tracks.find(t => t.id === activeTrackId);
+      if(!track){
+        empty.classList.remove("hidden");
+        heading.textContent = "Modules";
+        return;
+      }
+
+      heading.textContent = track.label + " — Modules";
+
+      const modules = Array.isArray(track.modules) ? track.modules : [];
+      if(!modules.length){
+        empty.classList.remove("hidden");
+        return;
+      }else{
+        empty.classList.add("hidden");
+      }
+
+      modules.forEach((mod, idx) => {
+        const href = mod.path || "#";
+        const card = document.createElement("a");
+        card.href = href;
+        card.className =
+          "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
+          "hover:shadow-md hover:-translate-y-0.5 transition transform " +
+          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+
+        card.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="mt-1">
+              <span class="inline-flex items-center justify-center
+                           h-8 w-8 rounded-full bg-gray-900 text-white text-sm font-bold">
+                ${idx + 1}
+              </span>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800">${mod.title || "Untitled module"}</h3>
+              ${mod.area
+                ? `<p class="text-xs mt-1 px-2 py-0.5 inline-flex rounded-full border text-gray-600 bg-gray-50">
+                     ${mod.area === "statistics" ? "Statistics" :
+                       mod.area === "mechanics" ? "Mechanics" :
+                       mod.area}
+                   </p>`
+                : ""}
             </div>
             <span class="material-icons text-gray-400 mt-1">arrow_forward</span>
           </div>
         `;
-        grid.appendChild(a);
-      });
 
-      if (!track.modules.length){
-        const p = document.createElement("p");
-        p.className = "text-gray-500 text-sm";
-        p.textContent = "No modules set up yet for this strand.";
-        grid.appendChild(p);
+        grid.appendChild(card);
+      });
+    }
+
+    function setActiveTrack(id){
+      activeTrackId = id;
+      updatePillClasses();
+      renderModules();
+    }
+
+    async function initHub(){
+      try{
+        const data = await fetch(DATA_URL, { cache: "no-store" }).then(r => r.json());
+        tracks = Array.isArray(data.tracks) ? data.tracks : [];
+        if(!tracks.length) return;
+
+        // Default: first track (Y12 Pure)
+        activeTrackId = tracks[0].id || "y12_pure";
+
+        renderPills();
+        renderModules();
+      }catch(e){
+        console.error("Failed to load A-level structure:", e);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const initialKey = TRACKS[0]?.key || "y12-pure";
-      renderTabs(initialKey);
-      renderModules(initialKey);
-
-      const tabsEl = document.getElementById("track-tabs");
-      tabsEl.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-track-key]");
-        if(!btn) return;
-        const key = btn.dataset.trackKey;
-
-        renderTabs(key);
-        renderModules(key);
-      });
-    });
+    document.addEventListener("DOMContentLoaded", initHub);
   </script>
 </body>
 </html>
