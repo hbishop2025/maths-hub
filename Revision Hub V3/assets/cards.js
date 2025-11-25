@@ -1,182 +1,141 @@
-/* ---------- Shared helpers (global) ---------- */
+/* ===============================================================
+   YEAR 9 — AUTOMATIC UNIT LOADER
+   =============================================================== */
 
-// Robust CSV parser (quotes-aware)
-function parseCSV(text){
-  const rows=[]; let r=[], f="", q=false;
-  for (let i=0;i<text.length;i++){
-    const c=text[i];
-    if(q){
-      if(c==='"' && text[i+1]==='"'){ f+='"'; i++; }
-      else if(c==='"'){ q=false; }
-      else f+=c;
-    }else{
-      if(c==='"'){ q=true; }
-      else if(c===','){ r.push(f.trim()); f=""; }
-      else if(c==='\r'){ /* ignore */ }
-      else if(c==='\n'){ r.push(f.trim()); rows.push(r); r=[]; f=""; }
-      else f+=c;
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    const body = document.body;
+    const pageType = body.dataset.page;
+
+    // Only run on Year 9 unit pages
+    if (pageType !== "year9") return;
+
+    // Detect year9_unitXX.html from URL
+    const path = window.location.pathname || "";
+    const match = path.match(/year9_unit(\d{2})\.html$/);
+    if (!match) {
+      console.warn("cards.js: Not a recognised Year 9 unit URL:", path);
+      return;
     }
-  }
-  if (f.length || r.length){ r.push(f.trim()); rows.push(r); }
-  const header = (rows.shift()||[]).map(h => String(h||'').trim().toLowerCase());
-  return rows.map(row => {
-    const o={}; header.forEach((h,idx)=> o[h] = (row[idx]||'').trim()); return o;
-  });
-}
 
-// Date helper
-function parseDate(s){
-  if(!s) return null;
-  if(/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)){
-    const [d,m,y]=s.split('/').map(Number);
-    const dt=new Date(y,m-1,d);
-    return isNaN(dt)?null:dt;
-  }
-  const dt=new Date(s);
-  return isNaN(dt)?null:dt;
-}
+    const unit = match[1]; // "07"
+    const DATA_URL = "../assets/data/year9_unit" + unit + ".json";
+    console.log("Loading unit data from:", DATA_URL);
 
-// Normalise URL
-function ensureHttps(u){
-  if(!u) return "#";
-  return /^https?:\/\//i.test(u) ? u : ("https://" + u);
-}
+    const GRID_FOR = {
+      worksheets: document.getElementById("grid-worksheets"),
+      videos:     document.getElementById("grid-videos"),
+      other:      document.getElementById("grid-other"),
+    };
 
-// Pick icon/cta for resource links
-function iconFor(url){
-  const u=(url||'').toLowerCase();
-  if(u.endsWith('.pdf')) return {icon:"picture_as_pdf", cta:"View"};
-  if(u.includes('youtube') || u.includes('youtu.be') || u.includes('watch')) return {icon:"videocam", cta:"Watch Now"};
-  if(u.includes('quiz') || u.includes('forms.gle') || u.includes('form')) return {icon:"quiz", cta:"Take Quiz"};
-  return {icon:"description", cta:"View"};
-}
+    function makeResCard({ title, url }) {
+      const safeUrl = ensureHttps(url);
+      const { icon, cta } = iconFor(url);
+      const thumb = ytThumbFor(url);
 
-// YouTube thumbnail (if any)
-function ytThumbFor(url){
-  const m=(url||'').match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : null;
-}
+      const media = thumb
+        ? `<div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
+            <img src="${thumb}" class="w-full h-full object-cover">
+            <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
+           </div>`
+        : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
+            <span class="material-icons text-4xl text-gray-600">${icon}</span>
+           </div>`;
 
-/* ---------- Resource card (used by index + unit pages) ---------- */
-// “Latest Information” card (index)
-function makeInfoCard({ type, text, date, url }) {
-  const hasLink = url && url.trim();
-  const baseClasses =
-    "bg-white p-4 rounded-xl shadow-sm transition";
+      const card = document.createElement("a");
+      card.href = safeUrl;
+      card.target = "_blank";
+      card.rel = "noopener";
+      card.className =
+        "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform";
 
-  if (hasLink) {
-    const a = document.createElement("a");
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.className = baseClasses + " block hover:shadow-md hover:-translate-y-0.5 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
-    a.setAttribute("aria-label", `More info: ${text || type || ""}`);
-
-    a.innerHTML = `
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
-          <p class="font-semibold text-gray-800">${text || ""}</p>
-          ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
+      card.innerHTML = `
+        ${media}
+        <h3 class="font-semibold text-gray-800 mb-2">${title}</h3>
+        <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
+          ${cta}
+          <span class="material-icons ml-1">
+            ${cta === "Watch Now" ? "play_arrow" :
+              cta === "Take Quiz" ? "arrow_forward" :
+              "open_in_new"}
+          </span>
         </div>
-        <span class="inline-flex items-center px-6 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-900 transition">
-          More Info
-          <span class="material-icons ml-2">arrow_forward</span>
-        </span>
-      </div>
-    `;
-    return a;
-  }
+      `;
 
-  const div = document.createElement("div");
-  div.className = baseClasses;
-  div.innerHTML = `
-    <div>
-      ${type ? `<p class="text-sm text-gray-500">${type}</p>` : ``}
-      <p class="font-semibold text-gray-800">${text || ""}</p>
-      ${date ? `<p class="text-sm text-gray-500">${date}</p>` : ``}
-    </div>
-  `;
-  return div;
-}
+      return card;
+    }
 
-/* ---------- Featured Site card (Explore page) ---------- */
-/*
-Expected object shape (from assets/data/featured_sites.json):
-{
-  "name": "DrFrostMaths",
-  "url": "https://www.drfrostmaths.com/",
-  "description": "Worksheets, videos, DFM tasks…",
-  "type": "site" | "drive" | "quiz" | "textbook",
-  "brand": {
-    "bg": "#FEE2E2",        // optional: tile background
-    "fg": "#B91C1C",        // optional: icon/heading colour
-    "stripe": "rgba(...)"   // optional: diagonal accent
-  },
-  "logo": "assets/img/dfm.svg", // optional: path to logo image
-  "cta": "Open"                 // optional: defaults to "Visit"
-}
-*/
-function makeSiteCard(site){
-  const name = site?.name || "Resource";
-  const url  = ensureHttps(site?.url);
-  const desc = site?.description || "";
+    function hideEmptyBlocks() {
+      ["worksheets", "videos", "other"].forEach((key) => {
+        const grid = GRID_FOR[key];
+        const title = grid?.previousElementSibling;
+        if (grid && grid.children.length === 0) {
+          grid.style.display = "none";
+          if (title) title.style.display = "none";
+        }
+      });
 
-  // Brand colours (for logo/icon backgrounds)
-  const bg     = site?.brand?.bg     || "#F3F4F6";  // light gray
-  const fg     = site?.brand?.fg     || "#2563EB";  // blue-600 (used for small icon only)
-  const stripe = site?.brand?.stripe || "rgba(0,0,0,0.03)";
+      const emptyMsg = document.getElementById("unit-empty");
+      if (emptyMsg) {
+        const any =
+          GRID_FOR.worksheets.children.length +
+          GRID_FOR.videos.children.length +
+          GRID_FOR.other.children.length > 0;
+        emptyMsg.hidden = any;
+      }
+    }
 
-  // Icon fallback by type
-  const typeIcon =
-    site?.type === "drive"   ? "folder" :
-    site?.type === "quiz"    ? "quiz" :
-    site?.type === "textbook"? "menu_book" :
-    "link";
+    function renderSparxSection(data) {
+      const list = data.sparx_codes || [];
+      if (!list.length) return;
 
-  const media = site?.logo
-    ? `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
-            style="background:linear-gradient(135deg, ${bg}, #ffffff);">
-         <div class="absolute inset-0" style="
-              background: repeating-linear-gradient(
-                -45deg,
-                ${stripe},
-                ${stripe} 8px,
-                transparent 8px,
-                transparent 16px
-              ); opacity:.6;"></div>
-         <img src="${site.logo}" alt="${name} logo" class="relative h-12 w-auto object-contain">
-       </div>`
-    : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center relative"
-            style="background:linear-gradient(135deg, ${bg}, #ffffff);">
-         <div class="absolute inset-0" style="
-              background: repeating-linear-gradient(
-                -45deg,
-                ${stripe},
-                ${stripe} 8px,
-                transparent 8px,
-                transparent 16px
-              ); opacity:.6;"></div>
-         <span class="material-icons text-5xl" style="color:${fg};">${typeIcon}</span>
-       </div>`;
+      const section = document.getElementById("sparx-section");
+      const container = document.getElementById("sparx-code-list");
 
-  // Whole card is the link
-  const card = document.createElement("a");
-  card.href = url;
-  card.target = "_blank";
-  card.rel = "noopener";
-  card.className =
-    "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+      list.forEach(item => {
+        const chip = document.createElement("span");
+        chip.className =
+          "inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-800 text-sm font-medium border border-gray-200";
 
-  card.innerHTML = `
-    ${media}
-    <div class="flex items-start justify-between gap-3">
-      <div>
-        <h3 class="font-semibold text-gray-800 mb-1">${name}</h3>
-        ${desc ? `<p class="text-sm text-gray-500">${desc}</p>` : ``}
-      </div>
-      <span class="material-icons text-gray-400 mt-1">open_in_new</span>
-    </div>
-  `;
-  return card;
-}
+        chip.innerHTML = `
+          <span class="font-mono text-purple-600 font-semibold">${item.code}</span>
+          <span class="text-gray-600 text-sm">${item.note || ""}</span>
+        `;
+
+        container.appendChild(chip);
+      });
+
+      section.classList.remove("hidden");
+    }
+
+    async function loadUnit() {
+      try {
+        const data = await fetch(DATA_URL, { cache: "no-store" })
+          .then((r) => r.ok ? r.json() : { items: [] });
+
+        const rows = Array.isArray(data) ? data : data.items || [];
+        const items = rows.filter(
+          r => r.title && r.url && String(r.active ?? "true") !== "false"
+        );
+
+        items.sort((a, b) =>
+          new Date(b.addediso || 0) - new Date(a.addediso || 0)
+        );
+
+        items.forEach(res => {
+          const key = (res.blockkey || "").toLowerCase();
+          const grid = GRID_FOR[key];
+          if (grid) grid.appendChild(makeResCard(res));
+        });
+
+        hideEmptyBlocks();
+        renderSparxSection(data);
+
+      } catch (err) {
+        console.error("cards.js: error loading unit data:", err);
+      }
+    }
+
+    loadUnit();
+  });
+})();
