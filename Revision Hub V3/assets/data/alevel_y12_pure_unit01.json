@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "title": "Algebra & Functions – Core Worksheet",
+      "url": "https://example.com/algebra-functions-worksheet.pdf",
+      "blockkey": "worksheets",
+      "note": "Starter & core practice",
+      "tag": "Worksheet",
+      "addediso": "2025-01-10",
+      "active": true
+    },
+    {
+      "title": "Algebra & Functions – Extension Sheet",
+      "url": "https://example.com/algebra-functions-extension.pdf",
+      "blockkey": "worksheets",
+      "note": "Stretch & challenge",
+      "tag": "Extension",
+      "addediso": "2025-01-11",
+      "active": true
+    },
+    {
+      "title": "School Lesson: Introducing Functions (f(x))",
+      "url": "https://www.youtube.com/watch?v=XXXXXXXXXXX",
+      "blockkey": "school_videos",
+      "note": "Recorded by school staff",
+      "tag": "School video",
+      "addediso": "2025-01-12",
+      "active": true
+    },
+    {
+      "title": "Exam-style Questions on Functions",
+      "url": "https://www.youtube.com/watch?v=YYYYYYYYYYY",
+      "blockkey": "videos",
+      "note": "Past paper style walkthrough",
+      "tag": "Exam practice",
+      "addediso": "2025-01-13",
+      "active": true
+    },
+    {
+      "title": "Casio FX-991EX: Using TABLE for Functions",
+      "url": "https://www.youtube.com/watch?v=ZZZZZZZZZZZ",
+      "blockkey": "calculator",
+      "note": "Set up the table mode for checking values",
+      "tag": "Calculator",
+      "addediso": "2025-01-14",
+      "active": true
+    }
+  ]
+}
