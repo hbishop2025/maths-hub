@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <title>A-Level • Y12 Pure — Algebra & Functions</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
+  <style>
+    :root{
+      --accent:#7C4DFF;
+      --accent-600:#6A3FE6;
+      --accent-700:#5A35C8;
+    }
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    .material-icons{ font-size:24px; }
+    html{ scroll-behavior:smooth; }
+
+    /* MathJax inline rendering */
+    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
+
+    /* Subtle animated gradient for resource cards */
+    @keyframes slow-pan {
+      0%   { background-position:0% 0%;   }
+      50%  { background-position:100% 100%; }
+      100% { background-position:0% 0%;   }
+    }
+  </style>
+</head>
+<body class="bg-gray-100" data-page="alevel"
+      data-json="/assets/data/alevel_y12_pure_unit01.json">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Top: back -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-2">
+          <a href="../alevel_hub.html" class="inline-flex items-center text-gray-400 hover:text-gray-100 transition">
+            <span class="material-icons mr-1">arrow_back</span>
+            Back to A-Level Hub
+          </a>
+        </div>
+      </header>
+
+      <!-- Dark hero -->
+      <section class="mb-8">
+        <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950 via-black to-slate-900 text-white shadow-xl">
+          <!-- animated gradient sheen -->
+          <div class="pointer-events-none absolute inset-0 opacity-40"
+               style="
+                 background-image: radial-gradient(circle at 0% 0%, rgba(124,77,255,0.45), transparent 55%),
+                                   radial-gradient(circle at 100% 100%, rgba(14,165,233,0.35), transparent 55%);
+                 background-size: 180% 180%;
+                 animation: slow-pan 18s ease-in-out infinite alternate;
+               ">
+          </div>
+
+          <div class="relative px-6 py-8 md:px-10 md:py-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="max-w-2xl">
+              <p class="text-xs uppercase tracking-[0.2em] text-slate-300/80 mb-2">
+                A-Level Mathematics • Year 12 Pure
+              </p>
+              <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+                Algebra &amp; Functions
+              </h1>
+              <p class="text-sm md:text-base text-slate-200/90">
+                Core algebra and function skills for A-level: notation, manipulating expressions,
+                graphs, and solving equations. Work through the worksheets first, then consolidate
+                using school-recorded videos, exam-style clips, and calculator techniques.
+              </p>
+            </div>
+
+            <div class="flex flex-col items-start md:items-end gap-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-slate-100">
+                <span class="material-icons text-sm">timeline</span>
+                Y12 Pure Unit
+              </div>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/10">Algebra</span>
+                <span class="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/10">Functions</span>
+                <span class="px-3 py-1 text-xs rounded-full bg-white/10 border border-white/10">Graph skills</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Unit Resources -->
+      <section class="mt-6" id="unit-resources">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Resources</h2>
+
+        <!-- Worksheets -->
+        <section class="mb-10">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-800">Worksheets</h3>
+            <span class="text-xs uppercase tracking-wide text-gray-400">
+              Core practice
+            </span>
+          </div>
+          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- School YouTube Videos -->
+        <section class="mb-10">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-800">School YouTube Videos</h3>
+            <span class="text-xs uppercase tracking-wide text-gray-400">
+              Your teachers explaining
+            </span>
+          </div>
+          <div id="grid-school-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- Other YouTube Videos -->
+        <section class="mb-10" id="videos">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-800">YouTube Videos</h3>
+            <span class="text-xs uppercase tracking-wide text-gray-400">
+              Exam boards &amp; popular channels
+            </span>
+          </div>
+          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- Calculator Support -->
+        <section class="mb-10">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-800">Calculator Support</h3>
+            <span class="text-xs uppercase tracking-wide text-gray-400">
+              Casio exam mode &amp; techniques
+            </span>
+          </div>
+          <div id="grid-calculator" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <p id="unit-empty" class="text-gray-500 mt-2 hidden">
+          No resources available yet. Check back soon.
+        </p>
+      </section>
+
+      <div class="h-10"></div>
+    </main>
+  </div>
+
+  <!-- Shared JS -->
+  <script src="/assets/sidebar-loader.js"></script>
+  <script src="/assets/cards.js"></script>
+
+  <!-- Page JS: load JSON + build cards -->
+  <script>
+    // Small helper in case parseDate isn't globally available
+    function safeParseDate(s){
+      if (typeof parseDate === "function") return parseDate(s);
+      const d = new Date(s);
+      return isNaN(d) ? null : d;
+    }
+
+    function makeResCard(row){
+      const title = row.title || "Untitled resource";
+      const url = row.url || "#";
+      const subtitle = row.note || row.subtitle || "";
+
+      // Use shared helpers if present
+      const safeUrl = (typeof ensureHttps === "function") ? ensureHttps(url) : url;
+      const meta = (typeof iconFor === "function") ? iconFor(url) : { icon: "description", cta: "Open" };
+      const icon = meta.icon || "description";
+      const cta  = meta.cta  || "Open";
+
+      const a = document.createElement("a");
+      a.href = safeUrl;
+      a.target = "_blank";
+      a.rel = "noopener";
+
+      // Gradient, frosted, subtle lift
+      a.className =
+        "relative block rounded-2xl border border-white/60 bg-gradient-to-br " +
+        "from-slate-900 via-slate-950 to-slate-900 text-slate-50 shadow-sm " +
+        "overflow-hidden transition transform hover:-translate-y-0.5 hover:shadow-xl focus:outline-none " +
+        "focus:ring-2 focus:ring-offset-2 focus:ring-slate-500";
+
+      // Further units can be tagged with area === 'further' to get a yellow gradient
+      const isFurther = (row.area || "").toLowerCase().includes("further");
+      if (isFurther) {
+        a.className = a.className.replace("from-slate-900 via-slate-950 to-slate-900",
+          "from-amber-500/80 via-amber-600/90 to-amber-700/90");
+      }
+
+      a.innerHTML = `
+        <div class="absolute inset-0 bg-white/5 backdrop-blur-sm opacity-70"></div>
+        <div class="absolute inset-0 opacity-40"
+             style="
+               background-image: radial-gradient(circle at 0% 0%, rgba(124,77,255,0.6), transparent 55%),
+                                 radial-gradient(circle at 100% 100%, rgba(56,189,248,0.5), transparent 55%);
+               background-size: 180% 180%;
+               animation: slow-pan 22s ease-in-out infinite alternate;
+             ">
+        </div>
+
+        <div class="relative z-10 p-4 flex flex-col gap-3 h-full">
+          <div class="flex items-start gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/40 border border-white/20">
+              <span class="material-icons text-sm text-indigo-100">${icon}</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-sm md:text-base leading-snug text-slate-50">
+                ${title}
+              </h3>
+              ${subtitle
+                ? `<p class="text-xs text-slate-200/80 mt-1">${subtitle}</p>`
+                : ""}
+            </div>
+          </div>
+
+          <div class="mt-auto flex items-center justify-between text-xs">
+            ${row.tag ? `<span class="px-2 py-0.5 rounded-full bg-black/30 border border-white/10 text-[0.7rem] uppercase tracking-wide">${row.tag}</span>` : "<span></span>"}
+            <span class="inline-flex items-center gap-1 font-semibold text-indigo-100">
+              ${cta}
+              <span class="material-icons text-xs">arrow_outward</span>
+            </span>
+          </div>
+        </div>
+      `;
+
+      return a;
+    }
+
+    function hideEmptyBlocks() {
+      const grids = document.querySelectorAll("[id^='grid-']");
+      let any = false;
+      grids.forEach(grid => {
+        const headingRow = grid.parentElement?.querySelector("h3");
+        if (!grid.children.length) {
+          grid.style.display = "none";
+          if (headingRow) headingRow.parentElement.style.display = "none";
+        } else {
+          any = true;
+        }
+      });
+
+      const empty = document.getElementById("unit-empty");
+      if (empty) empty.hidden = any;
+    }
+
+    async function loadUnit() {
+      const dataUrl = document.body.getAttribute("data-json");
+      if (!dataUrl) return;
+
+      let data;
+      try {
+        data = await fetch(dataUrl, { cache: "no-store" }).then(r => r.json());
+      } catch (e) {
+        console.error("Failed to load unit data", e);
+        return;
+      }
+
+      const rows = Array.isArray(data) ? data : (data.items || []);
+      const items = rows.filter(r =>
+        r && r.title && r.url &&
+        String((r.active ?? true)).toLowerCase() !== "false"
+      );
+
+      // newest first if added date is present
+      items.sort((a, b) => {
+        const da = safeParseDate(a.addediso || a.added || "") || 0;
+        const db = safeParseDate(b.addediso || b.added || "") || 0;
+        return db - da;
+      });
+
+      const grids = {
+        worksheets:      document.getElementById("grid-worksheets"),
+        school_videos:   document.getElementById("grid-school-videos"),
+        videos:          document.getElementById("grid-videos"),
+        calculator:      document.getElementById("grid-calculator"),
+      };
+
+      items.forEach(row => {
+        const key = (row.blockkey || "").toLowerCase();
+        const grid = grids[key];
+        if (!grid) return;
+        grid.appendChild(makeResCard(row));
+      });
+
+      hideEmptyBlocks();
+    }
+
+    document.addEventListener("DOMContentLoaded", loadUnit);
+  </script>
+
+  <!-- MathJax (if needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</body>
+</html>
