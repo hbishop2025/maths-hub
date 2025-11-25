@@ -2,7 +2,7 @@
   "tracks": [
     {
       "id": "y12_pure",
-      "label": "Year 12 — Pure",
+      "label": "Y12 — Pure",
       "modules": [
         { "id": "y12-pure-01", "title": "Algebraic expressions", "path": "/alevel/y12_pure_01.html" },
         { "id": "y12-pure-02", "title": "Quadratics", "path": "/alevel/y12_pure_02.html" },
@@ -22,7 +22,7 @@
     },
     {
       "id": "y12_applied",
-      "label": "Year 12 — Applied (Statistics & Mechanics)",
+      "label": "Y12 — Applied",
       "modules": [
         { "id": "y12-stat-01", "title": "Statistics 1 — Data collection", "area": "statistics", "path": "/alevel/y12_stats_01.html" },
         { "id": "y12-stat-02", "title": "Statistics 2 — Data presentation & interpretation", "area": "statistics", "path": "/alevel/y12_stats_02.html" },
@@ -38,7 +38,7 @@
     },
     {
       "id": "y13_pure",
-      "label": "Year 13 — Pure",
+      "label": "Y13 — Pure",
       "modules": [
         { "id": "y13-pure-01", "title": "Proof", "path": "/alevel/y13_pure_01.html" },
         { "id": "y13-pure-02", "title": "Algebraic methods & functions", "path": "/alevel/y13_pure_02.html" },
@@ -56,7 +56,7 @@
     },
     {
       "id": "y13_applied",
-      "label": "Year 13 — Applied (Statistics & Mechanics)",
+      "label": "Y13 — Applied",
       "modules": [
         { "id": "y13-stat-01", "title": "Statistics 7 — Correlation & regression", "area": "statistics", "path": "/alevel/y13_stats_01.html" },
         { "id": "y13-stat-02", "title": "Statistics 8 — Conditional probability", "area": "statistics", "path": "/alevel/y13_stats_02.html" },
@@ -72,7 +72,7 @@
     },
     {
       "id": "further_1",
-      "label": "Further 1 — Core Pure (Y12)",
+      "label": "Further 1",
       "modules": [
         { "id": "fm1-cp1-01", "title": "Core Pure 1 — Complex numbers (intro)", "path": "/alevel/further1_01.html" },
         { "id": "fm1-cp1-02", "title": "Core Pure 1 — Argand diagrams & loci", "path": "/alevel/further1_02.html" },
@@ -85,7 +85,7 @@
     },
     {
       "id": "further_2",
-      "label": "Further 2 — Core Pure (Y13)",
+      "label": "Further 2",
       "modules": [
         { "id": "fm2-cp2-01", "title": "Core Pure 2 — Complex numbers (advanced)", "path": "/alevel/further2_01.html" },
         { "id": "fm2-cp2-02", "title": "Core Pure 2 — Polar form & De Moivre", "path": "/alevel/further2_02.html" },
