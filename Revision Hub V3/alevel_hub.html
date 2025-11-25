@@ -91,48 +91,89 @@
       color:transparent;
     }
 
-    /* ===== Module card ===== */
-/* ===== Gradient module card ===== */
-.module-card {
+    /* ===== Gradient module card (full-card, animated, frosted) ===== */
+.module-card{
+  position: relative;
   border-radius: 1rem;
   padding: 1.25rem;
-  color: white;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-  transition: transform .25s ease, box-shadow .25s ease;
+  color: #f9fafb;
+  box-shadow: 0 4px 14px rgba(15,23,42,0.3);
+  border: 1px solid rgba(255,255,255,0.28);
   background-size: 200% 200%;
+  animation: gradientShift 18s ease infinite;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
-.module-card:hover {
+/* subtle animated movement */
+@keyframes gradientShift{
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.module-card:hover{
   transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+  box-shadow: 0 18px 40px rgba(15,23,42,0.45);
+  border-color: rgba(255,255,255,0.45);
 }
 
-/* Pure: Indigo → Violet */
-.module-card-pure {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+/* Glassy highlight overlay */
+.module-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.25), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(255,255,255,0.18), transparent 55%);
+  mix-blend-mode: screen;
+  opacity:0.85;
+  pointer-events:none;
 }
 
-/* Statistics: Sky → Blue */
-.module-card-statistics {
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+/* make sure inner content sits above the overlay */
+.module-card > *{
+  position:relative;
+  z-index:1;
 }
 
-/* Mechanics: Emerald → Teal */
-.module-card-mechanics {
-  background: linear-gradient(135deg, #10b981, #0d9488);
+/* ----- Colour themes ----- */
+
+/* Pure: indigo → violet → pink */
+.module-card-pure{
+  background-image: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
 }
 
-/* Small tag on the card */
-.module-tag {
-  display: inline-flex;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.3);
+/* Statistics: sky → blue → indigo */
+.module-card-statistics{
+  background-image: linear-gradient(135deg, #0ea5e9, #2563eb, #4f46e5);
 }
-  </style>
+
+/* Mechanics: emerald → teal → cyan */
+.module-card-mechanics{
+  background-image: linear-gradient(135deg, #10b981, #0d9488, #22d3ee);
+}
+
+/* Further (both Further 1 & Further 2): golden yellow → amber → soft orange */
+.module-card-further{
+  background-image: linear-gradient(135deg, #facc15, #f59e0b, #fb923c);
+}
+
+/* Small frosted tag on the card */
+.module-tag{
+  display:inline-flex;
+  font-size:0.7rem;
+  padding:0.2rem 0.6rem;
+  border-radius:999px;
+  background:rgba(15,23,42,0.22);
+  border:1px solid rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}  </style>
 </head>
 
 <body class="bg-gray-100" data-page="alevel">
@@ -339,47 +380,46 @@
         empty.classList.add("hidden");
       }
 
-            modules.forEach((mod, idx) => {
-        const href = mod.path || "#";
-        const card = document.createElement("a");
-        card.href = href;
-        card.className =
-          "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
-          "hover:shadow-md hover:-translate-y-0.5 transition transform " +
-          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
+            modules.forEach((mod) => {
+  const href = mod.path || "#";
 
-        // Decide icon style based on area
-        let iconClass = "module-icon";
-        let iconName = "calculate";      // default for Pure
-        if (mod.area === "statistics") {
-          iconClass += " module-icon-stat";
-          iconName = "insights";
-        } else if (mod.area === "mechanics") {
-          iconClass += " module-icon-mech";
-          iconName = "speed";
-        }
-
-        card.className =
-  "module-card module-card-" + (mod.area || "pure");
-
-card.innerHTML = `
-  <h3 class="font-semibold text-lg mb-2">
-    ${mod.title}
-  </h3>
-
-  ${
-    mod.area
-      ? `<span class="module-tag">
-           ${mod.area === "statistics" ? "Statistics" :
-             mod.area === "mechanics" ? "Mechanics" :
-             "Pure"}
-         </span>`
-      : ""
+  // Decide colour theme for this module
+  let theme = "pure";
+  if (mod.area === "statistics") {
+    theme = "statistics";
+  } else if (mod.area === "mechanics") {
+    theme = "mechanics";
+  } else {
+    // If we're in one of the Further tracks, use the yellow theme
+    if (track.id === "further_1" || track.id === "further_2") {
+      theme = "further";
+    }
   }
-`;
 
-        grid.appendChild(card);
-      });
+  const card = document.createElement("a");
+  card.href = href;
+  card.className = `module-card module-card-${theme}`;
+  card.rel = "noopener";
+
+  card.innerHTML = `
+    <h3 class="font-semibold text-lg mb-2">
+      ${mod.title || "Untitled module"}
+    </h3>
+    ${
+      mod.area
+        ? `<span class="module-tag">
+             ${mod.area === "statistics" ? "Statistics" :
+               mod.area === "mechanics" ? "Mechanics" :
+               "Pure"}
+           </span>`
+        : (track.id === "further_1" || track.id === "further_2"
+            ? `<span class="module-tag">Further</span>`
+            : ``)
+    }
+  `;
+
+  grid.appendChild(card);
+});
 
       updateFilterUI();
     }
