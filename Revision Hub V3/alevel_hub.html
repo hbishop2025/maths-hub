@@ -92,38 +92,45 @@
     }
 
     /* ===== Module card ===== */
+/* ===== Gradient module card ===== */
 .module-card {
-  border-radius: 0.75rem; /* rounded-xl */
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e5e7eb; /* gray-200 */
-  transition: transform .2s ease, box-shadow .2s ease;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  color: white;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  transition: transform .25s ease, box-shadow .25s ease;
+  background-size: 200% 200%;
 }
 
 .module-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-}
-
-/* ===== Gradient headers ===== */
-.module-header {
-  height: 58px;
-  width: 100%;
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.25);
 }
 
 /* Pure: Indigo → Violet */
-.module-header-pure {
+.module-card-pure {
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
 }
 
 /* Statistics: Sky → Blue */
-.module-header-statistics {
+.module-card-statistics {
   background: linear-gradient(135deg, #0ea5e9, #2563eb);
 }
 
 /* Mechanics: Emerald → Teal */
-.module-header-mechanics {
+.module-card-mechanics {
   background: linear-gradient(135deg, #10b981, #0d9488);
+}
+
+/* Small tag on the card */
+.module-tag {
+  display: inline-flex;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
 }
   </style>
 </head>
@@ -352,26 +359,23 @@
           iconName = "speed";
         }
 
-        card.classList.add("module-card");
+        card.className =
+  "module-card module-card-" + (mod.area || "pure");
 
 card.innerHTML = `
-  <div class="module-header module-header-${mod.area || 'pure'}"></div>
+  <h3 class="font-semibold text-lg mb-2">
+    ${mod.title}
+  </h3>
 
-  <div class="p-4">
-    <h3 class="font-semibold text-gray-800 text-lg">
-      ${mod.title || "Untitled module"}
-    </h3>
-
-    ${
-      mod.area
-        ? `<p class="text-xs mt-2 inline-flex px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border">
-             ${mod.area === "statistics" ? "Statistics" :
-               mod.area === "mechanics" ? "Mechanics" :
-               "Pure"}
-           </p>`
-        : ""
-    }
-  </div>
+  ${
+    mod.area
+      ? `<span class="module-tag">
+           ${mod.area === "statistics" ? "Statistics" :
+             mod.area === "mechanics" ? "Mechanics" :
+             "Pure"}
+         </span>`
+      : ""
+  }
 `;
 
         grid.appendChild(card);
