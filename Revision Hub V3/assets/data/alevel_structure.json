@@ -2,7 +2,7 @@
   "tracks": [
     {
       "id": "y12_pure",
-      "label": "Y12 — Pure",
+      "label": "Y12 Pure",
       "modules": [
         { "id": "y12-pure-01", "title": "Algebraic expressions", "path": "/alevel/y12_pure_01.html" },
         { "id": "y12-pure-02", "title": "Quadratics", "path": "/alevel/y12_pure_02.html" },
@@ -22,7 +22,7 @@
     },
     {
       "id": "y12_applied",
-      "label": "Y12 — Applied",
+      "label": "Y12 Applied",
       "modules": [
         { "id": "y12-stat-01", "title": "Statistics 1 — Data collection", "area": "statistics", "path": "/alevel/y12_stats_01.html" },
         { "id": "y12-stat-02", "title": "Statistics 2 — Data presentation & interpretation", "area": "statistics", "path": "/alevel/y12_stats_02.html" },
@@ -38,25 +38,25 @@
     },
     {
       "id": "y13_pure",
-      "label": "Y13 — Pure",
+      "label": "Y13 Pure",
       "modules": [
         { "id": "y13-pure-01", "title": "Proof", "path": "/alevel/y13_pure_01.html" },
         { "id": "y13-pure-02", "title": "Algebraic methods & functions", "path": "/alevel/y13_pure_02.html" },
-        { "id": "y13-pure-03", "title": "Sequences & series (including binomial)", "path": "/alevel/y13_pure_03.html" },
+        { "id": "y13-pure-03", "title": "Sequences & series", "path": "/alevel/y13_pure_03.html" },
         { "id": "y13-pure-04", "title": "Radian measure", "path": "/alevel/y13_pure_04.html" },
         { "id": "y13-pure-05", "title": "Trigonometric functions", "path": "/alevel/y13_pure_05.html" },
-        { "id": "y13-pure-06", "title": "Trig identities & equations (advanced)", "path": "/alevel/y13_pure_06.html" },
+        { "id": "y13-pure-06", "title": "Trig identities & equations", "path": "/alevel/y13_pure_06.html" },
         { "id": "y13-pure-07", "title": "Parametric equations", "path": "/alevel/y13_pure_07.html" },
-        { "id": "y13-pure-08", "title": "Exponentials & logarithms (Year 13)", "path": "/alevel/y13_pure_08.html" },
-        { "id": "y13-pure-09", "title": "Differentiation (Year 13 topics)", "path": "/alevel/y13_pure_09.html" },
-        { "id": "y13-pure-10", "title": "Integration (Year 13 topics)", "path": "/alevel/y13_pure_10.html" },
+        { "id": "y13-pure-08", "title": "Exponentials & logarithms", "path": "/alevel/y13_pure_08.html" },
+        { "id": "y13-pure-09", "title": "Differentiation", "path": "/alevel/y13_pure_09.html" },
+        { "id": "y13-pure-10", "title": "Integration", "path": "/alevel/y13_pure_10.html" },
         { "id": "y13-pure-11", "title": "Numerical methods", "path": "/alevel/y13_pure_11.html" },
         { "id": "y13-pure-12", "title": "Vectors in three dimensions", "path": "/alevel/y13_pure_12.html" }
       ]
     },
     {
       "id": "y13_applied",
-      "label": "Y13 — Applied",
+      "label": "Y13 Applied",
       "modules": [
         { "id": "y13-stat-01", "title": "Statistics 7 — Correlation & regression", "area": "statistics", "path": "/alevel/y13_stats_01.html" },
         { "id": "y13-stat-02", "title": "Statistics 8 — Conditional probability", "area": "statistics", "path": "/alevel/y13_stats_02.html" },
