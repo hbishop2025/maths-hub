@@ -22,22 +22,66 @@
       --accent-600:#6A3FE6;
       --accent-700:#5A35C8;
     }
-    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
     .material-icons{ font-size:24px; }
     html{ scroll-behavior:smooth; }
 
-    /* Pills */
+    /* Main track pills */
     .track-pill{
-      @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold cursor-pointer transition;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0.5rem 1rem;
+      border-radius:9999px;
+      font-size:0.875rem;
+      font-weight:600;
+      cursor:pointer;
+      border:none;
+      outline:none;
+      transition:
+        background-color 150ms ease,
+        color 150ms ease,
+        transform 150ms ease,
+        box-shadow 150ms ease;
+      background:#e5e7eb;     /* gray-200 */
+      color:#4b5563;          /* gray-600 */
     }
     .track-pill-active{
-      background: var(--accent);
-      color:#fff;
-      box-shadow:0 6px 18px rgba(0,0,0,0.15);
+      background:var(--accent);
+      color:#ffffff;
+      box-shadow:0 6px 18px rgba(0,0,0,0.18);
+      transform:translateY(-1px);
     }
-    .track-pill-inactive{
-      background:#e5e7eb;
-      color:#4b5563;
+    .track-pill-inactive:hover{
+      background:#d1d5db;     /* gray-300 */
+      transform:translateY(-1px);
+    }
+
+    /* Applied filter pills (All / Stats / Mech) */
+    .filter-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0.25rem 0.75rem;
+      border-radius:9999px;
+      font-size:0.75rem;
+      font-weight:600;
+      cursor:pointer;
+      border:1px solid #d1d5db;
+      outline:none;
+      transition:
+        background-color 150ms ease,
+        color 150ms ease,
+        border-color 150ms ease;
+      background:#f9fafb;    /* gray-50 */
+      color:#4b5563;         /* gray-600 */
+    }
+    .filter-pill-active{
+      background:#111827;    /* gray-900 */
+      color:#ffffff;
+      border-color:#111827;
     }
   </style>
 </head>
@@ -86,6 +130,7 @@
                 <h2 class="text-lg font-bold">How to use this hub</h2>
                 <p class="text-sm text-gray-300 mt-2">
                   Use the pills below to switch between Year 12 Pure, Applied, Year 13, and Further.
+                  On the Applied tracks you can filter by Statistics or Mechanics.
                   Each chapter card links to a dedicated revision page.
                 </p>
               </div>
@@ -104,15 +149,35 @@
         </div>
       </section>
 
-      <!-- Modules list -->
+      <!-- Modules + applied filter -->
       <section aria-label="Modules for selected track">
-        <div class="flex items-center justify-between mb-3">
-          <h2 id="modules-heading" class="text-xl font-bold text-gray-800">
-            Modules
-          </h2>
-          <p id="modules-subheading" class="text-sm text-gray-500 hidden">
-            <!-- optional subheading -->
-          </p>
+        <div class="flex flex-col gap-2 mb-3">
+          <div class="flex items-center justify-between">
+            <h2 id="modules-heading" class="text-xl font-bold text-gray-800">
+              Modules
+            </h2>
+          </div>
+
+          <!-- Applied filter (only shown on stats/mech tracks) -->
+          <div id="applied-filter"
+               class="flex flex-wrap items-center gap-2 text-xs text-gray-500 hidden">
+            <span class="font-semibold uppercase tracking-wide">Filter:</span>
+            <button type="button"
+                    class="filter-pill filter-pill-active"
+                    data-filter="all">
+              All
+            </button>
+            <button type="button"
+                    class="filter-pill"
+                    data-filter="statistics">
+              Statistics
+            </button>
+            <button type="button"
+                    class="filter-pill"
+                    data-filter="mechanics">
+              Mechanics
+            </button>
+          </div>
         </div>
 
         <div id="module-grid"
@@ -139,6 +204,9 @@
 
     let tracks = [];
     let activeTrackId = null;
+
+    // filter can be "all" | "statistics" | "mechanics"
+    let appliedFilter = "all";
 
     function createPill(track){
       const btn = document.createElement("button");
@@ -175,6 +243,52 @@
       });
     }
 
+    function updateFilterUI(){
+      const filterWrap = document.getElementById("applied-filter");
+      const track = tracks.find(t => t.id === activeTrackId);
+      const modules = track && Array.isArray(track.modules) ? track.modules : [];
+
+      // Decide if this track is "applied" (has stats/mech areas)
+      const hasAreas = modules.some(m => m.area === "statistics" || m.area === "mechanics");
+
+      if(!hasAreas){
+        filterWrap.classList.add("hidden");
+        return;
+      }
+
+      filterWrap.classList.remove("hidden");
+
+      // Update pill active state
+      const pills = filterWrap.querySelectorAll(".filter-pill");
+      pills.forEach(p => {
+        if(p.dataset.filter === appliedFilter){
+          p.classList.add("filter-pill-active");
+        }else{
+          p.classList.remove("filter-pill-active");
+        }
+      });
+    }
+
+    function filteredModulesFor(track){
+      const modules = Array.isArray(track.modules) ? track.modules : [];
+
+      // If no stats/mech areas, don't filter at all
+      const hasAreas = modules.some(m => m.area === "statistics" || m.area === "mechanics");
+      if(!hasAreas || appliedFilter === "all"){
+        return modules;
+      }
+
+      return modules.filter(m => {
+        if(appliedFilter === "statistics"){
+          return m.area === "statistics";
+        }
+        if(appliedFilter === "mechanics"){
+          return m.area === "mechanics";
+        }
+        return true;
+      });
+    }
+
     function renderModules(){
       const grid = document.getElementById("module-grid");
       const empty = document.getElementById("modules-empty");
@@ -191,10 +305,10 @@
 
       heading.textContent = track.label + " — Modules";
 
-      const modules = Array.isArray(track.modules) ? track.modules : [];
+      const modules = filteredModulesFor(track);
+
       if(!modules.length){
         empty.classList.remove("hidden");
-        return;
       }else{
         empty.classList.add("hidden");
       }
@@ -232,10 +346,16 @@
 
         grid.appendChild(card);
       });
+
+      updateFilterUI();
     }
 
     function setActiveTrack(id){
       activeTrackId = id;
+
+      // When switching track, reset filter to "all" so students don't get stuck
+      appliedFilter = "all";
+
       updatePillClasses();
       renderModules();
     }
@@ -248,6 +368,16 @@
 
         // Default: first track (Y12 Pure)
         activeTrackId = tracks[0].id || "y12_pure";
+
+        // Wire up filter pills once
+        const filterWrap = document.getElementById("applied-filter");
+        const filterPills = filterWrap.querySelectorAll(".filter-pill");
+        filterPills.forEach(pill => {
+          pill.addEventListener("click", () => {
+            appliedFilter = pill.dataset.filter || "all";
+            renderModules();
+          });
+        });
 
         renderPills();
         renderModules();
