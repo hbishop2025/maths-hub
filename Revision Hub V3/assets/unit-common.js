@@ -1,14 +1,23 @@
-// assets/unit-common.js
-
+// /assets/unit-common.js
 (function () {
   const body = document.body;
-  if (!body) return;
+  const pageType = body.dataset.page;
+  const unit = body.dataset.unit; // e.g. "07"
 
-  const DATA_URL = body.dataset.json;
-  if (!DATA_URL) {
-    console.warn("No data-json attribute found on <body> for unit page.");
+  if (pageType !== "year9" || !unit) {
+    console.warn("unit-common.js: not a Year 9 unit page or missing data-unit.");
     return;
   }
+
+  // Year 9 units live one level down in /year_9/, so JSON is in ../assets/data/
+  const DATA_URL = `../assets/data/year9_unit${unit}.json`;
+  console.log("Loading Year 9 unit data from:", DATA_URL);
+
+  const GRID_FOR = {
+    worksheets: document.getElementById("grid-worksheets"),
+    videos: document.getElementById("grid-videos"),
+    other: document.getElementById("grid-other"),
+  };
 
   function iconFor(url) {
     const u = (url || "").toLowerCase();
@@ -27,7 +36,6 @@
   function makeResCard({ title, url }) {
     const safeUrl = ensureHttps(url);
     const { icon, cta } = iconFor(url);
-
     const yt = (url || "").match(
       /(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/
     );
@@ -37,15 +45,15 @@
           const id = yt[1];
           const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
           return `
-            <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-              <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
-              <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-            </div>`;
+          <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
+            <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
+            <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
+          </div>`;
         })()
       : `
-        <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
-          <span class="material-icons text-4xl text-gray-600">${icon}</span>
-        </div>`;
+      <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
+        <span class="material-icons text-4xl text-gray-600">${icon}</span>
+      </div>`;
 
     const card = document.createElement("a");
     card.href = safeUrl;
@@ -70,12 +78,6 @@
     return card;
   }
 
-  const GRID_FOR = {
-    worksheets: document.getElementById("grid-worksheets"),
-    videos: document.getElementById("grid-videos"),
-    other: document.getElementById("grid-other"),
-  };
-
   function hideEmptyBlocks() {
     ["worksheets", "videos", "other"].forEach((key) => {
       const grid = document.getElementById(`grid-${key}`);
@@ -87,17 +89,16 @@
     });
     const empty = document.getElementById("unit-empty");
     if (empty) {
-      const any = ["worksheets", "videos", "other"].some((k) => {
-        const grid = document.getElementById(`grid-${k}`);
-        return grid && grid.children.length > 0;
-      });
+      const any = ["worksheets", "videos", "other"].some(
+        (k) => document.getElementById(`grid-${k}`)?.children.length > 0
+      );
       empty.hidden = any;
     }
   }
 
-  // SPARX chips
+  // Shared SPARX renderer
   function renderSparxSection(data) {
-    const list = data.sparx_codes || [];
+    const list = (data && data.sparx_codes) || [];
     if (!list.length) return;
 
     const section = document.getElementById("sparx-section");
@@ -113,7 +114,6 @@
         <span class="font-mono text-purple-600 font-semibold">${item.code}</span>
         <span class="text-gray-600 text-sm whitespace-nowrap">${item.note || ""}</span>
       `;
-
       container.appendChild(chip);
     });
 
@@ -122,9 +122,9 @@
 
   async function loadUnit() {
     try {
-      const data = await fetch(DATA_URL, { cache: "no-store" })
-        .then((r) => r.json())
-        .catch(() => ({ items: [] }));
+      const data = await fetch(DATA_URL, { cache: "no-store" }).then((r) =>
+        r.ok ? r.json() : { items: [] }
+      );
 
       const rows = Array.isArray(data) ? data : data.items || [];
       const items = rows.filter(
@@ -135,7 +135,7 @@
           String(r.active ?? true).toLowerCase() !== "false"
       );
 
-      // newest first if addediso present
+      // newest first
       items.sort((a, b) => {
         const da = new Date(a.addediso || 0).getTime() || 0;
         const db = new Date(b.addediso || 0).getTime() || 0;
@@ -143,15 +143,17 @@
       });
 
       items.forEach((r) => {
-        const key = (r.blockkey || "").toLowerCase();
+        const key = (r.blockkey || "").toLowerCase(); // "worksheets" / "videos" / "other"
         const grid = GRID_FOR[key];
-        if (grid) grid.appendChild(makeResCard({ title: r.title, url: r.url }));
+        if (grid) {
+          grid.appendChild(makeResCard({ title: r.title, url: r.url }));
+        }
       });
 
       hideEmptyBlocks();
       renderSparxSection(data);
-    } catch (e) {
-      console.error("Unit load error:", e);
+    } catch (err) {
+      console.error("Error loading unit data:", err);
     }
   }
 
