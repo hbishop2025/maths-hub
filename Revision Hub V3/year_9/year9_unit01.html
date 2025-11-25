@@ -26,15 +26,6 @@
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
 
-    /* Flip-card micro CSS (kept for future use if needed) */
-    .flipcard{ perspective:1000px; }
-    .flipcard .inner{
-      position:relative; transform-style:preserve-3d; transition: transform .5s ease; height: 12rem;
-    }
-    .flipcard.is-flipped .inner{ transform: rotateY(180deg); }
-    .flipcard .face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:0.75rem; overflow:auto; }
-    .flipcard .back{ transform: rotateY(180deg); }
-
     /* MathJax inline rendering */
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
