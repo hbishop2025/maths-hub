@@ -61,5 +61,8 @@
   { "level": "Site", "label": "Policy",                   "keywords": ["policies", "privacy", "acceptable use"],                                                    "url": "/policy.html" },
   { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
-  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" } 
+  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
+
+  {"level": "A-level", "label": "Algebra & Functions",    "keywords": ["Chapter 1", "Algebra", "basics", "functions",  "fractions"],                                   "url": "/alevel/y12_pure_01.html" } 
+
 ]
