@@ -102,7 +102,7 @@
     .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center; }
 
     /* Header + Mobile menu */
-    .header { @apply sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
     #mobileMenu {
       @apply hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
@@ -177,7 +177,7 @@
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
   <!-- HERO -->
-  <main class="relative">
+<main class="relative pt-16">  
   <div class="hero-shell">
     <!-- GLASS HERO (unchanged core content) -->
     <section class="hero-glass">
