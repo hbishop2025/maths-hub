@@ -104,11 +104,11 @@
     /* Header + Mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
     #mobileMenu {
-      @apply hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
+  @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+  width: 180px;
+  transform-origin: top right;
+  animation: menuIn .22s ease-out;
+}
     #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
 
     @keyframes menuIn {
@@ -164,12 +164,12 @@
         <span class="material-symbols-outlined">menu</span>
       </button>
 
-      <div id="mobileMenu">
-        <a href="ks3_hub.html">KS3</a>
-        <a href="#">GCSE</a>
-        <a href="#">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="explore.html">Explore</a>
-      </div>
+      <div id="mobileMenu" class="hidden">
+  <a href="ks3_hub.html">KS3</a>
+  <a class="text-gray-400 cursor-not-allowed">GCSE</a>
+  <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+  <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+</div>
     </div>
   </header>
 
