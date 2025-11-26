@@ -77,6 +77,14 @@
     {
       "code": "U983",
       "note": "Interpreting histograms"
+    },
+    {
+      "note": "Drawing Stem & leaf's",
+      "code": "M648"
+    },
+    {
+      "note": "Interpreting Stem & leaf's",
+      "code": "M210"
     }
   ]
 }
