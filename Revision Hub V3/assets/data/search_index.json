@@ -63,8 +63,8 @@
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
   { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
 
-  {"level": "AS-Level", "label": "Algebra & Functions",   "keywords": ["Chapter 1", "Algebra", "basics", "functions",  "fractions"],                                 "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/1-algebraic-expressions" },
-  {"level": "A-Level", "label": "Algebraic Methods",      "keywords": ["Chapter 1", "Partial fractions", "proof by contradiction"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/1-algebraic-methods" },
-  {"level": "As-Level Stats", "label": "Data Collection",      "keywords": ["Chapter 1", "Data collection", "Large data set", "sampling"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/1-data-collection" }
+  {"level": "AS-Level Pure", "label": "Algebra & Functions",   "keywords": ["Chapter 1", "Algebra", "basics", "functions",  "fractions"],                                 "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/1-algebraic-expressions" },
+  {"level": "A-Level Pure", "label": "Algebraic Methods",      "keywords": ["Chapter 1", "Partial fractions", "proof by contradiction"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/1-algebraic-methods" },
+  {"level": "AS-Level Stats", "label": "Data Collection",      "keywords": ["Chapter 1", "Data collection", "Large data set", "sampling"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/1-data-collection" }
 
 ]
