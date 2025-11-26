@@ -87,13 +87,16 @@
   ],
   "sparx_codes": [
     {
-      "code": "U985"
+      "code": "U985",
+      "note": "Indices of the form 1/a"
     },
     {
-      "code": "U772"
+      "code": "U772",
+      "note": "Indices in the form a/b"
     },
     {
-      "code": "U694"
+      "code": "U694",
+      "note": "Negative indices"
     },
     {
       "code": "U264",
