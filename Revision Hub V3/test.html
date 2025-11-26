@@ -233,8 +233,26 @@
 
     const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
     let INDEX=[],open=false,active=-1,current=[];
-    const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","AS-Level Pure":"bg-[#FFD1DF]","A-Level Pure":"bg-yellow-400","AS-level Stats":"bg-[#CAEEC2]","A-level Stats":"bg-[#90EE91]","AS-Level Mech":"bg-[#FFDBBB]","A-level Mech":"bg-[#FFC067]"};
-    const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-blue-500";
+    const YEAR_COLOR_CLASS = {
+  "y7": "bg-orange-500",
+  "y8": "bg-green-500",
+  "y9": "bg-[#7B61FF]",
+  "gcse": "bg-blue-500",
+
+  "as-level pure": "bg-[#FFD1DF]",
+  "a-level pure": "bg-yellow-400",
+
+  "as-level stats": "bg-[#CAEEC2]",
+  "a-level stats": "bg-[#90EE91]",
+
+  "as-level mechanics": "bg-[#FFDBBB]",
+  "a-level mechanics": "bg-[#FFC067]"
+};
+
+const colorFor = level => {
+  const key = (level || "").toLowerCase().trim();
+  return YEAR_COLOR_CLASS[key] || "bg-blue-500";
+};
     const normalize=s=>(s||"").toLowerCase().trim();
 
     function scoreRow(r,q){
