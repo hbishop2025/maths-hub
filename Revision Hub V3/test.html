@@ -233,7 +233,7 @@
 
     const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
     let INDEX=[],open=false,active=-1,current=[];
-    const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","A-Level":"bg-yellow-400"};
+    const YEAR_COLOR_CLASS={"Y7":"bg-orange-500","Y8":"bg-green-500","Y9":"bg-[#7B61FF]","GCSE":"bg-blue-500","AS-Level":"bg-[#FFD1DF]","A-Level":"bg-yellow-400"};
     const colorFor=l=>YEAR_COLOR_CLASS[l]||"bg-blue-500";
     const normalize=s=>(s||"").toLowerCase().trim();
 
