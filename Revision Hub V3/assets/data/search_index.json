@@ -61,10 +61,294 @@
   { "level": "Site", "label": "Policy",                   "keywords": ["policies", "privacy", "acceptable use"],                                                    "url": "/policy.html" },
   { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
-  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
-
-  {"level": "AS-Level Pure", "label": "Algebra & Functions",   "keywords": ["Chapter 1", "Algebra", "basics", "functions",  "fractions"],                                 "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/1-algebraic-expressions" },
-  {"level": "A-Level Pure", "label": "Algebraic Methods",      "keywords": ["Chapter 1", "Partial fractions", "proof by contradiction"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/1-algebraic-methods" },
-  {"level": "AS-Level Stats", "label": "Data Collection",      "keywords": ["Chapter 1", "Data collection", "Large data set", "sampling"],                                  "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/1-data-collection" }
-
+  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" } 
 ]
+
+[
+  {
+    "level": "AS-Level Pure",
+    "label": "Algebraic Expressions",
+    "keywords": ["Ch1", "Chapter 1", "algebraic expressions", "algebra basics", "fractions", "simplifying", "indices", "surds", "teacher: basics of algebra"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/1-algebraic-expressions"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Quadratics",
+    "keywords": ["Ch2", "Chapter 2", "quadratics", "quadratic equations", "roots", "factorising", "completing the square", "discriminant", "teacher: parabola"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/2-quadratics"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Equations & Inequalities",
+    "keywords": ["Ch3", "Chapter 3", "equations", "inequalities", "solving equations", "rearranging", "modelling inequalities", "teacher: solving eqns"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/3-equations-inequalities"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Graphs & Transformations",
+    "keywords": ["Ch4", "Chapter 4", "graphs", "transformations", "translations", "reflections", "stretches", "teacher: transforming graphs"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/4-graphs-transformations"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Straight Line Graphs",
+    "keywords": ["Ch5", "Chapter 5", "straight line", "y=mx+c", "gradient", "intercept", "parallel lines", "perpendicular lines", "teacher: coordinate geometry"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/5-straight-line-graphs"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Circles",
+    "keywords": ["Ch6", "Chapter 6", "circles", "circle equation", "radius", "centre", "tangent", "chord", "teacher: geometry of circles"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/6-circles"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Algebraic Methods",
+    "keywords": ["Ch7", "Chapter 7", "algebraic methods", "proof", "proof by contradiction", "partial fractions", "teacher: proof methods"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/7-algebraic-methods"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Binomial Expansion",
+    "keywords": ["Ch8", "Chapter 8", "binomial expansion", "binomial theorem", "Pascal triangle", "expansion", "estimation", "teacher: binomial"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/8-the-binomial-expansion"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Trigonometric Ratios",
+    "keywords": ["Ch9", "Chapter 9", "trigonometric ratios", "SOHCAHTOA", "sine rule", "cosine rule", "unit circle", "teacher: trig basics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/9-trigonometric-ratios"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Trig Identities & Equations",
+    "keywords": ["Ch10", "Chapter 10", "trig identities", "trig equations", "tan", "sec", "cosec", "periodicity", "teacher: advanced trig"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/10-trig-identities-equations"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Vectors",
+    "keywords": ["Ch11", "Chapter 11", "vectors", "magnitude", "direction", "vector geometry", "teacher: vector basics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/11-vectors"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Differentiation",
+    "keywords": ["Ch12", "Chapter 12", "differentiation", "gradients", "stationary points", "chain rule", "product rule", "quotient rule", "tangent", "normal", "teacher: calculus"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/12-differentiation"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Integration",
+    "keywords": ["Ch13", "Chapter 13", "integration", "area under curve", "definite integral", "indefinite integral", "substitution", "teacher: anti-derivatives"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/13-integration"
+  },
+  {
+    "level": "AS-Level Pure",
+    "label": "Exponentials & Logarithms",
+    "keywords": ["Ch14", "Chapter 14", "exponentials", "logarithms", "natural log", "e", "ln", "log rules", "teacher: exponentials"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/14-exponentials-logarithms"
+  }
+]
+
+[
+  {
+    "level": "A-Level Pure",
+    "label": "Algebraic Methods",
+    "keywords": ["Ch1", "Chapter 1", "algebraic methods", "partial fractions", "proof by induction", "teacher: advanced algebra"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/1-algebraic-methods"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Functions & Graphs",
+    "keywords": ["Ch2", "Chapter 2", "functions", "domain", "range", "composite functions", "inverse functions", "transformations", "teacher: advanced graphs"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/2-functions-graphs"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Sequences & Series",
+    "keywords": ["Ch3", "Chapter 3", "sequences", "series", "arithmetic sequence", "geometric sequence", "sigma notation", "teacher: sequences"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/3-sequences-series"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Binomial Expansion (Year 13)",
+    "keywords": ["Ch4", "Chapter 4", "binomial expansion", "general binomial", "negative powers", "fractional powers", "teacher: advanced binomial"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/4-binomial-expansion"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Radians",
+    "keywords": ["Ch5", "Chapter 5", "radians", "arc length", "sector area", "trig in radians", "teacher: radians"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/5-radians"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Trigonometric Functions",
+    "keywords": ["Ch6", "Chapter 6", "trigonometric functions", "graphs", "sin graph", "cos graph", "tan graph", "teacher: trig graphs"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/6-trigonometric-functions"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Trigonometry & Modelling",
+    "keywords": ["Ch7", "Chapter 7", "trig modelling", "trigonometric modelling", "harmonic motion", "teacher: modelling"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/7-trigonometry-modelling"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Parametric Equations",
+    "keywords": ["Ch8", "Chapter 8", "parametric", "parametric equations", "elimination", "parametric differentiation", "teacher: parametrics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/8-parametric-equations"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Differentiation (Year 13)",
+    "keywords": ["Ch9", "Chapter 9", "advanced differentiation", "chain rule", "product rule", "implicit differentiation", "teacher: differentiation"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/9-differentiation"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Numerical Methods",
+    "keywords": ["Ch10", "Chapter 10", "numerical methods", "iteration", "Newton-Raphson", "sign change", "teacher: numerical"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/10-numerical-methods"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Integration (Year 13)",
+    "keywords": ["Ch11", "Chapter 11", "integration", "integration by parts", "substitution", "area between curves", "teacher: advanced integration"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/11-integration"
+  },
+  {
+    "level": "A-Level Pure",
+    "label": "Vectors (Year 13)",
+    "keywords": ["Ch12", "Chapter 12", "3D vectors", "vector equations", "scalar product", "teacher: vectors"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/12-vectors"
+  }
+]
+
+[
+  {
+    "level": "AS-Level Stats",
+    "label": "Data Collection",
+    "keywords": ["Ch1", "Chapter 1", "data collection", "sampling", "large data set", "teacher: statistics basics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/1-data-collection"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Measures of Location & Spread",
+    "keywords": ["Ch2", "Chapter 2", "mean", "median", "mode", "quartiles", "IQR", "variance", "standard deviation", "teacher: spread"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/2-measures-of-location-and-spread"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Representations of Data",
+    "keywords": ["Ch3", "Chapter 3", "box plots", "histograms", "cumulative frequency", "outliers", "teacher: data representation"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/3-representations-of-data"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Correlation",
+    "keywords": ["Ch4", "Chapter 4", "correlation", "scatter diagrams", "regression", "teacher: correlation"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/4-correlation"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Probability",
+    "keywords": ["Ch5", "Chapter 5", "probability", "Venn", "union", "intersection", "mutually exclusive", "teacher: probability basics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/5-probability"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Statistical Distributions",
+    "keywords": ["Ch6", "Chapter 6", "binomial distribution", "normal approximation", "probability distribution", "teacher: distributions"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/6-statistical-distributions"
+  },
+  {
+    "level": "AS-Level Stats",
+    "label": "Hypothesis Testing",
+    "keywords": ["Ch7", "Chapter 7", "hypothesis testing", "critical region", "significance level", "binomial test", "teacher: hypothesis"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/7-hypothesis-testing"
+  }
+]
+
+[
+  {
+    "level": "A-Level Stats",
+    "label": "Regression, Correlation & Hypothesis Testing",
+    "keywords": ["Ch1", "Chapter 1", "regression", "correlation", "hypothesis testing", "teacher: stats advanced"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/1-regression-correlation-hypothesis-testing"
+  },
+  {
+    "level": "A-Level Stats",
+    "label": "Conditional Probability",
+    "keywords": ["Ch2", "Chapter 2", "conditional probability", "tree diagrams", "teacher: conditional"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/2-conditional-probability"
+  },
+  {
+    "level": "A-Level Stats",
+    "label": "The Normal Distribution",
+    "keywords": ["Ch3", "Chapter 3", "normal distribution", "z-scores", "standard normal", "teacher: normal distr"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/3-the-normal-distribution"
+  }
+]
+
+[
+  {
+    "level": "AS-Level Mechanics",
+    "label": "Modelling in Mechanics",
+    "keywords": ["Ch8", "Chapter 8", "modelling", "mechanics models", "assumptions", "teacher: modelling"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/8-modelling-in-mechanics"
+  },
+  {
+    "level": "AS-Level Mechanics",
+    "label": "Constant Acceleration",
+    "keywords": ["Ch9", "Chapter 9", "constant acceleration", "SUVAT", "kinematics", "teacher: SUVAT"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/9-constant-acceleration"
+  },
+  {
+    "level": "AS-Level Mechanics",
+    "label": "Forces & Motion",
+    "keywords": ["Ch10", "Chapter 10", "forces", "motion", "resolving forces", "resultant force", "teacher: Newton"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/10-forces-motion"
+  },
+  {
+    "level": "AS-Level Mechanics",
+    "label": "Variable Acceleration",
+    "keywords": ["Ch11", "Chapter 11", "variable acceleration", "differentiation", "integration", "s-t graphs", "teacher: calculus in mechanics"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/11-variable-accleration"
+  }
+]
+
+[
+  {
+    "level": "A-Level Mechanics",
+    "label": "Moments",
+    "keywords": ["Ch4", "Chapter 4", "moments", "torque", "equilibrium", "teacher: moments"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/4-moments"
+  },
+  {
+    "level": "A-Level Mechanics",
+    "label": "Forces & Friction",
+    "keywords": ["Ch5", "Chapter 5", "forces", "friction", "limiting friction", "inclined planes", "teacher: friction"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/5-forces-friction"
+  },
+  {
+    "level": "A-Level Mechanics",
+    "label": "Projectiles",
+    "keywords": ["Ch6", "Chapter 6", "projectiles", "horizontal projection", "angled projection", "range", "teacher: projectile motion"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/6-projectiles"
+  },
+  {
+    "level": "A-Level Mechanics",
+    "label": "Applications of Forces",
+    "keywords": ["Ch7", "Chapter 7", "forces", "connected particles", "pulleys", "teacher: connected systems"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/7-applications-of-forces"
+  },
+  {
+    "level": "A-Level Mechanics",
+    "label": "Further Kinematics",
+    "keywords": ["Ch8", "Chapter 8", "kinematics", "parametric motion", "variable acceleration", "teacher: kinematics advanced"],
+    "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/8-further-kinematics"
+  }
+]
+
