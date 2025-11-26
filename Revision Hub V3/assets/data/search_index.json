@@ -168,7 +168,7 @@
   },
   {
     "level": "A-Level Pure",
-    "label": "Binomial Expansion (Year 13)",
+    "label": "Binomial Expansion",
     "keywords": ["Ch4", "Chapter 4", "binomial expansion", "general binomial", "negative powers", "fractional powers", "teacher: advanced binomial"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/4-binomial-expansion"
   },
@@ -198,7 +198,7 @@
   },
   {
     "level": "A-Level Pure",
-    "label": "Differentiation (Year 13)",
+    "label": "Differentiation",
     "keywords": ["Ch9", "Chapter 9", "advanced differentiation", "chain rule", "product rule", "implicit differentiation", "teacher: differentiation"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/9-differentiation"
   },
@@ -210,13 +210,13 @@
   },
   {
     "level": "A-Level Pure",
-    "label": "Integration (Year 13)",
+    "label": "Integration",
     "keywords": ["Ch11", "Chapter 11", "integration", "integration by parts", "substitution", "area between curves", "teacher: advanced integration"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/11-integration"
   },
   {
     "level": "A-Level Pure",
-    "label": "Vectors (Year 13)",
+    "label": "Vectors",
     "keywords": ["Ch12", "Chapter 12", "3D vectors", "vector equations", "scalar product", "teacher: vectors"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/12-vectors"
   },
