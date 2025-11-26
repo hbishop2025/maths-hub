@@ -19,8 +19,8 @@
   <style>
     :root{
       --school-yellow: #F4C500;
-      --ai-dark: #020617;       /* slate-950-ish */
-      --ai-dark-soft: #0b1220;  /* slightly lighter */
+      --ai-dark: #020617;
+      --ai-dark-soft: #0b1220;
     }
 
     body{ font-family:'Inter',sans-serif; background:#f3f4f6; }
@@ -45,35 +45,6 @@
       padding-left: .25rem;
     }
 
-    /* Flip cards (hooked into flipcards.js) */
-    .flip{
-      perspective: 1000px;
-    }
-    .flip-inner{
-      position:relative;
-      transform-style:preserve-3d;
-      transition: transform .5s ease;
-      height:100%;
-    }
-    .flip-face{
-      position:absolute;
-      inset:0;
-      backface-visibility:hidden;
-    }
-    .flip-back{
-      transform: rotateY(180deg);
-    }
-    .flip.is-flipped .flip-inner{
-      transform: rotateY(180deg);
-    }
-    .flip-toggle{
-      position:absolute;
-      inset:0;
-      background:transparent;
-      border:none;
-      cursor:pointer;
-    }
-
     /* Section divider */
     .section-divider{
       height:1px;
@@ -83,24 +54,37 @@
 
     /* Tab pills */
     .tab-pill{
-      @apply px-3 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold text-gray-600 cursor-pointer;
-      transition: background-color .18s ease, color .18s ease, transform .18s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0.35rem 0.9rem;
+      border-radius:9999px;
+      font-size:0.75rem;
+      font-weight:600;
+      color:#4b5563;       /* gray-600 */
+      cursor:pointer;
+      border:none;
+      background:transparent;
+      transition:
+        background-color .18s ease,
+        color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
     }
     .tab-pill-active{
-      background:#020617;
+      background:#020617;   /* slate-950 */
       color:#f9fafb;
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(15,23,42,0.35);
     }
 
-    /* Prompt cards (dark boxes) */
+    /* Prompt cards – light theme */
     .prompt-card{
-      background: radial-gradient(circle at 0% 0%, rgba(250,204,21,0.12), transparent 60%),
-                  radial-gradient(circle at 100% 100%, rgba(59,130,246,0.20), #020617);
+      background:#ffffff;
       border-radius: 1rem;
-      border: 1px solid rgba(148,163,184,0.4);
-      color:#e5e7eb;
-      box-shadow: 0 18px 40px rgba(15,23,42,0.65);
+      border: 1px solid #e5e7eb; /* gray-200 */
+      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+      color:#111827;
     }
   </style>
 </head>
@@ -125,7 +109,7 @@
           </span>
         </header>
 
-        <!-- HERO / INTRO ONLY -->
+        <!-- HERO / INTRO -->
         <section class="mb-8">
           <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-br from-[var(--ai-dark)] via-[var(--ai-dark-soft)] to-slate-900 text-white shadow-xl">
             <div class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl"></div>
@@ -169,102 +153,58 @@
           </div>
         </section>
 
-        <!-- SCHOOL EXPECTATIONS -->
-        <section class="mb-8">
-          <div class="bg-white/90 border border-slate-200 rounded-3xl p-6 md:p-7 shadow-sm">
-            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
-              <!-- Left: bullets -->
-              <div class="flex-1 min-w-0">
-                <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                  <span class="material-icons text-slate-700">policy</span>
-                  School expectations
-                </h2>
-                <p class="mt-2 text-sm text-gray-700">
-                  AI is allowed for maths at SJWMS as long as you follow these rules:
-                </p>
-
-                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3">
-                    <h3 class="flex items-center gap-2 text-emerald-800 font-semibold text-sm">
-                      <span class="material-icons text-emerald-600 text-base">check_circle</span>
-                      Use AI to…
-                    </h3>
-                    <ul class="mt-2 hang-list text-emerald-900/90 space-y-1.5">
-                      <li>Get step-by-step explanations.</li>
-                      <li>Check where you went wrong.</li>
-                      <li>Generate extra practice questions.</li>
-                      <li>Get clearer definitions of key terms.</li>
-                    </ul>
-                  </div>
-
-                  <div class="bg-red-50 border border-red-200 rounded-2xl p-3">
-                    <h3 class="flex items-center gap-2 text-red-800 font-semibold text-sm">
-                      <span class="material-icons text-red-600 text-base">cancel</span>
-                      Not acceptable:
-                    </h3>
-                    <ul class="mt-2 hang-list text-red-900/90 space-y-1.5">
-                      <li>Copying AI answers into homework.</li>
-                      <li>Using AI during tests or assessments.</li>
-                      <li>Submitting AI-written work as your own.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Right: golden rule -->
-              <div class="w-full max-w-sm">
-                <div class="prompt-card p-4 sm:p-5">
-                  <p class="text-[11px] uppercase tracking-[0.22em] text-amber-300/90 mb-2">
-                    Golden rule
-                  </p>
-                  <p class="text-sm sm:text-[13px] leading-relaxed">
-                    <span class="font-semibold text-amber-200">If it feels like cheating, it is.</span>
-                    AI should make your understanding stronger, not hide the fact that you haven’t learned something yet.
-                    If you would be embarrassed to tell your teacher how you used it, don’t do it.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- DOs / DON'Ts -->
+        <!-- SCHOOL EXPECTATIONS (3 cards on one level) -->
         <section class="mb-10">
-          <div class="flex items-center justify-between gap-3 mb-3">
-            <h2 class="text-xl font-bold text-gray-900">Good vs bad AI use</h2>
-            <p class="text-xs text-gray-500">
-              Use this as a quick checklist when you’re revising or doing homework.
+          <div class="bg-white/90 border border-slate-200 rounded-3xl p-6 md:p-7 shadow-sm">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <span class="material-icons text-slate-700">policy</span>
+              School expectations
+            </h2>
+            <p class="mt-2 text-sm text-gray-700">
+              AI is allowed for maths at SJWMS as long as you follow these rules:
             </p>
-          </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Do’s -->
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-                <span class="material-icons mr-2 text-emerald-600">check_circle</span> Do’s
-              </h3>
-              <ul class="hang-list text-gray-700 space-y-2 leading-relaxed text-sm">
-                <li>Ask for <strong>worked examples</strong>, then try similar questions yourself.</li>
-                <li>Request <strong>step-by-step explanations</strong> and identify where you went wrong.</li>
-                <li>Generate <strong>practice questions</strong> at the right difficulty.</li>
-                <li>Ask for <strong>simple explanations of keywords</strong> and definitions.</li>
-                <li>Compare your method to AI and then <strong>write your own solution</strong>.</li>
-              </ul>
-            </article>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 text-sm">
+              <!-- Use AI to… -->
+              <article class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+                <h3 class="flex items-center gap-2 text-emerald-800 font-semibold text-sm">
+                  <span class="material-icons text-emerald-600 text-base">check_circle</span>
+                  Use AI to…
+                </h3>
+                <ul class="mt-2 hang-list text-emerald-900/90 space-y-1.5">
+                  <li>Get step-by-step explanations.</li>
+                  <li>Check where you went wrong.</li>
+                  <li>Generate extra practice questions.</li>
+                  <li>Get clearer definitions of key terms.</li>
+                </ul>
+              </article>
 
-            <!-- Don’ts -->
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-                <span class="material-icons mr-2 text-red-600">cancel</span> Don’ts
-              </h3>
-              <ul class="hang-list text-gray-700 space-y-2 leading-relaxed text-sm">
-                <li>Do not copy answers and submit them. It breaks school rules and you won’t learn it.</li>
-                <li>Do not enter <strong>personal data</strong>. Keep prompts anonymous and safe.</li>
-                <li>Do not assume AI is always right — <strong>check with notes or a teacher</strong>.</li>
-                <li>Do not rely on AI to <strong>do homework for you</strong>. Use it to understand, not to submit.</li>
-                <li>Do not ask for exam answers or restricted content.</li>
-              </ul>
-            </article>
+              <!-- Not acceptable -->
+              <article class="bg-red-50 border border-red-200 rounded-2xl p-4">
+                <h3 class="flex items-center gap-2 text-red-800 font-semibold text-sm">
+                  <span class="material-icons text-red-600 text-base">cancel</span>
+                  Not acceptable:
+                </h3>
+                <ul class="mt-2 hang-list text-red-900/90 space-y-1.5">
+                  <li>Copying AI answers into homework.</li>
+                  <li>Using AI during tests or assessments.</li>
+                  <li>Submitting AI-written work as your own.</li>
+                </ul>
+              </article>
+
+              <!-- Golden rule -->
+              <article class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                <h3 class="flex items-center gap-2 text-amber-900 font-semibold text-sm">
+                  <span class="material-icons text-amber-500 text-base">star</span>
+                  Golden rule
+                </h3>
+                <p class="mt-2 text-amber-900 text-sm leading-relaxed">
+                  <span class="font-semibold">If it feels like cheating, it is.</span><br/>
+                  AI should make your understanding stronger, not hide the fact that you haven’t learned something yet.
+                  If you would be embarrassed to tell your teacher how you used it, don’t do it.
+                </p>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -297,120 +237,73 @@
 
         <!-- TAB PANELS -->
         <section id="tab-panels" class="mb-14 space-y-10">
-          <!-- PANEL: COMMON QUESTIONS (flip cards) -->
+          <!-- PANEL: COMMON QUESTIONS (no flipping, just Q&A cards) -->
           <section data-tab-panel="questions">
             <div class="flex items-center justify-between gap-3 mb-3">
               <h3 class="text-lg font-semibold text-gray-900">Common questions</h3>
-              <p class="text-xs text-gray-500">Tap or hover each card to flip it.</p>
+              <p class="text-xs text-gray-500">Quick answers to how AI should and shouldn’t be used.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              <!-- Card 1 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">Can I use AI for homework?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 1"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      Yes, to understand methods, check your approach, and create practice questions.
-                      No, to generate final answers to hand in.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 1 back"></button>
-                  </div>
-                </div>
-              </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  Can I use AI for homework?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Yes, to understand methods, check your approach, and create practice questions.
+                  No, to generate final answers to hand in. What you submit must still be <strong>your</strong> work.
+                </p>
+              </article>
 
-              <!-- Card 2 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">Is AI always correct?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 2"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      No. Treat AI like a helpful peer. Verify answers with your notes, teacher, or textbook.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 2 back"></button>
-                  </div>
-                </div>
-              </div>
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  Is AI always correct?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  No. Treat AI like a helpful peer. It can be wrong, especially with multi-step calculations.
+                  Always check with your notes, textbook, or teacher.
+                </p>
+              </article>
 
-              <!-- Card 3 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">What should I write in a prompt?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 3"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      Be specific: topic, year group, what you are stuck on, and the format you want —
-                      steps, hints, or a quiz.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 3 back"></button>
-                  </div>
-                </div>
-              </div>
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  What should I write in a prompt?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Be specific: include your <strong>year group</strong>, topic, what you are stuck on,
+                  and the format you want (&ldquo;step-by-step&rdquo;, &ldquo;quiz&rdquo;, &ldquo;hints only&rdquo;).
+                </p>
+              </article>
 
-              <!-- Card 4 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">Is using AI cheating?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 4"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      Using AI to learn is fine. Submitting AI work as your own is not.
-                      Always produce your own final answers.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 4 back"></button>
-                  </div>
-                </div>
-              </div>
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  Is using AI cheating?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Using AI to <strong>learn</strong> is fine. Using it to secretly answer questions and hand them in is not.
+                  If you wouldn’t be happy explaining your AI use to a teacher, change how you’re using it.
+                </p>
+              </article>
 
-              <!-- Card 5 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">Is my data safe?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 5"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      Keep prompts anonymous. Do not share names, emails, or personal info.
-                      Follow the school GDPR guidance.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 5 back"></button>
-                  </div>
-                </div>
-              </div>
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  Is my data safe?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Keep prompts anonymous. Don’t include names, emails or personal information.
+                  Follow school GDPR guidance and treat AI like any other online platform.
+                </p>
+              </article>
 
-              <!-- Card 6 -->
-              <div class="flip">
-                <div class="flip-inner">
-                  <div class="flip-face bg-white rounded-2xl shadow-sm border border-gray-200 p-6 relative">
-                    <h4 class="font-semibold text-gray-800 mb-2">How do I actually learn with AI?</h4>
-                    <p class="text-gray-700 text-sm">Hover or tap to see the guidance.</p>
-                    <button class="flip-toggle" aria-label="Flip card 6"></button>
-                  </div>
-                  <div class="flip-face flip-back rounded-2xl shadow-sm border border-amber-200 p-6 bg-amber-50">
-                    <p class="text-gray-800 text-sm">
-                      Ask for steps. Try a similar question. Compare. Correct. Repeat.
-                      Practice is what makes it stick.
-                    </p>
-                    <button class="flip-toggle" aria-label="Flip card 6 back"></button>
-                  </div>
-                </div>
-              </div>
+              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+                <h4 class="font-semibold text-gray-900 mb-2">
+                  How do I actually learn with AI?
+                </h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Use a repeat cycle: ask for steps, try a similar question, compare, correct, repeat.
+                  <strong>Practice</strong> is the bit that sticks in your memory.
+                </p>
+              </article>
             </div>
           </section>
 
@@ -418,14 +311,14 @@
           <section data-tab-panel="ks3" class="hidden">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">KS3 prompts (Years 7–9)</h3>
             <p class="text-xs text-gray-500 mb-4">
-              These are good for building understanding and getting extra practice.
+              Good for building understanding and getting extra practice.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Fractions &amp; operations
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   Explain how to add and subtract fractions to a Year 7 student.
                   Use clear steps and a simple example. Then give me four practice questions:
                   two with the same denominator and two with different denominators.
@@ -433,10 +326,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Indices &amp; powers
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I am in Year 8. Remind me of the basic index laws (for multiplying and dividing powers).
                   Show one worked example of each law. Then give me five questions to try,
                   and reveal each answer only after I have attempted it.
@@ -444,21 +337,21 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Standard form
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   Explain standard form for Year 9. Show a worked example converting a large number
                   and a small decimal into standard form. Then give me three numbers to convert,
-                  and afterward show the correct answers with steps.
+                  and afterwards show the correct answers with steps.
                 </p>
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Pythagoras’ theorem
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   Explain Pythagoras’ theorem to a Year 8 student using a described diagram and
                   a real-life example. Then give me two questions where I have to find a missing side,
                   and two questions where I have to decide if a triangle is right-angled.
@@ -475,10 +368,10 @@
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Exam-style algebra
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I am doing GCSE Maths. Give me five exam-style questions on solving linear equations
                   and inequalities, a mix of Foundation and Higher. After each question,
                   wait for my attempt before showing a fully worked solution.
@@ -486,10 +379,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Quadratics &amp; factorising
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   Create a short GCSE revision session on factorising quadratics.
                   Start with a recap of the method, then give me two “x² + bx + c” questions,
                   two harder ones with a coefficient of x², and one worded problem that uses a quadratic.
@@ -497,10 +390,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Trigonometry practice
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I am revising trigonometry (SOHCAHTOA) for GCSE.
                   Give me six questions: three finding missing sides and three finding missing angles,
                   including some worded problems. Go through my solutions and explain any mistakes.
@@ -508,10 +401,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Revision plan
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I have a GCSE Maths mock in three weeks.
                   Make me a 14-day revision plan with 25-minute sessions.
                   Include specific topics each day and suggest how to use past papers and revision websites.
@@ -524,14 +417,14 @@
           <section data-tab-panel="ks5" class="hidden">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">KS5 prompts (A-Level)</h3>
             <p class="text-xs text-gray-500 mb-4">
-              These work well for Pure, Stats and Mechanics. Still: no copying answers into work.
+              Useful across Pure, Stats and Mechanics. Still: no copying answers into work.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Pure – differentiation
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I am in Year 12 A-Level Maths revising differentiation.
                   Give me a quick recap of the rules for polynomials, exponentials and trig functions.
                   Then give me five questions that increase in difficulty, with fully worked solutions.
@@ -539,10 +432,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Stats – hypothesis testing
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   Explain the logic of hypothesis testing for A-Level Statistics using a simple example.
                   Then give me two questions where I have to write H₀ and H₁, choose the test,
                   and interpret the conclusion in context.
@@ -550,10 +443,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Mechanics – constant acceleration
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I am revising SUVAT for Mechanics.
                   Remind me of the five equations and when each is useful.
                   Then give me four problems: two basic and two multi-step,
@@ -562,10 +455,10 @@
               </article>
 
               <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-200/90 mb-2">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
                   Socratic help
                 </p>
-                <p class="text-sm leading-relaxed">
+                <p class="text-sm leading-relaxed text-gray-800">
                   I will paste an A-Level maths question. Do not give the answer.
                   Ask me short guiding questions and give one hint at a time.
                   Only show the next algebra step if I am stuck and ask for it.
@@ -585,7 +478,6 @@
 
   <!-- Scripts -->
   <script src="assets/sidebar-loader.js" defer></script>
-  <script src="assets/flipcards.js" defer></script>
 
   <!-- Tab switching -->
   <script>
@@ -605,9 +497,7 @@
       }
 
       tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          setActiveTab(btn.dataset.tab);
-        });
+        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
       });
 
       // Default
