@@ -61,7 +61,7 @@
   { "level": "Site", "label": "Policy",                   "keywords": ["policies", "privacy", "acceptable use"],                                                    "url": "/policy.html" },
   { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
-  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" } 
+  { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
 
   {
     "level": "AS-Level Pure",
@@ -146,7 +146,7 @@
     "label": "Exponentials & Logarithms",
     "keywords": ["Ch14", "Chapter 14", "exponentials", "logarithms", "natural log", "e", "ln", "log rules", "teacher: exponentials"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/14-exponentials-logarithms"
-  }
+  },
 
   {
     "level": "A-Level Pure",
@@ -219,7 +219,7 @@
     "label": "Vectors (Year 13)",
     "keywords": ["Ch12", "Chapter 12", "3D vectors", "vector equations", "scalar product", "teacher: vectors"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/12-vectors"
-  }
+  },
 
   {
     "level": "AS-Level Stats",
@@ -262,7 +262,7 @@
     "label": "Hypothesis Testing",
     "keywords": ["Ch7", "Chapter 7", "hypothesis testing", "critical region", "significance level", "binomial test", "teacher: hypothesis"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/7-hypothesis-testing"
-  }
+  },
 
   {
     "level": "A-Level Stats",
@@ -281,7 +281,7 @@
     "label": "The Normal Distribution",
     "keywords": ["Ch3", "Chapter 3", "normal distribution", "z-scores", "standard normal", "teacher: normal distr"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/3-the-normal-distribution"
-  }
+  },
 
   {
     "level": "AS-Level Mechanics",
@@ -306,7 +306,7 @@
     "label": "Variable Acceleration",
     "keywords": ["Ch11", "Chapter 11", "variable acceleration", "differentiation", "integration", "s-t graphs", "teacher: calculus in mechanics"],
     "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/11-variable-accleration"
-  }
+  },
 
   {
     "level": "A-Level Mechanics",
