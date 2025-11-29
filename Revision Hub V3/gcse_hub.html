@@ -24,11 +24,19 @@
     /* Header + mobile menu – same pattern as index */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
     #mobileMenu {
-  @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-  width: 180px;
-  transform-origin: top right;
-}
-    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a {
+      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
+    }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
 
     /* Background dots (optional, like index) */
     .math-grid {
@@ -42,7 +50,7 @@
 
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* KS3 hero wrapper (image behind + glass card) */
+    /* GCSE hero wrapper (image behind + glass card) */
     .ks3-hero-wrap{
       margin-top: clamp(1.25rem, 5vw, 3.5rem);
       position: relative;
@@ -55,31 +63,35 @@
       position:absolute;
       inset:0;
       z-index:0;
+      will-change: transform;
     }
     .ks3-hero-bg img{
       width:100%;
       height:100%;
       object-fit:cover;
       filter:brightness(0.9);
+      transform:scale(1.05); /* slight scale so parallax doesn’t show edges */
     }
     .ks3-hero-bg::after{
       content:"";
       position:absolute;
       inset:0;
-      background: none !important;
+      background:none !important;
     }
 
     /* Glass card on top of image */
     .ks3-hero-card{
-  position:relative;
-  z-index:1;
-  @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
-  background: rgba(15,23,42,0.45);  /* more transparent */
-  backdrop-filter: blur(0px);       /* small blur */
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.10);
-}
+      position:relative;
+      z-index:1;
+      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
+      background: rgba(15,23,42,0.45);
+      backdrop-filter: blur(0px);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.10);
+    }
+
+    /* Gradient title */
     .mega-gradient {
       background-image: linear-gradient(
         90deg,
@@ -98,21 +110,6 @@
     /* Section titles */
     .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
 
-    .ks3-hero-bg{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  will-change: transform;
-}
-
-.ks3-hero-bg img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(0.9);
-  /* Slight scale so we don't see edges when it moves */
-  transform:scale(1.05);
-}
     /* Dark card */
     .soft-card{
       background: #0f1115;
@@ -141,23 +138,11 @@
       letter-spacing: .06em;
       text-transform: uppercase;
     }
-
-    /* Gradient title */
-    .mega-gradient{
-      background-image: linear-gradient(90deg, #FDE047 0%, #F59E0B 18%, #F472B6 40%, #A78BFA 65%, #60A5FA 85%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 6px 18px rgba(167,139,250,.25);
-    }
-
-    .crumbs a{ color: rgba(17,24,39,.75); }
-    .crumbs a:hover{ color: #111827; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER (same as index, tweak nav links if you like) -->
+  <!-- HEADER -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
@@ -167,8 +152,8 @@
 
       <nav class="hidden md:flex items-center gap-6">
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</span>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
            href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
@@ -181,12 +166,14 @@
       </button>
 
       <div id="mobileMenu" class="hidden">
-  <a href="index.html">Home</a>
-  <a href="ks3_hub.html">KS3</a>
-  <a href="gcse_hub.html">GCSE</span>
-  <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
-  <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
-</div>
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
+          AI Usage
+        </a>
+      </div>
     </div>
   </header>
 
@@ -197,12 +184,11 @@
   <main class="relative pt-16">
     <div class="hero-shell">
 
-      <!-- KS3 HERO (Apple-style card with background image) -->
+      <!-- GCSE HERO (Apple-style card with background image) -->
       <section class="ks3-hero-wrap">
         <!-- Background image & overlay -->
         <div class="ks3-hero-bg">
-          <!-- Replace this file with your chosen KS3 hero image -->
-          <img src="assets/gcse-hero.jpg" alt="KS3 hero" />
+          <img src="assets/gcse-hero.jpg" alt="GCSE maths hero" />
         </div>
 
         <!-- Glass content card -->
@@ -213,68 +199,85 @@
             All GCSE content in one place.
           </h1>
           <p class="mt-3 text-sm sm:text-base text-gray-200 max-w-xl">
-            Choose your units to find worksheets, videos and problem-solving practice.
-            This KS4 area will grow over time, so be sure to check back!
+            Over time this KS4 area will collect topic hubs, past paper playlists and targeted revision.
+            For now, keep an eye on the roadmap below.
           </p>
 
           <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#UKMT"
+            <a href="#coming-soon"
                class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
-              UKMT - JMC
-              <span class="material-icons ml-2 text-base">emoji_events</span>
+              GCSE hub status
+              <span class="material-icons ml-2 text-base">hourglass_bottom</span>
             </a>
-            <a href="ks3_eoy.html"
+            <a href="ks3_hub.html"
                class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
-              KS3 EOY Revision
-              <span class="material-icons ml-2 text-base">event</span>
+              Back to KS3
+              <span class="material-icons ml-2 text-base">arrow_back</span>
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Hero block -->
-      <section class="soft-card rounded-2xl p-8 md:p-12">
+      <!-- Spacer / divider between hero and countdown -->
+      <div class="mt-10 mb-8 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+      <!-- Coming soon / countdown block -->
+      <section id="coming-soon" class="soft-card rounded-2xl p-8 md:p-12 mb-16">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="uppercase tracking-widest text-xs text-white/60 mb-3">GCSE Hub</p>
-          <h1 class="mega-gradient font-extrabold mb-3"
+          <h2 class="mega-gradient font-extrabold mb-3"
               style="font-size: clamp(40px, 8vw, 76px); letter-spacing:-.02em;">
             Coming&nbsp;Soon
-          </h1>
-          <p class="text-white/80 max-w-2xl mx-auto">
-            We’re putting together a single place for a GCSE revision, worksheets, and videos.
-            Check back here on launch day in September 2026!
+          </h2>
+          <p class="text-sm sm:text-base text-gray-300 max-w-xl mx-auto">
+            GCSE topic hubs are in development. The countdown below is a rough target for the
+            first public version of the KS4 area.
           </p>
 
           <!-- Countdown -->
           <div class="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            <div class="time-box"><div id="cd-days" class="time-num">–</div><div class="time-label">Days</div></div>
-            <div class="time-box"><div id="cd-hours" class="time-num">–</div><div class="time-label">Hours</div></div>
-            <div class="time-box"><div id="cd-mins" class="time-num">–</div><div class="time-label">Minutes</div></div>
-            <div class="time-box"><div id="cd-secs" class="time-num">–</div><div class="time-label">Seconds</div></div>
+            <div class="time-box">
+              <div id="cd-days" class="time-num">–</div>
+              <div class="time-label">Days</div>
+            </div>
+            <div class="time-box">
+              <div id="cd-hours" class="time-num">–</div>
+              <div class="time-label">Hours</div>
+            </div>
+            <div class="time-box">
+              <div id="cd-mins" class="time-num">–</div>
+              <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-box">
+              <div id="cd-secs" class="time-num">–</div>
+              <div class="time-label">Seconds</div>
+            </div>
           </div>
-
         </div>
       </section>
-      
+
+    </div>
   </main>
 
-  <!-- FOOTER (same style as index) -->
+  <!-- FOOTER (universal slot) -->
   <div id="footer-slot"></div>
-
   <script src="assets/footer-loader.js" defer></script>
 
-    <!-- KS3 JSON + site cards -->
+  <!-- Countdown JS -->
   <script>
     (function(){
       const now = new Date();
-      const currentYear = now.getFullYear();
-      const targetThisYear = new Date(2026, 9, 1, 0, 0, 0); // Nov 3
-      const target = (now <= targetThisYear) ? targetThisYear : new Date(currentYear + 1, 10, 3, 0, 0, 0);
+      // Target: 3 November of this year, or next year if that's already passed
+      let target = new Date(now.getFullYear(), 10, 3, 0, 0, 0); // month 10 = November
+      if (target <= now) {
+        target = new Date(now.getFullYear() + 1, 10, 3, 0, 0, 0);
+      }
 
       const elD = document.getElementById('cd-days');
       const elH = document.getElementById('cd-hours');
       const elM = document.getElementById('cd-mins');
       const elS = document.getElementById('cd-secs');
+
+      if (!(elD && elH && elM && elS)) return;
 
       function pad(n){ return String(n).padStart(2,'0'); }
 
@@ -302,53 +305,70 @@
   </script>
 
   <!-- Mobile menu JS (same as index) -->
-<script>
-  (function(){
-    const btn=document.getElementById('menuBtn');
-    const menu=document.getElementById('mobileMenu');
-    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
-    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
-    btn.addEventListener('click',toggleMenu);
-    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
-  })();
-  </script>
   <script>
-(function(){
-  const hero = document.querySelector('.ks3-hero-wrap');
-  const bg   = hero?.querySelector('.ks3-hero-bg');
+    (function(){
+      const btn  = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
 
-  if (!hero || !bg) return;
+      function closeMenu(){
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded','false');
+      }
+      function toggleMenu(e){
+        e.stopPropagation();
+        const willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !willOpen);
+        btn.setAttribute('aria-expanded', String(willOpen));
+      }
 
-  let ticking = false;
+      btn.addEventListener('click', toggleMenu);
+      document.addEventListener('click', e => {
+        if (!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) {
+          closeMenu();
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
 
-  function updateParallax() {
-    const rect = hero.getBoundingClientRect();
-    const vh   = window.innerHeight || document.documentElement.clientHeight;
+  <!-- Parallax JS -->
+  <script>
+    (function(){
+      const hero = document.querySelector('.ks3-hero-wrap');
+      const bg   = hero?.querySelector('.ks3-hero-bg');
 
-    // How far the hero is from the centre of the viewport (-1 to 1-ish)
-    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      if (!hero || !bg) return;
 
-    // Adjust this number to make the effect stronger/weaker
-    const offset = progress * 30; // px
+      let ticking = false;
 
-    bg.style.transform = `translateY(${offset}px) scale(1.05)`;
-    ticking = false;
-  }
+      function updateParallax() {
+        const rect = hero.getBoundingClientRect();
+        const vh   = window.innerHeight || document.documentElement.clientHeight;
 
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
+        // How far the hero is from the centre of the viewport (-1 to 1-ish)
+        const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+        const offset = progress * 30; // px
+        bg.style.transform = `translateY(${offset}px) scale(1.05)`;
+        ticking = false;
+      }
 
-  // Initial position
-  updateParallax();
-})();
-</script>
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+
+      // Initial position
+      updateParallax();
+    })();
+  </script>
 </body>
 </html>
