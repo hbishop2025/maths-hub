@@ -11,7 +11,8 @@
         "fg": "#0369A1",
         "stripe": "rgba(3,105,161,0.08)"
       },
-      "active": true
+      "active": true,
+      "logo": ""
     },
     {
       "name": "ADDvance Maths",
@@ -34,6 +35,19 @@
       "url": "https://www.interactive-maths.com/ukmt-random-question-generator.html/",
       "description": "Click the junior maths challenge (7 and 8) or intermediate (9) challenge to get random questions with solutions to try,",
       "logo": "https://www.interactive-maths.com/uploads/1/1/3/4/11345755/published/logo-im.png?1740599983",
+      "type": "site"
+    },
+    {
+      "cta": "Open",
+      "active": true,
+      "url": "https://mrgalemaths.weebly.com/ukmt.html",
+      "name": "Mr Gale Maths UKMT",
+      "description": "A selection of Full and Mini challenges.",
+      "logo": "",
+      "brand": {
+        "bg": "#F0F9FF",
+        "fg": "#0369A1"
+      },
       "type": "site"
     }
   ]
