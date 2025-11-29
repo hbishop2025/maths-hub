@@ -242,113 +242,41 @@
   <script src="assets/footer-loader.js" defer></script>
 
     <!-- KS3 JSON + site cards -->
-  <script src="assets/cards.js"></script>
-
   <script>
-    const KS3_HERO_JSON   = "assets/data/ks3_hero.json";
-    const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
+    (function(){
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const targetThisYear = new Date(2026, 9, 1, 0, 0, 0); // Nov 3
+      const target = (now <= targetThisYear) ? targetThisYear : new Date(currentYear + 1, 10, 3, 0, 0, 0);
 
-    // Helper: tolerate array or {items:[]}
-    function normList(data){
-      if (Array.isArray(data)) return data;
-      if (data && Array.isArray(data.items)) return data.items;
-      return [];
-    }
+      const elD = document.getElementById('cd-days');
+      const elH = document.getElementById('cd-hours');
+      const elM = document.getElementById('cd-mins');
+      const elS = document.getElementById('cd-secs');
 
-    // Optional hero text (currently unused, but kept for future)
-    fetch(KS3_HERO_JSON, {cache:"no-store"})
-      .then(r => r.json())
-      .then(d => {
-        // You can wire this into the hero later if you like
-        const title = d.title || d.headline;
-        const sub   = d.subtitle || d.body;
-      })
-      .catch(()=>{});
+      function pad(n){ return String(n).padStart(2,'0'); }
 
-    // Fallback site card if makeSiteCard isn't available for any reason
-    function createSiteCard(site){
-      if (typeof makeSiteCard === "function") {
-        return makeSiteCard(site);
+      function tick(){
+        const t = target.getTime() - Date.now();
+        if (t <= 0){
+          [elD,elH,elM,elS].forEach(el => el.textContent = '00');
+          clearInterval(timer);
+          return;
+        }
+        const totalSeconds = Math.floor(t/1000);
+        const days  = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins  = Math.floor((totalSeconds % 3600) / 60);
+        const secs  = totalSeconds % 60;
+
+        elD.textContent = pad(days);
+        elH.textContent = pad(hours);
+        elM.textContent = pad(mins);
+        elS.textContent = pad(secs);
       }
-      const a = document.createElement("a");
-      a.href = site.url || "#";
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.className =
-        "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
-        "hover:shadow-md hover:-translate-y-0.5 transition transform";
-      a.innerHTML = `
-        <div class="flex flex-col gap-1">
-          <h3 class="font-semibold text-gray-800">${site.name || site.title || "Resource"}</h3>
-          ${site.description ? `<p class="text-xs text-gray-500">${site.description}</p>` : ``}
-        </div>
-      `;
-      return a;
-    }
-
-    // ---- KS3 Featured Sites ----
-    async function loadKS3Sites(){
-      const grid = document.getElementById("ks3-featured-grid");
-      const empty = document.getElementById("ks3-featured-empty");
-      if (!grid || !empty) return;
-
-      try{
-        const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const items = normList(data).filter(x => x && x.active !== false);
-
-        grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(createSiteCard(site)));
-
-        empty.hidden = items.length > 0;
-      }catch(e){
-        console.error("KS3 featured sites load error:", e);
-        empty.hidden = false;
-      }
-    }
-
-    // ---- UKMT sections ----
-    const KS3_UKMT_JSON      = "assets/data/ks3_ukmt.json";
-    const KS3_UKMT_HERO_JSON = "assets/data/ks3_ukmt_hero.json";
-
-    // Optional: UKMT hero copy
-    fetch(KS3_UKMT_HERO_JSON, {cache:"no-store"})
-      .then(r => r.json())
-      .then(d => {
-        const t = d.title || d.headline || "UKMT at KS3";
-        const s = d.subtitle || d.body || "Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.";
-        const titleEl = document.getElementById("ks3-ukmt-title");
-        const subEl   = document.getElementById("ks3-ukmt-sub");
-        if (titleEl) titleEl.textContent = t;
-        if (subEl)   subEl.textContent   = s;
-      })
-      .catch(()=>{ /* leave defaults */ });
-
-    async function loadKs3Ukmt(){
-      const grid = document.getElementById("ks3-ukmt-grid");
-      const empty = document.getElementById("ks3-ukmt-empty");
-      if (!grid || !empty) return;
-
-      try{
-        const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const items = normList(data).filter(x => x && x.active !== false);
-
-        grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(createSiteCard(site)));
-        empty.hidden = items.length > 0;
-      }catch(e){
-        console.error("UKMT load error:", e);
-        empty.hidden = false;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-      loadKS3Sites();
-      loadKs3Ukmt();
-    });
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
   </script>
 
   <!-- Mobile menu JS (same as index) -->
