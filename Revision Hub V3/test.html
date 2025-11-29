@@ -448,36 +448,16 @@
 
   <!-- Mobile menu JS (same as index) -->
 <script>
-(function(){
-  const btn  = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  if (!btn || !menu) return;
-
-  function closeMenu(){
-    menu.classList.add('hidden');
-    btn.setAttribute('aria-expanded','false');
-  }
-
-  function toggleMenu(e){
-    e.stopPropagation();
-    const open = menu.classList.contains('hidden'); // will it open now?
-    menu.classList.toggle('hidden', !open);
-    btn.setAttribute('aria-expanded', String(open));
-  }
-
-  btn.addEventListener('click', toggleMenu);
-
-  document.addEventListener('click', e=>{
-    if (!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) {
-      closeMenu();
-    }
-  });
-
-  document.addEventListener('keydown', e=>{
-    if (e.key === 'Escape') closeMenu();
-  });
-})();
-</script>
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
   <script>
 (function(){
   const hero = document.querySelector('.ks3-hero-wrap');
