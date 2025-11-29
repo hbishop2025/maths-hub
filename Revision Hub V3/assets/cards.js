@@ -1,24 +1,32 @@
 function makeSiteCard(site){
-  const name = site?.name || "Resource";
-  const url  = ensureHttps(site?.url);
-  const desc = site?.description || "";
-  const cta  = site?.cta || "Open";
+  // super-defensive: never let "site" be null/undefined
+  site = site || {};
+
+  const name = site.name || "Resource";
+  const rawUrl = site.url || "#";
+  const desc = site.description || "";
+  const cta  = site.cta || "Open";
+
+  // Avoid relying on ensureHttps in case it isn't present or has moved
+  const url = /^https?:\/\//i.test(rawUrl) ? rawUrl : ("https://" + rawUrl.replace(/^\/+/, ""));
 
   // Brand colours (for logo/icon backgrounds)
-  const bg     = site?.brand?.bg     || "#F3F4F6";  // light gray
-  const fg     = site?.brand?.fg     || "#2563EB";  // blue-600 (icon colour)
-  const stripe = site?.brand?.stripe || "rgba(148,163,184,0.15)";
+  const brand = site.brand || {};
+  const bg     = brand.bg     || "#F3F4F6";             // light gray
+  const fg     = brand.fg     || "#2563EB";             // blue-600 (icon colour)
+  const stripe = brand.stripe || "rgba(148,163,184,0.15)";
 
   // Icon fallback by type
   const typeIcon =
-    site?.type === "drive"    ? "folder" :
-    site?.type === "quiz"     ? "quiz" :
-    site?.type === "textbook" ? "menu_book" :
-    site?.type === "pdf"      ? "picture_as_pdf" :
+    site.type === "drive"    ? "folder" :
+    site.type === "quiz"     ? "quiz" :
+    site.type === "textbook" ? "menu_book" :
+    site.type === "pdf"      ? "picture_as_pdf" :
     "link";
 
   // Top "media" area: either logo or icon on a striped panel
-  const media = site?.logo
+  const hasLogo = !!site.logo;
+  const media = hasLogo
     ? `
       <div class="w-full h-32 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden"
            style="background:linear-gradient(135deg, ${bg}, #ffffff);">
@@ -32,7 +40,7 @@ function makeSiteCard(site){
              );
              opacity:.5;"></div>
         <img src="${site.logo}" alt="${name} logo"
-             class="relative max-h-14 w-auto object-contain drop-shadow-sm">
+             class="relative max-h-14 w-auto object-contain">
       </div>`
     : `
       <div class="w-full h-32 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden"
