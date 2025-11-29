@@ -336,7 +336,7 @@
     </div>
   </footer>
 
-  <!-- KS3 JSON + site cards (reusing your scripts) -->
+    <!-- KS3 JSON + site cards -->
   <script src="assets/cards.js"></script>
 
   <script>
@@ -345,69 +345,98 @@
 
     // Helper: tolerate array or {items:[]}
     function normList(data){
-      if(Array.isArray(data)) return data;
-      if(data && Array.isArray(data.items)) return data.items;
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.items)) return data.items;
       return [];
     }
 
-    // Hero text (still drive the welcome copy if you want)
+    // Optional hero text (currently unused, but kept for future)
     fetch(KS3_HERO_JSON, {cache:"no-store"})
       .then(r => r.json())
       .then(d => {
+        // You can wire this into the hero later if you like
         const title = d.title || d.headline;
         const sub   = d.subtitle || d.body;
-        if(title){
-          // If you want to reflect this in the hero, you could wire to somewhere,
-          // but you might just leave it unused for now.
-        }
       })
       .catch(()=>{});
 
-    // Featured KS3 sites
+    // Fallback site card if makeSiteCard isn't available for any reason
+    function createSiteCard(site){
+      if (typeof makeSiteCard === "function") {
+        return makeSiteCard(site);
+      }
+      const a = document.createElement("a");
+      a.href = site.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.className =
+        "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
+        "hover:shadow-md hover:-translate-y-0.5 transition transform";
+      a.innerHTML = `
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-gray-800">${site.name || site.title || "Resource"}</h3>
+          ${site.description ? `<p class="text-xs text-gray-500">${site.description}</p>` : ``}
+        </div>
+      `;
+      return a;
+    }
+
+    // ---- KS3 Featured Sites ----
     async function loadKS3Sites(){
+      const grid = document.getElementById("ks3-featured-grid");
+      const empty = document.getElementById("ks3-featured-empty");
+      if (!grid || !empty) return;
+
       try{
         const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         const items = normList(data).filter(x => x && x.active !== false);
 
-        const grid = document.getElementById("ks3-featured-grid");
         grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(makeSiteCard(site)));
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
 
-        document.getElementById("ks3-featured-empty").hidden = items.length > 0;
+        empty.hidden = items.length > 0;
       }catch(e){
         console.error("KS3 featured sites load error:", e);
-        document.getElementById("ks3-featured-empty").hidden = false;
+        empty.hidden = false;
       }
     }
 
-    // UKMT sections
+    // ---- UKMT sections ----
     const KS3_UKMT_JSON      = "assets/data/ks3_ukmt.json";
     const KS3_UKMT_HERO_JSON = "assets/data/ks3_ukmt_hero.json";
 
+    // Optional: UKMT hero copy
     fetch(KS3_UKMT_HERO_JSON, {cache:"no-store"})
-      .then(r=>r.json())
-      .then(d=>{
+      .then(r => r.json())
+      .then(d => {
         const t = d.title || d.headline || "UKMT at KS3";
         const s = d.subtitle || d.body || "Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.";
-        document.getElementById("ks3-ukmt-title").textContent = t;
-        document.getElementById("ks3-ukmt-sub").textContent   = s;
+        const titleEl = document.getElementById("ks3-ukmt-title");
+        const subEl   = document.getElementById("ks3-ukmt-sub");
+        if (titleEl) titleEl.textContent = t;
+        if (subEl)   subEl.textContent   = s;
       })
-      .catch(()=>{});
+      .catch(()=>{ /* leave defaults */ });
 
     async function loadKs3Ukmt(){
+      const grid = document.getElementById("ks3-ukmt-grid");
+      const empty = document.getElementById("ks3-ukmt-empty");
+      if (!grid || !empty) return;
+
       try{
         const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         const items = normList(data).filter(x => x && x.active !== false);
 
-        const grid = document.getElementById("ks3-ukmt-grid");
         grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(makeSiteCard(site)));
-        document.getElementById("ks3-ukmt-empty").hidden = items.length > 0;
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
+        empty.hidden = items.length > 0;
       }catch(e){
         console.error("UKMT load error:", e);
-        document.getElementById("ks3-ukmt-empty").hidden = false;
+        empty.hidden = false;
       }
     }
 
@@ -418,34 +447,37 @@
   </script>
 
   <!-- Mobile menu JS (same as index) -->
-  <script>
-  (function(){
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    if (!btn || !menu) return;
+<script>
+(function(){
+  const btn  = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
 
-    function closeMenu(){
-      menu.classList.add('hidden');
-      btn.setAttribute('aria-expanded','false');
-    }
-    function toggleMenu(e){
-      e.stopPropagation();
-      const willOpen = menu.classList.contains('hidden');
-      menu.classList.toggle('hidden', !willOpen);
-      btn.setAttribute('aria-expanded', String(willOpen));
-    }
+  function closeMenu(){
+    menu.classList.add('hidden');
+    btn.setAttribute('aria-expanded','false');
+  }
 
-    btn.addEventListener('click', toggleMenu);
-    document.addEventListener('click', e=>{
-      if (!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) {
-        closeMenu();
-      }
-    });
-    document.addEventListener('keydown', e=>{
-      if (e.key === 'Escape') closeMenu();
-    });
-  })();
-  </script>
+  function toggleMenu(e){
+    e.stopPropagation();
+    const open = menu.classList.contains('hidden'); // will it open now?
+    menu.classList.toggle('hidden', !open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+
+  btn.addEventListener('click', toggleMenu);
+
+  document.addEventListener('click', e=>{
+    if (!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', e=>{
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
+</script>
   <script>
 (function(){
   const hero = document.querySelector('.ks3-hero-wrap');
