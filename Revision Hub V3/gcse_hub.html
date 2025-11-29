@@ -2,164 +2,384 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GCSE Hub — Maths Hub</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
+  <title>GCSE | Home</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS -->
+  <!-- Shared CSS (if you still use main.css for layout helpers) -->
   <link rel="stylesheet" href="assets/main.css"/>
 
-  <style>
-    .mega-gradient{
-      background-image:linear-gradient(90deg,#FDE047 0%,#F59E0B 18%,#F472B6 40%,#A78BFA 65%,#60A5FA 85%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 6px 18px rgba(167,139,250,.25);
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Header + mobile menu – same pattern as index */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    #mobileMenu {
+  @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+  width: 180px;
+  transform-origin: top right;
+}
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    /* Background dots (optional, like index) */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
-    .card-soft{
-      background:#fff;border:1px solid rgba(0,0,0,.06);
-      border-radius:1rem; box-shadow:0 8px 24px rgba(0,0,0,.06);
-      transition:transform .15s ease, box-shadow .15s ease;
+
+    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+    /* KS3 hero wrapper (image behind + glass card) */
+    .ks3-hero-wrap{
+      margin-top: clamp(1.25rem, 5vw, 3.5rem);
+      position: relative;
+      border-radius: 2rem;
+      overflow: hidden;
     }
-    .card-soft:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.10); }
-    .glow{
-      background: radial-gradient(80% 70% at 20% 10%, rgba(124, 58, 237,.12), transparent 60%),
-                  radial-gradient(80% 70% at 100% 30%, rgba(59,130,246,.12), transparent 60%);
+
+    /* Background image + gradient overlay */
+    .ks3-hero-bg{
+      position:absolute;
+      inset:0;
+      z-index:0;
     }
+    .ks3-hero-bg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.9);
+    }
+    .ks3-hero-bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: none !important;
+    }
+
+    /* Glass card on top of image */
+    .ks3-hero-card{
+  position:relative;
+  z-index:1;
+  @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
+  background: rgba(15,23,42,0.45);  /* more transparent */
+  backdrop-filter: blur(0px);       /* small blur */
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.10);
+}
+    .mega-gradient {
+      background-image: linear-gradient(
+        90deg,
+        #FDE047 0%,
+        #F59E0B 18%,
+        #F472B6 40%,
+        #A78BFA 65%,
+        #60A5FA 85%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 18px rgba(167,139,250,.25);
+    }
+
+    /* Section titles */
+    .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
+
+    .ks3-hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  will-change: transform;
+}
+
+.ks3-hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.9);
+  /* Slight scale so we don't see edges when it moves */
+  transform:scale(1.05);
+}
+    
   </style>
 </head>
-<body class="bg-gray-100" data-page="gcse">
-  <div class="layout">
-    <!-- Sidebar -->
-    <div id="sidebar"></div>
+<body>
 
-    <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
-      <!-- Back link -->
-      <header class="flex items-center gap-3 mb-6">
-        <a href="index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-          <span class="material-icons mr-1">arrow_back</span> Back to Explore
+  <!-- HEADER (same as index, tweak nav links if you like) -->
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</span>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
+           href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
         </a>
-      </header>
+      </nav>
 
-      <!-- Banner (contained) -->
-      <section class="mb-10">
-        <div class="bg-black rounded-2xl shadow-md p-10 md:p-16 text-center text-white">
-          <h1 class="text-4xl md:text-6xl font-extrabold mega-gradient mb-4">
-            GCSE Maths Hub
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+  <a href="index.html">Home</a>
+  <a href="ks3_hub.html">KS3</a>
+  <a href="gcse_hub.html">GCSE</span>
+  <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+  <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+</div>
+    </div>
+  </header>
+
+  <!-- Background dots -->
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <!-- MAIN -->
+  <main class="relative pt-16">
+    <div class="hero-shell">
+
+      <!-- KS3 HERO (Apple-style card with background image) -->
+      <section class="ks3-hero-wrap">
+        <!-- Background image & overlay -->
+        <div class="ks3-hero-bg">
+          <!-- Replace this file with your chosen KS3 hero image -->
+          <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
+        </div>
+
+        <!-- Glass content card -->
+        <div class="ks3-hero-card">
+          <p class="uppercase tracking-widest text-xs text-gray-300">Key Stage 4 Maths</p>
+          <h1 class="mt-2 text-3xl sm:text-4xl md:text-5xl font-black leading-tight">
+            <span class="mega-gradient">GCSE Revision</span><br/>
+            All GCSE content in one place.
           </h1>
-          <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Your one-stop space for revision, practice, and building confidence in key GCSE maths topics.
+          <p class="mt-3 text-sm sm:text-base text-gray-200 max-w-xl">
+            Choose your units to find worksheets, videos and problem-solving practice.
+            This KS4 area will grow over time, so be sure to check back!
           </p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#UKMT"
+               class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
+              UKMT - JMC
+              <span class="material-icons ml-2 text-base">emoji_events</span>
+            </a>
+            <a href="ks3_eoy.html"
+               class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
+              KS3 EOY Revision
+              <span class="material-icons ml-2 text-base">event</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- Asymmetric module grid -->
-      <section class="mb-12">
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-[12rem]">
-          <!-- Topics (tall) -->
-          <a href="#" class="card-soft row-span-2 p-6 glow flex flex-col">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-3xl text-indigo-600">menu_book</span>
-              <h3 class="text-lg font-bold text-gray-800">Topics & Revision Notes</h3>
-            </div>
-            <p class="text-gray-600 mt-3">
-              Algebra, number, geometry, statistics — clear notes and examples for every topic.
-            </p>
-            <div class="mt-auto pt-3 text-indigo-600 font-semibold inline-flex items-center">
-              Open <span class="material-icons ml-1">arrow_forward</span>
-            </div>
-          </a>
+      <!-- CHOOSE YEAR -->
+      <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
+        <h2 class="section-heading">Choose your year</h2>
 
-          <!-- Exam Practice -->
-          <a href="#" class="card-soft p-6 flex flex-col">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-3xl text-rose-600">edit_note</span>
-              <h3 class="text-lg font-bold text-gray-800">Exam Practice</h3>
-            </div>
-            <p class="text-gray-600 mt-3">
-              Past papers, topic tests, and exam-style questions.
-            </p>
-            <div class="mt-auto pt-3 text-rose-600 font-semibold inline-flex items-center">
-              Open <span class="material-icons ml-1">arrow_forward</span>
-            </div>
-          </a>
-
-          <!-- Video Lessons (tall gradient) -->
-          <a href="#" class="row-span-2 p-0 rounded-2xl overflow-hidden card-soft">
-            <div class="h-full w-full p-6 flex flex-col"
-                 style="background:linear-gradient(135deg,#a78bfa 0%,#60a5fa 60%,#22d3ee 100%);">
-              <div class="flex items-center gap-3 text-white">
-                <span class="material-icons text-3xl">play_circle</span>
-                <h3 class="text-lg font-bold">Video Lessons</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
+          <!-- Year 7 -->
+          <a href="year7_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-orange-50">
+                <span class="material-icons text-orange-500">school</span>
               </div>
-              <p class="text-white/90 mt-3">
-                Hand-picked video explanations aligned to each topic.
+              <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Secure the basics and build confidence with early KS3 topics.
               </p>
-              <div class="mt-auto pt-3 font-semibold inline-flex items-center text-white">
-                Watch <span class="material-icons ml-1">arrow_forward</span>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
+                </span>
               </div>
-            </div>
-          </a>
+      
+  </main>
 
-          <!-- Worksheets -->
-          <a href="#" class="card-soft p-6 flex flex-col">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-3xl text-amber-600">description</span>
-              <h3 class="text-lg font-bold text-gray-800">Worksheets & Resources</h3>
-            </div>
-            <p class="text-gray-600 mt-3">
-              Printable worksheets and quick practice sets.
-            </p>
-            <div class="mt-auto pt-3 text-amber-600 font-semibold inline-flex items-center">
-              Open <span class="material-icons ml-1">arrow_forward</span>
-            </div>
-          </a>
+  <!-- FOOTER (same style as index) -->
+  <div id="footer-slot"></div>
 
-          <!-- Problem Solving -->
-          <a href="#" class="card-soft p-6 flex flex-col">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-3xl text-emerald-600">psychology</span>
-              <h3 class="text-lg font-bold text-gray-800">Problem Solving & Stretch</h3>
-            </div>
-            <p class="text-gray-600 mt-3">
-              Non-routine problems and challenge tasks to deepen understanding.
-            </p>
-            <div class="mt-auto pt-3 text-emerald-600 font-semibold inline-flex items-center">
-              Try now <span class="material-icons ml-1">arrow_forward</span>
-            </div>
-          </a>
+  <script src="assets/footer-loader.js" defer></script>
 
-          <!-- AI / Tools (wide on lg) -->
-          <a href="#" class="card-soft lg:col-span-2 p-6 flex flex-col">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-3xl text-fuchsia-600">smart_toy</span>
-              <h3 class="text-lg font-bold text-gray-800">AI Helpers & Tools</h3>
-            </div>
-            <p class="text-gray-600 mt-3">
-              AI prompt ideas, safe use guidance, calculators, and quick checkers.
-            </p>
-            <div class="mt-auto pt-3 text-fuchsia-600 font-semibold inline-flex items-center">
-              Explore <span class="material-icons ml-1">arrow_forward</span>
-            </div>
-          </a>
+    <!-- KS3 JSON + site cards -->
+  <script src="assets/cards.js"></script>
+
+  <script>
+    const KS3_HERO_JSON   = "assets/data/ks3_hero.json";
+    const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
+
+    // Helper: tolerate array or {items:[]}
+    function normList(data){
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.items)) return data.items;
+      return [];
+    }
+
+    // Optional hero text (currently unused, but kept for future)
+    fetch(KS3_HERO_JSON, {cache:"no-store"})
+      .then(r => r.json())
+      .then(d => {
+        // You can wire this into the hero later if you like
+        const title = d.title || d.headline;
+        const sub   = d.subtitle || d.body;
+      })
+      .catch(()=>{});
+
+    // Fallback site card if makeSiteCard isn't available for any reason
+    function createSiteCard(site){
+      if (typeof makeSiteCard === "function") {
+        return makeSiteCard(site);
+      }
+      const a = document.createElement("a");
+      a.href = site.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.className =
+        "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
+        "hover:shadow-md hover:-translate-y-0.5 transition transform";
+      a.innerHTML = `
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-gray-800">${site.name || site.title || "Resource"}</h3>
+          ${site.description ? `<p class="text-xs text-gray-500">${site.description}</p>` : ``}
         </div>
-      </section>
+      `;
+      return a;
+    }
 
-      <!-- Placeholder -->
-      <section class="mb-10">
-        <p class="text-gray-500 text-sm">This is a demo layout. When you’re ready, link each module to its page.</p>
-      </section>
-    </main>
-  </div>
+    // ---- KS3 Featured Sites ----
+    async function loadKS3Sites(){
+      const grid = document.getElementById("ks3-featured-grid");
+      const empty = document.getElementById("ks3-featured-empty");
+      if (!grid || !empty) return;
 
-  <!-- Scripts -->
-  <script src="assets/sidebar-loader.js"></script>
+      try{
+        const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const items = normList(data).filter(x => x && x.active !== false);
+
+        grid.innerHTML = "";
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
+
+        empty.hidden = items.length > 0;
+      }catch(e){
+        console.error("KS3 featured sites load error:", e);
+        empty.hidden = false;
+      }
+    }
+
+    // ---- UKMT sections ----
+    const KS3_UKMT_JSON      = "assets/data/ks3_ukmt.json";
+    const KS3_UKMT_HERO_JSON = "assets/data/ks3_ukmt_hero.json";
+
+    // Optional: UKMT hero copy
+    fetch(KS3_UKMT_HERO_JSON, {cache:"no-store"})
+      .then(r => r.json())
+      .then(d => {
+        const t = d.title || d.headline || "UKMT at KS3";
+        const s = d.subtitle || d.body || "Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.";
+        const titleEl = document.getElementById("ks3-ukmt-title");
+        const subEl   = document.getElementById("ks3-ukmt-sub");
+        if (titleEl) titleEl.textContent = t;
+        if (subEl)   subEl.textContent   = s;
+      })
+      .catch(()=>{ /* leave defaults */ });
+
+    async function loadKs3Ukmt(){
+      const grid = document.getElementById("ks3-ukmt-grid");
+      const empty = document.getElementById("ks3-ukmt-empty");
+      if (!grid || !empty) return;
+
+      try{
+        const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const items = normList(data).filter(x => x && x.active !== false);
+
+        grid.innerHTML = "";
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
+        empty.hidden = items.length > 0;
+      }catch(e){
+        console.error("UKMT load error:", e);
+        empty.hidden = false;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      loadKS3Sites();
+      loadKs3Ukmt();
+    });
+  </script>
+
+  <!-- Mobile menu JS (same as index) -->
+<script>
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
+  <script>
+(function(){
+  const hero = document.querySelector('.ks3-hero-wrap');
+  const bg   = hero?.querySelector('.ks3-hero-bg');
+
+  if (!hero || !bg) return;
+
+  let ticking = false;
+
+  function updateParallax() {
+    const rect = hero.getBoundingClientRect();
+    const vh   = window.innerHeight || document.documentElement.clientHeight;
+
+    // How far the hero is from the centre of the viewport (-1 to 1-ish)
+    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+
+    // Adjust this number to make the effect stronger/weaker
+    const offset = progress * 30; // px
+
+    bg.style.transform = `translateY(${offset}px) scale(1.05)`;
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // Initial position
+  updateParallax();
+})();
+</script>
 </body>
 </html>
