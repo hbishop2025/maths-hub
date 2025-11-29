@@ -97,6 +97,23 @@
 
     /* Section titles */
     .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
+
+    .ks3-hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  will-change: transform;
+}
+
+.ks3-hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.9);
+  /* Slight scale so we don't see edges when it moves */
+  transform:scale(1.05);
+}
+    
   </style>
 </head>
 <body>
@@ -429,5 +446,42 @@
     });
   })();
   </script>
+  <script>
+(function(){
+  const hero = document.querySelector('.ks3-hero-wrap');
+  const bg   = hero?.querySelector('.ks3-hero-bg');
+
+  if (!hero || !bg) return;
+
+  let ticking = false;
+
+  function updateParallax() {
+    const rect = hero.getBoundingClientRect();
+    const vh   = window.innerHeight || document.documentElement.clientHeight;
+
+    // How far the hero is from the centre of the viewport (-1 to 1-ish)
+    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+
+    // Adjust this number to make the effect stronger/weaker
+    const offset = progress * 20; // px
+
+    bg.style.transform = `translateY(${offset}px) scale(1.05)`;
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // Initial position
+  updateParallax();
+})();
+</script>
 </body>
 </html>
