@@ -6,27 +6,36 @@
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>AI Use — Maths Hub</title>
 
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="assets/main.css">
-
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <style>
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="assets/main.css"/>
+
+  <style type="text/tailwindcss">
     :root{
       --school-yellow: #F4C500;
       --ai-dark: #020617;
       --ai-dark-soft: #0b1220;
     }
 
-    body{ font-family:'Inter',sans-serif; background:#f3f4f6; }
+    body{ @apply bg-[#f6f6f8] text-[#111827]; font-family:'Lexend',sans-serif; }
     .material-icons{ font-size:24px; line-height:1; }
 
-    /* Subtle background grid */
+    /* Header + mobile menu – same pattern as other hubs */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    #mobileMenu {
+      @apply hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    /* Dotted background */
     .ai-bg-grid{
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
@@ -36,20 +45,60 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Fix list wrapping under bullets */
+    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+    /* Hero wrapper (image behind + glass card) */
+    .ai-hero-wrap{
+      margin-top: clamp(1.25rem, 5vw, 3.5rem);
+      position: relative;
+      border-radius: 2rem;
+      overflow: hidden;
+    }
+
+    .ai-hero-bg{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      will-change: transform;
+    }
+    .ai-hero-bg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.9);
+      transform:scale(1.05);
+    }
+    .ai-hero-bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:none !important;
+    }
+
+    .ai-hero-card{
+      position:relative;
+      z-index:1;
+      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
+      background: rgba(15,23,42,0.60);
+      backdrop-filter: blur(0px);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.10);
+    }
+
+    /* Section layout helpers */
+    .section-divider{
+      height:1px;
+      width:100%;
+      background:linear-gradient(to right, transparent, rgba(148,163,184,0.5), transparent);
+    }
+
     .hang-list{
       list-style: disc outside;
       padding-left: 1.5rem;
     }
     .hang-list li{
       padding-left: .25rem;
-    }
-
-    /* Section divider */
-    .section-divider{
-      height:1px;
-      width:100%;
-      background:linear-gradient(to right, transparent, rgba(148,163,184,0.5), transparent);
     }
 
     /* Tab pills */
@@ -61,7 +110,7 @@
       border-radius:9999px;
       font-size:0.75rem;
       font-weight:600;
-      color:#4b5563;       /* gray-600 */
+      color:#4b5563;
       cursor:pointer;
       border:none;
       background:transparent;
@@ -72,7 +121,7 @@
         box-shadow .18s ease;
     }
     .tab-pill-active{
-      background:#020617;   /* slate-950 */
+      background:#020617;
       color:#f9fafb;
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(15,23,42,0.35);
@@ -82,79 +131,116 @@
     .prompt-card{
       background:#ffffff;
       border-radius: 1rem;
-      border: 1px solid #e5e7eb; /* gray-200 */
+      border: 1px solid #e5e7eb;
       box-shadow: 0 10px 24px rgba(15,23,42,0.08);
       color:#111827;
     }
   </style>
 </head>
-<body class="bg-gray-100" data-page="ai">
-  <div class="layout">
-    <div id="sidebar" aria-label="Sidebar"></div>
+<body>
 
-    <main class="main p-6 md:p-8 overflow-y-auto relative">
-      <!-- Background grid -->
-      <div class="absolute inset-0 ai-bg-grid pointer-events-none opacity-60"></div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
 
-      <div class="relative z-10 max-w-6xl mx-auto">
-        <!-- Top: back + tag -->
-        <header class="flex flex-wrap items-center justify-between gap-3 mb-6">
-          <a href="index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900 text-sm">
-            <span class="material-icons mr-1">arrow_back</span>
-            Back to home
-          </a>
-          <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase text-gray-500">
-            <span class="h-1 w-6 rounded-full bg-amber-400"></span>
-            AI &amp; Maths
-          </span>
-        </header>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <span class="text-sm text-gray-400 cursor-not-allowed">GCSE</span>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
+           href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
 
-        <!-- HERO / INTRO -->
-        <section class="mb-8">
-          <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-br from-[var(--ai-dark)] via-[var(--ai-dark-soft)] to-slate-900 text-white shadow-xl">
-            <div class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl"></div>
-            <div class="absolute -bottom-24 -left-10 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
 
-            <div class="relative p-6 sm:p-8 lg:p-10 flex flex-col gap-6 lg:flex-row lg:items-center">
-              <!-- Left: text -->
-              <div class="flex-1 min-w-0">
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-                  Using AI sensibly for maths
-                </h1>
-                <p class="mt-3 text-sm sm:text-base text-slate-200 max-w-xl">
-                  AI is a powerful revision tool. It can explain methods, spot mistakes and generate practice questions.
-                  Your job is to use it to <span class="font-semibold text-amber-300">learn</span>, not to short-cut learning.
-                </p>
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <span class="text-gray-400 cursor-not-allowed block text-sm py-1 text-center">GCSE</span>
+        <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
+    </div>
+  </header>
 
-                <!-- Chips -->
-                <div class="mt-4 flex flex-wrap gap-3 text-xs">
-                  <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 border border-emerald-400/60 px-3 py-1 text-emerald-100">
-                    <span class="material-icons text-emerald-300 text-base">school</span>
-                    Great for explanations &amp; practice
-                  </span>
-                  <span class="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-400/70 px-3 py-1 text-red-100">
-                    <span class="material-icons text-red-300 text-base">warning</span>
-                    Not for copying answers
-                  </span>
-                </div>
+  <!-- Background grid -->
+  <div class="absolute inset-0 ai-bg-grid pointer-events-none opacity-60"></div>
+
+  <!-- MAIN -->
+  <main class="relative pt-16">
+    <div class="hero-shell relative z-10">
+
+      <!-- HERO with background image -->
+      <section class="ai-hero-wrap">
+        <div class="ai-hero-bg">
+          <img src="assets/ai-hero.jpg" alt="AI hero" />
+        </div>
+
+        <div class="ai-hero-card">
+          <!-- Top: back + tag -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <a href="index.html" class="inline-flex items-center text-gray-200 hover:text-white text-sm">
+              <span class="material-icons mr-1 text-gray-300">arrow_back</span>
+              Back to home
+            </a>
+            <span class="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-gray-300">
+              <span class="h-1 w-6 rounded-full bg-amber-400"></span>
+              AI &amp; Maths
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-center">
+            <!-- Left: text -->
+            <div class="flex-1 min-w-0">
+              <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+                Using AI sensibly for maths
+              </h1>
+              <p class="mt-3 text-sm sm:text-base text-slate-100/90 max-w-xl">
+                AI is a powerful revision tool. It can explain methods, spot mistakes and generate practice questions.
+                Your job is to use it to <span class="font-semibold text-amber-300">learn</span>, not to short-cut learning.
+              </p>
+
+              <!-- Chips -->
+              <div class="mt-4 flex flex-wrap gap-3 text-xs">
+                <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 border border-emerald-400/60 px-3 py-1 text-emerald-100">
+                  <span class="material-icons text-emerald-300 text-base">school</span>
+                  Great for explanations &amp; practice
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-400/70 px-3 py-1 text-red-100">
+                  <span class="material-icons text-red-300 text-base">warning</span>
+                  Not for copying answers
+                </span>
               </div>
+            </div>
 
-              <!-- Right: simple icon block -->
-              <div class="w-full max-w-xs lg:max-w-sm">
-                <div class="bg-slate-900/70 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-lg flex items-start gap-3">
-                  <span class="material-icons text-amber-300">smart_toy</span>
-                  <p class="text-xs sm:text-[13px] text-slate-200/90">
-                    Think of AI like a <span class="font-semibold">super-keen study partner</span>:
-                    great at explaining and checking, but you still have to do the thinking and writing.
-                  </p>
-                </div>
+            <!-- Right: simple icon block -->
+            <div class="w-full max-w-xs lg:max-w-sm">
+              <div class="bg-slate-950/70 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-lg flex items-start gap-3">
+                <span class="material-icons text-amber-300">smart_toy</span>
+                <p class="text-xs sm:text-[13px] text-slate-100/90">
+                  Think of AI like a <span class="font-semibold">super-keen study partner</span>:
+                  great at explaining and checking, but you still have to do the thinking and writing.
+                </p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- SCHOOL EXPECTATIONS (3 cards on one level) -->
-        <section class="mb-10">
+      <!-- MAIN CONTENT AREA -->
+      <section class="mt-10 mb-10 space-y-10">
+
+        <!-- SCHOOL EXPECTATIONS -->
+        <section class="mb-6">
           <div class="bg-white/90 border border-slate-200 rounded-3xl p-6 md:p-7 shadow-sm">
             <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
               <span class="material-icons text-slate-700">policy</span>
@@ -208,10 +294,10 @@
           </div>
         </section>
 
-        <div class="section-divider my-10"></div>
+        <div class="section-divider my-2"></div>
 
         <!-- TAB STRIP: COMMON QUESTIONS / KS3 / KS4 / KS5 -->
-        <section class="mb-8">
+        <section class="mb-4">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
             <h2 class="text-xl font-bold text-gray-900">Help &amp; example prompts</h2>
             <p class="text-xs text-gray-500">
@@ -236,8 +322,8 @@
         </section>
 
         <!-- TAB PANELS -->
-        <section id="tab-panels" class="mb-14 space-y-10">
-          <!-- PANEL: COMMON QUESTIONS (no flipping, just Q&A cards) -->
+        <section id="tab-panels" class="mb-4 space-y-10">
+          <!-- PANEL: COMMON QUESTIONS -->
           <section data-tab-panel="questions">
             <div class="flex items-center justify-between gap-3 mb-3">
               <h3 class="text-lg font-semibold text-gray-900">Common questions</h3>
@@ -472,12 +558,14 @@
         <footer class="text-center text-gray-400 text-xs pb-4">
           <p>This guidance is here to help you use AI to learn — not to short-cut learning.</p>
         </footer>
-      </div>
-    </main>
-  </div>
 
-  <!-- Scripts -->
-  <script src="assets/sidebar-loader.js" defer></script>
+      </section>
+    </div>
+  </main>
+
+  <!-- UNIVERSAL FOOTER -->
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
 
   <!-- Tab switching -->
   <script>
@@ -503,6 +591,65 @@
       // Default
       setActiveTab('questions');
     });
+  </script>
+
+  <!-- Mobile menu JS -->
+  <script>
+    (function(){
+      const btn=document.getElementById('menuBtn');
+      const menu=document.getElementById('mobileMenu');
+      if(!btn || !menu) return;
+
+      function closeMenu(){
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded','false');
+      }
+      function toggleMenu(e){
+        e.stopPropagation();
+        const open=menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !open);
+        btn.setAttribute('aria-expanded', String(open));
+      }
+      btn.addEventListener('click',toggleMenu);
+      document.addEventListener('click',e=>{
+        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) closeMenu();
+      });
+      document.addEventListener('keydown',e=>{
+        if(e.key==='Escape') closeMenu();
+      });
+    })();
+  </script>
+
+  <!-- Parallax for hero background -->
+  <script>
+    (function(){
+      const hero = document.querySelector('.ai-hero-wrap');
+      const bg   = hero?.querySelector('.ai-hero-bg');
+
+      if (!hero || !bg) return;
+
+      let ticking = false;
+
+      function updateParallax() {
+        const rect = hero.getBoundingClientRect();
+        const vh   = window.innerHeight || document.documentElement.clientHeight;
+        const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+        const offset = progress * 30; // px
+        bg.style.transform = `translateY(${offset}px) scale(1.05)`;
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      updateParallax();
+    })();
   </script>
 </body>
 </html>
