@@ -13,135 +13,228 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+  :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+  body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Dotted paper background */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
+  /* Dotted paper background */
+  .math-grid {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+  }
 
-    /* Header nav link */
-    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+  .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
 
-    /* Hero container */
-    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* Glass hero */
-    .hero-glass {
-      margin-top: clamp(1.25rem, 5vw, 3.5rem);
-      @apply relative rounded-3xl border shadow-xl text-center;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(14px);
-      border-color: rgba(255,255,255,0.6);
-      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14;
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.08),
-        0 0 0 1px rgba(0,0,0,.03),
-        0 12px 48px rgba(124,58,237,.06),
-        0 16px 56px rgba(59,130,246,.055);
-    }
-
-    /* Expanding smart search */
-    .smart-wrap {
-      width: clamp(240px, 42vw, 400px);
-      transition: width .35s ease;
-      margin: 2rem auto 0;
-      position: relative;
-    }
-    .smart-wrap:hover,
-    .smart-wrap:focus-within { width: clamp(320px, 56vw, 640px); }
-
-    @media (max-width:640px){
-      .smart-wrap { width: 90vw !important; max-width: 440px; }
-      .smart-pill { padding: .6rem .9rem; }
-      input.smart-input { font-size: .95rem; }
-    }
-
-    /* Pill look */
-    .smart-pill {
-      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
-      transition: box-shadow .25s ease, transform .25s ease;
-    }
-    .smart-wrap:hover .smart-pill,
-    .smart-wrap:focus-within .smart-pill {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 2px rgba(124,58,237,.08),
-        0 0 0 6px rgba(59,130,246,.06),
-        0 16px 32px rgba(0,0,0,.10);
-    }
-
-    /* Siri glow */
-    .glow-wrap{ position: relative; border-radius: 9999px; isolation: isolate; }
-    .glow-wrap::before{
-      content:""; position:absolute; inset:-3px; border-radius:9999px;
-      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
-      background-size: 400% 100%;
-      filter: blur(6px);
-      opacity: 0;
-      transition: opacity .25s ease-out;
-      z-index: 0;
-      animation: siri-glow 8s linear infinite;
-    }
-    .glow-wrap:focus-within::before { opacity: 1; }
-    .glow-wrap > .smart-pill{ position: relative; z-index: 1; background: #fff; }
-
-    @keyframes siri-glow{
-      0%{background-position:0% 50%}
-      50%{background-position:200% 50%}
-      100%{background-position:0% 50%}
-    }
-
-    .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center; }
-
-    /* Header + Mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-  @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-  width: 180px;
-  transform-origin: top right;
-  animation: menuIn .22s ease-out;
+  /* Hero wrapper – NO overflow here */
+.home-hero-wrap{
+  margin-top: clamp(1.25rem, 5vw, 3.5rem);
+  position: relative;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25),
+    0 0 0 1px rgba(15,23,42,.35);
 }
-    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
 
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
+/* Background layer – clips the image to the radius */
+.home-hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  border-radius: inherit;   /* rounded corners */
+  overflow:hidden;          /* ONLY this layer clips */
+}
+.home-hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(1) saturate(1.05);  /* lighter so photos show */
+}
+  .home-hero-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    /* softer vertical darkening for text contrast */
+    linear-gradient(to bottom, rgba(15,23,42,0.35), rgba(15,23,42,0.18))
+    /* gentle blue glow in the top-left */
+    , radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%);
+}
+  /* Glass card on top of image */
+.home-hero-card{
+  position:relative;
+  z-index:1;
+  @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-center;
+  color:#E5E7EB;
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%),
+    linear-gradient(135deg, rgba(15,23,42,0.65), rgba(15,23,42,0.4));
+  backdrop-filter: blur(0px);
+  border-radius: inherit;
+  border: 1px solid rgba(148,163,184,0.45);
+}
+
+  .home-hero-card h1{
+    @apply text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2;
+  }
+  .home-hero-card p{
+    @apply text-base sm:text-lg mt-3;
+    color:#E5E7EB;
+  }
+
+  /* Progress bar under smart search */
+  .hero-progress-track{
+    margin-top:1.75rem;
+    width: min(420px, 90vw);
+    margin-left:auto;
+    margin-right:auto;
+    height:4px;
+    border-radius:999px;
+    background:rgba(148,163,184,.45);
+    overflow:hidden;
+  }
+  .hero-progress-bar{
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background:linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#FACC15);
+  }
+
+  @keyframes hero-progress-fill{
+    from{ width:0%; }
+    to  { width:100%; }
+  }
+
+  /* Existing smart search styles stay the same… */
+  .smart-wrap {
+    width: clamp(240px, 42vw, 400px);
+    transition: width .35s ease;
+    margin: 2rem auto 0;
+    position: relative;
+  }
+  .smart-wrap:hover,
+  .smart-wrap:focus-within { width: clamp(320px, 56vw, 640px); }
+
+  @media (max-width:640px){
+    .smart-wrap { width: 90vw !important; max-width: 440px; }
+    .smart-pill { padding: .6rem .9rem; }
+    input.smart-input { font-size: .95rem; }
+  }
+
+  .smart-pill {
+    @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .smart-wrap:hover .smart-pill,
+  .smart-wrap:focus-within .smart-pill {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 2px rgba(124,58,237,.08),
+      0 0 0 6px rgba(59,130,246,.06),
+      0 16px 32px rgba(0,0,0,.10);
+  }
+    .smart-input{
+  @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center;
+  color:#111827;          /* dark text */
+}
+
+.smart-input::placeholder{
+  color:#9CA3AF;          /* Tailwind gray-400 */
+}
+
+  .glow-wrap{
+  position: relative;
+  z-index: 30;          /* <- makes search + dropdown sit above progress bar & pill */
+  border-radius: 9999px;
+  isolation: isolate;
+}
+  .glow-wrap::before{
+    content:""; position:absolute; inset:-3px; border-radius:9999px;
+    background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
+    background-size: 400% 100%;
+    filter: blur(6px);
+    opacity: 0;
+    transition: opacity .25s ease-out;
+    z-index: 0;
+    animation: siri-glow 8s linear infinite;
+  }
+  .glow-wrap:focus-within::before { opacity: 1; }
+  .glow-wrap > .smart-pill{ position: relative; z-index: 1; background: #fff; }
+
+  @keyframes siri-glow{
+    0%{background-position:0% 50%}
+    50%{background-position:200% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  .smart-input { @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center; }
+
+  /* Header + mobile menu etc… (keep your existing definitions) */
+  .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+  #mobileMenu {
+    @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+    width: 180px;
+    transform-origin: top right;
+    animation: menuIn .22s ease-out;
+  }
+  #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+  @keyframes menuIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
 
     /* Suggestions dropdown */
-    #searchSug{
-      position:absolute; left:50%; transform:translateX(-50%) translateY(6px);
-      top: calc(100% + 8px);
-      width: clamp(260px, 48vw, 520px);
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 14px;
-      box-shadow: 0 16px 30px rgba(0,0,0,.12);
-      padding:.25rem; max-height: 60vh; overflow:auto;
-      opacity:0; visibility:hidden;
-      transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
-      z-index: 40;
-    }
-    #searchSug.open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+  #searchSug{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%) translateY(6px);
+    top: calc(100% + 8px);
+    width: clamp(260px, 48vw, 520px);
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 14px;
+    box-shadow: 0 16px 30px rgba(0,0,0,.12);
+    padding:.25rem;
+    max-height: 60vh;
+    overflow:auto;
+    opacity:0;
+    visibility:hidden;
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+    z-index: 40;
+  }
+  #searchSug.open{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+    transition: opacity .18s ease, transform .18s ease, visibility 0s;
+  }
 
-    .sug-item{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:.75rem; padding:.6rem .85rem; cursor:pointer; border-radius:.75rem;
-    }
-    .sug-item:hover{ background:#f9fafb; }
-    .sug-badge{
-      color:#fff; font-size:11px; font-weight:800; padding:.15rem .5rem; border-radius:9999px;
-    }
-  </style>
+  .sug-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.75rem;
+    padding:.6rem .85rem;
+    cursor:pointer;
+    border-radius:.75rem;
+  }
+  .sug-item:hover{ background:#f9fafb; }
+
+  .sug-badge{
+    color:#fff;
+    font-size:11px;
+    font-weight:800;
+    padding:.15rem .5rem;
+    border-radius:9999px;
+  }
+</style>
 </head>
 <body>
 
@@ -185,28 +278,58 @@
 <main class="relative pt-16">  
   <div class="hero-shell">
     <!-- GLASS HERO (unchanged core content) -->
-    <section class="hero-glass">
-      <p class="uppercase tracking-widest text-xs text-gray-600">SJWMS Maths</p>
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2">
-        What will you <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">revise today</span> and master?
-      </h1>
-      <p class="text-gray-700 text-lg mt-3 max-w-2xl mx-auto">
-        Use the smart search to find worksheets, videos and practice quizzes.
-      </p>
+    <section class="home-hero-wrap">
+  <!-- Background image -->
+  <div class="home-hero-bg">
+    <!-- Update the filenames to your actual images -->
+    <img id="homeHeroImg" src="assets/home-hero1.jpg" alt="Students revising maths" />
+  </div>
 
-      <!-- Smart Search -->
-      <div id="smartWrap" class="smart-wrap">
-        <div class="glow-wrap">
-          <div class="smart-pill">
-            <span class="material-symbols-outlined text-gray-400">search</span>
-            <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
-                   aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
-                   role="combobox"/>
-          </div>
-          <div id="searchSug" role="listbox"></div>
+  <!-- Glass content card -->
+  <div class="home-hero-card">
+    <p class="uppercase tracking-widest text-xs text-gray-300">
+      SJWMS Maths
+    </p>
+    <h1>
+      What will you
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+        revise today
+      </span>
+      and master?
+    </h1>
+    <p class="text-gray-100 text-lg mt-3 max-w-2xl mx-auto">
+      Use the smart search to find worksheets, videos and practice quizzes.
+    </p>
+
+    <!-- Smart Search (unchanged markup) -->
+    <div id="smartWrap" class="smart-wrap">
+      <div class="glow-wrap">
+        <div class="smart-pill">
+          <span class="material-symbols-outlined text-gray-400">search</span>
+          <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
+                 aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
+                 role="combobox"/>
         </div>
+        <div id="searchSug" role="listbox"></div>
       </div>
-    </section>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="hero-progress-track">
+      <div id="heroProgressBar" class="hero-progress-bar"></div>
+    </div>
+    <!-- Learn More Pill -->
+<div class="mt-6">
+  <a href="image_info.html"
+     class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 
+            bg-white/10 backdrop-blur-sm text-white text-sm font-semibold 
+            hover:bg-white/20 transition">
+    Learn more about these images
+    <span class="material-symbols-outlined text-base">arrow_forward</span>
+  </a>
+</div>
+  </div>
+</section>
 
     <!-- SITE STATUS (outside glass, on plain background) -->
     <section class="mt-10 max-w-3xl mx-auto text-left">
@@ -452,7 +575,45 @@
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
   })();
   </script>
+  <script>
+  (function(){
+    const heroImg = document.getElementById('homeHeroImg');
+    const progress = document.getElementById('heroProgressBar');
 
+    if (!heroImg || !progress) return;
+
+    // Update these filenames to match the ones you’ve saved in /assets
+    const HERO_IMAGES = [
+      'assets/home-hero1.jpg',
+      'assets/home-hero2.jpg',
+      'assets/home-hero3.jpg'
+    ];
+
+    const HERO_DURATION = 8000; // ms per image
+    let idx = 0;
+
+    function startProgress(){
+      progress.style.animation = 'none';
+      // force reflow so we can restart the animation cleanly
+      // eslint-disable-next-line no-unused-expressions
+      void progress.offsetHeight;
+      progress.style.animation = `hero-progress-fill ${HERO_DURATION}ms linear forwards`;
+    }
+
+    function showImage(i){
+      idx = (i + HERO_IMAGES.length) % HERO_IMAGES.length;
+      heroImg.src = HERO_IMAGES[idx];
+      startProgress();
+    }
+
+    // Initial state
+    showImage(0);
+
+    setInterval(() => {
+      showImage(idx + 1);
+    }, HERO_DURATION);
+  })();
+</script>
   <!-- SMART SEARCH JS -->
   <script>
   (function(){
