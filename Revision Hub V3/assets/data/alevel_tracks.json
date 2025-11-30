@@ -402,55 +402,59 @@
       ]
     },
         {
-      "id": "papers",
-      "label": "Papers",
-      "type": "papers",
-      "sections": [
+      {
+  "id": "papers",
+  "label": "Papers",
+  "type": "papers",
+  "sections": [
+    {
+      "heading": "Edexcel A-Level Papers",
+      "subheading": "Exam-style papers and preparation resources.",
+      "cards": [
         {
-          "heading": "Edexcel A-Level Papers",
-          "subheading": "Exam-style papers and preparation resources.",
-          "cards": [
-            {
-              "title": "AS-Level BSG",
-              "icon": "description",
-              "description": "Edexcel AS-level bronze, silver and gold questions.",
-              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/as-level-year-12",
-              "tags": ["papers", "edexcel", "as-level"]
-            },
-            {
-              "title": "Advanced Information Papers",
-              "icon": "description",
-              "description": "Edexcel A-level advanced information papers for extra exam practice.",
-              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/edexcel-a-level-advanced-information-papers",
-              "tags": ["papers", "edexcel", "a-level"]
-            },
-          "heading": "IYGB Papers",
-          "subheading": "IYGB papers and preparation resources.",
-          "cards": [
-            {
-              "title": "AS-Level Pure",
-              "icon": "description",
-              "description": "IYGB As-level advanced information papers for extra exam practice.",
-              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/as-level-pure-year-12",
-              "tags": ["papers", "IYGB", "as-level"]
-            },
-            {
-              "title": "A-Level Pure",
-              "icon": "description",
-              "description": "IYGB A-level advanced information papers for extra exam practice.",
-              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/a-level-pure-year-13",
-              "tags": ["papers", "IYGB", "a-level"]
-            },
-            {
-              "title": "A-Level Applied",
-              "icon": "description",
-              "description": "IYGB As-level Applied advanced information papers for extra exam practice.",
-              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/a-level-applied",
-              "tags": ["papers", "IYGB", "a-level"]
-            }
-          ]
+          "title": "AS-Level BSG",
+          "icon": "description",
+          "description": "Edexcel AS-level bronze, silver and gold questions.",
+          "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/as-level-year-12",
+          "tags": ["papers", "edexcel", "as-level"]
+        },
+        {
+          "title": "Advanced Information Papers",
+          "icon": "description",
+          "description": "Edexcel A-level advanced information papers for extra exam practice.",
+          "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/edexcel-a-level-advanced-information-papers",
+          "tags": ["papers", "edexcel", "a-level"]
+        }
+      ]
+    },
+    {
+      "heading": "IYGB Papers",
+      "subheading": "IYGB papers and preparation resources.",
+      "cards": [
+        {
+          "title": "AS-Level Pure",
+          "icon": "description",
+          "description": "IYGB AS-level pure papers for extra exam practice.",
+          "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/as-level-pure-year-12",
+          "tags": ["papers", "iygb", "as-level"]
+        },
+        {
+          "title": "A-Level Pure",
+          "icon": "description",
+          "description": "IYGB A-level pure papers for extra exam practice.",
+          "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/a-level-pure-year-13",
+          "tags": ["papers", "iygb", "a-level"]
+        },
+        {
+          "title": "A-Level Applied",
+          "icon": "description",
+          "description": "IYGB A-level applied papers for extra exam practice.",
+          "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/iygb/a-level-applied",
+          "tags": ["papers", "iygb", "a-level"]
         }
       ]
     }
   ]
+}
+]
 }
