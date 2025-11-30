@@ -54,6 +54,8 @@
   height:100%;
   object-fit:cover;
   filter:brightness(1) saturate(1.05);  /* lighter so photos show */
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out; /* soft fade between images */
 }
   .home-hero-bg::after{
   content:"";
@@ -328,6 +330,19 @@
     <span class="material-symbols-outlined text-base">arrow_forward</span>
   </a>
 </div>
+
+<!-- Pause / Play control -->
+<button id="heroPause"
+        type="button"
+        class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full 
+               text-[11px] font-semibold text-white/90
+               bg-black/25 border border-white/30 backdrop-blur-sm
+               absolute bottom-4 right-4 md:bottom-5 md:right-5
+               hover:bg-black/35 hover:text-white
+               focus:outline-none focus:ring-2 focus:ring-white/60 focus:ring-offset-2 focus:ring-offset-transparent">
+  <span class="material-symbols-outlined text-sm" data-icon>pause</span>
+  <span data-label>Pause</span>
+</button>
   </div>
 </section>
 
@@ -577,12 +592,12 @@
   </script>
   <script>
   (function(){
-    const heroImg = document.getElementById('homeHeroImg');
-    const progress = document.getElementById('heroProgressBar');
+    const heroImg    = document.getElementById('homeHeroImg');
+    const progress   = document.getElementById('heroProgressBar');
+    const pauseBtn   = document.getElementById('heroPause');
 
     if (!heroImg || !progress) return;
 
-    // Update these filenames to match the ones you’ve saved in /assets
     const HERO_IMAGES = [
       'assets/home-hero1.jpg',
       'assets/home-hero2.jpg',
@@ -590,28 +605,91 @@
     ];
 
     const HERO_DURATION = 8000; // ms per image
-    let idx = 0;
+    const FADE_DURATION = 400;  // ms fade
+
+    let idx       = 0;
+    let timerId   = null;
+    let isPaused  = false;
 
     function startProgress(){
+      if (isPaused) return; // don't restart bar while paused
       progress.style.animation = 'none';
       // force reflow so we can restart the animation cleanly
-      // eslint-disable-next-line no-unused-expressions
       void progress.offsetHeight;
       progress.style.animation = `hero-progress-fill ${HERO_DURATION}ms linear forwards`;
+      progress.style.animationPlayState = 'running';
     }
 
-    function showImage(i){
+    function showImage(i, withFade = true){
       idx = (i + HERO_IMAGES.length) % HERO_IMAGES.length;
-      heroImg.src = HERO_IMAGES[idx];
+
+      if (withFade){
+        heroImg.style.opacity = '0';
+        setTimeout(() => {
+          heroImg.src = HERO_IMAGES[idx];
+          // ensure fade-in happens even if image already cached
+          requestAnimationFrame(() => {
+            heroImg.style.opacity = '1';
+          });
+        }, FADE_DURATION / 2);
+      } else {
+        heroImg.src = HERO_IMAGES[idx];
+        heroImg.style.opacity = '1';
+      }
+
       startProgress();
     }
 
-    // Initial state
-    showImage(0);
+    function scheduleNext(){
+      if (timerId) clearTimeout(timerId);
+      if (isPaused) {
+        progress.style.animationPlayState = 'paused';
+        return;
+      }
+      timerId = setTimeout(() => {
+        showImage(idx + 1, true);
+        scheduleNext();
+      }, HERO_DURATION);
+    }
 
-    setInterval(() => {
-      showImage(idx + 1);
-    }, HERO_DURATION);
+    // Pause button wiring
+    if (pauseBtn){
+      const iconEl  = pauseBtn.querySelector('[data-icon]');
+      const labelEl = pauseBtn.querySelector('[data-label]');
+
+      function updatePauseUI(){
+        if (isPaused){
+          if (iconEl)  iconEl.textContent  = 'play_arrow';
+          if (labelEl) labelEl.textContent = 'Play';
+          pauseBtn.setAttribute('aria-pressed', 'true');
+          pauseBtn.setAttribute('aria-label', 'Resume background image animation');
+        } else {
+          if (iconEl)  iconEl.textContent  = 'pause';
+          if (labelEl) labelEl.textContent = 'Pause';
+          pauseBtn.setAttribute('aria-pressed', 'false');
+          pauseBtn.setAttribute('aria-label', 'Pause background image animation');
+        }
+      }
+
+      pauseBtn.addEventListener('click', () => {
+        isPaused = !isPaused;
+        updatePauseUI();
+
+        if (isPaused){
+          if (timerId) clearTimeout(timerId);
+          progress.style.animationPlayState = 'paused';
+        } else {
+          startProgress();
+          scheduleNext();
+        }
+      });
+
+      updatePauseUI();
+    }
+
+    // Initial state – no fade on first load
+    showImage(0, false);
+    scheduleNext();
   })();
 </script>
   <!-- SMART SEARCH JS -->
