@@ -93,13 +93,13 @@
     }
     /* Active pill should NOT lighten on hover */
     .track-pill-active:hover {
-      background-color: #0f172a !important;   /* same as active */
+      background-color: #0f172a !important;
       border-color: #0f172a !important;
       color: white !important;
-      cursor: default;                         /* optional, looks nice */
+      cursor: default;
     }
 
-    /* Icons / content cards */
+    /* Cards */
     .icon-card{
       @apply flex flex-col items-center justify-center p-6 rounded-2xl
              bg-white border border-gray-200 shadow-sm transition;
@@ -175,267 +175,14 @@
       </div>
     </section>
 
-    <!-- Track selector -->
-    <div class="track-wrap">
-      <button class="track-pill track-pill-active" data-track-target="y12-pure">Y12 Pure</button>
-      <button class="track-pill" data-track-target="y13-pure">Y13 Pure</button>
-      <button class="track-pill" data-track-target="stats">Statistics</button>
-      <button class="track-pill" data-track-target="mech">Mechanics</button>
-      <button class="track-pill" data-track-target="papers">Papers</button>
+    <!-- Track selector (NOW DYNAMIC) -->
+    <div class="track-wrap" id="track-pill-wrap">
+      <!-- Pills will be injected here from JSON -->
     </div>
 
-    <!-- PANELS -->
+    <!-- PANELS – dynamic content root -->
     <section id="track-panels" class="mt-10 space-y-8">
-
-      <!-- Y12 PURE PANEL -->
-      <section data-track-panel="y12-pure">
-        <h3 class="panel-heading">
-          Year 12 Pure
-        </h3>
-        <p class="panel-sub">
-          Placeholder cards — swap these for links, icons and topics as you build the hub.
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">functions</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 1</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: e.g. “Algebra & functions” or a link to a Google Site unit.
-            </p>
-          </div>
-
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">timeline</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 2</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: maybe “Differentiation” or “Graphs & transformations”.
-            </p>
-          </div>
-
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">calculate</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 3</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: exam question pack, revision sheet or external link.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Y13 PURE PANEL -->
-      <section data-track-panel="y13-pure" class="hidden">
-        <h3 class="panel-heading">
-          Year 13 Pure
-        </h3>
-        <p class="panel-sub">
-          Again, just placeholders for now — duplicate/remove cards as you decide the structure.
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">equalizer</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 1</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: e.g. “Further differentiation & integration”.
-            </p>
-          </div>
-
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">area_chart</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 2</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: maybe “Parametrics / vectors / proof”.
-            </p>
-          </div>
-
-          <div class="icon-card">
-            <span class="material-symbols-outlined text-4xl text-slate-500">quiz</span>
-            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 3</p>
-            <p class="mt-1 text-xs text-slate-500 text-center">
-              Placeholder: mixed exam practice, topic checklists, etc.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- STATISTICS PANEL -->
-      <section data-track-panel="stats" class="hidden space-y-8">
-        <!-- Y12 Stats -->
-        <div>
-          <h3 class="panel-heading">
-            Year 12 Statistics
-          </h3>
-          <p class="panel-sub">
-            Placeholders for S1-style content — data, probability, distributions, etc.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">bar_chart</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Stats card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Data & sampling” hub.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">pie_chart</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Stats card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: probability / discrete random variables.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Y13 Stats -->
-        <div>
-          <h3 class="panel-heading">
-            Year 13 Statistics
-          </h3>
-          <p class="panel-sub">
-            Year 13 stats section — hypothesis tests, normal distribution, regression, etc.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">analytics</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Stats card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Hypothesis testing” set.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">precision_manufacturing</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Stats card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: “Normal distribution / continuous models”.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MECHANICS PANEL -->
-      <section data-track-panel="mech" class="hidden space-y-8">
-        <!-- Y12 Mech -->
-        <div>
-          <h3 class="panel-heading">
-            Year 12 Mechanics
-          </h3>
-          <p class="panel-sub">
-            SUVAT, forces, particles on a rough/smooth surface — placeholders for now.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">directions_car</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Constant acceleration (SUVAT)” hub.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">north_east</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: “Forces & Newton’s laws”.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Y13 Mech -->
-        <div>
-          <h3 class="panel-heading">
-            Year 13 Mechanics
-          </h3>
-          <p class="panel-sub">
-            More advanced mechanics topics — projectiles, connected particles, etc.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">science</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Projectiles” collection.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">share</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: “Connected particles / ladders / moments”.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAPERS PANEL -->
-      <section data-track-panel="papers" class="hidden space-y-8">
-        <!-- Edexcel Papers -->
-        <div>
-          <h3 class="panel-heading">
-            Edexcel Papers
-          </h3>
-          <p class="panel-sub">
-            Something will replace this.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">directions_car</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Constant acceleration (SUVAT)” hub.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">north_east</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: “Forces & Newton’s laws”.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- IYGB PAPERS -->
-        <div>
-          <h3 class="panel-heading">
-            IYGB Papers
-          </h3>
-          <p class="panel-sub">
-            What does IYGB even mean?
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">science</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 1</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: e.g. “Projectiles” collection.
-              </p>
-            </div>
-
-            <div class="icon-card">
-              <span class="material-symbols-outlined text-4xl text-slate-500">share</span>
-              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 2</p>
-              <p class="mt-1 text-xs text-slate-500 text-center">
-                Placeholder: “Connected particles / ladders / moments”.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <!-- Track sections + cards will be injected here from JSON -->
     </section>
 
   </div>
@@ -445,32 +192,129 @@
 <div id="footer-slot"></div>
 <script src="assets/footer-loader.js" defer></script>
 
-<!-- TRACK SWITCHING JS -->
+<!-- TRACKS FROM JSON -->
 <script>
   (function(){
-    const pills = document.querySelectorAll('[data-track-target]');
-    const panels = document.querySelectorAll('[data-track-panel]');
+    const PILL_WRAP = document.getElementById('track-pill-wrap');
+    const PANEL_ROOT = document.getElementById('track-panels');
+    const JSON_URL = '/assets/data/alevel_tracks.json'; // <- your JSON file
 
-    function setActiveTrack(id){
-      pills.forEach(pill => {
-        const isActive = pill.dataset.trackTarget === id;
-        pill.classList.toggle('track-pill-active', isActive);
-      });
+    let TRACKS = [];
+    let activeTrackId = null;
 
-      panels.forEach(panel => {
-        const show = panel.dataset.trackPanel === id;
-        panel.classList.toggle('hidden', !show);
+    function createPills(tracks){
+      PILL_WRAP.innerHTML = '';
+      tracks.forEach((track, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'track-pill' + (index === 0 ? ' track-pill-active' : '');
+        btn.dataset.trackId = track.id;
+        btn.textContent = track.label;
+        btn.addEventListener('click', () => {
+          if (activeTrackId === track.id) return;
+          setActiveTrack(track.id);
+        });
+        PILL_WRAP.appendChild(btn);
       });
     }
 
-    pills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        setActiveTrack(pill.dataset.trackTarget);
-      });
-    });
+    function setActiveTrack(id){
+      activeTrackId = id;
 
-    // Default state
-    setActiveTrack('y12-pure');
+      // pills
+      const pills = PILL_WRAP.querySelectorAll('.track-pill');
+      pills.forEach(pill => {
+        const isActive = pill.dataset.trackId === id;
+        pill.classList.toggle('track-pill-active', isActive);
+      });
+
+      // panels
+      renderTrack(id);
+    }
+
+    function renderTrack(id){
+      const track = TRACKS.find(t => t.id === id);
+      if (!track){
+        PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Nothing here yet.</p>';
+        return;
+      }
+
+      const sections = Array.isArray(track.sections) ? track.sections : [];
+
+      if (!sections.length){
+        PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Content coming soon for this track.</p>';
+        return;
+      }
+
+      const html = sections.map(section => {
+        const cards = Array.isArray(section.cards) ? section.cards : [];
+
+        const cardsHtml = cards.map(card => {
+          const icon = card.icon || 'auto_awesome';
+          const title = card.title || 'Untitled card';
+          const desc = card.description || '';
+          const url  = card.url || '';
+
+          const isLink = !!url;
+          const tagHtml = Array.isArray(card.tags) && card.tags.length
+            ? '<div class="mt-3 flex flex-wrap justify-center gap-1">' +
+                card.tags.map(t => 
+                  `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-[10px] font-semibold text-slate-500 border border-slate-100">${t}</span>`
+                ).join('') +
+              '</div>'
+            : '';
+
+          const inner = `
+            <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-slate-700">${icon}</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold text-center">${title}</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">${desc}</p>
+            ${tagHtml}
+          `;
+
+          if (isLink){
+            return `
+              <a href="${url}" target="_blank" rel="noopener"
+                 class="icon-card group">
+                ${inner}
+              </a>
+            `;
+          } else {
+            return `<div class="icon-card group">${inner}</div>`;
+          }
+        }).join('');
+
+        return `
+          <section class="space-y-2">
+            <h3 class="panel-heading">
+              ${section.heading || ''}
+            </h3>
+            ${section.subheading ? `<p class="panel-sub">${section.subheading}</p>` : ''}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${cardsHtml}
+            </div>
+          </section>
+        `;
+      }).join('');
+
+      PANEL_ROOT.innerHTML = html;
+    }
+
+    // Load JSON + initialise
+    fetch(JSON_URL, { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        TRACKS = Array.isArray(data.tracks) ? data.tracks : [];
+        if (!TRACKS.length){
+          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">No tracks found in alevel_tracks.json.</p>';
+          return;
+        }
+        createPills(TRACKS);
+        setActiveTrack(TRACKS[0].id); // default to first track (Y12 Pure)
+      })
+      .catch(err => {
+        console.error('Error loading A-level tracks JSON', err);
+        PANEL_ROOT.innerHTML =
+          '<p class="text-sm text-red-600">There was a problem loading the A-level hub data. Check alevel_tracks.json.</p>';
+      });
   })();
 </script>
 
