@@ -91,6 +91,13 @@
     .track-pill-active{
       @apply bg-slate-900 text-white border-slate-900 shadow-md;
     }
+    /* Active pill should NOT lighten on hover */
+    .track-pill-active:hover {
+      background-color: #0f172a !important;   /* same as active */
+      border-color: #0f172a !important;
+      color: white !important;
+      cursor: default;                         /* optional, looks nice */
+    }
 
     /* Icons / content cards */
     .icon-card{
