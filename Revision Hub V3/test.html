@@ -46,26 +46,35 @@
   position:absolute;
   inset:0;
   z-index:0;
-  border-radius: inherit;   /* rounded corners */
-  overflow:hidden;          /* ONLY this layer clips */
+  border-radius: inherit;
+  overflow:hidden;
+  background:#000; /* safety so you never see white */
 }
-.home-hero-bg img{
+
+/* Two stacked images that crossfade */
+.hero-hero-img{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(1) saturate(1.05);  /* lighter so photos show */
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out; /* soft fade between images */
+  filter:brightness(1) saturate(1.05);
+  opacity:0;
+  transition: opacity 0.6s ease-in-out;
 }
-  .home-hero-bg::after{
+
+.hero-hero-img.is-active{
+  opacity:1;
+}
+
+/* Gradient overlay on top of whichever image is active */
+.home-hero-bg::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    /* softer vertical darkening for text contrast */
-    linear-gradient(to bottom, rgba(15,23,42,0.35), rgba(15,23,42,0.18))
-    /* gentle blue glow in the top-left */
-    , radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%);
+    linear-gradient(to bottom, rgba(15,23,42,0.35), rgba(15,23,42,0.18)),
+    radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%);
 }
   /* Glass card on top of image */
 .home-hero-card{
@@ -283,9 +292,9 @@
     <section class="home-hero-wrap">
   <!-- Background image -->
   <div class="home-hero-bg">
-    <!-- Update the filenames to your actual images -->
-    <img id="homeHeroImg" src="assets/home-hero1.jpg" alt="Students revising maths" />
-  </div>
+  <img id="homeHeroImgA" src="assets/home-hero1.jpg" alt="Students revising maths" class="hero-hero-img is-active" />
+  <img id="homeHeroImgB" src="assets/home-hero2.jpg" alt="" class="hero-hero-img" />
+</div>
 
   <!-- Glass content card -->
   <div class="home-hero-card">
@@ -592,11 +601,12 @@
   </script>
   <script>
   (function(){
-    const heroImg    = document.getElementById('homeHeroImg');
-    const progress   = document.getElementById('heroProgressBar');
-    const pauseBtn   = document.getElementById('heroPause');
+    const imgA     = document.getElementById('homeHeroImgA');
+    const imgB     = document.getElementById('homeHeroImgB');
+    const progress = document.getElementById('heroProgressBar');
+    const pauseBtn = document.getElementById('heroPause');
 
-    if (!heroImg || !progress) return;
+    if (!imgA || !imgB || !progress) return;
 
     const HERO_IMAGES = [
       'assets/home-hero1.jpg',
@@ -605,54 +615,63 @@
     ];
 
     const HERO_DURATION = 8000; // ms per image
-    const FADE_DURATION = 400;  // ms fade
+    let idx        = 0;
+    let timerId    = null;
+    let isPaused   = false;
+    let activeSlot = 0; // 0 = imgA, 1 = imgB
 
-    let idx       = 0;
-    let timerId   = null;
-    let isPaused  = false;
+    function currentImg(){
+      return activeSlot === 0 ? imgA : imgB;
+    }
+    function nextImg(){
+      return activeSlot === 0 ? imgB : imgA;
+    }
 
     function startProgress(){
-      if (isPaused) return; // don't restart bar while paused
+      if (isPaused) return;
       progress.style.animation = 'none';
-      // force reflow so we can restart the animation cleanly
-      void progress.offsetHeight;
+      void progress.offsetHeight; // reflow
       progress.style.animation = `hero-progress-fill ${HERO_DURATION}ms linear forwards`;
       progress.style.animationPlayState = 'running';
     }
 
-    function showImage(i, withFade = true){
+    function showImage(i, instant=false){
       idx = (i + HERO_IMAGES.length) % HERO_IMAGES.length;
 
-      if (withFade){
-        heroImg.style.opacity = '0';
-        setTimeout(() => {
-          heroImg.src = HERO_IMAGES[idx];
-          // ensure fade-in happens even if image already cached
-          requestAnimationFrame(() => {
-            heroImg.style.opacity = '1';
-          });
-        }, FADE_DURATION / 2);
+      const from = currentImg();
+      const to   = nextImg();
+
+      const src  = HERO_IMAGES[idx];
+      to.src = src;
+
+      if (instant){
+        from.classList.remove('is-active');
+        to.classList.add('is-active');
       } else {
-        heroImg.src = HERO_IMAGES[idx];
-        heroImg.style.opacity = '1';
+        // ensure class change happens on next frame for smooth fade
+        requestAnimationFrame(() => {
+          from.classList.remove('is-active');
+          to.classList.add('is-active');
+        });
       }
 
+      activeSlot = activeSlot === 0 ? 1 : 0;
       startProgress();
     }
 
     function scheduleNext(){
       if (timerId) clearTimeout(timerId);
-      if (isPaused) {
+      if (isPaused){
         progress.style.animationPlayState = 'paused';
         return;
       }
       timerId = setTimeout(() => {
-        showImage(idx + 1, true);
+        showImage(idx + 1, false);
         scheduleNext();
       }, HERO_DURATION);
     }
 
-    // Pause button wiring
+    // Pause button wiring (re-use your existing markup)
     if (pauseBtn){
       const iconEl  = pauseBtn.querySelector('[data-icon]');
       const labelEl = pauseBtn.querySelector('[data-label]');
@@ -661,13 +680,11 @@
         if (isPaused){
           if (iconEl)  iconEl.textContent  = 'play_arrow';
           if (labelEl) labelEl.textContent = 'Play';
-          pauseBtn.setAttribute('aria-pressed', 'true');
-          pauseBtn.setAttribute('aria-label', 'Resume background image animation');
+          pauseBtn.setAttribute('aria-pressed','true');
         } else {
           if (iconEl)  iconEl.textContent  = 'pause';
           if (labelEl) labelEl.textContent = 'Pause';
-          pauseBtn.setAttribute('aria-pressed', 'false');
-          pauseBtn.setAttribute('aria-label', 'Pause background image animation');
+          pauseBtn.setAttribute('aria-pressed','false');
         }
       }
 
@@ -687,8 +704,8 @@
       updatePauseUI();
     }
 
-    // Initial state – no fade on first load
-    showImage(0, false);
+    // Initial state – first image already visible in markup
+    startProgress();
     scheduleNext();
   })();
 </script>
