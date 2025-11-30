@@ -3,464 +3,165 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>A-Level Maths Hub</title>
+  <title>SJWMS Maths — A-Level Hub</title>
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <style type="text/tailwindcss">
+    body { @apply bg-[#f6f6f8] text-[#111827] font-[Lexend]; }
 
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="assets/main.css"/>
-
-  <style>
-    :root{
-      --accent:#7C4DFF;
-      --accent-600:#6A3FE6;
-      --accent-700:#5A35C8;
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    }
-    .material-icons{ font-size:24px; }
-    html{ scroll-behavior:smooth; }
 
-    /* Main track pills */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+
+    /* Hero */
+    .hero-wrap{
+      margin-top: 4.5rem;
+      position: relative;
+      border-radius: 1.75rem;
+      overflow: hidden;
+      background: #0f172a;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow:
+        0 22px 45px rgba(15,23,42,0.4),
+        0 0 0 1px rgba(15,23,42,0.5);
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      border-radius: inherit;
+    }
+    .hero-bg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter: brightness(.7) saturate(1.1);
+      transform: scale(1.05);
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom, rgba(15,23,42,.55), rgba(15,23,42,.45)),
+        radial-gradient(circle at top left, rgba(124,58,237,.18), transparent 60%);
+    }
+
+    /* Hero text */
+    .hero-title{
+      position:relative;
+      text-align:center;
+      color:white;
+    }
+    .hero-title h1{
+      @apply text-5xl sm:text-6xl font-black tracking-tight;
+    }
+    .hero-title h2{
+      @apply text-xl font-semibold tracking-wide opacity-90 mt-2;
+    }
+
+    /* Track pills */
+    .track-wrap{
+      @apply flex flex-wrap justify-center gap-3 mt-8;
+    }
     .track-pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:0.5rem 1rem;
-      border-radius:9999px;
-      font-size:0.875rem;
-      font-weight:600;
-      cursor:pointer;
-      border:none;
-      outline:none;
-      transition:
-        background-color 150ms ease,
-        color 150ms ease,
-        transform 150ms ease,
-        box-shadow 150ms ease;
-      background:#e5e7eb;     /* gray-200 */
-      color:#4b5563;          /* gray-600 */
+      @apply px-4 py-2 rounded-full text-sm font-semibold border
+               bg-white shadow-sm cursor-pointer transition;
+      border-color: rgba(148,163,184,0.35);
     }
-    .track-pill-active{
-      background:var(--accent);
-      color:#ffffff;
-      box-shadow:0 6px 18px rgba(0,0,0,0.18);
-      transform:translateY(-1px);
-    }
-    .track-pill-inactive:hover{
-      background:#d1d5db;     /* gray-300 */
-      transform:translateY(-1px);
+    .track-pill:hover{
+      @apply bg-slate-50 border-slate-300;
     }
 
-    /* Applied filter pills (All / Stats / Mech) */
-    .filter-pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:0.25rem 0.75rem;
-      border-radius:9999px;
-      font-size:0.75rem;
-      font-weight:600;
-      cursor:pointer;
-      border:1px solid #d1d5db;
-      outline:none;
-      transition:
-        background-color 150ms ease,
-        color 150ms ease,
-        border-color 150ms ease;
-      background:#f9fafb;    /* gray-50 */
-      color:#4b5563;         /* gray-600 */
+    /* Icons grid */
+    .icon-card{
+      @apply flex flex-col items-center justify-center p-6 rounded-2xl
+             bg-white border border-gray-200 shadow-sm transition;
     }
-    .filter-pill-active{
-      background:#111827;    /* gray-900 */
-      color:#ffffff;
-      border-color:#111827;
+    .icon-card:hover{
+      @apply shadow-md -translate-y-1;
     }
-        /* Fancy hero title */
-    .mega-gradient{
-      background:linear-gradient(135deg,#f97316,#ec4899,#6366f1);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    /* ===== Gradient module card (full-card, animated, frosted) ===== */
-.module-card{
-  position: relative;
-  border-radius: 1rem;
-  padding: 1.25rem;
-  color: #f9fafb;
-  box-shadow: 0 4px 14px rgba(15,23,42,0.3);
-  border: 1px solid rgba(255,255,255,0.28);
-  background-size: 200% 200%;
-  animation: gradientShift 18s ease infinite;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-}
-
-/* subtle animated movement */
-@keyframes gradientShift{
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.module-card:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(15,23,42,0.45);
-  border-color: rgba(255,255,255,0.45);
-}
-
-/* Glassy highlight overlay */
-.module-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.25), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(255,255,255,0.18), transparent 55%);
-  mix-blend-mode: screen;
-  opacity:0.85;
-  pointer-events:none;
-}
-
-/* make sure inner content sits above the overlay */
-.module-card > *{
-  position:relative;
-  z-index:1;
-}
-
-/* ----- Colour themes ----- */
-
-/* Pure: indigo → violet → pink */
-.module-card-pure{
-  background-image: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
-}
-
-/* Statistics: sky → blue → indigo */
-.module-card-statistics{
-  background-image: linear-gradient(135deg, #0ea5e9, #2563eb, #4f46e5);
-}
-
-/* Mechanics: emerald → teal → cyan */
-.module-card-mechanics{
-  background-image: linear-gradient(135deg, #10b981, #0d9488, #22d3ee);
-}
-
-/* Further (both Further 1 & Further 2): golden yellow → amber → soft orange */
-.module-card-further{
-  background-image: linear-gradient(135deg, #facc15, #f59e0b, #fb923c);
-}
-
-/* Small frosted tag on the card */
-.module-tag{
-  display:inline-flex;
-  font-size:0.7rem;
-  padding:0.2rem 0.6rem;
-  border-radius:999px;
-  background:rgba(15,23,42,0.22);
-  border:1px solid rgba(255,255,255,0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  text-transform:uppercase;
-  letter-spacing:0.05em;
-}  </style>
+  </style>
 </head>
+<body>
 
-<body class="bg-gray-100" data-page="alevel">
-  <div class="layout">
-    <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
+<!-- HEADER -->
+<header class="header">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+    <div class="flex items-center gap-3">
+      <img src="assets/hub_logo.png" alt="SJWMS" class="h-7"/>
+      <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+    </div>
 
-    <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
-      <!-- Header -->
-      <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
-        <div class="flex items-center gap-2">
-          <a href="index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-            <span class="material-icons mr-1">arrow_back</span>
-            Back to Home
-          </a>
-        </div>
-      </header>
-
-      <!-- Hero -->
-      <!-- Banner (contained) -->
-      <section class="mb-10">
-        <div class="bg-black rounded-2xl shadow-md p-10 md:p-16 text-center text-white">
-          <h1 class="text-4xl md:text-6xl font-extrabold mega-gradient mb-4">
-            A-level Maths Hub
-          </h1>
-          <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Your one-stop space for revision, practice, and building confidence in key A-level maths topics.
-          </p>
-        </div>
-      </section>
-
-      <!-- Track selector -->
-      <section aria-label="A-Level course tracks" class="mb-6">
-        <div class="flex flex-col items-center">
-          <div id="track-pills"
-               class="flex flex-wrap justify-center gap-3">
-            <!-- Pills injected by JS -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Modules + applied filter -->
-      <section aria-label="Modules for selected track">
-        <div class="flex flex-col gap-2 mb-3">
-          <div class="flex items-center justify-between">
-            <h2 id="modules-heading" class="text-xl font-bold text-gray-800">
-              Modules
-            </h2>
-          </div>
-
-          <!-- Applied filter (only shown on stats/mech tracks) -->
-          <div id="applied-filter"
-               class="flex flex-wrap items-center gap-2 text-xs text-gray-500 hidden">
-            <span class="font-semibold uppercase tracking-wide">Filter:</span>
-            <button type="button"
-                    class="filter-pill filter-pill-active"
-                    data-filter="all">
-              All
-            </button>
-            <button type="button"
-                    class="filter-pill"
-                    data-filter="statistics">
-              Statistics
-            </button>
-            <button type="button"
-                    class="filter-pill"
-                    data-filter="mechanics">
-              Mechanics
-            </button>
-          </div>
-        </div>
-
-        <div id="module-grid"
-             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <!-- Module cards injected by JS -->
-        </div>
-
-        <p id="modules-empty" class="text-gray-500 mt-4 hidden">
-          No modules available for this track yet.
-        </p>
-      </section>
-
-      <!-- Spacer -->
-      <div class="h-8"></div>
-    </main>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="index.html">Home</a>
+      <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="ks3_hub.html">KS3</a>
+      <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="gcse_hub.html">GCSE</a>
+      <a class="text-sm font-medium text-[#135bec]" href="#">A-Level</a>
+      <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
+    </nav>
   </div>
+</header>
 
-  <!-- Sidebar loader -->
-  <script src="assets/sidebar-loader.js"></script>
+<!-- Background -->
+<div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <!-- Hub JS -->
-  <script>
-    const DATA_URL = "assets/data/alevel_structure.json";
+<!-- MAIN -->
+<main class="relative pt-20 pb-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    let tracks = [];
-    let activeTrackId = null;
+    <!-- HERO -->
+    <section class="hero-wrap">
+      <div class="hero-bg">
+        <img src="assets/alevel-hero.jpg" alt="A-Level Maths background">
+      </div>
+      <div class="hero-overlay"></div>
 
-    // filter can be "all" | "statistics" | "mechanics"
-    let appliedFilter = "all";
+      <div class="hero-title">
+        <h1>A-Level</h1>
+        <h2>Maths</h2>
+      </div>
+    </section>
 
-    function createPill(track){
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "track-pill track-pill-inactive";
-      btn.dataset.trackId = track.id;
-      btn.textContent = track.label;
-      btn.addEventListener("click", () => {
-        setActiveTrack(track.id);
-      });
-      return btn;
-    }
+    <!-- Track selector -->
+    <div class="track-wrap">
+      <button class="track-pill">Y12 Pure</button>
+      <button class="track-pill">Y13 Pure</button>
+      <button class="track-pill">Statistics</button>
+      <button class="track-pill">Mechanics</button>
+    </div>
 
-    function renderPills(){
-      const wrap = document.getElementById("track-pills");
-      wrap.innerHTML = "";
-      tracks.forEach(track => {
-        wrap.appendChild(createPill(track));
-      });
-      updatePillClasses();
-    }
+    <!-- Icons grid (placeholder for now) -->
+    <section class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="icon-card">
+        <span class="material-symbols-outlined text-5xl text-slate-500">auto_awesome</span>
+        <p class="mt-3 text-sm text-slate-700 text-center">
+          Placeholder icon — your content will appear here
+        </p>
+      </div>
+    </section>
 
-    function updatePillClasses(){
-      const pills = document.querySelectorAll("#track-pills .track-pill");
-      pills.forEach(pill => {
-        const tId = pill.dataset.trackId;
-        if(tId === activeTrackId){
-          pill.classList.remove("track-pill-inactive");
-          pill.classList.add("track-pill-active");
-        }else{
-          pill.classList.remove("track-pill-active");
-          pill.classList.add("track-pill-inactive");
-        }
-      });
-    }
+  </div>
+</main>
 
-    function updateFilterUI(){
-      const filterWrap = document.getElementById("applied-filter");
-      const track = tracks.find(t => t.id === activeTrackId);
-      const modules = track && Array.isArray(track.modules) ? track.modules : [];
+<!-- FOOTER -->
+<div id="footer-slot"></div>
+<script src="assets/footer-loader.js" defer></script>
 
-      // Decide if this track is "applied" (has stats/mech areas)
-      const hasAreas = modules.some(m => m.area === "statistics" || m.area === "mechanics");
-
-      if(!hasAreas){
-        filterWrap.classList.add("hidden");
-        return;
-      }
-
-      filterWrap.classList.remove("hidden");
-
-      // Update pill active state
-      const pills = filterWrap.querySelectorAll(".filter-pill");
-      pills.forEach(p => {
-        if(p.dataset.filter === appliedFilter){
-          p.classList.add("filter-pill-active");
-        }else{
-          p.classList.remove("filter-pill-active");
-        }
-      });
-    }
-
-    function filteredModulesFor(track){
-      const modules = Array.isArray(track.modules) ? track.modules : [];
-
-      // If no stats/mech areas, don't filter at all
-      const hasAreas = modules.some(m => m.area === "statistics" || m.area === "mechanics");
-      if(!hasAreas || appliedFilter === "all"){
-        return modules;
-      }
-
-      return modules.filter(m => {
-        if(appliedFilter === "statistics"){
-          return m.area === "statistics";
-        }
-        if(appliedFilter === "mechanics"){
-          return m.area === "mechanics";
-        }
-        return true;
-      });
-    }
-
-    function renderModules(){
-      const grid = document.getElementById("module-grid");
-      const empty = document.getElementById("modules-empty");
-      const heading = document.getElementById("modules-heading");
-
-      grid.innerHTML = "";
-
-      const track = tracks.find(t => t.id === activeTrackId);
-      if(!track){
-        empty.classList.remove("hidden");
-        heading.textContent = "Modules";
-        return;
-      }
-
-      heading.textContent = track.label + " — Modules";
-
-      const modules = filteredModulesFor(track);
-
-      if(!modules.length){
-        empty.classList.remove("hidden");
-      }else{
-        empty.classList.add("hidden");
-      }
-
-            modules.forEach((mod) => {
-  const href = mod.path || "#";
-
-  // Decide colour theme for this module
-  let theme = "pure";
-  if (mod.area === "statistics") {
-    theme = "statistics";
-  } else if (mod.area === "mechanics") {
-    theme = "mechanics";
-  } else {
-    // If we're in one of the Further tracks, use the yellow theme
-    if (track.id === "further_1" || track.id === "further_2") {
-      theme = "further";
-    }
-  }
-
-  const card = document.createElement("a");
-  card.href = href;
-  card.className = `module-card module-card-${theme}`;
-  card.rel = "noopener";
-
-  card.innerHTML = `
-    <h3 class="font-semibold text-lg mb-2">
-      ${mod.title || "Untitled module"}
-    </h3>
-    ${
-      mod.area
-        ? `<span class="module-tag">
-             ${mod.area === "statistics" ? "Statistics" :
-               mod.area === "mechanics" ? "Mechanics" :
-               "Pure"}
-           </span>`
-        : (track.id === "further_1" || track.id === "further_2"
-            ? `<span class="module-tag">Further</span>`
-            : ``)
-    }
-  `;
-
-  grid.appendChild(card);
-});
-
-      updateFilterUI();
-    }
-
-    function setActiveTrack(id){
-      activeTrackId = id;
-
-      // When switching track, reset filter to "all" so students don't get stuck
-      appliedFilter = "all";
-
-      updatePillClasses();
-      renderModules();
-    }
-
-    async function initHub(){
-      try{
-        const data = await fetch(DATA_URL, { cache: "no-store" }).then(r => r.json());
-        tracks = Array.isArray(data.tracks) ? data.tracks : [];
-        if(!tracks.length) return;
-
-        // Default: first track (Y12 Pure)
-        activeTrackId = tracks[0].id || "y12_pure";
-
-        // Wire up filter pills once
-        const filterWrap = document.getElementById("applied-filter");
-        const filterPills = filterWrap.querySelectorAll(".filter-pill");
-        filterPills.forEach(pill => {
-          pill.addEventListener("click", () => {
-            appliedFilter = pill.dataset.filter || "all";
-            renderModules();
-          });
-        });
-
-        renderPills();
-        renderModules();
-      }catch(e){
-        console.error("Failed to load A-level structure:", e);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", initHub);
-  </script>
 </body>
 </html>
