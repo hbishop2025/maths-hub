@@ -173,7 +173,7 @@
             },
             {
               "title": "Trigonometric Functions",
-              "icon": "spline",
+              "icon": "change_history",
               "description": "Ch6 — trig graphs, periodicity and transformations.",
               "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/6-trigonometric-functions",
               "tags": ["y13", "pure", "trigonometry"]
@@ -307,7 +307,7 @@
             },
             {
               "title": "The Normal Distribution",
-              "icon": "bell_curve",
+              "icon": "insights",
               "description": "Ch3 — the normal distribution, z-scores and modelling.",
               "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/3-the-normal-distribution",
               "tags": ["y13", "stats", "normal-distribution"]
