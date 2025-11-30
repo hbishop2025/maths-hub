@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths — The Maths Behind Our Images</title>
+  <title>SJWMS Maths — Image mathematics</title>
 
   <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -15,7 +15,7 @@
   <style type="text/tailwindcss">
     :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+    body { @apply bg-[#f6f6f8] text-[#111827] font-[Lexend]; overflow-x:hidden; }
 
     /* Dotted paper background */
     .math-grid {
@@ -27,11 +27,100 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* Header */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+
+    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+
+    /* Image info layout */
+    .image-panel{
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0,1.25fr) minmax(0,1.4fr);
+      gap: 1.75rem;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.07), transparent 55%),
+                  linear-gradient(135deg, rgba(255,255,255,0.98), rgba(249,250,251,0.98));
+      box-shadow:
+        0 18px 40px rgba(15,23,42,0.18),
+        0 0 0 1px rgba(148,163,184,0.35);
+    }
+    @media (max-width: 900px){
+      .image-panel{
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .image-panel-media{
+      position: relative;
+    }
+    .image-panel-media-inner{
+      position: relative;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow:
+        0 18px 40px rgba(15,23,42,0.55);
+    }
+    .image-panel-media-inner img{
+      width: 100%;
+      height: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform .5s ease-out;
+    }
+    .image-panel:hover .image-panel-media-inner img{
+      transform: scale(1.06);
+    }
+
+    .image-overlay-tag{
+      position:absolute;
+      left:1rem;
+      bottom:1rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding: .35rem .75rem;
+      border-radius:999px;
+      background: rgba(15,23,42,0.88);
+      color:#E5E7EB;
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .image-source-chip{
+      @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full;
+      font-size:.7rem;
+      background:#0f172a;
+      color:#e5e7eb;
+    }
+
+    .image-panel-body h2{
+      @apply text-xl md:text-2xl font-semibold text-slate-900;
+    }
+    .image-panel-body p{
+      @apply text-sm md:text-[0.9rem] leading-relaxed text-slate-700;
+    }
+
+    .tag-pill{
+      @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[0.65rem] font-semibold uppercase tracking-wide;
+    }
+
+    .link-pill{
+      @apply inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition;
+    }
+
+    /* KS5 little "equation" pill */
+    .equation-pill{
+      @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-[0.75rem] font-medium text-emerald-800;
+    }
+
+    /* Mobile menu */
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
@@ -44,48 +133,9 @@
       from { opacity: 0; transform: translateY(-6px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
-
-    /* Image panel styling */
-    .image-panel {
-      @apply rounded-3xl border border-slate-800/70 bg-slate-900/80 shadow-xl overflow-hidden relative;
-    }
-
-    .image-panel img {
-      @apply w-full h-64 md:h-80 object-cover;
-    }
-
-    .image-panel-overlay {
-      @apply absolute inset-0;
-      background:
-        linear-gradient(to top, rgba(15,23,42,0.65), rgba(15,23,42,0.0)),
-        radial-gradient(circle at top left, rgba(59,130,246,0.25), transparent 55%);
-    }
-
-    .source-pill {
-      @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold
-             bg-black/60 text-slate-100 border border-white/20 shadow-sm;
-    }
-
-    .level-tag {
-      @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold
-             bg-emerald-500/90 text-white;
-    }
-
-    .section-card {
-      @apply bg-white/80 border border-gray-200 rounded-3xl shadow-sm;
-    }
-
-    .chip-link {
-      @apply inline-flex items-center gap-1 text-xs font-semibold text-[#135bec] hover:text-[#0b3c9c];
-    }
-
-    .chip-link .material-symbols-outlined {
-      font-size: 14px;
-    }
   </style>
 </head>
 <body>
-
   <!-- HEADER -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
@@ -95,19 +145,18 @@
       </div>
 
       <nav class="hidden md:flex items-center gap-6">
-        <!-- You can change which item is highlighted if you like -->
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="index.html">Home</a>
+        <a class="nav-link" href="ks3_hub.html">KS3</a>
+        <a class="nav-link" href="gcse_hub.html">GCSE</a>
+        <a class="nav-link"
            href="https://sites.google.com/sjwms.org.uk/mathsatthemath/home">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
-        <span class="material-icons">menu</span>
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-label="Toggle menu">
+        <span class="material-symbols-outlined">menu</span>
       </button>
 
       <div id="mobileMenu" class="hidden">
@@ -123,455 +172,373 @@
   <!-- Background -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <!-- MAIN CONTENT -->
-  <main class="relative pt-16 pb-16">
+  <!-- MAIN -->
+  <main class="relative pt-20 pb-16">
     <div class="hero-shell">
-
       <!-- Intro -->
-      <section class="mt-10">
-        <div class="section-card px-6 py-6 sm:px-8 sm:py-7">
-          <p class="uppercase tracking-[0.2em] text-[11px] text-gray-500 flex items-center gap-2">
-            <span class="inline-block h-[3px] w-6 rounded-full bg-gradient-to-r from-purple-500 to-blue-500"></span>
-            Context behind the images
-          </p>
-          <h1 class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900">
-            The maths hidden in our homepage images
-          </h1>
-          <p class="mt-3 text-sm sm:text-base text-gray-700 max-w-2xl">
-            Each photo on the homepage was chosen because it connects to real mathematics —
-            from satellite data and fractals to rollercoaster curves and road design. Use this page
-            as a launchpad for independent research or project ideas.
-          </p>
-        </div>
+      <section class="max-w-3xl">
+        <p class="uppercase text-[0.7rem] tracking-[0.18em] text-slate-500 flex items-center gap-2">
+          <span class="inline-block h-[3px] w-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500"></span>
+          Maths behind the homepage images
+        </p>
+        <h1 class="mt-2 text-3xl sm:text-4xl font-black text-slate-900">
+          The stories and mathematics hidden in each picture
+        </h1>
+        <p class="mt-3 text-sm sm:text-base text-slate-700">
+          Each image on the homepage was chosen because there is interesting mathematics hiding inside it:
+          fractals, geometry, statistics, curves and more. Explore them below and follow the links if you want
+          to read or research further.
+        </p>
       </section>
 
-      <!-- 1. Space / Earth from orbit -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <img src="assets/home-hero1.jpg" alt="Earth seen from space with city lights"/>
-          <div class="image-panel-overlay"></div>
+      <div class="mt-8 mb-10 inline-flex items-center gap-2 rounded-full bg-white/70 border border-slate-200 px-3 py-1.5 text-[0.72rem] text-slate-600 shadow-sm">
+        <span class="material-symbols-outlined text-sm text-blue-500">lightbulb</span>
+        Tip: you can use these ideas as inspiration for projects, EPQs or extended homework.
+      </div>
 
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
+      <div class="space-y-10 md:space-y-12">
+        <!-- 1. Space / Earth from above -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <img src="assets/home-hero1.jpg" alt="View of Earth from space">
+            </div>
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">public</span>
+              <span>Space · Earth from above</span>
+            </div>
+          </div>
+
+          <div class="image-panel-body flex flex-col gap-3">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="source-pill">
-                <span class="material-symbols-outlined text-xs">public</span>
-                Source: NASA / Earth observation imagery
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS3 & KS4 · Maps & Data
+              </span>
+              <span class="tag-pill bg-blue-50 text-blue-700 border border-blue-100">
+                Coordinates & Spherical geometry
               </span>
             </div>
-            <span class="level-tag">
-              All years
-            </span>
-          </div>
-        </div>
 
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              Earth from space: lights, coordinates and data
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Photos of Earth taken from satellites are packed with maths. Each pixel has a
-              position on the globe (latitude and longitude), a brightness value and, often, a
-              time stamp. When you see city lights at night, those patterns can be analysed using
-              <span class="font-semibold">statistics</span>, <span class="font-semibold">ratios</span> and
-              <span class="font-semibold">coordinate geometry</span>.
+            <h2>Reading the Earth like a graph</h2>
+            <p>
+              Satellite images of Earth are full of coordinate geometry and data. Positions are measured in
+              <span class="font-semibold">latitude and longitude</span>, which you can think of as an angled
+              grid wrapped around a sphere. Converting between locations on the curved Earth and flat maps is
+              the job of <span class="font-semibold">map projections</span>, which use quite a lot of
+              trigonometry and geometry.
             </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              At higher levels, scientists use <span class="font-semibold">spherical geometry</span> and
-              <span class="font-semibold">great-circle distances</span> to work out how far satellites travel,
-              and how to convert between locations on the curved Earth and flat maps.
+            <p>
+              At a more advanced level, these images can be stored as arrays of numbers (pixels), which links
+              directly to
+              <span class="font-semibold">matrices, vectors and transformations</span> used in computer graphics
+              and data science.
             </p>
-          </div>
 
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Reading latitude &amp; longitude from maps and globes</li>
-              <li>Estimating distances using scale and great circles</li>
-              <li>Using brightness data to compare countries or cities</li>
-            </ul>
-
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://earthobservatory.nasa.gov/collections/24/earth-at-night" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  NASA Earth at Night collection
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://earthobservatory.nasa.gov/features/NightLights" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  City lights and global patterns (NASA)
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2. Tropical coast / fractal coastline -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <img src="assets/home-hero2.jpg" alt="Tropical coastline seen from above"/>
-          <div class="image-panel-overlay"></div>
-
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="source-pill">
-              <span class="material-symbols-outlined text-xs">beach_access</span>
-              Source: Aerial / satellite coastline photography
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://visibleearth.nasa.gov/" target="_blank" rel="noopener" class="link-pill">
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                NASA Visible Earth image collection
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Map_projection" target="_blank" rel="noopener" class="link-pill">
+                Map projections & distortion
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system" target="_blank" rel="noopener" class="link-pill">
+                Geographic coordinate systems
+              </a>
             </div>
-            <span class="level-tag">
-              KS3+ (shape &amp; fractals)
-            </span>
           </div>
-        </div>
+        </section>
 
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              Coastlines and the “how long is a coast?” problem
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Coastlines look smooth from far away, but up close they wobble in and out at many
-              different scales. If you try to measure the length of a coastline using bigger and
-              bigger rulers, you get a different answer each time. This is known as the
+        <!-- 2. Tropical coast -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <img src="assets/home-hero2.jpg" alt="Tropical coastline from above">
+            </div>
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">water</span>
+              <span>Coastline · Fractals</span>
+            </div>
+          </div>
+
+          <div class="image-panel-body flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS4 · Shape & Measure
+              </span>
+              <span class="tag-pill bg-emerald-50 text-emerald-700 border border-emerald-100">
+                Perimeter & fractals
+              </span>
+            </div>
+
+            <h2>Why it’s hard to measure a coastline</h2>
+            <p>
+              The length of a coastline depends on the size of your ruler. If you measure using very big steps,
+              you “cut off” bays and inlets and get a smaller value. If you use tiny steps and follow every
+              bump, the length gets bigger and bigger. This is the famous
               <span class="font-semibold">coastline paradox</span>.
             </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Mathematicians model shapes like this using <span class="font-semibold">fractals</span>.
-              These are shapes that repeat similar patterns at different scales. It’s a nice link
-              between real geography and abstract maths.
+            <p>
+              Mathematically this links to <span class="font-semibold">fractals</span> and
+              <span class="font-semibold">dimension</span>: some shapes are so “crinkly” that they behave like
+              something between a 1D line and a 2D surface.
             </p>
-          </div>
 
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Perimeter and scale (what happens when your “ruler” changes?)</li>
-              <li>Fractals and self-similar shapes</li>
-              <li>Approximating irregular edges with polygons</li>
-            </ul>
-
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://en.wikipedia.org/wiki/Coastline_paradox" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  The coastline paradox (overview)
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://mathshistory.st-andrews.ac.uk/Glossary/coastline_paradox/" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  Historical note on coastline paradox
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3. Pyramids -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <img src="assets/home-hero3.jpg" alt="Pyramids at dusk"/>
-          <div class="image-panel-overlay"></div>
-
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="source-pill">
-              <span class="material-symbols-outlined text-xs">terrain</span>
-              Source: Pyramids / desert landscape photography
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://en.wikipedia.org/wiki/Coastline_paradox" target="_blank" rel="noopener" class="link-pill">
+                Coastline paradox
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Fractal" target="_blank" rel="noopener" class="link-pill">
+                Introduction to fractals
+              </a>
+              <a href="https://nrich.maths.org/1376" target="_blank" rel="noopener" class="link-pill">
+                NRICH – Fractals & area investigations
+              </a>
             </div>
-            <span class="level-tag">
-              KS3–KS4 (shape &amp; ratio)
-            </span>
           </div>
-        </div>
+        </section>
 
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              Pyramids: triangles, ratios and volume
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              The Great Pyramid and others in Egypt are brilliant real-world examples of
-              <span class="font-semibold">3D geometry</span>. You can model a pyramid using right-angled
-              triangles, similar triangles and Pythagoras to relate the height, base and slant edges.
-            </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              There are also famous debates about whether some pyramids were built using
-              “special” ratios such as the <span class="font-semibold">golden ratio</span>. Even if that’s not
-              exactly true, it gives a nice context for using ratio, gradient and trigonometry to
-              analyse real structures.
-            </p>
-          </div>
-
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Surface area and volume of pyramids</li>
-              <li>Using similar triangles to find heights</li>
-              <li>Exploring “special” ratios (like the golden ratio)</li>
-            </ul>
-
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://nrich.maths.org/6403" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  NRICH: Investigating pyramids
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://www.maa.org/press/periodicals/loci/joma/misconceptions-about-the-golden-ratio" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  Misconceptions about the golden ratio &amp; monuments
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. KS3 – City at night -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <!-- Update filename to your KS3 image -->
-          <img src="assets/ks3-hero.jpg" alt="City at night with road network and lights"/>
-          <div class="image-panel-overlay"></div>
-
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="source-pill">
-              <span class="material-symbols-outlined text-xs">location_city</span>
-              Source: City at night photography
+        <!-- 3. Pyramids at dusk -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <img src="assets/home-hero3.jpg" alt="Pyramids at dusk">
             </div>
-            <span class="level-tag">
-              KS3 focus
-            </span>
-          </div>
-        </div>
-
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              City lights: coordinates, bar charts and networks
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              A city at night is full of maths you meet in KS3: <span class="font-semibold">coordinates</span>
-              on a grid, <span class="font-semibold">bar charts</span> comparing districts, and
-              <span class="font-semibold">ratios</span> to compare bright and dark areas. You can imagine
-              splitting the city into squares and counting how many lights appear in each one.
-            </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              The roads themselves form a <span class="font-semibold">network</span> – a real example of
-              graphs made of nodes (junctions) and edges (roads). This is how sat-nav systems
-              can find shortest paths.
-            </p>
-          </div>
-
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Plotting simple road maps on a coordinate grid</li>
-              <li>Using bar charts and pie charts to show “light intensity” by area</li>
-              <li>Finding shortest routes on a simple network diagram</li>
-            </ul>
-
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://plus.maths.org/content/os/issue14/features/mathcity/index" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  Plus Magazine: Maths in the city
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://nrich.maths.org/1053" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  NRICH: Shortest network tasks
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. KS4 – Rollercoaster -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <!-- Update filename to your KS4 image -->
-          <img src="assets/gcse-hero.jpg" alt="Rollercoaster track"/>
-          <div class="image-panel-overlay"></div>
-
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="source-pill">
-              <span class="material-symbols-outlined text-xs">attractions</span>
-              Source: Rollercoaster / theme park photography
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">change_history</span>
+              <span>Pyramids · Geometry</span>
             </div>
-            <span class="level-tag">
-              KS4 focus
-            </span>
-          </div>
-        </div>
-
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              Rollercoasters: curves, gradients and forces
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Rollercoaster designers care a lot about <span class="font-semibold">curves</span>. Sudden changes
-              in gradient would feel uncomfortable or dangerous, so the height of the track is
-              carefully planned using smooth functions.
-            </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Even before calculus, you can model sections of a coaster using
-              <span class="font-semibold">quadratic</span> and <span class="font-semibold">trigonometric</span>
-              graphs, estimate gradients, and link that to how the speed and forces change along
-              the ride.
-            </p>
           </div>
 
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Sketching coaster “hills” with quadratic graphs</li>
-              <li>Estimating gradients and discussing “steepness”</li>
-              <li>Using sine and cosine curves to model loops or waves</li>
-            </ul>
-
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://www.mathsisfun.com/calculus/roller-coaster.html" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  MathsIsFun: Calculus and rollercoasters (accessible)
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://www.maa.org/press/periodicals/loci/joma/the-mathematics-of-roller-coasters" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  MAA: The mathematics of roller coasters
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. KS5 – Road in a forest -->
-      <section class="mt-10 space-y-4">
-        <div class="image-panel">
-          <!-- Update filename to your KS5 image -->
-          <img src="assets/alevel-hero.jpg" alt="Curving road through a forest seen from above"/>
-          <div class="image-panel-overlay"></div>
-
-          <div class="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="source-pill">
-              <span class="material-symbols-outlined text-xs">forest</span>
-              Source: Aerial photography of road through forest
+          <div class="image-panel-body flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS3 · 3D shapes
+              </span>
+              <span class="tag-pill bg-amber-50 text-amber-700 border border-amber-100">
+                Surface area & similarity
+              </span>
             </div>
-            <span class="level-tag">
-              KS5 focus
-            </span>
+
+            <h2>3D geometry in the pyramids</h2>
+            <p>
+              Pyramids are brilliant examples of <span class="font-semibold">3D solids</span>. Questions you can ask:
+              What is the total surface area? How do we find the volume? How does the pyramid change if each side is
+              scaled up by a factor of \(k\)?
+            </p>
+            <p>
+              These ideas appear across KS3 and KS4 when you calculate
+              <span class="font-semibold">surface areas, volumes, cross-sections and similar shapes</span>. At A-Level,
+              you can go further and look at <span class="font-semibold">coordinates in 3D</span> and vectors from the
+              apex to different points on the base.
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://en.wikipedia.org/wiki/Pyramid_(geometry)" target="_blank" rel="noopener" class="link-pill">
+                Pyramids in geometry
+              </a>
+              <a href="https://nrich.maths.org/7748" target="_blank" rel="noopener" class="link-pill">
+                NRICH – 3D solids & nets
+              </a>
+              <a href="https://nrich.maths.org/13750" target="_blank" rel="noopener" class="link-pill">
+                NRICH – Similar solids
+              </a>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="section-card px-6 py-5 sm:px-8 sm:py-6 grid gap-6 md:grid-cols-[minmax(0,1.7fr),minmax(0,1.3fr)]">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">
-              Forest roads: calculus, curvature and optimisation
-            </h2>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              Designing safe roads through hills and forests is very mathematical. Engineers use
-              <span class="font-semibold">calculus</span> to control how quickly a road can change direction or
-              slope, and <span class="font-semibold">optimisation</span> ideas to balance cost, distance and
-              safety.
-            </p>
-            <p class="mt-2 text-sm text-gray-700 leading-relaxed">
-              The centreline of the road can be modelled as a parametric curve. Its first and
-              second derivatives describe speed and curvature — which link directly to the
-              forces felt by vehicles on bends and the recommended speed limits.
-            </p>
+        <!-- 4. KS3 – City at night -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <!-- use your KS3 city image filename here -->
+              <img src="assets/ks3-hero.jpg" alt="City at night with lights">
+            </div>
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">location_city</span>
+              <span>KS3 · City at night</span>
+            </div>
           </div>
 
-          <div class="bg-slate-50/80 border border-slate-200 rounded-2xl px-4 py-4 text-sm">
-            <p class="font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Maths to explore
-            </p>
-            <ul class="mt-2 space-y-1.5 text-xs text-gray-700 list-disc list-inside">
-              <li>Modelling a road as a function \( y = f(x) \) or parametric curve</li>
-              <li>Using derivatives to discuss speed, acceleration and curvature</li>
-              <li>Linking radius of curvature to safe cornering speed</li>
-            </ul>
+          <div class="image-panel-body flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS3 · Number & Statistics
+              </span>
+              <span class="tag-pill bg-indigo-50 text-indigo-700 border border-indigo-100">
+                Data about cities
+              </span>
+            </div>
 
-            <p class="mt-3 font-semibold text-gray-900 text-xs uppercase tracking-wide">
-              Further reading
+            <h2>City lights and real-world data</h2>
+            <p>
+              A city at night is a picture of data: each light might represent a household, car or street lamp.
+              Statisticians use satellite “night lights” data to estimate
+              <span class="font-semibold">population, economic activity and energy use</span>.
             </p>
-            <ul class="mt-2 space-y-1.5 text-xs">
-              <li>
-                <a class="chip-link" href="https://www.intmath.com/applications-differentiation/7-curvature.php" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  Curvature of a curve (IntMath)
-                </a>
-              </li>
-              <li>
-                <a class="chip-link" href="https://openstax.org/books/university-physics-volume-1/pages/6-2-uniform-circular-motion" target="_blank" rel="noopener">
-                  <span class="material-symbols-outlined">open_in_new</span>
-                  Circular motion and centripetal force (OpenStax)
-                </a>
-              </li>
-            </ul>
+            <p>
+              You can link this to KS3 topics like
+              <span class="font-semibold">bar charts, pie charts, averages and proportions</span> by asking questions
+              such as: which areas are brightest? How might brightness relate to population or income?
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://worldview.earthdata.nasa.gov/" target="_blank" rel="noopener" class="link-pill">
+                NASA Worldview – global night lights
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Descriptive_statistics" target="_blank" rel="noopener" class="link-pill">
+                Descriptive statistics (mean, median, etc.)
+              </a>
+              <a href="https://nrich.maths.org/secondary-lower/statistics" target="_blank" rel="noopener" class="link-pill">
+                NRICH – Statistics tasks
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
+        <!-- 5. KS4 – Rollercoaster (gcse-hero) -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <img src="assets/gcse-hero.jpg" alt="Rollercoaster track">
+            </div>
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">attractions</span>
+              <span>KS4 · Rollercoaster</span>
+            </div>
+          </div>
+
+          <div class="image-panel-body flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS4 · Graphs & Physics
+              </span>
+              <span class="tag-pill bg-rose-50 text-rose-700 border border-rose-100">
+                Gradients & energy
+              </span>
+            </div>
+
+            <h2>Gradients, speed and energy on a rollercoaster</h2>
+            <p>
+              The steepness of each section of track is linked to the
+              <span class="font-semibold">gradient of a graph</span>. If you sketch height against horizontal distance,
+              steeper parts of the track have a larger gradient. In physics, this ties into potential and kinetic energy
+              and the way energy is transferred as the coaster moves.
+            </p>
+            <p>
+              At GCSE you can explore this with
+              <span class="font-semibold">distance–time graphs, velocity–time graphs and equations of motion</span>.
+              At A-Level, you can model sections of track using
+              <span class="font-semibold">quadratics, cubics or even trigonometric functions</span> and use calculus to
+              find maximum speeds and accelerations.
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://en.wikipedia.org/wiki/Gradient" target="_blank" rel="noopener" class="link-pill">
+                Gradient of a curve
+              </a>
+              <a href="https://www.bbc.co.uk/bitesize/topics/z9bq9j6" target="_blank" rel="noopener" class="link-pill">
+                BBC Bitesize – Forces & motion
+              </a>
+              <a href="https://www.khanacademy.org/math/ap-calculus-ab/ab-derivatives-analytic" target="_blank" rel="noopener" class="link-pill">
+                Khan Academy – Derivatives as rates of change
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. KS5 – Road in a forest (alevel-hero) -->
+        <section class="image-panel">
+          <div class="image-panel-media">
+            <div class="image-panel-media-inner">
+              <img src="assets/alevel-hero.jpg" alt="Curving road through a forest">
+            </div>
+            <div class="image-overlay-tag">
+              <span class="material-symbols-outlined text-sm">signpost</span>
+              <span>KS5 · Road curve</span>
+            </div>
+          </div>
+
+          <div class="image-panel-body flex flex-col gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag-pill bg-slate-900 text-slate-100">
+                KS5 · Pure & Mechanics
+              </span>
+              <span class="tag-pill bg-emerald-50 text-emerald-700 border border-emerald-100">
+                Curvature & Euler spiral
+              </span>
+            </div>
+
+            <!-- Little “equation” header -->
+            <div class="equation-pill mt-1">
+              <span class="material-symbols-outlined text-sm">functions</span>
+              <span>Euler spiral / clothoid &nbsp; \( \dfrac{d\theta}{ds} = 2 a^{2} s \)</span>
+            </div>
+
+            <h2>Designing smooth road junctions</h2>
+            <p>
+              Real roads and railways don’t jump suddenly from “perfectly straight” to “tight bend”. Instead, engineers
+              use curves where the <span class="font-semibold">curvature increases gradually</span>. A classic example is
+              the <span class="font-semibold">Euler spiral (clothoid)</span>, where the curvature is proportional to the
+              distance travelled along the curve.
+            </p>
+            <p>
+              If \(s\) is the arc length along the road and \(\theta\) is the heading angle, one way to write this is
+              \( \dfrac{d\theta}{ds} = 2a^{2}s \). This idea shows up at A-Level in
+              <span class="font-semibold">calculus, parametric curves, vectors and mechanics</span> when you study motion
+              along curved paths and centripetal acceleration.
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="https://en.wikipedia.org/wiki/Euler_spiral" target="_blank" rel="noopener" class="link-pill">
+                Euler spiral / clothoid
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Curvature" target="_blank" rel="noopener" class="link-pill">
+                Curvature of a curve
+              </a>
+              <a href="https://en.wikipedia.org/wiki/Track_transition_curve" target="_blank" rel="noopener" class="link-pill">
+                Transition curves in road & rail design
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
     </div>
   </main>
-
-  <!-- Mobile Menu JS -->
-  <script>
-    (function(){
-      const btn=document.getElementById('menuBtn');
-      const menu=document.getElementById('mobileMenu');
-      function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
-      function toggleMenu(e){
-        e.stopPropagation();
-        const open=menu.classList.contains('hidden');
-        menu.classList.toggle('hidden',!open);
-        btn.setAttribute('aria-expanded',String(open));
-      }
-      btn.addEventListener('click',toggleMenu);
-      document.addEventListener('click',e=>{
-        if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu();
-      });
-      document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
-    })();
-  </script>
 
   <!-- FOOTER -->
   <div id="footer-slot"></div>
   <script src="assets/footer-loader.js" defer></script>
+
+  <!-- Mobile menu JS -->
+  <script>
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+
+      function closeMenu(){
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded','false');
+      }
+      function toggleMenu(e){
+        e.stopPropagation();
+        const willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !willOpen);
+        btn.setAttribute('aria-expanded', String(willOpen));
+      }
+
+      btn.addEventListener('click', toggleMenu);
+      document.addEventListener('click', e => {
+        if (!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) {
+          closeMenu();
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
