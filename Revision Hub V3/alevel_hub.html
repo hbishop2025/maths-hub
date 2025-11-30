@@ -83,18 +83,29 @@
       @apply px-4 py-2 rounded-full text-sm font-semibold border
                bg-white shadow-sm cursor-pointer transition;
       border-color: rgba(148,163,184,0.35);
+      color: #111827;
     }
     .track-pill:hover{
       @apply bg-slate-50 border-slate-300;
     }
+    .track-pill-active{
+      @apply bg-slate-900 text-white border-slate-900 shadow-md;
+    }
 
-    /* Icons grid */
+    /* Icons / content cards */
     .icon-card{
       @apply flex flex-col items-center justify-center p-6 rounded-2xl
              bg-white border border-gray-200 shadow-sm transition;
     }
     .icon-card:hover{
       @apply shadow-md -translate-y-1;
+    }
+
+    .panel-heading{
+      @apply text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2;
+    }
+    .panel-sub{
+      @apply text-xs text-gray-500 mb-4;
     }
   </style>
 </head>
@@ -127,52 +138,237 @@
 
     <!-- HERO -->
     <section class="hero-wrap">
-  <div class="hero-bg">
-    <img src="assets/alevel-hero.jpg" alt="A-Level Maths background">
-  </div>
-  <div class="hero-overlay"></div>
+      <div class="hero-bg">
+        <img src="assets/alevel-hero.jpg" alt="A-Level Maths background">
+      </div>
+      <div class="hero-overlay"></div>
 
-  <!-- Everything inside ONE centered container -->
-  <div class="hero-title">
-    <h1>A-Level</h1>
-    <h2>Maths</h2>
+      <div class="hero-title">
+        <h1>A-Level</h1>
+        <h2>Maths</h2>
 
-    <!-- Buttons now properly under the text -->
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
-      <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision"
-         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 
-                bg-white/10 backdrop-blur-sm text-white text-sm font-semibold 
-                hover:bg-white/20 transition">
-        Exam Revision
-        <span class="material-symbols-outlined text-base">menu_book</span>
-      </a>
+        <!-- Hero buttons -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision"
+             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 
+                    bg-white/10 backdrop-blur-sm text-white text-sm font-semibold 
+                    hover:bg-white/20 transition">
+            Exam Revision
+            <span class="material-symbols-outlined text-base">menu_book</span>
+          </a>
 
-      <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions"
-         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 
-                bg-white/10 backdrop-blur-sm text-white text-sm font-semibold 
-                hover:bg-white/20 transition">
-        A* Questions
-        <span class="material-symbols-outlined text-base">edit_note</span>
-      </a>
-    </div>  
-</section>
+          <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions"
+             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 
+                    bg-white/10 backdrop-blur-sm text-white text-sm font-semibold 
+                    hover:bg-white/20 transition">
+            A* Questions
+            <span class="material-symbols-outlined text-base">edit_note</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- Track selector -->
     <div class="track-wrap">
-      <button class="track-pill">Y12 Pure</button>
-      <button class="track-pill">Y13 Pure</button>
-      <button class="track-pill">Statistics</button>
-      <button class="track-pill">Mechanics</button>
+      <button class="track-pill track-pill-active" data-track-target="y12-pure">Y12 Pure</button>
+      <button class="track-pill" data-track-target="y13-pure">Y13 Pure</button>
+      <button class="track-pill" data-track-target="stats">Statistics</button>
+      <button class="track-pill" data-track-target="mech">Mechanics</button>
     </div>
 
-    <!-- Icons grid (placeholder for now) -->
-    <section class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="icon-card">
-        <span class="material-symbols-outlined text-5xl text-slate-500">auto_awesome</span>
-        <p class="mt-3 text-sm text-slate-700 text-center">
-          Placeholder icon — your content will appear here
+    <!-- PANELS -->
+    <section id="track-panels" class="mt-10 space-y-8">
+
+      <!-- Y12 PURE PANEL -->
+      <section data-track-panel="y12-pure">
+        <h3 class="panel-heading">
+          Year 12 Pure
+        </h3>
+        <p class="panel-sub">
+          Placeholder cards — swap these for links, icons and topics as you build the hub.
         </p>
-      </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">functions</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 1</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: e.g. “Algebra & functions” or a link to a Google Site unit.
+            </p>
+          </div>
+
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">timeline</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 2</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: maybe “Differentiation” or “Graphs & transformations”.
+            </p>
+          </div>
+
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">calculate</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Pure card 3</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: exam question pack, revision sheet or external link.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Y13 PURE PANEL -->
+      <section data-track-panel="y13-pure" class="hidden">
+        <h3 class="panel-heading">
+          Year 13 Pure
+        </h3>
+        <p class="panel-sub">
+          Again, just placeholders for now — duplicate/remove cards as you decide the structure.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">equalizer</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 1</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: e.g. “Further differentiation & integration”.
+            </p>
+          </div>
+
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">area_chart</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 2</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: maybe “Parametrics / vectors / proof”.
+            </p>
+          </div>
+
+          <div class="icon-card">
+            <span class="material-symbols-outlined text-4xl text-slate-500">quiz</span>
+            <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Pure card 3</p>
+            <p class="mt-1 text-xs text-slate-500 text-center">
+              Placeholder: mixed exam practice, topic checklists, etc.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATISTICS PANEL -->
+      <section data-track-panel="stats" class="hidden space-y-8">
+        <!-- Y12 Stats -->
+        <div>
+          <h3 class="panel-heading">
+            Year 12 Statistics
+          </h3>
+          <p class="panel-sub">
+            Placeholders for S1-style content — data, probability, distributions, etc.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">bar_chart</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Stats card 1</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: e.g. “Data & sampling” hub.
+              </p>
+            </div>
+
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">pie_chart</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Stats card 2</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: probability / discrete random variables.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Y13 Stats -->
+        <div>
+          <h3 class="panel-heading">
+            Year 13 Statistics
+          </h3>
+          <p class="panel-sub">
+            Year 13 stats section — hypothesis tests, normal distribution, regression, etc.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">analytics</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Stats card 1</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: e.g. “Hypothesis testing” set.
+              </p>
+            </div>
+
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">precision_manufacturing</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Stats card 2</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: “Normal distribution / continuous models”.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MECHANICS PANEL -->
+      <section data-track-panel="mech" class="hidden space-y-8">
+        <!-- Y12 Mech -->
+        <div>
+          <h3 class="panel-heading">
+            Year 12 Mechanics
+          </h3>
+          <p class="panel-sub">
+            SUVAT, forces, particles on a rough/smooth surface — placeholders for now.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">directions_car</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 1</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: e.g. “Constant acceleration (SUVAT)” hub.
+              </p>
+            </div>
+
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">north_east</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y12 Mech card 2</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: “Forces & Newton’s laws”.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Y13 Mech -->
+        <div>
+          <h3 class="panel-heading">
+            Year 13 Mechanics
+          </h3>
+          <p class="panel-sub">
+            More advanced mechanics topics — projectiles, connected particles, etc.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">science</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 1</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: e.g. “Projectiles” collection.
+              </p>
+            </div>
+
+            <div class="icon-card">
+              <span class="material-symbols-outlined text-4xl text-slate-500">share</span>
+              <p class="mt-3 text-sm text-slate-800 font-semibold">Y13 Mech card 2</p>
+              <p class="mt-1 text-xs text-slate-500 text-center">
+                Placeholder: “Connected particles / ladders / moments”.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </section>
 
   </div>
@@ -181,6 +377,35 @@
 <!-- FOOTER -->
 <div id="footer-slot"></div>
 <script src="assets/footer-loader.js" defer></script>
+
+<!-- TRACK SWITCHING JS -->
+<script>
+  (function(){
+    const pills = document.querySelectorAll('[data-track-target]');
+    const panels = document.querySelectorAll('[data-track-panel]');
+
+    function setActiveTrack(id){
+      pills.forEach(pill => {
+        const isActive = pill.dataset.trackTarget === id;
+        pill.classList.toggle('track-pill-active', isActive);
+      });
+
+      panels.forEach(panel => {
+        const show = panel.dataset.trackPanel === id;
+        panel.classList.toggle('hidden', !show);
+      });
+    }
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        setActiveTrack(pill.dataset.trackTarget);
+      });
+    });
+
+    // Default state
+    setActiveTrack('y12-pure');
+  })();
+</script>
 
 </body>
 </html>
