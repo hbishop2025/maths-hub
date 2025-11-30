@@ -147,7 +147,12 @@
   color:#9CA3AF;          /* Tailwind gray-400 */
 }
 
-  .glow-wrap{ position: relative; border-radius: 9999px; isolation: isolate; }
+  .glow-wrap{
+  position: relative;
+  z-index: 30;          /* <- makes search + dropdown sit above progress bar & pill */
+  border-radius: 9999px;
+  isolation: isolate;
+}
   .glow-wrap::before{
     content:""; position:absolute; inset:-3px; border-radius:9999px;
     background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
