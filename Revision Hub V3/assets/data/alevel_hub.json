@@ -1,0 +1,425 @@
+{
+  "hero": {
+    "buttons": [
+      {
+        "label": "Exam Revision",
+        "icon": "menu_book",
+        "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision"
+      },
+      {
+        "label": "A* Questions",
+        "icon": "edit_note",
+        "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions"
+      }
+    ]
+  },
+
+  "tracks": [
+    {
+      "id": "y12-pure",
+      "label": "Y12 Pure",
+      "type": "pure",
+      "sections": [
+        {
+          "heading": "Year 12 Pure",
+          "subheading": "Core AS content: algebra, graphs, trig, calculus and exponentials.",
+          "cards": [
+            {
+              "title": "Algebraic Expressions",
+              "icon": "functions",
+              "description": "Ch1 — algebraic expressions, fractions, indices and surds.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/1-algebraic-expressions",
+              "tags": ["y12", "pure", "algebra"]
+            },
+            {
+              "title": "Quadratics",
+              "icon": "show_chart",
+              "description": "Ch2 — solving quadratics, roots, completing the square and discriminant.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/2-quadratics",
+              "tags": ["y12", "pure", "quadratics"]
+            },
+            {
+              "title": "Equations & Inequalities",
+              "icon": "compare_arrows",
+              "description": "Ch3 — solving equations and inequalities, including modelling.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/3-equations-inequalities",
+              "tags": ["y12", "pure", "equations", "inequalities"]
+            },
+            {
+              "title": "Graphs & Transformations",
+              "icon": "stacked_line_chart",
+              "description": "Ch4 — graph shapes and transformations: shifts, reflections and stretches.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/4-graphs-transformations",
+              "tags": ["y12", "pure", "graphs"]
+            },
+            {
+              "title": "Straight Line Graphs",
+              "icon": "trending_up",
+              "description": "Ch5 — y = mx + c, gradients, intercepts and parallel/perpendicular lines.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/5-straight-line-graphs",
+              "tags": ["y12", "pure", "coordinate-geometry"]
+            },
+            {
+              "title": "Circles",
+              "icon": "radio_button_unchecked",
+              "description": "Ch6 — equations of circles, radius, centre and tangents.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/6-circles",
+              "tags": ["y12", "pure", "geometry", "circles"]
+            },
+            {
+              "title": "Algebraic Methods",
+              "icon": "schema",
+              "description": "Ch7 — proof ideas and algebraic methods including partial fractions.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/7-algebraic-methods",
+              "tags": ["y12", "pure", "proof", "algebra"]
+            },
+            {
+              "title": "Binomial Expansion",
+              "icon": "view_quilt",
+              "description": "Ch8 — binomial expansion and using it for approximations.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/8-the-binomial-expansion",
+              "tags": ["y12", "pure", "binomial"]
+            },
+            {
+              "title": "Trigonometric Ratios",
+              "icon": "change_history",
+              "description": "Ch9 — SOHCAHTOA, sine and cosine rule and basic trig applications.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/9-trigonometric-ratios",
+              "tags": ["y12", "pure", "trigonometry"]
+            },
+            {
+              "title": "Trig Identities & Equations",
+              "icon": "waves",
+              "description": "Ch10 — trig identities, equations and more advanced trig techniques.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/10-trig-identities-equations",
+              "tags": ["y12", "pure", "trigonometry"]
+            },
+            {
+              "title": "Vectors",
+              "icon": "near_me",
+              "description": "Ch11 — vectors, magnitude, direction and geometric applications.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/11-vectors",
+              "tags": ["y12", "pure", "vectors"]
+            },
+            {
+              "title": "Differentiation",
+              "icon": "timeline",
+              "description": "Ch12 — gradients, stationary points, chain/product/quotient rules.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/12-differentiation",
+              "tags": ["y12", "pure", "calculus", "differentiation"]
+            },
+            {
+              "title": "Integration",
+              "icon": "area_chart",
+              "description": "Ch13 — integration, areas under curves and basic substitution.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/13-integration",
+              "tags": ["y12", "pure", "calculus", "integration"]
+            },
+            {
+              "title": "Exponentials & Logarithms",
+              "icon": "trending_flat",
+              "description": "Ch14 — exponential functions, logarithms and their rules.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y12/14-exponentials-logarithms",
+              "tags": ["y12", "pure", "exponentials", "logs"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "y13-pure",
+      "label": "Y13 Pure",
+      "type": "pure",
+      "sections": [
+        {
+          "heading": "Year 13 Pure",
+          "subheading": "A2 content: advanced algebra, trig, calculus, parametrics and vectors.",
+          "cards": [
+            {
+              "title": "Algebraic Methods",
+              "icon": "schema",
+              "description": "Ch1 — advanced algebraic methods, including partial fractions and proof.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/1-algebraic-methods",
+              "tags": ["y13", "pure", "algebra"]
+            },
+            {
+              "title": "Functions & Graphs",
+              "icon": "stacked_line_chart",
+              "description": "Ch2 — functions, domain and range, composite and inverse functions.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/2-functions-graphs",
+              "tags": ["y13", "pure", "functions", "graphs"]
+            },
+            {
+              "title": "Sequences & Series",
+              "icon": "format_list_numbered",
+              "description": "Ch3 — arithmetic and geometric sequences and series.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/3-sequences-series",
+              "tags": ["y13", "pure", "sequences", "series"]
+            },
+            {
+              "title": "Binomial Expansion",
+              "icon": "view_quilt",
+              "description": "Ch4 — general binomial expansion with negative and fractional powers.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/4-binomial-expansion",
+              "tags": ["y13", "pure", "binomial"]
+            },
+            {
+              "title": "Radians",
+              "icon": "donut_large",
+              "description": "Ch5 — radians, arc length, sector area and radian trig.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/5-radians",
+              "tags": ["y13", "pure", "radians"]
+            },
+            {
+              "title": "Trigonometric Functions",
+              "icon": "spline",
+              "description": "Ch6 — trig graphs, periodicity and transformations.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/6-trigonometric-functions",
+              "tags": ["y13", "pure", "trigonometry"]
+            },
+            {
+              "title": "Trigonometry & Modelling",
+              "icon": "waves",
+              "description": "Ch7 — using trig to model real situations and harmonic motion.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/7-trigonometry-modelling",
+              "tags": ["y13", "pure", "trigonometry", "modelling"]
+            },
+            {
+              "title": "Parametric Equations",
+              "icon": "polyline",
+              "description": "Ch8 — parametric curves and parametric differentiation.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/8-parametric-equations",
+              "tags": ["y13", "pure", "parametric"]
+            },
+            {
+              "title": "Differentiation",
+              "icon": "timeline",
+              "description": "Ch9 — advanced differentiation including implicit methods.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/9-differentiation",
+              "tags": ["y13", "pure", "calculus", "differentiation"]
+            },
+            {
+              "title": "Numerical Methods",
+              "icon": "calculate",
+              "description": "Ch10 — iterative methods and numerical solutions to equations.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/10-numerical-methods",
+              "tags": ["y13", "pure", "numerical-methods"]
+            },
+            {
+              "title": "Integration",
+              "icon": "area_chart",
+              "description": "Ch11 — advanced integration, including by parts and substitution.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/11-integration",
+              "tags": ["y13", "pure", "calculus", "integration"]
+            },
+            {
+              "title": "Vectors",
+              "icon": "near_me",
+              "description": "Ch12 — 3D vectors, vector lines and scalar product.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/pure/pure-y13/12-vectors",
+              "tags": ["y13", "pure", "vectors"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "stats",
+      "label": "Statistics",
+      "type": "stats",
+      "sections": [
+        {
+          "year": "Y12",
+          "heading": "Year 12 Statistics",
+          "subheading": "AS statistics: data, probability, distributions and hypothesis testing.",
+          "cards": [
+            {
+              "title": "Data Collection",
+              "icon": "table_chart",
+              "description": "Ch1 — collecting data, sampling and the large data set.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/1-data-collection",
+              "tags": ["y12", "stats", "data-collection"]
+            },
+            {
+              "title": "Measures of Location & Spread",
+              "icon": "view_column",
+              "description": "Ch2 — mean, median, mode, variance and standard deviation.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/2-measures-of-location-and-spread",
+              "tags": ["y12", "stats", "location", "spread"]
+            },
+            {
+              "title": "Representations of Data",
+              "icon": "stacked_bar_chart",
+              "description": "Ch3 — box plots, histograms, cumulative frequency, outliers.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/3-representations-of-data",
+              "tags": ["y12", "stats", "data-representation"]
+            },
+            {
+              "title": "Correlation",
+              "icon": "scatter_plot",
+              "description": "Ch4 — correlation, scatter graphs and regression lines.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/4-correlation",
+              "tags": ["y12", "stats", "correlation"]
+            },
+            {
+              "title": "Probability",
+              "icon": "casino",
+              "description": "Ch5 — basic probability, Venn diagrams and notation.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/5-probability",
+              "tags": ["y12", "stats", "probability"]
+            },
+            {
+              "title": "Statistical Distributions",
+              "icon": "functions",
+              "description": "Ch6 — probability distributions and binomial models.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/6-statistical-distributions",
+              "tags": ["y12", "stats", "distributions"]
+            },
+            {
+              "title": "Hypothesis Testing",
+              "icon": "quiz",
+              "description": "Ch7 — binomial hypothesis tests, critical regions and significance.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y12/7-hypothesis-testing",
+              "tags": ["y12", "stats", "hypothesis-testing"]
+            }
+          ]
+        },
+        {
+          "year": "Y13",
+          "heading": "Year 13 Statistics",
+          "subheading": "A2 statistics: regression, conditional probability and the normal distribution.",
+          "cards": [
+            {
+              "title": "Regression, Correlation & Hypothesis Testing",
+              "icon": "analytics",
+              "description": "Ch1 — regression lines, correlation and extended hypothesis testing.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/1-regression-correlation-hypothesis-testing",
+              "tags": ["y13", "stats", "regression", "hypothesis-testing"]
+            },
+            {
+              "title": "Conditional Probability",
+              "icon": "device_hub",
+              "description": "Ch2 — conditional probability and tree diagrams.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/2-conditional-probability",
+              "tags": ["y13", "stats", "conditional-probability"]
+            },
+            {
+              "title": "The Normal Distribution",
+              "icon": "bell_curve",
+              "description": "Ch3 — the normal distribution, z-scores and modelling.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/statistics/statistics-y13/3-the-normal-distribution",
+              "tags": ["y13", "stats", "normal-distribution"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "mech",
+      "label": "Mechanics",
+      "type": "mech",
+      "sections": [
+        {
+          "year": "Y12",
+          "heading": "Year 12 Mechanics",
+          "subheading": "Modelling, motion in a straight line, forces and basic kinematics.",
+          "cards": [
+            {
+              "title": "Modelling in Mechanics",
+              "icon": "model_training",
+              "description": "Ch8 — modelling assumptions and how we simplify real situations.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/8-modelling-in-mechanics",
+              "tags": ["y12", "mechanics", "modelling"]
+            },
+            {
+              "title": "Constant Acceleration",
+              "icon": "speed",
+              "description": "Ch9 — SUVAT and motion under constant acceleration.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/9-constant-acccleration",
+              "tags": ["y12", "mechanics", "suvat"]
+            },
+            {
+              "title": "Forces & Motion",
+              "icon": "north_east",
+              "description": "Ch10 — forces, resolving and Newton’s laws.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/10-forces-motion",
+              "tags": ["y12", "mechanics", "forces"]
+            },
+            {
+              "title": "Variable Acceleration",
+              "icon": "timeline",
+              "description": "Ch11 — calculus in kinematics and s–v–a graphs.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y12/11-variable-accleration",
+              "tags": ["y12", "mechanics", "variable-acceleration"]
+            }
+          ]
+        },
+        {
+          "year": "Y13",
+          "heading": "Year 13 Mechanics",
+          "subheading": "Moments, friction, projectiles, forces and further kinematics.",
+          "cards": [
+            {
+              "title": "Moments",
+              "icon": "rotate_90_degrees_ccw",
+              "description": "Ch4 — moments, torque and equilibrium.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/4-moments",
+              "tags": ["y13", "mechanics", "moments"]
+            },
+            {
+              "title": "Forces & Friction",
+              "icon": "drag_handle",
+              "description": "Ch5 — forces with friction and motion on inclined planes.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/5-forces-friction",
+              "tags": ["y13", "mechanics", "friction"]
+            },
+            {
+              "title": "Projectiles",
+              "icon": "sports_handball",
+              "description": "Ch6 — projectiles launched horizontally or at an angle.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/6-projectiles",
+              "tags": ["y13", "mechanics", "projectiles"]
+            },
+            {
+              "title": "Applications of Forces",
+              "icon": "share",
+              "description": "Ch7 — connected particles, pulleys and more complex force systems.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/7-applications-of-forces",
+              "tags": ["y13", "mechanics", "forces"]
+            },
+            {
+              "title": "Further Kinematics",
+              "icon": "route",
+              "description": "Ch8 — more advanced kinematics and parametric motion.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/mechanics/mechanics-y13/8-further-kinematics",
+              "tags": ["y13", "mechanics", "kinematics"]
+            }
+          ]
+        }
+      ]
+    },
+        {
+      "id": "papers",
+      "label": "Papers",
+      "type": "papers",
+      "sections": [
+        {
+          "heading": "Edexcel A-Level Papers",
+          "subheading": "Exam-style papers and preparation resources.",
+          "cards": [
+            {
+              "title": "Advanced Information Papers",
+              "icon": "description",
+              "description": "Edexcel A-level advanced information papers for extra exam practice.",
+              "url": "https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/edexcel-a-level-advanced-information-papers",
+              "tags": ["papers", "edexcel", "a-level"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
