@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surd-O Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        .bg-stripes {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #000 10px, #000 20px);
+        }
+        @keyframes bounce-in {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-bounce-in {
+            animation: bounce-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="bg-green-800 text-white font-sans selection:bg-yellow-300 selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback, useRef } = React;
+
+        // --- Icons (SVG Components) ---
+        const RefreshCw = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 21H3v-5"/></svg>
+        );
+        const Play = ({ size = 24, fill, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill={fill || "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        );
+        const RotateCcw = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        );
+        const HelpCircle = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        );
+        const X = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        );
+        const Check = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"/></svg>
+        );
+        const Calculator = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        );
+        const Sparkles = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 3v4"/><path d="M3 5h4"/><path d="M3 9h4"/></svg>
+        );
+        const Loader = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        );
+        const Users = ({ size = 24, className }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        );
+        const Ban = ({ size = 24, className, strokeWidth }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+        );
+
+        // --- Game Constants & Math Logic ---
+
+        const COLORS = ['red', 'blue', 'green', 'yellow'];
+        // REDUCED for better performance and more frequent matching pairs
+        // Base 1 handles integers (1, 2, 3...)
+        // Base 2, 3, 5 handles common surds (√8, √12, √20 etc)
+        const BASES = [1, 2, 3, 5]; 
+        // REDUCED coefficients to keep numbers simple (1, 2, 3)
+        // This creates specific pairs like: 1√2 vs 2√2 (√8) vs 3√2 (√18)
+        const COEFFS = [1, 2, 3];
+
+        // Generate a unique ID (Robust version to prevent key collisions)
+        let idCounter = 0;
+        const generateId = () => {
+          idCounter += 1;
+          return `card-${Date.now()}-${idCounter}-${Math.random().toString(36).substr(2, 9)}`;
+        };
+
+        // Helper to create the mathematical definition of a card
+        const createSurdCard = (color, base, coeff, forceUnsimplified = false) => {
+          const isSimplified = forceUnsimplified ? false : Math.random() > 0.5;
+          let display;
+          const valueInside = (coeff * coeff) * base;
+
+          // Handle Integer Cases (Base 1)
+          if (base === 1) {
+            if (isSimplified) {
+                display = `${coeff}`; // e.g. "2"
+            } else {
+                display = `√${valueInside}`; // e.g. "√4"
+            }
+          } 
+          // Handle Standard Surds
+          else {
+            if (coeff === 1) {
+                display = `√${base}`;
+            } else if (isSimplified) {
+                display = `${coeff}√${base}`;
+            } else {
+                display = `√${valueInside}`;
+            }
+          }
+
+          return {
+            id: generateId(),
+            type: 'number',
+            color,
+            base,
+            coeff,
+            display,
+            simplified: base === 1 ? `${coeff}` : (coeff === 1 ? `√${base}` : `${coeff}√${base}`),
+            valueInside
+          };
+        };
+
+        const createActionCard = (type, color) => {
+          return {
+            id: generateId(),
+            type: 'action',
+            actionType: type,
+            color: type === 'wild' ? 'multi' : color,
+            display: type === 'wild' ? 'WILD' : type.toUpperCase(),
+            base: null,
+            coeff: null
+          };
+        };
+
+        const generateDeck = () => {
+          let deck = [];
+          COLORS.forEach(color => {
+            // Number cards
+            BASES.forEach(base => {
+              COEFFS.forEach(coeff => {
+                // Add two of each number card per color to ensure matches exist
+                deck.push(createSurdCard(color, base, coeff));
+                deck.push(createSurdCard(color, base, coeff));
+              });
+            });
+            // Action cards
+            ['skip', 'reverse', 'draw2'].forEach(action => {
+              deck.push(createActionCard(action, color));
+              deck.push(createActionCard(action, color));
+            });
+          });
+          // Wild cards
+          for (let i = 0; i < 4; i++) {
+            deck.push(createActionCard('wild', null));
+          }
+          return shuffle(deck);
+        };
+
+        const shuffle = (array) => {
+          let currentIndex = array.length, randomIndex;
+          while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+          }
+          return array;
+        };
+
+        // --- Gemini API Integration ---
+
+        const callGemini = async (prompt) => {
+          const apiKey = ""; // Injected by environment
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+          const payload = { contents: [{ parts: [{ text: prompt }] }] };
+
+          const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+          for (let i = 0; i < 3; i++) {
+            try {
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+              const data = await response.json();
+              return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response right now.";
+            } catch (error) {
+              if (i === 2) return "Connection to AI Tutor failed. Please try again.";
+              await delay(1000 * Math.pow(2, i));
+            }
+          }
+        };
+
+        // --- Components ---
+
+        const Card = ({ card, onClick, isPlayable, showHint, shouldGlow, isHovered }) => {
+          const colorMap = {
+            red: 'bg-red-500 border-red-700',
+            blue: 'bg-blue-500 border-blue-700',
+            green: 'bg-green-500 border-green-700',
+            yellow: 'bg-yellow-400 border-yellow-600',
+            multi: 'bg-gray-800 border-gray-600'
+          };
+
+          const baseClasses = "relative w-24 h-36 rounded-xl border-4 shadow-lg flex flex-col items-center justify-center cursor-pointer select-none";
+          
+          const colorClass = colorMap[card.color] || 'bg-gray-400';
+          
+          // Only apply the glow ring if isPlayable AND the delayed trigger (shouldGlow) is true
+          const playableClass = (isPlayable && shouldGlow) ? "ring-4 ring-white ring-opacity-70" : "";
+          const opacityClass = (!isPlayable && shouldGlow) ? "opacity-80" : "opacity-100";
+
+          return (
+            <div 
+              className={`${baseClasses} ${colorClass} ${playableClass} ${opacityClass} h-full w-full`}
+              onClick={() => isPlayable && onClick(card)}
+            >
+              {/* Top Left Corner */}
+              <div className="absolute top-2 left-2 text-white font-bold text-xs bg-black bg-opacity-20 px-1 rounded">
+                {card.type === 'action' && card.actionType === 'wild' ? 'W' : ''}
+                {card.type === 'number' && card.coeff}
+              </div>
+
+              {/* Main Content */}
+              <div className="w-20 h-24 bg-white rounded-lg flex flex-col items-center justify-center text-center p-1 overflow-hidden">
+                {card.type === 'wild' ? (
+                  <div className="text-2xl font-black bg-gradient-to-br from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text">
+                    WILD
+                  </div>
+                ) : (
+                  <div className={`text-2xl font-bold flex flex-col items-center ${card.color === 'yellow' ? 'text-yellow-600' : `text-${card.color}-600`}`}>
+                    {card.type === 'action' ? (
+                      card.actionType === 'draw2' ? '+2' : 
+                      card.actionType === 'reverse' ? <RefreshCw size={24}/> : 
+                      card.actionType === 'skip' ? (
+                        <div className="flex flex-col items-center">
+                            <Ban size={24} strokeWidth={3}/>
+                            <span className="text-[10px] font-black tracking-tighter mt-1">SKIP</span>
+                        </div>
+                      ) : card.display
+                    ) : (
+                      card.display
+                    )}
+                  </div>
+                )}
+                
+                {showHint && card.type === 'number' && card.display !== card.simplified && (
+                  <div className="mt-1 text-xs text-gray-400 font-mono bg-gray-100 px-1 rounded">
+                    ={card.simplified}
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom Right Corner */}
+              <div className="absolute bottom-2 right-2 text-white font-bold text-xs bg-black bg-opacity-20 px-1 rounded transform rotate-180">
+                 {card.type === 'action' && card.actionType === 'wild' ? 'W' : ''}
+                 {card.type === 'number' && card.coeff}
+              </div>
+            </div>
+          );
+        };
+
+        const MathExplanation = ({ explanation, onClose }) => {
+          if (!explanation) return null;
+          return (
+            <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 px-6 py-4 rounded-xl shadow-2xl border-l-8 border-green-500 z-50 animate-bounce-in max-w-sm w-full">
+              <div className="flex items-center gap-3">
+                <div className="bg-green-100 p-2 rounded-full text-green-600">
+                  <Calculator size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg">Nice Match!</h3>
+                  <p className="font-mono text-lg">{explanation}</p>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const AiModal = ({ content, onClose, isLoading, title }) => {
+          return (
+            <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-bounce-in">
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 flex justify-between items-center text-white">
+                  <div className="flex items-center gap-2">
+                    <Sparkles size={20} className="animate-pulse" />
+                    <h3 className="font-bold text-lg">{title}</h3>
+                  </div>
+                  <button onClick={onClose} className="hover:bg-white hover:bg-opacity-20 rounded-full p-1">
+                    <X size={20} />
+                  </button>
+                </div>
+                <div className="p-6 text-gray-800">
+                  {isLoading ? (
+                    <div className="flex flex-col items-center justify-center py-8">
+                      <Loader size={48} className="text-purple-600 animate-spin mb-4" />
+                      <p className="text-gray-500 font-medium">Consulting the Math Spirits...</p>
+                    </div>
+                  ) : (
+                    <div className="prose prose-purple">
+                      <p className="whitespace-pre-wrap leading-relaxed">{content}</p>
+                    </div>
+                  )}
+                </div>
+                {!isLoading && (
+                  <div className="p-4 bg-gray-50 flex justify-end">
+                    <button 
+                      onClick={onClose}
+                      className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-semibold"
+                    >
+                      Got it!
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        };
+
+        // --- Main Game Logic ---
+
+        function SurdUno() {
+          const [gameState, setGameState] = useState('start'); 
+          const [deck, setDeck] = useState([]);
+          const [discardPile, setDiscardPile] = useState([]);
+          
+          // Multiplayer State
+          const [playerCount, setPlayerCount] = useState(2);
+          const [hands, setHands] = useState([]); // Index 0 = Human
+          const [turnIndex, setTurnIndex] = useState(0); 
+          const [direction, setDirection] = useState(1);
+          
+          const [message, setMessage] = useState("Welcome to Surd-O!");
+          const [showHints, setShowHints] = useState(false);
+          const [mathExplanation, setMathExplanation] = useState(null);
+
+          // New State for Delayed Hint Glow
+          const [showPlayableGlow, setShowPlayableGlow] = useState(false);
+          // Track hovered card for Z-Index management
+          const [hoveredCardId, setHoveredCardId] = useState(null);
+          
+          // Interaction Locking
+          const isProcessingRef = useRef(false);
+
+          // AI State
+          const [aiModalOpen, setAiModalOpen] = useState(false);
+          const [aiLoading, setAiLoading] = useState(false);
+          const [aiContent, setAiContent] = useState('');
+          const [aiTitle, setAiTitle] = useState('AI Tutor');
+
+          // --- Hint Timer Logic ---
+          useEffect(() => {
+            // Only run timer if it's the human's turn (Index 0)
+            if (turnIndex === 0 && gameState === 'playing') {
+              setShowPlayableGlow(false); // Reset immediately on new turn
+              
+              const timer = setTimeout(() => {
+                setShowPlayableGlow(true); // Show hints after 5 seconds
+              }, 5000);
+
+              return () => clearTimeout(timer);
+            } else {
+              setShowPlayableGlow(false);
+            }
+          }, [turnIndex, gameState, hands, discardPile]);
+
+          // Initialize Game
+          const startGame = (selectedPlayerCount) => {
+            const newDeck = generateDeck();
+            let startingCard = newDeck.pop();
+            
+            while (startingCard.type === 'action' && startingCard.actionType === 'wild') {
+              newDeck.unshift(startingCard);
+              startingCard = newDeck.pop();
+            }
+
+            const newHands = [];
+            for(let p=0; p < selectedPlayerCount; p++) {
+                const hand = [];
+                for(let i=0; i<7; i++) hand.push(newDeck.pop());
+                newHands.push(hand);
+            }
+
+            setDeck(newDeck);
+            setDiscardPile([startingCard]);
+            setHands(newHands);
+            setPlayerCount(selectedPlayerCount);
+            setTurnIndex(0);
+            setDirection(1);
+            setGameState('playing');
+            setMessage("Your turn! Match by Color or Value.");
+            isProcessingRef.current = false;
+          };
+
+          const getNextPlayerIndex = (current, dir, skip = false) => {
+            let next = (current + dir + playerCount) % playerCount;
+            if (skip) {
+                next = (next + dir + playerCount) % playerCount;
+            }
+            return next;
+          };
+
+          const isValidMove = (card, topCard) => {
+            if (card.type === 'action' && card.actionType === 'wild') return true;
+            if (card.color === topCard.color) return true;
+            if (card.type === 'action' && topCard.type === 'action' && card.actionType === topCard.actionType) return true;
+            if (card.type === 'number' && topCard.type === 'number') {
+              if (card.base === topCard.base && card.coeff === topCard.coeff) return true;
+            }
+            return false;
+          };
+
+          const getMathExplanation = (playedCard, topCard) => {
+            if (playedCard.type === 'number' && topCard.type === 'number' && playedCard.color !== topCard.color) {
+              if (playedCard.display !== topCard.display) {
+                return `${playedCard.display} = ${playedCard.simplified}`;
+              }
+            }
+            return null;
+          };
+
+          const handleDrawCard = () => {
+            if (turnIndex !== 0) return;
+            if (isProcessingRef.current) return;
+            
+            isProcessingRef.current = true;
+            performDraw(0);
+            setTimeout(() => { isProcessingRef.current = false; }, 500);
+          };
+
+          const performDraw = (playerIdx) => {
+            if (deck.length === 0) {
+              setMessage("Deck reshuffled!");
+              return; 
+            }
+            const newCard = deck[deck.length - 1];
+            const newDeck = deck.slice(0, -1);
+            
+            setDeck(newDeck);
+            
+            const updatedHands = [...hands];
+            updatedHands[playerIdx] = [...updatedHands[playerIdx], newCard];
+            setHands(updatedHands);
+
+            setTurnIndex(getNextPlayerIndex(playerIdx, direction));
+          };
+
+          const handlePlayCard = (card, playerIdx) => {
+            if (playerIdx === 0) {
+                if (isProcessingRef.current) return;
+                isProcessingRef.current = true;
+                setTimeout(() => { isProcessingRef.current = false; }, 500);
+            }
+
+            if (!hands[playerIdx] || !hands[playerIdx].some(c => c.id === card.id)) return;
+
+            const topCard = discardPile[discardPile.length - 1];
+            if (!isValidMove(card, topCard)) return;
+
+            if (playerIdx === 0) {
+                const explanation = getMathExplanation(card, topCard);
+                if (explanation) {
+                    setMathExplanation(explanation);
+                    setTimeout(() => setMathExplanation(null), 3000);
+                }
+            }
+
+            const updatedHands = [...hands];
+            updatedHands[playerIdx] = updatedHands[playerIdx].filter(c => c.id !== card.id);
+            // Don't set state yet if it's an action, as the action handler needs to act on this new state
+            
+            setDiscardPile(prev => [...prev, card]);
+
+            if (updatedHands[playerIdx].length === 0) {
+              setHands(updatedHands); // Commit the win state
+              if (playerIdx === 0) {
+                  setGameState('win');
+                  setMessage("You Won! The Surds have been mastered!");
+              } else {
+                  setGameState('lose');
+                  setMessage(`Bot ${playerIdx} Won! Better luck next time.`);
+              }
+              return;
+            }
+
+            if (card.type === 'action') {
+              // Pass the *updated* hand state to the action handler
+              handleActionEffect(card, playerIdx, updatedHands);
+            } else {
+              setHands(updatedHands); // Commit the normal play
+              setTurnIndex(getNextPlayerIndex(playerIdx, direction));
+            }
+          };
+
+          const handleActionEffect = (card, playerIdx, currentHands) => {
+            let nextPlayer = getNextPlayerIndex(playerIdx, direction);
+
+            if (card.actionType === 'wild') {
+              if (playerIdx === 0) {
+                setHands(currentHands); // Commit the play
+                setGameState('color-pick');
+                setMessage("Choose a color!");
+              } else {
+                setHands(currentHands); // Commit the play
+                const picked = COLORS[Math.floor(Math.random() * COLORS.length)];
+                const newTop = { ...card, color: picked };
+                setDiscardPile(prev => [...prev.slice(0, -1), newTop]);
+                setMessage(`Bot ${playerIdx} changed color to ${picked.toUpperCase()}`);
+                setTurnIndex(nextPlayer);
+              }
+            } 
+            else if (card.actionType === 'skip') {
+              setHands(currentHands); // Commit the play
+              setMessage(playerIdx === 0 ? "You skipped the next player!" : `Bot ${playerIdx} skipped a turn!`);
+              setTurnIndex(getNextPlayerIndex(playerIdx, direction, true));
+            } 
+            else if (card.actionType === 'reverse') {
+                setHands(currentHands); // Commit the play
+                if (playerCount === 2) {
+                     setMessage("Reverse! Play again.");
+                     setTurnIndex(playerIdx); 
+                } else {
+                    const newDirection = direction * -1;
+                    setDirection(newDirection);
+                    setMessage("Direction Reversed!");
+                    setTurnIndex((playerIdx + newDirection + playerCount) % playerCount);
+                }
+            } 
+            else if (card.actionType === 'draw2') {
+              // Draw 2 Logic using the passed currentHands
+              const victimIdx = nextPlayer;
+              const drawn = [];
+              let currentDeck = [...deck];
+              for(let i=0; i<2; i++) {
+                if(currentDeck.length > 0) drawn.push(currentDeck.pop());
+              }
+              setDeck(currentDeck);
+              
+              // We must modify currentHands (which already has the played card removed)
+              currentHands[victimIdx] = [...currentHands[victimIdx], ...drawn];
+              
+              setHands(currentHands); // Commit BOTH the play and the draw
+              
+              setMessage(`${playerIdx === 0 ? 'You' : `Bot ${playerIdx}`} made ${victimIdx === 0 ? 'You' : `Bot ${victimIdx}`} draw 2!`);
+              
+              setTurnIndex(getNextPlayerIndex(victimIdx, direction)); 
+            }
+          };
+
+          const handleColorPick = (color) => {
+            const topCard = discardPile[discardPile.length - 1];
+            const newTop = { ...topCard, color: color, display: 'WILD', actionType: 'wild' };
+            setDiscardPile(prev => [...prev.slice(0, -1), newTop]);
+            setGameState('playing');
+            setTurnIndex(getNextPlayerIndex(0, direction)); 
+            setMessage(`Color changed to ${color.toUpperCase()}`);
+          };
+
+          const handleAiHint = async () => {
+            if (turnIndex !== 0) return;
+            
+            setAiTitle("✨ AI Tutor Hint");
+            setAiModalOpen(true);
+            setAiLoading(true);
+
+            const topCard = discardPile[discardPile.length - 1];
+            const handDescription = hands[0].map(c => {
+              if (c.type === 'action') return `${c.actionType} (${c.color})`;
+              return `${c.display} (Value: ${c.simplified}, Color: ${c.color})`;
+            }).join(', ');
+
+            const prompt = `
+              You are a friendly, encouraging math tutor in a card game called "Surd-O".
+              
+              THE SITUATION:
+              - The top card on the discard pile is: ${topCard.display} (Color: ${topCard.color}, Simplified: ${topCard.simplified || 'N/A'}).
+              - The player's hand is: ${handDescription}.
+              - Rules: Match by COLOR or by MATHEMATICAL VALUE (e.g., √8 matches 2√2). Wild cards can always be played.
+              
+              YOUR TASK:
+              1. Identify the BEST card for the player to play. Prioritize mathematical matches (same value) over simple color matches.
+              2. Explain WHY it matches mathematically. 
+              3. If they have no valid moves, kindly tell them to draw a card.
+              
+              CRITICAL FORMATTING INSTRUCTIONS:
+              - Do NOT use LaTeX or code formatting (like \sqrt{18}). 
+              - Use plain text and standard unicode symbols. 
+              - Example: Write "√18" or "sqrt(18)", NOT "\sqrt{18}".
+              - Example: Write "3√2", NOT "3\sqrt{2}".
+              - Keep the response short, clear, and easy to read.
+            `;
+
+            const response = await callGemini(prompt);
+            setAiContent(response);
+            setAiLoading(false);
+          };
+
+          // Bot AI Loop
+          useEffect(() => {
+            if (turnIndex !== 0 && gameState === 'playing') {
+              const botIdx = turnIndex;
+              const timer = setTimeout(() => {
+                const topCard = discardPile[discardPile.length - 1];
+                const currentBotHand = hands[botIdx];
+                
+                if (!currentBotHand) return;
+                
+                const validMoves = currentBotHand.filter(c => isValidMove(c, topCard));
+
+                if (validMoves.length > 0) {
+                  const mathMatch = validMoves.find(c => c.type === 'number' && c.base === topCard.base && c.coeff === topCard.coeff && c.color !== topCard.color);
+                  const cardToPlay = mathMatch || validMoves[0];
+
+                  if (mathMatch) setMessage(`Bot ${botIdx} matched value! ${mathMatch.display} = ${mathMatch.simplified}`);
+                  else setMessage(`Bot ${botIdx} played ${cardToPlay.display}`);
+
+                  handlePlayCard(cardToPlay, botIdx);
+
+                } else {
+                  setMessage(`Bot ${botIdx} drawing...`);
+                  performDraw(botIdx);
+                }
+              }, 1500); 
+
+              return () => clearTimeout(timer);
+            }
+          }, [turnIndex, gameState, hands, discardPile, deck]);
+
+          // Dynamic Spacing Logic for Hand
+          const getHandSpacing = (count) => {
+            if (count <= 3) return 'space-x-4'; 
+            if (count <= 6) return 'space-x-2';
+            if (count <= 9) return '-space-x-4'; 
+            if (count <= 12) return '-space-x-8'; 
+            return '-space-x-12'; 
+          };
+
+
+          return (
+            <div className="min-h-screen flex flex-col">
+              
+              <MathExplanation explanation={mathExplanation} />
+              
+              {aiModalOpen && (
+                <AiModal 
+                  title={aiTitle}
+                  content={aiContent} 
+                  isLoading={aiLoading} 
+                  onClose={() => setAiModalOpen(false)} 
+                />
+              )}
+
+              {/* Header */}
+              <header className="p-4 bg-green-900 shadow-md flex justify-between items-center z-10">
+                <div className="flex items-center gap-2">
+                  <div className="bg-yellow-400 text-green-900 p-2 rounded-lg font-black text-xl rotate-3">√</div>
+                  <h1 className="text-2xl font-bold tracking-wider">SURD-O</h1>
+                </div>
+                <div className="flex gap-2">
+                   {gameState === 'playing' && (
+                      <button 
+                        onClick={handleAiHint}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold shadow-lg transition-all ${
+                          turnIndex === 0 
+                            ? 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:scale-105 cursor-pointer' 
+                            : 'bg-gray-600 opacity-50 cursor-not-allowed'
+                        }`}
+                        disabled={turnIndex !== 0}
+                      >
+                        <Sparkles size={16} />
+                        Ask AI Tutor
+                      </button>
+                   )}
+                  
+                  <button 
+                    onClick={() => setShowHints(!showHints)}
+                    className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold transition-colors ${showHints ? 'bg-yellow-400 text-green-900' : 'bg-green-700 text-green-100 hover:bg-green-600'}`}
+                  >
+                    <HelpCircle size={16} />
+                    {showHints ? 'Hints ON' : 'Hints OFF'}
+                  </button>
+                  <button onClick={() => setGameState('start')} className="p-2 hover:bg-green-700 rounded-full" title="Restart">
+                    <RotateCcw size={20} />
+                  </button>
+                </div>
+              </header>
+
+              {/* Game Area */}
+              <main className="flex-grow relative flex flex-col justify-between p-4 max-w-6xl mx-auto w-full">
+                
+                {/* Opponents Area (Top Row) */}
+                <div className="h-32 w-full flex justify-center items-start gap-8 pt-4">
+                  {gameState !== 'start' && hands.slice(1).map((hand, idx) => (
+                     <div key={idx} className="flex flex-col items-center">
+                         <div className={`text-xs font-bold mb-1 ${turnIndex === idx + 1 ? 'text-yellow-400 animate-pulse' : 'text-green-300'}`}>
+                            Bot {idx + 1} {turnIndex === idx + 1 && '(Thinking...)'}
+                         </div>
+                         <div className="flex -space-x-4">
+                            {hand.map((card, cIdx) => (
+                                <div key={card.id} className="w-12 h-16 bg-red-900 rounded border border-white shadow-md" style={{zIndex: cIdx}}>
+                                    <div className="w-full h-full bg-stripes opacity-50"></div>
+                                </div>
+                            ))}
+                         </div>
+                     </div>
+                  ))}
+                </div>
+
+                {/* Center Board */}
+                {gameState !== 'start' && (
+                  <div className="flex-grow flex items-center justify-center gap-12 relative">
+                    
+                    {/* Deck */}
+                    <div 
+                      onClick={turnIndex === 0 ? handleDrawCard : undefined}
+                      className={`relative w-24 h-36 bg-red-900 rounded-xl border-4 border-white shadow-xl flex items-center justify-center ${turnIndex === 0 ? 'cursor-pointer hover:scale-105' : 'opacity-80'} transition-transform`}
+                    >
+                      <div className="text-4xl font-black text-red-950 opacity-30">SURD</div>
+                      <div className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full shadow">
+                        {deck.length}
+                      </div>
+                    </div>
+
+                    {/* Discard Pile */}
+                    <div className="relative w-24 h-36">
+                      {discardPile.map((card, index) => (
+                         <div 
+                          key={`${card.id}-${index}`} 
+                          className="absolute top-0 left-0 transition-transform"
+                          style={{ 
+                            transform: `rotate(${index % 2 === 0 ? (index%5) : -(index%5)}deg) translateY(${index * -0.5}px)`,
+                            zIndex: index
+                          }}
+                         >
+                           {/* Discard pile cards don't need hover effects or glow */}
+                           <Card card={card} isPlayable={false} showHint={showHints} shouldGlow={false} />
+                         </div>
+                      ))}
+                    </div>
+
+                    {/* Info Panel */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-56 flex flex-col gap-3">
+                      <div className="bg-black bg-opacity-40 p-4 rounded-xl backdrop-blur-sm">
+                        <div className="text-sm uppercase tracking-widest text-green-300 mb-1">Current Turn</div>
+                        <div className="font-bold text-white text-lg mb-4 flex items-center gap-2">
+                            {turnIndex === 0 ? "👉 Your Turn" : `🤖 Bot ${turnIndex}`}
+                        </div>
+                        <div className="text-sm text-gray-300 italic mb-4 border-t border-gray-600 pt-2">
+                            {message}
+                        </div>
+                        
+                        <div className="text-sm uppercase tracking-widest text-green-300 mb-1">Color</div>
+                        <div className={`w-full h-8 rounded ${
+                            discardPile.length > 0 
+                            ? (discardPile[discardPile.length-1].color === 'red' ? 'bg-red-500' 
+                              : discardPile[discardPile.length-1].color === 'blue' ? 'bg-blue-500' 
+                              : discardPile[discardPile.length-1].color === 'green' ? 'bg-green-500' 
+                              : discardPile[discardPile.length-1].color === 'yellow' ? 'bg-yellow-400' 
+                              : 'bg-gray-500') 
+                            : 'bg-gray-500'
+                          }`}></div>
+                      </div>
+                    </div>
+
+                    {/* Color Picker Overlay */}
+                    {gameState === 'color-pick' && (
+                       <div className="absolute inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center rounded-xl animate-fade-in">
+                         <h2 className="text-2xl font-bold mb-6 text-white">Choose a Color</h2>
+                         <div className="grid grid-cols-2 gap-4">
+                           {COLORS.map(c => (
+                             <button 
+                              key={c} 
+                              onClick={() => handleColorPick(c)}
+                              className={`w-24 h-24 rounded-full shadow-lg transform hover:scale-110 transition-transform ${
+                                c === 'red' ? 'bg-red-500' : c === 'blue' ? 'bg-blue-500' : c === 'green' ? 'bg-green-500' : 'bg-yellow-400'
+                              }`}
+                             />
+                           ))}
+                         </div>
+                       </div>
+                    )}
+                    
+                    {/* Win/Lose Overlay */}
+                    {(gameState === 'win' || gameState === 'lose') && (
+                      <div className="absolute inset-0 z-50 flex items-center justify-center">
+                        <div className="bg-white text-black p-8 rounded-2xl shadow-2xl text-center animate-bounce-in max-w-md">
+                           <h2 className={`text-4xl font-black mb-4 ${gameState === 'win' ? 'text-green-600' : 'text-red-600'}`}>
+                             {gameState === 'win' ? 'VICTORY!' : 'DEFEAT'}
+                           </h2>
+                           <p className="mb-6 text-gray-600">{message}</p>
+                           <button 
+                            onClick={() => setGameState('start')}
+                            className="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition-colors flex items-center gap-2 mx-auto"
+                           >
+                             <RotateCcw size={20} /> Play Again
+                           </button>
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                )}
+
+                {/* Start Screen Overlay */}
+                {gameState === 'start' && (
+                   <div className="absolute inset-0 flex items-center justify-center z-40 bg-green-900 bg-opacity-95">
+                      <div className="bg-white text-green-900 p-10 rounded-3xl shadow-2xl text-center max-w-lg border-b-8 border-green-600">
+                         <div className="bg-yellow-400 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl font-black shadow-lg">√</div>
+                         <h1 className="text-5xl font-black mb-2">SURD-O</h1>
+                         <p className="text-gray-500 mb-6 font-bold uppercase tracking-widest">Multiplayer Edition</p>
+                         
+                         <p className="text-lg text-gray-600 mb-8">
+                           Match cards by color or by <strong>mathematical value</strong>. 
+                           Can you spot that <span className="font-mono bg-gray-200 px-1 rounded">√18</span> is the same as <span className="font-mono bg-gray-200 px-1 rounded">3√2</span>?
+                         </p>
+                         
+                         <div className="flex flex-col gap-3">
+                            <p className="font-bold text-gray-700">Select Opponents:</p>
+                            <div className="flex justify-center gap-4">
+                                {[2, 3, 4].map(num => (
+                                     <button 
+                                        key={num}
+                                        onClick={() => startGame(num)}
+                                        className="flex flex-col items-center bg-gray-100 hover:bg-green-100 p-4 rounded-xl border-2 border-gray-200 hover:border-green-500 transition-all w-24"
+                                     >
+                                        <Users size={24} className="mb-2 text-green-700"/>
+                                        <span className="font-bold text-lg">{num}</span>
+                                        <span className="text-xs text-gray-500">Players</span>
+                                     </button>
+                                ))}
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                )}
+
+                {/* Player Hand with Glow and Hover Effects */}
+                {gameState !== 'start' && hands.length > 0 && (
+                    <div className={`relative w-full max-w-5xl mx-auto flex justify-center items-end pb-8 px-4 transition-all duration-500 rounded-xl ${turnIndex === 0 ? 'bg-gradient-to-t from-green-900/40 to-transparent shadow-[0_0_50px_rgba(34,197,94,0.2)]' : ''}`}>
+                        
+                        {/* Turn Indicator Text */}
+                        {turnIndex === 0 && (
+                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-green-200 font-bold tracking-widest uppercase text-sm animate-pulse">
+                                Your Turn
+                             </div>
+                        )}
+
+                        <div className={`flex justify-center items-end ${getHandSpacing(hands[0].length)}`}>
+                            {hands[0].map((card, idx) => {
+                                const topCard = discardPile[discardPile.length - 1];
+                                const playable = turnIndex === 0 && isValidMove(card, topCard);
+                                const isHovered = hoveredCardId === card.id;
+                                
+                                return (
+                                <div 
+                                    key={card.id} 
+                                    className={`transform transition-all duration-200 ${isHovered ? '-translate-y-12 scale-125' : ''}`} 
+                                    style={{zIndex: isHovered ? 100 : idx}} // State-based Z-Index override
+                                    onMouseEnter={() => setHoveredCardId(card.id)}
+                                    onMouseLeave={() => setHoveredCardId(null)}
+                                >
+                                    <Card 
+                                        card={card} 
+                                        isPlayable={playable} 
+                                        shouldGlow={showPlayableGlow} // Pass delay state
+                                        onClick={() => handlePlayCard(card, 0)}
+                                        showHint={showHints}
+                                    />
+                                </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+              </main>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SurdUno />);
+    </script>
+</body>
+</html>
