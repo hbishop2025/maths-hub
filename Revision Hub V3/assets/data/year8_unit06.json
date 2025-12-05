@@ -1,0 +1,24 @@
+{
+  "sparx_codes": [
+    {
+      "code": "U689",
+      "note": "Converting recurring decimals to fractions"
+    },
+    {
+      "code": "M905",
+      "note": "Finding percentages of amounts with a calculator"
+    },
+    {
+      "code": "M528",
+      "note": "Reverse percentages"
+    },
+    {
+      "code": "M437",
+      "note": "Finding percentages of amounts"
+    },
+    {
+      "code": "U332",
+      "note": "Compound interest"
+    }
+  ]
+}
