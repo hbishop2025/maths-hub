@@ -33,29 +33,29 @@
   </style>
 
   <style>
-    /* Subtle green stripes for Year 8 only */
-    body[data-page="year8"] .bg-stripes{
-      position: relative;
-      background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
-    }
-    body[data-page="year8"] .bg-stripes::after{
-      content:"";
-      position:absolute; inset:0; pointer-events:none;
-      background: repeating-linear-gradient(
-        -45deg,
-        rgba(16,185,129,.06) 0px,
-        rgba(16,185,129,.06) 8px,
-        transparent 8px,
-        transparent 16px
-      );
-      opacity:.75;
-    }
+    /* Subtle orange stripes for Year 7 only */
+    body[data-page="year7"] .bg-stripes{
+    position: relative;
+    background: linear-gradient(135deg, #fff7ed, #ffffff); /* very light orange to white */
+  }
+  body[data-page="year7"] .bg-stripes::after{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(249,115,22,.06) 0px,  /* orange-500 @ low opacity */
+      rgba(249,115,22,.06) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+    opacity:.75;
+  }
   </style>
 </head>
 
 <!-- 👇 data-page + data-json so unit-common.js knows what to load -->
 <body class="bg-gray-100"
-      data-page="year8"
+      data-page="year7"
       data-json="../assets/data/year9_unit02.json">
 
   <div class="layout">
