@@ -21,5 +21,11 @@
       "blockkey": "worksheets",
       "addediso": "2025-09-13T17:50:00.000+01:00"
     }
+  ],
+  "sparx_codes": [
+    {
+      "code": "TEST",
+      "note": "This is a trial"
+    }
   ]
 }
