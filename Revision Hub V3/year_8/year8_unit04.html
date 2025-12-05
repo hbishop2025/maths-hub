@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <title>Year 8 — Unit 04 (Real life graphs)</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared CSS (layout, stripes, etc.) -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
+  <style>
+    :root{
+      /* Year 8 accent (emerald) */
+      --accent:    #10B981; /* emerald-500 */
+      --accent-600:#059669; /* hover */
+      --accent-700:#047857; /* active */
+    }
+    body { font-family: 'Inter', sans-serif; }
+    .material-icons { font-size: 24px; }
+    html { scroll-behavior: smooth; }
+
+    /* MathJax inline rendering */
+    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
+  </style>
+
+  <style>
+    /* Subtle green stripes for Year 8 only */
+    body[data-page="year8"] .bg-stripes{
+      position: relative;
+      background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
+    }
+    body[data-page="year8"] .bg-stripes::after{
+      content:"";
+      position:absolute; inset:0; pointer-events:none;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(16,185,129,.06) 0px,
+        rgba(16,185,129,.06) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      opacity:.75;
+    }
+  </style>
+</head>
+
+<!-- 👇 data-page + data-json so unit-common.js knows what to load -->
+<body class="bg-gray-100"
+      data-page="year8"
+      data-json="../assets/data/year8_unit04.json">
+
+  <div class="layout">
+    <!-- Sidebar container (space reserved by CSS) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Top: back + title -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <a href="../year8_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span> Back to Year 8 Hub
+          </a>
+        </div>
+      </header>
+
+      <!-- Hero / Unit header -->
+      <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 8 • Unit 04</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Real life graphs</h1>
+            <p class="text-gray-600 mt-2 max-w-2xl">
+              Revise this unit. Work through topic worksheets first, then consolidate with videos.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
+            </a>
+            <a href="#sparx-section"
+               class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              Jump to SPARX
+              <span class="material-icons ml-2">arrow_downward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Subtopics chips -->
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.1 Direct proportion</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.2 FINANCE: Interpreting financial graphs</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.3 Distance-time graphs</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.4 Rates of change</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.5 Misleading graphs</span>
+        </div>
+      </section>
+
+      <!-- Unit Resources -->
+      <section class="mt-10" id="unit-resources">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 4 — Resources</h2>
+
+        <!-- Worksheets -->
+        <section class="mb-10">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Worksheets</h3>
+          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- Videos -->
+        <section class="mb-10" id="videos">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Videos</h3>
+          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- Other -->
+        <section class="mb-10">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Other</h3>
+          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
+      </section>
+
+      <!-- SPARX Quick Revision (unit-common.js will unhide + populate this) -->
+<section id="sparx-section" class="mt-12 mb-10 hidden">
+  <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <!-- PURPLE (Sparx brand) -->
+        <span class="material-icons" style="color:#7C3AED;">bolt</span>
+        SPARX Quick Revision
+      </h2>
+
+      <!-- Purple gradient button -->
+      <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+         class="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white
+                bg-gradient-to-r from-purple-600 to-purple-500 shadow
+                hover:from-purple-700 hover:to-purple-600 transition transform hover:-translate-y-0.5">
+        <span class="material-icons mr-2">open_in_new</span>
+        Go to SPARX
+      </a>
+    </div>
+
+    <p class="text-sm text-gray-600 mb-3">
+      These SPARX tasks link closely to this unit. Use them for quick independent practice.
+    </p>
+
+    <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
+  </div>
+</section>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+    </main>
+  </div>
+
+  <!-- Shared scripts -->
+  <script src="/assets/sidebar-loader.js"></script>
+  <script src="/assets/cards.js"></script>
+  <script src="/assets/unit-common.js"></script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], processEscapes:true },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</body>
+</html>
