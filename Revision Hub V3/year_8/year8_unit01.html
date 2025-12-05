@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
-  <title>Year 8 — Unit 03 (2D Shapes &amp; 3D Solids)</title>
+  <title>Year 8 — Unit 01 (Factors &amp; Powers)</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -13,54 +13,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS (has layout, sidebar spacing, bg-stripes, etc.) -->
+  <!-- Shared CSS (layout, stripes, etc.) -->
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
     :root{
-    /* Year 8 accent (emerald) */
-    --accent:    #10B981; /* emerald-500 */
-    --accent-600:#059669; /* hover */
-    --accent-700:#047857; /* active */
-  }
+      /* Year 8 accent (emerald) */
+      --accent:    #10B981; /* emerald-500 */
+      --accent-600:#059669; /* hover */
+      --accent-700:#047857; /* active */
+    }
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
-
-    /* Flip-card micro CSS */
-    .flipcard{ perspective:1000px; }
-    .flipcard .inner{
-      position:relative; transform-style:preserve-3d; transition: transform .5s ease; height: 12rem;
-    }
-    .flipcard.is-flipped .inner{ transform: rotateY(180deg); }
-    .flipcard .face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:0.75rem; overflow:auto; }
-    .flipcard .back{ transform: rotateY(180deg); }
 
     /* MathJax inline rendering */
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
+
   <style>
-  /* Subtle green stripes for Year 8 only */
-  body[data-page="year8"] .bg-stripes{
-    position: relative;
-    background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
-  }
-  body[data-page="year8"] .bg-stripes::after{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
-    background: repeating-linear-gradient(
-      -45deg,
-      rgba(16,185,129,.06) 0px,
-      rgba(16,185,129,.06) 8px,
-      transparent 8px,
-      transparent 16px
-    );
-    opacity:.75;
-  }
-</style>
+    /* Subtle green stripes for Year 8 only */
+    body[data-page="year8"] .bg-stripes{
+      position: relative;
+      background: linear-gradient(135deg, #ecfdf5, #ffffff); /* very light green to white */
+    }
+    body[data-page="year8"] .bg-stripes::after{
+      content:"";
+      position:absolute; inset:0; pointer-events:none;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(16,185,129,.06) 0px,
+        rgba(16,185,129,.06) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      opacity:.75;
+    }
+  </style>
 </head>
-<body class="bg-gray-100" data-page="year8">
+
+<!-- 👇 data-page + data-json so unit-common.js knows what to load -->
+<body class="bg-gray-100"
+      data-page="year8"
+      data-json="../assets/data/year8_unit01.json">
+
   <div class="layout">
     <!-- Sidebar container (space reserved by CSS) -->
     <div id="sidebar" aria-label="Sidebar"></div>
@@ -80,8 +77,8 @@
       <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 8 • Unit 03</p>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">2D Shapes &amp; 3D Solids</h1>
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 8 • Unit 01</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Factors &amp; powers</h1>
             <p class="text-gray-600 mt-2 max-w-2xl">
               Revise this unit. Work through topic worksheets first, then consolidate with videos.
             </p>
@@ -90,24 +87,26 @@
             <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
               Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
             </a>
+            <a href="#sparx-section"
+               class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              Jump to SPARX
+              <span class="material-icons ml-2">arrow_downward</span>
+            </a>
           </div>
         </div>
 
         <!-- Subtopics chips -->
         <div class="mt-4 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.1 Plans and elevations</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.2 Surface area of prisms</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.3 Volume of prisms</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.4 Circumference of a circle</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.5 Area of a cricle</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.6 Working with cylinders</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">3.7 Pythagoras' Theorem</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">1.1 Prime factor decomposition</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">1.2 Laws of indices</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">1.3 STEM: Powers of 10</span>
+          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">1.4 Calculating and estimating</span>
         </div>
       </section>
 
       <!-- Unit Resources -->
       <section class="mt-10" id="unit-resources">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 3 — Resources</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 1 — Resources</h2>
 
         <!-- Worksheets -->
         <section class="mb-10">
@@ -130,10 +129,44 @@
         <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
       </section>
 
-  <!-- Sidebar loader (absolute path) -->
+      <!-- SPARX Quick Revision (unit-common.js will unhide + populate this) -->
+<section id="sparx-section" class="mt-12 mb-10 hidden">
+  <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <!-- PURPLE (Sparx brand) -->
+        <span class="material-icons" style="color:#7C3AED;">bolt</span>
+        SPARX Quick Revision
+      </h2>
+
+      <!-- Purple gradient button -->
+      <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+         class="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white
+                bg-gradient-to-r from-purple-600 to-purple-500 shadow
+                hover:from-purple-700 hover:to-purple-600 transition transform hover:-translate-y-0.5">
+        <span class="material-icons mr-2">open_in_new</span>
+        Go to SPARX
+      </a>
+    </div>
+
+    <p class="text-sm text-gray-600 mb-3">
+      These SPARX tasks link closely to this unit. Use them for quick independent practice.
+    </p>
+
+    <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
+  </div>
+</section>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+    </main>
+  </div>
+
+  <!-- Shared scripts -->
   <script src="/assets/sidebar-loader.js"></script>
-  <!-- Shared cards/helpers -->
   <script src="/assets/cards.js"></script>
+  <script src="/assets/unit-common.js"></script>
 
   <!-- MathJax -->
   <script>
@@ -143,104 +176,5 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
-
-  <!-- Page JS -->
-  <script>
-  // === Year 9 • Unit 01 data source (CMS JSON with { items: [...] }) ===
-  const DATA_URL = "../assets/data/year8_unit01.json";
-
-  function iconFor(url){
-    const u=(url||"").toLowerCase();
-    if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View"};
-    if(u.includes("youtube")||u.includes("youtu.be")||u.includes("watch")) return {icon:"videocam", cta:"Watch Now"};
-    if(u.includes("quiz")||u.includes("forms.gle")||u.includes("form")) return {icon:"quiz", cta:"Take Quiz"};
-    return {icon:"description", cta:"View"};
-  }
-  function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
-
-  function makeResCard({ title, url }){
-  const safeUrl = ensureHttps(url);
-  const { icon, cta } = iconFor(url);
-  const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  const media = yt
-    ? (() => {
-        const id = yt[1];
-        const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-        return `
-          <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-            <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
-            <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-          </div>`;
-      })()
-    : `
-      <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
-        <span class="material-icons text-4xl text-gray-600">${icon}</span>
-      </div>`;
-
-  const card = document.createElement("a");
-  card.href = safeUrl;
-  card.target = "_blank";
-  card.rel = "noopener";
-  card.className = "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
-  card.innerHTML = `
-    ${media}
-    <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
-    <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
-      ${cta}
-      <span class="material-icons ml-1">${cta==='Watch Now'?'play_arrow':(cta==='Take Quiz'?'arrow_forward':'open_in_new')}</span>
-    </div>
-  `;
-  return card;
-}
-
-  const GRID_FOR = {
-    worksheets: document.getElementById("grid-worksheets"),
-    videos:     document.getElementById("grid-videos"),
-    other:      document.getElementById("grid-other"),
-  };
-
-  function hideEmptyBlocks(){
-    ["worksheets","videos","other"].forEach(key=>{
-      const grid=document.getElementById(`grid-${key}`);
-      const title=grid?.previousElementSibling;
-      if(grid && grid.children.length===0){
-        grid.style.display="none";
-        if(title) title.style.display="none";
-      }
-    });
-    const empty=document.getElementById("unit-empty");
-    if(empty){
-      const any=["worksheets","videos","other"].some(k=>document.getElementById(`grid-${k}`)?.children.length>0);
-      empty.hidden=any;
-    }
-  }
-
-  async function loadUnit(){
-    // Expect shape: { items: [ { title, url, blockkey, addediso?, active? } ] }
-    const data = await fetch(DATA_URL, {cache:"no-store"}).then(r=>r.json()).catch(()=>({items:[]}));
-    const rows = Array.isArray(data) ? data : (data.items || []);
-    const items = rows.filter(r =>
-      r && r.title && r.url &&
-      String((r.active ?? true)).toLowerCase() !== "false"
-    );
-
-    // newest first if addediso present
-    items.sort((a,b)=>{
-      const da = new Date(a.addediso||0).getTime()||0;
-      const db = new Date(b.addediso||0).getTime()||0;
-      return db - da;
-    });
-
-    items.forEach(r=>{
-      const key = (r.blockkey||"").toLowerCase();
-      const grid = GRID_FOR[key];
-      if(grid) grid.appendChild(makeResCard({title:r.title, url:r.url}));
-    });
-
-    hideEmptyBlocks();
-  }
-
-  document.addEventListener("DOMContentLoaded", loadUnit);
-</script>
 </body>
 </html>
