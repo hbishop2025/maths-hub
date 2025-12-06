@@ -64,6 +64,7 @@
   { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
   { "level": "Y9", "label": "Year 9 Hub",    "keywords": ["year 9"],                                   "url": "/year9_hub.html" },
   { "level": "Y8", "label": "Year 8 Hub",    "keywords": ["year 8"],                                   "url": "/year8_hub.html" },
+  { "level": "Y7", "label": "Year 7 Hub",    "keywords": ["year 7"],                                   "url": "/year7_hub.html" },
 
   {
     "level": "AS-Level Pure",
