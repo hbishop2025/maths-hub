@@ -62,6 +62,8 @@
   { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
   { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
+  { "level": "Y9", "label": "Year 9 Hub",    "keywords": ["year 9"],                                   "url": "/year9_hub.html" },
+  { "level": "Y8", "label": "Year 8 Hub",    "keywords": ["year 8"],                                   "url": "/year8_hub.html" },
 
   {
     "level": "AS-Level Pure",
