@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <title>SJWMS Maths — Bounds Builder</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared layout / stripes / sidebar spacing -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
+  <style>
+    :root{
+      /* Neutral accent – students can change this if they want */
+      --accent:    #3B82F6; /* blue-500 */
+      --accent-600:#2563EB;
+      --accent-700:#1D4ED8;
+    }
+    body { font-family: 'Inter', sans-serif; }
+    .material-icons { font-size: 24px; }
+    html { scroll-behavior: smooth; }
+
+    /* Optional: subtle neutral stripes for game pages */
+    body[data-page="game-template"] .bg-stripes{
+      position: relative;
+      background: linear-gradient(135deg, #eff6ff, #ffffff); /* very light blue to white */
+    }
+    body[data-page="game-template"] .bg-stripes::after{
+      content:"";
+      position:absolute; inset:0; pointer-events:none;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(59,130,246,0.06) 0px,
+        rgba(59,130,246,0.06) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      opacity:.7;
+    }
+
+    /* Game Specific Styles */
+    .slot-empty {
+        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23CBD5E1FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    }
+    .game-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .game-card:active {
+        transform: scale(0.95);
+    }
+    .game-card.selected {
+        ring: 2px solid var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        background-color: #DBEAFE; /* blue-100 */
+        border-color: #3B82F6;
+    }
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+    }
+    .shake {
+        animation: shake 0.3s ease-in-out;
+    }
+    
+    /* Confetti (Simple CSS implementation) */
+    .confetti {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: #f00;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(720deg); }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100"
+      data-page="game-template">
+  <div class="layout">
+    <!-- Sidebar container (filled by sidebar-loader.js like the other pages) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main content -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Top: back + title -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <!-- TODO: change this link to wherever you want students to go back to (e.g. games hub) -->
+          <a href="/index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span>
+            Back to Maths Hub
+          </a>
+        </div>
+      </header>
+
+      <!-- Hero / Game header -->
+      <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <!-- Students can edit all of this text -->
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">
+              Revision Game
+            </p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+              Bounds Builder Challenge
+            </h1>
+            <p class="text-gray-600 mt-2 max-w-2xl">
+              Master the limits of accuracy. Build correct formulas for Maximums and Minimums to maximize your score.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-end gap-2 text-sm text-gray-500">
+            <!-- Optional “meta” area students can fill -->
+            <div class="flex items-center gap-1">
+              <span class="material-icons text-base text-gray-400">group</span>
+              <span>Made by: <span class="font-semibold text-gray-800">SJWMS Maths Dept</span></span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="material-icons text-base text-gray-400">calculate</span>
+              <span>Focus: <span class="font-semibold text-gray-800">Upper & Lower Bounds</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME AREA -->
+      <section class="mt-6 grid grid-cols-1 lg:grid-cols-[minmax(0,3fr),minmax(0,2fr)] gap-6">
+        <!-- Left: actual game -->
+        <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden relative">
+          <h2 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <span class="material-icons text-[20px]" style="color:var(--accent);">sports_esports</span>
+            Game Area
+          </h2>
+
+          <!--
+            This is the ONLY bit students / AI really need to hook into.
+            They can build anything they like inside #game-root using HTML + CSS + JS.
+          -->
+          <div id="game-root"
+               class="bg-stripes rounded-xl min-h-[360px] md:min-h-[420px] flex items-center justify-center text-center px-4 py-6 relative z-10">
+            <div class="max-w-md text-gray-700">
+              <div class="animate-pulse flex flex-col items-center">
+                <span class="material-icons text-4xl text-blue-300 mb-2">hourglass_empty</span>
+                <p>Loading Game Engine...</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Container for effects -->
+          <div id="effects-layer" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
+        </div>
+
+        <!-- Right: instructions / scoring / extension -->
+        <div class="space-y-4">
+          <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800 mb-2 flex items-center gap-2">
+              <span class="material-icons text-[20px] text-gray-500">menu_book</span>
+              How to play
+            </h2>
+            <p class="text-sm text-gray-700">
+              1. <strong>Quiz Mode:</strong> Enter the correct Upper or Lower bound.<br>
+              2. <strong>Builder Mode:</strong> Select tiles (e.g. "Max Force") and place them into the formula slots.<br>
+              3. <strong>Challenge Mode:</strong> The final question changes every time! It will ask you to calculate a value using one of the rules you practiced.
+            </p>
+          </div>
+
+          <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800 mb-2 flex items-center gap-2">
+              <span class="material-icons text-[20px] text-gray-500">psychology</span>
+              Maths focus
+            </h2>
+            <p class="text-sm text-gray-700 mb-2">
+              Practises combining bounds in calculations (add, subtract, multiply, divide).
+            </p>
+            <div class="text-xs bg-blue-50 text-blue-800 p-2 rounded border border-blue-100">
+                <strong>Hint:</strong> Max(A/B) = Max(A) ÷ Min(B)
+            </div>
+          </div>
+
+          <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800 mb-2 flex items-center gap-2">
+              <span class="material-icons text-[20px] text-gray-500">build</span>
+              Extension ideas
+            </h2>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+              <li>Add a timer for speed points.</li>
+              <li>Include significant figure rounding.</li>
+              <li>Add "Truncation" questions (where bounds work differently!).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-10"></div>
+    </main>
+  </div>
+
+  <!-- Shared scripts (sidebar + any global helpers you already use) -->
+  <script src="/assets/sidebar-loader.js"></script>
+
+  <!-- === GAME SCRIPT AREA === -->
+  <script>
+    (function () {
+      const root = document.getElementById("game-root");
+      const effectsLayer = document.getElementById("effects-layer");
+      if (!root) return;
+
+      // --- UTILITIES ---
+      const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+      const randFloat = (min, max) => (Math.random() * (max - min) + min).toFixed(1);
+
+      // --- GAME STATE ---
+      let currentLevel = 0;
+      let score = 0;
+      let selectedOption = null;
+      let questions = []; // Populated by generateQuestions()
+
+      // --- QUESTION GENERATOR ---
+      function generateQuestions() {
+          const q = [];
+          
+          // 0. Intro
+          q.push({
+              type: 'intro',
+              title: "Welcome to Bounds Builder",
+              text: "Every attempt is different. Can you master the Upper and Lower limits?",
+              btnText: "Start Revision"
+          });
+
+          // 1. Basic Lower Bound (Dynamic)
+          const q1_val = randInt(2, 9) * 10; // e.g., 20, 30... 90
+          q.push({
+              type: 'input',
+              question: `A length is <strong>${q1_val}m</strong>, rounded to the nearest 10m.<br>What is the <strong>Lower Bound</strong>?`,
+              answer: q1_val - 5,
+              hint: "The interval is 10. Half of 10 is 5. Subtract 5."
+          });
+
+          // 2. Basic Upper Bound (Dynamic)
+          const q2_val = randFloat(2, 9); // e.g., 4.5
+          q.push({
+              type: 'input',
+              question: `A weight is <strong>${q2_val}kg</strong>, rounded to 1 decimal place.<br>What is the <strong>Upper Bound</strong>?`,
+              answer: parseFloat(q2_val) + 0.05,
+              hint: "The interval is 0.1. Half is 0.05. Add 0.05."
+          });
+
+          // 3. Builder - Addition (Static Concept)
+          q.push({
+              type: 'builder',
+              question: "We want the <strong>Maximum Perimeter</strong> of a rectangle.<br>Formula: P = 2L + 2W",
+              layout: 'linear',
+              slots: [{ id: 's1', label: 'Length' }, { id: 's2', label: 'Width' }],
+              options: [
+                  { id: 'opt1', text: 'LB(Length)', val: 'min' },
+                  { id: 'opt2', text: 'UB(Length)', val: 'max' },
+                  { id: 'opt3', text: 'LB(Width)', val: 'min' },
+                  { id: 'opt4', text: 'UB(Width)', val: 'max' }
+              ],
+              correct: ['opt2', 'opt4'],
+              explanation: "For maximum perimeter, we need the largest Length and largest Width."
+          });
+
+          // 4. Builder - Subtraction (Static Concept)
+          q.push({
+              type: 'builder',
+              question: "Calculate the <strong>Maximum Difference</strong> in height between two people (A - B).",
+              layout: 'subtraction',
+              slots: [{ id: 's1', label: 'Person A' }, { id: 's2', label: 'Person B' }],
+              options: [
+                  { id: 'opt1', text: 'Max Height A', val: 'max' },
+                  { id: 'opt2', text: 'Min Height A', val: 'min' },
+                  { id: 'opt3', text: 'Max Height B', val: 'max' },
+                  { id: 'opt4', text: 'Min Height B', val: 'min' }
+              ],
+              correct: ['opt1', 'opt4'],
+              explanation: "To maximize the gap, take the Max of the first and subtract the Min of the second."
+          });
+
+          // 5. Builder - Division (Static Concept)
+          q.push({
+              type: 'builder',
+              question: "Calculate the <strong>Minimum Density</strong>.<br>Formula: Density = Mass / Volume",
+              layout: 'fraction',
+              slots: [{ id: 's1', label: 'Numerator' }, { id: 's2', label: 'Denominator' }],
+              options: [
+                  { id: 'opt1', text: 'Max Mass', val: 'max' },
+                  { id: 'opt2', text: 'Min Mass', val: 'min' },
+                  { id: 'opt3', text: 'Max Vol', val: 'max' },
+                  { id: 'opt4', text: 'Min Vol', val: 'min' }
+              ],
+              correct: ['opt2', 'opt3'],
+              explanation: "Smallest Answer = Smallest Top / Biggest Bottom."
+          });
+
+          // 6. FINAL BOSS - Random Scenario (Dynamic)
+          // Randomly pick: Mult (Area), Div (Speed), or Sub (Difference)
+          const scenarioType = ['area', 'speed', 'diff'][randInt(0, 2)];
+          let bossQ = {};
+
+          if(scenarioType === 'area') {
+             // Max Area = Max L * Max W
+             const L = randInt(5, 15);
+             const W = randInt(5, 15);
+             const ubL = L + 0.5;
+             const ubW = W + 0.5;
+             const ans = ubL * ubW;
+             bossQ = {
+                 type: 'input',
+                 question: `<strong>Boss Level: Maximum Area</strong><br>L = ${L}m (nearest m), W = ${W}m (nearest m)<br>Calculate <strong>Max Area</strong> (L×W).`,
+                 answer: ans,
+                 hint: `Max Area = UB(L) × UB(W) = ${ubL} × ${ubW}`
+             };
+          } 
+          else if(scenarioType === 'speed') {
+             // Min Speed = Min Dist / Max Time
+             const D = randInt(80, 120); // nearest 10
+             const T = randInt(5, 12);   // nearest 1
+             const lbD = D - 5;
+             const ubT = T + 0.5;
+             const ans = lbD / ubT;
+             bossQ = {
+                 type: 'input',
+                 question: `<strong>Boss Level: Minimum Speed</strong><br>Dist = ${D}m (nearest 10m), Time = ${T}s (nearest s)<br>Calculate <strong>Min Speed</strong> (D/T).<br><em>(Answer to 2 d.p.)</em>`,
+                 answer: ans,
+                 hint: `Min Speed = LB(Dist) ÷ UB(Time) = ${lbD} ÷ ${ubT}`
+             };
+          }
+          else {
+             // Max Difference = Max A - Min B
+             const A = randInt(50, 60);
+             const B = randInt(10, 20);
+             const ubA = A + 0.5;
+             const lbB = B - 0.5;
+             const ans = ubA - lbB;
+             bossQ = {
+                 type: 'input',
+                 question: `<strong>Boss Level: Maximum Difference</strong><br>A = ${A}kg, B = ${B}kg (both nearest kg)<br>Calculate <strong>Max (A - B)</strong>.`,
+                 answer: ans,
+                 hint: `Max Diff = UB(A) - LB(B) = ${ubA} - ${lbB}`
+             };
+          }
+          q.push(bossQ);
+
+          // 7. End
+          q.push({
+              type: 'end',
+              title: "Assessment Complete!",
+          });
+
+          return q;
+      }
+
+
+      // --- RENDER FUNCTIONS ---
+
+      function render() {
+        // Clear root
+        root.innerHTML = "";
+        selectedOption = null;
+
+        const data = questions[currentLevel];
+
+        // Container
+        const container = document.createElement("div");
+        container.className = "w-full max-w-lg bg-white/95 backdrop-blur rounded-xl shadow-lg border border-gray-100 p-4 md:p-8 flex flex-col gap-4 transition-all duration-300 relative z-20";
+
+        // 1. INTRO SCREEN
+        if (data.type === 'intro') {
+            container.innerHTML = `
+                <div class="text-center py-6">
+                    <span class="material-icons text-6xl text-blue-500 mb-4">construction</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">${data.title}</h2>
+                    <p class="text-gray-600 mb-6">${data.text}</p>
+                    <button id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                        ${data.btnText}
+                    </button>
+                </div>
+            `;
+            root.appendChild(container);
+            container.querySelector("#next-btn").onclick = nextLevel;
+            return;
+        }
+
+        // 2. END SCREEN
+        if (data.type === 'end') {
+            const percentage = Math.round((score / (questions.length - 2)) * 100);
+            let msg = percentage >= 100 ? "Perfect Score! You are a Bounds Master! 🏆" : (percentage > 70 ? "Great job! Almost there." : "Keep practising, you'll get it.");
+            
+            if(percentage === 100) spawnConfetti();
+
+            container.innerHTML = `
+                <div class="text-center py-6">
+                    <span class="material-icons text-6xl text-yellow-500 mb-4">emoji_events</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">${data.title}</h2>
+                    <div class="text-4xl font-extrabold text-blue-600 my-4">${score} / ${questions.length - 2}</div>
+                    <p class="text-gray-600 mb-6 font-medium">${msg}</p>
+                    <button id="reset-btn" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center justify-center gap-2 mx-auto border border-blue-200 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                        <span class="material-icons">replay</span> Generate New Questions
+                    </button>
+                </div>
+            `;
+            root.appendChild(container);
+            container.querySelector("#reset-btn").onclick = () => {
+                effectsLayer.innerHTML = ''; // clear confetti
+                questions = generateQuestions(); // Re-roll questions
+                currentLevel = 0;
+                score = 0;
+                render();
+            };
+            return;
+        }
+
+        // HEADER (Progress & Score)
+        const header = document.createElement("div");
+        header.className = "flex justify-between items-center text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 border-b border-gray-100 pb-2";
+        header.innerHTML = `
+            <span>Question ${currentLevel} / ${questions.length - 2}</span>
+            <span>Score: ${score}</span>
+        `;
+        container.appendChild(header);
+
+        // QUESTION TITLE
+        const title = document.createElement("h3");
+        title.className = "text-lg md:text-xl font-medium text-gray-800 text-center mb-4 leading-relaxed";
+        title.innerHTML = data.question;
+        container.appendChild(title);
+
+        // 3. INPUT TYPE QUESTION
+        if (data.type === 'input') {
+            const inputGroup = document.createElement("div");
+            inputGroup.className = "flex flex-col gap-3 max-w-[200px] mx-auto w-full";
+            inputGroup.innerHTML = `
+                <input type="number" step="0.01" id="user-ans" placeholder="Answer..." 
+                    class="text-center text-xl font-bold p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-0 outline-none transition-colors">
+                <button id="submit-ans" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow transition-colors">
+                    Check
+                </button>
+                <div id="feedback-area" class="text-center text-sm min-h-[20px] font-medium"></div>
+            `;
+            container.appendChild(inputGroup);
+
+            const input = inputGroup.querySelector("#user-ans");
+            const btn = inputGroup.querySelector("#submit-ans");
+            const fb = inputGroup.querySelector("#feedback-area");
+
+            const check = () => {
+                if(input.disabled) return; 
+                const val = parseFloat(input.value);
+                if (isNaN(val)) {
+                    fb.textContent = "Please enter a number";
+                    fb.className = "text-center text-sm font-medium text-amber-500";
+                    return;
+                }
+
+                input.disabled = true;
+                // Check tolerance (0.01 for rounding errors)
+                if (Math.abs(val - data.answer) < 0.02) {
+                    fb.innerHTML = `<span class="flex items-center justify-center gap-1 text-emerald-600"><span class="material-icons text-sm">check_circle</span> Correct!</span>`;
+                    input.classList.add("bg-emerald-50", "border-emerald-500", "text-emerald-700");
+                    score++;
+                    createNextButton(container);
+                } else {
+                    fb.innerHTML = `<span class="text-rose-600 block mb-1">Incorrect.</span><span class="text-gray-500 text-xs">${data.hint || "Check your rounding."}</span>`;
+                    input.classList.add("bg-rose-50", "border-rose-500", "text-rose-700");
+                    createNextButton(container); 
+                }
+            };
+
+            btn.onclick = check;
+            input.addEventListener("keypress", (e) => { if(e.key === 'Enter') check(); });
+        }
+
+        // 4. BUILDER TYPE QUESTION (Drag/Select)
+        if (data.type === 'builder') {
+            
+            // Layout container
+            const slotContainer = document.createElement("div");
+            slotContainer.className = "flex items-center justify-center gap-4 my-4 p-4 bg-gray-50 rounded-lg border border-gray-200 select-none";
+            
+            // Build the specific math layout
+            if (data.layout === 'fraction') {
+                slotContainer.innerHTML = `
+                    <div class="flex flex-col items-center gap-2">
+                        <div id="slot-0" class="slot w-32 h-12 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium tracking-widest uppercase">Numerator</div>
+                        <div class="w-full h-0.5 bg-gray-800 rounded"></div>
+                        <div id="slot-1" class="slot w-32 h-12 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium tracking-widest uppercase">Denominator</div>
+                    </div>
+                `;
+            } else if (data.layout === 'subtraction') {
+                 slotContainer.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-center gap-3">
+                        <div id="slot-0" class="slot w-32 h-12 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium tracking-widest uppercase">First</div>
+                        <span class="text-2xl font-bold text-gray-400">-</span>
+                        <div id="slot-1" class="slot w-32 h-12 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium tracking-widest uppercase">Second</div>
+                    </div>
+                `;
+            } else {
+                // Linear
+                slotContainer.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-center gap-2">
+                        <span class="text-lg text-gray-500 font-serif italic">2(</span>
+                        <div id="slot-0" class="slot w-28 h-10 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium uppercase">L</div>
+                        <span class="text-lg text-gray-500 font-serif italic">) + 2(</span>
+                        <div id="slot-1" class="slot w-28 h-10 flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded cursor-pointer hover:border-blue-400 transition-colors text-xs text-gray-400 font-medium uppercase">W</div>
+                        <span class="text-lg text-gray-500 font-serif italic">)</span>
+                    </div>
+                `;
+            }
+            container.appendChild(slotContainer);
+
+            // Options Area
+            const optionsGrid = document.createElement("div");
+            optionsGrid.className = "grid grid-cols-2 gap-3 mt-2";
+            
+            data.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "game-card bg-white border border-gray-200 text-gray-700 py-2 px-3 rounded shadow-sm text-sm font-medium hover:shadow-md";
+                btn.textContent = opt.text;
+                btn.dataset.id = opt.id;
+                
+                btn.onclick = () => {
+                    optionsGrid.querySelectorAll('button').forEach(b => b.classList.remove('selected', 'bg-blue-50', 'border-blue-500'));
+                    btn.classList.add('selected', 'bg-blue-50', 'border-blue-500');
+                    selectedOption = opt;
+                };
+                optionsGrid.appendChild(btn);
+            });
+            container.appendChild(optionsGrid);
+
+            // Check Button
+            const checkBtn = document.createElement("button");
+            checkBtn.className = "mt-4 bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+            checkBtn.textContent = "Check Formula";
+            container.appendChild(checkBtn);
+
+            const feedback = document.createElement("div");
+            feedback.className = "text-center text-sm font-medium mt-2 min-h-[20px]";
+            container.appendChild(feedback);
+
+            // Logic for Slots
+            const slots = slotContainer.querySelectorAll('.slot');
+            const answers = [null, null]; 
+
+            slots.forEach((slot, index) => {
+                slot.onclick = () => {
+                    if (selectedOption) {
+                        slot.textContent = selectedOption.text;
+                        slot.classList.remove("text-gray-400", "tracking-widest");
+                        slot.classList.add("text-blue-700", "bg-blue-50", "border-blue-300", "border-solid");
+                        slot.classList.remove("border-dashed");
+                        answers[index] = selectedOption.id;
+                        selectedOption = null;
+                        optionsGrid.querySelectorAll('button').forEach(b => b.classList.remove('selected', 'bg-blue-50', 'border-blue-500'));
+                    } else {
+                        if (answers[index]) {
+                            slot.textContent = index === 0 ? "Slot 1" : "Slot 2"; 
+                            slot.classList.add("text-gray-400", "tracking-widest", "border-dashed");
+                            slot.classList.remove("text-blue-700", "bg-blue-50", "border-blue-300", "border-solid");
+                            answers[index] = null;
+                        } else {
+                            slot.classList.add("shake");
+                            setTimeout(() => slot.classList.remove("shake"), 300);
+                        }
+                    }
+                };
+            });
+
+            checkBtn.onclick = () => {
+                if (answers.includes(null)) {
+                    feedback.textContent = "Fill all slots first!";
+                    feedback.className = "text-center text-sm font-medium mt-2 text-amber-600";
+                    return;
+                }
+                const isCorrect = (JSON.stringify(answers) === JSON.stringify(data.correct));
+                
+                checkBtn.disabled = true;
+                optionsGrid.style.pointerEvents = "none";
+                slotContainer.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    feedback.innerHTML = `<span class="text-emerald-600 flex items-center justify-center gap-1"><span class="material-icons text-sm">check_circle</span> Formula Correct!</span>`;
+                    score++;
+                } else {
+                    feedback.innerHTML = `<span class="text-rose-600">Incorrect.</span> <span class="text-gray-600 text-xs block mt-1">${data.explanation}</span>`;
+                }
+                createNextButton(container);
+            };
+        }
+
+        root.appendChild(container);
+      }
+
+      function createNextButton(container) {
+          const btn = document.createElement("button");
+          btn.textContent = "Next Question →";
+          btn.className = "mt-4 w-full bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-2";
+          btn.onclick = nextLevel;
+          container.appendChild(btn);
+      }
+
+      function nextLevel() {
+          currentLevel++;
+          if (currentLevel < questions.length) {
+              render();
+          }
+      }
+
+      function spawnConfetti() {
+        for (let i = 0; i < 50; i++) {
+          const c = document.createElement("div");
+          c.className = "confetti";
+          c.style.left = Math.random() * 100 + "%";
+          c.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+          c.style.animationDuration = Math.random() * 2 + 1 + "s";
+          c.style.top = -10 + "px";
+          effectsLayer.appendChild(c);
+        }
+      }
+
+      // Init
+      questions = generateQuestions();
+      render();
+
+    })();
+  </script>
+</body>
+</html>
