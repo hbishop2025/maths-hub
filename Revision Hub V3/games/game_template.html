@@ -170,8 +170,49 @@
 
       <!-- Spacer -->
       <div class="h-10"></div>
+      <div id="chat-box" style="height: 300px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px;"></div>
+<input type="text" id="user-input" placeholder="Ask a maths question..." style="width: 70%;">
+<button onclick="sendMessage()">Ask Tutor</button>
+
+<script>
+  let chatHistory = []; // Keeps track of conversation
+  const WORKER_URL = "https://maths-tutor-bot.yourname.workers.dev"; // PASTE YOUR CLOUDFLARE URL HERE
+
+  async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const message = input.value;
+    const chatBox = document.getElementById("chat-box");
+
+    // 1. Show user message
+    chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+    input.value = "";
+
+    // 2. Send to YOUR Cloudflare Worker (Not Google directly!)
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message, history: chatHistory })
+      });
+
+      const data = await response.json();
+      const botReply = data.candidates[0].content.parts[0].text;
+
+      // 3. Show Bot Reply
+      chatBox.innerHTML += `<p style="color: blue;"><strong>Tutor:</strong> ${botReply}</p>`;
+      
+      // 4. Update History (so bot remembers context)
+      chatHistory.push({ role: "user", parts: [{ text: message }] });
+      chatHistory.push({ role: "model", parts: [{ text: botReply }] });
+
+    } catch (error) {
+      chatBox.innerHTML += `<p style="color: red;">Error: Could not reach the tutor.</p>`;
+    }
+  }
+</script>
     </main>
   </div>
+
 
   <!-- Shared scripts (sidebar + any global helpers you already use) -->
   <script src="/assets/sidebar-loader.js"></script>
