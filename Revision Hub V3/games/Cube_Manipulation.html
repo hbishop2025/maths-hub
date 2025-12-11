@@ -1,193 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cube Builder 3D (Orbit Around Anchor)</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <title>SJWMS Maths | IsoBuilder 3D</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Three.js (3D Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <!-- Shared layout / stripes / sidebar spacing -->
+  <link rel="stylesheet" href="/assets/main.css"/>
+
   <style>
-    :root { --size: 48px; }
-    html, body { height: 100%; }
-    body { margin: 0; background: #f3f4f6; font-family: system-ui, sans-serif; overflow: hidden; }
-    #ui {
-      position: absolute; left: 12px; top: 12px; z-index: 20;
-      background: rgba(255,255,255,0.95); padding: 10px 12px; border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-size: 14px;
-      display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+    :root{
+      --accent:    #F59E0B; /* amber-500 */
+      --accent-600:#D97706;
+      --accent-dark:#B45309;
     }
-    button, input { margin: 2px; }
-    .mode { font-weight: 700; }
+    body { font-family: 'Inter', sans-serif; }
+    .material-icons { font-size: 24px; }
+    html { scroll-behavior: smooth; }
 
-    #viewport { width: 100vw; height: 100vh; position: relative; perspective: 1200px; perspective-origin: 50% 50%; }
-
-    #scene {
-      position: absolute; left: 50%; top: 50%; transform-style: preserve-3d;
-      transform-origin: 50% 50% 0;
-      transform: translate3d(-50%, -50%, 0) rotateX(30deg) rotateY(35deg) translateZ(-700px);
-      cursor: grab;
+    /* Blueprint Background */
+    body[data-page="game-template"] .bg-stripes{
+      position: relative;
+      background-color: #f8fafc;
+      background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-    #scene.dragging { cursor: grabbing; }
 
-    .cube { position: absolute; width: var(--size); height: var(--size); transform-style: preserve-3d; }
-    .face { position: absolute; width: 100%; height: 100%; border: 1px solid rgba(0,0,0,0.08); box-sizing: border-box; opacity: 0.98; backface-visibility: hidden; }
-    .f-front  { transform: rotateY(  0deg) translateZ(calc(var(--size)/2)); }
-    .f-back   { transform: rotateY(180deg) translateZ(calc(var(--size)/2)); }
-    .f-right  { transform: rotateY( 90deg) translateZ(calc(var(--size)/2)); }
-    .f-left   { transform: rotateY(-90deg) translateZ(calc(var(--size)/2)); }
-    .f-top    { transform: rotateX( 90deg) translateZ(calc(var(--size)/2)); }
-    .f-bottom { transform: rotateX(-90deg) translateZ(calc(var(--size)/2)); }
-    .shade-0 { filter: brightness(1); }
-    .shade-1 { filter: brightness(0.9); }
-    .shade-2 { filter: brightness(0.8); }
-    .anchor .face { box-shadow: 0 0 8px rgba(34, 34, 255, 0.6) inset; }
+    /* Canvas Containers */
+    canvas { display: block; outline: none; }
+    
+    .projection-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 8px;
+        display: flex;
+        flex-col: column;
+        align-items: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .projection-canvas {
+        background-image: 
+          linear-gradient(#e2e8f0 1px, transparent 1px),
+          linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-position: center;
+        border: 2px solid #cbd5e1;
+    }
 
-    #grid { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; transform-origin: 50% 50% 0; transform: translate3d(-50%, -50%, 0) rotateX(90deg) translateZ(calc(-1 * var(--size)/2)); pointer-events: none; }
-    .grid-dot { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #d1d5db; }
-
-    #hud { position:absolute; right:12px; top:12px; z-index:20; font-size:12px; color:#111827; background: rgba(255,255,255,0.85); padding:6px 8px; border-radius:8px }
+    /* Help Tooltip */
+    .key-instruction {
+        font-size: 0.75rem;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .key {
+        background: #e2e8f0;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-weight: bold;
+        font-family: monospace;
+        color: #334155;
+        border-bottom: 2px solid #cbd5e1;
+    }
   </style>
 </head>
-<body>
-  <div id="ui">
-    <span class="mode" id="modeLabel">Mode: Add</span>
-    <button id="addMode">Add Cube</button>
-    <button id="removeMode">Remove Cube</button>
-    <label>Color <input type="color" id="colorPicker" value="#ef4444"></label>
-    <button id="reset">Reset</button>
-    <button id="recenter">Recenter</button>
-  </div>
-  <div id="hud">W/A/S/D orbit · Q/E dolly zoom · Drag to orbit · Click faces to add/remove</div>
 
-  <div id="viewport">
-    <div id="scene"></div>
-    <div id="grid"></div>
+<body class="bg-gray-100"
+      data-page="game-template">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main content -->
+    <main class="main p-8 overflow-y-auto">
+      <!-- Top: back + title -->
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <a href="/index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+            <span class="material-icons mr-1">arrow_back</span>
+            Back to Maths Hub
+          </a>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">
+              Geometry & Shape
+            </p>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+              IsoBuilder 3D
+            </h1>
+            <p class="text-gray-600 mt-2 max-w-2xl">
+              Construct 3D shapes using cubes and observe how their 2D Plans and Elevations change in real-time.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-end gap-2 text-sm text-gray-500">
+            <div class="flex items-center gap-1">
+              <span class="material-icons text-base text-gray-400">group</span>
+              <span>Made by: <span class="font-semibold text-gray-800">SJWMS Maths Dept</span></span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="material-icons text-base text-gray-400">view_in_ar</span>
+              <span>Focus: <span class="font-semibold text-gray-800">Plans & Elevations</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME AREA -->
+      <section class="mt-6 grid grid-cols-1 xl:grid-cols-[minmax(0,3fr),minmax(0,1fr)] gap-6">
+        
+        <!-- Left: 3D Viewport -->
+        <div class="bg-white p-1 rounded-xl shadow-sm border border-gray-200 flex flex-col">
+          <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+             <div class="flex items-center gap-2">
+                 <span class="material-icons text-amber-500">hub</span>
+                 <h2 class="font-semibold text-gray-800">Construction Zone</h2>
+             </div>
+             <div class="flex gap-3">
+                 <button id="reset-cam" class="text-xs bg-white border border-gray-300 px-3 py-1 rounded hover:bg-gray-50 text-gray-600 font-medium transition">Reset Camera</button>
+                 <button id="clear-blocks" class="text-xs bg-white border border-gray-300 px-3 py-1 rounded hover:text-rose-600 hover:border-rose-300 text-gray-600 font-medium transition">Clear All</button>
+             </div>
+          </div>
+          
+          <div id="canvas-container" class="relative w-full h-[500px] bg-slate-900 overflow-hidden cursor-crosshair rounded-b-xl">
+              <!-- Overlay UI inside canvas -->
+              <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white p-3 rounded-lg text-sm pointer-events-none select-none">
+                  <div class="flex items-center gap-2 mb-1"><span class="material-icons text-sm">ads_click</span> Left Click: Add Block</div>
+                  <div class="flex items-center gap-2 mb-1"><span class="material-icons text-sm">delete</span> Shift + Click: Remove</div>
+                  <div class="flex items-center gap-2"><span class="material-icons text-sm">3d_rotation</span> Drag: Rotate View</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Right: Projections -->
+        <div class="space-y-4">
+          <div class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-amber-900 text-sm mb-2">
+             <span class="font-bold flex items-center gap-2 mb-1"><span class="material-icons text-sm">info</span> Task:</span>
+             Try to build a staircase and see what the "Side Elevation" looks like.
+          </div>
+
+          <!-- PLAN VIEW -->
+          <div class="projection-card">
+              <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 w-full text-center border-b border-gray-100 pb-1">Plan View (Top)</h3>
+              <canvas id="plan-canvas" width="160" height="160" class="projection-canvas"></canvas>
+              <p class="text-xs text-gray-400 mt-2">Looking from above</p>
+          </div>
+
+          <!-- FRONT ELEVATION -->
+          <div class="projection-card">
+              <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 w-full text-center border-b border-gray-100 pb-1">Front Elevation</h3>
+              <canvas id="front-canvas" width="160" height="160" class="projection-canvas"></canvas>
+              <p class="text-xs text-gray-400 mt-2">Looking from Front Arrow</p>
+          </div>
+
+          <!-- SIDE ELEVATION -->
+          <div class="projection-card">
+              <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 w-full text-center border-b border-gray-100 pb-1">Side Elevation</h3>
+              <canvas id="side-canvas" width="160" height="160" class="projection-canvas"></canvas>
+              <p class="text-xs text-gray-400 mt-2">Looking from Right Side</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="h-10"></div>
+    </main>
   </div>
 
+  <script src="/assets/sidebar-loader.js"></script>
+
+  <!-- === 3D GAME LOGIC === -->
   <script>
-    const scene = document.getElementById('scene');
-    const grid = document.getElementById('grid');
-    const S = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--size'));
+    (function () {
+      // -- DOM ELEMENTS --
+      const container = document.getElementById('canvas-container');
+      const planCanvas = document.getElementById('plan-canvas');
+      const frontCanvas = document.getElementById('front-canvas');
+      const sideCanvas = document.getElementById('side-canvas');
+      if (!container) return;
 
-    let angleX = 30, angleY = 35;
-    let distance = 700;
+      // -- THREE.JS VARIABLES --
+      let camera, scene, renderer;
+      let raycaster, pointer;
+      let cubes = []; // Stores meshes
+      let ghostMesh;  // The hover preview
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+      
+      // Fixed center block
+      const CUBE_SIZE = 1;
+      const GRID_LIMIT = 4; // +/- 4 blocks from center
 
-    const state = {
-      cubes: new Map(),
-      mode: 'add',
-      color: '#ef4444',
-      anchorKey: '0,0,0'
-    };
+      // -- INITIALIZATION --
+      init();
+      animate();
 
-    const modeLabel = document.getElementById('modeLabel');
-    const setMode = (m) => { state.mode = m; modeLabel.textContent = `Mode: ${m[0].toUpperCase()+m.slice(1)}`; };
-    document.getElementById('addMode').onclick = () => setMode('add');
-    document.getElementById('removeMode').onclick = () => setMode('remove');
-    document.getElementById('colorPicker').oninput = (e) => state.color = e.target.value;
-    document.getElementById('reset').onclick = () => resetToAnchor();
-    document.getElementById('recenter').onclick = () => { angleX = 30; angleY = 35; distance = 700; applyView(); };
+      function init() {
+        // 1. Scene
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0f172a); // slate-900
+        scene.fog = new THREE.Fog(0x0f172a, 10, 30);
 
-    function applyView() {
-      scene.style.transform = `translate3d(-50%, -50%, 0) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(${-distance}px)`;
-      grid.style.transform  = `translate3d(-50%, -50%, 0) rotateX(90deg) translateZ(${(-S/2)}px)`;
-    }
+        // 2. Camera
+        camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+        camera.position.set(8, 6, 8);
+        camera.lookAt(0, 0, 0);
 
-    window.addEventListener('keydown', (e) => {
-      const k = e.key.toLowerCase();
-      const orbitStep = 4;
-      const dollyStep = 40;
-      if (k === 'w') angleX = Math.max(-89, angleX - orbitStep);
-      if (k === 's') angleX = Math.min(89, angleX + orbitStep);
-      if (k === 'a') angleY -= orbitStep;
-      if (k === 'd') angleY += orbitStep;
-      if (k === 'q') distance = Math.max(150, distance - dollyStep);
-      if (k === 'e') distance = Math.min(2000, distance + dollyStep);
-      applyView();
-    });
+        // 3. Renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.shadowMap.enabled = true;
+        container.appendChild(renderer.domElement);
 
-    // Mouse drag orbit
-    let dragging = false, lastX = 0, lastY = 0;
-    scene.addEventListener('mousedown', (e) => { dragging = true; lastX = e.clientX; lastY = e.clientY; scene.classList.add('dragging'); });
-    window.addEventListener('mouseup', () => { dragging = false; scene.classList.remove('dragging'); });
-    window.addEventListener('mousemove', (e) => {
-      if (!dragging) return;
-      const dx = e.clientX - lastX; const dy = e.clientY - lastY; lastX = e.clientX; lastY = e.clientY;
-      angleY += dx * 0.4; angleX -= dy * 0.4;
-      applyView();
-    });
+        // 4. Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
 
-    window.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const factor = e.deltaY > 0 ? 1.1 : 0.9;
-      distance = Math.max(150, Math.min(2000, distance * factor));
-      applyView();
-    }, { passive:false });
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirLight.position.set(5, 10, 7);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        scene.add(dirLight);
 
-    function drawGrid(range=8) {
-      grid.innerHTML = '';
-      for (let x=-range; x<=range; x++) {
-        for (let z=-range; z<=range; z++) {
-          const dot = document.createElement('div');
-          dot.className = 'grid-dot';
-          dot.style.transform = `translate3d(${x*S}px, ${z*S}px, 0)`;
-          grid.appendChild(dot);
-        }
+        // 5. Floor Grid
+        const gridHelper = new THREE.GridHelper(10, 10, 0x475569, 0x1e293b);
+        scene.add(gridHelper);
+
+        // 6. Labels (Simple Textures on Planes)
+        addFloorLabel("FRONT", 0, 5.5, 0); // Z+ is Front
+        addFloorLabel("SIDE", 5.5, 0, -Math.PI/2); // X+ is Side
+
+        // 7. Raycaster for interaction
+        raycaster = new THREE.Raycaster();
+        pointer = new THREE.Vector2();
+
+        // 8. Ghost Mesh (Visual guide)
+        const ghostGeo = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
+        const ghostMat = new THREE.MeshBasicMaterial({ color: 0xF59E0B, transparent: true, opacity: 0.5 });
+        ghostMesh = new THREE.Mesh(ghostGeo, ghostMat);
+        ghostMesh.visible = false;
+        scene.add(ghostMesh);
+
+        // 9. Initial Cube (The Seed)
+        addCube(0, 0.5, 0, true);
+
+        // -- EVENT LISTENERS --
+        window.addEventListener('resize', onWindowResize);
+        container.addEventListener('pointermove', onPointerMove);
+        container.addEventListener('pointerdown', onPointerDown);
+        container.addEventListener('pointerup', onPointerUp);
+        
+        // Buttons
+        document.getElementById('reset-cam').onclick = () => {
+            camera.position.set(8, 6, 8);
+            camera.lookAt(0, 0, 0);
+        };
+        document.getElementById('clear-blocks').onclick = () => {
+            // Remove all except fixed center
+            // Filter cubes array
+            const toRemove = cubes.filter(c => !c.userData.isFixed);
+            toRemove.forEach(c => {
+                scene.remove(c);
+            });
+            cubes = cubes.filter(c => c.userData.isFixed);
+            updateProjections();
+        };
+
+        updateProjections();
       }
-    }
 
-    const keyOf = (x,y,z) => `${x},${y},${z}`;
+      function addFloorLabel(text, z, x, rotY) {
+          const canvas = document.createElement('canvas');
+          canvas.width = 256; canvas.height = 64;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = 'rgba(255,255,255,0.0)'; // transparent bg
+          ctx.fillRect(0,0,256,64);
+          ctx.font = 'bold 40px Arial';
+          ctx.fillStyle = '#94a3b8'; // slate-400
+          ctx.textAlign = 'center';
+          ctx.fillText(text, 128, 48);
 
-    function createCubeEl(color, isAnchor=false){
-      const el = document.createElement('div');
-      el.className = 'cube' + (isAnchor ? ' anchor' : '');
-      const faces = [
-        ['f-front',  '0,0,1',  'shade-0'],
-        ['f-back',   '0,0,-1', 'shade-2'],
-        ['f-right',  '1,0,0',  'shade-1'],
-        ['f-left',   '-1,0,0', 'shade-1'],
-        ['f-top',    '0,1,0',  'shade-0'],
-        ['f-bottom', '0,-1,0', 'shade-2']
-      ];
-      for (const [cls, normal, shade] of faces){
-        const f = document.createElement('div');
-        f.className = `face ${cls} ${shade}`;
-        f.style.background = color;
-        f.dataset.normal = normal;
-        el.appendChild(f);
+          const tex = new THREE.CanvasTexture(canvas);
+          const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide });
+          const plane = new THREE.Mesh(new THREE.PlaneGeometry(4, 1), mat);
+          plane.rotation.x = -Math.PI / 2;
+          plane.rotation.z = rotY || 0;
+          plane.position.set(x, 0.01, z); // Just above grid
+          scene.add(plane);
       }
-      return el;
-    }
 
-    function addCube(x,y,z,color,stateful=true,isAnchor=false){
-      const k = keyOf(x,y,z);
-      if (state.cubes.has(k)) return state.cubes.get(k);
-      const el = createCubeEl(color, isAnchor);
-      el.style.transform = `translate3d(${x*S}px, ${-y*S}px, ${z*S}px)`;
-      el.dataset.pos = k;
-      el.addEventListener('click', (e) => {
-        const face = e.target.closest('.face');
-        if (!face) return;
-        const [nx,ny,nz] = face.dataset.normal.split(',').map(Number);
-        if (state.mode === 'add') {
-          addCube(x+nx, y+ny, z+nz, state.color);
-        } else if (state.mode === 'remove') {
-          if (el.classList.contains('anchor')) return;
-          scene.removeChild(el);
-          state.cubes.delete(k);
-          e.stopPropagation();
-        }
-      });
-      scene.appendChild(el);
-      if (stateful) state.cubes.set(k, el);
-      return el;
-    }
+      function addCube(x, y, z, isFixed = false) {
+          const geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
+          
+          let material;
+          if(isFixed) {
+              material = new THREE.MeshLambertMaterial({ color: 0xef4444 }); // Red for center
+          } else {
+              // Random pastel color for new blocks to make edges visible
+              const hue = Math.random() * 0.1 + 0.1; // Warm colors (orange/yellow) to match theme
+              const col = new THREE.Color().setHSL(0.1 + (Math.random()*0.1), 0.8, 0.6);
+              material = new THREE.MeshLambertMaterial({ color: col });
+          }
 
-    function resetToAnchor(){
-      for (const [k, el] of state.cubes){ if (k !== state.anchorKey) { el.remove(); state.cubes.delete(k); } }
-    }
+          const cube = new THREE.Mesh(geometry, material);
+          cube.position.set(x, y, z);
+          
+          // Add edges for clearer definition
+          const edges = new THREE.EdgesGeometry(geometry);
+          const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.3, transparent: true }));
+          cube.add(line);
 
-    // Init
-    drawGrid();
-    addCube(0,0,0,'#808080', true, true);
-    applyView();
+          cube.castShadow = true;
+          cube.receiveShadow = true;
+          cube.userData = { isCube: true, isFixed: isFixed };
+          
+          scene.add(cube);
+          cubes.push(cube);
+          updateProjections();
+      }
+
+      // -- INTERACTION --
+
+      function onPointerMove(event) {
+          // 1. Calculate pointer position in normalized device coordinates (-1 to +1)
+          const rect = container.getBoundingClientRect();
+          pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+          // 2. Camera Rotation Logic (Simple Drag)
+          if (event.buttons === 1) { // Left click drag
+             if (!isDragging) isDragging = true;
+             
+             const deltaX = event.clientX - previousMousePosition.x;
+             // Rotate camera around Y axis (Orbit)
+             const angle = deltaX * 0.005;
+             const x = camera.position.x;
+             const z = camera.position.z;
+             
+             camera.position.x = x * Math.cos(angle) - z * Math.sin(angle);
+             camera.position.z = x * Math.sin(angle) + z * Math.cos(angle);
+             camera.lookAt(0, 0, 0);
+          } else {
+             isDragging = false;
+          }
+          
+          previousMousePosition = { x: event.clientX, y: event.clientY };
+
+          // 3. Raycasting for Ghost Block
+          if(!isDragging) {
+              raycaster.setFromCamera(pointer, camera);
+              const intersects = raycaster.intersectObjects(cubes);
+              
+              if (intersects.length > 0) {
+                  const intersect = intersects[0];
+                  // Move ghost to adjacent face
+                  const n = intersect.face.normal;
+                  const pos = intersect.object.position.clone().add(n);
+                  
+                  // Check bounds
+                  if(Math.abs(pos.x) < GRID_LIMIT && pos.y < GRID_LIMIT*2 && Math.abs(pos.z) < GRID_LIMIT && pos.y >= 0.5) {
+                      ghostMesh.position.copy(pos);
+                      ghostMesh.visible = !event.shiftKey; // Hide ghost if shift (delete mode)
+                      ghostMesh.material.color.setHex(event.shiftKey ? 0xff0000 : 0xF59E0B);
+                  } else {
+                      ghostMesh.visible = false;
+                  }
+              } else {
+                  ghostMesh.visible = false;
+              }
+          }
+      }
+
+      function onPointerDown(event) {
+          isDragging = false; // Reset
+      }
+
+      function onPointerUp(event) {
+          if (isDragging) return; // Don't place block if we were rotating
+
+          // Recalculate raycast to ensure accuracy
+          raycaster.setFromCamera(pointer, camera);
+          const intersects = raycaster.intersectObjects(cubes);
+
+          if (intersects.length > 0) {
+              const intersect = intersects[0];
+              
+              if (event.shiftKey) {
+                  // DELETE MODE
+                  if (!intersect.object.userData.isFixed) {
+                      scene.remove(intersect.object);
+                      cubes = cubes.filter(c => c !== intersect.object);
+                      updateProjections();
+                  }
+              } else {
+                  // ADD MODE
+                  const n = intersect.face.normal;
+                  const pos = intersect.object.position.clone().add(n);
+                  
+                  // Simple collision check (is there already a cube there?)
+                  const exists = cubes.some(c => c.position.distanceTo(pos) < 0.1);
+                  
+                  if (!exists && Math.abs(pos.x) < GRID_LIMIT && pos.y < GRID_LIMIT*2 && Math.abs(pos.z) < GRID_LIMIT && pos.y >= 0.5) {
+                      addCube(pos.x, pos.y, pos.z);
+                  }
+              }
+          }
+      }
+
+      function onWindowResize() {
+          camera.aspect = container.clientWidth / container.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+
+      function animate() {
+          requestAnimationFrame(animate);
+          renderer.render(scene, camera);
+      }
+
+      // -- PROJECTION LOGIC --
+      
+      function updateProjections() {
+          // Convert 3D cube positions to grid coordinates
+          // Cubes are at 0.5, 1.5, etc.
+          // Grid indices: 0, 1, 2... centered at 0?
+          // Let's normalize: index = Math.round(pos - 0.5)
+          
+          const gridData = cubes.map(c => ({
+              x: Math.round(c.position.x),
+              y: Math.round(c.position.y - 0.5), // y starts at 0.5, so index 0
+              z: Math.round(c.position.z)
+          }));
+
+          drawView(planCanvas, gridData, 'plan');
+          drawView(frontCanvas, gridData, 'front');
+          drawView(sideCanvas, gridData, 'side');
+      }
+
+      function drawView(canvas, data, type) {
+          const ctx = canvas.getContext('2d');
+          const w = canvas.width;
+          const h = canvas.height;
+          const cellSize = 20;
+          const originX = w / 2;
+          const originY = h / 2;
+
+          ctx.clearRect(0, 0, w, h);
+          
+          // Draw Axes
+          ctx.strokeStyle = '#cbd5e1';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, originY); ctx.lineTo(w, originY);
+          ctx.moveTo(originX, 0); ctx.lineTo(originX, h);
+          ctx.stroke();
+
+          // Draw Blocks
+          // Use a set to track occupied 2D cells to avoid overdrawing
+          const occupied = new Set();
+
+          ctx.fillStyle = '#F59E0B'; // Amber block color
+          ctx.strokeStyle = '#92400e'; // Darker border
+          ctx.lineWidth = 1;
+
+          data.forEach(block => {
+              let u, v; // u is horizontal, v is vertical on canvas
+              
+              // Map 3D coords to 2D canvas coords
+              // Canvas Y grows DOWN, so we often negate vertical axis
+              
+              if (type === 'plan') {
+                  // Plan: Top view. X horizontal, Z vertical (downwards usually on paper)
+                  // Standard math grid: Z is usually "depth" going up page or down page?
+                  // Let's stick to standard: x=horizontal, z=vertical (on screen)
+                  u = block.x;
+                  v = block.z; 
+              } else if (type === 'front') {
+                  // Front: Look from +Z. X horizontal, Y vertical.
+                  u = block.x;
+                  v = -block.y; // Y is up in 3D, so down in canvas implies negative
+                  // Shift y so 0 sits on the axis line? 
+                  // If y=0 (ground), we want it just above originY line.
+                  v = -(block.y + 1); 
+              } else if (type === 'side') {
+                  // Side: Look from +X (Right side). Z horizontal, Y vertical.
+                  // Looking from right, +Z is to the LEFT. 
+                  u = block.z; 
+                  v = -(block.y + 1);
+              }
+
+              const key = `${u},${v}`;
+              if (!occupied.has(key)) {
+                  occupied.add(key);
+                  
+                  // Convert grid coord to pixel
+                  // For Plan: Center is (0,0).
+                  // For Elevations: Y=0 is ground line.
+                  
+                  let px = originX + (u * cellSize);
+                  let py = originY + (v * cellSize);
+
+                  if (type === 'plan') {
+                      // Center align
+                      px -= (cellSize/2); // center the block on the axis tick?
+                      // Actually blocks are -0.5 to 0.5. So integer coords are centers.
+                      // Let's just treat integer as center.
+                      px = originX + (u * cellSize) - (cellSize/2);
+                      py = originY + (v * cellSize) - (cellSize/2);
+                  } else {
+                      // Elevations
+                      // X/Z is centered horizontally
+                      px = originX + (u * cellSize) - (cellSize/2);
+                      // Y goes up from originY.
+                      // block.y=0 -> v=-1 -> py = origin - 20. Correct.
+                      py = originY + (v * cellSize); // + because v is already negative
+                  }
+                  
+                  ctx.fillRect(px, py, cellSize, cellSize);
+                  ctx.strokeRect(px, py, cellSize, cellSize);
+              }
+          });
+      }
+
+    })();
   </script>
 </body>
 </html>
