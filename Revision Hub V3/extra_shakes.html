@@ -1,475 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BISHOP & CO. SHAKES | The Sum of All Goodness</title>
-    <style>
-        :root {
-            --primary-color: #000;
-            --secondary-color: #fff;
-            --accent-color: #2e8b57; /* Math Green Accent */
-            --bg-color: #f9f9f9;
-            --card-bg: #fff;
-            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <title>Bishop & Co. Shakes</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <!-- Tailwind (matches your site setup) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-        body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            color: var(--primary-color);
-        }
+  <style type="text/tailwindcss">
+    body { @apply bg-[#f6f6f8] text-[#111827] font-[Lexend]; }
 
-        /* Announcement Bar */
-        .announcement-bar {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            text-align: center;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+    /* Keep your site header class name + behavior */
+    .header { @apply fixed top-0 left-0 right-0 z-40 bg-white/85 backdrop-blur border-b border-gray-200; }
 
-        /* Header */
-        header {
-            background-color: var(--secondary-color);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    /* --- Bishop & Co "shop theme" (inside page only) --- */
+    .shop-wrap{
+      --ink:#0a0a0a;
+      --paper:#f7f5ef;
+      --panel:#ffffff;
+      --border:rgba(10,10,10,.10);
+      --shadow: 0 18px 40px rgba(0,0,0,.10);
+      --accent:#2e8b57; /* math-green */
+      --accent2:#ff4e00; /* pop orange */
+      background: var(--paper);
+      border-radius: 28px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.05);
+      overflow: hidden;
+    }
 
-        .logo {
-            font-weight: 900;
-            font-size: 24px;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
+    .announcement {
+      @apply text-center text-xs font-black tracking-widest uppercase;
+      background: #0b0b0b;
+      color: white;
+      padding: 10px 12px;
+    }
 
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
+    .shop-hero {
+      @apply relative text-center;
+      padding: 64px 18px 26px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,78,0,.20), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(46,139,87,.18), transparent 40%),
+        linear-gradient(180deg, #ffffff 0%, #fbf9f2 100%);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
 
-        nav a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
+    .shop-hero h1{
+      @apply font-black uppercase tracking-tight;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 1.0;
+      color: #0a0a0a;
+    }
+    .shop-hero p{
+      @apply mt-3 text-base sm:text-lg;
+      color: rgba(10,10,10,.70);
+    }
 
-        .header-icons span {
-            margin-left: 20px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+    .hero-pills{
+      @apply mt-6 flex flex-wrap justify-center gap-2;
+    }
+    .hero-pill{
+      @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border;
+      background: rgba(255,255,255,.7);
+      border-color: rgba(0,0,0,.10);
+    }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 70px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-        }
+    .filters {
+      @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3;
+      padding: 16px 18px;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .filters .count{
+      @apply text-sm font-semibold;
+      color: rgba(10,10,10,.75);
+    }
+    .filters select{
+      @apply text-sm rounded-lg border px-3 py-2;
+      border-color: rgba(0,0,0,.14);
+      background: white;
+    }
 
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
+    .section-title{
+      @apply mt-10 mb-4 text-lg sm:text-xl font-black uppercase tracking-wide;
+      color: #0a0a0a;
+    }
 
-        .hero p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
+    .grid-products{
+      @apply grid gap-6;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
 
-        /* Filters Bar */
-        .filter-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 30px;
-        }
+    .product-card{
+      @apply relative rounded-2xl overflow-hidden transition;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .product-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 18px 35px rgba(0,0,0,.10);
+    }
 
-        .filter-bar select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+    .badge{
+      @apply absolute top-3 left-3 z-10 text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded;
+      background: var(--accent2);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
 
-        /* Product Grid */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .product-image{
+      @apply relative flex items-center justify-center;
+      height: 290px;
+      background: #ffea23;
+    }
+    .product-image img{
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 18px rgba(0,0,0,.18));
+      transform: translateY(6px);
+    }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
+    .product-info{
+      @apply p-4 text-center;
+    }
+    .stars{
+      @apply text-sm font-extrabold;
+      letter-spacing: .2px;
+      color: #f6a429;
+    }
+    .title{
+      @apply mt-2 text-base font-black;
+      min-height: 44px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .variant{
+      @apply mt-1 text-xs font-semibold;
+      color: rgba(10,10,10,.58);
+    }
+    .price-row{
+      @apply mt-3 flex items-center justify-center gap-2;
+    }
+    .price{
+      @apply text-base font-black;
+      color: #0a0a0a;
+    }
+    .was{
+      @apply text-sm line-through font-semibold;
+      color: rgba(10,10,10,.45);
+    }
 
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            position: relative;
-            border: 1px solid #eee;
-        }
+    .btn-row{
+      @apply mt-4 grid grid-cols-2 gap-2;
+    }
+    .btn-main{
+      @apply w-full rounded-xl py-2.5 text-sm font-black uppercase tracking-wide transition;
+      background: #0a0a0a;
+      color: #fff;
+    }
+    .btn-main:hover{ background:#1b1b1b; }
+    .btn-ghost{
+      @apply w-full rounded-xl py-2.5 text-sm font-black uppercase tracking-wide transition border;
+      border-color: rgba(0,0,0,.14);
+      background: #fff;
+      color: #0a0a0a;
+    }
+    .btn-ghost:hover{ background: rgba(0,0,0,.03); }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
+    .extras{
+      @apply mt-12 mb-10 rounded-3xl p-6 sm:p-8;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(46,139,87,.15), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(255,78,0,.12), transparent 40%),
+        #ffffff;
+      border: 2px dashed rgba(0,0,0,.18);
+    }
+    .extras h3{
+      @apply text-lg sm:text-xl font-black uppercase tracking-wide;
+    }
+    .extras ul{
+      @apply mt-4 flex flex-wrap justify-center gap-2;
+    }
+    .extra-chip{
+      @apply px-4 py-2 rounded-full text-sm font-extrabold border;
+      background: rgba(255,255,255,.8);
+      border-color: rgba(0,0,0,.12);
+    }
+    .extra-chip span{ color: var(--accent); }
 
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 5px 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 2px;
-            z-index: 2;
-        }
+    .reviews{
+      @apply mt-12 pb-12;
+    }
+    .reviews h3{
+      @apply text-lg sm:text-xl font-black uppercase tracking-wide text-center;
+    }
+    .reviews p{
+      @apply mt-2 text-sm text-center;
+      color: rgba(10,10,10,.60);
+    }
+    .review-row{
+      @apply mt-6 flex gap-4 overflow-x-auto pb-2;
+      scroll-snap-type: x mandatory;
+    }
+    .review-card{
+      @apply min-w-[280px] bg-white rounded-2xl p-4 border;
+      border-color: rgba(0,0,0,.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,.06);
+      scroll-snap-align: start;
+    }
 
-        .product-image {
-            width: 100%;
-            height: 320px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(0,0,0,0.3);
-            font-weight: bold;
-            font-size: 20px;
-            position: relative;
-        }
-        
-        /* Gradients based on flavors */
-        .img-chocolate { background: linear-gradient(135deg, #eacda3 0%, #d6ae7b 100%); }
-        .img-classic { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
-        .img-pineapple { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
-        .img-strawberry { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); }
-        .img-berry { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-        .img-tropical { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+    /* Ingredients modal */
+    .modal-backdrop{
+      @apply fixed inset-0 z-[60] hidden;
+      background: rgba(0,0,0,.55);
+    }
+    .modal{
+      @apply absolute left-1/2 top-1/2 w-[92vw] max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-3xl overflow-hidden;
+      background: white;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+    .modal-head{
+      @apply p-5 border-b flex items-start justify-between gap-4;
+      border-color: rgba(0,0,0,.08);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(46,139,87,.18), transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(255,78,0,.14), transparent 50%),
+        #ffffff;
+    }
+    .modal-title{ @apply text-lg font-black; }
+    .modal-sub{ @apply text-sm font-semibold; color: rgba(0,0,0,.60); }
+    .modal-body{ @apply p-5; }
+    .modal-body ul{ @apply list-disc pl-5 space-y-2 text-sm; color: rgba(0,0,0,.78); }
+    .close-btn{
+      @apply rounded-xl border px-3 py-1.5 text-sm font-black;
+      border-color: rgba(0,0,0,.14);
+      background: #fff;
+    }
 
-        .product-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .product-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            min-height: 44px; /* Align titles */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .price-container {
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .price {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #333;
-        }
-
-        /* Extras Section */
-        .extras-section {
-            background-color: #fff;
-            padding: 40px;
-            margin: 0 auto 60px auto;
-            max-width: 800px;
-            border: 2px dashed #ccc;
-            text-align: center;
-        }
-
-        .extras-section h2 {
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-size: 24px;
-        }
-
-        .extras-list {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .extra-item {
-            background: #f9f9f9;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .extra-price {
-            color: var(--accent-color);
-            margin-left: 5px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #111;
-            color: white;
-            padding: 60px 40px;
-            margin-top: 50px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 40px;
-        }
-
-        .footer-col h4 {
-            margin-bottom: 20px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fff;
-        }
-
-        .footer-col p {
-            font-size: 13px;
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .hero h1 { font-size: 32px; }
-            header { padding: 15px 20px; }
-            nav ul { display: none; }
-            .footer-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    /* toast */
+    .toast{
+      @apply fixed left-1/2 bottom-6 z-[70] -translate-x-1/2 hidden;
+      background: rgba(10,10,10,.92);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: .3px;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="announcement-bar">
-        Calculated for Taste • Rooted in Freshness
+  <!-- SJWMS HEADER (same pattern as your hubs/index) -->
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
+      </nav>
     </div>
+  </header>
 
-    <header>
-        <div class="logo">BISHOP & CO.</div>
-        <nav>
-            <ul>
-                <li><a href="#">Shakes</a></li>
-                <li><a href="#">Smoothies</a></li>
-                <li><a href="#">Extras</a></li>
-                <li><a href="#">Locations</a></li>
-            </ul>
-        </nav>
-        <div class="header-icons">
-            <span>🇬🇧</span>
-            <span>👤</span>
-            <span>🛒 (0)</span>
-        </div>
-    </header>
+  <!-- PAGE -->
+  <main class="pt-20 pb-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    <section class="hero">
-        <h1>THE SUM OF ALL GOODNESS</h1>
-        <p>Taste the creamy goodness!</p>
-    </section>
-
-    <div class="filter-bar">
-        <span>Showing 6 delicious results</span>
-        <select>
-            <option>Sort by: Menu Order</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-        </select>
-    </div>
-
-    <div class="container">
-        
-        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Milkshakes</h3>
-
-        <div class="product-grid">
-
-            <div class="product-card">
-                <div class="badge">Bestseller</div>
-                <div class="product-image img-chocolate">
-                    <span>🍫</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Alge-Brrr Triple Chocolate Shake</h3>
-                    <div class="price-container">
-                        <span class="price">£6.25</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="badge">Fan Fave</div>
-                <div class="product-image img-pineapple">
-                    <span>🍍</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">The Pi-Neapple Perfection</h3>
-                    <div class="price-container">
-                        <span class="price">£5.75</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image img-strawberry">
-                    <span>🍓</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Fraction Frenzy Strawberry Swirl</h3>
-                    <div class="price-container">
-                        <span class="price">£5.95</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="badge">Classic</div>
-                <div class="product-image img-classic">
-                    <span>🍦</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">The Classic Shake</h3>
-                    <div class="price-container">
-                        <span class="price">£5.50</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
+      <section class="shop-wrap">
+        <div class="announcement">
+          Calculated for taste • Rooted in freshness • Zero drama, maximum flavour
         </div>
 
-        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Smoothies</h3>
+        <section class="shop-hero">
+          <h1>Bishop &amp; Co. Shakes</h1>
+          <p>The sum of all goodness. Pick a flavour, check ingredients, compare prices.</p>
 
-        <div class="product-grid">
-            
-            <div class="product-card">
-                <div class="badge" style="background-color: #663399;">Fresh</div>
-                <div class="product-image img-berry">
-                    <span>🫐</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Square Root Berry Blast</h3>
-                    <div class="price-container">
-                        <span class="price">£5.95</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="badge" style="background-color: #ff8c00;">Tropical</div>
-                <div class="product-image img-tropical">
-                    <span>🥭</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Tangent Tropical Twist</h3>
-                    <div class="price-container">
-                        <span class="price">£6.10</span>
-                    </div>
-                    <button class="btn">Add to Cart</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="container">
-        <section class="extras-section">
-            <h2>Anomalies & Extras</h2>
-            <ul class="extras-list">
-                <li class="extra-item">Extra Whipped Cream <span class="extra-price">+£0.75</span></li>
-                <li class="extra-item">Syrup Shot <span class="extra-price">+£0.50</span></li>
-                <li class="extra-item">Dairy-Free Substitute <span class="extra-price">+£0.60</span></li>
-            </ul>
+          <div class="hero-pills">
+            <span class="hero-pill"><span class="material-symbols-outlined text-base">eco</span> Planet-first</span>
+            <span class="hero-pill"><span class="material-symbols-outlined text-base">calculate</span> Ratio-ready</span>
+            <span class="hero-pill"><span class="material-symbols-outlined text-base">local_cafe</span> Milkshake lab</span>
+          </div>
         </section>
+
+        <div class="filters">
+          <span class="count" id="countText">Showing 0 products</span>
+          <div class="flex items-center gap-2">
+            <label class="text-sm font-semibold text-gray-600" for="sortSelect">Sort</label>
+            <select id="sortSelect">
+              <option value="menu">Menu order</option>
+              <option value="low">Price: Low → High</option>
+              <option value="high">Price: High → Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="p-5 sm:p-8">
+          <h2 class="section-title">Milkshakes</h2>
+          <div id="grid-milkshakes" class="grid-products"></div>
+
+          <h2 class="section-title">Smoothies</h2>
+          <div id="grid-smoothies" class="grid-products"></div>
+
+          <section class="extras">
+            <h3>Anomalies &amp; extras</h3>
+            <p class="mt-2 text-sm" style="color:rgba(0,0,0,.60)">
+              Perfect for ratio questions: “If you add 2 syrup shots for every 5 drinks…”
+            </p>
+            <ul>
+              <li class="extra-chip">Extra whipped cream <span>+£0.75</span></li>
+              <li class="extra-chip">Syrup shot <span>+£0.50</span></li>
+              <li class="extra-chip">Dairy-free substitute <span>+£0.60</span></li>
+            </ul>
+          </section>
+
+          <section class="reviews">
+            <h3>What customers say</h3>
+            <p>Totally real reviews from totally real people (definitely).</p>
+
+            <div class="review-row">
+              <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="mt-1 text-sm font-extrabold">Jamie L. — Verified</p>
+                <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+                  “The Triple Chocolate is the correct answer every time.”
+                </p>
+              </div>
+
+              <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="mt-1 text-sm font-extrabold">Sarah K. — Verified</p>
+                <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+                  “Pi-Neapple Perfection is so good I started rounding to 3.14.”
+                </p>
+              </div>
+
+              <div class="review-card">
+                <div class="stars">★★★★☆</div>
+                <p class="mt-1 text-sm font-extrabold">Tom B. — Verified</p>
+                <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+                  “Square Root Berry Blast? Irrationally tasty.”
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
     </div>
+  </main>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Bishop & Co. Shakes</h4>
-                <p>Taste the creamy goodness.</p>
-                <p>Rooted in freshness, calculated for taste.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Important Data Points</h4>
-                <p><strong>Allergy Notice:</strong> Please inform staff of any dietary restrictions or allergies for recipe adjustments.</p>
-                <p>Your feedback helps us improve our menu and ensures a safe, enjoyable experience.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <p>Bishop & Co. HQ</p>
-                <p>Enjoy your smoothie adventure!</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; font-size: 12px; color: #555;">
-            &copy; 2025 Bishop & Co. Shakes. All rights reserved.
-        </div>
-    </footer>
+  <!-- FOOTER (your existing loader) -->
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
 
+  <!-- INGREDIENTS MODAL -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div>
+          <div id="modalTitle" class="modal-title">Ingredients</div>
+          <div id="modalSub" class="modal-sub">—</div>
+        </div>
+        <button class="close-btn" id="modalCloseBtn">Close</button>
+      </div>
+      <div class="modal-body">
+        <ul id="modalList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Added to cart</div>
+
+  <script>
+    // --- Data (swap image filenames as you add them into extra_shakes/media/) ---
+    // Tip: keep transparent/PNG cutouts if you can; they look great with the drop-shadow.
+    const PRODUCTS = [
+      // Milkshakes
+      {
+        id:"choc",
+        group:"milkshakes",
+        badge:"Bestseller",
+        badgeColor:"#ff4e00",
+        title:"Alge-Brrr Triple Chocolate Shake",
+        variant:"500ml • 1 drink",
+        price:6.25,
+        was:6.95,
+        stars:"★★★★★ (1,240)",
+        image:"extra_shakes/media/triple-chocolate.png",
+        ingredients:["Milk","Ice cream","Cocoa powder","Chocolate syrup","Whipped cream","Chocolate flakes"]
+      },
+      {
+        id:"pine",
+        group:"milkshakes",
+        badge:"Fan fave",
+        badgeColor:"#2e8b57",
+        title:"The Pi-Neapple Perfection",
+        variant:"500ml • 1 drink",
+        price:5.75,
+        stars:"★★★★★ (860)",
+        image:"extra_shakes/media/pineapple.png",
+        ingredients:["Milk","Ice cream","Pineapple","Vanilla syrup","Whipped cream"]
+      },
+      {
+        id:"strawb",
+        group:"milkshakes",
+        badge:null,
+        title:"Fraction Frenzy Strawberry Swirl",
+        variant:"500ml • 1 drink",
+        price:5.95,
+        stars:"★★★★★ (980)",
+        image:"extra_shakes/media/strawberry.png",
+        ingredients:["Milk","Ice cream","Strawberries","Strawberry sauce","Whipped cream"]
+      },
+      {
+        id:"classic",
+        group:"milkshakes",
+        badge:"Classic",
+        badgeColor:"#111111",
+        title:"The Classic Shake",
+        variant:"500ml • 1 drink",
+        price:5.50,
+        stars:"★★★★☆ (320)",
+        image:"extra_shakes/media/classic.png",
+        ingredients:["Milk","Ice cream","Vanilla","Optional whipped cream"]
+      },
+
+      // Smoothies
+      {
+        id:"berry",
+        group:"smoothies",
+        badge:"Fresh",
+        badgeColor:"#663399",
+        title:"Square Root Berry Blast",
+        variant:"450ml • 1 drink",
+        price:5.95,
+        stars:"★★★★★ (412)",
+        image:"extra_shakes/media/berry.png",
+        ingredients:["Mixed berries","Yoghurt","Banana","Honey","Ice"]
+      },
+      {
+        id:"trop",
+        group:"smoothies",
+        badge:"Tropical",
+        badgeColor:"#ff8c00",
+        title:"Tangent Tropical Twist",
+        variant:"450ml • 1 drink",
+        price:6.10,
+        stars:"★★★★★ (150)",
+        image:"extra_shakes/media/tropical.png",
+        ingredients:["Mango","Pineapple","Orange juice","Yoghurt","Ice"]
+      },
+    ];
+
+    // --- Rendering ---
+    const gridMilk = document.getElementById("grid-milkshakes");
+    const gridSmooth = document.getElementById("grid-smoothies");
+    const countText = document.getElementById("countText");
+    const sortSelect = document.getElementById("sortSelect");
+
+    let cartCount = 0;
+
+    function money(n){
+      return "£" + n.toFixed(2);
+    }
+
+    function makeCard(p){
+      const card = document.createElement("article");
+      card.className = "product-card";
+      card.dataset.price = String(p.price);
+      card.dataset.menu = String(PRODUCTS.indexOf(p));
+
+      if(p.badge){
+        const b = document.createElement("div");
+        b.className = "badge";
+        b.textContent = p.badge;
+        if(p.badgeColor) b.style.background = p.badgeColor;
+        card.appendChild(b);
+      }
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "product-image";
+      imgWrap.style.background = "var(--product-card-img-bg, #ffea23)";
+
+      const img = document.createElement("img");
+      img.src = p.image;
+      img.alt = p.title;
+      img.loading = "lazy";
+      img.onerror = () => { img.remove(); imgWrap.textContent = "Image here"; };
+
+      imgWrap.appendChild(img);
+      card.appendChild(imgWrap);
+
+      const info = document.createElement("div");
+      info.className = "product-info";
+      info.innerHTML = `
+        <div class="stars">${p.stars || "★★★★★"}</div>
+        <div class="title">${p.title}</div>
+        <div class="variant">${p.variant || ""}</div>
+        <div class="price-row">
+          <span class="price">${money(p.price)}</span>
+          ${p.was ? `<span class="was">${money(p.was)}</span>` : ``}
+        </div>
+        <div class="btn-row">
+          <button class="btn-main" data-add>Add</button>
+          <button class="btn-ghost" data-ing>Ingredients</button>
+        </div>
+      `;
+      card.appendChild(info);
+
+      // handlers
+      info.querySelector("[data-ing]").addEventListener("click", () => openModal(p));
+      info.querySelector("[data-add]").addEventListener("click", () => addToCart(p));
+
+      return card;
+    }
+
+    function render(list){
+      gridMilk.innerHTML = "";
+      gridSmooth.innerHTML = "";
+
+      list.forEach(p=>{
+        const card = makeCard(p);
+        (p.group === "milkshakes" ? gridMilk : gridSmooth).appendChild(card);
+      });
+
+      countText.textContent = `Showing ${list.length} products`;
+    }
+
+    function sortProducts(mode){
+      const list = [...PRODUCTS];
+      if(mode === "low") list.sort((a,b)=>a.price - b.price);
+      if(mode === "high") list.sort((a,b)=>b.price - a.price);
+      // "menu" keeps original order
+      render(list);
+    }
+
+    sortSelect.addEventListener("change", (e)=> sortProducts(e.target.value));
+    sortProducts("menu");
+
+    // --- Modal ---
+    const backdrop = document.getElementById("modalBackdrop");
+    const closeBtn = document.getElementById("modalCloseBtn");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSub = document.getElementById("modalSub");
+    const modalList = document.getElementById("modalList");
+
+    function openModal(p){
+      modalTitle.textContent = "Ingredients";
+      modalSub.textContent = p.title;
+      modalList.innerHTML = "";
+      (p.ingredients || ["Ingredients list coming soon."]).forEach(x=>{
+        const li = document.createElement("li");
+        li.textContent = x;
+        modalList.appendChild(li);
+      });
+
+      backdrop.classList.remove("hidden");
+      backdrop.setAttribute("aria-hidden", "false");
+    }
+    function closeModal(){
+      backdrop.classList.add("hidden");
+      backdrop.setAttribute("aria-hidden", "true");
+    }
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    // --- Fake cart toast ---
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.remove("hidden");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toast.classList.add("hidden"), 1400);
+    }
+
+    function addToCart(p){
+      cartCount += 1;
+      showToast(`Added: ${p.title} (Cart: ${cartCount})`);
+    }
+  </script>
 </body>
 </html>
