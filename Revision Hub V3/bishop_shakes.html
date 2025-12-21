@@ -80,11 +80,22 @@
           padding: 40px 20px;
       }
 
+      /* Category Headers */
+      .category-title {
+          font-size: 24px;
+          font-weight: 900;
+          text-transform: uppercase;
+          margin: 40px 0 20px 0;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #eee;
+          color: var(--brand-primary);
+      }
+
       .product-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
           gap: 30px;
-          margin-bottom: 80px;
+          margin-bottom: 40px;
       }
 
       .product-card {
@@ -142,17 +153,6 @@
       .product-tagline { font-size: 13px; color: #777; margin-bottom: 10px; font-style: italic; }
       .price { font-size: 18px; font-weight: 900; color: #000; display: block; margin-bottom: 10px;}
 
-      .maths-hint {
-          background: #f0f8ff;
-          color: #0056b3;
-          font-size: 11px;
-          padding: 8px;
-          border-radius: 4px;
-          margin-bottom: 15px;
-          text-align: left;
-          border-left: 3px solid #0056b3;
-      }
-
       /* Buttons in Card */
       .btn-group { display: flex; gap: 10px; }
       
@@ -173,11 +173,11 @@
       .btn-outline { background: transparent; border: 1px solid #ccc; color: #333; }
       .btn-outline:hover { border-color: #000; color: #000; }
 
-      /* --- FLOATING CART (Bottom Left) --- */
+      /* --- FLOATING CART (Bottom RIGHT) --- */
       .cart-float-container {
           position: fixed;
           bottom: 20px;
-          left: 20px;
+          right: 20px; /* Moved to Right */
           z-index: 2000;
           font-family: 'Lexend', sans-serif;
       }
@@ -191,17 +191,21 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 24px;
           box-shadow: 0 5px 15px rgba(0,0,0,0.2);
           cursor: pointer;
           border: none;
           position: relative;
       }
+      
+      .cart-toggle-btn .material-symbols-outlined {
+          font-size: 28px;
+          color: white;
+      }
 
       .cart-count-badge {
           position: absolute;
           top: -5px;
-          right: -5px;
+          left: -5px; /* Moved badge to left since button is on right */
           background: black;
           color: white;
           font-size: 12px;
@@ -216,7 +220,7 @@
       .cart-panel {
           position: absolute;
           bottom: 80px;
-          left: 0;
+          right: 0; /* Align to right */
           width: 300px;
           background: white;
           border: 2px solid #000;
@@ -240,8 +244,24 @@
       .pay-btn {
           background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px;
           font-weight: bold; cursor: pointer; text-transform: uppercase;
+          transition: all 0.2s ease;
       }
       .pay-btn:hover { background: var(--brand-accent); }
+
+      /* --- GLITCH BUTTON ANIMATION --- */
+      .pay-btn.glitching {
+          background-color: red !important;
+          animation: glitch-anim 0.2s infinite;
+      }
+
+      @keyframes glitch-anim {
+          0% { transform: translate(0) }
+          20% { transform: translate(-3px, 3px) }
+          40% { transform: translate(-3px, -3px) }
+          60% { transform: translate(3px, 3px) }
+          80% { transform: translate(3px, -3px) }
+          100% { transform: translate(0) }
+      }
 
       /* --- INGREDIENTS MODAL --- */
       .modal-overlay {
@@ -270,41 +290,12 @@
       .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 15px; color: var(--brand-accent); }
       .ingredient-list li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
 
-      /* --- GLITCH EFFECT (Full Screen) --- */
-      .glitch-overlay {
-          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-          background: #000;
-          z-index: 9999;
-          display: none; /* Hidden */
-          align-items: center;
-          justify-content: center;
-          color: #0f0;
-          font-family: 'Courier New', Courier, monospace;
-          font-size: 2rem;
-          flex-direction: column;
-          overflow: hidden;
-      }
-
-      .glitch-text {
-          position: relative;
-          animation: glitch-anim 0.3s infinite;
-      }
-      
       .env-section {
           background: #e9f5e9;
           padding: 60px 20px;
           text-align: center;
           border-top: 1px solid #ccc;
           margin-top: 40px;
-      }
-
-      @keyframes glitch-anim {
-          0% { transform: translate(0) }
-          20% { transform: translate(-2px, 2px) }
-          40% { transform: translate(-2px, -2px) }
-          60% { transform: translate(2px, 2px) }
-          80% { transform: translate(2px, -2px) }
-          100% { transform: translate(0) }
       }
   </style>
 </head>
@@ -351,10 +342,8 @@
           <p>Fuel your brain. Calculate the taste.</p>
       </section>
 
-      <div class="container-custom">
-          <div class="product-grid" id="product-grid">
-              </div>
-      </div>
+      <div class="container-custom" id="catalog-container">
+          </div>
 
       <section class="env-section">
           <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 20px;">Zero Impact. Infinite Flavor.</h2>
@@ -379,10 +368,10 @@
               <p style="color:#777; text-align:center; padding: 10px;">Tray is empty.</p>
           </div>
           <div class="cart-total" id="cart-total">Total: £0.00</div>
-          <button class="pay-btn" onclick="processPayment()">PAY NOW</button>
+          <button id="payBtn" class="pay-btn" onclick="processPayment()">PAY NOW</button>
       </div>
       <button class="cart-toggle-btn" onclick="toggleCart()">
-          🛒
+          <span class="material-symbols-outlined">shopping_cart</span>
           <div class="cart-count-badge" id="cart-count">0</div>
       </button>
   </div>
@@ -395,12 +384,6 @@
               </ul>
           <p id="modal-allergy" style="margin-top: 15px; font-size: 12px; color: red; font-weight: bold;"></p>
       </div>
-  </div>
-
-  <div class="glitch-overlay" id="glitch-layer">
-      <div class="glitch-text">PROCESSING PAYMENT...</div>
-      <div class="glitch-text" style="font-size: 1rem; margin-top: 20px;">ENCRYPTING DATA...</div>
-      <div class="glitch-text" style="color: red; font-size: 3rem; margin-top: 20px;">SYSTEM OVERLOAD</div>
   </div>
 
   <script>
@@ -416,7 +399,7 @@
   </script>
 
   <script>
-      // --- 1. DATA SETUP (Fallback + Fetch) ---
+      // --- 1. DATA SETUP ---
       const fallbackData = {
         "products": [
           {
@@ -425,21 +408,21 @@
             "name": "The Classic Shake",
             "tagline": "A classic vanilla blend that’s simply value.",
             "price": 5.50,
-            "image": "bishop_shakes/media/classic.png",
+            "image": "classic.png",
             "badges": ["FAN FAVE", "VANILLA"],
             "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
-            "allergy_note": "Contains dairy.",
+            "allergy_note": "Contains dairy."
           },
           {
             "id": "alge-brrr",
             "type": "milkshake",
-            "name": "Alge-brrr Triple Chocolate Shake",
-            "tagline": "Add rich chocolate, subtract brain freeze, multiply the fun.",
+            "name": "Alge-brrr Triple Chocolate",
+            "tagline": "Add rich chocolate, subtract brain freeze.",
             "price": 6.25,
-            "image": "bishop_shakes/media/choc.png",
+            "image": "choc.png",
             "badges": ["NEW", "CHOCOLATE"],
             "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
-            "allergy_note": "Contains dairy.",
+            "allergy_note": "Contains dairy."
           },
           {
             "id": "pi-neapple",
@@ -447,54 +430,54 @@
             "name": "The Pi-neapple Perfection",
             "tagline": "A never-ending swirl of pineapple and vanilla.",
             "price": 5.75,
-            "image": "bishop_shakes/media/pineapple.png",
+            "image": "pineapple.png",
             "badges": ["LIMITLESS", "TROPICAL"],
             "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
-            "allergy_note": "Contains dairy.",
+            "allergy_note": "Contains dairy."
           },
           {
             "id": "fraction-frenzy",
             "type": "milkshake",
-            "name": "Fraction Frenzy Strawberry Swirl",
+            "name": "Fraction Frenzy Strawberry",
             "tagline": "Half strawberry, half vanilla, 100% delicious.",
             "price": 5.95,
-            "image": "bishop_shakes/media/strawberry.png",
+            "image": "strawberry.png",
             "badges": ["HALF & HALF", "BERRY"],
             "ingredients": ["150g strawberry ice cream", "150g vanilla ice cream", "100ml milk", "50ml strawberry syrup"],
-            "allergy_note": "Contains dairy.",
+            "allergy_note": "Contains dairy."
           },
           {
             "id": "sqrt-berry",
             "type": "smoothie",
             "name": "Square Root Berry Blast",
-            "tagline": "A radical mix of berries for an exponentially good refreshment.",
+            "tagline": "A radical mix of berries for refreshment.",
             "price": 5.95,
-            "image": "bishop_shakes/media/berry.png",
+            "image": "berry.png",
             "badges": ["SMOOTHIE", "FRESH"],
             "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
-            "allergy_note": "May contain dairy (yogurt).",
+            "allergy_note": "May contain dairy (yogurt)."
           },
           {
             "id": "tangent-tropical",
             "type": "smoothie",
             "name": "Tangent Tropical Twist",
-            "tagline": "A smooth curve of mango, banana & orange — off the chart!",
+            "tagline": "A smooth curve of mango, banana & orange.",
             "price": 6.10,
-            "image": "bishop_shakes/media/tropical.png",
+            "image": "tropical.png",
             "badges": ["SMOOTHIE", "TROPICAL"],
             "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
-            "allergy_note": "May contain dairy (yogurt).",
+            "allergy_note": "May contain dairy (yogurt)."
           },
           {
             "id": "extra-whip",
             "type": "extras",
             "name": "Extra Whipped Cream",
-            "tagline": "Because maths is better with toppings.",
+            "tagline": "Because life is better with toppings.",
             "price": 0.75,
-            "image": "bishop_shakes/media/extra-whip.jpg",
+            "image": "extra-whip.jpg",
             "badges": ["EXTRA"],
             "ingredients": ["50ml whipped cream"],
-            "allergy_note": "Contains dairy.",
+            "allergy_note": "Contains dairy."
           },
           {
             "id": "syrup-shot",
@@ -502,10 +485,10 @@
             "name": "Syrup Shot",
             "tagline": "Chocolate, strawberry or honey.",
             "price": 0.50,
-            "image": "bishop_shakes/media/syrup.jpg",
+            "image": "syrup.jpg",
             "badges": ["EXTRA"],
             "ingredients": ["One 20ml syrup shot (choice of flavour)"],
-            "allergy_note": "Check ingredients for specific syrup allergies.",
+            "allergy_note": "Check ingredients for specific syrup allergies."
           }
         ]
       };
@@ -523,10 +506,10 @@
               console.log("Using fallback data");
               productCatalog = fallbackData.products;
           }
-          renderGrid();
+          renderCatalog();
       }
 
-      // --- 2. RENDER GRID ---
+      // --- 2. RENDER GRID (Grouped) ---
       function getBgClass(name) {
           const n = name.toLowerCase();
           if(n.includes('chocolate') || n.includes('syrup')) return 'bg-choc';
@@ -535,34 +518,61 @@
           return 'bg-vanilla';
       }
 
-      function renderGrid() {
-          const grid = document.getElementById('product-grid');
-          grid.innerHTML = '';
-          productCatalog.forEach(p => {
-              const bg = getBgClass(p.name);
-              const badge = p.badges[0] ? `<div class="badge">${p.badges[0]}</div>` : '';
+      function renderCatalog() {
+          const container = document.getElementById('catalog-container');
+          container.innerHTML = '';
+
+          // Define groups
+          const groups = [
+            { id: 'milkshake', title: 'Milkshakes' },
+            { id: 'smoothie', title: 'Smoothies' },
+            { id: 'extras', title: 'Extras' }
+          ];
+
+          groups.forEach(group => {
+              // Filter products for this group
+              const items = productCatalog.filter(p => p.type === group.id);
               
-              const card = `
-              <div class="product-card">
-                  ${badge}
-                  <div class="product-image ${bg}">
-                      <img src="https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}" 
-                           style="mix-blend-mode: multiply; opacity: 0.6; width:70%;" alt="${p.name}">
-                  </div>
-                  <div class="product-info">
-                      <div>
-                          <h3 class="product-title">${p.name}</h3>
-                          <p class="product-tagline">${p.tagline}</p>
-                          ${p.maths_hint ? `<div class="maths-hint">🧠 ${p.maths_hint}</div>` : ''}
-                          <span class="price">£${p.price.toFixed(2)}</span>
-                      </div>
-                      <div class="btn-group">
-                          <button class="btn btn-outline" onclick="openIngredients('${p.id}')">Ingredients</button>
-                          <button class="btn btn-primary" onclick="addToCart('${p.id}')">Add to Tray</button>
-                      </div>
-                  </div>
-              </div>`;
-              grid.insertAdjacentHTML('beforeend', card);
+              if(items.length > 0) {
+                  // Add Header
+                  const sectionTitle = document.createElement('h2');
+                  sectionTitle.className = 'category-title';
+                  sectionTitle.innerText = group.title;
+                  container.appendChild(sectionTitle);
+
+                  // Create Grid
+                  const grid = document.createElement('div');
+                  grid.className = 'product-grid';
+
+                  // Add Items
+                  items.forEach(p => {
+                      const bg = getBgClass(p.name);
+                      const badge = p.badges[0] ? `<div class="badge">${p.badges[0]}</div>` : '';
+                      
+                      const cardHTML = `
+                      <div class="product-card">
+                          ${badge}
+                          <div class="product-image ${bg}">
+                              <img src="https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}" 
+                                   style="mix-blend-mode: multiply; opacity: 0.6; width:70%;" alt="${p.name}">
+                          </div>
+                          <div class="product-info">
+                              <div>
+                                  <h3 class="product-title">${p.name}</h3>
+                                  <p class="product-tagline">${p.tagline}</p>
+                                  <span class="price">£${p.price.toFixed(2)}</span>
+                              </div>
+                              <div class="btn-group">
+                                  <button class="btn btn-outline" onclick="openIngredients('${p.id}')">Ingredients</button>
+                                  <button class="btn btn-primary" onclick="addToCart('${p.id}')">Add to Tray</button>
+                              </div>
+                          </div>
+                      </div>`;
+                      grid.insertAdjacentHTML('beforeend', cardHTML);
+                  });
+                  
+                  container.appendChild(grid);
+              }
           });
       }
 
@@ -577,7 +587,6 @@
           cart.push(item);
           updateCartUI();
           
-          // Auto open cart on first add if closed
           const panel = document.getElementById('cart-panel');
           if(!panel.classList.contains('open')) panel.classList.add('open');
       }
@@ -616,30 +625,27 @@
           totalEl.innerText = 'Total: £' + total.toFixed(2);
       }
 
-      // --- 4. GLITCH PAYMENT ---
+      // --- 4. GLITCH PAYMENT (BUTTON ONLY) ---
       function processPayment() {
           if(cart.length === 0) return alert("Tray is empty!");
 
-          const glitch = document.getElementById('glitch-layer');
-          const panel = document.getElementById('cart-panel');
-          
-          panel.classList.remove('open'); // Hide cart
-          glitch.style.display = 'flex'; // Show glitch
+          const btn = document.getElementById('payBtn');
+          const originalText = btn.innerText;
 
-          // Chaotic background color swap
-          let interval = setInterval(() => {
-              glitch.style.backgroundColor = Math.random() > 0.5 ? '#000' : '#111';
-              glitch.style.color = Math.random() > 0.5 ? '#0f0' : '#f00';
-          }, 100);
+          // Apply glitch class
+          btn.classList.add('glitching');
+          btn.innerText = "SYSTEM ERROR";
+          btn.disabled = true;
 
-          // Stop after 4 seconds
+          // Stop after 3 seconds
           setTimeout(() => {
-              clearInterval(interval);
-              glitch.style.display = 'none';
+              btn.classList.remove('glitching');
+              btn.innerText = originalText;
+              btn.disabled = false;
               cart = []; // Clear cart
               updateCartUI();
-              alert("Payment Processed. Enjoy your shake!");
-          }, 4000);
+              alert("Payment Failed... but we gave you the shakes anyway!");
+          }, 3000);
       }
 
       // --- 5. INGREDIENTS MODAL ---
@@ -662,7 +668,6 @@
           }
 
           allergy.innerText = item.allergy_note || "";
-
           modal.style.display = 'flex';
       }
 
