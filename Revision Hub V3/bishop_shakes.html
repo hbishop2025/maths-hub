@@ -5,387 +5,417 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SJWMS Maths | Bishop & Co. Shakes</title>
 
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            bishop: {
+              green: '#156f43',
+              dark: '#0e4b2d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style type="text/tailwindcss">
-    :root { 
-      --bishop-green: #156f43; 
-      --bishop-cream: #f4f1ea;
-      --bishop-yellow: #facc15;
-    }
-
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    /* --- Standard SJWMS Header Styles --- */
-    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
-    /* --- Bishop & Co Specific Styles --- */
-    .font-serif-display { font-family: 'DM Serif Display', serif; }
+    body { @apply bg-slate-50 text-slate-800 antialiased; }
     
-    .shake-card {
-      @apply bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col;
-    }
-
-    .shake-img-bg {
-      @apply h-48 w-full flex items-center justify-center text-6xl relative;
+    /* Modern Header */
+    .header-link { @apply text-sm font-medium text-slate-600 hover:text-bishop-green transition-colors; }
+    
+    /* Card Hover Effects */
+    .product-card { 
+      @apply bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col;
     }
     
-    /* Ingredient Modal Styles */
+    /* Modal Animation */
     .modal-backdrop {
-      @apply fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300;
+      @apply fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4;
     }
-    .modal-backdrop.open {
-      @apply flex opacity-100;
+    .modal-backdrop.active {
+      @apply opacity-100 pointer-events-auto;
     }
     .modal-content {
-      @apply bg-[#f4f1ea] w-full max-w-md m-auto rounded-2xl p-6 relative shadow-2xl transform scale-95 transition-transform duration-300;
-      border: 4px solid var(--bishop-green);
+      @apply bg-white w-full max-w-md rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300 overflow-hidden;
     }
-    .modal-backdrop.open .modal-content {
+    .modal-backdrop.active .modal-content {
       @apply scale-100;
     }
-
-    /* Pattern for the green sections */
-    .bg-bishop-green { background-color: var(--bishop-green); }
-    .text-bishop-green { color: var(--bishop-green); }
-    .bg-bishop-cream { background-color: var(--bishop-cream); }
   </style>
 </head>
-<body class="pt-14">
+<body>
 
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
-      <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-emerald-600">calculate</span>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+  <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-bishop-green rounded-lg flex items-center justify-center text-white">
+          <span class="material-symbols-outlined text-xl">calculate</span>
+        </div>
+        <span class="font-bold text-slate-900 tracking-tight">SJWMS Maths</span>
+      </div>
+      
+      <div class="hidden md:flex gap-8">
+        <a href="#" class="header-link">Home</a>
+        <a href="#" class="header-link">KS3 Hub</a>
+        <a href="#" class="header-link">GCSE Hub</a>
+        <a href="#" class="header-link text-bishop-green">Shop</a>
       </div>
 
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
-      </nav>
-
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
-        <span class="material-icons">menu</span>
+      <button class="md:hidden text-slate-600">
+        <span class="material-symbols-outlined">menu</span>
       </button>
+    </div>
+  </nav>
 
-      <div id="mobileMenu" class="hidden">
-        <a class="block py-2 text-sm font-medium" href="index.html">Home</a>
-        <a class="block py-2 text-sm font-medium" href="ks3_hub.html">KS3</a>
-        <a class="block py-2 text-sm font-medium" href="gcse_hub.html">GCSE</a>
+  <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=2070&auto=format&fit=crop" 
+        alt="Milkshake Background" 
+        class="w-full h-full object-cover opacity-90"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-900/40"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <span class="inline-block py-1 px-3 rounded-full bg-bishop-green/20 border border-bishop-green text-green-300 text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-md">
+          Est. 2025
+        </span>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+          Bishop & Co.<br/>
+          <span class="text-green-400">Shakes.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-200 mb-8 leading-relaxed">
+          The sum of all goodness. Our ingredients are rooted in sustainability and naturally multiplied by eco-friendly growers.
+        </p>
+        <div class="flex gap-4">
+          <a href="#menu" class="px-8 py-3 bg-bishop-green hover:bg-green-600 text-white font-semibold rounded-full transition shadow-lg shadow-green-900/20">
+            View Menu
+          </a>
+          <button class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-full backdrop-blur-md border border-white/20 transition">
+            Our Story
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <section class="bg-bishop-green text-[#f4f1ea] py-16 px-4 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none text-9xl font-bold select-none flex justify-between">
-      <span class="-translate-y-10 translate-x-10">÷</span>
-      <span class="translate-y-20 -translate-x-10">×</span>
-    </div>
+  <main id="menu" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <p class="uppercase tracking-[0.3em] text-sm mb-4 font-bold text-yellow-400">Est. 2025</p>
-      <h1 class="font-serif-display text-5xl md:text-7xl mb-6">Bishop & Co. Shakes</h1>
-      <p class="text-xl md:text-2xl font-light italic max-w-2xl mx-auto">
-        "The Sum of All Goodness"
-      </p>
-      <div class="mt-8 flex justify-center gap-4">
-        <span class="px-4 py-1 border border-yellow-400/50 rounded-full text-sm text-yellow-300">Sustainable</span>
-        <span class="px-4 py-1 border border-yellow-400/50 rounded-full text-sm text-yellow-300">Delicious</span>
-        <span class="px-4 py-1 border border-yellow-400/50 rounded-full text-sm text-yellow-300">Calculated</span>
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <h2 class="text-3xl font-bold text-slate-900">Order Online</h2>
+        <p class="text-slate-500 mt-2">Calculated for maximum taste.</p>
+      </div>
+      <div class="flex gap-2">
+        <span class="px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-medium cursor-pointer">All</span>
+        <span class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm font-medium hover:border-slate-300 cursor-pointer transition">Milkshakes</span>
+        <span class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm font-medium hover:border-slate-300 cursor-pointer transition">Smoothies</span>
       </div>
     </div>
-  </section>
 
-  <div class="bg-yellow-400 text-bishop-green py-3 px-4 text-center font-bold text-sm md:text-base">
-    <span class="material-symbols-outlined align-middle mr-1 text-lg">eco</span>
-    Sustainable shakes done right! Our fruit is naturally multiplied by eco-friendly growers.
-  </div>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
-    <div class="flex items-center gap-4 mb-8">
-      <h2 class="font-serif-display text-3xl md:text-4xl text-bishop-green">Milkshakes</h2>
-      <div class="h-px bg-gray-300 flex-1"></div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       
-      <div class="shake-card group">
-        <div class="shake-img-bg bg-yellow-100 group-hover:bg-yellow-200 transition-colors">
-          🍦
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">The Classic Shake</h3>
-            <span class="font-bold text-bishop-green">£5.50</span>
+      <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Vanilla Shake">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £5.50
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">A classic vanilla blend that’s simply value, no need to round up!</p>
-          <button onclick="openRecipe(this)" 
-            data-title="The Classic Shake" 
-            data-ing="200g Vanilla ice cream|150ml Milk|50ml Whipped cream"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">The Classic Shake</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            A classic vanilla blend that’s simply value, no need to round up!
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)" 
+              data-title="The Classic Shake"
+              data-desc="Standard Serving"
+              data-ing="200g Vanilla ice cream|150ml Milk|50ml Whipped cream"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="shake-card group">
-        <div class="shake-img-bg bg-amber-100 group-hover:bg-amber-200 transition-colors">
-          🍫
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">Alge-Brrr Triple Choc</h3>
-            <span class="font-bold text-bishop-green">£6.25</span>
+      <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Chocolate Shake">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £6.25
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">Add rich chocolate, subtract the brain freeze, and multiply the fun.</p>
-          <button onclick="openRecipe(this)" 
-            data-title="Alge-Brrr Triple Chocolate" 
-            data-ing="250g Chocolate ice cream|150ml Milk|100ml Chocolate syrup|50ml Whipped cream"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Alge-Brrr Triple Choc</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            Solving for the best milkshake? Add rich chocolate, subtract the brain freeze.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)"
+              data-title="Alge-Brrr Triple Choc"
+              data-desc="Rich & Decadent"
+              data-ing="250g Chocolate ice cream|150ml Milk|100ml Chocolate syrup|50ml Whipped cream"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="shake-card group">
-        <div class="shake-img-bg bg-yellow-50 group-hover:bg-yellow-100 transition-colors">
-          🍍
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">Pi-Neapple Perfection</h3>
-            <span class="font-bold text-bishop-green">£5.75</span>
+      <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Pineapple Shake">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £5.75
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">A never-ending swirl of pineapple and vanilla - delicious to infinity!</p>
-          <button onclick="openRecipe(this)" 
-            data-title="The Pi-neapple Perfection" 
-            data-ing="150ml Pineapple juice|200g Vanilla ice cream|100ml Milk|50ml Whipped cream"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Pi-neapple Perfection</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            A never-ending swirl of pineapple and vanilla - delicious to infinity!
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)"
+              data-title="Pi-neapple Perfection"
+              data-desc="Tropical Blend"
+              data-ing="150ml Pineapple juice|200g Vanilla ice cream|100ml Milk|50ml Whipped cream"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="shake-card group">
-        <div class="shake-img-bg bg-red-50 group-hover:bg-red-100 transition-colors">
-          🍓
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">Fraction Frenzy</h3>
-            <span class="font-bold text-bishop-green">£5.95</span>
+      <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1582234032483-2059c2776c5b?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Strawberry Shake">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £5.95
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">Half strawberry, half vanilla, 100% delicious! Every sip is an equal share.</p>
-          <button onclick="openRecipe(this)" 
-            data-title="Fraction Frenzy Strawberry Swirl" 
-            data-ing="150g Strawberry ice cream|150g Vanilla ice cream|100ml Milk|50ml Strawberry syrup"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
         </div>
-      </div>
-    </div>
-
-
-    <div class="flex items-center gap-4 mb-8">
-      <h2 class="font-serif-display text-3xl md:text-4xl text-bishop-green">Smoothies</h2>
-      <div class="h-px bg-gray-300 flex-1"></div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-       <div class="shake-card group">
-        <div class="shake-img-bg bg-purple-100 group-hover:bg-purple-200 transition-colors">
-          🫐
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">Square Root Berry</h3>
-            <span class="font-bold text-bishop-green">£5.95</span>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Fraction Frenzy</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            Half strawberry, half vanilla, 100% delicious! Every sip is an equal share.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)"
+              data-title="Fraction Frenzy"
+              data-desc="Strawberry Swirl"
+              data-ing="150g Strawberry ice cream|150g Vanilla ice cream|100ml Milk|50ml Strawberry syrup"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">A radical mix of berries for an exponentially good refreshment!</p>
-          <button onclick="openRecipe(this)" 
-            data-title="Square Root Berry Blast" 
-            data-ing="200g Strawberries|150g Blueberries|100g Raspberries|150ml Yogurt|50ml Honey"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
         </div>
       </div>
 
-      <div class="shake-card group">
-        <div class="shake-img-bg bg-orange-100 group-hover:bg-orange-200 transition-colors">
-          🥭
-        </div>
-        <div class="p-5 flex-1 flex flex-col">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg text-gray-900 leading-tight">Tangent Tropical Twist</h3>
-            <span class="font-bold text-bishop-green">£6.10</span>
+      <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1623592534896-1875c0245232?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Berry Smoothie">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £5.95
           </div>
-          <p class="text-sm text-gray-600 mb-4 flex-1">A smooth curve of mango, banana, and orange - totally off the chart!</p>
-          <button onclick="openRecipe(this)" 
-            data-title="Tangent Tropical Twist" 
-            data-ing="150g Mango|150g Banana|200ml Orange juice|100ml Yogurt|50ml Honey"
-            class="w-full py-2 bg-gray-100 hover:bg-bishop-green hover:text-white text-gray-700 font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">receipt_long</span> View Recipe
-          </button>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Square Root Berry</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            A radical mix of berries for an exponentially good refreshment!
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)"
+              data-title="Square Root Berry"
+              data-desc="Radical Refreshment"
+              data-ing="200g Strawberries|150g Blueberries|100g Raspberries|150ml Yogurt|50ml Honey"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+       <div class="product-card group">
+        <div class="relative h-64 overflow-hidden bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Tropical Smoothie">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-bishop-green shadow-sm">
+            £6.10
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Tangent Tropical</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+            A smooth curve of mango, banana, and orange - totally off the chart!
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openModal(this)"
+              data-title="Tangent Tropical"
+              data-desc="Off the chart flavor"
+              data-ing="150g Mango|150g Banana|200ml Orange juice|100ml Yogurt|50ml Honey"
+              class="text-sm font-semibold text-bishop-green hover:text-green-700 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">info</span> Ingredients
+            </button>
+            <button class="w-8 h-8 rounded-full bg-slate-100 hover:bg-bishop-green hover:text-white flex items-center justify-center transition-colors text-slate-600">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </button>
+          </div>
+        </div>
+      </div>
       
-      <div class="bg-white border-2 border-dashed border-gray-300 rounded-2xl p-6">
-        <h3 class="font-serif-display text-2xl text-bishop-green mb-4">Anomalies & Extras</h3>
-        <ul class="space-y-3">
-          <li class="flex justify-between text-gray-700 font-medium">
-            <span>Extra Whipped Cream</span>
-            <span class="text-bishop-green">£0.75</span>
-          </li>
-          <li class="flex justify-between text-gray-700 font-medium">
-            <span>Syrup Shot (Choc, Straw, Honey)</span>
-            <span class="text-bishop-green">£0.50</span>
-          </li>
-          <li class="flex justify-between text-gray-700 font-medium">
-            <span>Dairy-Free Milk Substitute</span>
-            <span class="text-bishop-green">£0.60</span>
-          </li>
-        </ul>
-      </div>
+    </div>
 
-      <div class="bg-bishop-green text-[#f4f1ea] rounded-2xl p-6 flex flex-col justify-center">
-        <h3 class="font-serif-display text-2xl mb-4">Visit Our Store</h3>
-        <div class="space-y-2 text-sm font-medium opacity-90">
-          <p class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-yellow-400">schedule</span>
-            Mon - Fri: 8 AM to 3 PM
-          </p>
-          <p class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-yellow-400">warning</span>
-            Sat - If you are in trouble
-          </p>
-          <p class="flex items-center gap-2 mt-4">
-            <span class="material-symbols-outlined text-yellow-400">call</span>
-            123-456-7890
-          </p>
-          <p class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-yellow-400">mail</span>
-            hello@reallygreatsite.com
-          </p>
+    <div class="mt-16 bg-white rounded-2xl border border-slate-200 p-8">
+      <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+        <span class="material-symbols-outlined text-bishop-green">add_circle</span>
+        Anomalies & Extras
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <span class="font-medium text-slate-700">Extra Whipped Cream</span>
+          <span class="font-bold text-bishop-green">£0.75</span>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <span class="font-medium text-slate-700">Syrup Shot</span>
+          <span class="font-bold text-bishop-green">£0.50</span>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <span class="font-medium text-slate-700">Dairy-Free Substitute</span>
+          <span class="font-bold text-bishop-green">£0.60</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="p-8 bg-slate-900 text-white rounded-2xl">
+        <h3 class="text-xl font-bold mb-4">Opening Hours</h3>
+        <div class="space-y-3 font-light text-slate-300">
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span>Mon - Fri</span>
+            <span>8:00 AM - 3:00 PM</span>
+          </div>
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span>Saturday</span>
+            <span class="text-yellow-400 font-medium">If you are in trouble</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Sunday</span>
+            <span>Closed</span>
+          </div>
         </div>
       </div>
 
+      <div class="p-8 bg-bishop-green text-white rounded-2xl flex flex-col justify-center items-center text-center">
+        <span class="material-symbols-outlined text-4xl mb-3">eco</span>
+        <h3 class="text-xl font-bold mb-2">Sustainable & Smart</h3>
+        <p class="text-green-100 text-sm max-w-sm">
+          We reduce, reuse, and recycle to keep our carbon footprint in check. Every sip is a prime example of great choices.
+        </p>
+      </div>
     </div>
 
   </main>
 
-
-  <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-sm text-gray-500">
-    <p>© 2025 SJWMS Maths Revision Hub. Content adapted for Bishop & Co. Shakes.</p>
+  <footer class="bg-white border-t border-slate-200 py-8 text-center">
+    <p class="text-slate-500 text-sm">© 2025 SJWMS Maths Revision Hub. Realistic Context Exercise.</p>
   </footer>
 
-
-  <div id="recipeModal" class="modal-backdrop items-center justify-center p-4">
-    <div class="modal-content">
-      <div class="flex justify-between items-center mb-4 border-b border-bishop-green/20 pb-2">
-        <h3 id="modalTitle" class="font-serif-display text-2xl text-bishop-green">Recipe Title</h3>
-        <button onclick="closeRecipe()" class="text-gray-500 hover:text-red-500 transition">
+  <div id="recipeModal" class="modal-backdrop">
+    <div class="modal-content relative">
+      <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+        <div>
+          <h3 id="modalTitle" class="text-lg font-bold text-slate-900">Shake Title</h3>
+          <p id="modalDesc" class="text-xs text-slate-500 font-medium uppercase tracking-wide">Standard Serving</p>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-200 text-slate-500 transition">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
-      
-      <div class="text-center mb-6">
-        <span class="text-6xl mb-2 block">🥣</span>
-        <p class="text-sm text-gray-500 italic mb-4">Standard Ratio (Single Serving)</p>
+
+      <div class="p-6">
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Ingredients Breakdown</h4>
+        <ul id="modalList" class="space-y-3">
+          </ul>
+        
+        <div class="mt-6 p-4 bg-yellow-50 border border-yellow-100 rounded-lg flex gap-3">
+          <span class="material-symbols-outlined text-yellow-600">calculate</span>
+          <p class="text-xs text-yellow-800 leading-tight">
+            <strong>Student Note:</strong> Use these values for ratio calculations. Values represent one single serving.
+          </p>
+        </div>
       </div>
-
-      <ul id="modalList" class="space-y-2 text-gray-800 font-medium font-mono text-sm bg-white p-4 rounded-lg border border-gray-200 shadow-inner">
-        </ul>
-
-      <div class="mt-6 text-center">
-        <p class="text-xs text-gray-400">Warning: Maths may be required to scale this recipe.</p>
+      
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button onclick="closeModal()" class="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Close</button>
       </div>
     </div>
   </div>
 
-
   <script>
-    // --- Mobile Menu Toggle ---
-    const menuBtn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menu.classList.toggle('hidden');
-    });
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-        menu.classList.add('hidden');
-      }
-    });
-
-    // --- Modal Logic ---
-    const modal = document.getElementById('recipeModal');
+    const modalBackdrop = document.getElementById('recipeModal');
     const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
     const modalList = document.getElementById('modalList');
 
-    function openRecipe(btn) {
-      // 1. Get data from button attributes
+    function openModal(btn) {
       const title = btn.getAttribute('data-title');
-      const rawIng = btn.getAttribute('data-ing'); // string separated by |
-      
-      // 2. Populate Modal
+      const desc = btn.getAttribute('data-desc');
+      const ingredients = btn.getAttribute('data-ing').split('|');
+
       modalTitle.textContent = title;
-      modalList.innerHTML = ''; // clear old list
-      
-      const ingredients = rawIng.split('|');
+      modalDesc.textContent = desc;
+      modalList.innerHTML = '';
+
       ingredients.forEach(ing => {
+        // Simple regex to bold the numbers for easier reading by students
+        const formattedIng = ing.replace(/^(\d+(?:g|ml))/, '<span class="font-bold text-slate-900">$1</span>');
+        
         const li = document.createElement('li');
-        li.className = "flex items-center gap-2 border-b border-dashed border-gray-200 pb-1 last:border-0";
-        // Simple dot icon
-        li.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span> ${ing}`;
+        li.className = "flex items-center justify-between text-sm text-slate-600 border-b border-slate-100 last:border-0 pb-2 last:pb-0";
+        li.innerHTML = `<span>${formattedIng.split(' ').slice(1).join(' ')}</span> ${formattedIng.split(' ')[0]}`; 
+        // This splits "200g Vanilla" into -> Left: "Vanilla", Right: "200g" (Roughly)
+        // Actually, let's keep it simple:
+        li.innerHTML = `<span class="text-slate-700">${ing}</span>`;
         modalList.appendChild(li);
       });
 
-      // 3. Show Modal
-      modal.classList.remove('hidden');
-      // small delay to allow display:flex to apply before opacity transition
-      setTimeout(() => {
-        modal.classList.add('open');
-      }, 10);
+      modalBackdrop.classList.add('active');
     }
 
-    function closeRecipe() {
-      modal.classList.remove('open');
-      setTimeout(() => {
-        modal.classList.add('hidden');
-      }, 300); // wait for transition
+    function closeModal() {
+      modalBackdrop.classList.remove('active');
     }
 
-    // Close on backdrop click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeRecipe();
-    });
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('open')) closeRecipe();
+    modalBackdrop.addEventListener('click', (e) => {
+      if(e.target === modalBackdrop) closeModal();
     });
   </script>
 </body>
