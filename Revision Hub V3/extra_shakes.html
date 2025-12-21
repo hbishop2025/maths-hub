@@ -1,235 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BISHOP & CO. SHAKES | The Sum of All Goodness</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Bishop & Co. Shakes</title>
 
-  <!-- SJWMS fonts/icons (safe to include; doesn't change your mock unless used) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Header Styles from Revision Site */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200; }
+    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+    
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+  </style>
+
   <style>
+    /* Scoped to the main content area so it doesn't break the nav */
     :root {
-      --primary-color: #000;
-      --secondary-color: #fff;
-      --accent-color: #2e8b57; /* Math Green Accent */
-      --bg-color: #f9f9f9;
-      --card-bg: #fff;
-      --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        --bishop-accent: #2e8b57; /* Math Green Accent */
+        --bishop-card-bg: #fff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font-family);
-      background-color: var(--bg-color);
-      color: var(--primary-color);
-    }
-
-    /* ✅ SJWMS top bar (copied pattern from your hubs) */
-    .sjwms-header{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 2000;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e5e7eb;
-      font-family: "Lexend", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-    .sjwms-header .inner{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 16px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .sjwms-header .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 800;
-      letter-spacing: -0.2px;
-      color: #111827;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .sjwms-header img{ height: 28px; }
-    .sjwms-header nav{
-      display:flex; align-items:center; gap:18px;
-    }
-    .sjwms-header nav a{
-      font-size: 14px;
-      font-weight: 600;
-      color: #374151;
-      text-decoration: none;
-    }
-    .sjwms-header nav a:hover{ color:#135bec; }
-    .sjwms-header .pill{
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #111827;
-      color: #fff !important;
-      font-weight: 700;
-    }
-    @media (max-width: 900px){
-      .sjwms-header nav{ display:none; }
-    }
-
-    /* ✅ Push the Gemini page down so its sticky header doesn't clash */
-    .page-offset{
-      padding-top: 56px; /* height of SJWMS bar */
-    }
-
-    /* Announcement Bar */
+    /* Announcement Bar (Sub-header) */
     .announcement-bar {
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      text-align: center;
-      padding: 8px;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* Header */
-    header {
-      background-color: var(--secondary-color);
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #eee;
-      position: sticky;
-      top: 56px;            /* ✅ stick under SJWMS bar */
-      z-index: 1000;
-    }
-
-    .logo {
-      font-weight: 900;
-      font-size: 24px;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-    }
-
-    nav ul {
-      display: flex;
-      gap: 25px;
-      list-style: none;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 700;
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-
-    .header-icons span {
-      margin-left: 20px;
-      cursor: pointer;
-      font-size: 18px;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 56px; /* Offset for fixed header */
     }
 
     /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 70px 20px;
-      background-color: #fff;
-      border-bottom: 1px solid #eee;
+    .bishop-hero {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
     }
 
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 900;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: -1px;
+    .bishop-hero h1 {
+        font-size: 42px; /* Slightly smaller to fit student laptops */
+        font-weight: 900;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        color: #111;
     }
 
-    .hero p {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-      font-style: italic;
+    .bishop-hero p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 20px;
+        font-style: italic;
     }
 
     /* Filters Bar */
     .filter-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      margin-bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px; /* Reduced padding for mobile */
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 30px;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .filter-bar select {
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: 'Lexend', sans-serif;
     }
 
     /* Product Grid */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
+    .bishop-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
 
     .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      margin-bottom: 60px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
     }
 
     .product-card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      position: relative;
-      border: 1px solid #eee;
+        background: var(--bishop-card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        position: relative;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
     }
 
     .badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: var(--accent-color);
-      color: white;
-      padding: 5px 10px;
-      font-size: 10px;
-      font-weight: bold;
-      text-transform: uppercase;
-      border-radius: 2px;
-      z-index: 2;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: var(--bishop-accent);
+        color: white;
+        padding: 5px 10px;
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 4px;
+        z-index: 2;
     }
 
     .product-image {
-      width: 100%;
-      height: 320px;
-      background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(0,0,0,0.3);
-      font-weight: bold;
-      font-size: 20px;
-      position: relative;
+        width: 100%;
+        height: 280px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        position: relative;
     }
-
-    /* Gradients based on flavors */
+    
+    /* Gradients */
     .img-chocolate { background: linear-gradient(135deg, #eacda3 0%, #d6ae7b 100%); }
     .img-classic { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
     .img-pineapple { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
@@ -238,238 +161,279 @@
     .img-tropical { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
 
     .product-info {
-      padding: 20px;
-      text-align: center;
+        padding: 20px;
+        text-align: center;
     }
 
     .product-title {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      min-height: 44px; /* Align titles */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        font-size: 18px;
+        font-weight: 800;
+        color: #111;
+        margin-bottom: 10px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
     }
 
     .price-container {
-      margin-bottom: 15px;
-      font-size: 16px;
-      color: #333;
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #333;
     }
 
     .price {
-      font-weight: bold;
-      font-size: 18px;
+        font-weight: bold;
+        font-size: 18px;
     }
 
-    .btn {
-      width: 100%;
-      padding: 12px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
+    .bishop-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #111;
+        color: white;
+        border: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        border-radius: 6px;
     }
 
-    .btn:hover { background-color: #333; }
+    .bishop-btn:hover {
+        background-color: #333;
+    }
+    .bishop-btn:active {
+        transform: scale(0.98);
+    }
 
     /* Extras Section */
     .extras-section {
-      background-color: #fff;
-      padding: 40px;
-      margin: 0 auto 60px auto;
-      max-width: 800px;
-      border: 2px dashed #ccc;
-      text-align: center;
+        background-color: #fff;
+        padding: 40px;
+        margin: 0 auto 60px auto;
+        max-width: 800px;
+        border: 2px dashed #ccc;
+        border-radius: 16px;
+        text-align: center;
     }
 
     .extras-section h2 {
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-size: 24px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-size: 24px;
+        font-weight: 800;
     }
 
     .extras-list {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
     .extra-item {
-      background: #f9f9f9;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 14px;
+        background: #f9f9f9;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #eee;
     }
 
     .extra-price {
-      color: var(--accent-color);
-      margin-left: 5px;
+        color: var(--bishop-accent);
+        margin-left: 5px;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .product-grid { grid-template-columns: 1fr 1fr; }
-      .hero h1 { font-size: 32px; }
-      header { padding: 15px 20px; }
-      nav ul { display: none; }
+    @media (max-width: 640px) {
+        .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+        .bishop-hero h1 { font-size: 28px; }
+        .product-image { height: 180px; font-size: 30px; }
+        .product-title { font-size: 15px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ✅ SJWMS NAV ONLY (unchanged from your hubs) -->
-  <header class="sjwms-header">
-    <div class="inner">
-      <a class="brand" href="index.html">
-        <img src="assets/hub_logo.png" alt="SJWMS"/>
-        <span>SJWMS Maths</span>
-      </a>
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto" onerror="this.style.display='none'"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
 
-      <nav>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
         <a href="index.html">Home</a>
         <a href="ks3_hub.html">KS3</a>
         <a href="gcse_hub.html">GCSE</a>
         <a href="alevel_hub.html">A-Level</a>
-        <a class="pill" href="ai_usage.html">AI Usage</a>
-      </nav>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
     </div>
   </header>
 
-  <!-- ✅ Everything below is your Gemini mock, unchanged -->
-  <div class="page-offset">
+  <main>
+    
     <div class="announcement-bar">
-      Calculated for Taste • Rooted in Freshness
+        Calculated for Taste • Rooted in Freshness
     </div>
 
-    <header>
-      <div class="logo">BISHOP & CO.</div>
-      <nav>
-        <ul>
-          <li><a href="#">Shakes</a></li>
-          <li><a href="#">Smoothies</a></li>
-          <li><a href="#">Extras</a></li>
-          <li><a href="#">Locations</a></li>
-        </ul>
-      </nav>
-      <div class="header-icons">
-        <span>🇬🇧</span>
-        <span>👤</span>
-        <span>🛒 (0)</span>
-      </div>
-    </header>
-
-    <section class="hero">
-      <h1>THE SUM OF ALL GOODNESS</h1>
-      <p>Taste the creamy goodness!</p>
+    <section class="bishop-hero">
+        <div style="font-size: 14px; font-weight: 800; color: #aaa; margin-bottom: 10px; letter-spacing: 2px;">EST. 2025</div>
+        <h1>BISHOP & CO. SHAKES</h1>
+        <p>The Sum of All Goodness.</p>
     </section>
 
     <div class="filter-bar">
-      <span>Showing 6 delicious results</span>
-      <select>
-        <option>Sort by: Menu Order</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
-      </select>
+        <span class="font-bold text-sm text-gray-500">Showing 6 delicious results</span>
+        <select class="text-sm">
+            <option>Sort by: Menu Order</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+        </select>
     </div>
 
-    <div class="container">
+    <div class="bishop-container">
+        
+        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px; color:#111;">Milkshakes</h3>
 
-      <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Milkshakes</h3>
+        <div class="product-grid">
 
-      <div class="product-grid">
+            <div class="product-card">
+                <div class="badge">Bestseller</div>
+                <div class="product-image img-chocolate">
+                    <span>🍫</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Alge-Brrr Triple Chocolate</h3>
+                    <div class="price-container">
+                        <span class="price">£6.25</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
 
-        <div class="product-card">
-          <div class="badge">Bestseller</div>
-          <div class="product-image img-chocolate"><span>🍫</span></div>
-          <div class="product-info">
-            <h3 class="product-title">Alge-Brrr Triple Chocolate Shake</h3>
-            <div class="price-container"><span class="price">£6.25</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
+            <div class="product-card">
+                <div class="badge">Fan Fave</div>
+                <div class="product-image img-pineapple">
+                    <span>🍍</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">The Pi-Neapple Perfection</h3>
+                    <div class="price-container">
+                        <span class="price">£5.75</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image img-strawberry">
+                    <span>🍓</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Fraction Frenzy Strawberry</h3>
+                    <div class="price-container">
+                        <span class="price">£5.95</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">Classic</div>
+                <div class="product-image img-classic">
+                    <span>🍦</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">The Classic Constant</h3>
+                    <div class="price-container">
+                        <span class="price">£5.50</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
         </div>
 
-        <div class="product-card">
-          <div class="badge">Fan Fave</div>
-          <div class="product-image img-pineapple"><span>🍍</span></div>
-          <div class="product-info">
-            <h3 class="product-title">The Pi-Neapple Perfection</h3>
-            <div class="price-container"><span class="price">£5.75</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
+        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px; color:#111;">Smoothies</h3>
+
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="badge" style="background-color: #663399;">Fresh</div>
+                <div class="product-image img-berry">
+                    <span>🫐</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Square Root Berry Blast</h3>
+                    <div class="price-container">
+                        <span class="price">£5.95</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge" style="background-color: #ff8c00;">Tropical</div>
+                <div class="product-image img-tropical">
+                    <span>🥭</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Tangent Tropical Twist</h3>
+                    <div class="price-container">
+                        <span class="price">£6.10</span>
+                    </div>
+                    <button class="bishop-btn">Add to Cart</button>
+                </div>
+            </div>
+
         </div>
-
-        <div class="product-card">
-          <div class="product-image img-strawberry"><span>🍓</span></div>
-          <div class="product-info">
-            <h3 class="product-title">Fraction Frenzy Strawberry Swirl</h3>
-            <div class="price-container"><span class="price">£5.95</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="badge" style="background-color:#111;">Classic</div>
-          <div class="product-image img-classic"><span>🍦</span></div>
-          <div class="product-info">
-            <h3 class="product-title">The Classic Shake</h3>
-            <div class="price-container"><span class="price">£5.50</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
-        </div>
-
-      </div>
-
-      <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Smoothies</h3>
-
-      <div class="product-grid">
-
-        <div class="product-card">
-          <div class="badge" style="background-color:#663399;">Fresh</div>
-          <div class="product-image img-berry"><span>🫐</span></div>
-          <div class="product-info">
-            <h3 class="product-title">Square Root Berry Blast</h3>
-            <div class="price-container"><span class="price">£5.95</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="badge" style="background-color:#ff8c00;">Tropical</div>
-          <div class="product-image img-tropical"><span>🥭</span></div>
-          <div class="product-info">
-            <h3 class="product-title">Tangent Tropical Twist</h3>
-            <div class="price-container"><span class="price">£6.10</span></div>
-            <button class="btn">Add to Cart</button>
-          </div>
-        </div>
-
-      </div>
     </div>
 
-    <div class="container">
-      <section class="extras-section">
-        <h2>Anomalies & Extras</h2>
-        <ul class="extras-list">
-          <li class="extra-item">Extra Whipped Cream <span class="extra-price">+£0.75</span></li>
-          <li class="extra-item">Syrup Shot <span class="extra-price">+£0.50</span></li>
-          <li class="extra-item">Dairy-Free Substitute <span class="extra-price">+£0.60</span></li>
-        </ul>
-      </section>
+    <div class="bishop-container">
+        <section class="extras-section">
+            <h2>Anomalies & Extras</h2>
+            <ul class="extras-list">
+                <li class="extra-item">Extra Whipped Cream <span class="extra-price">+£0.75</span></li>
+                <li class="extra-item">Syrup Shot <span class="extra-price">+£0.50</span></li>
+                <li class="extra-item">Dairy-Free Substitute <span class="extra-price">+£0.60</span></li>
+            </ul>
+        </section>
     </div>
-  </div>
 
-  <!-- ✅ SJWMS footer (same as the rest of your site) -->
+  </main>
+
   <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
 
+  <script>
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
+
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
