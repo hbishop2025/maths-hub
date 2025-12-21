@@ -1,5 +1,6 @@
-{
+const fallbackData = {
   "products": [
+    // --- CLASSICS & BEST SELLERS ---
     {
       "id": "classic-shake",
       "type": "milkshake",
@@ -9,21 +10,32 @@
       "image": "classic.png",
       "badges": ["FAN FAVE", "VANILLA"],
       "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
-      "allergy_note": "Contains dairy. Ask about dairy-free substitutes.",
-      "maths_hint": "Scale the recipe for 2, 3 or 5 servings using ratio."
+      "allergy_note": "Contains dairy."
+    },
+    {
+      "id": "sir-isaac-newtella",
+      "type": "milkshake",
+      "name": "Sir Isaac New-tella",
+      "tagline": "Gravity will pull this hazelnut shake straight to your stomach.",
+      "price": 6.50,
+      "image": "newtella.png",
+      "badges": ["HEAVY", "HAZELNUT"],
+      "ingredients": ["2 scoops chocolate ice cream", "50g Nutella", "150ml milk", "Crushed hazelnuts"],
+      "allergy_note": "Contains dairy, tree nuts."
     },
     {
       "id": "alge-brrr",
       "type": "milkshake",
-      "name": "Alge-brrr Triple Chocolate Shake",
-      "tagline": "Add rich chocolate, subtract brain freeze, multiply the fun.",
+      "name": "Alge-brrr Triple Chocolate",
+      "tagline": "Add rich chocolate, subtract brain freeze.",
       "price": 6.25,
       "image": "choc.png",
       "badges": ["NEW", "CHOCOLATE"],
       "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
-      "allergy_note": "Contains dairy.",
-      "maths_hint": "Compare ingredient proportions: what fraction is syrup vs milk?"
+      "allergy_note": "Contains dairy."
     },
+
+    // --- FRUIT & BERRY ---
     {
       "id": "pi-neapple",
       "type": "milkshake",
@@ -33,56 +45,158 @@
       "image": "pineapple.png",
       "badges": ["LIMITLESS", "TROPICAL"],
       "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
-      "allergy_note": "Contains dairy.",
-      "maths_hint": "Convert between ml and litres, then compare ratios."
+      "allergy_note": "Contains dairy."
     },
     {
-      "id": "fraction-frenzy",
-      "type": "milkshake",
-      "name": "Fraction Frenzy Strawberry Swirl",
-      "tagline": "Half strawberry, half vanilla, 100% delicious.",
-      "price": 5.95,
-      "image": "strawberry.png",
-      "badges": ["HALF & HALF", "BERRY"],
-      "ingredients": ["150g strawberry ice cream", "150g vanilla ice cream", "100ml milk", "50ml strawberry syrup"],
-      "allergy_note": "Contains dairy.",
-      "maths_hint": "Use fractions to split ingredients evenly between friends."
+      "id": "varia-berry",
+      "type": "smoothie",
+      "name": "The Varia-berry",
+      "tagline": "Solving for X, Y, and Z (Strawberry, Raspberry, Blueberry).",
+      "price": 6.10,
+      "image": "variaberry.png",
+      "badges": ["ANTIOXIDANT", "BERRY"],
+      "ingredients": ["100g strawberries", "100g raspberries", "100g blueberries", "Apple juice base"],
+      "allergy_note": "Vegan friendly."
     },
+    {
+      "id": "ba-nomial",
+      "type": "milkshake",
+      "name": "Ba-nomial Expansion",
+      "tagline": "Expanding waistlines with banana and toffee flavor.",
+      "price": 5.95,
+      "image": "banomial.png",
+      "badges": ["TOFFEE", "BANANA"],
+      "ingredients": ["2 ripe bananas", "Vanilla ice cream", "Toffee sauce swirl", "Caramel fudge pieces"],
+      "allergy_note": "Contains dairy."
+    },
+    {
+      "id": "mango-nitude",
+      "type": "smoothie",
+      "name": "Mango-nitude",
+      "tagline": "A vector of pure tropical direction.",
+      "price": 5.95,
+      "image": "mangonitude.png",
+      "badges": ["VEGAN", "TROPICAL"],
+      "ingredients": ["Whole mango", "Passion fruit pulp", "Coconut water", "Lime zest"],
+      "allergy_note": "Vegan friendly."
+    },
+
+    // --- CHOCOLATE & COFFEE ---
+    {
+      "id": "soh-cah-cocoa",
+      "type": "milkshake",
+      "name": "SOH-CAH-COCOA",
+      "tagline": "A trigonometric blend of dark, milk, and white chocolate.",
+      "price": 6.50,
+      "image": "sohcahcocoa.png",
+      "badges": ["TRIPLE CHOC", "RICH"],
+      "ingredients": ["Chocolate ice cream", "White chocolate chips", "Dark chocolate shavings", "Cocoa powder dusting"],
+      "allergy_note": "Contains dairy."
+    },
+    {
+      "id": "mocha-nical",
+      "type": "milkshake",
+      "name": "Mocha-nical Advantage",
+      "tagline": "Coffee and chocolate working together to lift your spirits.",
+      "price": 6.25,
+      "image": "mechanic.png",
+      "badges": ["CAFFEINE", "COFFEE"],
+      "ingredients": ["Espresso shot", "Chocolate ice cream", "Milk", "Coffee bean garnish"],
+      "allergy_note": "Contains dairy, caffeine."
+    },
+    {
+      "id": "choc-ulator",
+      "type": "milkshake",
+      "name": "The Choc-ulator",
+      "tagline": "Solves your cravings instantly.",
+      "price": 5.85,
+      "image": "choculator.png",
+      "badges": ["SIMPLE", "CHOCOLATE"],
+      "ingredients": ["Double chocolate ice cream", "Chocolate milk", "Malted powder"],
+      "allergy_note": "Contains dairy, gluten (malt)."
+    },
+    {
+      "id": "oreo-gin",
+      "type": "milkshake",
+      "name": "Oreo-gin Point",
+      "tagline": "Where flavor begins (0,0). Cookies & Cream delight.",
+      "price": 6.00,
+      "image": "oreogin.png",
+      "badges": ["CRUNCHY", "COOKIES"],
+      "ingredients": ["Vanilla ice cream", "4 Oreo cookies", "Milk", "Cookie crumble topping"],
+      "allergy_note": "Contains dairy, gluten."
+    },
+
+    // --- MINT, NUTS & CARAMEL ---
+    {
+      "id": "circumfer-mint",
+      "type": "milkshake",
+      "name": "Circumfer-mint",
+      "tagline": "3.14 times fresher than the rest.",
+      "price": 5.80,
+      "image": "mint.png",
+      "badges": ["FRESH", "MINT"],
+      "ingredients": ["Mint choc chip ice cream", "Milk", "Peppermint syrup", "Chocolate drizzle"],
+      "allergy_note": "Contains dairy."
+    },
+    {
+      "id": "pistach-io",
+      "type": "milkshake",
+      "name": "Pistach-io Ratio",
+      "tagline": "The Golden Ratio of nuttiness and cream.",
+      "price": 6.75,
+      "image": "pistachio.png",
+      "badges": ["PREMIUM", "NUTTY"],
+      "ingredients": ["Pistachio ice cream", "Chopped pistachios", "Honey drizzle", "Whipped cream"],
+      "allergy_note": "Contains dairy, tree nuts."
+    },
+    {
+      "id": "cara-lel",
+      "type": "milkshake",
+      "name": "Cara-lel Lines",
+      "tagline": "Two streams of salted caramel that never touch... until now.",
+      "price": 6.00,
+      "image": "caralel.png",
+      "badges": ["SALTED", "CARAMEL"],
+      "ingredients": ["Salted caramel ice cream", "Caramel sauce walls", "Sea salt sprinkle", "Milk"],
+      "allergy_note": "Contains dairy."
+    },
+
+    // --- SMOOTHIE SPECIALS ---
     {
       "id": "sqrt-berry",
       "type": "smoothie",
       "name": "Square Root Berry Blast",
-      "tagline": "A radical mix of berries for an exponentially good refreshment.",
+      "tagline": "A radical mix of berries for refreshment.",
       "price": 5.95,
       "image": "berry.png",
       "badges": ["SMOOTHIE", "FRESH"],
       "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
-      "allergy_note": "May contain dairy (yogurt).",
-      "maths_hint": "Work out best value: cost per 100g of fruit."
+      "allergy_note": "May contain dairy (yogurt)."
     },
     {
       "id": "tangent-tropical",
       "type": "smoothie",
       "name": "Tangent Tropical Twist",
-      "tagline": "A smooth curve of mango, banana & orange — off the chart!",
+      "tagline": "A smooth curve of mango, banana & orange.",
       "price": 6.10,
       "image": "tropical.png",
       "badges": ["SMOOTHIE", "TROPICAL"],
       "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
-      "allergy_note": "May contain dairy (yogurt).",
-      "maths_hint": "Use percentages to adjust fruit mix (e.g., 60% mango)."
+      "allergy_note": "May contain dairy (yogurt)."
     },
+
+    // --- EXTRAS ---
     {
       "id": "extra-whip",
       "type": "extras",
       "name": "Extra Whipped Cream",
-      "tagline": "Because maths is better with toppings.",
+      "tagline": "Because life is better with toppings.",
       "price": 0.75,
       "image": "extra-whip.jpg",
       "badges": ["EXTRA"],
       "ingredients": ["50ml whipped cream"],
-      "allergy_note": "Contains dairy.",
-      "maths_hint": "Add-ons are perfect for total-cost and percentage increase questions."
+      "allergy_note": "Contains dairy."
     },
     {
       "id": "syrup-shot",
@@ -93,33 +207,7 @@
       "image": "syrup.jpg",
       "badges": ["EXTRA"],
       "ingredients": ["One 20ml syrup shot (choice of flavour)"],
-      "allergy_note": "Check ingredients for specific syrup allergies.",
-      "maths_hint": "Work out totals with multiple add-ons."
-    }
-  ],
-  "pricing_groups": [
-    {
-      "title": "Milkshakes",
-      "items": [
-        { "name": "The Classic Shake", "price": 5.50 },
-        { "name": "Alge-brrr Triple Chocolate Shake", "price": 6.25 },
-        { "name": "The Pi-neapple Perfection", "price": 5.75 },
-        { "name": "Fraction Frenzy Strawberry Swirl", "price": 5.95 }
-      ]
-    },
-    {
-      "title": "Smoothies",
-      "items": [
-        { "name": "Square Root Berry Blast", "price": 5.95 },
-        { "name": "Tangent Tropical Twist", "price": 6.10 }
-      ]
-    },
-    {
-      "title": "Anomalies & Extras",
-      "items": [
-        { "name": "Extra Whipped Cream", "price": 0.75 },
-        { "name": "Syrup Shot", "price": 0.50 }
-      ]
+      "allergy_note": "Check ingredients for specific syrup allergies."
     }
   ]
-}
+};
