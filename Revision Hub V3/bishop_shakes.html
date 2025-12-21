@@ -52,13 +52,13 @@
       /* --- HERO & BRANDING SECTION --- */
       .hero {
           text-align: center;
-          padding: 100px 20px 60px; /* Increased padding */
+          padding: 100px 20px 60px;
           border-bottom: 1px solid #e5e7eb;
           background-color: #ffe4e6; /* Light Pink Background */
       }
 
       .hero h1 {
-          font-size: 80px; /* Much larger font size */
+          font-size: 80px; /* Large Font */
           font-weight: 900;
           margin-bottom: 15px;
           text-transform: uppercase;
@@ -400,23 +400,138 @@
   </script>
 
   <script>
-      let productCatalog = [];
-      let cart = [];
+      // --- 1. DATA (EMBEDDED TO FIX LOADING ERROR) ---
+      const SHAKE_DATA = [
+        {
+          "id": "classic-shake", "type": "milkshake", "name": "The Classic Shake",
+          "tagline": "A classic vanilla blend that’s simply value.", "price": 5.50,
+          "image": "classic.png", "badges": ["FAN FAVE", "VANILLA"],
+          "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "sir-isaac-newtella", "type": "milkshake", "name": "Sir Isaac New-tella",
+          "tagline": "Gravity will pull this hazelnut shake straight to your stomach.", "price": 6.50,
+          "image": "newtella.png", "badges": ["HEAVY", "HAZELNUT"],
+          "ingredients": ["2 scoops chocolate ice cream", "50g Nutella", "150ml milk", "Crushed hazelnuts"],
+          "allergy_note": "Contains dairy, tree nuts."
+        },
+        {
+          "id": "alge-brrr", "type": "milkshake", "name": "Alge-brrr Triple Chocolate",
+          "tagline": "Add rich chocolate, subtract brain freeze.", "price": 6.25,
+          "image": "choc.png", "badges": ["NEW", "CHOCOLATE"],
+          "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "pi-neapple", "type": "milkshake", "name": "The Pi-neapple Perfection",
+          "tagline": "A never-ending swirl of pineapple and vanilla.", "price": 5.75,
+          "image": "pineapple.png", "badges": ["LIMITLESS", "TROPICAL"],
+          "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "varia-berry", "type": "smoothie", "name": "The Varia-berry",
+          "tagline": "Solving for X, Y, and Z (Strawberry, Raspberry, Blueberry).", "price": 6.10,
+          "image": "variaberry.png", "badges": ["ANTIOXIDANT", "BERRY"],
+          "ingredients": ["100g strawberries", "100g raspberries", "100g blueberries", "Apple juice base"],
+          "allergy_note": "Vegan friendly."
+        },
+        {
+          "id": "ba-nomial", "type": "milkshake", "name": "Ba-nomial Expansion",
+          "tagline": "Expanding waistlines with banana and toffee flavor.", "price": 5.95,
+          "image": "banomial.png", "badges": ["TOFFEE", "BANANA"],
+          "ingredients": ["2 ripe bananas", "Vanilla ice cream", "Toffee sauce swirl", "Caramel fudge pieces"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "mango-nitude", "type": "smoothie", "name": "Mango-nitude",
+          "tagline": "A vector of pure tropical direction.", "price": 5.95,
+          "image": "mangonitude.png", "badges": ["VEGAN", "TROPICAL"],
+          "ingredients": ["Whole mango", "Passion fruit pulp", "Coconut water", "Lime zest"],
+          "allergy_note": "Vegan friendly."
+        },
+        {
+          "id": "soh-cah-cocoa", "type": "milkshake", "name": "SOH-CAH-COCOA",
+          "tagline": "A trigonometric blend of dark, milk, and white chocolate.", "price": 6.50,
+          "image": "sohcahcocoa.png", "badges": ["TRIPLE CHOC", "RICH"],
+          "ingredients": ["Chocolate ice cream", "White chocolate chips", "Dark chocolate shavings", "Cocoa powder dusting"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "mocha-nical", "type": "milkshake", "name": "Mocha-nical Advantage",
+          "tagline": "Coffee and chocolate working together to lift your spirits.", "price": 6.25,
+          "image": "mechanic.png", "badges": ["CAFFEINE", "COFFEE"],
+          "ingredients": ["Espresso shot", "Chocolate ice cream", "Milk", "Coffee bean garnish"],
+          "allergy_note": "Contains dairy, caffeine."
+        },
+        {
+          "id": "choc-ulator", "type": "milkshake", "name": "The Choc-ulator",
+          "tagline": "Solves your cravings instantly.", "price": 5.85,
+          "image": "choculator.png", "badges": ["SIMPLE", "CHOCOLATE"],
+          "ingredients": ["Double chocolate ice cream", "Chocolate milk", "Malted powder"],
+          "allergy_note": "Contains dairy, gluten (malt)."
+        },
+        {
+          "id": "oreo-gin", "type": "milkshake", "name": "Oreo-gin Point",
+          "tagline": "Where flavor begins (0,0). Cookies & Cream delight.", "price": 6.00,
+          "image": "oreogin.png", "badges": ["CRUNCHY", "COOKIES"],
+          "ingredients": ["Vanilla ice cream", "4 Oreo cookies", "Milk", "Cookie crumble topping"],
+          "allergy_note": "Contains dairy, gluten."
+        },
+        {
+          "id": "circumfer-mint", "type": "milkshake", "name": "Circumfer-mint",
+          "tagline": "3.14 times fresher than the rest.", "price": 5.80,
+          "image": "mint.png", "badges": ["FRESH", "MINT"],
+          "ingredients": ["Mint choc chip ice cream", "Milk", "Peppermint syrup", "Chocolate drizzle"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "pistach-io", "type": "milkshake", "name": "Pistach-io Ratio",
+          "tagline": "The Golden Ratio of nuttiness and cream.", "price": 6.75,
+          "image": "pistachio.png", "badges": ["PREMIUM", "NUTTY"],
+          "ingredients": ["Pistachio ice cream", "Chopped pistachios", "Honey drizzle", "Whipped cream"],
+          "allergy_note": "Contains dairy, tree nuts."
+        },
+        {
+          "id": "cara-lel", "type": "milkshake", "name": "Cara-lel Lines",
+          "tagline": "Two streams of salted caramel that never touch... until now.", "price": 6.00,
+          "image": "caralel.png", "badges": ["SALTED", "CARAMEL"],
+          "ingredients": ["Salted caramel ice cream", "Caramel sauce walls", "Sea salt sprinkle", "Milk"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "sqrt-berry", "type": "smoothie", "name": "Square Root Berry Blast",
+          "tagline": "A radical mix of berries for refreshment.", "price": 5.95,
+          "image": "berry.png", "badges": ["SMOOTHIE", "FRESH"],
+          "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
+          "allergy_note": "May contain dairy (yogurt)."
+        },
+        {
+          "id": "tangent-tropical", "type": "smoothie", "name": "Tangent Tropical Twist",
+          "tagline": "A smooth curve of mango, banana & orange.", "price": 6.10,
+          "image": "tropical.png", "badges": ["SMOOTHIE", "TROPICAL"],
+          "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
+          "allergy_note": "May contain dairy (yogurt)."
+        },
+        {
+          "id": "extra-whip", "type": "extras", "name": "Extra Whipped Cream",
+          "tagline": "Because life is better with toppings.", "price": 0.75,
+          "image": "extra-whip.jpg", "badges": ["EXTRA"],
+          "ingredients": ["50ml whipped cream"],
+          "allergy_note": "Contains dairy."
+        },
+        {
+          "id": "syrup-shot", "type": "extras", "name": "Syrup Shot",
+          "tagline": "Chocolate, strawberry or honey.", "price": 0.50,
+          "image": "syrup.jpg", "badges": ["EXTRA"],
+          "ingredients": ["One 20ml syrup shot (choice of flavour)"],
+          "allergy_note": "Check ingredients for specific syrup allergies."
+        }
+      ];
 
-      // --- 1. DATA SETUP (Simplified) ---
-      async function init() {
-          try {
-              const response = await fetch('assets/data/bishop_shakes.json');
-              if (!response.ok) throw new Error("File not found");
-              const data = await response.json();
-              productCatalog = data.products;
-              renderCatalog();
-          } catch (e) {
-              console.error("Error loading shake data:", e);
-              document.getElementById('catalog-container').innerHTML = 
-                '<div style="text-align:center; padding:20px; color:red;"><b>Error:</b> Could not load the shake menu (JSON file not found).</div>';
-          }
-      }
+      let productCatalog = SHAKE_DATA; // Assigned directly
+      let cart = [];
 
       // --- 2. RENDER GRID (Grouped) ---
       function getBgClass(name) {
@@ -592,7 +707,10 @@
           }
       }
 
-      init();
+      // --- 6. INITIALIZATION ---
+      // No fetch needed. Just render.
+      renderCatalog();
+
   </script>
 </body>
 </html>
