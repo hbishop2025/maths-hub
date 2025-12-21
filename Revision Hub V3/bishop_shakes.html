@@ -222,7 +222,7 @@
           position: absolute;
           bottom: 80px;
           right: 0;
-          width: 300px;
+          width: 320px;
           background: white;
           border: 2px solid #000;
           border-radius: 8px;
@@ -240,7 +240,19 @@
       .cart-item-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted #eee; padding-bottom: 5px; }
       .remove-item { color: red; cursor: pointer; margin-left: 10px; font-weight: bold; }
 
+      /* Coupon Styles */
+      .coupon-section { border-top: 1px solid #eee; padding-top: 10px; margin-top: 5px; }
+      .coupon-row { display: flex; gap: 5px; margin-top: 5px; }
+      .coupon-input { 
+        flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; 
+        font-family: 'Lexend', sans-serif;
+      }
+      .coupon-btn { background: #333; color: white; border: none; padding: 0 10px; font-size: 11px; cursor: pointer; border-radius: 4px; font-weight:bold;}
+      .coupon-msg { font-size: 10px; margin-top: 3px; font-weight: bold; text-align: right; height: 14px; }
+
       .cart-total { margin-top: 10px; padding-top: 10px; border-top: 2px solid #000; font-weight: bold; text-align: right; }
+      .original-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
+      .discounted-price { color: #d00; font-size: 18px; }
 
       .pay-btn {
           background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px;
@@ -291,12 +303,52 @@
       .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 15px; color: var(--brand-accent); }
       .ingredient-list li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
 
-      .env-section {
-          background: #e9f5e9;
+      /* --- REVIEWS SECTION --- */
+      .review-section {
+          background: #fdf2f8; /* Light pink tint */
           padding: 60px 20px;
           text-align: center;
-          border-top: 1px solid #ccc;
+          border-top: 1px solid #eee;
           margin-top: 40px;
+      }
+      .review-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 25px;
+          max-width: 1000px;
+          margin: 30px auto 0;
+      }
+      .review-card {
+          background: white;
+          padding: 25px;
+          border-radius: 12px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+          border: 1px solid #f0f0f0;
+          text-align: left;
+      }
+      .review-text {
+          font-style: italic;
+          color: #444;
+          font-size: 15px;
+          line-height: 1.5;
+      }
+      .reviewer {
+          margin-top: 15px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+      }
+      .reviewer-avatar {
+          width: 40px; height: 40px;
+          background: #000;
+          color: white;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-weight: bold;
+      }
+      .reviewer-name {
+          font-weight: 800;
+          font-size: 14px;
       }
   </style>
 </head>
@@ -346,12 +398,37 @@
       <div class="container-custom" id="catalog-container">
           </div>
 
-      <section class="env-section">
-          <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 20px;">Zero Impact. Infinite Flavor.</h2>
-          <p style="max-width: 700px; margin: 0 auto; color:#555;">
-              Our cups are biodegradable, and our ingredients are locally sourced to ensure the lowest carbon integer possible. 
-              We calculate our emissions so you don't have to.
-          </p>
+      <section class="review-section">
+          <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 10px;">Peer Reviewed Results</h2>
+          <p>Statistically proven to be delicious.</p>
+          
+          <div class="review-grid">
+              
+              <div class="review-card">
+                  <p class="review-text">"I calculated the volume of the New-tella shake, and the flavor density is off the charts. It's integral to my daily happiness."</p>
+                  <div class="reviewer">
+                      <div class="reviewer-avatar">A</div>
+                      <div class="reviewer-name">Al G. Bra</div>
+                  </div>
+              </div>
+
+              <div class="review-card">
+                  <p class="review-text">"The acute angle of the straw was perfect. The taste was sharp, definitely not obtuse. A solid 180 degrees turn from other shakes."</p>
+                  <div class="reviewer">
+                      <div class="reviewer-avatar">G</div>
+                      <div class="reviewer-name">Geo Metry</div>
+                  </div>
+              </div>
+
+              <div class="review-card">
+                  <p class="review-text">"Honestly, I just came for the bargain. I used code <strong style="color:var(--brand-accent);">SJWMS</strong> at checkout and got a 67% discount. That is a statistically significant saving!"</p>
+                  <div class="reviewer">
+                      <div class="reviewer-avatar">D</div>
+                      <div class="reviewer-name">Dat A. Science</div>
+                  </div>
+              </div>
+
+          </div>
       </section>
 
   </main>
@@ -368,6 +445,15 @@
           <div class="cart-items" id="cart-items">
               <p style="color:#777; text-align:center; padding: 10px;">Tray is empty.</p>
           </div>
+          
+          <div class="coupon-section">
+              <div class="coupon-msg" id="coupon-msg"></div>
+              <div class="coupon-row">
+                  <input type="text" id="coupon-code" class="coupon-input" placeholder="Promo Code">
+                  <button class="coupon-btn" onclick="applyCoupon()">APPLY</button>
+              </div>
+          </div>
+
           <div class="cart-total" id="cart-total">Total: £0.00</div>
           <button id="payBtn" class="pay-btn" onclick="processPayment()">PAY NOW</button>
       </div>
@@ -400,138 +486,139 @@
   </script>
 
   <script>
-      // --- 1. DATA (EMBEDDED TO FIX LOADING ERROR) ---
+      // --- 1. DATA (Amounts Added) ---
       const SHAKE_DATA = [
         {
           "id": "classic-shake", "type": "milkshake", "name": "The Classic Shake",
           "tagline": "A classic vanilla blend that’s simply value.", "price": 5.50,
           "image": "classic.png", "badges": ["FAN FAVE", "VANILLA"],
-          "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
+          "ingredients": ["250g Premium vanilla ice cream", "150ml Whole milk", "50ml Whipped cream", "1tsp Vanilla extract"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "sir-isaac-newtella", "type": "milkshake", "name": "Sir Isaac New-tella",
           "tagline": "Gravity will pull this hazelnut shake straight to your stomach.", "price": 6.50,
           "image": "newtella.png", "badges": ["HEAVY", "HAZELNUT"],
-          "ingredients": ["2 scoops chocolate ice cream", "50g Nutella", "150ml milk", "Crushed hazelnuts"],
+          "ingredients": ["3 scoops Chocolate ice cream", "60g Nutella spread", "150ml Milk", "20g Crushed hazelnuts"],
           "allergy_note": "Contains dairy, tree nuts."
         },
         {
           "id": "alge-brrr", "type": "milkshake", "name": "Alge-brrr Triple Chocolate",
           "tagline": "Add rich chocolate, subtract brain freeze.", "price": 6.25,
           "image": "choc.png", "badges": ["NEW", "CHOCOLATE"],
-          "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
-          "allergy_note": "Contains dairy."
+          "ingredients": ["250g Dark chocolate ice cream", "150ml Milk", "30ml Chocolate fudge sauce", "20g Brownie bites"],
+          "allergy_note": "Contains dairy, gluten."
         },
         {
           "id": "pi-neapple", "type": "milkshake", "name": "The Pi-neapple Perfection",
           "tagline": "A never-ending swirl of pineapple and vanilla.", "price": 5.75,
           "image": "pineapple.png", "badges": ["LIMITLESS", "TROPICAL"],
-          "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
+          "ingredients": ["150ml Fresh pineapple juice", "2 scoops Vanilla ice cream", "50ml Coconut milk", "1 Pineapple wedge"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "varia-berry", "type": "smoothie", "name": "The Varia-berry",
           "tagline": "Solving for X, Y, and Z (Strawberry, Raspberry, Blueberry).", "price": 6.10,
           "image": "variaberry.png", "badges": ["ANTIOXIDANT", "BERRY"],
-          "ingredients": ["100g strawberries", "100g raspberries", "100g blueberries", "Apple juice base"],
+          "ingredients": ["80g Fresh strawberries", "60g Raspberries", "60g Blueberries", "150ml Apple juice base"],
           "allergy_note": "Vegan friendly."
         },
         {
           "id": "ba-nomial", "type": "milkshake", "name": "Ba-nomial Expansion",
           "tagline": "Expanding waistlines with banana and toffee flavor.", "price": 5.95,
           "image": "banomial.png", "badges": ["TOFFEE", "BANANA"],
-          "ingredients": ["2 ripe bananas", "Vanilla ice cream", "Toffee sauce swirl", "Caramel fudge pieces"],
+          "ingredients": ["2 Ripe bananas", "200g Vanilla ice cream", "40ml Toffee sauce", "30g Caramel fudge pieces"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "mango-nitude", "type": "smoothie", "name": "Mango-nitude",
           "tagline": "A vector of pure tropical direction.", "price": 5.95,
           "image": "mangonitude.png", "badges": ["VEGAN", "TROPICAL"],
-          "ingredients": ["Whole mango", "Passion fruit pulp", "Coconut water", "Lime zest"],
+          "ingredients": ["1 Whole mango (cubed)", "50g Passion fruit pulp", "200ml Coconut water", "1 tsp Lime zest"],
           "allergy_note": "Vegan friendly."
         },
         {
           "id": "soh-cah-cocoa", "type": "milkshake", "name": "SOH-CAH-COCOA",
           "tagline": "A trigonometric blend of dark, milk, and white chocolate.", "price": 6.50,
           "image": "sohcahcocoa.png", "badges": ["TRIPLE CHOC", "RICH"],
-          "ingredients": ["Chocolate ice cream", "White chocolate chips", "Dark chocolate shavings", "Cocoa powder dusting"],
+          "ingredients": ["2 scoops Chocolate ice cream", "30g White chocolate chips", "30g Dark chocolate shavings", "1 tsp Cocoa powder dusting"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "mocha-nical", "type": "milkshake", "name": "Mocha-nical Advantage",
           "tagline": "Coffee and chocolate working together to lift your spirits.", "price": 6.25,
           "image": "mechanic.png", "badges": ["CAFFEINE", "COFFEE"],
-          "ingredients": ["Espresso shot", "Chocolate ice cream", "Milk", "Coffee bean garnish"],
+          "ingredients": ["1 Double Espresso shot", "200g Chocolate ice cream", "100ml Milk", "3 Coffee beans (garnish)"],
           "allergy_note": "Contains dairy, caffeine."
         },
         {
           "id": "choc-ulator", "type": "milkshake", "name": "The Choc-ulator",
           "tagline": "Solves your cravings instantly.", "price": 5.85,
           "image": "choculator.png", "badges": ["SIMPLE", "CHOCOLATE"],
-          "ingredients": ["Double chocolate ice cream", "Chocolate milk", "Malted powder"],
+          "ingredients": ["300g Double chocolate ice cream", "100ml Chocolate milk", "2 tbsp Malted powder"],
           "allergy_note": "Contains dairy, gluten (malt)."
         },
         {
           "id": "oreo-gin", "type": "milkshake", "name": "Oreo-gin Point",
           "tagline": "Where flavor begins (0,0). Cookies & Cream delight.", "price": 6.00,
           "image": "oreogin.png", "badges": ["CRUNCHY", "COOKIES"],
-          "ingredients": ["Vanilla ice cream", "4 Oreo cookies", "Milk", "Cookie crumble topping"],
+          "ingredients": ["250g Vanilla ice cream", "4 Oreo cookies (crushed)", "150ml Milk", "1 Whole Oreo topping"],
           "allergy_note": "Contains dairy, gluten."
         },
         {
           "id": "circumfer-mint", "type": "milkshake", "name": "Circumfer-mint",
           "tagline": "3.14 times fresher than the rest.", "price": 5.80,
           "image": "mint.png", "badges": ["FRESH", "MINT"],
-          "ingredients": ["Mint choc chip ice cream", "Milk", "Peppermint syrup", "Chocolate drizzle"],
+          "ingredients": ["250g Mint choc chip ice cream", "150ml Milk", "20ml Peppermint syrup", "15g Chocolate drizzle"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "pistach-io", "type": "milkshake", "name": "Pistach-io Ratio",
           "tagline": "The Golden Ratio of nuttiness and cream.", "price": 6.75,
           "image": "pistachio.png", "badges": ["PREMIUM", "NUTTY"],
-          "ingredients": ["Pistachio ice cream", "Chopped pistachios", "Honey drizzle", "Whipped cream"],
+          "ingredients": ["250g Pistachio ice cream", "30g Chopped pistachios", "15ml Honey drizzle", "50ml Whipped cream"],
           "allergy_note": "Contains dairy, tree nuts."
         },
         {
           "id": "cara-lel", "type": "milkshake", "name": "Cara-lel Lines",
           "tagline": "Two streams of salted caramel that never touch... until now.", "price": 6.00,
           "image": "caralel.png", "badges": ["SALTED", "CARAMEL"],
-          "ingredients": ["Salted caramel ice cream", "Caramel sauce walls", "Sea salt sprinkle", "Milk"],
+          "ingredients": ["250g Salted caramel ice cream", "40ml Caramel sauce", "1 pinch Sea salt flakes", "150ml Milk"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "sqrt-berry", "type": "smoothie", "name": "Square Root Berry Blast",
           "tagline": "A radical mix of berries for refreshment.", "price": 5.95,
           "image": "berry.png", "badges": ["SMOOTHIE", "FRESH"],
-          "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
-          "allergy_note": "May contain dairy (yogurt)."
+          "ingredients": ["100g Strawberries", "80g Blueberries", "50g Raspberries", "150g Greek yogurt", "1 tbsp Honey"],
+          "allergy_note": "Contains dairy (yogurt)."
         },
         {
           "id": "tangent-tropical", "type": "smoothie", "name": "Tangent Tropical Twist",
           "tagline": "A smooth curve of mango, banana & orange.", "price": 6.10,
           "image": "tropical.png", "badges": ["SMOOTHIE", "TROPICAL"],
-          "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
-          "allergy_note": "May contain dairy (yogurt)."
+          "ingredients": ["100g Mango chunks", "1 Ripe banana", "200ml Orange juice", "100g Yogurt", "10ml Agave syrup"],
+          "allergy_note": "Contains dairy (yogurt)."
         },
         {
           "id": "extra-whip", "type": "extras", "name": "Extra Whipped Cream",
           "tagline": "Because life is better with toppings.", "price": 0.75,
           "image": "extra-whip.jpg", "badges": ["EXTRA"],
-          "ingredients": ["50ml whipped cream"],
+          "ingredients": ["60ml Fresh whipped cream"],
           "allergy_note": "Contains dairy."
         },
         {
           "id": "syrup-shot", "type": "extras", "name": "Syrup Shot",
           "tagline": "Chocolate, strawberry or honey.", "price": 0.50,
           "image": "syrup.jpg", "badges": ["EXTRA"],
-          "ingredients": ["One 20ml syrup shot (choice of flavour)"],
+          "ingredients": ["20ml Syrup shot (choice of flavour)"],
           "allergy_note": "Check ingredients for specific syrup allergies."
         }
       ];
 
-      let productCatalog = SHAKE_DATA; // Assigned directly
+      let productCatalog = SHAKE_DATA; 
       let cart = [];
+      let discountApplied = false;
 
       // --- 2. RENDER GRID (Grouped) ---
       function getBgClass(name) {
@@ -546,7 +633,6 @@
           const container = document.getElementById('catalog-container');
           container.innerHTML = '';
 
-          // Define groups
           const groups = [
             { id: 'milkshake', title: 'Milkshakes' },
             { id: 'smoothie', title: 'Smoothies' },
@@ -554,21 +640,16 @@
           ];
 
           groups.forEach(group => {
-              // Filter products for this group
               const items = productCatalog.filter(p => p.type === group.id);
-              
               if(items.length > 0) {
-                  // Add Header
                   const sectionTitle = document.createElement('h2');
                   sectionTitle.className = 'category-title';
                   sectionTitle.innerText = group.title;
                   container.appendChild(sectionTitle);
 
-                  // Create Grid
                   const grid = document.createElement('div');
                   grid.className = 'product-grid';
 
-                  // Add Items
                   items.forEach(p => {
                       const bg = getBgClass(p.name);
                       const badge = p.badges[0] ? `<div class="badge">${p.badges[0]}</div>` : '';
@@ -595,7 +676,6 @@
                       </div>`;
                       grid.insertAdjacentHTML('beforeend', cardHTML);
                   });
-                  
                   container.appendChild(grid);
               }
           });
@@ -621,6 +701,24 @@
           updateCartUI();
       }
 
+      function applyCoupon() {
+          const codeInput = document.getElementById('coupon-code');
+          const msg = document.getElementById('coupon-msg');
+          const code = codeInput.value.toUpperCase().trim();
+
+          if(code === 'SJWMS') {
+              discountApplied = true;
+              msg.style.color = '#00aa00';
+              msg.innerText = "67% DISCOUNT APPLIED!";
+              updateCartUI();
+          } else {
+              discountApplied = false;
+              msg.style.color = 'red';
+              msg.innerText = "INVALID CODE";
+              updateCartUI();
+          }
+      }
+
       function updateCartUI() {
           const countEl = document.getElementById('cart-count');
           const itemsEl = document.getElementById('cart-items');
@@ -630,15 +728,15 @@
           
           if (cart.length === 0) {
               itemsEl.innerHTML = '<p style="color:#777; text-align:center;">Tray is empty.</p>';
-              totalEl.innerText = 'Total: £0.00';
+              totalEl.innerHTML = 'Total: £0.00';
               return;
           }
 
           let html = '';
-          let total = 0;
+          let subtotal = 0;
           
           cart.forEach((item, index) => {
-              total += item.price;
+              subtotal += item.price;
               html += `
               <div class="cart-item-row">
                   <span>${item.name}</span>
@@ -647,10 +745,20 @@
           });
 
           itemsEl.innerHTML = html;
-          totalEl.innerText = 'Total: £' + total.toFixed(2);
+
+          if (discountApplied) {
+              // 67% off means pay 33%
+              let finalTotal = subtotal * 0.33;
+              totalEl.innerHTML = `
+                <div><span class="original-price">£${subtotal.toFixed(2)}</span></div>
+                <div class="discounted-price">Total: £${finalTotal.toFixed(2)}</div>
+              `;
+          } else {
+              totalEl.innerHTML = 'Total: £' + subtotal.toFixed(2);
+          }
       }
 
-      // --- 4. GLITCH PAYMENT (BUTTON ONLY) ---
+      // --- 4. GLITCH PAYMENT (Retained) ---
       function processPayment() {
           if(cart.length === 0) return alert("Tray is empty!");
 
@@ -667,7 +775,12 @@
               btn.classList.remove('glitching');
               btn.innerText = originalText;
               btn.disabled = false;
-              cart = []; // Clear cart
+              
+              cart = []; 
+              discountApplied = false;
+              document.getElementById('coupon-code').value = '';
+              document.getElementById('coupon-msg').innerText = '';
+              
               updateCartUI();
               alert("Payment Failed... but we gave you the shakes anyway!");
           }, 3000);
@@ -708,7 +821,6 @@
       }
 
       // --- 6. INITIALIZATION ---
-      // No fetch needed. Just render.
       renderCatalog();
 
   </script>
