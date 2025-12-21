@@ -3,130 +3,361 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bishop and Co. Shakes</title>
+  <title>SJWMS Maths — Bishop and Co. Shakes</title>
 
+  <!-- Tailwind + Fonts + Icons -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-  <link rel="stylesheet" href="shakes.css"/>
+
+  <style type="text/tailwindcss">
+    :root{
+      --cream:#FFF7E8;
+      --ink:#0f172a;
+      --leaf:#0f7a4c;
+      --leaf2:#0b6a41;
+      --sun:#f4c542;
+      --straw:#ff4d8d;
+      --sky:#2ea8ff;
+    }
+
+    body { @apply font-[Lexend] text-[#0f172a] bg-[#f6f6f8]; overflow-x:hidden; }
+
+    /* SJWMS dotted background stays subtle behind */
+    .math-grid{
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    /* Keep your existing header style */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+
+    /* --- Shakes page identity --- */
+    .shakes-shell{ @apply relative pt-20 pb-16; }
+
+    .shakes-hero{
+      @apply relative overflow-hidden rounded-[2rem] border border-black/10;
+      background: radial-gradient(circle at 20% 20%, rgba(244,197,66,.35), transparent 50%),
+                  radial-gradient(circle at 80% 10%, rgba(46,168,255,.28), transparent 45%),
+                  radial-gradient(circle at 70% 80%, rgba(255,77,141,.22), transparent 55%),
+                  linear-gradient(135deg, var(--cream), #ffffff);
+      box-shadow: 0 26px 60px rgba(15,23,42,.12), 0 0 0 1px rgba(15,23,42,.06);
+    }
+
+    .hero-badge{
+      @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold tracking-wide;
+      background: rgba(15,122,76,.12);
+      border: 1px solid rgba(15,122,76,.18);
+      color: var(--leaf2);
+    }
+
+    .hero-title{
+      @apply text-4xl sm:text-5xl md:text-6xl font-black leading-tight;
+    }
+
+    .hero-slogan{
+      @apply inline-flex items-center gap-2 px-4 py-2 rounded-full font-extrabold;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(15,23,42,.08);
+      box-shadow: 0 10px 25px rgba(15,23,42,.08);
+      transform: rotate(-1deg);
+    }
+
+    .filter-bar{
+      @apply mt-8 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between;
+    }
+
+    .chip{
+      @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold
+             border border-black/10 bg-white shadow-sm hover:shadow-md transition cursor-pointer;
+    }
+    .chip.active{
+      @apply text-white;
+      background: linear-gradient(90deg, var(--leaf), var(--leaf2));
+      border-color: transparent;
+    }
+
+    .product-grid{ @apply mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6; }
+
+    .card{
+      @apply relative overflow-hidden rounded-2xl bg-white border border-black/10;
+      box-shadow: 0 14px 30px rgba(15,23,42,.10);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(15,23,42,.14);
+    }
+
+    .card-media{
+      @apply relative h-44 sm:h-48 overflow-hidden;
+      background: linear-gradient(135deg, rgba(15,122,76,.10), rgba(46,168,255,.10));
+    }
+    .card-media img{
+      @apply w-full h-full object-cover;
+      transform: scale(1.02);
+    }
+
+    .tag{
+      @apply inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-extrabold;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.80);
+      backdrop-filter: blur(8px);
+    }
+
+    .price{
+      @apply text-lg font-black;
+    }
+
+    .mini-btn{
+      @apply inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold
+             border border-black/10 bg-white hover:bg-slate-50 transition;
+    }
+    .buy-btn{
+      @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-extrabold text-white;
+      background: linear-gradient(90deg, var(--leaf), var(--leaf2));
+      box-shadow: 0 12px 25px rgba(15,122,76,.25);
+    }
+    .buy-btn:hover{ filter: brightness(.98); }
+
+    /* Modal */
+    .modal-backdrop{
+      @apply fixed inset-0 z-50 hidden items-center justify-center p-4;
+      background: rgba(2,6,23,.55);
+    }
+    .modal-backdrop.open{ @apply flex; }
+
+    .modal{
+      @apply w-full max-w-2xl rounded-2xl overflow-hidden border border-white/20;
+      background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+      backdrop-filter: blur(14px);
+      box-shadow: 0 30px 80px rgba(0,0,0,.30);
+    }
+    .modal-head{
+      @apply flex items-start justify-between gap-4 p-5 border-b border-black/10;
+    }
+    .modal-title{ @apply text-xl font-black; }
+    .modal-close{
+      @apply inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/70 border border-black/10 hover:bg-white transition;
+    }
+    .modal-body{ @apply p-5; }
+    .modal-grid{ @apply grid grid-cols-1 md:grid-cols-2 gap-4; }
+    .modal-box{
+      @apply rounded-xl border border-black/10 bg-white/70 p-4;
+    }
+    .modal-box h4{ @apply font-extrabold; }
+    .bullet{ @apply list-disc pl-5 text-sm text-slate-700 mt-2 space-y-1; }
+
+    /* Little “pop” slogans */
+    .popline{
+      @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold;
+      background: rgba(244,197,66,.22);
+      border: 1px solid rgba(244,197,66,.35);
+    }
+  </style>
 </head>
 
-<body class="shake-shell">
-  <!-- SJWMS HEADER -->
+<body>
+
+  <!-- HEADER (keep as your normal SJWMS header) -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
-        <img src="../assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
         <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
 
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="../index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="../ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="../gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="../alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="../ai_usage.html">AI Usage</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
-
-      <div id="mobileMenu" class="hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40 w-[180px]">
-        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../index.html">Home</a>
-        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../ks3_hub.html">KS3</a>
-        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../gcse_hub.html">GCSE</a>
-        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block text-center" href="../ai_usage.html">AI Usage</a>
-      </div>
+      <a href="index.html" class="md:hidden inline-flex items-center gap-2 text-sm font-semibold text-gray-700">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back
+      </a>
     </div>
   </header>
 
-  <main class="pt-16 pb-16">
+  <!-- Background (subtle) -->
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <main class="shakes-shell">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
       <!-- HERO -->
-      <section class="shake-hero mt-6">
-        <img src="media/hero.png" alt="Bishop and Co. Shakes hero" class="w-full h-[360px] sm:h-[420px] object-cover"/>
-        <div class="shake-sticker" style="left:1rem; top:1rem;">NEW • Seasonal flavours</div>
-        <div class="shake-sticker" style="right:1rem; top:1rem; transform:rotate(2deg);">Fresh • Smooth • Iconic</div>
-        <div class="shake-sticker" style="left:1rem; bottom:1rem; transform:rotate(2deg);">Bishop &amp; Co. Shakes</div>
-
-        <div class="absolute inset-0 flex items-end">
-          <div class="w-full p-6 sm:p-10">
-            <div class="inline-flex items-center gap-2 badge mb-3">
-              <span class="material-symbols-outlined text-[18px]">storefront</span>
-              A mini-site inside SJWMS Maths
-            </div>
-            <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-black leading-tight drop-shadow">
+      <section class="shakes-hero p-6 sm:p-10">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div class="max-w-2xl">
+            <div class="hero-badge">
+              <span class="material-symbols-outlined text-base">local_drink</span>
               Bishop and Co. Shakes
+            </div>
+
+            <h1 class="hero-title mt-4">
+              Milkshakes that make
+              <span class="bg-clip-text text-transparent"
+                    style="background-image:linear-gradient(90deg,var(--leaf),var(--sky),var(--straw));">
+                maths feel real
+              </span>
+              ✨
             </h1>
-            <p class="mt-3 text-white/90 max-w-2xl text-base sm:text-lg">
-              A modern shake bar with its own menu, pricing, ingredients and sustainability story.
+
+            <p class="mt-4 text-slate-700 text-base sm:text-lg">
+              Browse our fake-but-fabulous menu. Use the ingredients pop-ups to answer ratio & proportion questions in class.
             </p>
+
+            <div class="mt-5 flex flex-wrap gap-3">
+              <span class="hero-slogan">
+                <span class="material-symbols-outlined">functions</span>
+                Delicious to infinity
+              </span>
+              <span class="popline">
+                <span class="material-symbols-outlined">percent</span>
+                100% classroom-safe
+              </span>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-[420px]">
+            <div class="rounded-2xl border border-black/10 bg-white/70 p-5 shadow-sm">
+              <p class="text-xs font-extrabold tracking-[0.18em] text-slate-500 uppercase">Quick nav</p>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <a href="#menu" class="mini-btn justify-center">
+                  <span class="material-symbols-outlined text-base">storefront</span>
+                  Menu
+                </a>
+                <a href="#pricing" class="mini-btn justify-center">
+                  <span class="material-symbols-outlined text-base">payments</span>
+                  Pricing
+                </a>
+                <a href="#environment" class="mini-btn justify-center">
+                  <span class="material-symbols-outlined text-base">eco</span>
+                  Environment
+                </a>
+                <a href="#about" class="mini-btn justify-center">
+                  <span class="material-symbols-outlined text-base">info</span>
+                  About
+                </a>
+              </div>
+              <p class="mt-3 text-xs text-slate-600">
+                Teacher note: this page is “realistic” on purpose — no questions shown here.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- MINI-SITE NAV -->
-      <div data-shake-nav class="shake-nav mt-6 p-2 flex flex-wrap justify-center gap-2">
-        <a href="index.html"><span class="material-symbols-outlined text-base">home</span>Home</a>
-        <a href="drinks.html"><span class="material-symbols-outlined text-base">local_cafe</span>Drinks</a>
-        <a href="pricing.html"><span class="material-symbols-outlined text-base">receipt_long</span>Pricing</a>
-        <a href="ingredients.html"><span class="material-symbols-outlined text-base">menu_book</span>Ingredients</a>
-        <a href="environment.html"><span class="material-symbols-outlined text-base">eco</span>Environment</a>
-      </div>
-
-      <!-- HOME SECTIONS -->
-      <section class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="shake-card p-6 lg:col-span-2">
-          <h2 class="text-2xl font-black text-gray-900">Welcome to Bishop &amp; Co.</h2>
-          <p class="mt-2 text-gray-700">
-            This page is the front door. Use the navigation above to explore the full menu, pricing,
-            ingredients, and our sustainability commitments — just like a real brand site.
-          </p>
-
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="drinks.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-extrabold text-white"
-               style="background:linear-gradient(90deg,#0F7A4A,#22C55E); box-shadow:0 16px 26px rgba(34,197,94,.18);">
-              <span class="material-symbols-outlined">local_cafe</span>
-              Explore drinks
-            </a>
-            <a href="pricing.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-extrabold bg-gray-900 text-white hover:bg-gray-800 transition">
-              <span class="material-symbols-outlined">receipt_long</span>
-              View pricing
-            </a>
-          </div>
-        </div>
-
-        <div class="shake-card p-6">
-          <p class="text-sm font-black tracking-wide text-gray-900 uppercase">Featured</p>
-          <p class="mt-2 text-xl font-black text-gray-900">Pi-neapple Perfection</p>
-          <p class="mt-2 text-sm text-gray-700">A signature swirl that keeps the vibes tropical.</p>
-          <div class="mt-4 media-frame h-40">
-            <img src="media/pineapple.png" alt="Pi-neapple Perfection"/>
-          </div>
-          <a href="ingredients.html" class="mt-4 inline-flex items-center gap-2 font-extrabold text-sm text-emerald-700 hover:text-emerald-800">
-            See ingredients <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="mt-8 shake-card p-6 sm:p-8">
-        <div class="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p class="text-sm font-black tracking-wide uppercase text-gray-500">Slogans</p>
-            <h3 class="text-2xl font-black text-gray-900 mt-1">Designed to feel like a real brand</h3>
-            <p class="mt-2 text-gray-700 max-w-3xl">
-              “Rooted in freshness.” “Delicious to infinity.” “No need to round up.”  
-              Bishop &amp; Co. keeps it playful, bold and modern.
-            </p>
-          </div>
+      <!-- FILTER / SORT BAR -->
+      <section id="menu" class="mt-10">
+        <div class="filter-bar">
           <div class="flex flex-wrap gap-2">
-            <span class="badge"><span class="material-symbols-outlined text-[18px]">percent</span>100% delicious</span>
-            <span class="badge"><span class="material-symbols-outlined text-[18px]">change_history</span>Tastes infinite</span>
-            <span class="badge"><span class="material-symbols-outlined text-[18px]">functions</span>Built different</span>
+            <button class="chip active" data-filter="all">
+              <span class="material-symbols-outlined text-base">grid_view</span>
+              All
+            </button>
+            <button class="chip" data-filter="milkshake">
+              <span class="material-symbols-outlined text-base">local_cafe</span>
+              Milkshakes
+            </button>
+            <button class="chip" data-filter="smoothie">
+              <span class="material-symbols-outlined text-base">spa</span>
+              Smoothies
+            </button>
+            <button class="chip" data-filter="extras">
+              <span class="material-symbols-outlined text-base">add_circle</span>
+              Extras
+            </button>
           </div>
+
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input id="searchBox" type="text" placeholder="Search drinks…"
+                   class="w-full sm:w-[260px] rounded-full border border-black/10 bg-white px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10"/>
+            <select id="sortSelect"
+                    class="w-full sm:w-[220px] rounded-full border border-black/10 bg-white px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10">
+              <option value="featured">Sort: Featured</option>
+              <option value="priceAsc">Sort: Price (low → high)</option>
+              <option value="priceDesc">Sort: Price (high → low)</option>
+              <option value="nameAsc">Sort: Name (A → Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- PRODUCTS RENDER HERE -->
+        <div id="productGrid" class="product-grid"></div>
+
+        <p id="noResults" class="mt-8 text-sm text-slate-600 hidden">
+          No drinks match that search/filter yet.
+        </p>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing" class="mt-14">
+        <div class="rounded-2xl bg-white border border-black/10 p-6 shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">payments</span>
+            <h2 class="text-xl font-black">Pricing</h2>
+          </div>
+          <p class="text-sm text-slate-600 mt-2">
+            Prices are part of the activity — they’re designed to make ratio & proportion questions feel “real”.
+          </p>
+          <div id="pricingTable" class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+      </section>
+
+      <!-- ENVIRONMENT -->
+      <section id="environment" class="mt-14">
+        <div class="rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm">
+          <div class="p-6">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined" style="color:var(--leaf);">eco</span>
+              <h2 class="text-xl font-black">Our commitment to the environment</h2>
+            </div>
+            <p class="text-sm text-slate-700 mt-2 max-w-3xl">
+              Bishop and Co. is fictional — but the sustainability ideas are real. This section supports
+              percentage change, unit pricing, and “best value” comparisons.
+            </p>
+
+            <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="rounded-xl border border-black/10 p-4 bg-white">
+                <p class="font-extrabold">Reusable cups</p>
+                <p class="text-sm text-slate-600 mt-1">Compare discounts and savings over time.</p>
+              </div>
+              <div class="rounded-xl border border-black/10 p-4 bg-white">
+                <p class="font-extrabold">Local ingredients</p>
+                <p class="text-sm text-slate-600 mt-1">Explore proportions in recipes and scaling batches.</p>
+              </div>
+              <div class="rounded-xl border border-black/10 p-4 bg-white">
+                <p class="font-extrabold">Waste tracking</p>
+                <p class="text-sm text-slate-600 mt-1">Use percentages and averages to reduce waste.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="mt-14">
+        <div class="rounded-2xl bg-white border border-black/10 p-6 shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">info</span>
+            <h2 class="text-xl font-black">About this page</h2>
+          </div>
+          <p class="text-sm text-slate-700 mt-2 max-w-3xl">
+            This is a “website inside the website” used for immersive maths. Students browse the menu, use ingredients pop-ups,
+            and apply ratio/proportion/percentages elsewhere in the lesson materials.
+          </p>
         </div>
       </section>
 
@@ -134,9 +365,244 @@
     </div>
   </main>
 
+  <!-- INGREDIENTS MODAL -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div>
+          <p class="text-xs font-extrabold tracking-[0.18em] text-slate-500 uppercase">Ingredients</p>
+          <h3 id="modalTitle" class="modal-title">Title</h3>
+          <p id="modalSubtitle" class="text-sm text-slate-600 mt-1">Subtitle</p>
+        </div>
+        <button id="modalClose" class="modal-close" aria-label="Close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-box">
+            <h4>What’s in it</h4>
+            <ul id="modalIngredients" class="bullet"></ul>
+          </div>
+          <div class="modal-box">
+            <h4>Allergy notice</h4>
+            <p id="modalAllergy" class="text-sm text-slate-700 mt-2">
+              —
+            </p>
+            <div class="mt-3 rounded-lg border border-black/10 bg-white p-3">
+              <p class="text-xs font-extrabold tracking-[0.18em] text-slate-500 uppercase">Maths hint</p>
+              <p id="modalMathsHint" class="text-sm text-slate-700 mt-1">—</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 flex justify-end">
+          <button id="modalOk" class="buy-btn">
+            <span class="material-symbols-outlined text-base">done</span>
+            Back to menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div id="footer-slot"></div>
-  <script src="../assets/footer-loader.js" defer></script>
-  <script src="shakes.js" defer></script>
+  <script src="assets/footer-loader.js" defer></script>
+
+  <!-- PAGE JS (JSON-driven) -->
+  <script>
+    (function(){
+      const DATA_URL = "assets/data/extra_shakes.json"; // place JSON here
+
+      const grid = document.getElementById("productGrid");
+      const noResults = document.getElementById("noResults");
+      const pricingTable = document.getElementById("pricingTable");
+
+      const filterBtns = Array.from(document.querySelectorAll("[data-filter]"));
+      const searchBox = document.getElementById("searchBox");
+      const sortSelect = document.getElementById("sortSelect");
+
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const modalClose = document.getElementById("modalClose");
+      const modalOk = document.getElementById("modalOk");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalSubtitle = document.getElementById("modalSubtitle");
+      const modalIngredients = document.getElementById("modalIngredients");
+      const modalAllergy = document.getElementById("modalAllergy");
+      const modalMathsHint = document.getElementById("modalMathsHint");
+
+      let ALL = [];
+      let state = { filter:"all", q:"", sort:"featured" };
+
+      function money(n){
+        const v = Number(n);
+        if (Number.isNaN(v)) return "";
+        return "£" + v.toFixed(2);
+      }
+
+      function normalize(s){ return (s||"").toLowerCase().trim(); }
+
+      function setActiveFilter(id){
+        state.filter = id;
+        filterBtns.forEach(b => b.classList.toggle("active", b.dataset.filter === id));
+        render();
+      }
+
+      function openModal(item){
+        modalTitle.textContent = item.name || "Ingredients";
+        modalSubtitle.textContent = item.tagline || "";
+        modalIngredients.innerHTML = "";
+        (item.ingredients || []).forEach(x=>{
+          const li = document.createElement("li");
+          li.textContent = x;
+          modalIngredients.appendChild(li);
+        });
+        modalAllergy.textContent = item.allergy_note || "Please inform staff of dietary restrictions or allergies.";
+        modalMathsHint.textContent = item.maths_hint || "Use ratios and proportions to compare ingredients or scale recipes.";
+        modalBackdrop.classList.add("open");
+        modalBackdrop.setAttribute("aria-hidden","false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(){
+        modalBackdrop.classList.remove("open");
+        modalBackdrop.setAttribute("aria-hidden","true");
+        document.body.style.overflow = "";
+      }
+
+      modalClose?.addEventListener("click", closeModal);
+      modalOk?.addEventListener("click", closeModal);
+      modalBackdrop?.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+      document.addEventListener("keydown",(e)=>{ if(e.key==="Escape" && modalBackdrop.classList.contains("open")) closeModal(); });
+
+      function cardHTML(item){
+        const badges = (item.badges || []).slice(0,3).map(b=>`<span class="tag">${b}</span>`).join("");
+        const img = item.image ? `extra_shakes/media/${item.image}` : "";
+        return `
+          <article class="card">
+            <div class="card-media">
+              ${img ? `<img src="${img}" alt="${item.name || "Drink"}" loading="lazy">` : ""}
+              <div class="absolute top-3 left-3 flex flex-wrap gap-2">${badges}</div>
+              <div class="absolute top-3 right-3 tag">${item.type || ""}</div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-lg font-black leading-snug">${item.name || "Untitled"}</h3>
+                  <p class="text-sm text-slate-600 mt-1">${item.tagline || ""}</p>
+                </div>
+                <div class="price">${money(item.price)}</div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button class="mini-btn" data-ingredients="${item.id}">
+                  <span class="material-symbols-outlined text-base">receipt_long</span>
+                  Ingredients
+                </button>
+                <a class="buy-btn flex-1" href="#pricing" aria-label="View pricing">
+                  <span class="material-symbols-outlined text-base">shopping_bag</span>
+                  View pricing
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function pricingBoxHTML(group){
+        const rows = (group.items || []).map(it=>`
+          <div class="flex items-center justify-between gap-4 py-2 border-b border-black/5 last:border-b-0">
+            <span class="font-semibold text-slate-800">${it.name}</span>
+            <span class="font-black">${money(it.price)}</span>
+          </div>
+        `).join("");
+        return `
+          <div class="rounded-xl border border-black/10 bg-white p-4">
+            <p class="text-xs font-extrabold tracking-[0.18em] text-slate-500 uppercase">${group.title}</p>
+            <div class="mt-2">${rows}</div>
+          </div>
+        `;
+      }
+
+      function applySort(list){
+        const s = state.sort;
+        const copy = list.slice();
+        if(s === "priceAsc") copy.sort((a,b)=>(a.price||0)-(b.price||0));
+        else if(s === "priceDesc") copy.sort((a,b)=>(b.price||0)-(a.price||0));
+        else if(s === "nameAsc") copy.sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));
+        // "featured" = keep JSON order
+        return copy;
+      }
+
+      function render(){
+        if(!grid) return;
+        const q = normalize(state.q);
+
+        let list = ALL.slice();
+
+        if(state.filter !== "all"){
+          list = list.filter(x => normalize(x.type) === normalize(state.filter));
+        }
+
+        if(q){
+          list = list.filter(x => {
+            const hay = [
+              x.name, x.tagline, x.type,
+              ...(x.badges||[]),
+              ...(x.ingredients||[])
+            ].map(normalize).join(" ");
+            return hay.includes(q);
+          });
+        }
+
+        list = applySort(list);
+
+        grid.innerHTML = list.map(cardHTML).join("");
+        noResults?.classList.toggle("hidden", list.length > 0);
+
+        // wire ingredients buttons
+        grid.querySelectorAll("[data-ingredients]").forEach(btn=>{
+          btn.addEventListener("click", ()=>{
+            const id = btn.getAttribute("data-ingredients");
+            const item = ALL.find(x => String(x.id) === String(id));
+            if(item) openModal(item);
+          });
+        });
+      }
+
+      function renderPricing(groups){
+        if(!pricingTable) return;
+        pricingTable.innerHTML = (groups || []).map(pricingBoxHTML).join("");
+      }
+
+      filterBtns.forEach(b=>{
+        b.addEventListener("click", ()=> setActiveFilter(b.dataset.filter));
+      });
+
+      searchBox?.addEventListener("input", ()=>{
+        state.q = searchBox.value || "";
+        render();
+      });
+
+      sortSelect?.addEventListener("change", ()=>{
+        state.sort = sortSelect.value || "featured";
+        render();
+      });
+
+      async function init(){
+        const data = await fetch(DATA_URL, {cache:"no-store"})
+          .then(r=>r.json())
+          .catch(()=>({products:[], pricing_groups:[]}));
+
+        ALL = Array.isArray(data.products) ? data.products : [];
+        renderPricing(data.pricing_groups || []);
+        render();
+      }
+
+      init();
+    })();
+  </script>
 </body>
 </html>
