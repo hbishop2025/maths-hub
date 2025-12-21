@@ -1,725 +1,691 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BISHOP & CO. | The Creamy Calculation</title>
-    <style>
-        :root {
-            /* Brand Colors */
-            --brand-primary: #000;
-            --brand-accent: #ff4e00; /* Energetic Orange */
-            --brand-bg: #f9f9f9;
-            --card-bg: #fff;
-            
-            /* Main Site (Index) Colors for Header/Footer */
-            --header-bg: #1a1a1a;
-            --header-text: #ffffff;
-            --footer-bg: #111;
-        }
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Bishop & Co. Shakes</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--brand-bg);
-            color: var(--brand-primary);
-            line-height: 1.6;
-            position: relative; /* For overlays */
-        }
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-        /* --- 1. MAIN SITE HEADER (Mimicking Index.html) --- */
-        header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--brand-accent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-        .site-logo {
-            font-weight: 700;
-            font-size: 20px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+    /* Dotted paper background */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
 
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
 
-        nav a {
-            text-decoration: none;
-            color: #ccc;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+  </style>
 
-        nav a:hover { color: var(--brand-accent); }
+  <style>
+      :root {
+          /* Brand Colors */
+          --brand-primary: #000;
+          --brand-accent: #ff4e00; 
+          --card-bg: #fff;
+      }
 
-        /* --- 2. HERO & BRANDING SECTION --- */
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-        }
+      /* --- HERO & BRANDING SECTION --- */
+      .hero {
+          text-align: center;
+          padding: 80px 20px 40px;
+          border-bottom: 1px solid #e5e7eb;
+          background: rgba(255,255,255,0.5);
+      }
 
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 1;
-        }
+      .hero h1 {
+          font-size: 56px;
+          font-weight: 900;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: -2px;
+          line-height: 1;
+      }
 
-        .hero p {
-            font-size: 20px;
-            color: #555;
-            margin-bottom: 20px;
-        }
+      .hero p {
+          font-size: 20px;
+          color: #555;
+          margin-bottom: 20px;
+      }
 
-        /* --- 3. FILTER & GRID --- */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+      /* --- FILTER & GRID --- */
+      .container-custom {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 40px 20px;
+      }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 80px;
-        }
+      .product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 30px;
+          margin-bottom: 80px;
+      }
 
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-        }
+      .product-card {
+          background: var(--card-bg);
+          border-radius: 8px;
+          overflow: hidden;
+          transition: transform 0.3s ease;
+          position: relative;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+          display: flex;
+          flex-direction: column;
+          border: 1px solid #eee;
+      }
 
-        .product-card:hover { transform: translateY(-5px); }
+      .product-card:hover { transform: translateY(-5px); }
 
-        .badge {
-            position: absolute;
-            top: 10px; left: 10px;
-            background-color: var(--brand-accent);
-            color: white;
-            padding: 5px 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 2px;
-            z-index: 2;
-        }
+      .badge {
+          position: absolute;
+          top: 10px; left: 10px;
+          background-color: var(--brand-accent);
+          color: white;
+          padding: 5px 10px;
+          font-size: 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+          border-radius: 2px;
+          z-index: 2;
+      }
 
-        .product-image {
-            width: 100%;
-            height: 280px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+      .product-image {
+          width: 100%;
+          height: 280px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+      }
 
-        /* Dynamic Backgrounds */
-        .bg-vanilla { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
-        .bg-choc { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
-        .bg-fruit { background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); }
-        .bg-berry { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+      /* Dynamic Backgrounds */
+      .bg-vanilla { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+      .bg-choc { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+      .bg-fruit { background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); }
+      .bg-berry { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
 
-        .product-info {
-            padding: 20px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+      .product-info {
+          padding: 20px;
+          text-align: center;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+      }
 
-        .product-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
-        .product-tagline { font-size: 13px; color: #777; margin-bottom: 10px; font-style: italic; }
-        .price { font-size: 18px; font-weight: 900; color: #000; display: block; margin-bottom: 10px;}
+      .product-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
+      .product-tagline { font-size: 13px; color: #777; margin-bottom: 10px; font-style: italic; }
+      .price { font-size: 18px; font-weight: 900; color: #000; display: block; margin-bottom: 10px;}
 
-        .maths-hint {
-            background: #f0f8ff;
-            color: #0056b3;
-            font-size: 11px;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            text-align: left;
-            border-left: 3px solid #0056b3;
-        }
+      .maths-hint {
+          background: #f0f8ff;
+          color: #0056b3;
+          font-size: 11px;
+          padding: 8px;
+          border-radius: 4px;
+          margin-bottom: 15px;
+          text-align: left;
+          border-left: 3px solid #0056b3;
+      }
 
-        /* Buttons in Card */
-        .btn-group { display: flex; gap: 10px; }
-        
-        .btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
-        }
+      /* Buttons in Card */
+      .btn-group { display: flex; gap: 10px; }
+      
+      .btn {
+          flex: 1;
+          padding: 10px;
+          border: none;
+          font-weight: bold;
+          text-transform: uppercase;
+          cursor: pointer;
+          font-size: 12px;
+          transition: 0.2s;
+      }
 
-        .btn-primary { background: var(--brand-primary); color: white; }
-        .btn-primary:hover { background: var(--brand-accent); }
+      .btn-primary { background: var(--brand-primary); color: white; }
+      .btn-primary:hover { background: var(--brand-accent); }
 
-        .btn-outline { background: transparent; border: 1px solid #ccc; color: #333; }
-        .btn-outline:hover { border-color: #000; color: #000; }
+      .btn-outline { background: transparent; border: 1px solid #ccc; color: #333; }
+      .btn-outline:hover { border-color: #000; color: #000; }
 
-        /* --- 4. FLOATING CART (Bottom Left) --- */
-        .cart-float-container {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 2000;
-            font-family: var(--font-family);
-        }
+      /* --- FLOATING CART (Bottom Left) --- */
+      .cart-float-container {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          z-index: 2000;
+          font-family: 'Lexend', sans-serif;
+      }
 
-        .cart-toggle-btn {
-            background-color: var(--brand-accent);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            border: none;
-            position: relative;
-        }
+      .cart-toggle-btn {
+          background-color: var(--brand-accent);
+          color: white;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          cursor: pointer;
+          border: none;
+          position: relative;
+      }
 
-        .cart-count-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: black;
-            color: white;
-            font-size: 12px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      .cart-count-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background: black;
+          color: white;
+          font-size: 12px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
 
-        .cart-panel {
-            position: absolute;
-            bottom: 80px;
-            left: 0;
-            width: 300px;
-            background: white;
-            border: 2px solid #000;
-            border-radius: 8px;
-            padding: 15px;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
+      .cart-panel {
+          position: absolute;
+          bottom: 80px;
+          left: 0;
+          width: 300px;
+          background: white;
+          border: 2px solid #000;
+          border-radius: 8px;
+          padding: 15px;
+          display: none; /* Hidden by default */
+          flex-direction: column;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      }
 
-        .cart-panel.open { display: flex; }
+      .cart-panel.open { display: flex; }
 
-        .cart-header { font-weight: 900; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; display: flex; justify-content: space-between;}
-        
-        .cart-items { max-height: 200px; overflow-y: auto; font-size: 13px; }
-        .cart-item-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted #eee; padding-bottom: 5px; }
-        .remove-item { color: red; cursor: pointer; margin-left: 10px; font-weight: bold; }
+      .cart-header { font-weight: 900; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; display: flex; justify-content: space-between;}
+      
+      .cart-items { max-height: 200px; overflow-y: auto; font-size: 13px; }
+      .cart-item-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted #eee; padding-bottom: 5px; }
+      .remove-item { color: red; cursor: pointer; margin-left: 10px; font-weight: bold; }
 
-        .cart-total { margin-top: 10px; padding-top: 10px; border-top: 2px solid #000; font-weight: bold; text-align: right; }
+      .cart-total { margin-top: 10px; padding-top: 10px; border-top: 2px solid #000; font-weight: bold; text-align: right; }
 
-        .pay-btn {
-            background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px;
-            font-weight: bold; cursor: pointer; text-transform: uppercase;
-        }
-        .pay-btn:hover { background: var(--brand-accent); }
+      .pay-btn {
+          background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px;
+          font-weight: bold; cursor: pointer; text-transform: uppercase;
+      }
+      .pay-btn:hover { background: var(--brand-accent); }
 
-        /* --- 5. INGREDIENTS MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 3000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
+      /* --- INGREDIENTS MODAL --- */
+      .modal-overlay {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.7);
+          z-index: 3000;
+          display: none;
+          align-items: center;
+          justify-content: center;
+      }
 
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-        }
+      .modal-content {
+          background: white;
+          padding: 30px;
+          border-radius: 8px;
+          max-width: 500px;
+          width: 90%;
+          position: relative;
+      }
 
-        .modal-close {
-            position: absolute; top: 10px; right: 15px;
-            font-size: 24px; cursor: pointer;
-        }
+      .modal-close {
+          position: absolute; top: 10px; right: 15px;
+          font-size: 24px; cursor: pointer;
+      }
 
-        .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 15px; color: var(--brand-accent); }
-        .ingredient-list li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+      .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 15px; color: var(--brand-accent); }
+      .ingredient-list li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
 
-        /* --- 6. GLITCH EFFECT (Full Screen) --- */
-        .glitch-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000;
-            z-index: 9999;
-            display: none; /* Hidden */
-            align-items: center;
-            justify-content: center;
-            color: #0f0;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 2rem;
-            flex-direction: column;
-            overflow: hidden;
-        }
+      /* --- GLITCH EFFECT (Full Screen) --- */
+      .glitch-overlay {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          background: #000;
+          z-index: 9999;
+          display: none; /* Hidden */
+          align-items: center;
+          justify-content: center;
+          color: #0f0;
+          font-family: 'Courier New', Courier, monospace;
+          font-size: 2rem;
+          flex-direction: column;
+          overflow: hidden;
+      }
 
-        .glitch-text {
-            position: relative;
-            animation: glitch-anim 0.3s infinite;
-        }
+      .glitch-text {
+          position: relative;
+          animation: glitch-anim 0.3s infinite;
+      }
+      
+      .env-section {
+          background: #e9f5e9;
+          padding: 60px 20px;
+          text-align: center;
+          border-top: 1px solid #ccc;
+          margin-top: 40px;
+      }
 
-        /* Environment Section */
-        .env-section {
-            background: #e9f5e9;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid #ccc;
-        }
-
-        /* MAIN SITE FOOTER */
-        footer {
-            background-color: var(--footer-bg);
-            color: white;
-            padding: 60px 40px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 40px;
-        }
-        .footer-col h4 { text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
-        .footer-col ul { list-style: none; }
-        .footer-col li { color: #aaa; margin-bottom: 8px; font-size: 14px; cursor: pointer; }
-        .footer-col li:hover { color: white; }
-
-        /* ANIMATIONS */
-        @keyframes glitch-anim {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            header { padding: 15px 20px; }
-            nav ul { display: none; } /* Simplified mobile nav */
-        }
-    </style>
+      @keyframes glitch-anim {
+          0% { transform: translate(0) }
+          20% { transform: translate(-2px, 2px) }
+          40% { transform: translate(-2px, -2px) }
+          60% { transform: translate(2px, 2px) }
+          80% { transform: translate(2px, -2px) }
+          100% { transform: translate(0) }
+      }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="site-logo">MATHS BISHOP</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Curriculum</a></li>
-                <li><a href="#">Resources</a></li>
-                <li><a href="#" style="color:white; border-bottom: 2px solid var(--brand-accent);">Shop</a></li>
-            </ul>
-        </nav>
-        <div style="font-size: 14px; color: #999;">Logged in: Student_01</div>
-    </header>
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
 
-    <section class="hero">
-        <h1>BISHOP & CO. SHAKES</h1>
-        <p>Fuel your brain. Calculate the taste.</p>
-    </section>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-[#135bec]" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
+           href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
 
-    <div class="container">
-        <div class="product-grid" id="product-grid">
-            </div>
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
     </div>
+  </header>
 
-    <section class="env-section">
-        <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 20px;">Zero Impact. Infinite Flavor.</h2>
-        <p style="max-width: 700px; margin: 0 auto;">
-            Our cups are biodegradable, and our ingredients are locally sourced to ensure the lowest carbon integer possible. 
-            We calculate our emissions so you don't have to.
-        </p>
-    </section>
+  <div class="absolute inset-0 math-grid pointer-events-none fixed"></div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Maths Bishop</h4>
-                <ul>
-                    <li>About Us</li>
-                    <li>The Methodology</li>
-                    <li>School Partnerships</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Support</h4>
-                <ul>
-                    <li>Student Login Help</li>
-                    <li>Curriculum Guide</li>
-                    <li>Contact Faculty</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Legal</h4>
-                <ul>
-                    <li>Privacy Policy</li>
-                    <li>Terms of Education</li>
-                </ul>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; font-size: 12px; color: #555;">
-            &copy; 2025 Maths Bishop. All rights reserved.
-        </div>
-    </footer>
+  <main class="relative pt-16">
+      
+      <section class="hero">
+          <h1>BISHOP & CO. SHAKES</h1>
+          <p>Fuel your brain. Calculate the taste.</p>
+      </section>
 
-    <div class="cart-float-container">
-        <div class="cart-panel" id="cart-panel">
-            <div class="cart-header">
-                <span>Your Tray</span>
-                <span style="cursor: pointer;" onclick="toggleCart()">✕</span>
-            </div>
-            <div class="cart-items" id="cart-items">
-                <p style="color:#777; text-align:center; padding: 10px;">Tray is empty.</p>
-            </div>
-            <div class="cart-total" id="cart-total">Total: £0.00</div>
-            <button class="pay-btn" onclick="processPayment()">PAY NOW</button>
-        </div>
-        <button class="cart-toggle-btn" onclick="toggleCart()">
-            🛒
-            <div class="cart-count-badge" id="cart-count">0</div>
-        </button>
-    </div>
+      <div class="container-custom">
+          <div class="product-grid" id="product-grid">
+              </div>
+      </div>
 
-    <div class="modal-overlay" id="ing-modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title" id="modal-title">Ingredients</h3>
-            <ul id="modal-list" class="ingredient-list">
-                </ul>
-            <p id="modal-allergy" style="margin-top: 15px; font-size: 12px; color: red; font-weight: bold;"></p>
-        </div>
-    </div>
+      <section class="env-section">
+          <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 20px;">Zero Impact. Infinite Flavor.</h2>
+          <p style="max-width: 700px; margin: 0 auto; color:#555;">
+              Our cups are biodegradable, and our ingredients are locally sourced to ensure the lowest carbon integer possible. 
+              We calculate our emissions so you don't have to.
+          </p>
+      </section>
 
-    <div class="glitch-overlay" id="glitch-layer">
-        <div class="glitch-text">PROCESSING PAYMENT...</div>
-        <div class="glitch-text" style="font-size: 1rem; margin-top: 20px;">ENCRYPTING DATA...</div>
-        <div class="glitch-text" style="color: red; font-size: 3rem; margin-top: 20px;">SYSTEM OVERLOAD</div>
-    </div>
+  </main>
 
-    <script>
-        // --- 1. DATA SETUP (Fallback + Fetch) ---
-        const fallbackData = {
-          "products": [
-            {
-              "id": "classic-shake",
-              "type": "milkshake",
-              "name": "The Classic Shake",
-              "tagline": "A classic vanilla blend that’s simply value.",
-              "price": 5.50,
-              "image": "classic.png",
-              "badges": ["FAN FAVE", "VANILLA"],
-              "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
-              "allergy_note": "Contains dairy.",
-              "maths_hint": "Scale the recipe for 2, 3 or 5 servings using ratio."
-            },
-            {
-              "id": "alge-brrr",
-              "type": "milkshake",
-              "name": "Alge-brrr Triple Chocolate Shake",
-              "tagline": "Add rich chocolate, subtract brain freeze, multiply the fun.",
-              "price": 6.25,
-              "image": "choc.png",
-              "badges": ["NEW", "CHOCOLATE"],
-              "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
-              "allergy_note": "Contains dairy.",
-              "maths_hint": "Compare ingredient proportions: what fraction is syrup vs milk?"
-            },
-            {
-              "id": "pi-neapple",
-              "type": "milkshake",
-              "name": "The Pi-neapple Perfection",
-              "tagline": "A never-ending swirl of pineapple and vanilla.",
-              "price": 5.75,
-              "image": "pineapple.png",
-              "badges": ["LIMITLESS", "TROPICAL"],
-              "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
-              "allergy_note": "Contains dairy.",
-              "maths_hint": "Convert between ml and litres, then compare ratios."
-            },
-            {
-              "id": "fraction-frenzy",
-              "type": "milkshake",
-              "name": "Fraction Frenzy Strawberry Swirl",
-              "tagline": "Half strawberry, half vanilla, 100% delicious.",
-              "price": 5.95,
-              "image": "strawberry.png",
-              "badges": ["HALF & HALF", "BERRY"],
-              "ingredients": ["150g strawberry ice cream", "150g vanilla ice cream", "100ml milk", "50ml strawberry syrup"],
-              "allergy_note": "Contains dairy.",
-              "maths_hint": "Use fractions to split ingredients evenly between friends."
-            },
-            {
-              "id": "sqrt-berry",
-              "type": "smoothie",
-              "name": "Square Root Berry Blast",
-              "tagline": "A radical mix of berries for an exponentially good refreshment.",
-              "price": 5.95,
-              "image": "berry.png",
-              "badges": ["SMOOTHIE", "FRESH"],
-              "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
-              "allergy_note": "May contain dairy (yogurt).",
-              "maths_hint": "Work out best value: cost per 100g of fruit."
-            },
-            {
-              "id": "tangent-tropical",
-              "type": "smoothie",
-              "name": "Tangent Tropical Twist",
-              "tagline": "A smooth curve of mango, banana & orange — off the chart!",
-              "price": 6.10,
-              "image": "tropical.png",
-              "badges": ["SMOOTHIE", "TROPICAL"],
-              "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
-              "allergy_note": "May contain dairy (yogurt).",
-              "maths_hint": "Use percentages to adjust fruit mix (e.g., 60% mango)."
-            },
-            {
-              "id": "extra-whip",
-              "type": "extras",
-              "name": "Extra Whipped Cream",
-              "tagline": "Because maths is better with toppings.",
-              "price": 0.75,
-              "image": "extra-whip.jpg",
-              "badges": ["EXTRA"],
-              "ingredients": ["50ml whipped cream"],
-              "allergy_note": "Contains dairy.",
-              "maths_hint": "Add-ons are perfect for total-cost and percentage increase questions."
-            },
-            {
-              "id": "syrup-shot",
-              "type": "extras",
-              "name": "Syrup Shot",
-              "tagline": "Chocolate, strawberry or honey.",
-              "price": 0.50,
-              "image": "syrup.jpg",
-              "badges": ["EXTRA"],
-              "ingredients": ["One 20ml syrup shot (choice of flavour)"],
-              "allergy_note": "Check ingredients for specific syrup allergies.",
-              "maths_hint": "Work out totals with multiple add-ons."
-            }
-          ]
-        };
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
 
-        let productCatalog = [];
-        let cart = [];
+  <div class="cart-float-container">
+      <div class="cart-panel" id="cart-panel">
+          <div class="cart-header">
+              <span>Your Tray</span>
+              <span style="cursor: pointer;" onclick="toggleCart()">✕</span>
+          </div>
+          <div class="cart-items" id="cart-items">
+              <p style="color:#777; text-align:center; padding: 10px;">Tray is empty.</p>
+          </div>
+          <div class="cart-total" id="cart-total">Total: £0.00</div>
+          <button class="pay-btn" onclick="processPayment()">PAY NOW</button>
+      </div>
+      <button class="cart-toggle-btn" onclick="toggleCart()">
+          🛒
+          <div class="cart-count-badge" id="cart-count">0</div>
+      </button>
+  </div>
 
-        async function init() {
-            try {
-                const response = await fetch('assets/data/bishop_shakes.json');
-                if (!response.ok) throw new Error("File not found");
-                const data = await response.json();
-                productCatalog = data.products;
-            } catch (e) {
-                console.log("Using fallback data");
-                productCatalog = fallbackData.products;
-            }
-            renderGrid();
-        }
+  <div class="modal-overlay" id="ing-modal">
+      <div class="modal-content">
+          <span class="modal-close" onclick="closeModal()">&times;</span>
+          <h3 class="modal-title" id="modal-title">Ingredients</h3>
+          <ul id="modal-list" class="ingredient-list">
+              </ul>
+          <p id="modal-allergy" style="margin-top: 15px; font-size: 12px; color: red; font-weight: bold;"></p>
+      </div>
+  </div>
 
-        // --- 2. RENDER GRID ---
-        function getBgClass(name) {
-            const n = name.toLowerCase();
-            if(n.includes('chocolate') || n.includes('syrup')) return 'bg-choc';
-            if(n.includes('berry') || n.includes('strawberry')) return 'bg-berry';
-            if(n.includes('tropical') || n.includes('pineapple') || n.includes('banana')) return 'bg-fruit';
-            return 'bg-vanilla';
-        }
+  <div class="glitch-overlay" id="glitch-layer">
+      <div class="glitch-text">PROCESSING PAYMENT...</div>
+      <div class="glitch-text" style="font-size: 1rem; margin-top: 20px;">ENCRYPTING DATA...</div>
+      <div class="glitch-text" style="color: red; font-size: 3rem; margin-top: 20px;">SYSTEM OVERLOAD</div>
+  </div>
 
-        function renderGrid() {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
-            productCatalog.forEach(p => {
-                const bg = getBgClass(p.name);
-                const badge = p.badges[0] ? `<div class="badge">${p.badges[0]}</div>` : '';
-                
-                const card = `
-                <div class="product-card">
-                    ${badge}
-                    <div class="product-image ${bg}">
-                        <img src="https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}" 
-                             style="mix-blend-mode: multiply; opacity: 0.6; width:70%;" alt="${p.name}">
-                    </div>
-                    <div class="product-info">
-                        <div>
-                            <h3 class="product-title">${p.name}</h3>
-                            <p class="product-tagline">${p.tagline}</p>
-                            ${p.maths_hint ? `<div class="maths-hint">🧠 ${p.maths_hint}</div>` : ''}
-                            <span class="price">£${p.price.toFixed(2)}</span>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-outline" onclick="openIngredients('${p.id}')">Ingredients</button>
-                            <button class="btn btn-primary" onclick="addToCart('${p.id}')">Add to Tray</button>
-                        </div>
-                    </div>
-                </div>`;
-                grid.insertAdjacentHTML('beforeend', card);
-            });
-        }
+  <script>
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
 
-        // --- 3. CART LOGIC ---
-        function toggleCart() {
-            const panel = document.getElementById('cart-panel');
-            panel.classList.toggle('open');
-        }
+  <script>
+      // --- 1. DATA SETUP (Fallback + Fetch) ---
+      const fallbackData = {
+        "products": [
+          {
+            "id": "classic-shake",
+            "type": "milkshake",
+            "name": "The Classic Shake",
+            "tagline": "A classic vanilla blend that’s simply value.",
+            "price": 5.50,
+            "image": "classic.png",
+            "badges": ["FAN FAVE", "VANILLA"],
+            "ingredients": ["200g vanilla ice cream", "150ml milk", "50ml whipped cream"],
+            "allergy_note": "Contains dairy.",
+            "maths_hint": "Scale the recipe for 2, 3 or 5 servings using ratio."
+          },
+          {
+            "id": "alge-brrr",
+            "type": "milkshake",
+            "name": "Alge-brrr Triple Chocolate Shake",
+            "tagline": "Add rich chocolate, subtract brain freeze, multiply the fun.",
+            "price": 6.25,
+            "image": "choc.png",
+            "badges": ["NEW", "CHOCOLATE"],
+            "ingredients": ["250g chocolate ice cream", "150ml milk", "100ml chocolate syrup", "50ml whipped cream"],
+            "allergy_note": "Contains dairy.",
+            "maths_hint": "Compare ingredient proportions: what fraction is syrup vs milk?"
+          },
+          {
+            "id": "pi-neapple",
+            "type": "milkshake",
+            "name": "The Pi-neapple Perfection",
+            "tagline": "A never-ending swirl of pineapple and vanilla.",
+            "price": 5.75,
+            "image": "pineapple.png",
+            "badges": ["LIMITLESS", "TROPICAL"],
+            "ingredients": ["150ml pineapple juice", "200g vanilla ice cream", "100ml milk", "50ml whipped cream"],
+            "allergy_note": "Contains dairy.",
+            "maths_hint": "Convert between ml and litres, then compare ratios."
+          },
+          {
+            "id": "fraction-frenzy",
+            "type": "milkshake",
+            "name": "Fraction Frenzy Strawberry Swirl",
+            "tagline": "Half strawberry, half vanilla, 100% delicious.",
+            "price": 5.95,
+            "image": "strawberry.png",
+            "badges": ["HALF & HALF", "BERRY"],
+            "ingredients": ["150g strawberry ice cream", "150g vanilla ice cream", "100ml milk", "50ml strawberry syrup"],
+            "allergy_note": "Contains dairy.",
+            "maths_hint": "Use fractions to split ingredients evenly between friends."
+          },
+          {
+            "id": "sqrt-berry",
+            "type": "smoothie",
+            "name": "Square Root Berry Blast",
+            "tagline": "A radical mix of berries for an exponentially good refreshment.",
+            "price": 5.95,
+            "image": "berry.png",
+            "badges": ["SMOOTHIE", "FRESH"],
+            "ingredients": ["200g strawberries", "150g blueberries", "100g raspberries", "150ml yogurt", "50ml honey"],
+            "allergy_note": "May contain dairy (yogurt).",
+            "maths_hint": "Work out best value: cost per 100g of fruit."
+          },
+          {
+            "id": "tangent-tropical",
+            "type": "smoothie",
+            "name": "Tangent Tropical Twist",
+            "tagline": "A smooth curve of mango, banana & orange — off the chart!",
+            "price": 6.10,
+            "image": "tropical.png",
+            "badges": ["SMOOTHIE", "TROPICAL"],
+            "ingredients": ["150g mango", "150g banana", "200ml orange juice", "100ml yogurt", "50ml honey"],
+            "allergy_note": "May contain dairy (yogurt).",
+            "maths_hint": "Use percentages to adjust fruit mix (e.g., 60% mango)."
+          },
+          {
+            "id": "extra-whip",
+            "type": "extras",
+            "name": "Extra Whipped Cream",
+            "tagline": "Because maths is better with toppings.",
+            "price": 0.75,
+            "image": "extra-whip.jpg",
+            "badges": ["EXTRA"],
+            "ingredients": ["50ml whipped cream"],
+            "allergy_note": "Contains dairy.",
+            "maths_hint": "Add-ons are perfect for total-cost and percentage increase questions."
+          },
+          {
+            "id": "syrup-shot",
+            "type": "extras",
+            "name": "Syrup Shot",
+            "tagline": "Chocolate, strawberry or honey.",
+            "price": 0.50,
+            "image": "syrup.jpg",
+            "badges": ["EXTRA"],
+            "ingredients": ["One 20ml syrup shot (choice of flavour)"],
+            "allergy_note": "Check ingredients for specific syrup allergies.",
+            "maths_hint": "Work out totals with multiple add-ons."
+          }
+        ]
+      };
 
-        function addToCart(id) {
-            const item = productCatalog.find(p => p.id === id);
-            cart.push(item);
-            updateCartUI();
-            
-            // Auto open cart on first add if closed
-            const panel = document.getElementById('cart-panel');
-            if(!panel.classList.contains('open')) panel.classList.add('open');
-        }
+      let productCatalog = [];
+      let cart = [];
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
+      async function init() {
+          try {
+              const response = await fetch('assets/data/bishop_shakes.json');
+              if (!response.ok) throw new Error("File not found");
+              const data = await response.json();
+              productCatalog = data.products;
+          } catch (e) {
+              console.log("Using fallback data");
+              productCatalog = fallbackData.products;
+          }
+          renderGrid();
+      }
 
-        function updateCartUI() {
-            const countEl = document.getElementById('cart-count');
-            const itemsEl = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
+      // --- 2. RENDER GRID ---
+      function getBgClass(name) {
+          const n = name.toLowerCase();
+          if(n.includes('chocolate') || n.includes('syrup')) return 'bg-choc';
+          if(n.includes('berry') || n.includes('strawberry')) return 'bg-berry';
+          if(n.includes('tropical') || n.includes('pineapple') || n.includes('banana')) return 'bg-fruit';
+          return 'bg-vanilla';
+      }
 
-            countEl.innerText = cart.length;
-            
-            if (cart.length === 0) {
-                itemsEl.innerHTML = '<p style="color:#777; text-align:center;">Tray is empty.</p>';
-                totalEl.innerText = 'Total: £0.00';
-                return;
-            }
+      function renderGrid() {
+          const grid = document.getElementById('product-grid');
+          grid.innerHTML = '';
+          productCatalog.forEach(p => {
+              const bg = getBgClass(p.name);
+              const badge = p.badges[0] ? `<div class="badge">${p.badges[0]}</div>` : '';
+              
+              const card = `
+              <div class="product-card">
+                  ${badge}
+                  <div class="product-image ${bg}">
+                      <img src="https://via.placeholder.com/200?text=${encodeURIComponent(p.name)}" 
+                           style="mix-blend-mode: multiply; opacity: 0.6; width:70%;" alt="${p.name}">
+                  </div>
+                  <div class="product-info">
+                      <div>
+                          <h3 class="product-title">${p.name}</h3>
+                          <p class="product-tagline">${p.tagline}</p>
+                          ${p.maths_hint ? `<div class="maths-hint">🧠 ${p.maths_hint}</div>` : ''}
+                          <span class="price">£${p.price.toFixed(2)}</span>
+                      </div>
+                      <div class="btn-group">
+                          <button class="btn btn-outline" onclick="openIngredients('${p.id}')">Ingredients</button>
+                          <button class="btn btn-primary" onclick="addToCart('${p.id}')">Add to Tray</button>
+                      </div>
+                  </div>
+              </div>`;
+              grid.insertAdjacentHTML('beforeend', card);
+          });
+      }
 
-            let html = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                total += item.price;
-                html += `
-                <div class="cart-item-row">
-                    <span>${item.name}</span>
-                    <span>£${item.price.toFixed(2)} <span class="remove-item" onclick="removeFromCart(${index})">✕</span></span>
-                </div>`;
-            });
+      // --- 3. CART LOGIC ---
+      function toggleCart() {
+          const panel = document.getElementById('cart-panel');
+          panel.classList.toggle('open');
+      }
 
-            itemsEl.innerHTML = html;
-            totalEl.innerText = 'Total: £' + total.toFixed(2);
-        }
+      function addToCart(id) {
+          const item = productCatalog.find(p => p.id === id);
+          cart.push(item);
+          updateCartUI();
+          
+          // Auto open cart on first add if closed
+          const panel = document.getElementById('cart-panel');
+          if(!panel.classList.contains('open')) panel.classList.add('open');
+      }
 
-        // --- 4. GLITCH PAYMENT ---
-        function processPayment() {
-            if(cart.length === 0) return alert("Tray is empty!");
+      function removeFromCart(index) {
+          cart.splice(index, 1);
+          updateCartUI();
+      }
 
-            const glitch = document.getElementById('glitch-layer');
-            const panel = document.getElementById('cart-panel');
-            
-            panel.classList.remove('open'); // Hide cart
-            glitch.style.display = 'flex'; // Show glitch
+      function updateCartUI() {
+          const countEl = document.getElementById('cart-count');
+          const itemsEl = document.getElementById('cart-items');
+          const totalEl = document.getElementById('cart-total');
 
-            // Chaotic background color swap
-            let interval = setInterval(() => {
-                glitch.style.backgroundColor = Math.random() > 0.5 ? '#000' : '#111';
-                glitch.style.color = Math.random() > 0.5 ? '#0f0' : '#f00';
-            }, 100);
+          countEl.innerText = cart.length;
+          
+          if (cart.length === 0) {
+              itemsEl.innerHTML = '<p style="color:#777; text-align:center;">Tray is empty.</p>';
+              totalEl.innerText = 'Total: £0.00';
+              return;
+          }
 
-            // Stop after 4 seconds
-            setTimeout(() => {
-                clearInterval(interval);
-                glitch.style.display = 'none';
-                cart = []; // Clear cart
-                updateCartUI();
-                alert("Payment Processed. Enjoy your shake!");
-            }, 4000);
-        }
+          let html = '';
+          let total = 0;
+          
+          cart.forEach((item, index) => {
+              total += item.price;
+              html += `
+              <div class="cart-item-row">
+                  <span>${item.name}</span>
+                  <span>£${item.price.toFixed(2)} <span class="remove-item" onclick="removeFromCart(${index})">✕</span></span>
+              </div>`;
+          });
 
-        // --- 5. INGREDIENTS MODAL ---
-        function openIngredients(id) {
-            const item = productCatalog.find(p => p.id === id);
-            const modal = document.getElementById('ing-modal');
-            const list = document.getElementById('modal-list');
-            const title = document.getElementById('modal-title');
-            const allergy = document.getElementById('modal-allergy');
+          itemsEl.innerHTML = html;
+          totalEl.innerText = 'Total: £' + total.toFixed(2);
+      }
 
-            title.innerText = item.name;
-            list.innerHTML = '';
-            
-            if(item.ingredients) {
-                item.ingredients.forEach(ing => {
-                    list.innerHTML += `<li>${ing}</li>`;
-                });
-            } else {
-                list.innerHTML = '<li>Ingredients not listed.</li>';
-            }
+      // --- 4. GLITCH PAYMENT ---
+      function processPayment() {
+          if(cart.length === 0) return alert("Tray is empty!");
 
-            allergy.innerText = item.allergy_note || "";
+          const glitch = document.getElementById('glitch-layer');
+          const panel = document.getElementById('cart-panel');
+          
+          panel.classList.remove('open'); // Hide cart
+          glitch.style.display = 'flex'; // Show glitch
 
-            modal.style.display = 'flex';
-        }
+          // Chaotic background color swap
+          let interval = setInterval(() => {
+              glitch.style.backgroundColor = Math.random() > 0.5 ? '#000' : '#111';
+              glitch.style.color = Math.random() > 0.5 ? '#0f0' : '#f00';
+          }, 100);
 
-        function closeModal() {
-            document.getElementById('ing-modal').style.display = 'none';
-        }
+          // Stop after 4 seconds
+          setTimeout(() => {
+              clearInterval(interval);
+              glitch.style.display = 'none';
+              cart = []; // Clear cart
+              updateCartUI();
+              alert("Payment Processed. Enjoy your shake!");
+          }, 4000);
+      }
 
-        // Close modal if clicking outside box
-        window.onclick = function(event) {
-            const modal = document.getElementById('ing-modal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+      // --- 5. INGREDIENTS MODAL ---
+      function openIngredients(id) {
+          const item = productCatalog.find(p => p.id === id);
+          const modal = document.getElementById('ing-modal');
+          const list = document.getElementById('modal-list');
+          const title = document.getElementById('modal-title');
+          const allergy = document.getElementById('modal-allergy');
 
-        // Start
-        init();
+          title.innerText = item.name;
+          list.innerHTML = '';
+          
+          if(item.ingredients) {
+              item.ingredients.forEach(ing => {
+                  list.innerHTML += `<li>${ing}</li>`;
+              });
+          } else {
+              list.innerHTML = '<li>Ingredients not listed.</li>';
+          }
 
-    </script>
+          allergy.innerText = item.allergy_note || "";
+
+          modal.style.display = 'flex';
+      }
+
+      function closeModal() {
+          document.getElementById('ing-modal').style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+          const modal = document.getElementById('ing-modal');
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+
+      init();
+  </script>
 </body>
 </html>
