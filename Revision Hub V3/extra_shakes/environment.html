@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bishop and Co. Shakes — Environment</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link rel="stylesheet" href="shakes.css"/>
+</head>
+
+<body class="shake-shell">
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="../assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="../index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="../ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="../gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="../alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="../ai_usage.html">AI Usage</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div id="mobileMenu" class="hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40 w-[180px]">
+        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../index.html">Home</a>
+        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../ks3_hub.html">KS3</a>
+        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../gcse_hub.html">GCSE</a>
+        <a class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center" href="../alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block text-center" href="../ai_usage.html">AI Usage</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-16 pb-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+      <div data-shake-nav class="shake-nav mt-6 p-2 flex flex-wrap justify-center gap-2">
+        <a href="index.html"><span class="material-symbols-outlined text-base">home</span>Home</a>
+        <a href="drinks.html"><span class="material-symbols-outlined text-base">local_cafe</span>Drinks</a>
+        <a href="pricing.html"><span class="material-symbols-outlined text-base">receipt_long</span>Pricing</a>
+        <a href="ingredients.html"><span class="material-symbols-outlined text-base">menu_book</span>Ingredients</a>
+        <a href="environment.html"><span class="material-symbols-outlined text-base">eco</span>Environment</a>
+      </div>
+
+      <section class="mt-8 shake-hero">
+        <img src="media/hero.jpg" alt="Environment hero" class="w-full h-[340px] sm:h-[400px] object-cover"/>
+        <div class="absolute inset-0 p-6 sm:p-10 flex items-end">
+          <div>
+            <p class="badge mb-3"><span class="material-symbols-outlined text-[18px]">eco</span>Commitment</p>
+            <h1 class="text-white text-3xl sm:text-5xl font-black">Our commitment to the environment</h1>
+            <p class="mt-2 text-white/85 max-w-2xl">
+              Sustainability, sourcing, and reducing waste — the Bishop &amp; Co. way.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="shake-card p-6">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined" style="color:#0F7A4A;">recycling</span>
+            <h2 class="text-xl font-black text-gray-900">Reusable cups</h2>
+          </div>
+          <p class="mt-2 text-gray-700 text-sm">
+            In-store cups are reusable. We keep single-use packaging to a minimum.
+          </p>
+        </div>
+
+        <div class="shake-card p-6">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined" style="color:#0F7A4A;">spa</span>
+            <h2 class="text-xl font-black text-gray-900">Plant-based swaps</h2>
+          </div>
+          <p class="mt-2 text-gray-700 text-sm">
+            Dairy-free alternatives are available across the menu.
+          </p>
+        </div>
+
+        <div class="shake-card p-6">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined" style="color:#0F7A4A;">local_shipping</span>
+            <h2 class="text-xl font-black text-gray-900">Local sourcing</h2>
+          </div>
+          <p class="mt-2 text-gray-700 text-sm">
+            Ingredients are sourced locally wherever possible to reduce food miles.
+          </p>
+        </div>
+      </section>
+
+      <section class="mt-8 shake-card p-6 sm:p-8">
+        <h3 class="text-2xl font-black text-gray-900">A better menu, built responsibly</h3>
+        <p class="mt-2 text-gray-700 max-w-3xl">
+          We believe modern food should be both exciting and considered. Our packaging choices, sourcing,
+          and waste reduction are part of how we build a better experience.
+        </p>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="media-frame h-52">
+            <img src="media/classic.jpg" alt="Placeholder sustainability image"/>
+          </div>
+          <div class="media-frame h-52">
+            <img src="media/berry.jpg" alt="Placeholder sustainability image 2"/>
+          </div>
+        </div>
+      </section>
+
+      <div class="h-10"></div>
+    </div>
+  </main>
+
+  <div id="footer-slot"></div>
+  <script src="../assets/footer-loader.js" defer></script>
+  <script src="shakes.js" defer></script>
+</body>
+</html>
