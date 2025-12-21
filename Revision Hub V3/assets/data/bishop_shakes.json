@@ -1,6 +1,3 @@
-const fallbackData = {
-  "products": [
-    // --- CLASSICS & BEST SELLERS ---
     {
       "id": "classic-shake",
       "type": "milkshake",
