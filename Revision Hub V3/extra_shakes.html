@@ -1,822 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="/assets/favicon.svg"/>
-  <title>Bishop & Co. Shakes — SJWMS Maths</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BISHOP & CO. SHAKES | The Sum of All Goodness</title>
+    <style>
+        :root {
+            --primary-color: #000;
+            --secondary-color: #fff;
+            --accent-color: #2e8b57; /* Math Green Accent */
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
 
-  <!-- Tailwind (for your header layout consistency) -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  <!-- Fonts (Holy-ish vibe: big headings + friendly body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet"/>
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
 
-  <!-- Material Icons (same style as your site) -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        /* Announcement Bar */
+        .announcement-bar {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-  <style>
-    /* Keep header/footer from SJWMS; this page content is "brand-switched" */
-    :root{
-      /* Holy-inspired token approach */
-      --bg: 243, 237, 225;              /* warm paper */
-      --ink: 0, 0, 0;                   /* black */
-      --card: 255, 255, 255;            /* white */
-      --border: 0, 0, 0;                /* thick black borders */
-      --tile: #EBE0CB;
+        /* Header */
+        header {
+            background-color: var(--secondary-color);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-      --btn-primary-bg: #ffed28;        /* yellow */
-      --btn-secondary-bg: #fcb4d9;      /* pink */
-      --btn-ink: #000;
+        .logo {
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
 
-      --radius-xl: 22px;
-      --radius-lg: 18px;
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
 
-      --shadow-hard: 0 10px 0 rgba(0,0,0,.18);
-      --shadow-soft: 0 16px 32px rgba(0,0,0,.10);
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
 
-      --container: 1120px;
-      --gutter: 24px;
-    }
+        .header-icons span {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-    body{
-      margin:0;
-      background: rgb(var(--bg));
-      color: rgb(var(--ink));
-      font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      overflow-x:hidden;
-    }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
 
-    /* Your SJWMS header class name might differ; we leave it alone.
-       We just ensure our content clears it. */
-    .page-wrap{
-      padding-top: 4.25rem; /* header height allowance */
-    }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
 
-    .shake-shell{
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 var(--gutter);
-    }
+        .hero p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
 
-    /* Subtle tiled background like Holy’s */
-    .shake-bg-tiles{
-      position: relative;
-    }
-    .shake-bg-tiles::before{
-      content:"";
-      position: absolute;
-      inset: 0;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.06) 1px, transparent 0);
-      background-size: 26px 26px;
-      opacity: .35;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0));
-    }
+        /* Filters Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
 
-    /* HERO */
-    .shake-hero{
-      border: 3px solid rgb(var(--border));
-      border-radius: var(--radius-xl);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.25)),
-        repeating-linear-gradient(-45deg, rgba(0,0,0,.04) 0 10px, transparent 10px 20px);
-      box-shadow: var(--shadow-soft);
-      margin-top: 1.25rem;
-      overflow:hidden;
-      position: relative;
-    }
+        .filter-bar select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-    .shake-hero-inner{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 24px;
-      padding: 34px 26px;
-      align-items: center;
-    }
+        /* Product Grid */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    @media (max-width: 900px){
-      .shake-hero-inner{ grid-template-columns: 1fr; }
-    }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
 
-    .hero-kicker{
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      font-weight: 700;
-      font-size: 12px;
-      opacity:.75;
-      margin-bottom: 10px;
-    }
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 1px solid #eee;
+        }
 
-    .hero-title{
-      font-family: "Archivo Black", system-ui, sans-serif;
-      text-transform: uppercase;
-      line-height: .92;
-      font-size: clamp(44px, 6vw, 78px);
-      margin: 0;
-    }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
 
-    .hero-sub{
-      margin-top: 14px;
-      font-size: 16px;
-      max-width: 46ch;
-    }
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 2px;
+            z-index: 2;
+        }
 
-    .hero-cta-row{
-      margin-top: 18px;
-      display:flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items:center;
-    }
+        .product-image {
+            width: 100%;
+            height: 320px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: 20px;
+            position: relative;
+        }
+        
+        /* Gradients based on flavors */
+        .img-chocolate { background: linear-gradient(135deg, #eacda3 0%, #d6ae7b 100%); }
+        .img-classic { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        .img-pineapple { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+        .img-strawberry { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); }
+        .img-berry { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .img-tropical { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 2px solid rgb(var(--border));
-      color: var(--btn-ink);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      background: #fff;
-      cursor:pointer;
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      user-select:none;
-    }
-    .btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,.22); }
-    .btn:active{ transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,.22); }
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
 
-    .btn-primary{ background: var(--btn-primary-bg); }
-    .btn-secondary{ background: var(--btn-secondary-bg); }
+        .product-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            min-height: 44px; /* Align titles */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .hero-art{
-      border-left: 3px solid rgb(var(--border));
-      padding-left: 22px;
-    }
-    @media (max-width: 900px){
-      .hero-art{ border-left: none; padding-left: 0; border-top: 3px solid rgb(var(--border)); padding-top: 18px; }
-    }
+        .price-container {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #333;
+        }
 
-    .hero-stickers{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      align-items:center;
-    }
-    .sticker{
-      border: 2px solid rgb(var(--border));
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: #fff;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing:.08em;
-      font-size: 12px;
-      box-shadow: 0 6px 0 rgba(0,0,0,.15);
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      white-space: nowrap;
-    }
+        .price {
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-    /* Tabs / “modules” feel without multi-page */
-    .shake-tabs{
-      margin-top: 18px;
-      position: sticky;
-      top: 58px; /* below header */
-      z-index: 20;
-      padding: 10px 0;
-      backdrop-filter: blur(6px);
-      background: rgba(243,237,225,.85);
-      border-bottom: 2px solid rgba(0,0,0,.12);
-    }
-    .tab-row{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items:center;
-      justify-content:flex-start;
-    }
-    .tab{
-      border: 2px solid rgb(var(--border));
-      border-radius: 999px;
-      padding: 10px 14px;
-      background:#fff;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing:.08em;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease;
-    }
-    .tab:hover{ transform: translateY(-1px); }
-    .tab[aria-selected="true"]{
-      background: #000;
-      color: #fff;
-    }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-    /* Grid */
-    .section-title{
-      margin: 28px 0 10px;
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .section-title h2{
-      font-family: "Archivo Black", system-ui, sans-serif;
-      text-transform: uppercase;
-      font-size: 26px;
-      margin: 0;
-      letter-spacing: .02em;
-    }
-    .section-title p{
-      margin: 0;
-      opacity: .75;
-      font-weight: 600;
-    }
+        .btn:hover {
+            background-color: #333;
+        }
 
-    .product-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 18px;
-      margin-bottom: 34px;
-    }
-    @media (max-width: 980px){ .product-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    @media (max-width: 620px){ .product-grid{ grid-template-columns: 1fr; } }
+        /* Extras Section */
+        .extras-section {
+            background-color: #fff;
+            padding: 40px;
+            margin: 0 auto 60px auto;
+            max-width: 800px;
+            border: 2px dashed #ccc;
+            text-align: center;
+        }
 
-    .card{
-      border: 3px solid rgb(var(--border));
-      border-radius: var(--radius-xl);
-      overflow:hidden;
-      background: rgb(var(--card));
-      box-shadow: var(--shadow-hard);
-      transform: translateZ(0);
-      transition: transform .14s ease, box-shadow .14s ease;
-      display:flex;
-      flex-direction: column;
-      min-height: 420px;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 14px 0 rgba(0,0,0,.18), 0 18px 36px rgba(0,0,0,.12);
-    }
+        .extras-section h2 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 24px;
+        }
 
-    .card-media{
-      background: var(--btn-primary-bg);
-      border-bottom: 3px solid rgb(var(--border));
-      aspect-ratio: 4 / 3;
-      position: relative;
-      overflow:hidden;
-    }
-    .card-media img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.03);
-    }
+        .extras-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-    .badge-row{
-      position:absolute;
-      top: 12px;
-      left: 12px;
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      z-index: 2;
-    }
-    .badge{
-      background:#fff;
-      border: 2px solid rgb(var(--border));
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: .08em;
-      box-shadow: 0 6px 0 rgba(0,0,0,.16);
-    }
+        .extra-item {
+            background: #f9f9f9;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
-    .card-body{
-      padding: 16px 16px 14px;
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-    .card-title{
-      font-family: "Archivo Black", system-ui, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: .02em;
-      margin:0;
-      font-size: 20px;
-      line-height: 1.05;
-    }
-    .card-desc{
-      margin:0;
-      opacity: .85;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 1.35;
-    }
+        .extra-price {
+            color: var(--accent-color);
+            margin-left: 5px;
+        }
 
-    .price-row{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top:auto;
-      padding-top: 6px;
-    }
-    .price{
-      font-weight: 900;
-      font-size: 18px;
-      letter-spacing:.02em;
-    }
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 60px 40px;
+            margin-top: 50px;
+        }
 
-    .mini-btn{
-      border: 2px solid rgb(var(--border));
-      border-radius: 999px;
-      padding: 10px 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing:.08em;
-      font-size: 12px;
-      cursor:pointer;
-      background: #fff;
-      transition: transform .12s ease;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .mini-btn:hover{ transform: translateY(-1px); }
-    .mini-btn.pink{ background: var(--btn-secondary-bg); }
-    .mini-btn.yellow{ background: var(--btn-primary-bg); }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 40px;
+        }
 
-    /* Modal */
-    .modal{
-      position: fixed;
-      inset: 0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 60;
-      padding: 18px;
-      background: rgba(0,0,0,.55);
-    }
-    .modal.open{ display:flex; }
-    .modal-card{
-      width: min(820px, 96vw);
-      border: 3px solid rgb(var(--border));
-      border-radius: var(--radius-xl);
-      background: rgb(var(--card));
-      box-shadow: 0 16px 0 rgba(0,0,0,.22);
-      overflow:hidden;
-    }
-    .modal-top{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-bottom: 3px solid rgb(var(--border));
-      background: var(--btn-primary-bg);
-    }
-    .modal-top h3{
-      margin:0;
-      font-family: "Archivo Black", system-ui, sans-serif;
-      text-transform: uppercase;
-      letter-spacing:.02em;
-      font-size: 18px;
-    }
-    .close-x{
-      border: 2px solid rgb(var(--border));
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 900;
-      background:#fff;
-      cursor:pointer;
-    }
-    .modal-body{
-      display:grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 0;
-    }
-    @media (max-width: 820px){ .modal-body{ grid-template-columns: 1fr; } }
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+        }
 
-    .modal-img{
-      background: #000;
-      min-height: 260px;
-    }
-    .modal-img img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .modal-info{
-      padding: 16px;
-    }
-    .modal-info p{
-      margin: 0 0 12px;
-      opacity:.85;
-      font-weight: 600;
-    }
-    .ing-list{
-      margin: 0;
-      padding-left: 18px;
-      display:grid;
-      gap: 6px;
-      font-weight: 700;
-    }
+        .footer-col p {
+            font-size: 13px;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
 
-    /* Environment / pricing blocks (still bold + different from SJWMS) */
-    .info-slab{
-      border: 3px solid rgb(var(--border));
-      border-radius: var(--radius-xl);
-      background: #fff;
-      box-shadow: var(--shadow-hard);
-      padding: 18px;
-      margin: 18px 0 30px;
-    }
-    .info-slab h3{
-      font-family: "Archivo Black", system-ui, sans-serif;
-      text-transform: uppercase;
-      margin:0 0 8px;
-      font-size: 20px;
-    }
-    .info-slab .cols{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 14px;
-      align-items:start;
-    }
-    @media (max-width: 900px){ .info-slab .cols{ grid-template-columns: 1fr; } }
-    .big-quote{
-      border: 3px solid rgb(var(--border));
-      border-radius: var(--radius-xl);
-      padding: 16px;
-      background: var(--btn-secondary-bg);
-      box-shadow: 0 10px 0 rgba(0,0,0,.18);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      line-height: 1.12;
-    }
-  </style>
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero h1 { font-size: 32px; }
+            header { padding: 15px 20px; }
+            nav ul { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- ✅ Keep your SJWMS header exactly as-is on your site.
-       If your header is injected elsewhere, leave this out and rely on your shared header. -->
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative bg-white/85 backdrop-blur border-b border-gray-200">
-      <div class="flex items-center gap-3">
-        <img src="/assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="/index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="/ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="/gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec]" href="/alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="/ai_usage.html">AI Usage</a>
-      </nav>
+    <div class="announcement-bar">
+        Calculated for Taste • Rooted in Freshness
     </div>
-  </header>
 
-  <div class="page-wrap shake-bg-tiles">
-    <main class="shake-shell">
-      <!-- HERO -->
-      <section class="shake-hero" aria-label="Bishop and Co. Shakes">
-        <div class="shake-hero-inner">
-          <div>
-            <div class="hero-kicker">Bishop & Co. Shakes • Menu</div>
-            <h1 class="hero-title">Bishop<br/>and Co.<br/>Shakes</h1>
-            <p class="hero-sub">
-              Bold flavours, loud colours, and the smoothest ratios in town.
-              Pick a shake, check the ingredients, and use prices for your maths tasks.
-            </p>
-
-            <div class="hero-cta-row">
-              <button class="btn btn-primary" data-scroll="#menu">
-                <span class="material-icons">local_drink</span>
-                View shakes
-              </button>
-              <button class="btn btn-secondary" data-scroll="#pricing">
-                <span class="material-icons">sell</span>
-                Pricing
-              </button>
-              <button class="btn" data-scroll="#environment">
-                <span class="material-icons">public</span>
-                Environment
-              </button>
-            </div>
-          </div>
-
-          <div class="hero-art">
-            <div class="hero-stickers">
-              <span class="sticker"><span class="material-icons">bolt</span> Energy-approved</span>
-              <span class="sticker"><span class="material-icons">recycling</span> Bottle-smart</span>
-              <span class="sticker"><span class="material-icons">science</span> Ratio ready</span>
-              <span class="sticker"><span class="material-icons">star</span> Student favourite</span>
-            </div>
-
-            <div style="margin-top:14px" class="big-quote">
-              “THE PERFECT BEAT NEEDS THE PERFECT MIX.”
-              <div style="opacity:.8; font-weight:800; margin-top:8px; text-transform:none; letter-spacing:0;">
-                — Bishop & Co. Lab Notes
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tabs -->
-      <div class="shake-tabs" role="tablist" aria-label="Shop sections">
-        <div class="tab-row">
-          <button class="tab" role="tab" aria-selected="true" data-tab="all">All</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="classic">Classics</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="fruit">Fruit</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="special">Specials</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="vegan">Dairy-free</button>
-        </div>
-      </div>
-
-      <!-- MENU -->
-      <section id="menu">
-        <div class="section-title">
-          <h2>Shakes</h2>
-          <p>Tap “Ingredients” for pop-up details.</p>
-        </div>
-
-        <div id="productGrid" class="product-grid"></div>
-      </section>
-
-      <!-- PRICING -->
-      <section id="pricing" class="info-slab">
-        <h3>Pricing</h3>
-        <div class="cols">
-          <div>
-            <p style="margin:0; font-weight:700; opacity:.85;">
-              Use these prices in ratio / percentage / best-value questions.
-            </p>
-            <ul class="ing-list" style="margin-top:10px;">
-              <li>Small (300ml): <strong>£2.60</strong></li>
-              <li>Regular (450ml): <strong>£3.40</strong></li>
-              <li>Large (600ml): <strong>£4.20</strong></li>
-              <li>Extra topping: <strong>+£0.40</strong></li>
+    <header>
+        <div class="logo">BISHOP & CO.</div>
+        <nav>
+            <ul>
+                <li><a href="#">Shakes</a></li>
+                <li><a href="#">Smoothies</a></li>
+                <li><a href="#">Extras</a></li>
+                <li><a href="#">Locations</a></li>
             </ul>
-          </div>
-          <div class="big-quote" style="background: var(--btn-primary-bg);">
-            “GO LARGE. GO LEGENDARY.”
-            <div style="opacity:.8; font-weight:800; margin-top:8px; text-transform:none; letter-spacing:0;">
-              Upgrade sizes to explore scale factors.
-            </div>
-          </div>
+        </nav>
+        <div class="header-icons">
+            <span>🇬🇧</span>
+            <span>👤</span>
+            <span>🛒 (0)</span>
         </div>
-      </section>
+    </header>
 
-      <!-- ENVIRONMENT -->
-      <section id="environment" class="info-slab">
-        <h3>Our commitment to the environment</h3>
-        <div class="cols">
-          <div>
-            <p style="margin:0 0 10px; font-weight:700; opacity:.85;">
-              We’re a fake shop with real values: reduce waste, reuse cups, recycle packaging.
-            </p>
-            <ul class="ing-list">
-              <li>Reusable cup discount: <strong>10%</strong> off</li>
-              <li>Paper straws only</li>
-              <li>Local suppliers where possible</li>
-              <li>Carbon labels on seasonal specials</li>
-            </ul>
-          </div>
-          <div class="big-quote">
-            “LESS WASTE. MORE TASTE.”
-            <div style="opacity:.8; font-weight:800; margin-top:8px; text-transform:none; letter-spacing:0;">
-              Use discounts to practise percentage decrease.
-            </div>
-          </div>
-        </div>
-      </section>
+    <section class="hero">
+        <h1>THE SUM OF ALL GOODNESS</h1>
+        <p>Taste the creamy goodness!</p>
+    </section>
 
-      <div style="height:30px"></div>
-    </main>
-  </div>
-
-  <!-- Ingredients Modal -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-top">
-        <h3 id="modalTitle">Ingredients</h3>
-        <button class="close-x" id="modalClose" aria-label="Close">Close ✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-img">
-          <img id="modalImg" alt="Milkshake photo"/>
-        </div>
-        <div class="modal-info">
-          <p id="modalDesc"></p>
-          <ul id="modalList" class="ing-list"></ul>
-          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="mini-btn yellow" id="modalOk">
-              <span class="material-icons" style="font-size:18px;">done</span>
-              Got it
-            </button>
-            <button class="mini-btn pink" data-scroll="#pricing">
-              <span class="material-icons" style="font-size:18px;">sell</span>
-              Check pricing
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="filter-bar">
+        <span>Showing 6 delicious results</span>
+        <select>
+            <option>Sort by: Menu Order</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+        </select>
     </div>
-  </div>
 
-  <!-- FOOTER (your existing loader) -->
-  <div id="footer-slot"></div>
-  <script src="/assets/footer-loader.js" defer></script>
+    <div class="container">
+        
+        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Milkshakes</h3>
 
-  <script>
-    // ====== Products (edit images + ingredients) ======
-    // Images live in: extra_shakes/media/
-    const PRODUCTS = [
-      {
-        id: "choc-classic",
-        name: "Choc Slam",
-        desc: "Chocolate shake with a bold finish.",
-        price: "from £2.60",
-        tags: ["classic"],
-        badges: ["Classic", "Top pick"],
-        img: "extra_shakes/media/choc.png",
-        ingredients: ["Milk", "Chocolate syrup", "Ice cream", "Whipped cream (optional)"]
-      },
-      {
-        id: "strawberry-pop",
-        name: "Strawberry Pop",
-        desc: "Sweet strawberry + creamy base.",
-        price: "from £2.60",
-        tags: ["fruit"],
-        badges: ["Fruit"],
-        img: "extra_shakes/media/strawberry-pop.jpg",
-        ingredients: ["Milk", "Strawberry", "Ice cream", "Strawberry drizzle"]
-      },
-      {
-        id: "banana-breeze",
-        name: "Banana Breeze",
-        desc: "Smooth banana, clean and simple.",
-        price: "from £2.60",
-        tags: ["fruit"],
-        badges: ["Fruit"],
-        img: "extra_shakes/media/banana-breeze.jpg",
-        ingredients: ["Milk", "Banana", "Ice cream", "Honey (optional)"]
-      },
-      {
-        id: "oreo-crunch",
-        name: "Oreo Crunch",
-        desc: "Cookie crumble madness (in a good way).",
-        price: "from £2.60",
-        tags: ["special"],
-        badges: ["Special"],
-        img: "extra_shakes/media/oreo-crunch.jpg",
-        ingredients: ["Milk", "Vanilla ice cream", "Cookie crumbs", "Chocolate drizzle"]
-      },
-      {
-        id: "mint-electric",
-        name: "Mint Electric",
-        desc: "Mint-choc energy. Loud. Cold. Iconic.",
-        price: "from £2.60",
-        tags: ["special"],
-        badges: ["Special", "New"],
-        img: "extra_shakes/media/mint-electric.jpg",
-        ingredients: ["Milk", "Mint flavour", "Chocolate chips", "Ice cream"]
-      },
-      {
-        id: "oat-vanilla",
-        name: "Oat Vanilla",
-        desc: "Dairy-free vanilla shake — still thick, still premium.",
-        price: "from £2.60",
-        tags: ["vegan"],
-        badges: ["Dairy-free"],
-        img: "extra_shakes/media/oat-vanilla.jpg",
-        ingredients: ["Oat milk", "Vanilla", "Dairy-free ice cream", "Maple syrup (optional)"]
-      }
-    ];
+        <div class="product-grid">
 
-    // ====== Render grid ======
-    const grid = document.getElementById("productGrid");
-    const modal = document.getElementById("modal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalImg = document.getElementById("modalImg");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalList = document.getElementById("modalList");
-    const modalClose = document.getElementById("modalClose");
-    const modalOk = document.getElementById("modalOk");
+            <div class="product-card">
+                <div class="badge">Bestseller</div>
+                <div class="product-image img-chocolate">
+                    <span>🍫</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Alge-Brrr Triple Chocolate Shake</h3>
+                    <div class="price-container">
+                        <span class="price">£6.25</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
 
-    let activeTab = "all";
+            <div class="product-card">
+                <div class="badge">Fan Fave</div>
+                <div class="product-image img-pineapple">
+                    <span>🍍</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">The Pi-Neapple Perfection</h3>
+                    <div class="price-container">
+                        <span class="price">£5.75</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
 
-    function makeCard(p){
-      const el = document.createElement("article");
-      el.className = "card";
-      el.dataset.tags = (p.tags || []).join(",");
+            <div class="product-card">
+                <div class="product-image img-strawberry">
+                    <span>🍓</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Fraction Frenzy Strawberry Swirl</h3>
+                    <div class="price-container">
+                        <span class="price">£5.95</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
 
-      const badges = (p.badges || []).map(b => `<span class="badge">${b}</span>`).join("");
-
-      el.innerHTML = `
-        <div class="card-media">
-          <div class="badge-row">${badges}</div>
-          <img src="${p.img}" alt="${p.name}">
+            <div class="product-card">
+                <div class="badge">Classic</div>
+                <div class="product-image img-classic">
+                    <span>🍦</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">The Classic Shake</h3>
+                    <div class="price-container">
+                        <span class="price">£5.50</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <h3 class="card-title">${p.name}</h3>
-          <p class="card-desc">${p.desc}</p>
-          <div class="price-row">
-            <div class="price">${p.price}</div>
-            <button class="mini-btn pink" data-ing="${p.id}">
-              <span class="material-icons" style="font-size:18px;">menu_book</span>
-              Ingredients
-            </button>
-          </div>
+
+        <h3 style="margin-bottom: 20px; font-weight: 900; text-transform: uppercase; font-size: 20px;">Smoothies</h3>
+
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="badge" style="background-color: #663399;">Fresh</div>
+                <div class="product-image img-berry">
+                    <span>🫐</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Square Root Berry Blast</h3>
+                    <div class="price-container">
+                        <span class="price">£5.95</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge" style="background-color: #ff8c00;">Tropical</div>
+                <div class="product-image img-tropical">
+                    <span>🥭</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Tangent Tropical Twist</h3>
+                    <div class="price-container">
+                        <span class="price">£6.10</span>
+                    </div>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+
         </div>
-      `;
-      return el;
-    }
+    </div>
 
-    function render(){
-      grid.innerHTML = "";
-      PRODUCTS
-        .filter(p => activeTab === "all" ? true : (p.tags || []).includes(activeTab))
-        .forEach(p => grid.appendChild(makeCard(p)));
-    }
+    <div class="container">
+        <section class="extras-section">
+            <h2>Anomalies & Extras</h2>
+            <ul class="extras-list">
+                <li class="extra-item">Extra Whipped Cream <span class="extra-price">+£0.75</span></li>
+                <li class="extra-item">Syrup Shot <span class="extra-price">+£0.50</span></li>
+                <li class="extra-item">Dairy-Free Substitute <span class="extra-price">+£0.60</span></li>
+            </ul>
+        </section>
+    </div>
 
-    function openModal(p){
-      modalTitle.textContent = `Ingredients — ${p.name}`;
-      modalImg.src = p.img;
-      modalImg.alt = p.name;
-      modalDesc.textContent = p.desc;
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Bishop & Co. Shakes</h4>
+                <p>Taste the creamy goodness.</p>
+                <p>Rooted in freshness, calculated for taste.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Important Data Points</h4>
+                <p><strong>Allergy Notice:</strong> Please inform staff of any dietary restrictions or allergies for recipe adjustments.</p>
+                <p>Your feedback helps us improve our menu and ensures a safe, enjoyable experience.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Bishop & Co. HQ</p>
+                <p>Enjoy your smoothie adventure!</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; font-size: 12px; color: #555;">
+            &copy; 2025 Bishop & Co. Shakes. All rights reserved.
+        </div>
+    </footer>
 
-      modalList.innerHTML = "";
-      (p.ingredients || []).forEach(i=>{
-        const li = document.createElement("li");
-        li.textContent = i;
-        modalList.appendChild(li);
-      });
-
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-    }
-
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-    }
-
-    // Tabs
-    document.querySelectorAll(".tab").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        activeTab = btn.dataset.tab;
-        document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", "false"));
-        btn.setAttribute("aria-selected","true");
-        render();
-      });
-    });
-
-    // Ingredients click delegation
-    document.addEventListener("click", (e)=>{
-      const b = e.target.closest("[data-ing]");
-      if(b){
-        const id = b.getAttribute("data-ing");
-        const p = PRODUCTS.find(x=>x.id===id);
-        if(p) openModal(p);
-      }
-    });
-
-    // Modal close
-    modalClose.addEventListener("click", closeModal);
-    modalOk.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
-    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
-
-    // Smooth scroll buttons
-    document.querySelectorAll("[data-scroll]").forEach(b=>{
-      b.addEventListener("click", ()=>{
-        const sel = b.getAttribute("data-scroll");
-        const target = document.querySelector(sel);
-        if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
-      });
-    });
-
-    render();
-  </script>
 </body>
 </html>
