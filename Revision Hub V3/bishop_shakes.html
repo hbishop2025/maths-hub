@@ -389,6 +389,112 @@
       .reviewer { margin-top: 15px; display: flex; align-items: center; gap: 10px; }
       .reviewer-avatar { width: 40px; height: 40px; background: #000; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
       .reviewer-name { font-weight: 800; font-size: 14px; }
+
+      /* --- LOYALTY SECTION --- */
+    .loyalty-section {
+        background-color: #111; /* Dark contrast */
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    .loyalty-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .loyalty-title {
+        font-size: 40px;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        color: white;
+    }
+    
+    .loyalty-subtitle {
+        color: #aaa;
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .steps-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .step-card {
+        flex: 1;
+        min-width: 250px;
+        background: #222;
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        transition: transform 0.3s;
+    }
+
+    .step-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--brand-accent);
+    }
+
+    .step-icon {
+        font-size: 40px;
+        color: var(--brand-accent);
+        margin-bottom: 20px;
+    }
+
+    .step-head {
+        font-weight: 800;
+        font-size: 20px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+    .step-desc {
+        color: #888;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* --- LOCATIONS SECTION --- */
+    .locations-section {
+        background: white;
+        padding: 60px 20px;
+        border-top: 2px solid #eee;
+    }
+    
+    .loc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .loc-card h3 {
+        font-weight: 900;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .loc-details {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.8;
+    }
+    
+    .status-open {
+        display: inline-block;
+        background: #d1fae5;
+        color: #065f46;
+        font-weight: bold;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -453,6 +559,37 @@
       <div class="container-custom" id="catalog-container">
           </div>
 
+        <section class="loyalty-section">
+        <div class="loyalty-container">
+            <h2 class="loyalty-title">Join the <span style="color:var(--brand-accent)">Equation</span> Club</h2>
+            <p class="loyalty-subtitle">Do the math. Drink the shakes. Get the rewards.</p>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="material-symbols-outlined step-icon">app_registration</span>
+                    <h3 class="step-head">1. Register</h3>
+                    <p class="step-desc">Create an account to start your sequence. It's as easy as 1, 2, 3 (literally).</p>
+                </div>
+                
+                <div class="step-card">
+                    <span class="material-symbols-outlined step-icon">local_drink</span>
+                    <h3 class="step-head">2. Sip & Solve</h3>
+                    <p class="step-desc">Earn 10 Integers for every £1 spent. Watch your points multiply exponentially.</p>
+                </div>
+
+                <div class="step-card">
+                    <span class="material-symbols-outlined step-icon">redeem</span>
+                    <h3 class="step-head">3. Redeem</h3>
+                    <p class="step-desc">Trade your Integers for free toppings, sides, or the coveted "Infinity Shake."</p>
+                </div>
+            </div>
+            
+            <button class="hero-btn" style="background:white; color:black; margin-top: 50px;">
+                Download App
+            </button>
+        </div>
+    </section>
+    
       <section class="eco-section">
         <div class="eco-content">
             <div class="eco-img">
@@ -501,6 +638,44 @@
               </div>
           </div>
       </section>
+
+      <section class="locations-section">
+        <div class="container-custom">
+            <h2 class="category-title" style="border:none; text-align:center; margin-bottom: 40px;">Find a Lab Near You</h2>
+            
+            <div class="loc-grid">
+                <div class="loc-card">
+                    <span class="status-open">OPEN NOW</span>
+                    <h3>The Acute Corner</h3>
+                    <div class="loc-details">
+                        <p>142 Pythagoras Lane<br>Right Angle City, MA 31415</p>
+                        <p style="margin-top:10px;"><strong>Mon-Fri:</strong> 08:00 - 20:00</p>
+                        <p><strong>Sat-Sun:</strong> 09:00 - 18:00</p>
+                    </div>
+                </div>
+
+                <div class="loc-card">
+                    <span class="status-open">OPEN NOW</span>
+                    <h3>The Axis Hub</h3>
+                    <div class="loc-details">
+                        <p>Unit 7, The Graph Centre<br>X-Y Intersection, LDN 90D</p>
+                        <p style="margin-top:10px;"><strong>Mon-Fri:</strong> 07:30 - 21:00</p>
+                        <p><strong>Sat-Sun:</strong> 09:00 - 21:00</p>
+                    </div>
+                </div>
+
+                <div class="loc-card">
+                    <span class="status-open" style="background:#fee2e2; color:#991b1b;">CLOSING SOON</span>
+                    <h3>Quadratic Campus</h3>
+                    <div class="loc-details">
+                        <p>The Old Library Building<br>Polynomial Park, BSH 0PS</p>
+                        <p style="margin-top:10px;"><strong>Mon-Fri:</strong> 10:00 - 16:00</p>
+                        <p><strong>Sat-Sun:</strong> Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
   </main>
 
