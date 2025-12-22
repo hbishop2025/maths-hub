@@ -25,7 +25,8 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    /* Fixed header height is h-14 (3.5rem or 56px) */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-b border-gray-200 h-14; }
     
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
@@ -51,15 +52,15 @@
 
       /* --- HERO & BRANDING SECTION --- */
       .hero {
-          /* Full width background settings */
           background-color: #ffe4e6; /* Light Pink Background */
-          border-bottom: 2px solid #000; /* distinct separator */
+          border-bottom: 2px solid #000; 
           padding: 60px 20px;
           position: relative;
           z-index: 10;
+          /* Ensure no gap at top */
+          margin-top: 0; 
       }
 
-      /* Container to hold the split content */
       .hero-content {
           max-width: 1200px;
           margin: 0 auto;
@@ -87,8 +88,29 @@
       .hero p {
           font-size: 24px;
           color: #555;
-          margin-bottom: 20px;
+          margin-bottom: 25px;
           font-weight: 600;
+      }
+
+      .hero-btn {
+          background-color: #000;
+          color: #fff;
+          padding: 12px 24px;
+          font-size: 16px;
+          font-weight: 700;
+          text-transform: uppercase;
+          border-radius: 4px;
+          border: none;
+          cursor: pointer;
+          transition: transform 0.2s, background-color 0.2s;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .hero-btn:hover {
+          background-color: var(--brand-accent);
+          transform: translateY(-2px);
       }
 
       .hero-img {
@@ -101,36 +123,58 @@
       .hero-img img {
           max-width: 100%;
           height: auto;
-          max-height: 400px; /* Cap height so it doesn't get too huge */
+          max-height: 400px; 
       }
 
-      /* Mobile Responsive for Hero */
       @media (max-width: 900px) {
-          .hero-content {
-              flex-direction: column;
-              text-align: center;
-          }
-          .hero-text {
-              text-align: center;
-          }
-          .hero h1 {
-              font-size: 50px; /* Smaller font on mobile */
-          }
+          .hero-content { flex-direction: column; text-align: center; }
+          .hero-text { text-align: center; }
+          .hero h1 { font-size: 50px; }
       }
 
-      /* --- FILTER & GRID --- */
+      /* --- FILTER CONTROLS --- */
+      .filter-container {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          flex-wrap: wrap;
+          margin: 40px 0 20px 0;
+      }
+
+      .filter-btn {
+          background: white;
+          border: 2px solid #eee;
+          padding: 8px 20px;
+          border-radius: 30px;
+          font-weight: 700;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s;
+          text-transform: uppercase;
+      }
+
+      .filter-btn:hover {
+          border-color: #000;
+      }
+
+      .filter-btn.active {
+          background: #000;
+          color: white;
+          border-color: #000;
+      }
+
+      /* --- GRID --- */
       .container-custom {
           max-width: 1400px;
           margin: 0 auto;
-          padding: 40px 20px;
+          padding: 0 20px 40px; /* Removed top padding, managed by filter margins */
       }
 
-      /* Category Headers */
       .category-title {
           font-size: 24px;
           font-weight: 900;
           text-transform: uppercase;
-          margin: 40px 0 20px 0;
+          margin: 20px 0 20px 0;
           padding-bottom: 10px;
           border-bottom: 2px solid #eee;
           color: var(--brand-primary);
@@ -179,7 +223,6 @@
           position: relative;
       }
 
-      /* Dynamic Backgrounds */
       .bg-vanilla { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
       .bg-choc { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
       .bg-fruit { background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); }
@@ -198,7 +241,6 @@
       .product-tagline { font-size: 13px; color: #777; margin-bottom: 10px; font-style: italic; }
       .price { font-size: 18px; font-weight: 900; color: #000; display: block; margin-bottom: 10px;}
 
-      /* Buttons in Card */
       .btn-group { display: flex; gap: 10px; }
       
       .btn {
@@ -218,142 +260,58 @@
       .btn-outline { background: transparent; border: 1px solid #ccc; color: #333; }
       .btn-outline:hover { border-color: #000; color: #000; }
 
-      /* --- FLOATING CART (Bottom RIGHT) --- */
+      /* --- FLOATING CART --- */
       .cart-float-container {
-          position: fixed;
-          bottom: 20px;
-          right: 20px; 
-          z-index: 2000;
-          font-family: 'Lexend', sans-serif;
+          position: fixed; bottom: 20px; right: 20px; z-index: 2000; font-family: 'Lexend', sans-serif;
       }
-
       .cart-toggle-btn {
-          background-color: var(--brand-accent);
-          color: white;
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-          cursor: pointer;
-          border: none;
-          position: relative;
+          background-color: var(--brand-accent); color: white; width: 60px; height: 60px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          cursor: pointer; border: none; position: relative;
       }
-      
-      .cart-toggle-btn .material-symbols-outlined {
-          font-size: 28px;
-          color: white;
-      }
-
+      .cart-toggle-btn .material-symbols-outlined { font-size: 28px; color: white; }
       .cart-count-badge {
-          position: absolute;
-          top: -5px;
-          left: -5px;
-          background: black;
-          color: white;
-          font-size: 12px;
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: absolute; top: -5px; left: -5px; background: black; color: white; font-size: 12px; width: 20px; height: 20px;
+          border-radius: 50%; display: flex; align-items: center; justify-content: center;
       }
-
       .cart-panel {
-          position: absolute;
-          bottom: 80px;
-          right: 0;
-          width: 320px;
-          background: white;
-          border: 2px solid #000;
-          border-radius: 8px;
-          padding: 15px;
-          display: none;
-          flex-direction: column;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+          position: absolute; bottom: 80px; right: 0; width: 320px; background: white; border: 2px solid #000; border-radius: 8px;
+          padding: 15px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       }
-
       .cart-panel.open { display: flex; }
-
       .cart-header { font-weight: 900; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; display: flex; justify-content: space-between;}
-      
       .cart-items { max-height: 200px; overflow-y: auto; font-size: 13px; }
       .cart-item-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted #eee; padding-bottom: 5px; }
       .remove-item { color: red; cursor: pointer; margin-left: 10px; font-weight: bold; }
-
-      /* Coupon Styles */
       .coupon-section { border-top: 1px solid #eee; padding-top: 10px; margin-top: 5px; }
       .coupon-row { display: flex; gap: 5px; margin-top: 5px; }
-      .coupon-input { 
-        flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; 
-        font-family: 'Lexend', sans-serif;
-      }
+      .coupon-input { flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; font-family: 'Lexend', sans-serif; }
       .coupon-btn { background: #333; color: white; border: none; padding: 0 10px; font-size: 11px; cursor: pointer; border-radius: 4px; font-weight:bold;}
       .coupon-msg { font-size: 10px; margin-top: 3px; font-weight: bold; text-align: right; height: 14px; }
-
       .cart-total { margin-top: 10px; padding-top: 10px; border-top: 2px solid #000; font-weight: bold; text-align: right; }
       .original-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
       .discounted-price { color: #d00; font-size: 18px; }
-
-      .pay-btn {
-          background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px;
-          font-weight: bold; cursor: pointer; text-transform: uppercase;
-          transition: all 0.2s ease;
-      }
+      .pay-btn { background: black; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
       .pay-btn:hover { background: var(--brand-accent); }
+      .pay-btn.glitching { background-color: red !important; animation: glitch-anim 0.2s infinite; }
+      @keyframes glitch-anim { 0% { transform: translate(0) } 20% { transform: translate(-3px, 3px) } 40% { transform: translate(-3px, -3px) } 60% { transform: translate(3px, 3px) } 80% { transform: translate(3px, -3px) } 100% { transform: translate(0) } }
 
-      /* --- GLITCH BUTTON ANIMATION --- */
-      .pay-btn.glitching {
-          background-color: red !important;
-          animation: glitch-anim 0.2s infinite;
-      }
-
-      @keyframes glitch-anim {
-          0% { transform: translate(0) }
-          20% { transform: translate(-3px, 3px) }
-          40% { transform: translate(-3px, -3px) }
-          60% { transform: translate(3px, 3px) }
-          80% { transform: translate(3px, -3px) }
-          100% { transform: translate(0) }
-      }
-
-      /* --- INGREDIENTS MODAL --- */
-      .modal-overlay {
-          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-          background: rgba(0,0,0,0.7);
-          z-index: 3000;
-          display: none;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .modal-content {
-          background: white;
-          padding: 30px;
-          border-radius: 8px;
-          max-width: 500px;
-          width: 90%;
-          position: relative;
-      }
-
-      .modal-close {
-          position: absolute; top: 10px; right: 15px;
-          font-size: 24px; cursor: pointer;
-      }
-
+      /* --- MODAL --- */
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; display: none; align-items: center; justify-content: center; }
+      .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; }
+      .modal-close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; }
       .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 15px; color: var(--brand-accent); }
       .ingredient-list li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
 
       /* --- REVIEWS SECTION --- */
       .review-section {
-          background: #fdf2f8; /* Light pink tint */
+          background: #fdf2f8; 
           padding: 60px 20px;
           text-align: center;
-          border-top: 2px solid #000; /* Added solid border to separate */
-          margin-top: 40px;
+          border-top: 2px solid #000;
+          /* Ensure no gap at bottom to footer */
+          margin-bottom: 0;
+          padding-bottom: 80px; /* Slight padding inside before footer hits */
       }
       .review-grid {
           display: grid;
@@ -363,37 +321,13 @@
           margin: 30px auto 0;
       }
       .review-card {
-          background: white;
-          padding: 25px;
-          border-radius: 12px;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-          border: 1px solid #f0f0f0;
-          text-align: left;
+          background: white; padding: 25px; border-radius: 12px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; text-align: left;
       }
-      .review-text {
-          font-style: italic;
-          color: #444;
-          font-size: 15px;
-          line-height: 1.5;
-      }
-      .reviewer {
-          margin-top: 15px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-      }
-      .reviewer-avatar {
-          width: 40px; height: 40px;
-          background: #000;
-          color: white;
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-weight: bold;
-      }
-      .reviewer-name {
-          font-weight: 800;
-          font-size: 14px;
-      }
+      .review-text { font-style: italic; color: #444; font-size: 15px; line-height: 1.5; }
+      .reviewer { margin-top: 15px; display: flex; align-items: center; gap: 10px; }
+      .reviewer-avatar { width: 40px; height: 40px; background: #000; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+      .reviewer-name { font-weight: 800; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -409,11 +343,8 @@
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
-           href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
       </nav>
 
       <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
@@ -432,13 +363,18 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none fixed"></div>
 
-  <main class="relative pt-16">
+  <main class="relative pt-14">
       
       <section class="hero">
           <div class="hero-content">
               <div class="hero-text">
                   <h1>BISHOP & CO.<br>SHAKES</h1>
                   <p>Fuel your brain. Calculate the taste.</p>
+                  
+                  <button class="hero-btn" onclick="scrollToReviews()">
+                      Read Reviews
+                      <span class="material-symbols-outlined" style="font-size: 20px;">arrow_downward</span>
+                  </button>
               </div>
               <div class="hero-img">
                   <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Graphic">
@@ -446,15 +382,21 @@
           </div>
       </section>
 
+      <div class="filter-container">
+          <button class="filter-btn active" onclick="setFilter('all')" id="btn-all">All Items</button>
+          <button class="filter-btn" onclick="setFilter('milkshake')" id="btn-milkshake">Milkshakes</button>
+          <button class="filter-btn" onclick="setFilter('smoothie')" id="btn-smoothie">Smoothies</button>
+          <button class="filter-btn" onclick="setFilter('extras')" id="btn-extras">Extras</button>
+      </div>
+
       <div class="container-custom" id="catalog-container">
           </div>
 
-      <section class="review-section">
+      <section class="review-section" id="reviews">
           <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 10px;">Peer Reviewed Results</h2>
           <p>Statistically proven to be delicious.</p>
           
           <div class="review-grid">
-              
               <div class="review-card">
                   <p class="review-text">"I calculated the volume of the New-tella shake, and the flavor density is off the charts. It's integral to my daily happiness."</p>
                   <div class="reviewer">
@@ -462,7 +404,6 @@
                       <div class="reviewer-name">Al G. Bra</div>
                   </div>
               </div>
-
               <div class="review-card">
                   <p class="review-text">"The acute angle of the straw was perfect. The taste was sharp, definitely not obtuse. A solid 180 degrees turn from other shakes."</p>
                   <div class="reviewer">
@@ -470,7 +411,6 @@
                       <div class="reviewer-name">Geo Metry</div>
                   </div>
               </div>
-
               <div class="review-card">
                   <p class="review-text">"Honestly, I just came for the bargain. I used code <strong style="color:var(--brand-accent);">SJWMS</strong> at checkout and got a 67% discount. That is a statistically significant saving!"</p>
                   <div class="reviewer">
@@ -478,7 +418,6 @@
                       <div class="reviewer-name">Dat A. Science</div>
                   </div>
               </div>
-
           </div>
       </section>
 
@@ -496,7 +435,6 @@
           <div class="cart-items" id="cart-items">
               <p style="color:#777; text-align:center; padding: 10px;">Tray is empty.</p>
           </div>
-          
           <div class="coupon-section">
               <div class="coupon-msg" id="coupon-msg"></div>
               <div class="coupon-row">
@@ -504,7 +442,6 @@
                   <button class="coupon-btn" onclick="applyCoupon()">APPLY</button>
               </div>
           </div>
-
           <div class="cart-total" id="cart-total">Total: £0.00</div>
           <button id="payBtn" class="pay-btn" onclick="processPayment()">PAY NOW</button>
       </div>
@@ -518,8 +455,7 @@
       <div class="modal-content">
           <span class="modal-close" onclick="closeModal()">&times;</span>
           <h3 class="modal-title" id="modal-title">Ingredients</h3>
-          <ul id="modal-list" class="ingredient-list">
-              </ul>
+          <ul id="modal-list" class="ingredient-list"></ul>
           <p id="modal-allergy" style="margin-top: 15px; font-size: 12px; color: red; font-weight: bold;"></p>
       </div>
   </div>
@@ -537,141 +473,50 @@
   </script>
 
   <script>
-      // --- 1. DATA (Amounts Added) ---
       const SHAKE_DATA = [
-        {
-          "id": "classic-shake", "type": "milkshake", "name": "The Classic Shake",
-          "tagline": "A classic vanilla blend that’s simply value.", "price": 5.50,
-          "image": "classic.png", "badges": ["FAN FAVE", "VANILLA"],
-          "ingredients": ["250g Premium vanilla ice cream", "150ml Whole milk", "50ml Whipped cream", "1tsp Vanilla extract"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "sir-isaac-newtella", "type": "milkshake", "name": "Sir Isaac New-tella",
-          "tagline": "Gravity will pull this hazelnut shake straight to your stomach.", "price": 6.50,
-          "image": "newtella.png", "badges": ["HEAVY", "HAZELNUT"],
-          "ingredients": ["3 scoops Chocolate ice cream", "60g Nutella spread", "150ml Milk", "20g Crushed hazelnuts"],
-          "allergy_note": "Contains dairy, tree nuts."
-        },
-        {
-          "id": "alge-brrr", "type": "milkshake", "name": "Alge-brrr Triple Chocolate",
-          "tagline": "Add rich chocolate, subtract brain freeze.", "price": 6.25,
-          "image": "choc.png", "badges": ["NEW", "CHOCOLATE"],
-          "ingredients": ["250g Dark chocolate ice cream", "150ml Milk", "30ml Chocolate fudge sauce", "20g Brownie bites"],
-          "allergy_note": "Contains dairy, gluten."
-        },
-        {
-          "id": "pi-neapple", "type": "milkshake", "name": "The Pi-neapple Perfection",
-          "tagline": "A never-ending swirl of pineapple and vanilla.", "price": 5.75,
-          "image": "pineapple.png", "badges": ["LIMITLESS", "TROPICAL"],
-          "ingredients": ["150ml Fresh pineapple juice", "2 scoops Vanilla ice cream", "50ml Coconut milk", "1 Pineapple wedge"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "varia-berry", "type": "smoothie", "name": "The Varia-berry",
-          "tagline": "Solving for X, Y, and Z (Strawberry, Raspberry, Blueberry).", "price": 6.10,
-          "image": "variaberry.png", "badges": ["ANTIOXIDANT", "BERRY"],
-          "ingredients": ["80g Fresh strawberries", "60g Raspberries", "60g Blueberries", "150ml Apple juice base"],
-          "allergy_note": "Vegan friendly."
-        },
-        {
-          "id": "ba-nomial", "type": "milkshake", "name": "Ba-nomial Expansion",
-          "tagline": "Expanding waistlines with banana and toffee flavor.", "price": 5.95,
-          "image": "banomial.png", "badges": ["TOFFEE", "BANANA"],
-          "ingredients": ["2 Ripe bananas", "200g Vanilla ice cream", "40ml Toffee sauce", "30g Caramel fudge pieces"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "mango-nitude", "type": "smoothie", "name": "Mango-nitude",
-          "tagline": "A vector of pure tropical direction.", "price": 5.95,
-          "image": "mangonitude.png", "badges": ["VEGAN", "TROPICAL"],
-          "ingredients": ["1 Whole mango (cubed)", "50g Passion fruit pulp", "200ml Coconut water", "1 tsp Lime zest"],
-          "allergy_note": "Vegan friendly."
-        },
-        {
-          "id": "soh-cah-cocoa", "type": "milkshake", "name": "SOH-CAH-COCOA",
-          "tagline": "A trigonometric blend of dark, milk, and white chocolate.", "price": 6.50,
-          "image": "sohcahcocoa.png", "badges": ["TRIPLE CHOC", "RICH"],
-          "ingredients": ["2 scoops Chocolate ice cream", "30g White chocolate chips", "30g Dark chocolate shavings", "1 tsp Cocoa powder dusting"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "mocha-nical", "type": "milkshake", "name": "Mocha-nical Advantage",
-          "tagline": "Coffee and chocolate working together to lift your spirits.", "price": 6.25,
-          "image": "mechanic.png", "badges": ["CAFFEINE", "COFFEE"],
-          "ingredients": ["1 Double Espresso shot", "200g Chocolate ice cream", "100ml Milk", "3 Coffee beans (garnish)"],
-          "allergy_note": "Contains dairy, caffeine."
-        },
-        {
-          "id": "choc-ulator", "type": "milkshake", "name": "The Choc-ulator",
-          "tagline": "Solves your cravings instantly.", "price": 5.85,
-          "image": "choculator.png", "badges": ["SIMPLE", "CHOCOLATE"],
-          "ingredients": ["300g Double chocolate ice cream", "100ml Chocolate milk", "2 tbsp Malted powder"],
-          "allergy_note": "Contains dairy, gluten (malt)."
-        },
-        {
-          "id": "oreo-gin", "type": "milkshake", "name": "Oreo-gin Point",
-          "tagline": "Where flavor begins (0,0). Cookies & Cream delight.", "price": 6.00,
-          "image": "oreogin.png", "badges": ["CRUNCHY", "COOKIES"],
-          "ingredients": ["250g Vanilla ice cream", "4 Oreo cookies (crushed)", "150ml Milk", "1 Whole Oreo topping"],
-          "allergy_note": "Contains dairy, gluten."
-        },
-        {
-          "id": "circumfer-mint", "type": "milkshake", "name": "Circumfer-mint",
-          "tagline": "3.14 times fresher than the rest.", "price": 5.80,
-          "image": "mint.png", "badges": ["FRESH", "MINT"],
-          "ingredients": ["250g Mint choc chip ice cream", "150ml Milk", "20ml Peppermint syrup", "15g Chocolate drizzle"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "pistach-io", "type": "milkshake", "name": "Pistach-io Ratio",
-          "tagline": "The Golden Ratio of nuttiness and cream.", "price": 6.75,
-          "image": "pistachio.png", "badges": ["PREMIUM", "NUTTY"],
-          "ingredients": ["250g Pistachio ice cream", "30g Chopped pistachios", "15ml Honey drizzle", "50ml Whipped cream"],
-          "allergy_note": "Contains dairy, tree nuts."
-        },
-        {
-          "id": "cara-lel", "type": "milkshake", "name": "Cara-lel Lines",
-          "tagline": "Two streams of salted caramel that never touch... until now.", "price": 6.00,
-          "image": "caralel.png", "badges": ["SALTED", "CARAMEL"],
-          "ingredients": ["250g Salted caramel ice cream", "40ml Caramel sauce", "1 pinch Sea salt flakes", "150ml Milk"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "sqrt-berry", "type": "smoothie", "name": "Square Root Berry Blast",
-          "tagline": "A radical mix of berries for refreshment.", "price": 5.95,
-          "image": "berry.png", "badges": ["SMOOTHIE", "FRESH"],
-          "ingredients": ["100g Strawberries", "80g Blueberries", "50g Raspberries", "150g Greek yogurt", "1 tbsp Honey"],
-          "allergy_note": "Contains dairy (yogurt)."
-        },
-        {
-          "id": "tangent-tropical", "type": "smoothie", "name": "Tangent Tropical Twist",
-          "tagline": "A smooth curve of mango, banana & orange.", "price": 6.10,
-          "image": "tropical.png", "badges": ["SMOOTHIE", "TROPICAL"],
-          "ingredients": ["100g Mango chunks", "1 Ripe banana", "200ml Orange juice", "100g Yogurt", "10ml Agave syrup"],
-          "allergy_note": "Contains dairy (yogurt)."
-        },
-        {
-          "id": "extra-whip", "type": "extras", "name": "Extra Whipped Cream",
-          "tagline": "Because life is better with toppings.", "price": 0.75,
-          "image": "whip.png", "badges": ["EXTRA"],
-          "ingredients": ["60ml Fresh whipped cream"],
-          "allergy_note": "Contains dairy."
-        },
-        {
-          "id": "syrup-shot", "type": "extras", "name": "Syrup Shot",
-          "tagline": "Chocolate, strawberry or honey.", "price": 0.50,
-          "image": "syrup.png", "badges": ["EXTRA"],
-          "ingredients": ["20ml Syrup shot (choice of flavour)"],
-          "allergy_note": "Check ingredients for specific syrup allergies."
-        }
+        { "id": "classic-shake", "type": "milkshake", "name": "The Classic Shake", "tagline": "A classic vanilla blend that’s simply value.", "price": 5.50, "image": "classic.png", "badges": ["FAN FAVE", "VANILLA"], "ingredients": ["250g Premium vanilla ice cream", "150ml Whole milk", "50ml Whipped cream", "1tsp Vanilla extract"], "allergy_note": "Contains dairy." },
+        { "id": "sir-isaac-newtella", "type": "milkshake", "name": "Sir Isaac New-tella", "tagline": "Gravity will pull this hazelnut shake straight to your stomach.", "price": 6.50, "image": "newtella.png", "badges": ["HEAVY", "HAZELNUT"], "ingredients": ["3 scoops Chocolate ice cream", "60g Nutella spread", "150ml Milk", "20g Crushed hazelnuts"], "allergy_note": "Contains dairy, tree nuts." },
+        { "id": "alge-brrr", "type": "milkshake", "name": "Alge-brrr Triple Chocolate", "tagline": "Add rich chocolate, subtract brain freeze.", "price": 6.25, "image": "choc.png", "badges": ["NEW", "CHOCOLATE"], "ingredients": ["250g Dark chocolate ice cream", "150ml Milk", "30ml Chocolate fudge sauce", "20g Brownie bites"], "allergy_note": "Contains dairy, gluten." },
+        { "id": "pi-neapple", "type": "milkshake", "name": "The Pi-neapple Perfection", "tagline": "A never-ending swirl of pineapple and vanilla.", "price": 5.75, "image": "pineapple.png", "badges": ["LIMITLESS", "TROPICAL"], "ingredients": ["150ml Fresh pineapple juice", "2 scoops Vanilla ice cream", "50ml Coconut milk", "1 Pineapple wedge"], "allergy_note": "Contains dairy." },
+        { "id": "varia-berry", "type": "smoothie", "name": "The Varia-berry", "tagline": "Solving for X, Y, and Z (Strawberry, Raspberry, Blueberry).", "price": 6.10, "image": "variaberry.png", "badges": ["ANTIOXIDANT", "BERRY"], "ingredients": ["80g Fresh strawberries", "60g Raspberries", "60g Blueberries", "150ml Apple juice base"], "allergy_note": "Vegan friendly." },
+        { "id": "ba-nomial", "type": "milkshake", "name": "Ba-nomial Expansion", "tagline": "Expanding waistlines with banana and toffee flavor.", "price": 5.95, "image": "banomial.png", "badges": ["TOFFEE", "BANANA"], "ingredients": ["2 Ripe bananas", "200g Vanilla ice cream", "40ml Toffee sauce", "30g Caramel fudge pieces"], "allergy_note": "Contains dairy." },
+        { "id": "mango-nitude", "type": "smoothie", "name": "Mango-nitude", "tagline": "A vector of pure tropical direction.", "price": 5.95, "image": "mangonitude.png", "badges": ["VEGAN", "TROPICAL"], "ingredients": ["1 Whole mango (cubed)", "50g Passion fruit pulp", "200ml Coconut water", "1 tsp Lime zest"], "allergy_note": "Vegan friendly." },
+        { "id": "soh-cah-cocoa", "type": "milkshake", "name": "SOH-CAH-COCOA", "tagline": "A trigonometric blend of dark, milk, and white chocolate.", "price": 6.50, "image": "sohcahcocoa.png", "badges": ["TRIPLE CHOC", "RICH"], "ingredients": ["2 scoops Chocolate ice cream", "30g White chocolate chips", "30g Dark chocolate shavings", "1 tsp Cocoa powder dusting"], "allergy_note": "Contains dairy." },
+        { "id": "mocha-nical", "type": "milkshake", "name": "Mocha-nical Advantage", "tagline": "Coffee and chocolate working together to lift your spirits.", "price": 6.25, "image": "mechanic.png", "badges": ["CAFFEINE", "COFFEE"], "ingredients": ["1 Double Espresso shot", "200g Chocolate ice cream", "100ml Milk", "3 Coffee beans (garnish)"], "allergy_note": "Contains dairy, caffeine." },
+        { "id": "choc-ulator", "type": "milkshake", "name": "The Choc-ulator", "tagline": "Solves your cravings instantly.", "price": 5.85, "image": "choculator.png", "badges": ["SIMPLE", "CHOCOLATE"], "ingredients": ["300g Double chocolate ice cream", "100ml Chocolate milk", "2 tbsp Malted powder"], "allergy_note": "Contains dairy, gluten (malt)." },
+        { "id": "oreo-gin", "type": "milkshake", "name": "Oreo-gin Point", "tagline": "Where flavor begins (0,0). Cookies & Cream delight.", "price": 6.00, "image": "oreogin.png", "badges": ["CRUNCHY", "COOKIES"], "ingredients": ["250g Vanilla ice cream", "4 Oreo cookies (crushed)", "150ml Milk", "1 Whole Oreo topping"], "allergy_note": "Contains dairy, gluten." },
+        { "id": "circumfer-mint", "type": "milkshake", "name": "Circumfer-mint", "tagline": "3.14 times fresher than the rest.", "price": 5.80, "image": "mint.png", "badges": ["FRESH", "MINT"], "ingredients": ["250g Mint choc chip ice cream", "150ml Milk", "20ml Peppermint syrup", "15g Chocolate drizzle"], "allergy_note": "Contains dairy." },
+        { "id": "pistach-io", "type": "milkshake", "name": "Pistach-io Ratio", "tagline": "The Golden Ratio of nuttiness and cream.", "price": 6.75, "image": "pistachio.png", "badges": ["PREMIUM", "NUTTY"], "ingredients": ["250g Pistachio ice cream", "30g Chopped pistachios", "15ml Honey drizzle", "50ml Whipped cream"], "allergy_note": "Contains dairy, tree nuts." },
+        { "id": "cara-lel", "type": "milkshake", "name": "Cara-lel Lines", "tagline": "Two streams of salted caramel that never touch... until now.", "price": 6.00, "image": "caralel.png", "badges": ["SALTED", "CARAMEL"], "ingredients": ["250g Salted caramel ice cream", "40ml Caramel sauce", "1 pinch Sea salt flakes", "150ml Milk"], "allergy_note": "Contains dairy." },
+        { "id": "sqrt-berry", "type": "smoothie", "name": "Square Root Berry Blast", "tagline": "A radical mix of berries for refreshment.", "price": 5.95, "image": "berry.png", "badges": ["SMOOTHIE", "FRESH"], "ingredients": ["100g Strawberries", "80g Blueberries", "50g Raspberries", "150g Greek yogurt", "1 tbsp Honey"], "allergy_note": "Contains dairy (yogurt)." },
+        { "id": "tangent-tropical", "type": "smoothie", "name": "Tangent Tropical Twist", "tagline": "A smooth curve of mango, banana & orange.", "price": 6.10, "image": "tropical.png", "badges": ["SMOOTHIE", "TROPICAL"], "ingredients": ["100g Mango chunks", "1 Ripe banana", "200ml Orange juice", "100g Yogurt", "10ml Agave syrup"], "allergy_note": "Contains dairy (yogurt)." },
+        { "id": "extra-whip", "type": "extras", "name": "Extra Whipped Cream", "tagline": "Because life is better with toppings.", "price": 0.75, "image": "whip.png", "badges": ["EXTRA"], "ingredients": ["60ml Fresh whipped cream"], "allergy_note": "Contains dairy." },
+        { "id": "syrup-shot", "type": "extras", "name": "Syrup Shot", "tagline": "Chocolate, strawberry or honey.", "price": 0.50, "image": "syrup.png", "badges": ["EXTRA"], "ingredients": ["20ml Syrup shot (choice of flavour)"], "allergy_note": "Check ingredients for specific syrup allergies." }
       ];
 
       let productCatalog = SHAKE_DATA; 
       let cart = [];
       let discountApplied = false;
+      let currentFilter = 'all';
 
-      // --- 2. RENDER GRID (Grouped) ---
+      // --- SCROLL ANIMATION ---
+      function scrollToReviews() {
+          const section = document.getElementById('reviews');
+          section.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // --- FILTER LOGIC ---
+      function setFilter(type) {
+          currentFilter = type;
+          
+          // Update buttons
+          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+          document.getElementById('btn-' + type).classList.add('active');
+
+          renderCatalog();
+      }
+
+      // --- RENDER GRID ---
       function getBgClass(name) {
           const n = name.toLowerCase();
           if(n.includes('chocolate') || n.includes('syrup')) return 'bg-choc';
@@ -691,6 +536,9 @@
           ];
 
           groups.forEach(group => {
+              // Only render if filter matches or is 'all'
+              if (currentFilter !== 'all' && group.id !== currentFilter) return;
+
               const items = productCatalog.filter(p => p.type === group.id);
               if(items.length > 0) {
                   const sectionTitle = document.createElement('h2');
@@ -732,7 +580,7 @@
           });
       }
 
-      // --- 3. CART LOGIC ---
+      // --- CART LOGIC ---
       function toggleCart() {
           const panel = document.getElementById('cart-panel');
           panel.classList.toggle('open');
@@ -742,7 +590,6 @@
           const item = productCatalog.find(p => p.id === id);
           cart.push(item);
           updateCartUI();
-          
           const panel = document.getElementById('cart-panel');
           if(!panel.classList.contains('open')) panel.classList.add('open');
       }
@@ -798,7 +645,6 @@
           itemsEl.innerHTML = html;
 
           if (discountApplied) {
-              // 67% off means pay 33%
               let finalTotal = subtotal * 0.33;
               totalEl.innerHTML = `
                 <div><span class="original-price">£${subtotal.toFixed(2)}</span></div>
@@ -809,35 +655,28 @@
           }
       }
 
-      // --- 4. GLITCH PAYMENT (Retained) ---
+      // --- PAYMENT GLITCH ---
       function processPayment() {
           if(cart.length === 0) return alert("Tray is empty!");
-
           const btn = document.getElementById('payBtn');
           const originalText = btn.innerText;
-
-          // Apply glitch class
           btn.classList.add('glitching');
           btn.innerText = "SYSTEM ERROR";
           btn.disabled = true;
-
-          // Stop after 3 seconds
           setTimeout(() => {
               btn.classList.remove('glitching');
               btn.innerText = originalText;
               btn.disabled = false;
-              
               cart = []; 
               discountApplied = false;
               document.getElementById('coupon-code').value = '';
               document.getElementById('coupon-msg').innerText = '';
-              
               updateCartUI();
-              alert("Payment Failed... but we gave you the shakes anyway!");
+              alert("Payment Failed... more maths questions required!");
           }, 3000);
       }
 
-      // --- 5. INGREDIENTS MODAL ---
+      // --- MODAL LOGIC ---
       function openIngredients(id) {
           const item = productCatalog.find(p => p.id === id);
           const modal = document.getElementById('ing-modal');
@@ -847,31 +686,21 @@
 
           title.innerText = item.name;
           list.innerHTML = '';
-          
           if(item.ingredients) {
-              item.ingredients.forEach(ing => {
-                  list.innerHTML += `<li>${ing}</li>`;
-              });
-          } else {
-              list.innerHTML = '<li>Ingredients not listed.</li>';
-          }
+              item.ingredients.forEach(ing => { list.innerHTML += `<li>${ing}</li>`; });
+          } else { list.innerHTML = '<li>Ingredients not listed.</li>'; }
 
           allergy.innerText = item.allergy_note || "";
           modal.style.display = 'flex';
       }
 
-      function closeModal() {
-          document.getElementById('ing-modal').style.display = 'none';
-      }
-
+      function closeModal() { document.getElementById('ing-modal').style.display = 'none'; }
       window.onclick = function(event) {
           const modal = document.getElementById('ing-modal');
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
+          if (event.target == modal) { modal.style.display = "none"; }
       }
 
-      // --- 6. INITIALIZATION ---
+      // --- INIT ---
       renderCatalog();
 
   </script>
