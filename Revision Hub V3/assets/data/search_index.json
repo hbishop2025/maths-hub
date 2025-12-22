@@ -67,7 +67,7 @@
   { "level": "Y7", "label": "Year 7 Hub",    "keywords": ["year 7"],                                   "url": "/year7_hub.html" },
   { "level": "GCSE", "label": "GCSE Hub",    "keywords": ["gcse"],                                   "url": "/gcse_hub.html" },
   { "level": "A-Level", "label": "A-Level Hub",    "keywords": ["A-level"],                                   "url": "/alevel_hub.html" },
-  { "level": "Site", "label": "Bishop & Co. Shakes",    "keywords": ["milkshakes", "smoothie", "Bishop", "yummy"],                                   "url": "/bishop_shakes.html" }, 
+  { "level": "Site", "label": "Bishop & Co. Shakes",    "keywords": ["milkshakes", "smoothie", "yummy"],                                   "url": "/bishop_shakes.html" }, 
   
 
   {
