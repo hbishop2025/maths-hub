@@ -126,6 +126,67 @@
           max-height: 400px; 
       }
 
+      /* --- ECO / ENVIRONMENT SECTION --- */
+    .eco-section {
+        background-color: #d1fae5; /* Light Mint Green */
+        border-top: 2px solid #000; /* Separator line */
+        padding: 60px 20px;
+        position: relative;
+    }
+
+    .eco-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+    }
+
+    .eco-text {
+        flex: 1;
+        text-align: left;
+    }
+
+    .eco-text h2 {
+        font-size: 50px;
+        font-weight: 900;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        line-height: 0.95;
+        color: #000;
+    }
+
+    .eco-text p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .eco-img {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .eco-img img {
+        max-width: 100%;
+        height: auto;
+        max-height: 350px;
+    }
+
+    /* Mobile Responsive for Eco Section */
+    @media (max-width: 900px) {
+        .eco-content { 
+            flex-direction: column-reverse; /* Stack image under text on mobile */
+            text-align: center; 
+        }
+        .eco-text { text-align: center; }
+        .eco-text h2 { font-size: 40px; }
+    }
+
       @media (max-width: 900px) {
           .hero-content { flex-direction: column; text-align: center; }
           .hero-text { text-align: center; }
@@ -392,6 +453,26 @@
       <div class="container-custom" id="catalog-container">
           </div>
 
+      <section class="eco-section">
+        <div class="eco-content">
+            <div class="eco-img">
+                <img src="bishop_shakes/recycle.svg" alt="Recycling Graphic">
+            </div>
+            <div class="eco-text">
+                <h2>Calculating a<br>Greener Future</h2>
+                <p>
+                    Our limit for waste <strong>approaches zero</strong>. We believe sustainability is <strong>integral</strong> to our formula for success.
+                </p>
+                <p>
+                    By <strong>subtracting</strong> single-use plastics and multiplying our use of renewable materials, we ensure the probability of a healthy planet remains 100%.
+                </p>
+                <p style="font-weight: bold; font-style: italic; margin-top: 10px;">
+                    We don't go off on a tangent—we stick to the circular economy.
+                </p>
+            </div>
+        </div>
+    </section>
+    
       <section class="review-section" id="reviews">
           <h2 style="text-transform: uppercase; font-weight: 900; margin-bottom: 10px;">Peer Reviewed Results</h2>
           <p>Statistically proven to be delicious.</p>
