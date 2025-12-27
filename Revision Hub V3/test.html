@@ -1,470 +1,495 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-  <title>SJWMS Maths App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Premium Hub</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    :root { 
-      --accent-ks3: #7C3AED; 
-      --accent-gcse: #3B82F6; 
-      --accent-alevel: #0f172a;
-      --nav-height: 60px;
-    }
+    :root { --accent-glow: #7C3AED; }
 
     body { 
-      @apply bg-[#f6f6f8] text-[#111827] font-[Lexend] overflow-x-hidden; 
-      -webkit-tap-highlight-color: transparent;
-      padding-bottom: calc(var(--nav-height) + 20px); /* Space for bottom nav on mobile */
+      @apply bg-slate-950 text-slate-200 font-[Lexend]; 
+      overflow-x: hidden; 
     }
 
-    /* ---- NAVIGATION ---- */
-    /* Desktop Header */
-    .header-desktop { 
-      @apply fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200 transition-all duration-300; 
-      height: 4rem;
+    /* --- ANIMATED MATHS BACKGROUND (Canvas) --- */
+    #mathCanvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none; opacity: 0.4;
+    }
+
+    /* --- HERO IMAGES --- */
+    .hero-hero-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0;
+      transition: opacity 1s ease-in-out, transform 8s ease-out;
+      transform: scale(1.05);
+    }
+    .hero-hero-img.is-active { opacity: 1; transform: scale(1); }
+
+    /* --- SIRI GLOW SEARCH --- */
+    .smart-wrap {
+      width: clamp(280px, 50vw, 450px);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: 3rem auto 0;
+      position: relative;
+    }
+    .smart-wrap:hover, .smart-wrap:focus-within { width: clamp(320px, 60vw, 680px); }
+
+    .glow-wrap {
+      position: relative; z-index: 30; border-radius: 9999px; isolation: isolate;
+    }
+    .glow-wrap::before {
+      content:""; position:absolute; inset:-3px; border-radius:9999px;
+      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
+      background-size: 400% 100%;
+      filter: blur(8px);
+      opacity: 0; transition: opacity .25s ease-out;
+      z-index: -1;
+      animation: siri-glow 8s linear infinite;
+    }
+    .glow-wrap:focus-within::before { opacity: 1; }
+    
+    @keyframes siri-glow{
+      0%{background-position:0% 50%}
+      50%{background-position:200% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .smart-pill {
+      @apply flex items-center gap-3 bg-black/60 border border-white/20 text-white rounded-full px-5 py-3 shadow-2xl backdrop-blur-xl;
+      transition: all 0.3s ease;
     }
     
-    /* Mobile Bottom Nav */
-    .mobile-nav {
-      @apply fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t border-gray-200 flex justify-around items-center md:hidden;
-      height: var(--nav-height);
-      padding-bottom: env(safe-area-inset-bottom);
+    .smart-input {
+      @apply flex-1 bg-transparent border-0 focus:ring-0 text-lg font-medium placeholder-gray-400 text-center;
     }
-    .nav-item {
-      @apply flex flex-col items-center justify-center w-full h-full text-gray-400 transition-colors;
+    .smart-input::placeholder { color: #94a3b8; }
+    
+    /* Progress Bar */
+    .hero-progress-track {
+      @apply mt-10 h-1 w-64 mx-auto rounded-full bg-white/20 overflow-hidden backdrop-blur-sm;
     }
-    .nav-item.active {
-      @apply text-[#135bec];
+    .hero-progress-bar {
+      @apply h-full w-0 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-400;
     }
-    .nav-item .material-icons, .nav-item .material-symbols-outlined {
-      font-size: 24px;
-      margin-bottom: 2px;
+    @keyframes hero-progress-fill { to { width: 100%; } }
+
+    /* --- HEADER TRANSITION --- */
+    .nav-transparent { @apply bg-transparent border-transparent py-4; }
+    .nav-scrolled { @apply bg-slate-950/80 backdrop-blur-xl border-b border-white/10 py-2 shadow-lg; }
+
+    /* --- AI SWIPE BUTTON --- */
+    .btn-swipe-anim {
+      background-image: linear-gradient(
+        110deg,
+        #0f172a 45%,
+        #3b82f6 48%, 
+        #a855f7 50%,
+        #ffffff 52%,
+        #0f172a 55%
+      );
+      background-size: 250% 100%;
+      background-position: 100% 0; /* Start position (dark) */
+      transition: background-position 0.6s ease-out, transform 0.2s;
     }
-    .nav-item span.label {
-      font-size: 10px;
-      font-weight: 600;
+    .btn-swipe-anim:hover {
+      background-position: 0 0; /* End position (swipe across) */
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
     }
 
-    /* ---- VIEW TRANSITIONS ---- */
-    .app-view {
-      display: none;
-      opacity: 0;
-      animation: fadeIn 0.3s ease-out forwards;
-      @apply pt-20; /* Space for top header */
+    /* --- APP ICON PLATFORMS --- */
+    .app-icon {
+      @apply w-16 h-16 rounded-2xl flex items-center justify-center bg-white shadow-lg mb-3 mx-auto transition-transform duration-300;
     }
-    .app-view.active-view {
-      display: block;
+    .platform-card:hover .app-icon {
+      transform: scale(1.1) rotate(-3deg);
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Suggestions Dropdown */
+    #searchSug {
+      @apply absolute left-1/2 top-[120%] -translate-x-1/2 w-full bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl opacity-0 invisible z-50 transition-all duration-200;
+      max-height: 300px; overflow-y: auto; text-align: left;
     }
+    #searchSug.open { @apply opacity-100 visible top-[110%]; }
+    
+    .sug-item { @apply flex items-center justify-between p-3 rounded-xl cursor-pointer hover:bg-white/10 text-slate-200 transition-colors; }
+    .sug-badge { @apply text-[10px] font-bold px-2 py-0.5 rounded-full text-white uppercase tracking-wider; }
 
-    /* ---- SHARED UTILS (From your snippets) ---- */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
-
-    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
-
-    /* KS3 Styles */
-    .ks3-hero-wrap {
-      @apply relative rounded-[2rem] overflow-hidden mt-4 shadow-xl;
-      height: 320px;
-    }
-    .ks3-hero-bg { @apply absolute inset-0 z-0; }
-    .ks3-hero-bg img { @apply w-full h-full object-cover brightness-90 scale-105; }
-    .ks3-hero-card {
-      @apply absolute inset-0 z-10 flex flex-col justify-center px-6 sm:px-10 text-white bg-slate-900/40 backdrop-blur-sm;
-    }
-    .mega-gradient {
-      background-image: linear-gradient(90deg, #FDE047 0%, #F59E0B 18%, #F472B6 40%, #A78BFA 65%, #60A5FA 85%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-
-    /* A-Level Styles */
-    .al-hero-wrap {
-      @apply relative rounded-[1.75rem] overflow-hidden bg-slate-900 shadow-2xl flex justify-center items-center text-center mt-4;
-      height: 300px;
-    }
-    .track-pill {
-      @apply px-4 py-2 rounded-full text-sm font-semibold border bg-white shadow-sm cursor-pointer transition border-slate-300 text-slate-700 hover:bg-slate-50;
-    }
-    .track-pill-active {
-      @apply bg-slate-900 text-white border-slate-900 hover:bg-slate-800 !important;
-    }
-    .icon-card {
-      @apply flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition;
-    }
-
-    /* AI Usage Styles */
-    .ai-hero-wrap {
-      @apply relative rounded-[2rem] overflow-hidden mt-4;
-    }
-    .ai-hero-card {
-      @apply relative z-10 px-6 sm:px-14 py-10 sm:py-14 text-white bg-slate-900/60 backdrop-blur-sm;
-    }
-    .hang-list { list-style: disc outside; padding-left: 1.5rem; }
-    .tab-pill {
-      @apply inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-semibold text-gray-600 transition hover:bg-gray-100;
-    }
-    .tab-pill.tab-pill-active {
-      @apply bg-slate-900 text-white shadow-md;
-    }
-    .prompt-card {
-      @apply bg-white rounded-2xl border border-gray-200 p-5 shadow-sm;
-    }
-
-    /* Search Bar Morph Placeholder */
-    .search-trigger {
-      @apply flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full text-sm text-gray-500 hover:bg-gray-200 transition cursor-text w-full max-w-md;
-    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
   </style>
 </head>
 <body>
 
-  <div class="fixed inset-0 math-grid pointer-events-none z-0"></div>
+  <canvas id="mathCanvas"></canvas>
 
-  <header class="header-desktop hidden md:flex items-center justify-between px-6 lg:px-8">
-    <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
-      <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto"/>
-      <span class="font-extrabold tracking-tight text-lg">SJWMS Maths</span>
-    </div>
+  <header id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-transparent">
+    <div class="mx-auto max-w-7xl px-6 h-full flex items-center justify-between">
+      
+      <div class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+          S
+        </div>
+        <span class="font-bold tracking-tight text-white text-lg drop-shadow-md">SJWMS Maths</span>
+      </div>
 
-    <div class="flex-1 max-w-lg mx-8">
-      <div class="search-trigger">
-        <span class="material-icons text-gray-400">search</span>
-        <span>Search topics, questions or videos...</span>
+      <nav class="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/5 bg-black/20 backdrop-blur-md">
+        <a class="px-5 py-1.5 text-sm font-medium text-white rounded-full bg-white/10" href="#">Home</a>
+        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="ks3_hub.html">KS3</a>
+        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="gcse_hub.html">GCSE</a>
+        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="alevel_hub.html">A-Level</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="ai_usage.html" class="hidden md:flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 text-white text-xs font-bold btn-swipe-anim shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+          <span class="material-symbols-outlined text-base">auto_awesome</span>
+          AI USAGE
+        </a>
+
+        <button id="menuBtn" class="md:hidden text-white">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
       </div>
     </div>
-
-    <nav class="flex items-center gap-1">
-      <button onclick="switchTab('home')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-[#135bec] rounded-lg hover:bg-blue-50 transition">Home</button>
-      <button onclick="switchTab('ks3')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-[#135bec] rounded-lg hover:bg-blue-50 transition">KS3</button>
-      <button onclick="switchTab('gcse')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-[#135bec] rounded-lg hover:bg-blue-50 transition">GCSE</button>
-      <button onclick="switchTab('alevel')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-[#135bec] rounded-lg hover:bg-blue-50 transition">A-Level</button>
-      <button onclick="switchTab('ai')" class="ml-2 px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition">AI Usage</button>
-    </nav>
-  </header>
-
-  <header class="header-desktop md:hidden flex items-center justify-between px-4">
-    <div class="flex items-center gap-2" onclick="switchTab('home')">
-      <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-      <span class="font-extrabold tracking-tight">SJWMS</span>
-    </div>
-    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-        <span class="material-icons text-gray-600 text-sm">search</span>
+    
+    <div id="mobileMenu" class="hidden absolute top-full left-0 w-full bg-slate-900 border-b border-white/10 p-4 flex flex-col gap-4 shadow-2xl">
+      <a class="text-gray-300" href="ks3_hub.html">KS3</a>
+      <a class="text-gray-300" href="gcse_hub.html">GCSE</a>
+      <a class="text-gray-300" href="alevel_hub.html">A-Level</a>
+      <a class="text-purple-400 font-bold" href="ai_usage.html">AI Usage</a>
     </div>
   </header>
 
-  <main class="relative z-10 w-full min-h-screen">
+  <main class="relative z-10">
+    
+    <section class="relative w-full h-screen overflow-hidden bg-black">
+      
+      <div class="absolute inset-0 z-0">
+        <img id="homeHeroImgA" src="assets/home-hero1.jpg" alt="Maths revision" class="hero-hero-img is-active" />
+        <img id="homeHeroImgB" src="assets/home-hero2.jpg" alt="" class="hero-hero-img" />
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-slate-950"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-950 to-transparent"></div>
+      </div>
 
-    <section id="view-home" class="app-view active-view">
-       <div class="hero-shell text-center mt-8 mb-12">
-          <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tight">
-            Master <span class="text-[#135bec]">Maths</span>.
-          </h1>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Select your level to access videos, worksheets, and AI revision tools.
-          </p>
-          
-          <div class="max-w-2xl mx-auto relative mb-12 group">
-            <input type="text" placeholder="What are you revising today?" 
-                   class="w-full h-14 pl-12 pr-4 rounded-full border-2 border-gray-200 shadow-sm focus:border-[#135bec] focus:ring-0 transition text-lg" />
-            <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#135bec]">search</span>
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pt-10">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white/80 text-[10px] font-bold uppercase tracking-widest mb-6 shadow-lg">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Revision Hub 2.0
+        </div>
+        
+        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white text-center drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
+          What will you <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-emerald-300">
+            revise today?
+          </span>
+        </h1>
+        
+        <div id="smartWrap" class="smart-wrap">
+          <div class="glow-wrap">
+            <div class="smart-pill group">
+              <span class="material-symbols-outlined text-gray-400">search</span>
+              <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’ or ‘Surds’" autocomplete="off" 
+                     aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug" role="combobox"/>
+            </div>
+            <div id="searchSug" role="listbox"></div>
           </div>
+        </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-             <div onclick="switchTab('ks3')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition text-center group">
-                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-600 group-hover:text-white transition">
-                   <span class="material-icons">school</span>
-                </div>
-                <h3 class="font-bold text-gray-800">KS3</h3>
-                <p class="text-xs text-gray-500 mt-1">Years 7-9</p>
-             </div>
+        <div class="hero-progress-track">
+          <div id="heroProgressBar" class="hero-progress-bar"></div>
+        </div>
+      </div>
 
-             <div onclick="switchTab('gcse')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition text-center group">
-                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-600 group-hover:text-white transition">
-                   <span class="material-icons">auto_stories</span>
-                </div>
-                <h3 class="font-bold text-gray-800">GCSE</h3>
-                <p class="text-xs text-gray-500 mt-1">Years 10-11</p>
-             </div>
+      <button onclick="document.getElementById('contentStart').scrollIntoView({behavior: 'smooth'})" 
+              class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/50 hover:text-white transition group cursor-pointer animate-bounce">
+        <span class="material-symbols-outlined text-4xl drop-shadow-lg">keyboard_arrow_down</span>
+      </button>
 
-             <div onclick="switchTab('alevel')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition text-center group">
-                <div class="w-12 h-12 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-slate-800 group-hover:text-white transition">
-                   <span class="material-icons">functions</span>
-                </div>
-                <h3 class="font-bold text-gray-800">A-Level</h3>
-                <p class="text-xs text-gray-500 mt-1">Years 12-13</p>
-             </div>
-
-             <div onclick="switchTab('ai')" class="cursor-pointer bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition text-center group">
-                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-amber-500 group-hover:text-white transition">
-                   <span class="material-symbols-outlined">psychology</span>
-                </div>
-                <h3 class="font-bold text-gray-800">AI Help</h3>
-                <p class="text-xs text-gray-500 mt-1">Usage & Tips</p>
-             </div>
-          </div>
-       </div>
     </section>
 
-    <section id="view-ks3" class="app-view">
-      <div class="hero-shell">
-        <div class="ks3-hero-wrap">
-          <div class="ks3-hero-bg">
-            <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
-          </div>
-          <div class="ks3-hero-card">
-            <p class="uppercase tracking-widest text-xs text-gray-300">Key Stage 3</p>
-            <h1 class="mt-2 text-3xl sm:text-4xl font-black leading-tight">
-              <span class="mega-gradient">KS3 Revision</span><br/>Years 7–9
-            </h1>
-            <p class="mt-3 text-sm text-gray-200 max-w-lg">
-              Secure the basics. Worksheets, videos and problem-solving practice.
+    <div id="contentStart" class="relative w-full bg-slate-950 pt-16 pb-32 border-t border-white/5">
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+          <div class="lg:col-span-1">
+            <h2 class="text-3xl font-bold text-white mb-4">Hub Coverage</h2>
+            <p class="text-gray-400 leading-relaxed">
+              We are constantly building new resources. Check the status indicators to see which year groups are currently active.
             </p>
-            <div class="mt-6 flex flex-wrap gap-3">
-              <a href="#" class="inline-flex items-center px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition backdrop-blur-md">
-                UKMT Prep <span class="material-icons ml-2 text-sm">emoji_events</span>
-              </a>
+          </div>
+          
+          <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
+                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
+              </div>
+              <span class="text-lg font-semibold text-emerald-100">Year 9</span>
+            </div>
+
+            <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
+                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
+              </div>
+              <span class="text-lg font-semibold text-emerald-100">A-Level Y12</span>
+            </div>
+
+            <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
+                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
+              </div>
+              <span class="text-lg font-semibold text-emerald-100">A-Level Y13</span>
+            </div>
+
+            <div class="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 flex flex-col gap-2 opacity-80">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Building</span>
+                <span class="h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span>
+              </div>
+              <span class="text-lg font-semibold text-orange-100">Year 8</span>
+            </div>
+
+             <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col gap-2 opacity-40 grayscale">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span>
+                <span class="h-2 w-2 rounded-full bg-gray-600"></span>
+              </div>
+              <span class="text-lg font-semibold text-gray-300">Year 7</span>
+            </div>
+
+            <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col gap-2 opacity-40 grayscale">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span>
+                <span class="h-2 w-2 rounded-full bg-gray-600"></span>
+              </div>
+              <span class="text-lg font-semibold text-gray-300">GCSE</span>
             </div>
           </div>
         </div>
 
-        <div class="mt-10 mb-10">
-           <h2 class="text-xl font-bold text-gray-800 mb-4">Choose your Year</h2>
-           <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <a href="year7_hub.html" class="block p-5 bg-white rounded-2xl shadow-sm border border-gray-200 hover:border-purple-300 transition group">
-                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                       <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600 font-bold">7</div>
-                       <span class="font-bold text-gray-800">Year 7</span>
-                    </div>
-                    <span class="material-icons text-gray-300 group-hover:text-purple-600">arrow_forward</span>
-                 </div>
-              </a>
-              <a href="#" class="block p-5 bg-white rounded-2xl shadow-sm border border-gray-200 hover:border-purple-300 transition group">
-                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                       <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600 font-bold">8</div>
-                       <span class="font-bold text-gray-800">Year 8</span>
-                    </div>
-                    <span class="material-icons text-gray-300 group-hover:text-purple-600">arrow_forward</span>
-                 </div>
-              </a>
-              <a href="#" class="block p-5 bg-white rounded-2xl shadow-sm border border-gray-200 hover:border-purple-300 transition group">
-                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                       <div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600 font-bold">9</div>
-                       <span class="font-bold text-gray-800">Year 9</span>
-                    </div>
-                    <span class="material-icons text-gray-300 group-hover:text-purple-600">arrow_forward</span>
-                 </div>
-              </a>
-           </div>
+        <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-24"></div>
+
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white">External Platforms</h2>
+          <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+            Direct portals to your independent study apps.
+          </p>
         </div>
 
-        <div id="ks3-dynamic-content" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-           </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
+          
+          <a href="https://www.drfrostmaths.com/" target="_blank" class="platform-card block text-center group">
+            <div class="app-icon">
+              <span class="text-blue-600 text-3xl font-black">DFM</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">DrFrostMaths</h3>
+          </a>
+
+          <a href="https://selectschool.sparx-learning.com/" target="_blank" class="platform-card block text-center group">
+            <div class="app-icon">
+              <span class="text-purple-600 text-3xl font-black">XP</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors">SPARX</h3>
+          </a>
+
+          <a href="https://www.pearsonactivelearn.com/" target="_blank" class="platform-card block text-center group">
+            <div class="app-icon">
+              <span class="text-blue-900 text-3xl font-black">AL</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">ActiveLearn</h3>
+          </a>
+
+           <a href="https://www.mymaths.co.uk/" target="_blank" class="platform-card block text-center group">
+            <div class="app-icon">
+              <span class="text-pink-600 text-3xl font-black">MM</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white group-hover:text-pink-400 transition-colors">MyMaths</h3>
+          </a>
+
+        </div>
+
+        <div class="mt-24 text-center">
+          <p class="text-xs text-gray-600 uppercase tracking-widest">SJWMS Mathematics Department</p>
+        </div>
+
       </div>
-    </section>
-
-    <section id="view-gcse" class="app-view">
-       <div class="hero-shell pt-10 text-center">
-          <div class="bg-blue-50 border border-blue-100 rounded-3xl p-10">
-             <span class="material-icons text-6xl text-blue-300 mb-4">construction</span>
-             <h2 class="text-2xl font-bold text-gray-900">GCSE Hub Loading...</h2>
-             <p class="text-gray-500 mt-2">We are just polishing the algebra tiles. Check back in a moment.</p>
-             <button onclick="switchTab('home')" class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-full font-semibold">Back to Home</button>
-          </div>
-       </div>
-    </section>
-
-    <section id="view-alevel" class="app-view">
-      <div class="hero-shell">
-         <div class="al-hero-wrap">
-            <div class="absolute inset-0 opacity-50">
-               <img src="assets/alevel-hero.jpg" class="w-full h-full object-cover" alt="A Level Bg">
-            </div>
-            <div class="relative z-10 text-white">
-               <h1 class="text-5xl font-black tracking-tight">A-Level</h1>
-               <h2 class="text-xl font-medium text-slate-300 mt-1">Mathematics</h2>
-               <div class="mt-6 flex justify-center gap-3">
-                  <a href="#" class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-semibold hover:bg-white/20">Exam Revision</a>
-                  <a href="#" class="px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-semibold hover:bg-white/20">A* Questions</a>
-               </div>
-            </div>
-         </div>
-
-         <div class="flex flex-wrap justify-center gap-3 mt-8 mb-8" id="al-track-pills">
-            <button class="track-pill track-pill-active">Year 12 Pure</button>
-            <button class="track-pill">Year 13 Pure</button>
-            <button class="track-pill">Stats</button>
-            <button class="track-pill">Mechanics</button>
-         </div>
-
-         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
-            <div class="icon-card group cursor-pointer">
-               <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-slate-900">calculate</span>
-               <p class="mt-3 text-sm font-bold text-slate-800">Algebra & Functions</p>
-               <p class="text-xs text-slate-500 text-center mt-1">Indices, surds, quadratics...</p>
-            </div>
-             <div class="icon-card group cursor-pointer">
-               <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-slate-900">show_chart</span>
-               <p class="mt-3 text-sm font-bold text-slate-800">Coordinate Geometry</p>
-               <p class="text-xs text-slate-500 text-center mt-1">Circles and straight lines</p>
-            </div>
-             <div class="icon-card group cursor-pointer">
-               <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-slate-900">change_history</span>
-               <p class="mt-3 text-sm font-bold text-slate-800">Trigonometry</p>
-               <p class="text-xs text-slate-500 text-center mt-1">Sine/Cosine rules, identities</p>
-            </div>
-         </div>
-      </div>
-    </section>
-
-    <section id="view-ai" class="app-view">
-      <div class="hero-shell">
-         <div class="ai-hero-wrap">
-             <div class="absolute inset-0 z-0">
-               <img src="assets/ai-hero.jpg" class="w-full h-full object-cover brightness-50" alt="AI Hero">
-             </div>
-             <div class="ai-hero-card">
-                <span class="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-amber-300 mb-2">
-                  <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span> AI & Maths
-                </span>
-                <h1 class="text-3xl font-extrabold text-white">Using AI Sensibly</h1>
-                <p class="mt-2 text-sm text-gray-200 max-w-lg">
-                  AI is a powerful revision tool. Use it to learn, not to skip the hard work.
-                </p>
-             </div>
-         </div>
-
-         <div class="mt-8 mb-10">
-            <div class="flex gap-2 overflow-x-auto pb-2 mb-6 no-scrollbar">
-               <button class="tab-pill tab-pill-active whitespace-nowrap" onclick="switchAiTab('faqs', this)">Common Questions</button>
-               <button class="tab-pill whitespace-nowrap" onclick="switchAiTab('ks3', this)">KS3 Prompts</button>
-               <button class="tab-pill whitespace-nowrap" onclick="switchAiTab('ks4', this)">GCSE Prompts</button>
-               <button class="tab-pill whitespace-nowrap" onclick="switchAiTab('ks5', this)">A-Level Prompts</button>
-            </div>
-
-            <div id="ai-panel-faqs" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-               <div class="prompt-card">
-                  <h4 class="font-bold text-slate-900 text-sm mb-1">Can I use AI for homework?</h4>
-                  <p class="text-xs text-gray-600">Yes, to understand methods and check mistakes. No, to generate answers to copy and paste.</p>
-               </div>
-               <div class="prompt-card">
-                  <h4 class="font-bold text-slate-900 text-sm mb-1">Is it cheating?</h4>
-                  <p class="text-xs text-gray-600">If you use it to bypass learning, yes. If you use it as a tutor to explain things, no.</p>
-               </div>
-               <div class="prompt-card border-amber-200 bg-amber-50">
-                  <h4 class="font-bold text-amber-900 text-sm mb-1 flex items-center gap-2"><span class="material-icons text-sm">star</span> Golden Rule</h4>
-                  <p class="text-xs text-amber-800">If you would be embarrassed to tell your teacher exactly how you used it, don't do it.</p>
-               </div>
-            </div>
-
-            <div id="ai-panel-ks3" class="hidden space-y-4">
-               <div class="prompt-card p-4">
-                  <p class="text-[10px] font-bold text-amber-600 uppercase mb-2">Topic: Fractions</p>
-                  <p class="text-sm text-gray-800 italic">"Explain how to add fractions with different denominators to a Year 7 student. Give me a worked example, then 3 practice questions."</p>
-               </div>
-            </div>
-            
-            </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <nav class="mobile-nav">
-     <button class="nav-item active" onclick="switchTab('home')" data-tab="home">
-        <span class="material-icons">home</span>
-        <span class="label">Home</span>
-     </button>
-     <button class="nav-item" onclick="switchTab('ks3')" data-tab="ks3">
-        <span class="material-icons">school</span>
-        <span class="label">KS3</span>
-     </button>
-     <button class="nav-item" onclick="switchTab('gcse')" data-tab="gcse">
-        <span class="material-icons">auto_stories</span>
-        <span class="label">GCSE</span>
-     </button>
-     <button class="nav-item" onclick="switchTab('alevel')" data-tab="alevel">
-        <span class="material-symbols-outlined">functions</span>
-        <span class="label">A-Level</span>
-     </button>
-     <button class="nav-item" onclick="switchTab('ai')" data-tab="ai">
-        <span class="material-symbols-outlined">psychology</span>
-        <span class="label">AI</span>
-     </button>
-  </nav>
+  <script>
+    const canvas = document.getElementById('mathCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const symbols = "01πΣ∫xy≈≠≤≥∞√∆∇∈∉∪∩⊂⊃ƒ∂xyz";
+    const fontSize = 14;
+    const columns = Math.floor(width / fontSize);
+    const drops = Array(columns).fill(1); 
+
+    function draw() {
+      ctx.fillStyle = 'rgba(2, 6, 23, 0.05)'; 
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#334155';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = symbols.charAt(Math.floor(Math.random() * symbols.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 33);
+  </script>
 
   <script>
-    // --- Navigation Logic ---
-    function switchTab(viewId) {
-       // 1. Hide all views
-       document.querySelectorAll('.app-view').forEach(el => {
-          el.classList.remove('active-view');
-       });
-       
-       // 2. Show target view
-       const target = document.getElementById('view-' + viewId);
-       if(target) {
-          target.classList.add('active-view');
-          window.scrollTo(0,0); // Reset scroll
-       }
-
-       // 3. Update Bottom Nav State
-       document.querySelectorAll('.mobile-nav .nav-item').forEach(btn => {
-          btn.classList.remove('active');
-          if(btn.dataset.tab === viewId) btn.classList.add('active');
-       });
-
-       // 4. Update Header State (Optional visual cues)
-       const header = document.querySelector('.header-desktop');
-       // Logic can go here to change header color based on section if desired
-    }
-
-    // --- AI Tab Logic ---
-    function switchAiTab(panelName, btnElement) {
-       // Reset pills
-       document.querySelectorAll('#view-ai .tab-pill').forEach(b => b.classList.remove('tab-pill-active'));
-       btnElement.classList.add('tab-pill-active');
-
-       // Hide all panels
-       const panels = ['faqs', 'ks3', 'ks4', 'ks5'];
-       panels.forEach(p => {
-          const el = document.getElementById('ai-panel-' + p);
-          if(el) el.classList.add('hidden');
-       });
-
-       // Show target
-       const target = document.getElementById('ai-panel-' + panelName);
-       if(target) target.classList.remove('hidden');
-    }
-
-    // --- Initialize ---
-    document.addEventListener('DOMContentLoaded', () => {
-       // Deep link support ?view=alevel
-       const params = new URLSearchParams(window.location.search);
-       const view = params.get('view');
-       if(view) switchTab(view);
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.remove('nav-transparent');
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.add('nav-transparent');
+        nav.classList.remove('nav-scrolled');
+      }
     });
   </script>
+
+  <script>
+    (function(){
+      const imgA=document.getElementById('homeHeroImgA'), imgB=document.getElementById('homeHeroImgB'), progress=document.getElementById('heroProgressBar');
+      if (!imgA||!imgB||!progress) return;
+      
+      const HERO_IMAGES = ['assets/home-hero1.jpg', 'assets/home-hero2.jpg'];
+      let idx=0;
+      
+      function switchImg() {
+        idx = (idx + 1) % HERO_IMAGES.length;
+        const active = idx % 2 === 0 ? imgA : imgB;
+        const inactive = idx % 2 === 0 ? imgB : imgA;
+        
+        active.src = HERO_IMAGES[idx]; 
+        inactive.classList.remove('is-active');
+        active.classList.add('is-active');
+        
+        progress.style.animation = 'none';
+        void progress.offsetHeight;
+        progress.style.animation = 'hero-progress-fill 8s linear forwards';
+      }
+      
+      setInterval(switchImg, 8000);
+      progress.style.animation = 'hero-progress-fill 8s linear forwards';
+    })();
+  </script>
+
+  <script>
+    (function(){
+      const input = document.getElementById('smartSearch');
+      const sug = document.getElementById('searchSug');
+      if(!input||!sug) return;
+
+      let INDEX=[], open=false, active=-1, current=[];
+      
+      const YEAR_COLOR_CLASS = {
+        "y7": "bg-orange-500", "y8": "bg-green-500", "y9": "bg-[#7B61FF]", "gcse": "bg-blue-500",
+        "as-level pure": "bg-[#FFD1DF]", "a-level pure": "bg-yellow-400"
+      };
+      
+      const colorFor = level => {
+        const key = (level || "").toLowerCase().trim();
+        return YEAR_COLOR_CLASS[key] || "bg-blue-500";
+      };
+
+      const normalize = s => (s||"").toLowerCase().trim();
+
+      function scoreRow(r,q){
+        const lab=normalize(r.label), lev=normalize(r.level);
+        const hay=[lab,lev,...((r.keywords||[]).map(normalize))];
+        if(lab.startsWith(q)) return 100;
+        if(lab.includes(q)) return 70;
+        if(hay.some(h=>h.startsWith(q))) return 60;
+        if(hay.some(h=>h.includes(q))) return 40;
+        return 0;
+      }
+
+      function search(q){
+        const Q=normalize(q);
+        if(!Q) return[];
+        return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
+             .filter(x=>x.score>0)
+             .sort((a,b)=>b.score-a.score)
+             .slice(0,10)
+             .map(x=>x.r);
+      }
+
+      function navigate(url){ if(url) window.location.href=url; }
+
+      function render(list){
+        sug.innerHTML="";
+        list.forEach((r,i)=>{
+          const el=document.createElement('div');
+          el.className="sug-item";
+          el.innerHTML=`
+            <div class="flex items-center gap-3">
+              <span class="sug-badge ${colorFor(r.level)}">${r.level||"MATH"}</span>
+              <span class="font-medium text-sm text-gray-200">${r.label}</span>
+            </div>
+            <span class="material-symbols-outlined text-gray-500 text-sm">arrow_forward</span>`;
+          el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
+          sug.appendChild(el);
+        });
+      }
+
+      const setOpen=s=>{open=s; sug.classList.toggle('open',open); input.setAttribute('aria-expanded',String(open));};
+
+      function update(){
+        const q=input.value;
+        current=search(q);
+        active=-1;
+        if(current.length===0){setOpen(false);return;}
+        render(current); setOpen(true);
+      }
+
+      const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+      const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
+
+      input.addEventListener('input',debouncedUpdate);
+      input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
+      input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),150);});
+      
+      // Load Index
+      fetch('assets/data/search_index.json',{cache:'no-store'})
+        .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
+        .catch(()=>{INDEX=[];});
+    })();
+  </script>
+
 </body>
 </html>
