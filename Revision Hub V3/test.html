@@ -35,13 +35,16 @@
     }
     .hero-hero-img.is-active { opacity: 1; transform: scale(1); }
 
-    /* --- SIRI GLOW SEARCH --- */
+    /* --- SIRI GLOW SEARCH (HERO) --- */
     .smart-wrap {
       width: clamp(280px, 50vw, 450px);
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       margin: 3rem auto 0;
       position: relative;
     }
+    /* When scrolling away, we fade this out */
+    .smart-wrap.scrolled-out { opacity: 0; transform: scale(0.9); pointer-events: none; }
+    
     .smart-wrap:hover, .smart-wrap:focus-within { width: clamp(320px, 60vw, 680px); }
 
     .glow-wrap {
@@ -64,16 +67,29 @@
       100%{background-position:0% 50%}
     }
 
+    /* UPDATED: Solid background to fix readability */
     .smart-pill {
-      @apply flex items-center gap-3 bg-black/60 border border-white/20 text-white rounded-full px-5 py-3 shadow-2xl backdrop-blur-xl;
+      @apply flex items-center gap-3 bg-slate-900 border border-white/20 text-white rounded-full px-5 py-3 shadow-2xl;
       transition: all 0.3s ease;
     }
     
     .smart-input {
       @apply flex-1 bg-transparent border-0 focus:ring-0 text-lg font-medium placeholder-gray-400 text-center;
     }
-    .smart-input::placeholder { color: #94a3b8; }
+    .smart-input::placeholder { color: #64748b; }
     
+    /* --- HEADER SEARCH (HIDDEN INITIALLY) --- */
+    #navSearchWrap {
+      @apply absolute left-1/2 -translate-x-1/2 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out;
+      width: 300px;
+    }
+    #navSearchWrap.visible {
+      @apply opacity-100 translate-y-0 pointer-events-auto;
+    }
+    .nav-search-input {
+      @apply w-full bg-slate-800/80 border border-white/10 text-white text-sm rounded-full py-1.5 px-4 pl-9 focus:ring-1 focus:ring-purple-500 focus:bg-slate-900 transition-colors;
+    }
+
     /* Progress Bar */
     .hero-progress-track {
       @apply mt-10 h-1 w-64 mx-auto rounded-full bg-white/20 overflow-hidden backdrop-blur-sm;
@@ -85,7 +101,7 @@
 
     /* --- HEADER TRANSITION --- */
     .nav-transparent { @apply bg-transparent border-transparent py-4; }
-    .nav-scrolled { @apply bg-slate-950/80 backdrop-blur-xl border-b border-white/10 py-2 shadow-lg; }
+    .nav-scrolled { @apply bg-slate-950/90 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg; }
 
     /* --- AI SWIPE BUTTON --- */
     .btn-swipe-anim {
@@ -98,11 +114,11 @@
         #0f172a 55%
       );
       background-size: 250% 100%;
-      background-position: 100% 0; /* Start position (dark) */
+      background-position: 100% 0; 
       transition: background-position 0.6s ease-out, transform 0.2s;
     }
     .btn-swipe-anim:hover {
-      background-position: 0 0; /* End position (swipe across) */
+      background-position: 0 0; 
       transform: translateY(-1px);
       box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
     }
@@ -117,11 +133,16 @@
     }
 
     /* Suggestions Dropdown */
-    #searchSug {
-      @apply absolute left-1/2 top-[120%] -translate-x-1/2 w-full bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl opacity-0 invisible z-50 transition-all duration-200;
+    #searchSug, #navSearchSug {
+      @apply absolute left-1/2 -translate-x-1/2 w-full bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl opacity-0 invisible z-50 transition-all duration-200;
       max-height: 300px; overflow-y: auto; text-align: left;
     }
+    /* Separate positioning for header dropdown */
+    #searchSug { top: 120%; }
     #searchSug.open { @apply opacity-100 visible top-[110%]; }
+    
+    #navSearchSug { top: 40px; width: 120%; }
+    #navSearchSug.open { @apply opacity-100 visible; }
     
     .sug-item { @apply flex items-center justify-between p-3 rounded-xl cursor-pointer hover:bg-white/10 text-slate-200 transition-colors; }
     .sug-badge { @apply text-[10px] font-bold px-2 py-0.5 rounded-full text-white uppercase tracking-wider; }
@@ -137,23 +158,31 @@
   <canvas id="mathCanvas"></canvas>
 
   <header id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-transparent">
-    <div class="mx-auto max-w-7xl px-6 h-full flex items-center justify-between">
+    <div class="mx-auto max-w-7xl px-6 h-full flex items-center justify-between relative">
       
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 relative z-10">
         <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
           S
         </div>
-        <span class="font-bold tracking-tight text-white text-lg drop-shadow-md">SJWMS Maths</span>
+        <span class="font-bold tracking-tight text-white text-lg drop-shadow-md hidden sm:block">SJWMS Maths</span>
       </div>
 
-      <nav class="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/5 bg-black/20 backdrop-blur-md">
+      <div id="navSearchWrap">
+        <div class="relative w-full">
+           <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
+           <input id="navSearchInput" type="text" class="nav-search-input" placeholder="Search topics..." autocomplete="off">
+           <div id="navSearchSug" role="listbox"></div>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/5 bg-black/20 backdrop-blur-md relative z-10">
         <a class="px-5 py-1.5 text-sm font-medium text-white rounded-full bg-white/10" href="#">Home</a>
         <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="ks3_hub.html">KS3</a>
         <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="gcse_hub.html">GCSE</a>
         <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="alevel_hub.html">A-Level</a>
       </nav>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 relative z-10">
         <a href="ai_usage.html" class="hidden md:flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 text-white text-xs font-bold btn-swipe-anim shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           <span class="material-symbols-outlined text-base">auto_awesome</span>
           AI USAGE
@@ -371,13 +400,31 @@
 
   <script>
     const nav = document.getElementById('mainNav');
+    const heroSearchWrap = document.getElementById('smartWrap');
+    const navSearchWrap = document.getElementById('navSearchWrap');
+
     window.addEventListener('scroll', () => {
+      // 1. Handle Nav Background
       if (window.scrollY > 50) {
         nav.classList.remove('nav-transparent');
         nav.classList.add('nav-scrolled');
       } else {
         nav.classList.add('nav-transparent');
         nav.classList.remove('nav-scrolled');
+      }
+
+      // 2. Handle Search Morph
+      // Calculate where the hero search bar is
+      const heroRect = heroSearchWrap.getBoundingClientRect();
+      const heroBottom = heroRect.top + heroRect.height + window.scrollY;
+      
+      // If we have scrolled past the Hero Search Bar + some buffer (100px)
+      if (window.scrollY > (heroBottom - 100)) {
+        heroSearchWrap.classList.add('scrolled-out');
+        navSearchWrap.classList.add('visible');
+      } else {
+        heroSearchWrap.classList.remove('scrolled-out');
+        navSearchWrap.classList.remove('visible');
       }
     });
   </script>
@@ -411,11 +458,14 @@
 
   <script>
     (function(){
-      const input = document.getElementById('smartSearch');
-      const sug = document.getElementById('searchSug');
-      if(!input||!sug) return;
+      // Logic to handle search for BOTH inputs
+      const heroInput = document.getElementById('smartSearch');
+      const heroSug = document.getElementById('searchSug');
+      
+      const navInput = document.getElementById('navSearchInput');
+      const navSug = document.getElementById('navSearchSug');
 
-      let INDEX=[], open=false, active=-1, current=[];
+      let INDEX=[];
       
       const YEAR_COLOR_CLASS = {
         "y7": "bg-orange-500", "y8": "bg-green-500", "y9": "bg-[#7B61FF]", "gcse": "bg-blue-500",
@@ -451,8 +501,8 @@
 
       function navigate(url){ if(url) window.location.href=url; }
 
-      function render(list){
-        sug.innerHTML="";
+      function render(list, container){
+        container.innerHTML="";
         list.forEach((r,i)=>{
           const el=document.createElement('div');
           el.className="sug-item";
@@ -463,26 +513,36 @@
             </div>
             <span class="material-symbols-outlined text-gray-500 text-sm">arrow_forward</span>`;
           el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
-          sug.appendChild(el);
+          container.appendChild(el);
         });
       }
 
-      const setOpen=s=>{open=s; sug.classList.toggle('open',open); input.setAttribute('aria-expanded',String(open));};
+      function setupSearch(inp, box) {
+        if(!inp || !box) return;
+        
+        const setOpen=s=>{ 
+          box.classList.toggle('open',s); 
+          inp.setAttribute('aria-expanded',String(s));
+        };
 
-      function update(){
-        const q=input.value;
-        current=search(q);
-        active=-1;
-        if(current.length===0){setOpen(false);return;}
-        render(current); setOpen(true);
+        const update = () => {
+           const q=inp.value;
+           const current=search(q);
+           if(current.length===0){setOpen(false);return;}
+           render(current, box); setOpen(true);
+        }
+        
+        const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+        const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
+
+        inp.addEventListener('input',debouncedUpdate);
+        inp.addEventListener('focus',()=>{if(inp.value.trim()&&INDEX.length)update();});
+        inp.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),150);});
       }
 
-      const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
-      const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
-
-      input.addEventListener('input',debouncedUpdate);
-      input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
-      input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),150);});
+      // Initialize logic for both
+      setupSearch(heroInput, heroSug);
+      setupSearch(navInput, navSug);
       
       // Load Index
       fetch('assets/data/search_index.json',{cache:'no-store'})
