@@ -19,7 +19,7 @@
       overflow-x: hidden; 
     }
 
-    /* --- ANIMATED MATHS BACKGROUND (Canvas) --- */
+    /* --- ANIMATED MATHS BACKGROUND --- */
     #mathCanvas {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -35,15 +35,19 @@
     }
     .hero-hero-img.is-active { opacity: 1; transform: scale(1); }
 
-    /* --- SIRI GLOW SEARCH (HERO) --- */
+    /* --- HERO SEARCH (BIG) --- */
     .smart-wrap {
       width: clamp(280px, 50vw, 450px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       margin: 3rem auto 0;
       position: relative;
     }
-    /* When scrolling away, we fade this out */
-    .smart-wrap.scrolled-out { opacity: 0; transform: scale(0.9); pointer-events: none; }
+    /* Effect when scrolling out */
+    .smart-wrap.scrolled-out { 
+      opacity: 0; 
+      transform: scale(0.9) translateY(20px); 
+      pointer-events: none; 
+    }
     
     .smart-wrap:hover, .smart-wrap:focus-within { width: clamp(320px, 60vw, 680px); }
 
@@ -67,7 +71,6 @@
       100%{background-position:0% 50%}
     }
 
-    /* UPDATED: Solid background to fix readability */
     .smart-pill {
       @apply flex items-center gap-3 bg-slate-900 border border-white/20 text-white rounded-full px-5 py-3 shadow-2xl;
       transition: all 0.3s ease;
@@ -76,43 +79,60 @@
     .smart-input {
       @apply flex-1 bg-transparent border-0 focus:ring-0 text-lg font-medium placeholder-gray-400 text-center;
     }
-    .smart-input::placeholder { color: #64748b; }
+
+    /* --- HEADER MORPH LOGIC --- */
+
+    /* 1. The Container for Nav + Search */
+    .nav-center-group {
+      @apply absolute left-1/2 -translate-x-1/2 flex items-center gap-0 transition-all duration-500 ease-in-out;
+    }
+    /* When active, shift the whole group slightly left to keep visual balance */
+    .nav-center-group.active {
+      @apply -translate-x-[60%]; 
+    }
+
+    /* 2. The Navigation Links */
+    .nav-links-wrapper {
+      @apply flex items-center gap-1 p-1 rounded-full border border-white/5 bg-black/20 backdrop-blur-md transition-all duration-500;
+    }
+    /* Optional: condense padding slightly when search is open */
+    .nav-center-group.active .nav-links-wrapper {
+      @apply bg-black/40 border-white/10;
+    }
+
+    /* 3. The Morphing Search Bar */
+    .header-morph-container {
+      @apply relative ml-0 opacity-0 overflow-hidden rounded-full bg-slate-800 border border-transparent transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+      width: 0px; 
+      height: 0px;
+      transform: scale(0);
+    }
+
+    .header-morph-container.active {
+      @apply ml-3 opacity-100 border-white/20 shadow-lg;
+      width: 260px; /* Expanded Width */
+      height: 40px;
+      transform: scale(1);
+    }
+
+    /* The inner content of the header search */
+    .header-morph-inner {
+      @apply absolute inset-0 flex items-center pl-3 w-[260px]; 
+    }
     
-    /* --- HEADER SEARCH (HIDDEN INITIALLY) --- */
-    #navSearchWrap {
-      @apply absolute left-1/2 -translate-x-1/2 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out;
-      width: 300px;
-    }
-    #navSearchWrap.visible {
-      @apply opacity-100 translate-y-0 pointer-events-auto;
-    }
-    .nav-search-input {
-      @apply w-full bg-slate-800/80 border border-white/10 text-white text-sm rounded-full py-1.5 px-4 pl-9 focus:ring-1 focus:ring-purple-500 focus:bg-slate-900 transition-colors;
+    .header-input {
+      @apply bg-transparent border-0 text-sm text-white focus:ring-0 placeholder-gray-400 w-full h-full;
     }
 
-    /* Progress Bar */
-    .hero-progress-track {
-      @apply mt-10 h-1 w-64 mx-auto rounded-full bg-white/20 overflow-hidden backdrop-blur-sm;
-    }
-    .hero-progress-bar {
-      @apply h-full w-0 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-400;
-    }
-    @keyframes hero-progress-fill { to { width: 100%; } }
-
-    /* --- HEADER TRANSITION --- */
+    /* --- COMMON UI --- */
+    
+    /* Header Background */
     .nav-transparent { @apply bg-transparent border-transparent py-4; }
-    .nav-scrolled { @apply bg-slate-950/90 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg; }
+    .nav-scrolled { @apply bg-slate-950/90 backdrop-blur-xl border-b border-white/10 py-2 shadow-lg; }
 
-    /* --- AI SWIPE BUTTON --- */
+    /* Button Swipe Anim */
     .btn-swipe-anim {
-      background-image: linear-gradient(
-        110deg,
-        #0f172a 45%,
-        #3b82f6 48%, 
-        #a855f7 50%,
-        #ffffff 52%,
-        #0f172a 55%
-      );
+      background-image: linear-gradient(110deg, #0f172a 45%, #3b82f6 48%, #a855f7 50%, #ffffff 52%, #0f172a 55%);
       background-size: 250% 100%;
       background-position: 100% 0; 
       transition: background-position 0.6s ease-out, transform 0.2s;
@@ -123,7 +143,7 @@
       box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
     }
 
-    /* --- APP ICON PLATFORMS --- */
+    /* App Icons */
     .app-icon {
       @apply w-16 h-16 rounded-2xl flex items-center justify-center bg-white shadow-lg mb-3 mx-auto transition-transform duration-300;
     }
@@ -132,25 +152,30 @@
       box-shadow: 0 0 25px rgba(255,255,255,0.2);
     }
 
-    /* Suggestions Dropdown */
-    #searchSug, #navSearchSug {
+    /* Dropdowns */
+    #searchSug {
       @apply absolute left-1/2 -translate-x-1/2 w-full bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl opacity-0 invisible z-50 transition-all duration-200;
-      max-height: 300px; overflow-y: auto; text-align: left;
+      top: 120%; max-height: 300px; overflow-y: auto; 
     }
-    /* Separate positioning for header dropdown */
-    #searchSug { top: 120%; }
     #searchSug.open { @apply opacity-100 visible top-[110%]; }
     
-    #navSearchSug { top: 40px; width: 120%; }
-    #navSearchSug.open { @apply opacity-100 visible; }
-    
+    /* Header Sug needs to be fixed position or relative to the expanded bar */
+    #navSugWrapper {
+      @apply absolute top-[50px] left-0 w-[260px] bg-slate-900 border border-white/10 rounded-xl p-2 shadow-xl opacity-0 invisible transition-all duration-200;
+    }
+    #navSugWrapper.open { @apply opacity-100 visible top-[55px]; }
+
     .sug-item { @apply flex items-center justify-between p-3 rounded-xl cursor-pointer hover:bg-white/10 text-slate-200 transition-colors; }
     .sug-badge { @apply text-[10px] font-bold px-2 py-0.5 rounded-full text-white uppercase tracking-wider; }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    
+    /* Progress Bar */
+    .hero-progress-track { @apply mt-10 h-1 w-64 mx-auto rounded-full bg-white/20 overflow-hidden backdrop-blur-sm; }
+    .hero-progress-bar { @apply h-full w-0 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-400; }
+    @keyframes hero-progress-fill { to { width: 100%; } }
   </style>
 </head>
 <body>
@@ -160,38 +185,42 @@
   <header id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-transparent">
     <div class="mx-auto max-w-7xl px-6 h-full flex items-center justify-between relative">
       
-      <div class="flex items-center gap-3 relative z-10">
-        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
-          S
-        </div>
+      <div class="flex items-center gap-3 relative z-20">
+        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">S</div>
         <span class="font-bold tracking-tight text-white text-lg drop-shadow-md hidden sm:block">SJWMS Maths</span>
       </div>
 
-      <div id="navSearchWrap">
-        <div class="relative w-full">
-           <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
-           <input id="navSearchInput" type="text" class="nav-search-input" placeholder="Search topics..." autocomplete="off">
-           <div id="navSearchSug" role="listbox"></div>
+      <div id="navCenterGroup" class="nav-center-group">
+        
+        <nav class="nav-links-wrapper hidden md:flex">
+          <a class="px-5 py-1.5 text-sm font-medium text-white rounded-full bg-white/10" href="#">Home</a>
+          <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="ks3_hub.html">KS3</a>
+          <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="gcse_hub.html">GCSE</a>
+          <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="alevel_hub.html">A-Level</a>
+        </nav>
+
+        <div class="relative">
+          <div id="headerMorph" class="header-morph-container">
+            <div class="header-morph-inner">
+              <span class="material-symbols-outlined text-gray-400 text-[20px] mr-2">search</span>
+              <input id="navSearchInput" type="text" class="header-input" placeholder="Search..." autocomplete="off">
+            </div>
+          </div>
+          <div id="navSugWrapper" role="listbox"></div>
         </div>
+
       </div>
 
-      <nav class="hidden md:flex items-center gap-1 p-1 rounded-full border border-white/5 bg-black/20 backdrop-blur-md relative z-10">
-        <a class="px-5 py-1.5 text-sm font-medium text-white rounded-full bg-white/10" href="#">Home</a>
-        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="ks3_hub.html">KS3</a>
-        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="gcse_hub.html">GCSE</a>
-        <a class="px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition" href="alevel_hub.html">A-Level</a>
-      </nav>
-
-      <div class="flex items-center gap-4 relative z-10">
+      <div class="flex items-center gap-4 relative z-20">
         <a href="ai_usage.html" class="hidden md:flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 text-white text-xs font-bold btn-swipe-anim shadow-[0_0_15px_rgba(0,0,0,0.5)]">
           <span class="material-symbols-outlined text-base">auto_awesome</span>
           AI USAGE
         </a>
-
         <button id="menuBtn" class="md:hidden text-white">
           <span class="material-symbols-outlined text-3xl">menu</span>
         </button>
       </div>
+
     </div>
     
     <div id="mobileMenu" class="hidden absolute top-full left-0 w-full bg-slate-900 border-b border-white/10 p-4 flex flex-col gap-4 shadow-2xl">
@@ -203,19 +232,15 @@
   </header>
 
   <main class="relative z-10">
-    
     <section class="relative w-full h-screen overflow-hidden bg-black">
-      
       <div class="absolute inset-0 z-0">
         <img id="homeHeroImgA" src="assets/home-hero1.jpg" alt="Maths revision" class="hero-hero-img is-active" />
         <img id="homeHeroImgB" src="assets/home-hero2.jpg" alt="" class="hero-hero-img" />
-        
         <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-slate-950"></div>
         <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-950 to-transparent"></div>
       </div>
 
       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 pt-10">
-        
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white/80 text-[10px] font-bold uppercase tracking-widest mb-6 shadow-lg">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           Revision Hub 2.0
@@ -232,8 +257,7 @@
           <div class="glow-wrap">
             <div class="smart-pill group">
               <span class="material-symbols-outlined text-gray-400">search</span>
-              <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’ or ‘Surds’" autocomplete="off" 
-                     aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug" role="combobox"/>
+              <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’ or ‘Surds’" autocomplete="off"/>
             </div>
             <div id="searchSug" role="listbox"></div>
           </div>
@@ -243,18 +267,15 @@
           <div id="heroProgressBar" class="hero-progress-bar"></div>
         </div>
       </div>
-
+      
       <button onclick="document.getElementById('contentStart').scrollIntoView({behavior: 'smooth'})" 
               class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/50 hover:text-white transition group cursor-pointer animate-bounce">
         <span class="material-symbols-outlined text-4xl drop-shadow-lg">keyboard_arrow_down</span>
       </button>
-
     </section>
 
     <div id="contentStart" class="relative w-full bg-slate-950 pt-16 pb-32 border-t border-white/5">
-      
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
           <div class="lg:col-span-1">
             <h2 class="text-3xl font-bold text-white mb-4">Hub Coverage</h2>
@@ -262,53 +283,29 @@
               We are constantly building new resources. Check the status indicators to see which year groups are currently active.
             </p>
           </div>
-          
           <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
-                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span><span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span></div>
               <span class="text-lg font-semibold text-emerald-100">Year 9</span>
             </div>
-
             <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
-                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span><span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span></div>
               <span class="text-lg font-semibold text-emerald-100">A-Level Y12</span>
             </div>
-
             <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span>
-                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Active</span><span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span></div>
               <span class="text-lg font-semibold text-emerald-100">A-Level Y13</span>
             </div>
-
             <div class="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 flex flex-col gap-2 opacity-80">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Building</span>
-                <span class="h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Building</span><span class="h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span></div>
               <span class="text-lg font-semibold text-orange-100">Year 8</span>
             </div>
-
              <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col gap-2 opacity-40 grayscale">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span>
-                <span class="h-2 w-2 rounded-full bg-gray-600"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span><span class="h-2 w-2 rounded-full bg-gray-600"></span></div>
               <span class="text-lg font-semibold text-gray-300">Year 7</span>
             </div>
-
             <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col gap-2 opacity-40 grayscale">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span>
-                <span class="h-2 w-2 rounded-full bg-gray-600"></span>
-              </div>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Offline</span><span class="h-2 w-2 rounded-full bg-gray-600"></span></div>
               <span class="text-lg font-semibold text-gray-300">GCSE</span>
             </div>
           </div>
@@ -318,93 +315,86 @@
 
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-white">External Platforms</h2>
-          <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-            Direct portals to your independent study apps.
-          </p>
+          <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Direct portals to your independent study apps.</p>
         </div>
-
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
-          
           <a href="https://www.drfrostmaths.com/" target="_blank" class="platform-card block text-center group">
-            <div class="app-icon">
-              <span class="text-blue-600 text-3xl font-black">DFM</span>
-            </div>
+            <div class="app-icon"><span class="text-blue-600 text-3xl font-black">DFM</span></div>
             <h3 class="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">DrFrostMaths</h3>
           </a>
-
           <a href="https://selectschool.sparx-learning.com/" target="_blank" class="platform-card block text-center group">
-            <div class="app-icon">
-              <span class="text-purple-600 text-3xl font-black">XP</span>
-            </div>
+            <div class="app-icon"><span class="text-purple-600 text-3xl font-black">XP</span></div>
             <h3 class="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors">SPARX</h3>
           </a>
-
           <a href="https://www.pearsonactivelearn.com/" target="_blank" class="platform-card block text-center group">
-            <div class="app-icon">
-              <span class="text-blue-900 text-3xl font-black">AL</span>
-            </div>
+            <div class="app-icon"><span class="text-blue-900 text-3xl font-black">AL</span></div>
             <h3 class="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">ActiveLearn</h3>
           </a>
-
            <a href="https://www.mymaths.co.uk/" target="_blank" class="platform-card block text-center group">
-            <div class="app-icon">
-              <span class="text-pink-600 text-3xl font-black">MM</span>
-            </div>
+            <div class="app-icon"><span class="text-pink-600 text-3xl font-black">MM</span></div>
             <h3 class="text-sm font-semibold text-white group-hover:text-pink-400 transition-colors">MyMaths</h3>
           </a>
-
         </div>
-
         <div class="mt-24 text-center">
           <p class="text-xs text-gray-600 uppercase tracking-widest">SJWMS Mathematics Department</p>
         </div>
-
       </div>
     </div>
   </main>
 
   <script>
+    /* Matrix Background */
     const canvas = document.getElementById('mathCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
+    function resize() { width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; }
+    window.addEventListener('resize', resize); resize();
     const symbols = "01πΣ∫xy≈≠≤≥∞√∆∇∈∉∪∩⊂⊃ƒ∂xyz";
     const fontSize = 14;
-    const columns = Math.floor(width / fontSize);
+    const columns = Math.floor(width/fontSize);
     const drops = Array(columns).fill(1); 
-
     function draw() {
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.05)'; 
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = '#334155';
-      ctx.font = fontSize + 'px monospace';
-
+      ctx.fillStyle = 'rgba(2, 6, 23, 0.05)'; ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#334155'; ctx.font = fontSize + 'px monospace';
       for (let i = 0; i < drops.length; i++) {
-        const text = symbols.charAt(Math.floor(Math.random() * symbols.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+        const text = symbols.charAt(Math.floor(Math.random()*symbols.length));
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if (drops[i]*fontSize > height && Math.random() > 0.975) drops[i]=0;
         drops[i]++;
       }
     }
     setInterval(draw, 33);
+
+    /* Hero Image Carousel */
+    (function(){
+      const imgA=document.getElementById('homeHeroImgA'), imgB=document.getElementById('homeHeroImgB'), progress=document.getElementById('heroProgressBar');
+      if (!imgA||!imgB||!progress) return;
+      const HERO_IMAGES = ['assets/home-hero1.jpg', 'assets/home-hero2.jpg'];
+      let idx=0;
+      function switchImg() {
+        idx = (idx + 1) % HERO_IMAGES.length;
+        const active = idx % 2 === 0 ? imgA : imgB;
+        const inactive = idx % 2 === 0 ? imgB : imgA;
+        active.src = HERO_IMAGES[idx]; 
+        inactive.classList.remove('is-active'); active.classList.add('is-active');
+        progress.style.animation = 'none'; void progress.offsetHeight;
+        progress.style.animation = 'hero-progress-fill 8s linear forwards';
+      }
+      setInterval(switchImg, 8000);
+      progress.style.animation = 'hero-progress-fill 8s linear forwards';
+    })();
   </script>
 
   <script>
     const nav = document.getElementById('mainNav');
     const heroSearchWrap = document.getElementById('smartWrap');
-    const navSearchWrap = document.getElementById('navSearchWrap');
+    
+    // Header elements
+    const navCenterGroup = document.getElementById('navCenterGroup');
+    const headerMorph = document.getElementById('headerMorph');
 
     window.addEventListener('scroll', () => {
-      // 1. Handle Nav Background
+      // 1. Background Blur
       if (window.scrollY > 50) {
         nav.classList.remove('nav-transparent');
         nav.classList.add('nav-scrolled');
@@ -413,57 +403,35 @@
         nav.classList.remove('nav-scrolled');
       }
 
-      // 2. Handle Search Morph
-      // Calculate where the hero search bar is
+      // 2. The Morph Animation
       const heroRect = heroSearchWrap.getBoundingClientRect();
       const heroBottom = heroRect.top + heroRect.height + window.scrollY;
       
-      // If we have scrolled past the Hero Search Bar + some buffer (100px)
-      if (window.scrollY > (heroBottom - 100)) {
+      // Trigger point: when we scroll past the hero search
+      if (window.scrollY > (heroBottom - 50)) {
+        // Hero fades out
         heroSearchWrap.classList.add('scrolled-out');
-        navSearchWrap.classList.add('visible');
+        
+        // Header Search activates (Expand and Shift)
+        navCenterGroup.classList.add('active');
+        headerMorph.classList.add('active');
       } else {
+        // Hero fades in
         heroSearchWrap.classList.remove('scrolled-out');
-        navSearchWrap.classList.remove('visible');
+        
+        // Header Search shrinks (Dot and disappear)
+        navCenterGroup.classList.remove('active');
+        headerMorph.classList.remove('active');
       }
     });
   </script>
 
   <script>
     (function(){
-      const imgA=document.getElementById('homeHeroImgA'), imgB=document.getElementById('homeHeroImgB'), progress=document.getElementById('heroProgressBar');
-      if (!imgA||!imgB||!progress) return;
-      
-      const HERO_IMAGES = ['assets/home-hero1.jpg', 'assets/home-hero2.jpg'];
-      let idx=0;
-      
-      function switchImg() {
-        idx = (idx + 1) % HERO_IMAGES.length;
-        const active = idx % 2 === 0 ? imgA : imgB;
-        const inactive = idx % 2 === 0 ? imgB : imgA;
-        
-        active.src = HERO_IMAGES[idx]; 
-        inactive.classList.remove('is-active');
-        active.classList.add('is-active');
-        
-        progress.style.animation = 'none';
-        void progress.offsetHeight;
-        progress.style.animation = 'hero-progress-fill 8s linear forwards';
-      }
-      
-      setInterval(switchImg, 8000);
-      progress.style.animation = 'hero-progress-fill 8s linear forwards';
-    })();
-  </script>
-
-  <script>
-    (function(){
-      // Logic to handle search for BOTH inputs
       const heroInput = document.getElementById('smartSearch');
       const heroSug = document.getElementById('searchSug');
-      
       const navInput = document.getElementById('navSearchInput');
-      const navSug = document.getElementById('navSearchSug');
+      const navSug = document.getElementById('navSugWrapper');
 
       let INDEX=[];
       
@@ -492,11 +460,8 @@
       function search(q){
         const Q=normalize(q);
         if(!Q) return[];
-        return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
-             .filter(x=>x.score>0)
-             .sort((a,b)=>b.score-a.score)
-             .slice(0,10)
-             .map(x=>x.r);
+        return INDEX.map(r=>({r,score:scoreRow(r,Q)})).filter(x=>x.score>0)
+             .sort((a,b)=>b.score-a.score).slice(0,10).map(x=>x.r);
       }
 
       function navigate(url){ if(url) window.location.href=url; }
@@ -519,37 +484,27 @@
 
       function setupSearch(inp, box) {
         if(!inp || !box) return;
-        
-        const setOpen=s=>{ 
-          box.classList.toggle('open',s); 
-          inp.setAttribute('aria-expanded',String(s));
-        };
-
+        const setOpen=s=>{ box.classList.toggle('open',s); inp.setAttribute('aria-expanded',String(s)); };
         const update = () => {
            const q=inp.value;
            const current=search(q);
            if(current.length===0){setOpen(false);return;}
            render(current, box); setOpen(true);
         }
-        
         const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
         const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
-
         inp.addEventListener('input',debouncedUpdate);
         inp.addEventListener('focus',()=>{if(inp.value.trim()&&INDEX.length)update();});
         inp.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),150);});
       }
 
-      // Initialize logic for both
       setupSearch(heroInput, heroSug);
       setupSearch(navInput, navSug);
       
-      // Load Index
       fetch('assets/data/search_index.json',{cache:'no-store'})
         .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
         .catch(()=>{INDEX=[];});
     })();
   </script>
-
 </body>
 </html>
