@@ -8,195 +8,219 @@
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
-    body { font-family: 'Lexend', sans-serif; } /* Changed to Lexend for better readability on whiteboards */
-    html { scroll-behavior: smooth; }
-
-    .module-card {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.05);
-      border-radius: 1.5rem; /* Rounder corners = more modern/friendly */
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      transition: transform .25s ease, box-shadow .25s ease;
-      position: relative;
-      overflow: hidden;
+    body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: #020617; /* Slate 950 */
+        color: #e2e8f0; /* Slate 200 */
     }
     
-    /* Subtle hover lift */
-    .module-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    /* Subtle Grid Background */
+    .bg-grid {
+        background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
+                          linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
     }
 
-    .aspect-video {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000; /* Black background for cinema feel */
+    /* Card Styling */
+    .cyber-card {
+        background: rgba(15, 23, 42, 0.6); /* Slate 900 with opacity */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        transition: all 0.3s ease;
     }
-    .aspect-video iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* Big Step Numbers */
-    .step-number {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        font-size: 6rem;
-        font-weight: 800;
-        color: rgba(0,0,0,0.03);
-        line-height: 1;
-        pointer-events: none;
-        z-index: 0;
+    .cyber-card:hover {
+        border-color: rgba(139, 92, 246, 0.5); /* Purple glow */
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        transform: translateY(-2px);
     }
 
-    /* Animation for entering the page */
-    .fade-in-up {
-        animation: fadeInUp 0.6s ease-out forwards;
-        opacity: 0;
-        transform: translateY(20px);
+    /* Orange Book Card (Special) */
+    .orange-card {
+        background: linear-gradient(145deg, rgba(67, 20, 7, 0.4), rgba(15, 23, 42, 0.8));
+        border: 1px solid rgba(249, 115, 22, 0.3); /* Orange border */
     }
-    
-    @keyframes fadeInUp {
-        to { opacity: 1; transform: translateY(0); }
+    .orange-card:hover {
+        border-color: #f97316;
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
     }
-    
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
+
+    /* Warning / Danger Card */
+    .danger-card {
+        background: rgba(69, 10, 10, 0.3);
+        border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+
+    /* Neon Button */
+    .btn-neon {
+        background: linear-gradient(90deg, #7c3aed, #2563eb);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .btn-neon:hover {
+        box-shadow: 0 0 25px rgba(124, 58, 237, 0.6);
+        transform: scale(1.02);
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800" data-page="sparx">
-  <div class="layout">
+<body class="relative min-h-screen" data-page="sparx">
+  
+  <div class="fixed inset-0 bg-grid pointer-events-none z-0 opacity-20"></div>
+
+  <div class="layout relative z-10">
     <div id="sidebar" aria-label="Sidebar"></div>
 
-    <main class="main p-6 md:p-10 overflow-y-auto max-w-6xl mx-auto w-full">
+    <main class="main p-6 md:p-10 overflow-y-auto max-w-7xl mx-auto w-full">
       
-      <header class="flex flex-wrap items-center justify-between gap-4 mb-8 fade-in-up">
-        <div class="flex items-center gap-3">
-             <div class="p-2 bg-purple-100 text-purple-600 rounded-lg">
-                <span class="material-icons text-3xl">auto_graph</span>
-             </div>
-             <div>
-                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">SPARX Introduction</h1>
-                <p class="text-slate-500 text-sm font-medium">Weekly Homework Protocol</p>
-             </div>
+      <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div>
+           <div class="flex items-center gap-3 mb-2">
+               <span class="px-2 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded text-xs font-mono tracking-widest uppercase">
+                   System v3.0
+               </span>
+               <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+           </div>
+           <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
+             SPARX <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">PROTOCOL</span>
+           </h1>
+           <p class="text-slate-400 mt-2 text-lg">Weekly Adaptive Learning Framework</p>
         </div>
+
+        <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+           class="btn-neon inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-white shadow-lg">
+          <span class="material-icons">rocket_launch</span>
+          <div class="text-left">
+              <span class="block text-xs text-purple-200 opacity-80 uppercase tracking-wider">Access Portal</span>
+              <span class="text-lg">Launch SPARX</span>
+          </div>
+        </a>
       </header>
 
-      <section class="module-card p-8 mb-8 fade-in-up delay-100 border-t-4 border-t-purple-500">
-        <span class="step-number">1</span>
-        <div class="relative z-10">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-6 text-slate-900">
-              Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">SPARX Maths</span>
-            </h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <div class="flex flex-col md:flex-row gap-8 items-start">
-                <div class="flex-1">
-                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
-                      At SJWMS, SPARX homework is set every week from <strong class="text-purple-700 bg-purple-50 px-2 py-0.5 rounded">Wednesday to Wednesday</strong> for all KS3 and KS4 students.
-                      Watch the guides below to get started and make sure your work meets expectations.
-                    </p>
+        <div class="lg:col-span-2 space-y-6">
+            
+            <div class="cyber-card p-6">
+                <p class="text-lg text-slate-300 leading-relaxed">
+                    At SJWMS, homework is active from <strong class="text-purple-400 font-mono">Wednesday ➡ Wednesday</strong>. 
+                    Sparx is not just a quiz; it is an intelligent system that learns your weaknesses.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="cyber-card overflow-hidden group">
+                    <div class="relative w-full pt-[56.25%] bg-black">
+                        <iframe class="absolute inset-0 w-full h-full" 
+                                src="https://www.youtube.com/embed/a92XCC0MeM0" 
+                                title="Getting Started" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4 border-t border-white/5">
+                        <h3 class="font-bold text-white group-hover:text-purple-400 transition-colors">1. Initialization</h3>
+                        <p class="text-sm text-slate-500">How to log in & start.</p>
+                    </div>
+                </div>
+
+                <div class="cyber-card overflow-hidden group">
+                    <div class="relative w-full pt-[56.25%] bg-black">
+                        <iframe class="absolute inset-0 w-full h-full" 
+                                src="https://www.youtube.com/embed/IQUMypfwHnU" 
+                                title="Tips for Success" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4 border-t border-white/5">
+                        <h3 class="font-bold text-white group-hover:text-purple-400 transition-colors">2. Optimization</h3>
+                        <p class="text-sm text-slate-500">Top tips for 100% completion.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="danger-card p-6 rounded-xl relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-500 blur-[60px] opacity-20 group-hover:opacity-30 transition duration-500"></div>
+                
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500">
+                        <span class="material-icons text-3xl">gpp_bad</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-red-400 mb-1">WARNING: AI Detection Active</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-3">
+                            Do not use ChatGPT, PhotoMath, or AI solvers. 
+                            <span class="text-white font-semibold">SPARX is adaptive.</span>
+                        </p>
+                        <p class="text-xs text-red-300/80 font-mono border-l-2 border-red-500/30 pl-3">
+                            >> If you fake your answers, the algorithm will assume you are an expert. 
+                            Next week's homework will be impossibly hard. You are only cheating your future self.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="space-y-6">
+            
+            <div class="orange-card p-6 rounded-xl relative">
+                <div class="absolute -top-3 -right-3">
+                    <span class="material-icons text-6xl text-orange-500 opacity-10 rotate-12">menu_book</span>
                 </div>
                 
-                <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
-                   class="flex-shrink-0 inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white
-                          bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg shadow-purple-500/30
-                          hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300
-                          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                  <span class="material-icons mr-2 text-2xl">rocket_launch</span>
-                  <span>Launch SPARX</span>
-                </a>
+                <h3 class="text-xl font-bold text-orange-400 mb-4 flex items-center gap-2">
+                    <span class="material-icons text-sm">warning</span>
+                    Mandatory Protocol
+                </h3>
+                
+                <div class="space-y-4">
+                    <p class="text-slate-300 text-sm">
+                        You must use your <strong class="text-orange-400">Orange Book</strong> for every single question.
+                    </p>
+                    
+                    <div class="bg-black/40 p-3 rounded border border-orange-500/20">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Checklist</div>
+                        <ul class="text-sm text-slate-200 space-y-2">
+                            <li class="flex items-center gap-2">
+                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
+                                Write Bookwork Code
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
+                                Show Full Working
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
+                                Write Final Answer
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-xs text-orange-300/70 italic mt-2">
+                        Failure to produce written working results in an immediate detention.
+                    </p>
+                </div>
             </div>
-        </div>
-      </section>
 
-      <section class="mb-8 fade-in-up delay-200">
-        <div class="flex items-center gap-2 mb-4">
-             <span class="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Step 2: Training</span>
-             <h3 class="text-xl font-bold text-slate-800">Watch the Guides</h3>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="module-card group">
-            <div class="aspect-video">
-              <iframe src="https://www.youtube.com/embed/a92XCC0MeM0"
-                      allowfullscreen
-                      title="Getting Started with SPARX"></iframe>
+            <div class="cyber-card p-5 flex items-center gap-4">
+                <span class="material-icons text-blue-400 text-2xl">support_agent</span>
+                <div>
+                    <h4 class="text-white font-semibold text-sm">System Error?</h4>
+                    <p class="text-xs text-slate-400 mt-1">
+                        Speak to your teacher <span class="text-blue-400">before Wednesday</span> to avoid a missed flag.
+                    </p>
+                </div>
             </div>
-            <div class="p-5 border-t border-slate-100">
-              <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Getting Started</h3>
-              <p class="text-slate-500 text-sm">
-                Learn how to log in and complete your SPARX tasks effectively.
-              </p>
-            </div>
-          </div>
 
-          <div class="module-card group">
-            <div class="aspect-video">
-              <iframe src="https://www.youtube.com/embed/IQUMypfwHnU"
-                      allowfullscreen
-                      title="Top Tips for Success"></iframe>
-            </div>
-            <div class="p-5 border-t border-slate-100">
-              <h3 class="font-bold text-lg mb-1 group-hover:text-purple-600 transition-colors">Top Tips for Success</h3>
-              <p class="text-slate-500 text-sm">
-                See how to get the most from your weekly SPARX homework.
-              </p>
-            </div>
-          </div>
         </div>
-      </section>
 
-      <section class="module-card p-8 mb-6 fade-in-up delay-300 bg-orange-50 border border-orange-200 relative overflow-hidden">
-        <span class="step-number text-orange-200/50">3</span>
-        <div class="relative z-10">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-orange-100 text-orange-700 p-2 rounded-lg">
-                    <span class="material-icons">menu_book</span>
-                </span>
-                <h3 class="font-bold text-2xl text-orange-900">Your Weekly Task</h3>
-            </div>
-            
-            <div class="prose prose-orange max-w-none text-orange-900/80 leading-relaxed text-lg">
-              <p>
-                Complete the <strong>Compulsory Sparx Task</strong>, making sure you write down the 
-                <span class="bg-white px-2 py-1 rounded border border-orange-200 font-mono text-orange-700 font-bold mx-1">bookwork code</span>, 
-                working out, and answer in the back of your <strong class="text-orange-600 underline decoration-2 underline-offset-2">orange book</strong>.
-              </p>
-              <p class="mt-4 text-sm font-semibold border-l-4 border-orange-400 pl-4 py-1">
-                ⚠️ Your working will be checked after the deadline. Failure to produce the required working in your orange book will result in a detention.
-              </p>
-            </div>
-        </div>
-      </section>
-
-      <section class="mt-8 fade-in-up delay-300">
-        <div class="bg-blue-600 text-white rounded-xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
-          <div class="bg-white/20 p-2 rounded-full">
-             <span class="material-icons text-white">support_agent</span>
-          </div>
-          <div>
-              <h4 class="font-bold text-lg mb-1">Need help?</h4>
-              <p class="text-blue-100 text-sm leading-relaxed max-w-2xl">
-                If you have any issues accessing or completing your SPARX homework,
-                please speak to your maths teacher <strong>before the Wednesday deadline</strong>
-                so they can help you avoid a missed task.
-              </p>
-          </div>
-        </div>
-      </section>
+      </div>
 
     </main>
   </div>
