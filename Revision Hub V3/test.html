@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>AI | Student Intelligence Hub</title>
+  <title>AI | Usage & Policy</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -57,43 +57,19 @@
       -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
     }
 
-    /* Cursor for Typewriter Effect */
-    .typing-cursor::after {
-      content: '▋'; 
+    /* Blinking Cursor - Static Implementation */
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: #22d3ee;
       animation: blink 1s step-end infinite;
-      color: #22d3ee;
-      margin-left: 2px;
+      vertical-align: middle;
+      margin-left: 4px;
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
-    }
-
-    /* --- FOOTER BRUTE FORCE OVERRIDE --- */
-    /* Target the footer element specifically inside the slot */
-    #footer-slot > footer {
-        background-color: #030712 !important; /* Force Dark Background */
-        background-image: none !important;     /* Remove any gradients */
-        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    }
-    
-    /* Force text colors inside the footer */
-    #footer-slot p, 
-    #footer-slot div, 
-    #footer-slot span,
-    #footer-slot a {
-        color: #94a3b8 !important; /* Slate-400 */
-    }
-
-    /* Hover effect for links in footer */
-    #footer-slot a:hover {
-        color: #22d3ee !important;
-    }
-
-    /* Invert the dark logo to white so it's visible */
-    #footer-slot img {
-        filter: brightness(0) invert(1) !important;
-        opacity: 0.8 !important;
     }
 
     /* Custom Scrollbar */
@@ -281,10 +257,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">config_tutor_mode.json</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
                <span class="text-neon-purple">Act as</span> a maths tutor. <br>
                I am stuck on <span class="text-neon-cyan">[Topic Name]</span>. <br>
-               Explain the method step-by-step, but <span class="text-red-400">do not</span> give me the final answer yet. Ask me a guiding question to help me solve it myself.
+               Explain the method step-by-step, but <span class="text-red-400">do not</span> give me the final answer yet. Ask me a guiding question to help me solve it myself.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
               <span class="material-icons text-[14px]">content_copy</span> Copy
@@ -300,10 +276,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">config_quiz_gen.json</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               Generate 5 practice questions on <span class="text-neon-cyan">[Topic]</span> suitable for <span class="text-neon-cyan">[Year Group]</span>. <br>
               <span class="text-neon-purple">Order them</span> by difficulty (Easy -> Hard). <br>
-              Provide the answers in a hidden dropdown or at the very bottom of the response.
+              Provide the answers in a hidden dropdown or at the very bottom of the response.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
               <span class="material-icons text-[14px]">content_copy</span> Copy
@@ -321,10 +297,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">ks3_fractions.exe</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               I am in Year 7. Explain how to add fractions with different denominators. <br>
               Use a <span class="text-neon-cyan">real-life example</span> involving pizza or chocolate. <br>
-              Then give me 3 practice questions.
+              Then give me 3 practice questions.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -337,9 +313,9 @@
               </div>
                <span class="text-[10px] text-slate-500 font-mono">ks3_ratios.exe</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               Create a ratio word problem suitable for Year 8. <br>
-              Show me the <span class="text-neon-purple">Bar Model</span> method to solve it.
+              Show me the <span class="text-neon-purple">Bar Model</span> method to solve it.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -355,10 +331,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">gcse_exam_sim.exe</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               Give me a Grade 7 question on <span class="text-neon-cyan">Circle Theorems</span>. <br>
               Wait for my answer. <br>
-              If I get it wrong, tell me <span class="text-red-400">which theorem</span> I missed, rather than just giving the solution.
+              If I get it wrong, tell me <span class="text-red-400">which theorem</span> I missed, rather than just giving the solution.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -371,10 +347,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">gcse_mark_scheme.exe</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               Here is my working out for a question on <span class="text-neon-cyan">Simultaneous Equations</span>: <br>
               [PASTE YOUR WORKING] <br>
-              Mark this out of 3 marks. Highlighting exactly where I lost marks.
+              Mark this out of 3 marks. Highlighting exactly where I lost marks.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -390,10 +366,10 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">alevel_stats.py</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               I am confused about <span class="text-neon-cyan">Hypothesis Testing</span>. <br>
               Explain the difference between a one-tailed and two-tailed test using a context about manufacturing bolts. <br>
-              Show how to write the hypotheses H0 and H1.
+              Show how to write the hypotheses H0 and H1.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -406,9 +382,9 @@
               </div>
               <span class="text-[10px] text-slate-500 font-mono">alevel_pure.py</span>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
               Generate a hard integration by parts question involving <span class="text-neon-cyan">ln(x)</span>. <br>
-              Provide a <span class="text-neon-purple">hint</span> about which term to set as 'u' and which as 'dv/dx', but don't solve it yet.
+              Provide a <span class="text-neon-purple">hint</span> about which term to set as 'u' and which as 'dv/dx', but don't solve it yet.<span class="cursor-blink"></span>
             </div>
             <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
           </div>
@@ -419,35 +395,32 @@
 
   </main>
 
-  <footer class="mt-16 border-t border-gray-200 bg-white/70 backdrop-blur py-8">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 
-              flex flex-col md:flex-row items-center justify-between gap-6">
+  <footer class="mt-16 border-t border-white/10 bg-[#030712] py-8 relative z-10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
-    <!-- Left: Logo + name -->
-    <div class="flex items-center gap-3">
-      <img src="assets/sjwms-maths.svg" 
-           alt="SJWMS Maths Logo"
-           class="h-10 w-auto opacity-90" />
-      <div>
-        <p class="text-sm font-semibold text-gray-800">
-          SJWMS Maths Revision Hub
-        </p>
-        <p class="text-xs text-gray-500">
-          © 2025 SJWMS — All rights reserved.
+      <div class="flex items-center gap-3">
+        <img src="assets/sjwms-maths.svg" 
+             alt="SJWMS Maths Logo"
+             class="h-10 w-auto opacity-80" 
+             style="filter: brightness(0) invert(1);" />
+        <div>
+          <p class="text-sm font-semibold text-slate-300">
+            SJWMS Maths Revision Hub
+          </p>
+          <p class="text-xs text-slate-500">
+            © 2025 SJWMS — All rights reserved.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 text-right">
+        <p>Built with ambition for SJWMS students</p>
+        <p class="mt-1 text-[10px] text-slate-600">
+          Revision Hub v3.0
         </p>
       </div>
     </div>
-
-    <!-- Right: Signature + version -->
-    <div class="text-xs text-gray-500 text-right">
-      <p>Built with ambition for SJWMS students</p>
-      <p class="mt-1 text-[10px] text-gray-400">
-        Revision Hub v3.0
-      </p>
-    </div>
-
-  </div>
-</footer>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -455,7 +428,7 @@
         if(firstBtn) switchTab('common', firstBtn);
     });
 
-    // 1. TAB SWITCHING
+    // 1. TAB SWITCHING (No Animation Logic)
     function switchTab(tabName, clickedBtn) {
       // Style Buttons
       document.querySelectorAll('.neon-tab').forEach(btn => {
@@ -472,70 +445,22 @@
       const target = document.getElementById('panel-' + tabName);
       target.classList.remove('hidden');
       target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
-
-      // Trigger Typing Effect (Reset first)
-      const textContainers = target.querySelectorAll('.typing-container');
-      textContainers.forEach(container => {
-        // Store original HTML if not already stored
-        if (!container.hasAttribute('data-raw-html')) {
-            container.setAttribute('data-raw-html', container.innerHTML);
-        }
-        typeWithColors(container);
-      });
     }
 
-    // 2. TOKENIZED TYPEWRITER (PRESERVES COLORS)
-    function typeWithColors(element) {
-      const fullHtml = element.getAttribute('data-raw-html');
-      element.innerHTML = '<span class="typing-cursor"></span>';
-      const cursor = element.querySelector('.typing-cursor');
-      
-      // Regex to split string into tags and text. 
-      // <[^>]+> matches any HTML tag.
-      const tokens = fullHtml.split(/(<[^>]+>)/g).filter(Boolean);
-      
-      let tokenIndex = 0;
-      let charIndex = 0;
-
-      function typeNext() {
-        if (tokenIndex >= tokens.length) return; // Finished
-
-        const currentToken = tokens[tokenIndex];
-
-        if (currentToken.startsWith('<')) {
-          // If token is a tag (e.g. <span class="text-blue"> or <br> or </span>)
-          // Insert it INSTANTLY
-          cursor.insertAdjacentHTML('beforebegin', currentToken);
-          tokenIndex++;
-          typeNext(); // Immediately process next token (no delay for tags)
-        } else {
-          // If token is text
-          if (charIndex < currentToken.length) {
-            cursor.insertAdjacentText('beforebegin', currentToken[charIndex]);
-            charIndex++;
-            setTimeout(typeNext, 20); // Delay for typing effect
-          } else {
-            // Finished this text token, move to next token
-            tokenIndex++;
-            charIndex = 0;
-            typeNext();
-          }
-        }
-      }
-      typeNext();
-    }
-
-    // 3. COPY LOGIC
+    // 2. COPY LOGIC
     function copyText(btn) {
-      const container = btn.parentElement.querySelector('.typing-container');
-      const htmlContent = container.getAttribute('data-raw-html') || container.innerHTML;
+      const container = btn.parentElement.querySelector('.prompt-text');
+      // Clone so we don't mess up the actual DOM
+      const clone = container.cloneNode(true);
       
-      // Strip tags for clipboard
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = htmlContent;
-      const cleanText = tempDiv.textContent || tempDiv.innerText || "";
+      // Remove the blinking cursor from the text we want to copy
+      const cursor = clone.querySelector('.cursor-blink');
+      if(cursor) cursor.remove();
+
+      // Get text content
+      const cleanText = clone.textContent || clone.innerText || "";
       
-      navigator.clipboard.writeText(cleanText).then(() => {
+      navigator.clipboard.writeText(cleanText.trim()).then(() => {
         const originalText = btn.innerHTML;
         btn.innerHTML = '<span class="material-icons text-[14px]">check</span> Copied';
         btn.classList.add('text-green-400');
@@ -546,14 +471,14 @@
       });
     }
 
-    // 4. MOBILE MENU
+    // 3. MOBILE MENU
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     if(menuBtn) {
       menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     }
 
-    // 5. Parallax
+    // 4. Parallax
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
         const beams = document.querySelector('img[alt="Digital streams"]');
