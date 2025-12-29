@@ -12,6 +12,7 @@
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
   <!-- Shared CSS (if you still use main.css for layout helpers) -->
   <link rel="stylesheet" href="assets/main.css"/>
@@ -285,23 +286,41 @@
         </article>
 
         <!-- AI usage -->
-        <article class="relative rounded-2xl overflow-hidden shadow-sm group">
+        <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-[#22d3ee]/20 bg-[#030712]">
+          
           <div class="absolute inset-0 z-0">
-            <img src="assets/neon_beams.webp" alt="" class="w-full h-full object-cover object-bottom transition-transform duration-700 group-hover:scale-105"/>
-            <div class="absolute inset-0 bg-slate-900/80 mix-blend-multiply"></div>
+            <img src="assets/neon_beams.wepb" alt="" class="w-full h-full object-cover object-bottom opacity-50 mix-blend-screen transition-transform duration-700 group-hover:scale-105"/>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/90 via-[#030712]/60 to-transparent"></div>
           </div>
 
-          <div class="relative z-10 p-6 text-white flex items-start gap-4 h-full">
-            <span class="material-icons text-5xl text-purple-300 mt-1">psychology</span>
-            <div class="flex-1">
-              <h2 class="text-2xl font-black mb-2 leading-tight">
-                Upgrade your <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Intelligence</span>
+          <div class="relative z-10 p-6 flex flex-col h-full">
+            
+            <div class="flex items-start justify-between mb-4">
+              <span class="material-icons text-5xl text-[#a855f7] drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">psychology</span>
+              
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22d3ee]/10 border border-[#22d3ee]/30">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22d3ee] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22d3ee]"></span>
+                </span>
+                <span class="text-[10px] font-mono font-bold text-[#22d3ee] tracking-widest">AI_MODULE_V3</span>
+              </div>
+            </div>
+
+            <div class="mt-auto">
+              <h2 class="text-2xl font-black text-white mb-2 leading-tight">
+                Upgrade your <br/>
+                <span class="font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-blue-400 to-[#a855f7]" style="filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.5));">
+                  INTELLIGENCE
+                </span>
               </h2>
-              <p class="text-gray-200 mb-5 font-medium leading-snug">
+
+              <p class="text-slate-400 text-sm mb-5 leading-relaxed">
                 Do you know how to use AI properly to help with your education?
               </p>
-              <a href="ai_usage.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white hover:text-slate-900 transition font-semibold">
-                Open AI Guidance <span class="material-icons ml-2 text-base">arrow_forward</span>
+
+              <a href="ai_usage.html" class="inline-flex items-center w-full justify-center px-4 py-2.5 rounded-lg bg-[#22d3ee]/5 border border-[#22d3ee]/30 text-[#22d3ee] font-mono text-xs font-bold uppercase tracking-wide hover:bg-[#22d3ee]/10 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all duration-300 group-hover:border-[#22d3ee]/60">
+                <span class="mr-2">></span> Initialize Guidance
               </a>
             </div>
           </div>
