@@ -25,7 +25,9 @@
     
     .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Background Image */
+    /* --- BACKGROUND FIX --- */
+    
+    /* 1. The Image Layer (Bottom) */
     .bg-image {
         position: fixed;
         inset: 0;
@@ -33,23 +35,34 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.7; /* Dimmed so text pops */
-        z-index: -1;
+        /* No opacity reduction here so colors are vibrant */
+        z-index: -2; 
     }
-    /* Grid overlay on top of image for tech feel */
+
+    /* 2. The Grid/Tint Layer (Middle) */
     .bg-grid {
         position: fixed;
         inset: 0;
-        background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95));
+        /* Much lighter dark tint (70% instead of 90%) so image shines through */
+        background-color: rgba(2, 6, 23, 0.75); 
+        /* Subtle Grid Pattern */
+        background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        /* Fade the grid out at the edges to focus center */
+        mask-image: radial-gradient(circle at center, black 40%, rgba(0,0,0,0.6) 100%);
         z-index: -1;
     }
 
+    /* --- COMPONENTS --- */
+
     /* The Adaptive Mainframe (Presentation) */
     .mainframe {
-        background: rgba(15, 23, 42, 0.85);
+        background: rgba(15, 23, 42, 0.7); /* More transparent for background visibility */
         border: 1px solid #334155;
         border-radius: 0.75rem;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px); /* Strong blur to make text readable over image */
         box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
         overflow: hidden;
         display: flex;
@@ -59,7 +72,7 @@
     }
 
     .mainframe-header {
-        background: rgba(30, 41, 59, 0.5);
+        background: rgba(30, 41, 59, 0.6);
         padding: 0.75rem 1rem;
         border-bottom: 1px solid #334155;
         display: flex;
@@ -71,14 +84,14 @@
     .mainframe-screen {
         flex-grow: 1;
         position: relative;
-        /* Subtle radial gradient inside the screen */
-        background: radial-gradient(circle at center, rgba(30, 41, 59, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%);
+        /* Very subtle gradient so it doesn't block the bg image too much */
+        background: linear-gradient(180deg, rgba(30, 41, 59, 0.2) 0%, rgba(15, 23, 42, 0.6) 100%);
         display: flex;
         flex-direction: column;
     }
 
     .mainframe-footer {
-        background: rgba(2, 6, 23, 0.6);
+        background: rgba(2, 6, 23, 0.8);
         border-top: 1px solid #334155;
         padding: 1rem;
         display: flex;
@@ -138,7 +151,8 @@
 
     /* Code vs Output Section Styles */
     .dev-panel {
-        background: #0f172a; /* Slate 900 */
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(10px);
         border: 1px solid #334155;
         border-radius: 0.5rem;
         overflow: hidden;
@@ -148,7 +162,7 @@
         min-height: 200px;
     }
     .dev-header {
-        background: #1e293b;
+        background: rgba(30, 41, 59, 0.8);
         padding: 0.5rem 1rem;
         font-size: 0.75rem;
         color: #94a3b8;
@@ -159,7 +173,6 @@
         align-items: center;
     }
     
-    /* Syntax Highlighting for Fake Code */
     .code-block {
         padding: 1.5rem;
         font-family: 'JetBrains Mono', monospace;
@@ -210,7 +223,10 @@
 
 <body class="relative min-h-screen pt-20 pb-10">
   
-  <div class="bg-image"></div> <div class="bg-grid"></div>  <header class="fixed top-0 w-full z-50 bg-[#030712]/80 backdrop-blur-lg border-b border-white/5">
+  <div class="bg-image"></div>
+  <div class="bg-grid"></div>
+
+  <header class="fixed top-0 w-full z-50 bg-[#030712]/80 backdrop-blur-lg border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto"/> 
@@ -357,7 +373,7 @@
                     <span class="w-2 h-2 rounded-full bg-slate-600"></span>
                 </span>
             </div>
-            <div class="code-block flex-grow bg-slate-950/50">
+            <div class="code-block flex-grow bg-slate-950/40">
                 <div><span class="comment">&lt;!-- Sparx Link Component --&gt;</span></div>
                 <div><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://sparx..."</span></div>
                 <div>&nbsp;&nbsp;&nbsp;<span class="attr">class</span>=<span class="val">"btn-primary"</span><span class="tag">&gt;</span></div>
@@ -376,7 +392,7 @@
                 <span class="text-purple-300"><i class="material-icons text-xs mr-1 align-middle">preview</i> Live Preview</span>
                 <span class="text-xs text-green-400">● Active</span>
             </div>
-            <div class="flex-grow flex items-center justify-center bg-slate-900/50 p-8 backdrop-blur-sm">
+            <div class="flex-grow flex items-center justify-center bg-slate-900/30 p-8 backdrop-blur-sm">
                 
                 <a href="https://selectschool.sparx-learning.com/" target="_blank" class="sparx-launch-btn">
                     <span class="material-icons">rocket_launch</span>
@@ -404,27 +420,21 @@
     const totalSlides = 5; 
     
     function changeSlide(direction) {
-        // Remove active state from current
         document.getElementById(`slide-${currentSlide}`).classList.remove('active');
         document.getElementById(`dot-${currentSlide}`).classList.remove('bg-purple-500');
         document.getElementById(`dot-${currentSlide}`).classList.add('bg-slate-700');
 
-        // Update index
         currentSlide += direction;
 
-        // Loop functionality
         if (currentSlide >= totalSlides) currentSlide = 0;
         if (currentSlide < 0) currentSlide = totalSlides - 1;
 
-        // Add active state to new
         document.getElementById(`slide-${currentSlide}`).classList.add('active');
         document.getElementById(`dot-${currentSlide}`).classList.remove('bg-slate-700');
         document.getElementById(`dot-${currentSlide}`).classList.add('bg-purple-500');
 
-        // Update Counter
         document.getElementById('slide-counter').innerText = `${currentSlide + 1} / ${totalSlides}`;
         
-        // Stop videos when changing slides
         const videos = document.querySelectorAll('iframe');
         videos.forEach(iframe => {
             const src = iframe.src;
