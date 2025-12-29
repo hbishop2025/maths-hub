@@ -194,6 +194,68 @@
         </div>
       </section>
 
+      <div id="pi-day-banner-container" style="display: none;">
+
+    <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
+      
+      <div class="absolute inset-0 bg-[#030712]">
+        <div class="absolute inset-0 opacity-20" 
+             style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
+        </div>
+      </div>
+
+      <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
+      <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-start gap-4">
+          <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
+          <div>
+            <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
+              SYSTEM_ANOMALY_DETECTED
+            </h3>
+            <p class="font-mono text-red-400 text-sm mt-1">
+              <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
+            </p>
+          </div>
+        </div>
+
+        <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
+          <span class="relative z-10 flex items-center gap-2">
+            <span class="material-icons text-sm">terminal</span>
+            INITIATE_DEBUG
+          </span>
+          <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+        </button>
+
+      </div>
+    </div>
+    </div>
+
+<script>
+(function() {
+    // 1. Get today's date
+    const today = new Date();
+    const month = today.getMonth(); // In JS, Jan=0, Feb=1, March=2
+    const day = today.getDate();
+
+    // 2. SETTINGS
+    // Set this to 'true' to see the banner RIGHT NOW for testing. 
+    // Set to 'false' to only show on actual Pi Day.
+    const testMode = false; 
+
+    // 3. The Logic
+    // Checks if month is March (2) AND day is 14th
+    if (testMode || (month === 2 && day === 14)) {
+        const bannerContainer = document.getElementById('pi-day-banner-container');
+        if (bannerContainer) {
+            bannerContainer.style.display = 'block';
+        }
+    }
+})();
+</script>
+      
       <!-- CHOOSE YEAR -->
       <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
         <h2 class="section-heading">Choose your year</h2>
@@ -354,6 +416,9 @@
         </article>
       </section>
 
+
+
+      
         <section class="mt-12 mb-8">
         <div class="flex items-center justify-between mb-6">
           <h2 class="section-heading">The UKMT Pathway</h2>
@@ -451,6 +516,95 @@
         </div>
         <div id="ks3-ukmt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         <p id="ks3-ukmt-empty" class="text-gray-500" hidden>No UKMT items yet.</p>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">
+        
+        <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-800/20 h-full min-h-[320px] flex flex-col">
+          
+          <div class="absolute inset-0 z-0">
+            <img src="assets/ks3-hero.jpg" alt="EOY Revision" 
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/30 to-transparent mix-blend-overlay"></div>
+          </div>
+
+          <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full">
+            
+            <div class="flex justify-between items-start mb-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-400/30 backdrop-blur-md">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
+                <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Exam Prep</span>
+              </div>
+            </div>
+
+            <div class="mt-auto">
+              <h2 class="text-3xl font-black text-white mb-2 leading-tight drop-shadow-lg">
+                End of Year<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+                  Revision Hub
+                </span>
+              </h2>
+              
+              <p class="text-gray-200 text-sm mb-6 leading-relaxed font-medium max-w-sm drop-shadow-md">
+                Everything you need for your finals: topic lists, practice papers, and video walkthroughs.
+              </p>
+
+              <a href="ks3_eoy.html" 
+                 class="inline-flex items-center w-full justify-center px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-cyan-50 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+                 Start Revising
+                 <span class="material-icons text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="relative rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col h-full overflow-hidden group transition-all duration-300 hover:shadow-2xl border-2 border-black" style="background-color: #ffe4e6;">
+          
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-10 left-10 w-24 h-24 bg-rose-300/20 rounded-full blur-2xl"></div>
+
+          <div class="absolute right-4 top-[15%] w-[160px] sm:w-[200px] opacity-90 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 origin-center z-0">
+             <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Hero" class="drop-shadow-lg" />
+          </div>
+
+          <div class="relative z-10 flex flex-col h-full">
+            
+            <div class="flex justify-start mb-6">
+              <span class="inline-flex items-center px-3 py-1.5 rounded-md bg-black text-white text-[11px] font-black uppercase tracking-wider transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 shadow-md">
+                Fresh out of puns?
+              </span>
+            </div>
+
+            <div class="mt-auto max-w-[60%]"> <h2 class="text-4xl font-black text-black mb-3 leading-[0.9] tracking-tighter">
+                BISHOP<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-black to-gray-700">
+                  & CO. SHAKES
+                </span>
+              </h2>
+              
+              <p class="text-gray-800 text-sm mb-6 font-bold leading-relaxed">
+                Fuel your brain. Calculate the taste. <br>
+                <span class="text-xs font-medium text-gray-600 italic">Warning: May contain traces of algebra.</span>
+              </p>
+
+              <a href="bishop_shakes.html" 
+                 class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-black text-white font-bold text-sm uppercase tracking-wide hover:bg-[#ff4e00] hover:-translate-y-1 transition-all duration-200 shadow-lg">
+                 Visit Shop
+                 <span class="material-icons text-sm ml-2">local_drink</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
       </section>
 
     </div>
