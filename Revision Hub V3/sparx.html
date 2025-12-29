@@ -8,7 +8,7 @@
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <link rel="stylesheet" href="/assets/main.css"/>
@@ -16,58 +16,43 @@
   <style>
     body { 
         font-family: 'Inter', sans-serif; 
-        background-color: #020617; /* Slate 950 */
-        color: #e2e8f0; /* Slate 200 */
-    }
-    
-    /* Subtle Grid Background */
-    .bg-grid {
-        background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
-                          linear-gradient(to bottom, #1e293b 1px, transparent 1px);
-        background-size: 40px 40px;
-        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        background-color: #f8fafc; /* Slate 50 */
+        color: #0f172a; /* Slate 900 */
     }
 
-    /* Card Styling */
-    .cyber-card {
-        background: rgba(15, 23, 42, 0.6); /* Slate 900 with opacity */
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 1rem;
-        transition: all 0.3s ease;
+    /* Subtle Technical Grid Background */
+    .bg-tech-grid {
+        background-image: 
+            linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+            linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
     }
-    .cyber-card:hover {
-        border-color: rgba(139, 92, 246, 0.5); /* Purple glow */
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+
+    /* Card Styling - Clean, Sharp, Technical */
+    .tech-card {
+        background: #ffffff;
+        border: 1px solid #cbd5e1; /* Slate 300 */
+        border-radius: 0.75rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease-out;
+    }
+    .tech-card:hover {
+        border-color: #94a3b8; /* Slate 400 */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         transform: translateY(-2px);
     }
 
-    /* Orange Book Card (Special) */
+    /* The "System Alert" Card for AI */
+    .alert-card {
+        background: #fef2f2; /* Red 50 */
+        border: 1px solid #fecaca; /* Red 200 */
+    }
+    
+    /* The "Orange Book" Card */
     .orange-card {
-        background: linear-gradient(145deg, rgba(67, 20, 7, 0.4), rgba(15, 23, 42, 0.8));
-        border: 1px solid rgba(249, 115, 22, 0.3); /* Orange border */
-    }
-    .orange-card:hover {
-        border-color: #f97316;
-        box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
-    }
-
-    /* Warning / Danger Card */
-    .danger-card {
-        background: rgba(69, 10, 10, 0.3);
-        border: 1px solid rgba(248, 113, 113, 0.2);
-    }
-
-    /* Neon Button */
-    .btn-neon {
-        background: linear-gradient(90deg, #7c3aed, #2563eb);
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    .btn-neon:hover {
-        box-shadow: 0 0 25px rgba(124, 58, 237, 0.6);
-        transform: scale(1.02);
+        background: #fff7ed; /* Orange 50 */
+        border: 1px solid #fed7aa; /* Orange 200 */
     }
 
     .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -76,7 +61,7 @@
 
 <body class="relative min-h-screen" data-page="sparx">
   
-  <div class="fixed inset-0 bg-grid pointer-events-none z-0 opacity-20"></div>
+  <div class="fixed inset-0 bg-tech-grid pointer-events-none z-0"></div>
 
   <div class="layout relative z-10">
     <div id="sidebar" aria-label="Sidebar"></div>
@@ -86,23 +71,28 @@
       <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div>
            <div class="flex items-center gap-3 mb-2">
-               <span class="px-2 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded text-xs font-mono tracking-widest uppercase">
+               <span class="px-2 py-1 bg-slate-100 border border-slate-300 text-slate-600 rounded text-xs font-mono tracking-widest uppercase font-bold">
                    System v3.0
                </span>
-               <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+               <span class="flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                  Online
+               </span>
            </div>
-           <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
-             SPARX <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">PROTOCOL</span>
+           <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+             SPARX <span class="text-purple-600">PROTOCOL</span>
            </h1>
-           <p class="text-slate-400 mt-2 text-lg">Weekly Adaptive Learning Framework</p>
+           <p class="text-slate-500 mt-2 text-lg">Weekly Adaptive Learning Framework</p>
         </div>
 
         <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
-           class="btn-neon inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-white shadow-lg">
-          <span class="material-icons">rocket_launch</span>
+           class="group relative inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white
+                  bg-slate-900 overflow-hidden shadow-lg transition-all hover:bg-purple-600 hover:shadow-purple-500/25 hover:scale-[1.02]">
+          <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+          <span class="material-icons mr-3">rocket_launch</span>
           <div class="text-left">
-              <span class="block text-xs text-purple-200 opacity-80 uppercase tracking-wider">Access Portal</span>
-              <span class="text-lg">Launch SPARX</span>
+              <span class="block text-[10px] opacity-70 uppercase tracking-wider font-mono">External Link</span>
+              <span class="text-lg leading-none">Launch SPARX</span>
           </div>
         </a>
       </header>
@@ -111,56 +101,59 @@
 
         <div class="lg:col-span-2 space-y-6">
             
-            <div class="cyber-card p-6">
-                <p class="text-lg text-slate-300 leading-relaxed">
-                    At SJWMS, homework is active from <strong class="text-purple-400 font-mono">Wednesday ➡ Wednesday</strong>. 
+            <div class="tech-card p-6 border-l-4 border-l-purple-500">
+                <p class="text-lg text-slate-700 leading-relaxed font-medium">
+                    At SJWMS, homework is active from <strong class="bg-purple-100 text-purple-700 px-1 rounded font-mono">Wednesday ➡ Wednesday</strong>. 
                     Sparx is not just a quiz; it is an intelligent system that learns your weaknesses.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="cyber-card overflow-hidden group">
-                    <div class="relative w-full pt-[56.25%] bg-black">
+                <div class="tech-card overflow-hidden group">
+                    <div class="relative w-full pt-[56.25%] bg-slate-900">
                         <iframe class="absolute inset-0 w-full h-full" 
                                 src="https://www.youtube.com/embed/a92XCC0MeM0" 
                                 title="Getting Started" allowfullscreen></iframe>
                     </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h3 class="font-bold text-white group-hover:text-purple-400 transition-colors">1. Initialization</h3>
+                    <div class="p-4 border-t border-slate-100">
+                        <h3 class="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">1. Initialization</h3>
                         <p class="text-sm text-slate-500">How to log in & start.</p>
                     </div>
                 </div>
 
-                <div class="cyber-card overflow-hidden group">
-                    <div class="relative w-full pt-[56.25%] bg-black">
+                <div class="tech-card overflow-hidden group">
+                    <div class="relative w-full pt-[56.25%] bg-slate-900">
                         <iframe class="absolute inset-0 w-full h-full" 
                                 src="https://www.youtube.com/embed/IQUMypfwHnU" 
                                 title="Tips for Success" allowfullscreen></iframe>
                     </div>
-                    <div class="p-4 border-t border-white/5">
-                        <h3 class="font-bold text-white group-hover:text-purple-400 transition-colors">2. Optimization</h3>
+                    <div class="p-4 border-t border-slate-100">
+                        <h3 class="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">2. Optimization</h3>
                         <p class="text-sm text-slate-500">Top tips for 100% completion.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="danger-card p-6 rounded-xl relative overflow-hidden group">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-500 blur-[60px] opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                
-                <div class="flex items-start gap-4 relative z-10">
-                    <div class="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500">
+            <div class="alert-card p-6 rounded-xl flex flex-col sm:flex-row gap-5">
+                <div class="flex-shrink-0">
+                    <div class="p-3 bg-red-100 rounded-lg text-red-600">
                         <span class="material-icons text-3xl">gpp_bad</span>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-red-400 mb-1">WARNING: AI Detection Active</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-3">
-                            Do not use ChatGPT, PhotoMath, or AI solvers. 
-                            <span class="text-white font-semibold">SPARX is adaptive.</span>
-                        </p>
-                        <p class="text-xs text-red-300/80 font-mono border-l-2 border-red-500/30 pl-3">
-                            >> If you fake your answers, the algorithm will assume you are an expert. 
-                            Next week's homework will be impossibly hard. You are only cheating your future self.
-                        </p>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-xl font-bold text-red-700 mb-2">AI Detection Active</h3>
+                    <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                        <strong>Warning:</strong> SPARX is an adaptive system. If you use ChatGPT or PhotoMath, 
+                        the algorithm assumes you are an expert and will set impossibly hard questions next week.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="text-xs font-mono bg-red-100 text-red-800 px-2 py-1 rounded">
+                            Status: MONITORING
+                        </span>
+                        <a href="ai_usage.html" 
+                           class="inline-flex items-center text-xs font-bold text-red-700 hover:text-red-900 hover:underline">
+                           Read School AI Policy <span class="material-icons text-sm ml-1">arrow_forward</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -169,51 +162,59 @@
 
         <div class="space-y-6">
             
-            <div class="orange-card p-6 rounded-xl relative">
-                <div class="absolute -top-3 -right-3">
-                    <span class="material-icons text-6xl text-orange-500 opacity-10 rotate-12">menu_book</span>
+            <div class="orange-card p-6 rounded-xl relative shadow-sm">
+                <div class="absolute -top-3 -right-3 bg-white p-1 rounded-full border border-orange-100 shadow-sm">
+                    <span class="material-icons text-4xl text-orange-500">menu_book</span>
                 </div>
                 
-                <h3 class="text-xl font-bold text-orange-400 mb-4 flex items-center gap-2">
-                    <span class="material-icons text-sm">warning</span>
+                <h3 class="text-xl font-bold text-orange-800 mb-4 border-b border-orange-200 pb-2">
                     Mandatory Protocol
                 </h3>
                 
                 <div class="space-y-4">
-                    <p class="text-slate-300 text-sm">
-                        You must use your <strong class="text-orange-400">Orange Book</strong> for every single question.
+                    <p class="text-slate-700 text-sm">
+                        You must use your <strong class="text-orange-600 bg-orange-100 px-1 rounded">Orange Book</strong> for every single question.
                     </p>
                     
-                    <div class="bg-black/40 p-3 rounded border border-orange-500/20">
-                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Checklist</div>
-                        <ul class="text-sm text-slate-200 space-y-2">
-                            <li class="flex items-center gap-2">
-                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
-                                Write Bookwork Code
+                    <div class="bg-white p-4 rounded-lg border border-orange-200 shadow-sm">
+                        <div class="text-[10px] text-slate-400 uppercase font-mono mb-2 font-bold">Checklist</div>
+                        <ul class="text-sm text-slate-700 space-y-3">
+                            <li class="flex items-center gap-3">
+                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
+                                    <span class="material-icons text-xs">check</span>
+                                </span>
+                                <span class="font-medium">Write Bookwork Code</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
-                                Show Full Working
+                            <li class="flex items-center gap-3">
+                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
+                                    <span class="material-icons text-xs">check</span>
+                                </span>
+                                <span class="font-medium">Show Full Working</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <span class="material-icons text-orange-500 text-xs">check_circle</span>
-                                Write Final Answer
+                            <li class="flex items-center gap-3">
+                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
+                                    <span class="material-icons text-xs">check</span>
+                                </span>
+                                <span class="font-medium">Write Final Answer</span>
                             </li>
                         </ul>
                     </div>
                     
-                    <p class="text-xs text-orange-300/70 italic mt-2">
-                        Failure to produce written working results in an immediate detention.
-                    </p>
+                    <div class="flex items-start gap-2 bg-orange-100/50 p-2 rounded text-xs text-orange-800">
+                        <span class="material-icons text-sm mt-0.5">error_outline</span>
+                        <p class="font-semibold">Failure to produce written working results in a detention.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="cyber-card p-5 flex items-center gap-4">
-                <span class="material-icons text-blue-400 text-2xl">support_agent</span>
+            <div class="tech-card p-5 flex items-center gap-4">
+                <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <span class="material-icons text-2xl">support_agent</span>
+                </div>
                 <div>
-                    <h4 class="text-white font-semibold text-sm">System Error?</h4>
-                    <p class="text-xs text-slate-400 mt-1">
-                        Speak to your teacher <span class="text-blue-400">before Wednesday</span> to avoid a missed flag.
+                    <h4 class="text-slate-900 font-bold text-sm">System Error?</h4>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Speak to your teacher <span class="text-blue-600 font-semibold">before Wednesday</span> to avoid a missed flag.
                     </p>
                 </div>
             </div>
