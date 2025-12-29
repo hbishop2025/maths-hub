@@ -17,25 +17,15 @@
 
     /* CRT Scanline Effect */
     .scanlines {
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.2) 50%,
-        rgba(0,0,0,0.2)
-      );
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
       background-size: 100% 4px;
-      position: fixed;
-      pointer-events: none;
-      inset: 0;
-      z-index: 50;
+      position: fixed; pointer-events: none; inset: 0; z-index: 50;
     }
 
-    /* Blinking Cursor */
+    /* Animations */
     .cursor-blink { animation: blink 1s step-end infinite; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* Shake Animation */
     .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
     @keyframes shake {
       10%, 90% { transform: translate3d(-1px, 0, 0); }
@@ -44,14 +34,7 @@
       40%, 60% { transform: translate3d(4px, 0, 0); }
     }
 
-    /* File Link Hover Effect */
-    .file-link:hover {
-        background-color: rgba(34, 211, 238, 0.1);
-        color: #fff;
-        text-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
-    }
-    .file-link:hover .icon-status { color: #22d3ee; }
-
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #000; }
     ::-webkit-scrollbar-thumb { background: #22d3ee; }
@@ -63,7 +46,8 @@
 
   <div id="crash-overlay" class="fixed inset-0 bg-black z-[100] opacity-0 pointer-events-none transition-opacity duration-100 flex items-center justify-center">
     <div class="text-center hidden" id="reboot-text">
-      <p class="text-white text-xl animate-pulse">SYSTEM REBOOTING...</p>
+      <p class="text-white text-xl animate-pulse">SYSTEM ERROR: MEMORY OVERFLOW</p>
+      <p class="text-red-500 text-sm mt-2">REBOOTING...</p>
     </div>
   </div>
 
@@ -71,105 +55,183 @@
     
     <div class="bg-[#0b1221] border-b border-slate-800 p-3 flex items-center justify-between select-none z-10">
       <div class="flex gap-2 ml-2">
-        <div class="w-3 h-3 rounded-full bg-red-600/50"></div>
-        <div class="w-3 h-3 rounded-full bg-amber-600/50"></div>
-        <div class="w-3 h-3 rounded-full bg-green-600/50"></div>
+        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
       </div>
-      
-      <div class="text-center">
-        <div class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Time Until Critical Mass</div>
-        <div id="countdown-timer" class="text-red-500 font-bold font-mono tracking-widest text-lg animate-pulse">00:00:00:00</div>
-      </div>
-
-      <button id="hidden-trigger" class="text-xs text-slate-700 hover:text-red-500 transition-colors mr-2 cursor-pointer font-bold" onclick="initiateOverload()">v3.14</button>
+      <div id="countdown-timer" class="text-red-500 font-bold font-mono tracking-widest text-lg animate-pulse opacity-0">00:00:00:00</div>
+      <div class="text-xs text-slate-700 font-bold">v3.14</div>
     </div>
 
     <div id="terminal-output" class="flex-grow p-6 overflow-y-auto text-sm md:text-base leading-relaxed text-slate-300 font-medium font-mono">
-      <div class="mb-6 text-emerald-500">
-        > CONNECTING TO SJWMS_MAINFRAME... SUCCESS.<br>
-        > WARNING: Infinite recursion detected in sector π.<br>
-        > USER ACTION REQUIRED: Apply memory patches below to stabilize system.<br>
-        ------------------------------------------------------------------
-      </div>
+      
+      <div id="boot-sequence" class="text-slate-400"></div>
 
-      <div class="mb-8">
-        <p class="text-slate-500 text-xs uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">Available Patches (Click to Deploy):</p>
+      <div id="main-interface" class="hidden">
         
-        <div class="flex flex-col gap-1">
-            
-            <a href="LINK_TO_PDF_HERE" target="_blank" class="file-link block py-2 px-3 border border-transparent border-l-2 hover:border-l-cyan-400 transition-all duration-150 group">
-                <span class="text-slate-500 mr-4 text-xs">[rw-r--r--]</span>
-                <span class="text-cyan-600 group-hover:text-cyan-300">PATCH_ALGEBRA_REVISION.EXE</span>
-                <span class="float-right text-xs text-slate-600 icon-status">READY</span>
-            </a>
+        <pre class="text-[10px] md:text-xs text-cyan-500 font-bold mb-6 leading-none select-none">
+  ____  _   ____              
+ |  _ \(_) |  _ \  __ _ _   _ 
+ | |_) | | | | | |/ _` | | | |
+ |  __/| | | |_| | (_| | |_| |
+ |_|   |_| |____/ \__,_|\__, |
+                        |___/ 
+  v3.14.159 // INITIALIZING...
+        </pre>
 
-            <a href="LINK_TO_DRIVE_HERE" target="_blank" class="file-link block py-2 px-3 border border-transparent border-l-2 hover:border-l-cyan-400 transition-all duration-150 group">
-                <span class="text-slate-500 mr-4 text-xs">[rw-r--r--]</span>
-                <span class="text-cyan-600 group-hover:text-cyan-300">PATCH_GEOMETRY_CIRCLE.DAT</span>
-                <span class="float-right text-xs text-slate-600 icon-status">READY</span>
-            </a>
+        <div class="mb-6 text-emerald-500">
+          > ESTABLISHED CONNECTION TO SJWMS_MAINFRAME.<br>
+          > WARNING: System instability detected in sector π.<br>
+          > INSTRUCTION: Locate functional patches below.<br>
+          ------------------------------------------------------------------
+        </div>
 
-            <div class="block py-2 px-3 border border-transparent border-l-2 border-l-red-900 opacity-50 cursor-not-allowed">
-                <span class="text-red-900 mr-4 text-xs">[---------]</span>
-                <span class="text-red-700">TOP_SECRET_ANSWERS.ZIP</span>
-                <span class="float-right text-xs text-red-900">ENCRYPTED</span>
+        <div class="mb-8">
+          <p class="text-slate-500 text-xs uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">/mnt/revision_drives/maths:</p>
+          
+          <div class="flex flex-col gap-1">
+              
+              <div onclick="handleLockedClick(this)" class="cursor-pointer block py-2 px-3 border border-transparent border-l-2 border-l-red-900 bg-red-900/10 hover:bg-red-900/20 transition-all duration-150 group">
+                  <span class="text-red-900 mr-4 text-xs">[r--r-----]</span>
+                  <span class="text-red-500 font-bold group-hover:text-red-400">PATCH_ALGEBRA_01.EXE</span>
+                  <span class="float-right text-xs text-red-700 icon-status">ACCESS DENIED</span>
+              </div>
+
+               <div onclick="handleLockedClick(this)" class="cursor-pointer block py-2 px-3 border border-transparent border-l-2 border-l-red-900 bg-red-900/10 hover:bg-red-900/20 transition-all duration-150 group">
+                <span class="text-red-900 mr-4 text-xs">[r--r-----]</span>
+                <span class="text-red-500 font-bold group-hover:text-red-400">GEOMETRY_FIX.DAT</span>
+                <span class="float-right text-xs text-red-700 icon-status">ACCESS DENIED</span>
             </div>
 
+              <div class="text-[10px] text-slate-600 mt-2 font-mono italic">
+                > SYSTEM HINT: To unlock patches, calculate Pi to 3dp in command line...
+              </div>
+
+          </div>
         </div>
+        
+        <div id="log-content"></div>
       </div>
-      <div id="log-content"></div>
     </div>
 
     <div class="p-4 bg-[#0b1221] border-t border-slate-800 flex items-center z-10">
-      <span class="text-neon-cyan mr-3 font-bold">></span>
-      <input type="text" id="command-input" class="w-full bg-transparent border-none outline-none text-white placeholder-slate-700 uppercase" placeholder="ENTER COMMAND..." autocomplete="off" autofocus />
+      <span class="text-cyan-400 mr-3 font-bold">></span>
+      <input type="text" id="command-input" class="w-full bg-transparent border-none outline-none text-white placeholder-slate-700 uppercase" placeholder="INITIALIZING..." disabled autocomplete="off" />
     </div>
 
   </div>
 
   <script>
-    // --- 1. COUNTDOWN TIMER LOGIC ---
-    function updateTimer() {
-        // Set the date we're counting down to (March 14, 2025)
-        const countDownDate = new Date("Mar 14, 2025 00:00:00").getTime();
-        const now = new Date().getTime();
-        const distance = countDownDate - now;
-
-        if (distance < 0) {
-            document.getElementById("countdown-timer").innerHTML = "CRITICAL FAILURE";
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        const ms = Math.floor((distance % 1000) / 10); // Miliseconds for tech vibe
-
-        // Pad with zeros to keep the '00' look
-        const d = days < 10 ? "0" + days : days;
-        const h = hours < 10 ? "0" + hours : hours;
-        const m = minutes < 10 ? "0" + minutes : minutes;
-        const s = seconds < 10 ? "0" + seconds : seconds;
-        const msec = ms < 10 ? "0" + ms : ms;
-
-        document.getElementById("countdown-timer").innerHTML = `${d}:${h}:${m}:${s}:${msec}`;
-    }
+    // --- AUDIO SYSTEM (Web Audio API) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
-    // Update timer every 50ms for that fast, glitchy look
-    setInterval(updateTimer, 50);
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      if (type === 'key') {
+        // Mechanical Click
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.type = 'square';
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } else if (type === 'error') {
+        // Access Denied Buzz
+        osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+        osc.type = 'sawtooth';
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } else if (type === 'boot') {
+        // High pitch processing
+        osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+      }
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+    }
 
-
-    // --- 2. TERMINAL & EASTER EGG LOGIC ---
-    const piDigits = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989";
-
+    // --- VARIABLES ---
     const input = document.getElementById('command-input');
     const output = document.getElementById('log-content');
+    const bootContainer = document.getElementById('boot-sequence');
+    const mainInterface = document.getElementById('main-interface');
     const terminalWindow = document.getElementById('terminal-window');
-    const crashOverlay = document.getElementById('crash-overlay');
-    const rebootText = document.getElementById('reboot-text');
+    const piDigits = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989";
+    
+    let deniedCount = 0; // Track locked clicks
 
+    // --- BOOT SEQUENCE LOGIC ---
+    async function typeLine(text, color = "text-slate-400", delay = 30) {
+      const line = document.createElement('div');
+      line.className = `mb-1 ${color}`;
+      bootContainer.appendChild(line);
+      
+      for (let i = 0; i < text.length; i++) {
+        line.textContent += text[i];
+        await new Promise(r => setTimeout(r, delay)); 
+      }
+      playSound('boot');
+      return new Promise(r => setTimeout(r, 200));
+    }
+
+    async function runBoot() {
+      await typeLine("INITIALIZING NETWORK ADAPTER...", "text-slate-500", 20);
+      await new Promise(r => setTimeout(r, 500));
+      await typeLine("CONNECTING TO SJWMS_SERVER [192.168.0.1]...", "text-slate-300", 30);
+      await new Promise(r => setTimeout(r, 1000)); // Long pause
+      await typeLine("CONNECTION FAILED: TIMEOUT.", "text-red-500", 10);
+      
+      await new Promise(r => setTimeout(r, 600));
+      await typeLine("RE-ROUTING THROUGH PROXY...", "text-slate-300", 20);
+      await typeLine("...", "text-slate-300", 300);
+      await typeLine("CONNECTION FAILED: FIREWALL DETECTED.", "text-red-500", 10);
+
+      await new Promise(r => setTimeout(r, 800));
+      await typeLine("BYPASSING SECURITY PROTOCOLS...", "text-amber-400", 40);
+      await typeLine("Injecting payload...", "text-amber-500", 10);
+      
+      await new Promise(r => setTimeout(r, 500));
+      bootContainer.innerHTML = ""; // Clear boot screen
+      mainInterface.classList.remove('hidden'); // Show main UI
+      input.disabled = false;
+      input.placeholder = "ENTER COMMAND...";
+      input.focus();
+      document.getElementById('countdown-timer').classList.remove('opacity-0');
+    }
+
+    // Start Boot on Load
+    window.onload = runBoot;
+
+    // --- LOCKED FILE LOGIC (3 STRIKES) ---
+    function handleLockedClick(element) {
+      deniedCount++;
+      playSound('error');
+      
+      // Visual Feedback
+      element.classList.add('bg-red-500', 'text-white');
+      setTimeout(() => element.classList.remove('bg-red-500', 'text-white'), 100);
+
+      output.innerHTML += `<div class="text-red-500 font-bold mb-1">> ERROR: ACCESS DENIED (${deniedCount}/3)</div>`;
+      scrollToBottom();
+
+      if (deniedCount >= 3) {
+        output.innerHTML += `<div class="text-red-500 font-bold mb-1 bg-red-900/50 p-1">> SYSTEM INTEGRITY COMPROMISED.</div>`;
+        setTimeout(initiateOverload, 500);
+      }
+    }
+
+    // --- COMMAND INPUT LOGIC ---
     input.addEventListener('keydown', function(e) {
+      playSound('key'); // Sound on every key
       if (e.key === 'Enter') {
         const cmd = this.value.trim().toUpperCase();
         this.value = ''; 
@@ -182,9 +244,12 @@
       
       if (cmd === 'RUN PI_CALC' || cmd === 'PI' || cmd === '3.14') {
         initiateOverload();
+      } else if (cmd === '3.142') {
+         // UNLOCK COMMAND
+         unlockFiles();
       } else if (cmd === 'HELP') {
-        output.innerHTML += `<div class="mb-4 text-amber-400">COMMANDS:<br> - LIST_PATCHES<br> - RUN PI_CALC (Warning: Unstable)<br> - CLEAR</div>`;
-      } else if (cmd === 'CLEAR') {
+        output.innerHTML += `<div class="mb-4 text-amber-400">COMMANDS:<br> - HELP<br> - CLS (Clear Screen)<br> - PI (Crash)</div>`;
+      } else if (cmd === 'CLS') {
         output.innerHTML = '';
       } else {
         output.innerHTML += `<div class="mb-4 text-red-400">Error: Unknown command.</div>`;
@@ -192,32 +257,44 @@
       scrollToBottom();
     }
 
+    function unlockFiles() {
+        output.innerHTML += `<div class="text-green-400 font-bold mb-2">> PASSWORD ACCEPTED. DECRYPTING...</div>`;
+        playSound('boot');
+        // Example: Turn the locked divs into real links here if you want
+        // For now, let's just say "Files Unlocked"
+        const lockedItems = document.querySelectorAll('.icon-status');
+        lockedItems.forEach(item => {
+            item.innerText = "OPEN";
+            item.classList.remove('text-red-700');
+            item.classList.add('text-green-500');
+        });
+    }
+
+    // --- CRASH LOGIC ---
     function initiateOverload() {
       input.disabled = true;
-      output.innerHTML += `<div class="text-red-500 font-bold mt-4">INITIALIZING INFINITE SERIES...</div>`;
+      output.innerHTML += `<div class="text-red-500 font-bold mt-4">CRITICAL ERROR: INFINITE LOOP</div>`;
       scrollToBottom();
 
       let index = 0;
       const totalChars = piDigits.length;
       
       const interval = setInterval(() => {
+        playSound('key'); // Chattering sound
         const chunkSize = Math.floor(Math.random() * 15) + 5; 
         const chunk = piDigits.substring(index, index + chunkSize);
         
         const span = document.createElement('span');
         span.innerText = chunk;
-        if(Math.random() > 0.9) span.classList.add('text-red-500', 'font-bold'); 
+        if(Math.random() > 0.8) span.classList.add('text-red-500', 'font-bold'); 
         else span.classList.add('text-cyan-300'); 
         
         output.appendChild(span);
         index += chunkSize;
-        
-        const terminalOut = document.getElementById('terminal-output');
-        terminalOut.scrollTop = terminalOut.scrollHeight;
+        scrollToBottom();
 
         if(index > 100) {
           terminalWindow.classList.add('shake', 'border-red-500', 'shadow-[0_0_100px_rgba(239,68,68,0.5)]');
-          document.body.style.backgroundColor = "#1a0505";
         }
 
         if (index >= totalChars) {
@@ -228,11 +305,15 @@
     }
 
     function triggerCrash() {
+      const crashOverlay = document.getElementById('crash-overlay');
+      const rebootText = document.getElementById('reboot-text');
+      
       crashOverlay.classList.remove('pointer-events-none', 'opacity-0');
       crashOverlay.classList.add('opacity-100');
       
       setTimeout(() => {
         rebootText.classList.remove('hidden');
+        playSound('error');
       }, 1000);
 
       setTimeout(() => {
@@ -244,6 +325,29 @@
       const terminalOut = document.getElementById('terminal-output');
       terminalOut.scrollTop = terminalOut.scrollHeight;
     }
+
+    // --- TIMER ---
+    function updateTimer() {
+        const countDownDate = new Date("Mar 14, 2025 00:00:00").getTime();
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        if (distance < 0) {
+            document.getElementById("countdown-timer").innerHTML = "CRITICAL MASS";
+            return;
+        }
+        
+        // Simple calculation for display
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const ms = Math.floor((distance % 1000) / 10); 
+        
+        document.getElementById("countdown-timer").innerHTML = `${days}:${hours}:${minutes}:${seconds}:${ms}`;
+    }
+    setInterval(updateTimer, 50);
+
   </script>
 </body>
 </html>
