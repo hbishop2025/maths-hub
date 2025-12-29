@@ -4,228 +4,248 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
-  <title>SJWMS Maths | SPARX</title>
+  <title>SJWMS Maths | SPARX Protocol</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <link rel="stylesheet" href="/assets/main.css"/>
 
   <style>
+    /* Dark Theme Setup */
     body { 
         font-family: 'Inter', sans-serif; 
-        background-color: #f8fafc; /* Slate 50 */
-        color: #0f172a; /* Slate 900 */
-    }
-
-    /* Subtle Technical Grid Background */
-    .bg-tech-grid {
-        background-image: 
-            linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-            linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
-        background-size: 40px 40px;
-        mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-    }
-
-    /* Card Styling - Clean, Sharp, Technical */
-    .tech-card {
-        background: #ffffff;
-        border: 1px solid #cbd5e1; /* Slate 300 */
-        border-radius: 0.75rem;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        transition: all 0.2s ease-out;
-    }
-    .tech-card:hover {
-        border-color: #94a3b8; /* Slate 400 */
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        transform: translateY(-2px);
-    }
-
-    /* The "System Alert" Card for AI */
-    .alert-card {
-        background: #fef2f2; /* Red 50 */
-        border: 1px solid #fecaca; /* Red 200 */
+        background-color: #020617; /* Slate 950 */
+        color: #e2e8f0; 
     }
     
-    /* The "Orange Book" Card */
-    .orange-card {
-        background: #fff7ed; /* Orange 50 */
-        border: 1px solid #fed7aa; /* Orange 200 */
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* The "Grid" Background */
+    .bg-grid {
+        background-size: 50px 50px;
+        background-image: linear-gradient(to right, rgba(30, 41, 59, 0.5) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(30, 41, 59, 0.5) 1px, transparent 1px);
+        mask-image: radial-gradient(circle at 50% 0%, black, transparent 80%);
     }
 
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    /* Terminal Window Styling (For Videos) */
+    .terminal-window {
+        background: #0f172a; /* Slate 900 */
+        border: 1px solid #334155; /* Slate 700 */
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .terminal-window:hover {
+        border-color: #8b5cf6; /* Purple border on hover */
+        transform: translateY(-2px);
+    }
+    .terminal-header {
+        background: #1e293b; /* Slate 800 */
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid #334155;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .traffic-light {
+        width: 0.75rem; height: 0.75rem; border-radius: 9999px;
+    }
+
+    /* Orange Book "Physical" Card */
+    .orange-protocol {
+        background: linear-gradient(135deg, #1e1b19 0%, #0f0a05 100%);
+        border: 1px solid #f97316; /* Orange 500 */
+        position: relative;
+    }
+    .orange-protocol::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; bottom: 0; width: 4px;
+        background: #f97316;
+    }
+
+    /* Warning Scanline Animation */
+    @keyframes scan {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 0% 100%; }
+    }
+    .scanlines {
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+        background-size: 100% 4px;
+        animation: scan 10s linear infinite;
+        pointer-events: none;
+    }
   </style>
 </head>
 
-<body class="relative min-h-screen" data-page="sparx">
-  
-  <div class="fixed inset-0 bg-tech-grid pointer-events-none z-0"></div>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
 
-  <div class="layout relative z-10">
-    <div id="sidebar" aria-label="Sidebar"></div>
+  <div class="fixed inset-0 bg-grid z-0 pointer-events-none"></div>
 
-    <main class="main p-6 md:p-10 overflow-y-auto max-w-7xl mx-auto w-full">
-      
-      <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div>
-           <div class="flex items-center gap-3 mb-2">
-               <span class="px-2 py-1 bg-slate-100 border border-slate-300 text-slate-600 rounded text-xs font-mono tracking-widest uppercase font-bold">
-                   System v3.0
-               </span>
-               <span class="flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                  Online
-               </span>
-           </div>
-           <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
-             SPARX <span class="text-purple-600">PROTOCOL</span>
-           </h1>
-           <p class="text-slate-500 mt-2 text-lg">Weekly Adaptive Learning Framework</p>
+  <nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#020617]/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        
+        <div class="flex items-center gap-3">
+          <img src="/assets/sjwms-maths-logo (1).png" alt="Logo" class="h-8 w-auto opacity-90">
+          <span class="text-white font-bold tracking-tight hidden sm:block">SJWMS <span class="text-purple-500">HUB</span></span>
         </div>
 
-        <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
-           class="group relative inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white
-                  bg-slate-900 overflow-hidden shadow-lg transition-all hover:bg-purple-600 hover:shadow-purple-500/25 hover:scale-[1.02]">
-          <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-          <span class="material-icons mr-3">rocket_launch</span>
-          <div class="text-left">
-              <span class="block text-[10px] opacity-70 uppercase tracking-wider font-mono">External Link</span>
-              <span class="text-lg leading-none">Launch SPARX</span>
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="text-sm font-medium text-slate-400 hover:text-white transition">
+            Close
+          </a>
+          <a href="ai_usage.html" class="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-purple-400 hover:text-purple-300 transition">
+            <span class="material-icons text-base">smart_toy</span>
+            AI Policy
+          </a>
+          <a href="https://selectschool.sparx-learning.com/" target="_blank" 
+             class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-1.5 text-sm font-bold text-slate-900 hover:bg-purple-50 transition">
+            Login
+            <span class="material-icons text-sm">arrow_outward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10 flex-grow py-12 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto space-y-12">
+
+      <div class="text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono mb-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+          </span>
+          SYSTEM STATUS: ONLINE
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black text-white tracking-tight">
+          SPARX <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">PROTOCOL</span>
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          The adaptive learning engine. Homework runs from 
+          <span class="text-white font-mono bg-white/10 px-2 rounded">Wednesday 00:00</span> to 
+          <span class="text-white font-mono bg-white/10 px-2 rounded">Wednesday 20:00</span>.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <div class="terminal-window group">
+          <div class="terminal-header">
+            <div class="flex gap-1.5">
+              <div class="traffic-light bg-red-500/80"></div>
+              <div class="traffic-light bg-yellow-500/80"></div>
+              <div class="traffic-light bg-green-500/80"></div>
+            </div>
+            <div class="text-xs text-slate-400 font-mono flex-grow text-center opacity-60">~/guides/getting_started.mp4</div>
           </div>
-        </a>
-      </header>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        <div class="lg:col-span-2 space-y-6">
-            
-            <div class="tech-card p-6 border-l-4 border-l-purple-500">
-                <p class="text-lg text-slate-700 leading-relaxed font-medium">
-                    At SJWMS, homework is active from <strong class="bg-purple-100 text-purple-700 px-1 rounded font-mono">Wednesday ➡ Wednesday</strong>. 
-                    Sparx is not just a quiz; it is an intelligent system that learns your weaknesses.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="tech-card overflow-hidden group">
-                    <div class="relative w-full pt-[56.25%] bg-slate-900">
-                        <iframe class="absolute inset-0 w-full h-full" 
-                                src="https://www.youtube.com/embed/a92XCC0MeM0" 
-                                title="Getting Started" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-4 border-t border-slate-100">
-                        <h3 class="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">1. Initialization</h3>
-                        <p class="text-sm text-slate-500">How to log in & start.</p>
-                    </div>
-                </div>
-
-                <div class="tech-card overflow-hidden group">
-                    <div class="relative w-full pt-[56.25%] bg-slate-900">
-                        <iframe class="absolute inset-0 w-full h-full" 
-                                src="https://www.youtube.com/embed/IQUMypfwHnU" 
-                                title="Tips for Success" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-4 border-t border-slate-100">
-                        <h3 class="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">2. Optimization</h3>
-                        <p class="text-sm text-slate-500">Top tips for 100% completion.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="alert-card p-6 rounded-xl flex flex-col sm:flex-row gap-5">
-                <div class="flex-shrink-0">
-                    <div class="p-3 bg-red-100 rounded-lg text-red-600">
-                        <span class="material-icons text-3xl">gpp_bad</span>
-                    </div>
-                </div>
-                <div class="flex-grow">
-                    <h3 class="text-xl font-bold text-red-700 mb-2">AI Detection Active</h3>
-                    <p class="text-slate-700 text-sm leading-relaxed mb-4">
-                        <strong>Warning:</strong> SPARX is an adaptive system. If you use ChatGPT or PhotoMath, 
-                        the algorithm assumes you are an expert and will set impossibly hard questions next week.
-                    </p>
-                    <div class="flex flex-wrap items-center gap-3">
-                        <span class="text-xs font-mono bg-red-100 text-red-800 px-2 py-1 rounded">
-                            Status: MONITORING
-                        </span>
-                        <a href="ai_usage.html" 
-                           class="inline-flex items-center text-xs font-bold text-red-700 hover:text-red-900 hover:underline">
-                           Read School AI Policy <span class="material-icons text-sm ml-1">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+          <div class="relative w-full aspect-video bg-black">
+             <iframe class="absolute inset-0 w-full h-full" 
+                     src="https://www.youtube.com/embed/a92XCC0MeM0" 
+                     title="Getting Started" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-slate-900/50">
+             <h3 class="text-white font-bold text-sm">System Initialization</h3>
+             <p class="text-xs text-slate-500 mt-1">How to log in and configure your account.</p>
+          </div>
         </div>
 
-        <div class="space-y-6">
-            
-            <div class="orange-card p-6 rounded-xl relative shadow-sm">
-                <div class="absolute -top-3 -right-3 bg-white p-1 rounded-full border border-orange-100 shadow-sm">
-                    <span class="material-icons text-4xl text-orange-500">menu_book</span>
-                </div>
-                
-                <h3 class="text-xl font-bold text-orange-800 mb-4 border-b border-orange-200 pb-2">
-                    Mandatory Protocol
-                </h3>
-                
-                <div class="space-y-4">
-                    <p class="text-slate-700 text-sm">
-                        You must use your <strong class="text-orange-600 bg-orange-100 px-1 rounded">Orange Book</strong> for every single question.
-                    </p>
-                    
-                    <div class="bg-white p-4 rounded-lg border border-orange-200 shadow-sm">
-                        <div class="text-[10px] text-slate-400 uppercase font-mono mb-2 font-bold">Checklist</div>
-                        <ul class="text-sm text-slate-700 space-y-3">
-                            <li class="flex items-center gap-3">
-                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
-                                    <span class="material-icons text-xs">check</span>
-                                </span>
-                                <span class="font-medium">Write Bookwork Code</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
-                                    <span class="material-icons text-xs">check</span>
-                                </span>
-                                <span class="font-medium">Show Full Working</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="flex items-center justify-center w-5 h-5 rounded bg-orange-100 text-orange-600">
-                                    <span class="material-icons text-xs">check</span>
-                                </span>
-                                <span class="font-medium">Write Final Answer</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flex items-start gap-2 bg-orange-100/50 p-2 rounded text-xs text-orange-800">
-                        <span class="material-icons text-sm mt-0.5">error_outline</span>
-                        <p class="font-semibold">Failure to produce written working results in a detention.</p>
-                    </div>
-                </div>
+        <div class="terminal-window group">
+          <div class="terminal-header">
+            <div class="flex gap-1.5">
+              <div class="traffic-light bg-red-500/80"></div>
+              <div class="traffic-light bg-yellow-500/80"></div>
+              <div class="traffic-light bg-green-500/80"></div>
             </div>
+            <div class="text-xs text-slate-400 font-mono flex-grow text-center opacity-60">~/guides/success_tips.mp4</div>
+          </div>
+          <div class="relative w-full aspect-video bg-black">
+             <iframe class="absolute inset-0 w-full h-full" 
+                     src="https://www.youtube.com/embed/IQUMypfwHnU" 
+                     title="Success Tips" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-slate-900/50">
+             <h3 class="text-white font-bold text-sm">Efficiency Optimization</h3>
+             <p class="text-xs text-slate-500 mt-1">Strategies for 100% completion rate.</p>
+          </div>
+        </div>
+      </div>
 
-            <div class="tech-card p-5 flex items-center gap-4">
-                <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                    <span class="material-icons text-2xl">support_agent</span>
-                </div>
-                <div>
-                    <h4 class="text-slate-900 font-bold text-sm">System Error?</h4>
-                    <p class="text-xs text-slate-500 mt-1">
-                        Speak to your teacher <span class="text-blue-600 font-semibold">before Wednesday</span> to avoid a missed flag.
-                    </p>
-                </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="relative rounded-xl bg-red-950/20 border border-red-500/30 overflow-hidden p-6 flex flex-col justify-between group">
+          <div class="absolute inset-0 scanlines opacity-30"></div>
+          
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-icons text-red-500 animate-pulse">warning_amber</span>
+              <h2 class="text-xl font-bold text-red-400 font-mono tracking-wide">ANTI-CHEAT ACTIVE</h2>
             </div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              <strong class="text-white">Do not use AI solvers.</strong> Sparx is an adaptive algorithm. 
+              If you fake your answers, the system marks you as "Advanced" and your next homework will be impossible.
+            </p>
+          </div>
 
+          <a href="ai_usage.html" class="mt-4 inline-flex items-center justify-between w-full p-3 rounded bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 transition group-hover:border-red-500/50">
+            <div class="flex items-center gap-2">
+               <span class="material-icons text-red-400 text-sm">shield</span>
+               <span class="text-sm font-semibold text-red-200">View AI Usage Policy</span>
+            </div>
+            <span class="material-icons text-red-400 text-sm">arrow_forward_ios</span>
+          </a>
+        </div>
+
+        <div class="orange-protocol rounded-xl p-6 shadow-2xl shadow-orange-900/10">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-orange-500 flex items-center gap-2">
+              <span class="material-icons">menu_book</span>
+              Written Protocol
+            </h2>
+            <span class="text-[10px] font-mono text-orange-700 border border-orange-900 px-2 py-0.5 rounded">REQ-01</span>
+          </div>
+
+          <p class="text-slate-300 text-sm mb-4">
+            Digital answers must be backed by physical evidence. Use your <span class="text-orange-400 font-bold">Orange Book</span>.
+          </p>
+
+          <div class="space-y-3">
+             <div class="flex items-center gap-3 text-sm text-slate-400">
+               <div class="h-4 w-4 rounded border border-orange-500/50 flex items-center justify-center bg-orange-500/10 text-orange-500">
+                 <span class="material-icons text-[10px]">check</span>
+               </div>
+               <span>Write the <strong>Bookwork Code</strong></span>
+             </div>
+             <div class="flex items-center gap-3 text-sm text-slate-400">
+               <div class="h-4 w-4 rounded border border-orange-500/50 flex items-center justify-center bg-orange-500/10 text-orange-500">
+                 <span class="material-icons text-[10px]">check</span>
+               </div>
+               <span>Show full <strong>Method/Working</strong></span>
+             </div>
+             <div class="flex items-center gap-3 text-sm text-slate-400">
+               <div class="h-4 w-4 rounded border border-orange-500/50 flex items-center justify-center bg-orange-500/10 text-orange-500">
+                 <span class="material-icons text-[10px]">check</span>
+               </div>
+               <span>Write <strong>Final Answer</strong></span>
+             </div>
+          </div>
         </div>
 
       </div>
 
-    </main>
-  </div>
+    </div>
+  </main>
 
-  <script src="/assets/sidebar-loader.js"></script>
+  <footer class="border-t border-white/5 bg-[#020617] py-6 text-center">
+    <p class="text-xs text-slate-600">SJWMS Maths Faculty • Educational Use Only</p>
+  </footer>
+
 </body>
 </html>
