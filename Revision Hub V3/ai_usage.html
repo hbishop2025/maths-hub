@@ -1,655 +1,489 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>AI | Usage & Policy</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon-cyan': '#22d3ee',
+            'neon-purple': '#a855f7',
+            'dark-bg': '#030712',
+          },
+          fontFamily: {
+            sans: ['Lexend', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css"/>
 
-  <style type="text/tailwindcss">
-    :root{
-      --school-yellow: #F4C500;
-      --ai-dark: #020617;
-      --ai-dark-soft: #0b1220;
+  <style>
+    body {
+      background-color: #030712;
+      color: #cbd5e1;
     }
 
-    body{ @apply bg-[#f6f6f8] text-[#111827]; font-family:'Lexend',sans-serif; }
-    .material-icons{ font-size:24px; line-height:1; }
-
-    /* Header + mobile menu – same pattern as other hubs */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply hidden absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-    }
-    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
-
-    /* Dotted background */
-    .ai-bg-grid{
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    /* Text Glow Effect */
+    .text-glow {
+      text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
     }
 
-    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
-
-    /* Hero wrapper (image behind + glass card) */
-    .ai-hero-wrap{
-      margin-top: clamp(1.25rem, 5vw, 3.5rem);
-      position: relative;
-      border-radius: 2rem;
-      overflow: hidden;
+    /* Glassmorphism Panel */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .ai-hero-bg{
-      position:absolute;
-      inset:0;
-      z-index:0;
-      will-change: transform;
-    }
-    .ai-hero-bg img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      filter:brightness(0.9);
-      transform:scale(1.05);
-    }
-    .ai-hero-bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:none !important;
+    /* Gradient Mask for Image */
+    .mask-image-fade {
+      mask-image: linear-gradient(to top, black 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
     }
 
-    .ai-hero-card{
-      position:relative;
-      z-index:1;
-      @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
-      background: rgba(15,23,42,0.60);
-      backdrop-filter: blur(0px);
-      box-shadow:
-        0 8px 24px rgba(0,0,0,.35),
-        0 0 0 1px rgba(255,255,255,.10);
+    /* Blinking Cursor - Static Implementation */
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: #22d3ee;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
-    /* Section layout helpers */
-    .section-divider{
-      height:1px;
-      width:100%;
-      background:linear-gradient(to right, transparent, rgba(148,163,184,0.5), transparent);
-    }
-
-    .hang-list{
-      list-style: disc outside;
-      padding-left: 1.5rem;
-    }
-    .hang-list li{
-      padding-left: .25rem;
-    }
-
-    /* Tab pills */
-    .tab-pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:0.35rem 0.9rem;
-      border-radius:9999px;
-      font-size:0.75rem;
-      font-weight:600;
-      color:#4b5563;
-      cursor:pointer;
-      border:none;
-      background:transparent;
-      transition:
-        background-color .18s ease,
-        color .18s ease,
-        transform .18s ease,
-        box-shadow .18s ease;
-    }
-    .tab-pill-active{
-      background:#020617;
-      color:#f9fafb;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(15,23,42,0.35);
-    }
-
-    /* Prompt cards – light theme */
-    .prompt-card{
-      background:#ffffff;
-      border-radius: 1rem;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
-      color:#111827;
-    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
   </style>
 </head>
-<body>
+<body class="relative min-h-screen flex flex-col font-sans overflow-x-hidden">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-[#030712] to-[#030712]"></div>
+    <img src="assets/neon_beams.webp" 
+         class="absolute bottom-0 left-0 w-full h-[80vh] object-cover opacity-60 mix-blend-screen mask-image-fade" 
+         alt="Digital streams">
+  </div>
+
+  <header class="fixed top-0 w-full z-50 bg-[#030712]/80 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto"/> 
+        <span class="font-bold tracking-tight text-white text-lg">
+          SJWMS <span class="text-neon-cyan">Maths</span>
+        </span>
       </div>
 
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</span>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
-           href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#135bec] text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="index.html">Home</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-white border-b-2 border-neon-cyan pb-1" href="ai_usage.html">AI Usage</a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+      <button id="menuBtn" class="md:hidden text-white p-2">
         <span class="material-icons">menu</span>
       </button>
+    </div>
 
-      <div id="mobileMenu" class="hidden">
-  <a href="index.html">Home</a>
-  <a href="ks3_hub.html">KS3</a>
-  <a href="gcse_hub.html">GCSE</span>
-  <a href="alevel_hub.html">A-Level</a>
-  <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
-</div>
+    <div id="mobileMenu" class="hidden absolute top-16 left-0 w-full bg-[#030712] border-b border-white/10 p-4 flex flex-col gap-4 shadow-2xl">
+      <a class="text-slate-300 hover:text-neon-cyan" href="index.html">Home</a>
+      <a class="text-slate-300 hover:text-neon-cyan" href="ks3_hub.html">KS3</a>
+      <a class="text-slate-300 hover:text-neon-cyan" href="gcse_hub.html">GCSE</a>
+      <a class="text-slate-300 hover:text-neon-cyan" href="alevel_hub.html">A-Level</a>
+      <a class="text-neon-cyan font-semibold" href="ai_usage.html">AI Intelligence</a>
     </div>
   </header>
 
-  <!-- Background grid -->
-  <div class="absolute inset-0 ai-bg-grid pointer-events-none opacity-60"></div>
+  <main class="relative z-10 flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
-  <!-- MAIN -->
-  <main class="relative pt-16">
-    <div class="hero-shell relative z-10">
+    <section class="mb-20 mt-10 text-center relative">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/30 text-neon-cyan text-xs font-mono mb-6">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+        </span>
+        SYSTEM ONLINE // READY TO LEARN
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+        Upgrade Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-cyan via-blue-500 to-purple-500 text-glow">Intelligence</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        AI isn't a cheat code. It's a <span class="text-white font-semibold">hyper-tutor</span>. 
+        Learn how to use Gemini and NotebookLM to debug your maths, verify your logic, and master the curriculum.
+      </p>
+    </section>
 
-      <!-- HERO with background image -->
-      <section class="ai-hero-wrap">
-        <div class="ai-hero-bg">
-          <img src="assets/ai-hero.jpg" alt="AI hero" />
-        </div>
-
-        <div class="ai-hero-card">
-          <!-- Top: back + tag -->
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <a href="index.html" class="inline-flex items-center text-gray-200 hover:text-white text-sm">
-              <span class="material-icons mr-1 text-gray-300">arrow_back</span>
-              Back to home
-            </a>
-            <span class="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] uppercase text-gray-300">
-              <span class="h-1 w-6 rounded-full bg-amber-400"></span>
-              AI &amp; Maths
-            </span>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
+      <a href="https://gemini.google.com/" target="_blank" class="group glass-panel rounded-2xl p-1 relative overflow-hidden hover:bg-slate-800/60 transition-all duration-300 block">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative p-6 flex flex-col h-full">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-blue-400 text-3xl">auto_awesome</span>
+              <h3 class="text-xl font-bold text-white">Google Gemini</h3>
+            </div>
+            <span class="material-icons text-slate-600 group-hover:text-blue-400 -rotate-45 group-hover:rotate-0 transition-transform">arrow_forward</span>
           </div>
-
-          <div class="flex flex-col gap-6 lg:flex-row lg:items-center">
-            <!-- Left: text -->
-            <div class="flex-1 min-w-0">
-              <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-                Using AI sensibly for maths
-              </h1>
-              <p class="mt-3 text-sm sm:text-base text-slate-100/90 max-w-xl">
-                AI is a powerful revision tool. It can explain methods, spot mistakes and generate practice questions.
-                Your job is to use it to <span class="font-semibold text-amber-300">learn</span>, not to short-cut learning.
-              </p>
-
-              <!-- Chips -->
-              <div class="mt-4 flex flex-wrap gap-3 text-xs">
-                <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 border border-emerald-400/60 px-3 py-1 text-emerald-100">
-                  <span class="material-icons text-emerald-300 text-base">school</span>
-                  Great for explanations &amp; practice
-                </span>
-                <span class="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-400/70 px-3 py-1 text-red-100">
-                  <span class="material-icons text-red-300 text-base">warning</span>
-                  Not for copying answers
-                </span>
-              </div>
-            </div>
-
-            <!-- Right: simple icon block -->
-            <div class="w-full max-w-xs lg:max-w-sm">
-              <div class="bg-slate-950/70 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-lg flex items-start gap-3">
-                <span class="material-icons text-amber-300">smart_toy</span>
-                <p class="text-xs sm:text-[13px] text-slate-100/90">
-                  Think of AI like a <span class="font-semibold">super-keen study partner</span>:
-                  great at explaining and checking, but you still have to do the thinking and writing.
-                </p>
-              </div>
-            </div>
+          <p class="text-sm text-slate-400 mb-4">Your general purpose study partner. Best for step-by-step explanations, generating quiz questions, and checking your working out.</p>
+          <div class="mt-auto">
+            <span class="text-xs font-mono text-blue-300 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">STATUS: AUTHORIZED</span>
           </div>
         </div>
-      </section>
+      </a>
 
-      <!-- MAIN CONTENT AREA -->
-      <section class="mt-10 mb-10 space-y-10">
-
-        <!-- SCHOOL EXPECTATIONS -->
-        <section class="mb-6">
-          <div class="bg-white/90 border border-slate-200 rounded-3xl p-6 md:p-7 shadow-sm">
-            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <span class="material-icons text-slate-700">policy</span>
-              School expectations
-            </h2>
-            <p class="mt-2 text-sm text-gray-700">
-              AI is allowed for maths at SJWMS as long as you follow these rules:
-            </p>
-
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 text-sm">
-              <!-- Use AI to… -->
-              <article class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
-                <h3 class="flex items-center gap-2 text-emerald-800 font-semibold text-sm">
-                  <span class="material-icons text-emerald-600 text-base">check_circle</span>
-                  Use AI to…
-                </h3>
-                <ul class="mt-2 hang-list text-emerald-900/90 space-y-1.5">
-                  <li>Get step-by-step explanations.</li>
-                  <li>Check where you went wrong.</li>
-                  <li>Generate extra practice questions.</li>
-                  <li>Get clearer definitions of key terms.</li>
-                </ul>
-              </article>
-
-              <!-- Not acceptable -->
-              <article class="bg-red-50 border border-red-200 rounded-2xl p-4">
-                <h3 class="flex items-center gap-2 text-red-800 font-semibold text-sm">
-                  <span class="material-icons text-red-600 text-base">cancel</span>
-                  Not acceptable:
-                </h3>
-                <ul class="mt-2 hang-list text-red-900/90 space-y-1.5">
-                  <li>Copying AI answers into homework.</li>
-                  <li>Using AI during tests or assessments.</li>
-                  <li>Submitting AI-written work as your own.</li>
-                </ul>
-              </article>
-
-              <!-- Golden rule -->
-              <article class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-                <h3 class="flex items-center gap-2 text-amber-900 font-semibold text-sm">
-                  <span class="material-icons text-amber-500 text-base">star</span>
-                  Golden rule
-                </h3>
-                <p class="mt-2 text-amber-900 text-sm leading-relaxed">
-                  <span class="font-semibold">If it feels like cheating, it is.</span><br/>
-                  AI should make your understanding stronger, not hide the fact that you haven’t learned something yet.
-                  If you would be embarrassed to tell your teacher how you used it, don’t do it.
-                </p>
-              </article>
+      <a href="https://notebooklm.google.com/" target="_blank" class="group glass-panel rounded-2xl p-1 relative overflow-hidden hover:bg-slate-800/60 transition-all duration-300 block">
+        <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative p-6 flex flex-col h-full">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <span class="material-icons text-teal-400 text-3xl">library_books</span>
+              <h3 class="text-xl font-bold text-white">NotebookLM</h3>
             </div>
+            <span class="material-icons text-slate-600 group-hover:text-teal-400 -rotate-45 group-hover:rotate-0 transition-transform">arrow_forward</span>
           </div>
-        </section>
+          <p class="text-sm text-slate-400 mb-4">The ultimate revision synthesiser. Upload your class notes or PDFs and it becomes an expert on <em>your</em> specific materials.</p>
+          <div class="mt-auto">
+            <span class="text-xs font-mono text-teal-300 bg-teal-500/10 px-2 py-1 rounded border border-teal-500/20">STATUS: AUTHORIZED</span>
+          </div>
+        </div>
+      </a>
+    </section>
 
-        <div class="section-divider my-2"></div>
-
-        <!-- TAB STRIP: COMMON QUESTIONS / KS3 / KS4 / KS5 -->
-        <section class="mb-4">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
-            <h2 class="text-xl font-bold text-gray-900">Help &amp; example prompts</h2>
-            <p class="text-xs text-gray-500">
-              Choose what you want help with: FAQs or prompts for your key stage.
+    <section class="mb-24">
+      <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-2xl font-bold text-white">System Protocols</h2>
+        <div class="h-px bg-slate-800 flex-grow"></div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-emerald-500">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-emerald-400 font-bold tracking-wide">OPTIMIZED USAGE</h3>
+            <span class="material-icons text-emerald-500/50">check_circle</span>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
+              <span class="text-sm text-slate-300">Debugging: "Why is my answer wrong?"</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
+              <span class="text-sm text-slate-300">Generation: "Create 5 practice questions."</span>
+            </li>
+          </ul>
+        </div>
+        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-red-500">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-red-400 font-bold tracking-wide">RESTRICTED ACTION</h3>
+            <span class="material-icons text-red-500/50">block</span>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+              <span class="text-sm text-slate-300">Plagiarism: Copying AI answers directly.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+              <span class="text-sm text-slate-300">Bypass: Using AI during assessments.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-amber-500 bg-amber-950/20">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-amber-400 font-bold tracking-wide">CORE DIRECTIVE</h3>
+            <span class="material-icons text-amber-500/50">vpn_key</span>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            If you cannot explain <strong>how</strong> you got the answer, you haven't learned it. 
+          </p>
+          <div class="bg-amber-500/10 p-3 rounded border border-amber-500/20">
+            <p class="text-xs text-amber-200 font-mono">
+              > IF (users.feelsLikeCheating) { return "Don't do it"; }
             </p>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="inline-flex items-center gap-1 rounded-full bg-slate-100/90 border border-slate-200 px-1 py-1 text-xs">
-            <button type="button" class="tab-pill tab-pill-active" data-tab="questions">
-              Common questions
-            </button>
-            <button type="button" class="tab-pill" data-tab="ks3">
-              KS3 Prompts
-            </button>
-            <button type="button" class="tab-pill" data-tab="ks4">
-              KS4 Prompts
-            </button>
-            <button type="button" class="tab-pill" data-tab="ks5">
-              KS5 Prompts
+    <section>
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">Prompt Terminal</h2>
+        <p class="text-slate-500 text-sm">Select your level to initialize command sequences.</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist">
+        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('common', this)">Common_Configs</button>
+        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks3', this)">KS3_Module</button>
+        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks4', this)">GCSE_Module</button>
+        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks5', this)">A-Level_Module</button>
+      </div>
+
+      <div id="terminal-display">
+        
+        <div id="panel-common" class="grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+          
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">config_tutor_mode.json</span>
+            </div>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+               <span class="text-neon-purple">Act as</span> a maths tutor. <br>
+               I am stuck on <span class="text-neon-cyan">[Topic Name]</span>. <br>
+               Explain the method step-by-step, but <span class="text-red-400">do not</span> give me the final answer yet. Ask me a guiding question to help me solve it myself.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
+              <span class="material-icons text-[14px]">content_copy</span> Copy
             </button>
           </div>
-        </section>
 
-        <!-- TAB PANELS -->
-        <section id="tab-panels" class="mb-4 space-y-10">
-          <!-- PANEL: COMMON QUESTIONS -->
-          <section data-tab-panel="questions">
-            <div class="flex items-center justify-between gap-3 mb-3">
-              <h3 class="text-lg font-semibold text-gray-900">Common questions</h3>
-              <p class="text-xs text-gray-500">Quick answers to how AI should and shouldn’t be used.</p>
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">config_quiz_gen.json</span>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  Can I use AI for homework?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  Yes, to understand methods, check your approach, and create practice questions.
-                  No, to generate final answers to hand in. What you submit must still be <strong>your</strong> work.
-                </p>
-              </article>
-
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  Is AI always correct?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  No. Treat AI like a helpful peer. It can be wrong, especially with multi-step calculations.
-                  Always check with your notes, textbook, or teacher.
-                </p>
-              </article>
-
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  What should I write in a prompt?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  Be specific: include your <strong>year group</strong>, topic, what you are stuck on,
-                  and the format you want (&ldquo;step-by-step&rdquo;, &ldquo;quiz&rdquo;, &ldquo;hints only&rdquo;).
-                </p>
-              </article>
-
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  Is using AI cheating?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  Using AI to <strong>learn</strong> is fine. Using it to secretly answer questions and hand them in is not.
-                  If you wouldn’t be happy explaining your AI use to a teacher, change how you’re using it.
-                </p>
-              </article>
-
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  Is my data safe?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  Keep prompts anonymous. Don’t include names, emails or personal information.
-                  Follow school GDPR guidance and treat AI like any other online platform.
-                </p>
-              </article>
-
-              <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
-                <h4 class="font-semibold text-gray-900 mb-2">
-                  How do I actually learn with AI?
-                </h4>
-                <p class="text-sm text-gray-700 leading-relaxed">
-                  Use a repeat cycle: ask for steps, try a similar question, compare, correct, repeat.
-                  <strong>Practice</strong> is the bit that sticks in your memory.
-                </p>
-              </article>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              Generate 5 practice questions on <span class="text-neon-cyan">[Topic]</span> suitable for <span class="text-neon-cyan">[Year Group]</span>. <br>
+              <span class="text-neon-purple">Order them</span> by difficulty (Easy -> Hard). <br>
+              Provide the answers in a hidden dropdown or at the very bottom of the response.<span class="cursor-blink"></span>
             </div>
-          </section>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
+              <span class="material-icons text-[14px]">content_copy</span> Copy
+            </button>
+          </div>
+        </div>
 
-          <!-- PANEL: KS3 PROMPTS -->
-          <section data-tab-panel="ks3" class="hidden">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">KS3 prompts (Years 7–9)</h3>
-            <p class="text-xs text-gray-500 mb-4">
-              Good for building understanding and getting extra practice.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Fractions &amp; operations
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  Explain how to add and subtract fractions to a Year 7 student.
-                  Use clear steps and a simple example. Then give me four practice questions:
-                  two with the same denominator and two with different denominators.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Indices &amp; powers
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I am in Year 8. Remind me of the basic index laws (for multiplying and dividing powers).
-                  Show one worked example of each law. Then give me five questions to try,
-                  and reveal each answer only after I have attempted it.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Standard form
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  Explain standard form for Year 9. Show a worked example converting a large number
-                  and a small decimal into standard form. Then give me three numbers to convert,
-                  and afterwards show the correct answers with steps.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Pythagoras’ theorem
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  Explain Pythagoras’ theorem to a Year 8 student using a described diagram and
-                  a real-life example. Then give me two questions where I have to find a missing side,
-                  and two questions where I have to decide if a triangle is right-angled.
-                </p>
-              </article>
+        <div id="panel-ks3" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">ks3_fractions.exe</span>
             </div>
-          </section>
-
-          <!-- PANEL: KS4 PROMPTS -->
-          <section data-tab-panel="ks4" class="hidden">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">KS4 prompts (GCSE)</h3>
-            <p class="text-xs text-gray-500 mb-4">
-              Use these to build exam-style confidence, but always write your own answers.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Exam-style algebra
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I am doing GCSE Maths. Give me five exam-style questions on solving linear equations
-                  and inequalities, a mix of Foundation and Higher. After each question,
-                  wait for my attempt before showing a fully worked solution.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Quadratics &amp; factorising
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  Create a short GCSE revision session on factorising quadratics.
-                  Start with a recap of the method, then give me two “x² + bx + c” questions,
-                  two harder ones with a coefficient of x², and one worded problem that uses a quadratic.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Trigonometry practice
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I am revising trigonometry (SOHCAHTOA) for GCSE.
-                  Give me six questions: three finding missing sides and three finding missing angles,
-                  including some worded problems. Go through my solutions and explain any mistakes.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Revision plan
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I have a GCSE Maths mock in three weeks.
-                  Make me a 14-day revision plan with 25-minute sessions.
-                  Include specific topics each day and suggest how to use past papers and revision websites.
-                </p>
-              </article>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              I am in Year 7. Explain how to add fractions with different denominators. <br>
+              Use a <span class="text-neon-cyan">real-life example</span> involving pizza or chocolate. <br>
+              Then give me 3 practice questions.<span class="cursor-blink"></span>
             </div>
-          </section>
-
-          <!-- PANEL: KS5 PROMPTS -->
-          <section data-tab-panel="ks5" class="hidden">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">KS5 prompts (A-Level)</h3>
-            <p class="text-xs text-gray-500 mb-4">
-              Useful across Pure, Stats and Mechanics. Ask for specific exam style questions.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Pure – differentiation
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I am in Year 12 A-Level Maths revising differentiation.
-                  Give me a quick recap of the rules for polynomials, exponentials and trig functions.
-                  Then give me five questions that increase in difficulty, with fully worked solutions.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Stats – hypothesis testing
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  Explain the logic of hypothesis testing for A-Level Statistics using a simple example.
-                  Then give me two questions where I have to write H₀ and H₁, choose the test,
-                  and interpret the conclusion in context.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Mechanics – constant acceleration
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I am revising SUVAT for Mechanics.
-                  Remind me of the five equations and when each is useful.
-                  Then give me four problems: two basic and two multi-step,
-                  and talk through the modelling assumptions afterwards.
-                </p>
-              </article>
-
-              <article class="prompt-card p-5">
-                <p class="text-[11px] uppercase tracking-[0.22em] text-amber-600/90 mb-2">
-                  Socratic help
-                </p>
-                <p class="text-sm leading-relaxed text-gray-800">
-                  I will paste an A-Level maths question. Do not give the answer.
-                  Ask me short guiding questions and give one hint at a time.
-                  Only show the next algebra step if I am stuck and ask for it.
-                </p>
-              </article>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+               <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+               <span class="text-[10px] text-slate-500 font-mono">ks3_ratios.exe</span>
             </div>
-          </section>
-        </section>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              Create a ratio word problem suitable for Year 8. <br>
+              Show me the <span class="text-neon-purple">Bar Model</span> method to solve it.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+        </div>
 
-        <!-- FOOTER NOTE -->
-        <footer class="text-center text-gray-400 text-xs pb-4">
-          <p>This guidance is here to help you use AI to learn — not to short-cut learning.</p>
-        </footer>
+        <div id="panel-ks4" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">gcse_exam_sim.exe</span>
+            </div>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              Give me a Grade 7 question on <span class="text-neon-cyan">Circle Theorems</span>. <br>
+              Wait for my answer. <br>
+              If I get it wrong, tell me <span class="text-red-400">which theorem</span> I missed, rather than just giving the solution.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">gcse_mark_scheme.exe</span>
+            </div>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              Here is my working out for a question on <span class="text-neon-cyan">Simultaneous Equations</span>: <br>
+              [PASTE YOUR WORKING] <br>
+              Mark this out of 3 marks. Highlighting exactly where I lost marks.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+        </div>
 
-      </section>
-    </div>
+        <div id="panel-ks5" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">alevel_stats.py</span>
+            </div>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              I am confused about <span class="text-neon-cyan">Hypothesis Testing</span>. <br>
+              Explain the difference between a one-tailed and two-tailed test using a context about manufacturing bolts. <br>
+              Show how to write the hypotheses H0 and H1.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
+            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">alevel_pure.py</span>
+            </div>
+            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
+              Generate a hard integration by parts question involving <span class="text-neon-cyan">ln(x)</span>. <br>
+              Provide a <span class="text-neon-purple">hint</span> about which term to set as 'u' and which as 'dv/dx', but don't solve it yet.<span class="cursor-blink"></span>
+            </div>
+            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- UNIVERSAL FOOTER -->
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
+  <footer class="mt-16 border-t border-white/10 bg-[#030712] py-8 relative z-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
-  <!-- Tab switching -->
+    <div class="flex items-center gap-3">
+      <img src="assets/sjwms-maths-logo (1).png" 
+           alt="SJWMS Maths Logo"
+           class="h-10 w-auto" />
+      <div>
+        <p class="text-sm font-semibold text-slate-300">
+          SJWMS Maths Revision Hub
+        </p>
+        <p class="text-xs text-slate-500">
+          © 2025 SJWMS — All rights reserved.
+        </p>
+      </div>
+    </div>
+
+    <div class="text-xs text-slate-500 text-right">
+      <p>Built with ambition for SJWMS students</p>
+      <p class="mt-1 text-[10px] text-slate-600">
+        Revision Hub v3.0
+      </p>
+    </div>
+
+  </div>
+</footer>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const tabButtons = Array.from(document.querySelectorAll('[data-tab]'));
-      const panels = Array.from(document.querySelectorAll('[data-tab-panel]'));
-
-      function setActiveTab(id){
-        tabButtons.forEach(btn => {
-          const isActive = btn.dataset.tab === id;
-          btn.classList.toggle('tab-pill-active', isActive);
-        });
-        panels.forEach(panel => {
-          const show = panel.dataset.tabPanel === id;
-          panel.classList.toggle('hidden', !show);
-        });
-      }
-
-      tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
-      });
-
-      // Default
-      setActiveTab('questions');
+        const firstBtn = document.querySelector('.neon-tab');
+        if(firstBtn) switchTab('common', firstBtn);
     });
-  </script>
 
-  <!-- Mobile menu JS -->
-  <script>
-    (function(){
-      const btn=document.getElementById('menuBtn');
-      const menu=document.getElementById('mobileMenu');
-      if(!btn || !menu) return;
-
-      function closeMenu(){
-        menu.classList.add('hidden');
-        btn.setAttribute('aria-expanded','false');
-      }
-      function toggleMenu(e){
-        e.stopPropagation();
-        const open=menu.classList.contains('hidden');
-        menu.classList.toggle('hidden', !open);
-        btn.setAttribute('aria-expanded', String(open));
-      }
-      btn.addEventListener('click',toggleMenu);
-      document.addEventListener('click',e=>{
-        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) closeMenu();
+    // 1. TAB SWITCHING (No Animation Logic)
+    function switchTab(tabName, clickedBtn) {
+      // Style Buttons
+      document.querySelectorAll('.neon-tab').forEach(btn => {
+        btn.classList.remove('bg-cyan-500/10', 'text-neon-cyan', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.25)]');
+        btn.classList.add('bg-white/5', 'text-slate-400');
       });
-      document.addEventListener('keydown',e=>{
-        if(e.key==='Escape') closeMenu();
+      clickedBtn.classList.remove('bg-white/5', 'text-slate-400');
+      clickedBtn.classList.add('bg-cyan-500/10', 'text-neon-cyan', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.25)]');
+
+      // Hide Panels
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+      
+      // Show Target Panel
+      const target = document.getElementById('panel-' + tabName);
+      target.classList.remove('hidden');
+      target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+    }
+
+    // 2. COPY LOGIC
+    function copyText(btn) {
+      const container = btn.parentElement.querySelector('.prompt-text');
+      // Clone so we don't mess up the actual DOM
+      const clone = container.cloneNode(true);
+      
+      // Remove the blinking cursor from the text we want to copy
+      const cursor = clone.querySelector('.cursor-blink');
+      if(cursor) cursor.remove();
+
+      // Get text content
+      const cleanText = clone.textContent || clone.innerText || "";
+      
+      navigator.clipboard.writeText(cleanText.trim()).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="material-icons text-[14px]">check</span> Copied';
+        btn.classList.add('text-green-400');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('text-green-400');
+        }, 2000);
       });
-    })();
-  </script>
+    }
 
-  <!-- Parallax for hero background -->
-  <script>
-    (function(){
-      const hero = document.querySelector('.ai-hero-wrap');
-      const bg   = hero?.querySelector('.ai-hero-bg');
+    // 3. MOBILE MENU
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if(menuBtn) {
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
 
-      if (!hero || !bg) return;
-
-      let ticking = false;
-
-      function updateParallax() {
-        const rect = hero.getBoundingClientRect();
-        const vh   = window.innerHeight || document.documentElement.clientHeight;
-        const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-        const offset = progress * 30; // px
-        bg.style.transform = `translateY(${offset}px) scale(1.05)`;
-        ticking = false;
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(updateParallax);
-          ticking = true;
-        }
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      updateParallax();
-    })();
+    // 4. Parallax
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const beams = document.querySelector('img[alt="Digital streams"]');
+        if(beams) beams.style.transform = `translateY(${scrolled * 0.2}px)`;
+    });
   </script>
 </body>
 </html>
