@@ -59,38 +59,41 @@
 
     /* Cursor for Typewriter Effect */
     .typing-cursor::after {
-      content: '|';
+      content: '▋'; 
       animation: blink 1s step-end infinite;
       color: #22d3ee;
+      margin-left: 2px;
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
 
-    /* --- FOOTER OVERRIDES (CRITICAL FIX) --- */
-    /* This aggressively targets the elements inside your footer.html */
+    /* --- FOOTER BRUTE FORCE OVERRIDE --- */
+    /* Target the footer element specifically inside the slot */
+    #footer-slot > footer {
+        background-color: #030712 !important; /* Force Dark Background */
+        background-image: none !important;     /* Remove any gradients */
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
     
-    /* 1. Reset the main footer container background */
-    #footer-slot footer, 
-    #footer-slot .bg-white\/70 {
-      background-color: #030712 !important; /* Dark BG */
-      border-top-color: rgba(255, 255, 255, 0.1) !important; /* Subtle border */
-      backdrop-filter: blur(12px);
-    }
-
-    /* 2. Fix the Text Colors */
+    /* Force text colors inside the footer */
     #footer-slot p, 
-    #footer-slot .text-gray-800, 
-    #footer-slot .text-gray-500,
-    #footer-slot .text-gray-400 {
-      color: #94a3b8 !important; /* Slate 400 (Light Grey) */
+    #footer-slot div, 
+    #footer-slot span,
+    #footer-slot a {
+        color: #94a3b8 !important; /* Slate-400 */
     }
 
-    /* 3. Invert the Logo so it's visible on dark bg */
+    /* Hover effect for links in footer */
+    #footer-slot a:hover {
+        color: #22d3ee !important;
+    }
+
+    /* Invert the dark logo to white so it's visible */
     #footer-slot img {
-      filter: brightness(0) invert(1) !important; /* Turns black logo white */
-      opacity: 0.7 !important;
+        filter: brightness(0) invert(1) !important;
+        opacity: 0.8 !important;
     }
 
     /* Custom Scrollbar */
@@ -202,7 +205,6 @@
         <h2 class="text-2xl font-bold text-white">System Protocols</h2>
         <div class="h-px bg-slate-800 flex-grow"></div>
       </div>
-
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="glass-panel rounded-xl p-6 border-l-4 border-l-emerald-500">
           <div class="flex items-center justify-between mb-4">
@@ -220,7 +222,6 @@
             </li>
           </ul>
         </div>
-
         <div class="glass-panel rounded-xl p-6 border-l-4 border-l-red-500">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-red-400 font-bold tracking-wide">RESTRICTED ACTION</h3>
@@ -237,7 +238,6 @@
             </li>
           </ul>
         </div>
-
         <div class="glass-panel rounded-xl p-6 border-l-4 border-l-amber-500 bg-amber-950/20">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-amber-400 font-bold tracking-wide">CORE DIRECTIVE</h3>
@@ -271,6 +271,7 @@
       <div id="terminal-display">
         
         <div id="panel-common" class="grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+          
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
               <div class="flex gap-1.5">
@@ -292,6 +293,11 @@
 
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">config_quiz_gen.json</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -308,6 +314,11 @@
         <div id="panel-ks3" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">ks3_fractions.exe</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -319,6 +330,11 @@
           </div>
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+               <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
                <span class="text-[10px] text-slate-500 font-mono">ks3_ratios.exe</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -332,6 +348,11 @@
         <div id="panel-ks4" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">gcse_exam_sim.exe</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -343,6 +364,11 @@
           </div>
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">gcse_mark_scheme.exe</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -357,6 +383,11 @@
         <div id="panel-ks5" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">alevel_stats.py</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -368,6 +399,11 @@
           </div>
           <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
             <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
               <span class="text-[10px] text-slate-500 font-mono">alevel_pure.py</span>
             </div>
             <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 typing-container">
@@ -387,13 +423,12 @@
   <script src="assets/footer-loader.js" defer></script>
 
   <script>
-    // INITIALIZE ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
         const firstBtn = document.querySelector('.neon-tab');
         if(firstBtn) switchTab('common', firstBtn);
     });
 
-    // 1. TAB SWITCHING + TYPING TRIGGER
+    // 1. TAB SWITCHING
     function switchTab(tabName, clickedBtn) {
       // Style Buttons
       document.querySelectorAll('.neon-tab').forEach(btn => {
@@ -411,50 +446,56 @@
       target.classList.remove('hidden');
       target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
 
-      // Trigger Typing Effect in this panel
+      // Trigger Typing Effect (Reset first)
       const textContainers = target.querySelectorAll('.typing-container');
       textContainers.forEach(container => {
-        // We look for the "Raw HTML" we want to type. 
-        // If we haven't stored it yet, store it in a data property so we can re-type it later
+        // Store original HTML if not already stored
         if (!container.hasAttribute('data-raw-html')) {
             container.setAttribute('data-raw-html', container.innerHTML);
         }
-        typeHtml(container, container.getAttribute('data-raw-html'));
+        typeWithColors(container);
       });
     }
 
-    // 2. HTML-AWARE TYPEWRITER (Restores Colors)
-    function typeHtml(element, htmlString) {
+    // 2. TOKENIZED TYPEWRITER (PRESERVES COLORS)
+    function typeWithColors(element) {
+      const fullHtml = element.getAttribute('data-raw-html');
       element.innerHTML = '<span class="typing-cursor"></span>';
-      let cursor = element.querySelector('.typing-cursor');
+      const cursor = element.querySelector('.typing-cursor');
       
-      let i = 0;
-      let isTag = false;
+      // Regex to split string into tags and text. 
+      // <[^>]+> matches any HTML tag.
+      const tokens = fullHtml.split(/(<[^>]+>)/g).filter(Boolean);
       
-      function type() {
-        if (i >= htmlString.length) return; // Done
+      let tokenIndex = 0;
+      let charIndex = 0;
 
-        const char = htmlString[i];
+      function typeNext() {
+        if (tokenIndex >= tokens.length) return; // Finished
 
-        if (char === '<') {
-          // If we see a tag opener, we find the entire tag and append it INSTANTLY
-          // This prevents <s...p...a...n> from showing up. 
-          const tagEndIndex = htmlString.indexOf('>', i);
-          const fullTag = htmlString.slice(i, tagEndIndex + 1);
-          
-          // Insert the tag before the cursor
-          cursor.insertAdjacentHTML('beforebegin', fullTag);
-          
-          i = tagEndIndex + 1; // Jump index forward
-          type(); // Continue immediately (no delay for tags)
+        const currentToken = tokens[tokenIndex];
+
+        if (currentToken.startsWith('<')) {
+          // If token is a tag (e.g. <span class="text-blue"> or <br> or </span>)
+          // Insert it INSTANTLY
+          cursor.insertAdjacentHTML('beforebegin', currentToken);
+          tokenIndex++;
+          typeNext(); // Immediately process next token (no delay for tags)
         } else {
-          // Normal character
-          cursor.insertAdjacentText('beforebegin', char);
-          i++;
-          setTimeout(type, 15); // Delay for typing feel
+          // If token is text
+          if (charIndex < currentToken.length) {
+            cursor.insertAdjacentText('beforebegin', currentToken[charIndex]);
+            charIndex++;
+            setTimeout(typeNext, 20); // Delay for typing effect
+          } else {
+            // Finished this text token, move to next token
+            tokenIndex++;
+            charIndex = 0;
+            typeNext();
+          }
         }
       }
-      type();
+      typeNext();
     }
 
     // 3. COPY LOGIC
@@ -462,7 +503,7 @@
       const container = btn.parentElement.querySelector('.typing-container');
       const htmlContent = container.getAttribute('data-raw-html') || container.innerHTML;
       
-      // Create a temporary element to strip HTML tags for clipboard
+      // Strip tags for clipboard
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = htmlContent;
       const cleanText = tempDiv.textContent || tempDiv.innerText || "";
