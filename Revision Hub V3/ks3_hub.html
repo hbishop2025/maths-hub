@@ -285,15 +285,20 @@
         </article>
 
         <!-- AI usage -->
-        <article class="rounded-2xl p-6 text-white bg-slate-900 shadow-sm">
-          <div class="flex items-start gap-4">
-            <span class="material-icons text-5xl text-white/90">psychology</span>
+        <article class="relative rounded-2xl overflow-hidden shadow-sm group">
+          <div class="absolute inset-0 z-0">
+            <img src="assets/neon_beams.wepb" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+            <div class="absolute inset-0 bg-slate-900/80 mix-blend-multiply"></div>
+          </div>
+
+          <div class="relative z-10 p-6 text-white flex items-start gap-4 h-full">
+            <span class="material-icons text-5xl text-purple-300">psychology</span>
             <div class="flex-1">
               <h2 class="text-xl font-bold mb-1">Do you know how to use AI?</h2>
-              <p class="text-white/80 mb-3">
+              <p class="text-gray-200 mb-4">
                 Tips, examples and boundaries for using AI safely and effectively in maths.
               </p>
-              <a href="ai_usage.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold">
+              <a href="ai_usage.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white hover:text-slate-900 transition font-semibold">
                 Open AI Guidance <span class="material-icons ml-2 text-base">arrow_forward</span>
               </a>
             </div>
