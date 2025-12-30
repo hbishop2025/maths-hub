@@ -1,0 +1,35 @@
+{
+  "unitTitle": "GCSE Prep",
+  "resources": [
+    {
+      "title": "Algebra Review Sheet 1",
+      "type": "worksheet",
+      "url": "pdfs/alg_review.pdf",
+      "category": "algebra"
+    },
+    {
+      "title": "Intro to Factorising",
+      "type": "video",
+      "url": "https://youtube.com/...",
+      "category": "factorising"
+    },
+    {
+      "title": "Harder Factorising (a > 1)",
+      "type": "video",
+      "url": "https://youtube.com/...",
+      "category": "factorising"
+    },
+    {
+      "title": "Quadratic Formula Worksheet",
+      "type": "worksheet",
+      "url": "pdfs/formula_practice.pdf",
+      "category": "formula"
+    },
+    {
+      "title": "Completing the Square Guide",
+      "type": "worksheet",
+      "url": "pdfs/comp_square.pdf",
+      "category": "completing-square"
+    }
+  ]
+}
