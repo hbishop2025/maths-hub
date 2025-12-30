@@ -18,14 +18,14 @@
       "name": "ADDvance Maths",
       "url": "https://addvancemaths.com/ukmt/",
       "description": "Curated collection of UKMT-style problems with full solutions.",
-      "type": "site",
+      "type": "puzzle",
       "cta": "Explore",
       "brand": {
         "bg": "#F0F9FF",
         "fg": "#0369A1",
         "stripe": "rgba(124,58,237,0.08)"
       },
-      "logo": "https://addvancemaths.com/wp-content/uploads/2022/09/adsvance-maths-website-banner-update-resized.png",
+      "logo": "",
       "active": true
     },
     {
@@ -52,7 +52,7 @@
         "bg": "#F0F9FF",
         "fg": "#0369A1"
       },
-      "type": "site"
+      "type": "pdf"
     }
   ]
 }
