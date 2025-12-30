@@ -8,6 +8,30 @@
       "date": "2025-12-30",
       "type": "pdf",
       "description": "The following list covers the topics for Year 9 revision. Please note this list is not necessarily\nexhaustive, but covers the core material you should prepare."
+    },
+    {
+      "active": true,
+      "year": "y9",
+      "title": "Non-Calculator Mixed Revision",
+      "url": "https://drive.google.com/file/d/1wSzoCCXKoTlUedX_b5GqbrLEQ9SPdIEo/view?usp=sharing",
+      "type": "pdf",
+      "date": "2025-12-30"
+    },
+    {
+      "active": true,
+      "year": "y9",
+      "title": "Calculator Mixed Revision",
+      "url": "https://drive.google.com/file/d/1GD24Ptwov5ZSr3VTihBLdUYKkCYP1xkZ/view?usp=sharing",
+      "date": "2025-12-30",
+      "type": "pdf"
+    },
+    {
+      "active": true,
+      "year": "y9",
+      "title": "Algebra Focus Revision",
+      "url": "https://drive.google.com/file/d/1NEcRVyDO0vEGGBp_V9pqoYB8e5aWsfX4/view?usp=sharing",
+      "type": "pdf",
+      "date": "2025-12-30"
     }
   ]
 }
