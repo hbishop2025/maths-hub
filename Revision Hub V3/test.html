@@ -43,54 +43,50 @@
 
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-    /* KS3 hero wrapper (image behind + glass card) */
-    .ks3-hero-wrap{
-      margin-top: clamp(1.25rem, 5vw, 3.5rem);
-      position: relative;
-      border-radius: 2rem;
-      overflow: hidden;
-    }
-
-    /* Background image + gradient overlay */
-    .ks3-hero-bg{
-      position:absolute;
-      inset:0;
-      z-index:0;
-    }
-    .ks3-hero-bg img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      filter:brightness(0.9);
-    }
-    .ks3-hero-bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: none !important;
-    }
-
-    /* Glass card on top of image */
-    .ks3-hero-card{
-  position:relative;
-  z-index:1;
-  @apply px-6 sm:px-10 md:px-14 py-10 sm:py-14 text-left text-white;
-  background: rgba(15,23,42,0.45);  /* more transparent */
-  backdrop-filter: blur(0px);       /* small blur */
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.10);
+    /* --- HERO WRAPPER --- */
+.ks3-hero-wrap {
+    position: relative;
+    /* Height controls: Adjust as needed */
+    height: 500px; 
+    width: 100%;
+    display: flex;
+    align-items: center; /* Vertically center the card */
+    justify-content: center; /* Horizontally center the card */
+    overflow: hidden;
+    padding: 20px;
 }
-    .mega-gradient {
-      background-image: linear-gradient(
-        90deg,
-        #FDE047 0%,
-        #F59E0B 18%,
-        #F472B6 40%,
-        #A78BFA 65%,
-        #60A5FA 85%
-      );
-      -webkit-background-clip: text;
+
+/* --- BACKGROUND IMAGE & OVERLAY --- */
+.ks3-hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+}
+
+.ks3-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom; /* Focuses on the road network */
+}
+
+/* This overlay darkens the image by 40% so white text pops */
+.ks3-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); 
+}
+
+/* --- TEXT GRADIENT --- */
+/* Matches the cyan lights in the photo */
+.mega-gradient {
+    background: linear-gradient(to right, #22d3ee, #e879f9); /* Cyan to Pink */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}      -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       text-shadow: 0 6px 18px rgba(167,139,250,.25);
@@ -161,39 +157,43 @@
 
       <!-- KS3 HERO (Apple-style card with background image) -->
       <section class="ks3-hero-wrap">
-        <!-- Background image & overlay -->
-        <div class="ks3-hero-bg">
-          <!-- Replace this file with your chosen KS3 hero image -->
-          <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
-        </div>
+  
+  <div class="ks3-hero-bg">
+    <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
+  </div>
 
-        <!-- Glass content card -->
-        <div class="ks3-hero-card">
-          <p class="uppercase tracking-widest text-xs text-gray-300">Key Stage 3 Maths</p>
-          <h1 class="mt-2 text-3xl sm:text-4xl md:text-5xl font-black leading-tight">
-            <span class="mega-gradient">KS3 Revision</span><br/>
-            A single place for Years 7–9.
-          </h1>
-          <p class="mt-3 text-sm sm:text-base text-gray-200 max-w-xl">
-            Choose your year to find worksheets, videos and problem-solving practice.
-            This KS3 area will grow over time, so be sure to check back!
-          </p>
+  <div class="ks3-hero-card relative z-10 max-w-3xl w-full p-8 md:p-12 rounded-2xl border border-white/10 bg-slate-900/70 backdrop-blur-md shadow-2xl text-center sm:text-left">
+    
+    <p class="uppercase tracking-widest text-xs font-bold text-cyan-400 mb-2">
+      Key Stage 3 Maths
+    </p>
+    
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight text-white drop-shadow-lg">
+      <span class="mega-gradient">KS3 Revision</span><br/>
+      <span class="text-2xl sm:text-4xl font-bold text-gray-100">A single place for Years 7–9.</span>
+    </h1>
+    
+    <p class="mt-4 text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
+      Choose your year to find worksheets, videos, and problem-solving practice.
+      This KS3 area will grow over time, so be sure to check back!
+    </p>
 
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#UKMT"
-               class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
-              UKMT - JMC
-              <span class="material-icons ml-2 text-base">emoji_events</span>
-            </a>
-            <a href="ks3_eoy.html"
-               class="inline-flex items-center px-4 py-2.5 rounded-full bg-black/40 text-white text-sm font-semibold border border-white/20 hover:bg-black/60 transition">
-              KS3 EOY Revision
-              <span class="material-icons ml-2 text-base">event</span>
-            </a>
-          </div>
-        </div>
-      </section>
+    <div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start">
+      <a href="#UKMT"
+         class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-600 text-white text-sm font-bold shadow-lg hover:bg-cyan-500 hover:scale-105 transition transform duration-200">
+        UKMT - JMC
+        <span class="material-icons ml-2 text-lg">emoji_events</span>
+      </a>
+      
+      <a href="ks3_eoy.html"
+         class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold border border-white/20 hover:bg-white/20 hover:border-white/40 transition">
+        KS3 EOY Revision
+        <span class="material-icons ml-2 text-lg">event</span>
+      </a>
+    </div>
 
+  </div>
+</section>
       <div id="pi-day-banner-container" style="display: none;">
 
     <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
