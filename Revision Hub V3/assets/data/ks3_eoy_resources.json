@@ -2,20 +2,6 @@
   "items": [
     {
       "active": true,
-      "year": "y7",
-      "title": "This is a test",
-      "url": "https://www.google.com/",
-      "date": "2025-09-23"
-    },
-    {
-      "active": true,
-      "year": "y8",
-      "title": "This is a test",
-      "url": "https://www.google.com/",
-      "date": "2025-09-23"
-    },
-    {
-      "active": true,
       "year": "y9",
       "title": "Revision Guide",
       "url": "https://drive.google.com/file/d/1Fah-FA-r9Bv4Rf55_6yXbK0zdSWdaG-x/view?usp=sharing",
