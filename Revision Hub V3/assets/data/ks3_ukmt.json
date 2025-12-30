@@ -2,7 +2,7 @@
   "items": [
     {
       "name": "Junior Maths Challenge (Past Papers)",
-      "url": "https://www.ukmt.org.uk/junior-maths-challenge",
+      "url": "https://ukmt.org.uk/competition-papers",
       "description": "Download official past papers and mark schemes to practise for the JMC.",
       "type": "pdf",
       "cta": "View Papers",
@@ -12,7 +12,7 @@
         "stripe": "rgba(3,105,161,0.08)"
       },
       "active": true,
-      "logo": ""
+      "logo": "https://ukmt.org.uk/wp-content/uploads/2023/06/UKMT_Logo_NoText.png"
     },
     {
       "name": "ADDvance Maths",
@@ -21,8 +21,8 @@
       "type": "site",
       "cta": "Explore",
       "brand": {
-        "bg": "#F9FAFB",
-        "fg": "#7C3AED",
+        "bg": "#F0F9FF",
+        "fg": "#0369A1",
         "stripe": "rgba(124,58,237,0.08)"
       },
       "logo": "https://addvancemaths.com/wp-content/uploads/2022/09/adsvance-maths-website-banner-update-resized.png",
@@ -35,7 +35,11 @@
       "url": "https://www.interactive-maths.com/ukmt-random-question-generator.html/",
       "description": "Click the junior maths challenge (7 and 8) or intermediate (9) challenge to get random questions with solutions to try,",
       "logo": "https://www.interactive-maths.com/uploads/1/1/3/4/11345755/published/logo-im.png?1740599983",
-      "type": "site"
+      "type": "site",
+      "brand": {
+        "bg": "#F0F9FF",
+        "fg": "#0369A1"
+      }
     },
     {
       "cta": "Open",
