@@ -3,146 +3,134 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>GCSE Prep | Transition</title>
+  <link rel="icon" type="image/svg" href="../assets/favicon.svg" />
+  <title>Year 9 | GCSE Prep</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="assets/main.css"/>
+  <link rel="stylesheet" href="../assets/main.css"/>
 
   <style>
+    /* THEME OVERRIDES FOR SPACE LOOK */
     :root {
-      --accent: #3B82F6; /* Blue for GCSE Prep */
+      /* Changing the default accent to the Cyan/Blue from the card */
+      --accent: #3B82F6; 
+      --accent-600: #2563EB;
+      --accent-700: #1D4ED8;
     }
-    body { font-family: 'Lexend', sans-serif; }
+
+    body { 
+        font-family: 'Lexend', sans-serif; 
+        background-color: #f8fafc; /* Slate-50 */
+    }
+
     .material-icons { font-size: 24px; }
+    html { scroll-behavior: smooth; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
     
-    /* Custom Scrollbar for the main area */
-    .main::-webkit-scrollbar { width: 8px; }
-    .main::-webkit-scrollbar-track { bg-transparent; }
-    .main::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
-    
-    .glass-panel {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
+    /* MathJax Overrides */
+    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
-  
+
+<body class="text-slate-900" data-page="year9"
+      data-json="../assets/data/year9_gcse_prep.json">
+
   <div class="layout flex h-screen overflow-hidden">
     
     <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
 
-    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
+    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative" data-json="../assets/data/year9_gcse_prep.json">
       
-      <header class="flex items-center justify-between mb-8">
-        <a href="year9_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
-          <span class="material-icons mr-1">arrow_back</span> 
-          Back to Year 9
-        </a>
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <a href="../year9_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
+            <span class="material-icons mr-1">arrow_back</span> Back to Hub
+          </a>
+        </div>
       </header>
 
-      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-12 group">
-        
+      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-8 group bg-slate-900">
+          
         <div class="absolute inset-0 z-0">
-          <img src="assets/home-hero1.jpg" alt="Earth Horizon" 
-               class="w-full h-full object-cover object-center transform scale-105" />
-          <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
+            <img src="../assets/home-hero1.jpg" alt="Space Horizon" 
+                 class="w-full h-full object-cover object-center opacity-80" />
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
         </div>
 
-        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          
-          <div class="max-w-2xl">
-            <div class="inline-flex items-center gap-2 mb-4">
-              <span class="px-3 py-1 rounded text-xs font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
-                Transition Module
-              </span>
-              <span class="px-3 py-1 rounded text-xs font-bold bg-white/10 text-white border border-white/20 uppercase tracking-wider">
-                Coming Summer 2025
-              </span>
+        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-start justify-between gap-6">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 mb-3">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
+                      Transition Module
+                    </span>
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
+                  GCSE <span class="text-blue-400">PREP</span>
+                </h1>
+                
+                <p class="text-slate-300 text-lg font-medium leading-relaxed drop-shadow-md">
+                   Master the transition before Year 10 starts. This module bridges the gap between KS3 mastery and GCSE application.
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="#videos" class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition backdrop-blur-md">
+                        <span class="material-icons text-sm mr-2">play_circle</span> Watch Videos
+                    </a>
+                    <a href="#unit-resources" class="inline-flex items-center px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition">
+                        <span class="material-icons text-sm mr-2">description</span> Get Worksheets
+                    </a>
+                </div>
             </div>
-
-            <h1 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
-              GCSE <span class="text-blue-400">PREP</span>
-            </h1>
-            
-            <p class="text-slate-300 text-lg font-medium leading-relaxed max-w-xl">
-              The jump to GCSE is significant. This bridging course is designed to solidify your algebra, refine your number skills, and prepare you for the challenges of Year 10.
-            </p>
-          </div>
-
-          <div class="hidden md:block">
-             <div class="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center backdrop-blur-md animate-pulse">
-                <span class="material-icons text-blue-300 text-3xl">rocket_launch</span>
-             </div>
-          </div>
         </div>
       </section>
 
-      <div class="max-w-6xl mx-auto">
-        <div class="flex items-center gap-3 mb-8">
-            <span class="material-icons text-blue-600">map</span>
-            <h2 class="text-2xl font-bold text-slate-800">The Transition Roadmap</h2>
+      <section class="mt-8" id="unit-resources">
+        
+        <div class="flex items-center gap-3 mb-6">
+            <div class="h-8 w-1 bg-blue-500 rounded-full"></div>
+            <h2 class="text-2xl font-bold text-slate-800">Module Resources</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section class="mb-10">
+          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
+            <span class="material-icons text-slate-400">assignment</span> Worksheets
+          </h3>
+          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
 
-            <article class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition group">
-                <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <span class="material-icons">functions</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">1. Algebra Confidence</h3>
-                <p class="text-slate-500 text-sm mb-4">Solving equations, expanding brackets, and rearranging formulae. The backbone of GCSE.</p>
-                <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full bg-blue-500 w-0" style="width: 0%"></div> </div>
-                <p class="text-xs text-slate-400 mt-2 font-mono">Available Summer 2025</p>
-            </article>
+        <section class="mb-10" id="videos">
+          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
+             <span class="material-icons text-slate-400">smart_display</span> Video Tutorials
+          </h3>
+          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
 
-            <article class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition group">
-                <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <span class="material-icons">percent</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">2. Number Mastery</h3>
-                <p class="text-slate-500 text-sm mb-4">Fractions, percentages, indices, and standard form. Non-calculator fluency.</p>
-                <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full bg-indigo-500 w-0"></div>
-                </div>
-                <p class="text-xs text-slate-400 mt-2 font-mono">Available Summer 2025</p>
-            </article>
+        <section class="mb-10">
+          <h3 class="text-lg font-semibold text-slate-700 mb-4">Other Materials</h3>
+          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
 
-            <article class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition group">
-                <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <span class="material-icons">psychology</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">3. Applied Reasoning</h3>
-                <p class="text-slate-500 text-sm mb-4">Multi-step problems and mathematical reasoning. How to break down exam questions.</p>
-                <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full bg-cyan-500 w-0"></div>
-                </div>
-                <p class="text-xs text-slate-400 mt-2 font-mono">Available Summer 2025</p>
-            </article>
-
-        </div>
-      </div>
-
-      <section class="max-w-6xl mx-auto mt-12 bg-blue-50 border border-blue-100 rounded-2xl p-6 md:p-8 flex items-start gap-4">
-        <span class="material-icons text-blue-500 text-3xl">info</span>
-        <div>
-            <h3 class="text-lg font-bold text-blue-900 mb-2">How this works</h3>
-            <p class="text-blue-800/80 leading-relaxed text-sm md:text-base">
-                This area is restricted to Year 9 students moving into Year 10. Content will unlock automatically in the Summer Term. Completing these modules will give you a significant head start on the Higher Tier GCSE course.
-            </p>
-        </div>
+        <p id="unit-empty" class="text-slate-500 italic" hidden>No resources available yet.</p>
       </section>
 
     </main>
   </div>
 
-  <script src="assets/sidebar-loader.js"></script>
-  </body>
+  <script src="../assets/sidebar-loader.js"></script>
+  <script src="../assets/cards.js"></script>
+  <script src="../assets/unit-common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</body>
 </html>
