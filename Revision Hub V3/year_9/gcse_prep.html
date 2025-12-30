@@ -17,7 +17,6 @@
   <style>
     /* THEME OVERRIDES FOR SPACE LOOK */
     :root {
-      /* Changing the default accent to the Cyan/Blue from the card */
       --accent: #3B82F6; 
       --accent-600: #2563EB;
       --accent-700: #1D4ED8;
@@ -31,12 +30,10 @@
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
     
-    /* MathJax Overrides */
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
@@ -49,7 +46,7 @@
     
     <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
 
-    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative" data-json="../assets/data/year9_gcse_prep.json">
+    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
       
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
@@ -60,11 +57,9 @@
       </header>
 
       <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-8 group bg-slate-900">
-          
         <div class="absolute inset-0 z-0">
             <img src="../assets/home-hero1.jpg" alt="Space Horizon" 
                  class="w-full h-full object-cover object-center opacity-80" />
-            
             <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
         </div>
 
@@ -85,10 +80,10 @@
                 </p>
 
                 <div class="mt-6 flex flex-wrap gap-3">
-                    <a href="#videos" class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition backdrop-blur-md">
+                    <a href="#section-factorising" class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition backdrop-blur-md">
                         <span class="material-icons text-sm mr-2">play_circle</span> Watch Videos
                     </a>
-                    <a href="#unit-resources" class="inline-flex items-center px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition">
+                    <a href="#section-algebra" class="inline-flex items-center px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition">
                         <span class="material-icons text-sm mr-2">description</span> Get Worksheets
                     </a>
                 </div>
@@ -100,26 +95,31 @@
         
         <div class="flex items-center gap-3 mb-6">
             <div class="h-8 w-1 bg-blue-500 rounded-full"></div>
-            <h2 class="text-2xl font-bold text-slate-800">Module Resources</h2>
+            <h2 class="text-2xl font-bold text-slate-800">GCSE PREP Resources</h2>
         </div>
 
-        <section class="mb-10">
+        <section class="mb-10" id="section-algebra">
           <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-            <span class="material-icons text-slate-400">assignment</span> Worksheets
+            <span class="material-icons text-slate-400">assignment</span> Algebra Revision
           </h3>
-          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-algebra" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <section class="mb-10" id="videos">
+        <section class="mb-10" id="section-factorising">
           <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-             <span class="material-icons text-slate-400">smart_display</span> Video Tutorials
+             <span class="material-icons text-slate-400">smart_display</span> Solving quadratics by factorising
           </h3>
-          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-factorising" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
         <section class="mb-10">
-          <h3 class="text-lg font-semibold text-slate-700 mb-4">Other Materials</h3>
-          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <h3 class="text-lg font-semibold text-slate-700 mb-4">Solving quadratics by using the formula</h3>
+          <div id="grid-formula" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section class="mb-10">
+          <h3 class="text-lg font-semibold text-slate-700 mb-4">Solving quadratics by completing the square</h3>
+          <div id="grid-completing-square" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
         <p id="unit-empty" class="text-slate-500 italic" hidden>No resources available yet.</p>
@@ -129,8 +129,55 @@
   </div>
 
   <script src="../assets/sidebar-loader.js"></script>
-  <script src="../assets/cards.js"></script>
-  <script src="../assets/unit-common.js"></script>
+  <script>
+    // Custom Loader for GCSE Prep Page
+    document.addEventListener('DOMContentLoaded', async () => {
+        const jsonPath = document.body.getAttribute('data-json');
+        if(!jsonPath) return;
+
+        try {
+            const response = await fetch(jsonPath);
+            const data = await response.json();
+            
+            if(!data.resources) return;
+
+            data.resources.forEach(res => {
+                // Determine which grid this resource belongs to based on its 'category' in JSON
+                // e.g., category: 'algebra' -> finds element id 'grid-algebra'
+                const gridId = 'grid-' + res.category;
+                const container = document.getElementById(gridId);
+
+                if (container) {
+                    const card = createCardHTML(res); // Assuming createCardHTML is available or we define it
+                    container.insertAdjacentHTML('beforeend', card);
+                }
+            });
+            
+            // Helper to build the card (similar to your existing logic)
+            function createCardHTML(res) {
+                const isVideo = res.type === 'video';
+                const icon = isVideo ? 'play_circle' : 'description';
+                const colorClass = isVideo ? 'text-red-500' : 'text-blue-500';
+                
+                // Simple card template
+                return `
+                <a href="${res.url}" target="_blank" class="block bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md hover:-translate-y-1 transition group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-icons ${colorClass}">${icon}</span>
+                            <span class="font-semibold text-slate-800 group-hover:text-blue-600 transition">${res.title}</span>
+                        </div>
+                    </div>
+                </a>
+                `;
+            }
+
+        } catch (err) {
+            console.error('Failed to load resources:', err);
+        }
+    });
+  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 </body>
 </html>
