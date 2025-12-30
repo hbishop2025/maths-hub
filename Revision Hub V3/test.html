@@ -119,14 +119,14 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <main class="relative pt-20 pb-16">
+  <main class="relative pt-20 pb-6">
     <div class="hero-shell">
 
       <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-10 group bg-slate-900 min-h-[420px] flex flex-col justify-center">
           
         <div class="absolute inset-0 z-0">
           <img src="assets/ks3-hero.jpg" alt="EOY Revision" 
-               class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]" />
+               class="w-full h-full object-cover object-center filter brightness-[0.85]" />
           
           <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
           <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-900/40 via-transparent to-transparent mix-blend-overlay"></div>
@@ -213,7 +213,7 @@
 
       <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
 
-      <section id="eoy-resources" class="mb-16 scroll-mt-24">
+      <section id="eoy-resources" class="mb-0 scroll-mt-24">
         <div class="text-center max-w-2xl mx-auto">
           <h2 class="section-heading">Mixed revision resources</h2>
           <p class="text-sm text-gray-600">
@@ -221,15 +221,9 @@
           </p>
 
           <div class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
-            <button type="button" class="year-pill year-pill-active" data-year="y7">
-              Year 7
-            </button>
-            <button type="button" class="year-pill" data-year="y8">
-              Year 8
-            </button>
-            <button type="button" class="year-pill" data-year="y9">
-              Year 9
-            </button>
+            <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
+            <button type="button" class="year-pill" data-year="y8">Year 8</button>
+            <button type="button" class="year-pill" data-year="y9">Year 9</button>
           </div>
         </div>
 
@@ -243,7 +237,7 @@
           </p>
         </div>
         
-      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+        <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
 
         <div class="mt-6 text-xs text-gray-500 text-center">
           Tip: Remember to have regular breaks!
@@ -261,7 +255,6 @@
     const EOY_DATES_URL      = "assets/data/ks3_eoy_dates.json";
     const EOY_RESOURCES_URL = "assets/data/ks3_eoy_resources.json";
 
-    // Helpers
     function normList(d){
       if (Array.isArray(d)) return d;
       if (d && Array.isArray(d.items)) return d.items;
@@ -276,11 +269,9 @@
       return {icon:"description", cta:"Open"};
     }
 
-    // Resource cards
     function makeResCard({ title, url, year }){
       const safeUrl = ensureHttps(url);
       const { icon, cta } = iconFor(url);
-
       const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
       const stripeClass = year==="y7" ? "stripe-y7" : year==="y8" ? "stripe-y8" : "stripe-y9";
       const topClass    = year==="y7" ? "card-y7"   : year==="y8" ? "card-y8"   : "card-y9";
@@ -319,7 +310,6 @@
       return el;
     }
 
-    // COUNTDOWNS
     const countdownTargets = {
       y7: document.getElementById("y7-countdowns"),
       y8: document.getElementById("y8-countdowns"),
@@ -405,7 +395,6 @@
       }
     }
 
-    // RESOURCES
     const GRID = {
       y7: document.getElementById("grid-y7"),
       y8: document.getElementById("grid-y8"),
@@ -441,11 +430,9 @@
       }
     }
 
-    // YEAR TOGGLE
     function setupYearToggle(){
       const buttons = document.querySelectorAll(".year-pill");
       let current = "y7";
-
       const showYear = (year)=>{
         if (!GRID[year]) return;
         current = year;
@@ -458,15 +445,12 @@
           btn.classList.toggle("year-pill-active", y === year);
         });
       };
-
       buttons.forEach(btn=>{
         btn.addEventListener("click", ()=>{
           const y = btn.getAttribute("data-year");
           if (y && y !== current) showYear(y);
         });
       });
-
-      // default
       showYear("y7");
     }
 
@@ -475,14 +459,11 @@
       loadResources();
       setupYearToggle();
     });
-  </script>
 
-  <script>
     (function(){
       const btn=document.getElementById('menuBtn');
       const menu=document.getElementById('mobileMenu');
       if(!btn || !menu) return;
-
       function closeMenu(){
         menu.classList.add('hidden');
         btn.setAttribute('aria-expanded','false');
@@ -502,6 +483,5 @@
       });
     })();
   </script>
-
 </body>
 </html>
