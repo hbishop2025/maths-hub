@@ -6,15 +6,12 @@
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>KS3 | Home</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
-  <!-- Shared CSS (if you still use main.css for layout helpers) -->
   <link rel="stylesheet" href="assets/main.css"/>
 
   <style type="text/tailwindcss">
@@ -22,16 +19,17 @@
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header + mobile menu – same pattern as index */
+    /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    
     #mobileMenu {
-  @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-  width: 180px;
-  transform-origin: top right;
-}
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+    }
     #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
 
-    /* Background dots (optional, like index) */
+    /* Background dots */
     .math-grid {
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
@@ -44,78 +42,58 @@
     .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
     /* --- HERO WRAPPER --- */
-.ks3-hero-wrap {
-    position: relative;
-    /* Height controls: Adjust as needed */
-    height: 500px; 
-    width: 100%;
-    display: flex;
-    align-items: center; /* Vertically center the card */
-    justify-content: center; /* Horizontally center the card */
-    overflow: hidden;
-    padding: 20px;
-}
+    .ks3-hero-wrap {
+      position: relative;
+      height: 500px; 
+      width: 100%;
+      display: flex;
+      align-items: center; 
+      justify-content: center; 
+      overflow: hidden;
+      padding: 20px;
+    }
 
-/* --- BACKGROUND IMAGE & OVERLAY --- */
-.ks3-hero-bg {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 0;
-}
+    /* --- BACKGROUND IMAGE & OVERLAY --- */
+    .ks3-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      will-change: transform;
+    }
 
-.ks3-hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center bottom; /* Focuses on the road network */
-}
+    .ks3-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      filter: brightness(0.9);
+      transform: scale(1.05); /* Slight scale to prevent edge gaps */
+    }
 
-/* This overlay darkens the image by 40% so white text pops */
-.ks3-hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4); 
-}
+    /* Overlay to darken image */
+    .ks3-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4); 
+    }
 
-/* --- TEXT GRADIENT --- */
-/* Matches the cyan lights in the photo */
-.mega-gradient {
-    background: linear-gradient(to right, #22d3ee, #e879f9); /* Cyan to Pink */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-}      -webkit-background-clip: text;
+    /* --- TEXT GRADIENT --- */
+    .mega-gradient {
+      background: linear-gradient(to right, #22d3ee, #e879f9); /* Cyan to Pink */
+      -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      display: inline-block;
       text-shadow: 0 6px 18px rgba(167,139,250,.25);
     }
 
     /* Section titles */
     .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
-
-    .ks3-hero-bg{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  will-change: transform;
-}
-
-.ks3-hero-bg img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(0.9);
-  /* Slight scale so we don't see edges when it moves */
-  transform:scale(1.05);
-}
-    
   </style>
 </head>
 <body>
 
-  <!-- HEADER (same as index, tweak nav links if you like) -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
@@ -126,12 +104,9 @@
       <nav class="hidden md:flex items-center gap-6">
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
         <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</span>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
-           href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
       </nav>
 
       <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
@@ -139,129 +114,98 @@
       </button>
 
       <div id="mobileMenu" class="hidden">
-  <a href="index.html">Home</a>
-  <a href="ks3_hub.html">KS3</a>
-  <a href="gcse_hub.html">GCSE</span>
-  <a href="alevel_hub.html">A-Level</a>
-  <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
-</div>
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
     </div>
   </header>
 
-  <!-- Background dots -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <!-- MAIN -->
   <main class="relative pt-16">
     <div class="hero-shell">
 
-      <!-- KS3 HERO (Apple-style card with background image) -->
       <section class="ks3-hero-wrap">
-  
-  <div class="ks3-hero-bg">
-    <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
-  </div>
-
-  <div class="ks3-hero-card relative z-10 max-w-3xl w-full p-8 md:p-12 rounded-2xl border border-white/10 bg-slate-900/70 backdrop-blur-md shadow-2xl text-center sm:text-left">
-    
-    <p class="uppercase tracking-widest text-xs font-bold text-cyan-400 mb-2">
-      Key Stage 3 Maths
-    </p>
-    
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight text-white drop-shadow-lg">
-      <span class="mega-gradient">KS3 Revision</span><br/>
-      <span class="text-2xl sm:text-4xl font-bold text-gray-100">A single place for Years 7–9.</span>
-    </h1>
-    
-    <p class="mt-4 text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
-      Choose your year to find worksheets, videos, and problem-solving practice.
-      This KS3 area will grow over time, so be sure to check back!
-    </p>
-
-    <div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start">
-      <a href="#UKMT"
-         class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-600 text-white text-sm font-bold shadow-lg hover:bg-cyan-500 hover:scale-105 transition transform duration-200">
-        UKMT - JMC
-        <span class="material-icons ml-2 text-lg">emoji_events</span>
-      </a>
-      
-      <a href="ks3_eoy.html"
-         class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold border border-white/20 hover:bg-white/20 hover:border-white/40 transition">
-        KS3 EOY Revision
-        <span class="material-icons ml-2 text-lg">event</span>
-      </a>
-    </div>
-
-  </div>
-</section>
-      <div id="pi-day-banner-container" style="display: none;">
-
-    <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
-      
-      <div class="absolute inset-0 bg-[#030712]">
-        <div class="absolute inset-0 opacity-20" 
-             style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
+        <div class="ks3-hero-bg">
+          <img src="assets/ks3-hero.jpg" alt="KS3 hero" />
         </div>
-      </div>
 
-      <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
-      <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        <div class="flex items-start gap-4">
-          <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
-          <div>
-            <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
-              SYSTEM_ANOMALY_DETECTED
-            </h3>
-            <p class="font-mono text-red-400 text-sm mt-1">
-              <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
-            </p>
+        <div class="ks3-hero-card relative z-10 max-w-3xl w-full p-8 md:p-12 rounded-2xl border border-white/10 bg-slate-900/70 backdrop-blur-md shadow-2xl text-center sm:text-left">
+          <p class="uppercase tracking-widest text-xs font-bold text-cyan-400 mb-2">
+            Key Stage 3 Maths
+          </p>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight text-white drop-shadow-lg">
+            <span class="mega-gradient">KS3 Revision</span><br/>
+            <span class="text-2xl sm:text-4xl font-bold text-gray-100">A single place for Years 7–9.</span>
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
+            Choose your year to find worksheets, videos, and problem-solving practice.
+            This KS3 area will grow over time, so be sure to check back!
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start">
+            <a href="#UKMT" class="inline-flex items-center px-6 py-3 rounded-full bg-cyan-600 text-white text-sm font-bold shadow-lg hover:bg-cyan-500 hover:scale-105 transition transform duration-200">
+              UKMT - JMC
+              <span class="material-icons ml-2 text-lg">emoji_events</span>
+            </a>
+            <a href="ks3_eoy.html" class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold border border-white/20 hover:bg-white/20 hover:border-white/40 transition">
+              KS3 EOY Revision
+              <span class="material-icons ml-2 text-lg">event</span>
+            </a>
           </div>
         </div>
+      </section>
 
-        <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
-          <span class="relative z-10 flex items-center gap-2">
-            <span class="material-icons text-sm">terminal</span>
-            INITIATE_DEBUG
-          </span>
-          <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        </button>
-
+      <div id="pi-day-banner-container" style="display: none;">
+        <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
+          <div class="absolute inset-0 bg-[#030712]">
+            <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;"></div>
+          </div>
+          <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
+          <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-start gap-4">
+              <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
+              <div>
+                <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
+                  SYSTEM_ANOMALY_DETECTED
+                </h3>
+                <p class="font-mono text-red-400 text-sm mt-1">
+                  <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
+                </p>
+              </div>
+            </div>
+            <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
+              <span class="relative z-10 flex items-center gap-2">
+                <span class="material-icons text-sm">terminal</span>
+                INITIATE_DEBUG
+              </span>
+              <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
 
-<script>
-(function() {
-    // 1. Get today's date
-    const today = new Date();
-    const month = today.getMonth(); // In JS, Jan=0, Feb=1, March=2
-    const day = today.getDate();
+      <script>
+        (function() {
+            const today = new Date();
+            const month = today.getMonth(); // Jan=0, Feb=1, March=2
+            const day = today.getDate();
+            const testMode = true; 
+            if (testMode || (month === 2 && day === 14)) {
+                const bannerContainer = document.getElementById('pi-day-banner-container');
+                if (bannerContainer) {
+                    bannerContainer.style.display = 'block';
+                }
+            }
+        })();
+      </script>
 
-    // 2. SETTINGS
-    // Set this to 'true' to see the banner RIGHT NOW for testing. 
-    // Set to 'false' to only show on actual Pi Day.
-    const testMode = true; 
-
-    // 3. The Logic
-    // Checks if month is March (2) AND day is 14th
-    if (testMode || (month === 2 && day === 14)) {
-        const bannerContainer = document.getElementById('pi-day-banner-container');
-        if (bannerContainer) {
-            bannerContainer.style.display = 'block';
-        }
-    }
-})();
-</script>
-      
-      <!-- CHOOSE YEAR -->
       <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
         <h2 class="section-heading">Choose your year</h2>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
-          <!-- Year 7 -->
           <a href="year7_hub.html"
              class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
             <div class="h-full flex flex-col">
