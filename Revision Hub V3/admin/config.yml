@@ -558,4 +558,4 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Type", name: "type", widget: "select", options: ["worksheet", "video", "link"] }
               - { label: "URL", name: "url", widget: "string" }
-              - { label: "Category", name: "category", widget: "string", hint: "e.g. algebra, factorising, formula" }
+              - { label: "Category", name: "category", widget: "select", options: ["algebra", "factorising", "formula", "completing-square"] }
