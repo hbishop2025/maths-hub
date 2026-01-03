@@ -540,3 +540,22 @@ collections:
           - { label: "CTA Label", name: "cta_label", widget: "string", default: "Revision Page" }
           - { label: "CTA URL", name: "cta_url", widget: "string" }
           - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "Material icon name, e.g. event_note" }
+
+          
+      - name: "year9_gcse_prep"
+        label: "Year 9 — GCSE Prep"
+        file: "Revision Hub V3/assets/data/year9_gcse_prep.json"
+        format: json
+        fields:
+          - { label: "Unit Title", name: "unitTitle", widget: "string", default: "GCSE Prep" }
+          
+          - label: "Resources"
+            name: "resources"
+            widget: "list"
+            label_singular: "Resource"
+            summary: "{{fields.category}} — {{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Type", name: "type", widget: "select", options: ["worksheet", "video", "link"] }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Category", name: "category", widget: "string", hint: "e.g. algebra, factorising, formula" }
