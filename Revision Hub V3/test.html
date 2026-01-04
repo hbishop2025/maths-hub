@@ -135,7 +135,7 @@
 
     <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
       <span class="material-icons text-base mr-2">construction</span>
-      Year 7 and 8 content is coming soon!
+      Page Heavily Under Construction
     </div>
 
     <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
@@ -161,7 +161,7 @@
            </h1>
            
            <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8">
-             Everything you need for your end of year assessments: mixed practice papers, topic lists, and focused topic worksheets for Year 7, 8 and 9.
+             Everything you need for your end of year assessments: mixed practice papers, topic lists, and focused topic worksheets.
            </p>
 
            <div class="flex flex-wrap gap-4">
@@ -231,16 +231,16 @@
       <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
 
       <section id="eoy-resources" class="mb-0 scroll-mt-24">
+        
         <div class="text-center max-w-2xl mx-auto">
           <h2 class="text-2xl font-bold text-gray-800">Mixed revision resources</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-        
-        <p class="text-gray-600 mb-6">
-          Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
-        </p>
+          <div class="h-px bg-gray-200 my-4"></div>
+          
+          <p class="text-gray-600 mb-6">
+            Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
+          </p>
 
-          <div class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
+          <div class="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
             <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
             <button type="button" class="year-pill" data-year="y8">Year 8</button>
             <button type="button" class="year-pill" data-year="y9">Year 9</button>
@@ -272,18 +272,18 @@
 
   <script>
     /* --------------------------------------------------
-       1. Mobile Menu Logic (Robust Version)
+       1. Mobile Menu Logic
        -------------------------------------------------- */
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
     // Toggle menu on button click
     menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent click from bubbling to document
+      e.stopPropagation();
       mobileMenu.classList.toggle('hidden');
     });
 
-    // Close menu when clicking ANYWHERE else on the page
+    // Close menu when clicking ANYWHERE else
     document.addEventListener('click', (e) => {
       if (!mobileMenu.classList.contains('hidden')) {
         if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
@@ -298,7 +298,6 @@
         mobileMenu.classList.add('hidden');
       }
     });
-
 
     /* --------------------------------------------------
        2. Data Loading & Countdowns
@@ -514,13 +513,6 @@
       loadCountdowns();
       loadResources();
       setupYearToggle();
-    });
-  </script>
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
     });
   </script>
 </body>
