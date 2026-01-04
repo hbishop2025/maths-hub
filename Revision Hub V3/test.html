@@ -19,9 +19,9 @@
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header + mobile menu – same pattern as index */
+    /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    
+
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
@@ -45,11 +45,15 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
+    .section-heading { @apply text-2xl font-bold text-gray-800; }
+
+    /* Standard section title row (your requested pattern) */
+    .section-title-row { @apply flex items-center gap-4 mb-8; }
+    .section-title-line { @apply h-px bg-gray-200 flex-grow; }
   </style>
 </head>
-<body>
 
+<body>
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
@@ -67,7 +71,7 @@
         </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false">
         <span class="material-icons">menu</span>
       </button>
 
@@ -85,11 +89,13 @@
 
   <main class="relative pt-14">
 
+    <!-- Full-width banner -->
     <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
       <span class="material-icons text-base mr-2">construction</span>
       Page Heavily Under Construction
     </div>
 
+    <!-- HERO (full width) -->
     <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
       <div class="absolute inset-0 z-0">
         <img src="assets/ks3-hero.jpg" alt="KS3 Hero" class="w-full h-full object-cover object-center" />
@@ -98,101 +104,102 @@
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
-           
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
-             <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Year 7, 8 and 9</span>
-           </div>
-           
-           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-             KS3<br>
-             <span class="text-cyan-400">Revision</span>
-           </h1>
-           
-           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
-             A single place for Years 7–9. Choose your year to find worksheets, videos and problem-solving practice. This KS3 area will grow over time, so be sure to check back!
-           </p>
 
-           <div class="flex flex-wrap gap-4">
-             <a href="#UKMT" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               <span>UKMT - JMC</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">emoji_events</span>
-             </a>
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+            <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Year 7, 8 and 9</span>
+          </div>
 
-             <a href="ks3_eoy.html" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               <span>KS3 EOY Revision</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">event</span>
-             </a>
-           </div>
+          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            KS3<br>
+            <span class="text-cyan-400">Revision</span>
+          </h1>
+
+          <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
+            A single place for Years 7–9. Choose your year to find worksheets, videos and problem-solving practice. This KS3 area will grow over time, so be sure to check back!
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="#UKMT" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <span>UKMT - JMC</span>
+              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">emoji_events</span>
+            </a>
+
+            <a href="ks3_eoy.html" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <span>KS3 EOY Revision</span>
+              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">event</span>
+            </a>
+          </div>
 
         </div>
       </div>
     </section>
-      <div id="pi-day-banner-container" style="display: none;">
 
-    <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
-      
-      <div class="absolute inset-0 bg-[#030712]">
-        <div class="absolute inset-0 opacity-20" 
-             style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
-        </div>
-      </div>
+    <!-- Pi day banner container (full width) -->
+    <div id="pi-day-banner-container" style="display: none;">
+      <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
 
-      <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
-      <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        <div class="flex items-start gap-4">
-          <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
-          <div>
-            <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
-              SYSTEM_ANOMALY_DETECTED
-            </h3>
-            <p class="font-mono text-red-400 text-sm mt-1">
-              <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
-            </p>
+        <div class="absolute inset-0 bg-[#030712]">
+          <div class="absolute inset-0 opacity-20"
+               style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
           </div>
         </div>
 
-        <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
-          <span class="relative z-10 flex items-center gap-2">
-            <span class="material-icons text-sm">terminal</span>
-            INITIATE_DEBUG
-          </span>
-          <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        </button>
+        <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
 
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
+            <div>
+              <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
+                SYSTEM_ANOMALY_DETECTED
+              </h3>
+              <p class="font-mono text-red-400 text-sm mt-1">
+                <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
+              </p>
+            </div>
+          </div>
+
+          <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
+            <span class="relative z-10 flex items-center gap-2">
+              <span class="material-icons text-sm">terminal</span>
+              INITIATE_DEBUG
+            </span>
+            <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+          </button>
+
+        </div>
       </div>
     </div>
-    </div>
 
-<script>
-(function() {
-    // 1. Get today's date
-    const today = new Date();
-    const month = today.getMonth(); // In JS, Jan=0, Feb=1, March=2
-    const day = today.getDate();
+    <script>
+      (function() {
+        const today = new Date();
+        const month = today.getMonth(); // Jan=0
+        const day = today.getDate();
 
-    // 2. SETTINGS
-    // Set this to 'true' to see the banner RIGHT NOW for testing. 
-    // Set to 'false' to only show on actual Pi Day.
-    const testMode = true; 
+        // Set this to 'true' to see the banner RIGHT NOW for testing.
+        // Set to 'false' to only show on actual Pi Day.
+        const testMode = true;
 
-    // 3. The Logic
-    // Checks if month is March (2) AND day is 14th
-    if (testMode || (month === 2 && day === 14)) {
-        const bannerContainer = document.getElementById('pi-day-banner-container');
-        if (bannerContainer) {
-            bannerContainer.style.display = 'block';
+        if (testMode || (month === 2 && day === 14)) {
+          const bannerContainer = document.getElementById('pi-day-banner-container');
+          if (bannerContainer) bannerContainer.style.display = 'block';
         }
-    }
-})();
-</script>
-      
+      })();
+    </script>
+
+    <!-- ✅ CONSISTENT CENTERED CONTAINER FOR ALL POST-HERO CONTENT -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
       <!-- CHOOSE YEAR -->
       <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
-        <h2 class="section-heading">Choose your year</h2>
+        <div class="section-title-row">
+          <h2 class="section-heading">Choose your year</h2>
+          <div class="section-title-line"></div>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
           <!-- Year 7 -->
@@ -254,24 +261,25 @@
         </div>
       </section>
 
-      <!-- KS3 Featured Sites (existing CMS section) -->
+      <!-- KS3 Featured Sites -->
       <section class="mt-12 mb-8">
-        <div class="flex items-center justify-between mb-4">
+        <div class="section-title-row">
           <h2 class="section-heading">KS3 Featured Sites</h2>
+          <div class="section-title-line"></div>
         </div>
+
         <div id="ks3-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         <p id="ks3-featured-empty" class="text-gray-500" hidden>No featured sites yet.</p>
       </section>
 
-       <!-- Divider -->
+      <!-- Divider -->
       <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
 
-      
-      <!-- UKMT + AI guidance row (reusing your content) -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">    
+      <!-- UKMT + AI guidance row -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">
         <!-- UKMT promo -->
         <article class="relative bg-white rounded-2xl p-6 border border-amber-100 shadow-xl shadow-amber-900/5 flex flex-col h-full overflow-hidden group hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300">
-          
+
           <div class="absolute top-0 right-0 w-48 h-48 bg-amber-50 rounded-full blur-3xl -mr-16 -mt-16 transition-opacity opacity-50 group-hover:opacity-100"></div>
 
           <div class="relative z-10 flex justify-between items-start mb-5">
@@ -313,14 +321,14 @@
 
         <!-- AI usage -->
         <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-[#22d3ee]/20 bg-[#030712]">
-          
+
           <div class="absolute inset-0 z-0">
             <img src="assets/neon_beams.webp" alt="" class="w-full h-full object-cover object-bottom opacity-50 mix-blend-screen transition-transform duration-700 group-hover:scale-105"/>
             <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/80 via-[#030712]/40 to-transparent"></div>
           </div>
 
           <div class="relative z-10 p-6 flex flex-col h-full min-h-[280px]">
-            
+
             <div class="flex justify-end">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22d3ee]/10 border border-[#22d3ee]/30 backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
@@ -351,16 +359,14 @@
         </article>
       </section>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      
-        <section class="mt-12 mb-8">
-        <div class="flex items-center justify-between mb-6">
+      <section class="mt-12 mb-8">
+        <div class="section-title-row">
           <h2 class="section-heading">The UKMT Pathway</h2>
+          <div class="section-title-line"></div>
         </div>
 
         <div class="relative w-full max-w-4xl mx-auto">
-          
+
           <div class="relative z-10 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center max-w-xl mx-auto border-t-4 border-t-blue-500">
             <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-3 uppercase tracking-wide">
               Tier 1: The Entry
@@ -372,7 +378,7 @@
             <div class="mt-3 text-sm font-medium text-gray-500 bg-gray-50 rounded-lg py-2 px-4 inline-block">
               Top 40% receive Bronze, Silver or Gold Certificates
             </div>
-            
+
             <div class="mt-5">
               <a href="#UKMT" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-50 text-blue-700 text-sm font-semibold hover:bg-blue-100 transition">
                 Get Practice Papers
@@ -393,7 +399,7 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-            
+
             <div class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center border-t-4 border-t-pink-500 hover:-translate-y-1 transition duration-300">
               <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-pink-50 text-pink-700 text-xs font-bold mb-3 uppercase tracking-wide mx-auto">
                 Tier 2: High Achievers
@@ -408,7 +414,7 @@
                   Invited based on JMC Score<br/>(usually 85+)
                 </p>
               </div>
-              
+
               <div class="mt-auto">
                 <a href="https://ukmt.org.uk/junior-challenges/junior-kangaroo" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-pink-50 text-pink-700 text-sm font-semibold hover:bg-pink-100 transition">
                   More Info
@@ -433,7 +439,7 @@
               </div>
 
               <div class="mt-auto">
-                 <a href="https://ukmt.org.uk/junior-challenges/junior-mathematical-olympiad" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-yellow-50 text-yellow-800 text-sm font-semibold hover:bg-yellow-100 transition">
+                <a href="https://ukmt.org.uk/junior-challenges/junior-mathematical-olympiad" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-yellow-50 text-yellow-800 text-sm font-semibold hover:bg-yellow-100 transition">
                   JMO Details
                   <span class="material-icons text-sm ml-2">open_in_new</span>
                 </a>
@@ -443,12 +449,14 @@
           </div>
         </div>
       </section>
-      
+
       <!-- UKMT resources grid -->
       <section id="UKMT" class="mt-8 mb-16">
-        <div class="flex items-center justify-between mb-4">
+        <div class="section-title-row">
           <h2 class="section-heading">UKMT Preparation</h2>
+          <div class="section-title-line"></div>
         </div>
+
         <div id="ks3-ukmt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         <p id="ks3-ukmt-empty" class="text-gray-500" hidden>No UKMT items yet.</p>
       </section>
@@ -456,20 +464,19 @@
       <!-- Divider -->
       <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
 
-
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">
-        
+
         <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-800/20 h-full min-h-[320px] flex flex-col">
-          
+
           <div class="absolute inset-0 z-0">
-            <img src="assets/ks3-hero.jpg" alt="EOY Revision" 
+            <img src="assets/ks3-hero.jpg" alt="EOY Revision"
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
             <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/30 to-transparent mix-blend-overlay"></div>
           </div>
 
           <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full">
-            
+
             <div class="flex justify-between items-start mb-4">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-400/30 backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
@@ -487,12 +494,12 @@
                   Revision Hub
                 </span>
               </h2>
-              
+
               <p class="text-gray-200 text-sm mb-6 leading-relaxed font-medium max-w-sm drop-shadow-md">
                 Everything you need for your finals: topic lists, practice papers, and video walkthroughs.
               </p>
 
-              <a href="ks3_eoy.html" 
+              <a href="ks3_eoy.html"
                  class="inline-flex items-center w-full justify-center px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-cyan-50 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]">
                  Start Revising
                  <span class="material-icons text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -501,9 +508,8 @@
           </div>
         </article>
 
-
         <article class="relative rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col h-full overflow-hidden group transition-all duration-300 hover:shadow-2xl border-2 border-black" style="background-color: #ffe4e6;">
-          
+
           <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
           <div class="absolute bottom-10 left-10 w-24 h-24 bg-rose-300/20 rounded-full blur-2xl"></div>
 
@@ -512,26 +518,27 @@
           </div>
 
           <div class="relative z-10 flex flex-col h-full">
-            
+
             <div class="flex justify-start mb-6">
               <span class="inline-flex items-center px-3 py-1.5 rounded-md bg-black text-white text-[11px] font-black uppercase tracking-wider transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 shadow-md">
                 Fresh out of puns?
               </span>
             </div>
 
-            <div class="mt-auto max-w-[60%]"> <h2 class="text-4xl font-black text-black mb-3 leading-[0.9] tracking-tighter">
+            <div class="mt-auto max-w-[60%]">
+              <h2 class="text-4xl font-black text-black mb-3 leading-[0.9] tracking-tighter">
                 BISHOP<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-br from-black to-gray-700">
                   & CO. SHAKES
                 </span>
               </h2>
-              
+
               <p class="text-gray-800 text-sm mb-6 font-bold leading-relaxed">
                 Fuel your brain. Calculate the taste. <br>
                 <span class="text-xs font-medium text-gray-600 italic">Warning: May contain traces of algebra.</span>
               </p>
 
-              <a href="bishop_shakes.html" 
+              <a href="bishop_shakes.html"
                  class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-black text-white font-bold text-sm uppercase tracking-wide hover:bg-[#ff4e00] hover:-translate-y-1 transition-all duration-200 shadow-lg">
                  Visit Shop
                  <span class="material-icons text-sm ml-2">local_drink</span>
@@ -543,20 +550,20 @@
       </section>
 
       <section class="mt-8 mb-16 relative z-10">
-        
+
         <article class="relative w-full h-auto md:h-[220px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-700/50">
-          
+
           <div class="absolute inset-0 z-0">
-            <img src="assets/home-hero1.jpg" alt="GCSE Horizon" 
+            <img src="assets/home-hero1.jpg" alt="GCSE Horizon"
                  class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
-            
+
             <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
           </div>
 
           <div class="relative z-10 h-full px-6 py-8 md:py-0 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-            
+
             <div class="flex-1 text-center md:text-left">
-              
+
               <div class="inline-flex items-center gap-2 mb-3">
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
                   Year 9 Only
@@ -566,18 +573,19 @@
               <h2 class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
                 GCSE <span class="text-blue-400">PREP</span>
               </h2>
-              
+
               <p class="text-slate-300 text-sm md:text-base font-medium max-w-lg leading-relaxed shadow-black drop-shadow-md">
                 Your journey to the next level begins here. Master the transition before Year 10 starts.
               </p>
             </div>
 
-            <div class="flex-shrink-0 pb-2 md:pb-0"> <div class="relative group/btn">
-                
+            <div class="flex-shrink-0 pb-2 md:pb-0">
+              <div class="relative group/btn">
+
                 <button disabled class="relative overflow-hidden flex items-center gap-3 px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 text-white font-bold uppercase tracking-widest text-xs cursor-not-allowed hover:bg-white/20 transition-all duration-300">
                   <span class="material-icons text-sm text-blue-300">lock</span>
                   <span>Coming Summer 2025</span>
-                  
+
                   <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover/btn:animate-shine" />
                 </button>
 
@@ -587,40 +595,28 @@
           </div>
         </article>
       </section>
-      
-    </div>
+
+    </div><!-- /centered container -->
   </main>
 
-  <!-- FOOTER (same style as index) -->
+  <!-- FOOTER -->
   <div id="footer-slot"></div>
 
   <script src="assets/footer-loader.js" defer></script>
 
-    <!-- KS3 JSON + site cards -->
+  <!-- KS3 JSON + site cards -->
   <script src="assets/cards.js"></script>
 
   <script>
-    const KS3_HERO_JSON   = "assets/data/ks3_hero.json";
     const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
+    const KS3_UKMT_JSON   = "assets/data/ks3_ukmt.json";
 
-    // Helper: tolerate array or {items:[]}
     function normList(data){
       if (Array.isArray(data)) return data;
       if (data && Array.isArray(data.items)) return data.items;
       return [];
     }
 
-    // Optional hero text (currently unused, but kept for future)
-    fetch(KS3_HERO_JSON, {cache:"no-store"})
-      .then(r => r.json())
-      .then(d => {
-        // You can wire this into the hero later if you like
-        const title = d.title || d.headline;
-        const sub   = d.subtitle || d.body;
-      })
-      .catch(()=>{});
-
-    // Fallback site card if makeSiteCard isn't available for any reason
     function createSiteCard(site){
       if (typeof makeSiteCard === "function") {
         return makeSiteCard(site);
@@ -641,7 +637,6 @@
       return a;
     }
 
-    // ---- KS3 Featured Sites ----
     async function loadKS3Sites(){
       const grid = document.getElementById("ks3-featured-grid");
       const empty = document.getElementById("ks3-featured-empty");
@@ -662,23 +657,6 @@
         empty.hidden = false;
       }
     }
-
-    // ---- UKMT sections ----
-    const KS3_UKMT_JSON      = "assets/data/ks3_ukmt.json";
-    const KS3_UKMT_HERO_JSON = "assets/data/ks3_ukmt_hero.json";
-
-    // Optional: UKMT hero copy
-    fetch(KS3_UKMT_HERO_JSON, {cache:"no-store"})
-      .then(r => r.json())
-      .then(d => {
-        const t = d.title || d.headline || "UKMT at KS3";
-        const s = d.subtitle || d.body || "Prepare for the Junior/Intermediate Maths Challenges with hand-picked resources.";
-        const titleEl = document.getElementById("ks3-ukmt-title");
-        const subEl   = document.getElementById("ks3-ukmt-sub");
-        if (titleEl) titleEl.textContent = t;
-        if (subEl)   subEl.textContent   = s;
-      })
-      .catch(()=>{ /* leave defaults */ });
 
     async function loadKs3Ukmt(){
       const grid = document.getElementById("ks3-ukmt-grid");
@@ -706,54 +684,33 @@
     });
   </script>
 
-  <!-- Mobile menu JS (same as index) -->
-<script>
-  (function(){
-    const btn=document.getElementById('menuBtn');
-    const menu=document.getElementById('mobileMenu');
-    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
-    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
-    btn.addEventListener('click',toggleMenu);
-    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
-  })();
-  </script>
+  <!-- Mobile menu JS -->
   <script>
-(function(){
-  const hero = document.querySelector('.ks3-hero-wrap');
-  const bg   = hero?.querySelector('.ks3-hero-bg');
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
 
-  if (!hero || !bg) return;
+      function closeMenu(){
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded','false');
+      }
 
-  let ticking = false;
+      function toggleMenu(e){
+        e.stopPropagation();
+        const willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !willOpen);
+        btn.setAttribute('aria-expanded', String(willOpen));
+      }
 
-  function updateParallax() {
-    const rect = hero.getBoundingClientRect();
-    const vh   = window.innerHeight || document.documentElement.clientHeight;
-
-    // How far the hero is from the centre of the viewport (-1 to 1-ish)
-    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-
-    // Adjust this number to make the effect stronger/weaker
-    const offset = progress * 30; // px
-
-    bg.style.transform = `translateY(${offset}px) scale(1.05)`;
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-
-  // Initial position
-  updateParallax();
-})();
-</script>
+      btn.addEventListener('click', toggleMenu);
+      document.addEventListener('click', (e)=>{
+        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) closeMenu();
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
