@@ -18,7 +18,7 @@
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header + mobile menu – same pattern as index */
+    /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
@@ -89,8 +89,7 @@
       <div class="absolute inset-0 z-0">
         <img src="assets/home-hero4.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#f6f6f8] to-transparent"></div>
-      </div>
+        </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-xl">
@@ -114,7 +113,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <section class="mb-16">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Choose your path</h2>
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Choose your path</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
@@ -132,7 +134,6 @@
                <div class="mt-auto text-purple-600 font-bold text-sm flex items-center">
                  View Modules <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                </div>
-               
                <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-[#7C3AED] transition-colors duration-300"></div>
             </div>
           </a>
@@ -151,7 +152,6 @@
                <div class="mt-auto text-blue-600 font-bold text-sm flex items-center">
                  Start Revising <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                </div>
-
                <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-blue-600 transition-colors duration-300"></div>
             </div>
           </a>
@@ -170,7 +170,6 @@
                <div class="mt-auto text-amber-600 font-bold text-sm flex items-center">
                  Open Archive <span class="material-icons text-sm ml-1 text-xs">open_in_new</span>
                </div>
-
                <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-amber-500 transition-colors duration-300"></div>
             </div>
           </a>
@@ -179,40 +178,64 @@
       </section>
 
       <section>
-        <div class="flex items-center gap-4 mb-6">
+        <div class="flex items-center gap-4 mb-8">
           <h2 class="text-2xl font-bold text-gray-800">Essentials Toolkit</h2>
           <div class="h-px bg-gray-200 flex-grow"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <a href="#" class="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-              <span class="material-icons">functions</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Formula Sheet"/>
+               <div class="absolute inset-0 bg-teal-900/10 group-hover:bg-transparent transition-colors"></div>
             </div>
-            <div>
-              <div class="font-bold text-gray-800">Formula Sheet</div>
-              <div class="text-xs text-gray-500">PDF Download</div>
-            </div>
-          </a>
-
-          <a href="#" class="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-              <span class="material-icons">calculate</span>
-            </div>
-            <div>
-              <div class="font-bold text-gray-800">Calculator Hacks</div>
-              <div class="text-xs text-gray-500">Video Guides</div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Formula Sheet</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Download the official PDF sheet. Know what you are given and what you need to memorize.
+               </p>
+               <div class="mt-auto text-teal-600 font-bold text-sm flex items-center">
+                 Download PDF <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">file_download</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-teal-500 transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="#" class="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-              <span class="material-icons">checklist</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Calculator"/>
+               <div class="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-colors"></div>
             </div>
-            <div>
-              <div class="font-bold text-gray-800">Revision List</div>
-              <div class="text-xs text-gray-500">Track your progress</div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Calculator Hacks</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Master your ClassWiz. Learn the hidden buttons that save you minutes in the exam.
+               </p>
+               <div class="mt-auto text-emerald-600 font-bold text-sm flex items-center">
+                 Watch Guides <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">play_circle</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-emerald-500 transition-colors duration-300"></div>
+            </div>
+          </a>
+
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Checklist"/>
+               <div class="absolute inset-0 bg-rose-900/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Revision Checklist</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Track your progress. A complete list of every topic you need to cover before May.
+               </p>
+               <div class="mt-auto text-rose-600 font-bold text-sm flex items-center">
+                 View List <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">checklist</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-rose-500 transition-colors duration-300"></div>
             </div>
           </a>
 
