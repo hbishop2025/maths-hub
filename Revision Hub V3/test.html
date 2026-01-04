@@ -18,26 +18,25 @@
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header + mobile menu */
+    /* --- MENU CSS FROM GCSE PAGE --- */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
     
     #mobileMenu {
-      /* Hidden by default, absolute positioned */
-      @apply hidden absolute right-4 top-[3.5rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-xl rounded-xl px-4 py-4 z-50;
-      width: 200px;
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
       transform-origin: top right;
-      animation: menuIn .2s ease-out forwards;
+      animation: menuIn .22s ease-out;
     }
     
-    /* Animation for the menu appearing */
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-10px) scale(0.95); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    #mobileMenu a {
+      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
     }
 
-    #mobileMenu a { 
-      @apply block text-sm font-semibold text-gray-700 hover:text-[#135bec] hover:bg-gray-50 py-2 px-2 rounded-lg text-center transition-colors; 
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
+    /* ------------------------------ */
 
     /* Background dots pattern */
     .math-grid {
@@ -109,22 +108,23 @@
         <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold hover:bg-black transition" href="ai_usage.html">AI Usage</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition">
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
         <span class="material-icons">menu</span>
       </button>
 
       <div id="mobileMenu" class="hidden">
-        <div class="flex flex-col space-y-1">
-          <a href="index.html">Home</a>
-          <a href="ks3_hub.html" class="bg-blue-50 text-blue-700">KS3</a>
-          <a href="gcse_hub.html">GCSE</a>
-          <a href="alevel_hub.html">A-Level</a>
-          <div class="h-px bg-gray-100 my-1"></div>
-          <a class="bg-[#111827] text-white hover:bg-black hover:text-white" href="ai_usage.html">AI Usage</a>
-        </div>
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
+          AI Usage
+        </a>
       </div>
     </div>
   </header>
@@ -233,11 +233,11 @@
           <h2 class="text-2xl font-bold text-gray-800">Mixed revision resources</h2>
           <div class="h-px bg-gray-200 flex-grow"></div>
         </div>
-
-        <div class="text-center max-w-2xl mx-auto mb-10">
           <p class="text-gray-600 mb-6">
             Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
           </p>
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          
 
           <div class="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
             <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
@@ -270,42 +270,20 @@
   <script src="assets/footer-loader.js" defer></script>
 
   <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // Simple toggle logic from GCSE file
+    if(menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
+
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
       
-      /* --------------------------------------------------
-         1. Mobile Menu Logic (Fixed & Verified)
-         -------------------------------------------------- */
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-
-      if (menuBtn && mobileMenu) {
-        // Toggle menu on button click
-        menuBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close menu when clicking ANYWHERE else
-        document.addEventListener('click', (e) => {
-          if (!mobileMenu.classList.contains('hidden')) {
-            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-              mobileMenu.classList.add('hidden');
-            }
-          }
-        });
-
-        // Close menu on Escape key
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.add('hidden');
-          }
-        });
-      }
-
-
-      /* --------------------------------------------------
-         2. Data Loading & Countdowns
-         -------------------------------------------------- */
       const EOY_DATES_URL      = "assets/data/ks3_eoy_dates.json";
       const EOY_RESOURCES_URL = "assets/data/ks3_eoy_resources.json";
 
