@@ -6,14 +6,11 @@
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>GCSE | Home</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS (if you still use main.css for layout helpers) -->
   <link rel="stylesheet" href="assets/main.css"/>
 
   <style type="text/tailwindcss">
@@ -38,7 +35,7 @@
       to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
 
-    /* Background dots (optional, like index) */
+    /* Background dots */
     .math-grid {
       background-image:
         radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
@@ -47,13 +44,10 @@
       background-position: 0 0, 20px 20px;
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
-
-    
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
@@ -65,8 +59,7 @@
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
         <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition"
-           href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
@@ -88,10 +81,8 @@
     </div>
   </header>
 
-  <!-- Background dots -->
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <!-- MAIN -->
   <main class="relative pt-14 pb-20">
     
     <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-neutral-900 mb-16">
@@ -127,54 +118,60 @@
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <a href="gcse/gcse_content.html" class="group relative bg-white rounded-2xl p-8 border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col justify-between h-64">
-            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gray-100 group-hover:bg-[#7C3AED] transition-colors duration-300"></div>
-            
-            <div>
-              <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <span class="material-icons text-purple-600 text-2xl">school</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Topic Learning</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">
-                Learn strictly by topic. Split into Number, Algebra, Geometry, and Data.
-              </p>
+          <a href="gcse/gcse_content.html" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Content"/>
+               <div class="absolute inset-0 bg-purple-900/10 group-hover:bg-transparent transition-colors"></div>
             </div>
-            <div class="text-purple-600 font-bold text-sm flex items-center mt-4">
-              View Modules <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Topic Learning</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Learn strictly by topic. Split into Number, Algebra, Geometry, and Data.
+               </p>
+               <div class="mt-auto text-purple-600 font-bold text-sm flex items-center">
+                 View Modules <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+               </div>
+               
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-[#7C3AED] transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="gcse/gcse_revision.html" class="group relative bg-white rounded-2xl p-8 border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col justify-between h-64">
-            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gray-100 group-hover:bg-[#7C3AED] transition-colors duration-300"></div>
-            
-            <div>
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <span class="material-icons text-blue-600 text-2xl">history_edu</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Exam Revision</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">
-                Prepare for mocks and the real thing. Checklists, strategies, and cram sheets.
-              </p>
+          <a href="gcse/gcse_revision.html" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Revision"/>
+               <div class="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors"></div>
             </div>
-            <div class="text-blue-600 font-bold text-sm flex items-center mt-4">
-              Start Revising <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Exam Revision</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Prepare for mocks and the real thing. Checklists, strategies, and cram sheets.
+               </p>
+               <div class="mt-auto text-blue-600 font-bold text-sm flex items-center">
+                 Start Revising <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+               </div>
+
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-blue-600 transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative bg-white rounded-2xl p-8 border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col justify-between h-64">
-            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gray-100 group-hover:bg-amber-500 transition-colors duration-300"></div>
-            
-            <div>
-              <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <span class="material-icons text-amber-600 text-2xl">description</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Past Papers</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">
-                Direct access to the MathsGenie archive. Practice with real exam questions.
-              </p>
+          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Past Papers"/>
+               <div class="absolute inset-0 bg-amber-900/10 group-hover:bg-transparent transition-colors"></div>
             </div>
-            <div class="text-amber-600 font-bold text-sm flex items-center mt-4">
-              Open Archive <span class="material-icons text-sm ml-1 text-xs">open_in_new</span>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Past Papers</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Direct access to the MathsGenie archive. Practice with real exam questions.
+               </p>
+               <div class="mt-auto text-amber-600 font-bold text-sm flex items-center">
+                 Open Archive <span class="material-icons text-sm ml-1 text-xs">open_in_new</span>
+               </div>
+
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-amber-500 transition-colors duration-300"></div>
             </div>
           </a>
 
@@ -225,10 +222,15 @@
     </div>
   </main>
 
-  <!-- FOOTER (universal slot) -->
   <div id="footer-slot"></div>
   <script src="assets/footer-loader.js" defer></script>
-
   
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>
