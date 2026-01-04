@@ -2,25 +2,201 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>A-Level | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Home</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="assets/main.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
     :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
+    /* Dotted paper background */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+
+    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+    /* Hero wrapper */
+    .home-hero-wrap {
+      margin-top: clamp(1.25rem, 5vw, 3.5rem);
+      position: relative;
+      border-radius: 1.5rem;
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.25),
+        0 0 0 1px rgba(15,23,42,.35);
+      overflow: hidden; /* Ensures image stays inside rounded corners */
+    }
+
+    /* Static Background Image Layer */
+    .home-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #000;
+    }
+
+    /* The Static Image itself */
+    .static-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1) saturate(1.05); /* kept subtle boost */
+    }
+
+    /* Gradient overlay on top of the image */
+    .home-hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(15,23,42,0.35), rgba(15,23,42,0.18)),
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%);
+    }
+
+    /* Glass card on top of image */
+    .home-hero-card {
+      position: relative;
+      z-index: 1;
+      @apply px-6 sm:px-10 md:px-14 py-12 sm:py-16 text-center; /* Increased PY slightly since progress bar is gone */
+      color: #E5E7EB;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 55%),
+        linear-gradient(135deg, rgba(15,23,42,0.65), rgba(15,23,42,0.4));
+      backdrop-filter: blur(0px);
+      /* No border-radius needed here as parent clips it, keeps it clean */
+    }
+
+    .home-hero-card h1 {
+      @apply text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2;
+    }
+    .home-hero-card p {
+      @apply text-base sm:text-lg mt-3;
+      color: #E5E7EB;
+    }
+
+    /* --- SMART SEARCH STYLES (UNCHANGED) --- */
+    .smart-wrap {
+      width: clamp(240px, 42vw, 400px);
+      transition: width .35s ease;
+      margin: 2rem auto 0;
+      position: relative;
+    }
+    .smart-wrap:hover,
+    .smart-wrap:focus-within { width: clamp(320px, 56vw, 640px); }
+
+    @media (max-width:640px){
+      .smart-wrap { width: 90vw !important; max-width: 440px; }
+      .smart-pill { padding: .6rem .9rem; }
+      input.smart-input { font-size: .95rem; }
+    }
+
+    .smart-pill {
+      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+    .smart-wrap:hover .smart-pill,
+    .smart-wrap:focus-within .smart-pill {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 2px rgba(124,58,237,.08),
+        0 0 0 6px rgba(59,130,246,.06),
+        0 16px 32px rgba(0,0,0,.10);
+    }
+    
+    .smart-input {
+      @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center;
+      color: #111827; 
+    }
+    .smart-input::placeholder { color: #9CA3AF; }
+
+    .glow-wrap {
+      position: relative;
+      z-index: 30;
+      border-radius: 9999px;
+      isolation: isolate;
+    }
+    .glow-wrap::before {
+      content: ""; position: absolute; inset: -3px; border-radius: 9999px;
+      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
+      background-size: 400% 100%;
+      filter: blur(6px);
+      opacity: 0;
+      transition: opacity .25s ease-out;
+      z-index: 0;
+      animation: siri-glow 8s linear infinite;
+    }
+    .glow-wrap:focus-within::before { opacity: 1; }
+    .glow-wrap > .smart-pill { position: relative; z-index: 1; background: #fff; }
+
+    @keyframes siri-glow {
+      0%{background-position:0% 50%}
+      50%{background-position:200% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Suggestions dropdown */
+    #searchSug {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      top: calc(100% + 8px);
+      width: clamp(260px, 48vw, 520px);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 14px;
+      box-shadow: 0 16px 30px rgba(0,0,0,.12);
+      padding: .25rem;
+      max-height: 60vh;
+      overflow: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+      z-index: 40;
+    }
+    #searchSug.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      transition: opacity .18s ease, transform .18s ease, visibility 0s;
+    }
+
+    .sug-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .6rem .85rem;
+      cursor: pointer;
+      border-radius: .75rem;
+    }
+    .sug-item:hover { background: #f9fafb; }
+
+    .sug-badge {
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: .15rem .5rem;
+      border-radius: 9999px;
+    }
+
     /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
@@ -32,39 +208,6 @@
     @keyframes menuIn {
       from { opacity: 0; transform: translateY(-6px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
-    /* Background dots */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
-
-    .section-heading { @apply text-2xl font-bold text-gray-800; }
-
-    /* Track pills */
-    .track-wrap { @apply flex flex-wrap justify-center gap-3 mb-10; }
-    .track-pill {
-      @apply px-5 py-2.5 rounded-full text-sm font-bold border bg-white text-gray-600 border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:border-gray-300;
-    }
-    .track-pill-active {
-      @apply bg-[#111827] text-white border-[#111827] shadow-md;
-    }
-    .track-pill-active:hover {
-      @apply bg-[#000000] border-[#000000] text-white;
-    }
-
-    /* Cards */
-    .icon-card {
-      @apply flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300;
-    }
-    /* UPDATED: Border color changed to purple-400 */
-    .icon-card:hover {
-      @apply shadow-lg -translate-y-1 border-purple-400;
     }
   </style>
 </head>
@@ -78,10 +221,10 @@
       </div>
 
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-[#135bec]" href="index.html">Home</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-[#135bec]" href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
@@ -103,69 +246,218 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <main class="relative pt-14 pb-20">
-
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+  <main class="relative pt-16">
+    <div class="hero-shell">
       
-      <div class="absolute inset-0 z-0">
-        <img src="assets/alevel-hero.jpg" alt="A-Level Hero" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-2xl">
-           
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-purple-500/20 border border-purple-400/30 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-purple-400"></span>
-             <span class="text-[10px] font-bold text-purple-200 uppercase tracking-widest">KS5 • Years 12 & 13</span>
-           </div>
-           
-           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-             A-Level<br>
-             <span class="text-purple-400">Mathematics</span>
-           </h1>
-           
-           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
-             Your home for all A-level revision, please note that all links take you to an external site moderated by our head of KS5 maths.
-           </p>
-
-           <div class="flex flex-wrap gap-4">
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               <span>Exam Revision</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">menu_book</span>
-             </a>
-
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               <span>A* Questions</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">edit_note</span>
-             </a>
-           </div>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="track-wrap" id="track-pill-wrap">
+      <section class="home-hero-wrap">
+        
+        <div class="home-hero-bg">
+          <img src="assets/home-hero5.jpg" alt="Maths Revision" class="static-hero-img" />
         </div>
 
-      <section id="track-panels" class="space-y-12">
-        <div class="animate-pulse space-y-4">
-           <div class="h-8 bg-gray-200 rounded w-1/4"></div>
-           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-           </div>
+        <div class="home-hero-card">
+          <p class="uppercase tracking-widest text-xs text-gray-300">
+            SJWMS Maths
+          </p>
+          <h1>
+            What will you
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+              revise today
+            </span>
+            and master?
+          </h1>
+          <p class="text-gray-100 text-lg mt-3 max-w-2xl mx-auto">
+            Use the smart search to find worksheets, videos and practice quizzes.
+          </p>
+
+          <div id="smartWrap" class="smart-wrap">
+            <div class="glow-wrap">
+              <div class="smart-pill">
+                <span class="material-symbols-outlined text-gray-400">search</span>
+                <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
+                       aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
+                       role="combobox"/>
+              </div>
+              <div id="searchSug" role="listbox"></div>
+            </div>
+          </div>
+          </div>
+      </section>
+
+      <section class="mt-10 max-w-3xl mx-auto text-left">
+        <h2 class="text-xs font-semibold tracking-[0.18em] text-gray-500 uppercase flex items-center gap-2">
+          <span class="h-1 w-6 rounded-full bg-emerald-400"></span>
+          Site coverage
+        </h2>
+        <p class="text-sm text-gray-600 mt-1">
+          These sections are live in the hub. Greyed-out areas are coming later. Orange is being built.
+        </p>
+
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="rounded-xl border border-gray-200 bg-gray-50 text-gray-400 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-gray-300"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">Year 7</span>
+          </div>
+
+          <div class="rounded-xl border border-orange-200 bg-orange-50 text-orange-400 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_0_4px_rgba(16,185,129,0.2)]"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">Year 8</span>
+          </div>
+
+          <div class="rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.2)]"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">Year 9</span>
+          </div>
+
+          <div class="rounded-xl border border-gray-200 bg-gray-50 text-gray-400 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-gray-300"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">GCSE</span>
+          </div>
+
+          <div class="rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.2)]"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">A-Level Y12</span>
+          </div>
+
+          <div class="rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 px-3 py-2.5 flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.2)]"></span>
+            <span class="text-xs font-semibold uppercase tracking-wide">A-Level Y13</span>
+          </div>
+        </div>
+      </section>
+      
+      <section class="mt-10 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[auto,minmax(0,1fr)] gap-6 md:gap-10 items-center text-left">
+        <div class="flex justify-center md:justify-start">
+          <div class="relative h-24 w-24 md:h-28 md:w-28 rounded-2xl border border-gray-200/80 bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-emerald-400/10 flex items-center justify-center shadow-sm">
+            <img
+              src="assets/highlighter-draw-svgrepo-com.svg"
+              alt="SJWMS Maths revision hub logo"
+              class="h-14 w-14 md:h-16 md:w-16 object-contain"
+            />
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">
+            About this revision hub
+          </h2>
+          <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+            This site pulls together worksheets, videos and quick links for SJWMS maths students.
+            Start with the smart search above if you already know the topic, or use the course hubs
+            (KS3, GCSE, A-Level) to browse by year group and unit.
+          </p>
+          <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+            At the moment, the hub is focused on
+            <span class="font-semibold text-emerald-700">Year 9</span> and
+            <span class="font-semibold text-emerald-700">A-Level (Year 12 &amp; Year 13)</span>.
+            Other year groups will be added and polished over time.
+          </p>
         </div>
       </section>
 
+      <div class="my-12 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+      
+      <section class="mt-10 max-w-5xl mx-auto space-y-8">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">
+            How to use this site effectively
+          </h2>
+          <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white/80 border border-gray-200 rounded-2xl p-4 shadow-sm">
+              <div class="flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-white text-xs">1</span>
+                <span>Search by topic</span>
+              </div>
+              <p class="mt-2 text-xs text-gray-700 leading-relaxed">
+                Use the smart search above to type in a topic, chapter name or key word
+                (e.g. <span class="font-semibold">“Ch3 quadratics”</span> or <span class="font-semibold">“simultaneous equations”</span>).
+              </p>
+            </div>
+
+            <div class="bg-white/80 border border-gray-200 rounded-2xl p-4 shadow-sm">
+              <div class="flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-white text-xs">2</span>
+                <span>Open the hub or slides</span>
+              </div>
+              <p class="mt-2 text-xs text-gray-700 leading-relaxed">
+                Results will take you either to this revision hub (worksheets &amp; videos)
+                or straight to our A-level Google Sites pages.
+              </p>
+            </div>
+
+            <div class="bg-white/80 border border-gray-200 rounded-2xl p-4 shadow-sm">
+              <div class="flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-white text-xs">3</span>
+                <span>Practice on the platforms</span>
+              </div>
+              <p class="mt-2 text-xs text-gray-700 leading-relaxed">
+                Use the links below (Dr Frost, SPARX, Pearson ActiveLearn, MyMaths)
+                to complete independent practice and homework.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-12 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+        
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">
+            Online platforms we use a lot
+          </h2>
+          <p class="mt-1 text-xs text-gray-600">
+            These links take you out of the hub to the main sites we use for homework and independent practice.
+          </p>
+
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a href="https://www.drfrostmaths.com/" target="_blank" rel="noopener"
+               class="group block bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">DrFrostMaths</p>
+                  <p class="text-xs text-gray-600 mt-1">Worksheets, practice questions and DFM tasks.</p>
+                </div>
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-gray-700">open_in_new</span>
+              </div>
+            </a>
+
+            <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+               class="group block bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">SPARX Maths</p>
+                  <p class="text-xs text-gray-600 mt-1">Set homework and revision tasks. Use your school login.</p>
+                </div>
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-gray-700">open_in_new</span>
+              </div>
+            </a>
+
+            <a href="https://www.pearsonactivelearn.com/" target="_blank" rel="noopener"
+               class="group block bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">Pearson ActiveLearn</p>
+                  <p class="text-xs text-gray-600 mt-1">Online textbook access and interactive exercises.</p>
+                </div>
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-gray-700">open_in_new</span>
+              </div>
+            </a>
+
+            <a href="https://www.mymaths.co.uk/" target="_blank" rel="noopener"
+               class="group block bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">MyMaths</p>
+                  <p class="text-xs text-gray-600 mt-1">Lessons and homework tasks. Check your school login details.</p>
+                </div>
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-gray-700">open_in_new</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+      
     </div>
   </main>
-
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
 
   <script>
   (function(){
@@ -180,133 +472,133 @@
   </script>
 
   <script>
-    (function(){
-      const PILL_WRAP = document.getElementById('track-pill-wrap');
-      const PANEL_ROOT = document.getElementById('track-panels');
-      const JSON_URL = 'assets/data/alevel_tracks.json'; 
+  (function(){
+    const input=document.getElementById('smartSearch');
+    const sug=document.getElementById('searchSug');
+    if(!input||!sug)return;
 
-      let TRACKS = [];
-      let activeTrackId = null;
-
-      function createPills(tracks){
-        PILL_WRAP.innerHTML = '';
-        tracks.forEach((track, index) => {
-          const btn = document.createElement('button');
-          btn.className = 'track-pill' + (index === 0 ? ' track-pill-active' : '');
-          btn.dataset.trackId = track.id;
-          btn.textContent = track.label;
-          btn.addEventListener('click', () => {
-            if (activeTrackId === track.id) return;
-            setActiveTrack(track.id);
-          });
-          PILL_WRAP.appendChild(btn);
-        });
+    const HINTS=["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘Differentation’"];
+    let hintIdx=0;
+    function cycleHint(){
+      if(document.activeElement!==input&&input.value.trim()===""){
+        input.setAttribute('placeholder',HINTS[hintIdx%HINTS.length]); hintIdx++;
       }
+    }
+    cycleHint(); setInterval(cycleHint,3000);
 
-      function setActiveTrack(id){
-        activeTrackId = id;
+    const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+    let INDEX=[],open=false,active=-1,current=[];
+    const YEAR_COLOR_CLASS = {
+      "y7": "bg-orange-500",
+      "y8": "bg-green-500",
+      "y9": "bg-[#7B61FF]",
+      "gcse": "bg-blue-500",
 
-        // Update pills
-        const pills = PILL_WRAP.querySelectorAll('.track-pill');
-        pills.forEach(pill => {
-          const isActive = pill.dataset.trackId === id;
-          pill.classList.toggle('track-pill-active', isActive);
-        });
+      "as-level pure": "bg-[#FFD1DF]",
+      "a-level pure": "bg-yellow-400",
 
-        // Render content
-        renderTrack(id);
-      }
+      "as-level stats": "bg-[#CAEEC2]",
+      "a-level stats": "bg-[#90EE91]",
 
-      function renderTrack(id){
-        const track = TRACKS.find(t => t.id === id);
-        if (!track){
-          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Nothing here yet.</p>';
-          return;
-        }
+      "as-level mechanics": "bg-[#FFDBBB]",
+      "a-level mechanics": "bg-[#FFC067]",
 
-        const sections = Array.isArray(track.sections) ? track.sections : [];
+      "further core 1": "bg-[#01F9C6]",
+      "further core 2": "bg-[#01F9C6]",
+      "further mechanics": "bg-[#01F9C6]",
+      "further decision": "bg-[#01F9C6]"
+    };
 
-        if (!sections.length){
-          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Content coming soon for this track.</p>';
-          return;
-        }
+    const colorFor = level => {
+      const key = (level || "").toLowerCase().trim();
+      return YEAR_COLOR_CLASS[key] || "bg-blue-500";
+    };
+    const normalize=s=>(s||"").toLowerCase().trim();
 
-        const html = sections.map(section => {
-          const cards = Array.isArray(section.cards) ? section.cards : [];
+    function scoreRow(r,q){
+      const lab=normalize(r.label),lev=normalize(r.level);
+      const hay=[lab,lev,...((r.keywords||[]).map(normalize))];
+      if(lab.startsWith(q))return 100;
+      if(lab.includes(q))return 70;
+      if(hay.some(h=>h.startsWith(q)))return 60;
+      if(hay.some(h=>h.includes(q)))return 40;
+      return 0;
+    }
 
-          const cardsHtml = cards.map(card => {
-            const icon = card.icon || 'auto_awesome';
-            const title = card.title || 'Untitled card';
-            const desc = card.description || '';
-            const url  = card.url || '';
-            const isLink = !!url;
+    function search(q){
+      const Q=normalize(q);
+      if(!Q)return[];
+      return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,12)
+        .map(x=>x.r);
+    }
 
-            // Generate tags if they exist
-            const tagHtml = Array.isArray(card.tags) && card.tags.length
-              ? '<div class="mt-3 flex flex-wrap justify-center gap-1">' +
-                card.tags.map(t => 
-                  `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-[10px] font-semibold text-slate-500 border border-slate-100">${t}</span>`
-                ).join('') +
-              '</div>'
-              : '';
+    function navigate(url){ if(url) window.location.href=url; }
 
-            // UPDATED: Hover text color is now purple-500 to match the border
-            const inner = `
-              <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-purple-500 transition-colors">${icon}</span>
-              <p class="mt-3 text-sm text-slate-800 font-bold text-center">${title}</p>
-              <p class="mt-1 text-xs text-slate-500 text-center leading-relaxed">${desc}</p>
-              ${tagHtml}
-            `;
+    function render(list){
+      sug.innerHTML="";
+      list.forEach((r,i)=>{
+        const el=document.createElement('div');
+        el.className="sug-item flex justify-between items-center";
+        el.setAttribute('role','option');
+        el.setAttribute('data-i',i);
+        el.innerHTML=`
+          <div class="flex items-center gap-3 pl-2">
+            <span class="sug-badge ${colorFor(r.level)}">${r.level||""}</span>
+            <span class="text-gray-900 font-medium">${r.label}</span>
+          </div>
+          <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>`;
+        el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
+        sug.appendChild(el);
+      });
+    }
 
-            if (isLink){
-              return `
-                <a href="${url}" target="_blank" rel="noopener" class="icon-card group">
-                  ${inner}
-                </a>
-              `;
-            } else {
-              return `<div class="icon-card group">${inner}</div>`;
-            }
-          }).join('');
+    const setOpen=s=>{open=s;sug.classList.toggle('open',open);input.setAttribute('aria-expanded',String(open));};
 
-          return `
-            <section>
-              <div class="flex items-center gap-4 mb-6">
-                <h2 class="section-heading">${section.heading || ''}</h2>
-                <div class="h-px bg-gray-200 flex-grow"></div>
-              </div>
-              
-              ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4">${section.subheading}</p>` : ''}
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${cardsHtml}
-              </div>
-            </section>
-          `;
-        }).join('');
+    function update(){
+      const q=input.value;
+      current=search(q);
+      active=-1;
+      if(current.length===0){setOpen(false);return;}
+      render(current); setOpen(true);
+    }
 
-        PANEL_ROOT.innerHTML = html;
-      }
+    function highlight(i){
+      Array.from(sug.children).forEach((el,idx)=>{
+        el.classList.toggle('bg-gray-50',idx===i);
+        if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
+      });
+    }
 
-      // Load JSON + initialise
-      fetch(JSON_URL, { cache: 'no-store' })
-        .then(r => r.json())
-        .then(data => {
-          TRACKS = Array.isArray(data.tracks) ? data.tracks : [];
-          if (!TRACKS.length){
-            PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">No tracks found.</p>';
-            return;
-          }
-          createPills(TRACKS);
-          setActiveTrack(TRACKS[0].id); // default to first track
-        })
-        .catch(err => {
-          console.error('Error loading A-level tracks JSON', err);
-          PANEL_ROOT.innerHTML =
-            '<div class="p-4 bg-red-50 text-red-600 rounded-lg text-sm">Unable to load content. Please ensure <code>assets/data/alevel_tracks.json</code> exists.</div>';
-        });
-    })();
+    function ensureVisible(i){
+      const c=sug.children[i]; if(!c)return;
+      const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
+      if(chT<vT)sug.scrollTop=chT-8; else if(chB>vB)sug.scrollTop=chB-sug.clientHeight+8;
+    }
+
+    const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
+    input.addEventListener('input',debouncedUpdate);
+    input.addEventListener('keydown',e=>{
+      if(!open&&(e.key==='ArrowDown'||e.key==='Tab')){update();return;}
+      if(!open)return;
+      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);highlight(active);ensureVisible(active);}
+      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);highlight(active);ensureVisible(active);}
+      else if(e.key==='Enter'){e.preventDefault();if(active>=0)navigate(current[active].url);else if(current.length)navigate(current[0].url);}
+      else if(e.key==='Escape'){setOpen(false);}
+    });
+    input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
+    input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),120);});
+    document.addEventListener('click',e=>{if(!e.target.closest('#searchSug')&&!e.target.closest('#smartWrap'))setOpen(false);});
+
+    fetch('/assets/data/search_index.json',{cache:'no-store'})
+      .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
+      .catch(()=>{INDEX=[];});
+  })();
   </script>
 
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
