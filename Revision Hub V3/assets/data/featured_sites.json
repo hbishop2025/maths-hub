@@ -13,21 +13,24 @@
       "active": true,
       "name": "Online Textbooks",
       "url": "https://www.pearsonactivelearn.com/app/home",
-      "logo": "https://login.pearson.com/v1/piapi/iesui/static/media/PearsonLogo_Horizontal_Blk_RGB.236878eb12bcef8a8d01.png"
+      "logo": "https://login.pearson.com/v1/piapi/iesui/static/media/PearsonLogo_Horizontal_Blk_RGB.236878eb12bcef8a8d01.png",
+      "accent": "#28A197"
     },
     {
       "cta": "Open",
       "active": true,
       "name": "My Maths",
       "url": "https://login.mymaths.co.uk/login",
-      "logo": "https://static.mymaths.co.uk/assets/v18-2-1/mymaths/logo-primary-new-blue-bf1d54b5c338397e7a778c907934a47e46856b3cfb6c45093f1365aefbdf28c8.svg"
+      "logo": "https://static.mymaths.co.uk/assets/v18-2-1/mymaths/logo-primary-new-blue-bf1d54b5c338397e7a778c907934a47e46856b3cfb6c45093f1365aefbdf28c8.svg",
+      "accent": "#005FB8"
     },
     {
       "cta": "Open",
       "active": true,
       "name": "SPARX Maths",
       "url": "https://selectschool.sparx-learning.com/?app=sparx_learning&route=https%3A%2F%2Fmaths.sparx-learning.com%2F",
-      "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg"
+      "logo": "https://selectschool.sparx-learning.com/assets/sparx_learning_logo-DznYIMvg.svg",
+      "accent": "#1ef0ed"
     },
     {
       "cta": "Open",
@@ -48,7 +51,7 @@
       "active": true,
       "name": "Third Space Learning",
       "url": "https://thirdspacelearning.com/secondary-resources/",
-      "logo": "https://cdn-ildeonj.nitrocdn.com/aqvkkZYZbGuRYrvFWOruinqOcGLcmRRD/assets/images/optimized/rev-0b928fc/thirdspacelearning.com/wp-content/uploads/2020/10/tsl-logo.png"
+      "logo": "https://thirdspacelearning.com/wp-content/uploads/2020/07/3SL-RGB-Logo-1-2.png"
     },
     {
       "cta": "Open",
