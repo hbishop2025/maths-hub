@@ -83,38 +83,34 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <main class="relative pt-20 pb-20">
+  <main class="relative pt-14 pb-20">
+    
+    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+      
+      <div class="absolute inset-0 z-0">
+        <img src="assets/home-hero1.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+      </div>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-      <article class="relative w-full h-auto md:h-[280px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-700/50">
-           
-        <div class="absolute inset-0 z-0">
-          <img src="assets/home-hero5.jpg" alt="GCSE Horizon" 
-               class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
-           
-          <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-        </div>
-
-        <div class="relative z-10 h-full px-6 py-10 md:py-0 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-             
-          <div class="flex-1 text-center md:text-left md:flex flex-col justify-center h-full">
-               
-            <div class="inline-flex items-center gap-2 mb-3">
-              <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-orange-500/20 text-orange-200 border border-orange-400/30 uppercase tracking-wider backdrop-blur-sm">
-                FINAL STAGE
-              </span>
-            </div>
-
-            <h2 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg leading-tight">
-              GCSE <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-orange-500">MATHEMATICS</span>
-            </h2>
-               
-            <p class="text-slate-300 text-sm md:text-base font-medium max-w-lg leading-relaxed shadow-black drop-shadow-md">
-              Your hub for topic learning, exam revision, and past paper practice.
-            </p>
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Main Stage</span>
           </div>
+          
+          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            GCSE<br>
+            <span class="text-blue-400">
+              Mathematics
+            </span>
+          </h1>
+          
+          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
+            Your hub for topic learning, exam revision, and past paper practice.
+          </p>
         </div>
-      </article>
+      </div>
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -127,15 +123,15 @@
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-              <span class="material-icons text-white text-4xl mb-2">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest">Coming Soon</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Summer 2025</span>
             </div>
-            
+
             <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Content"/>
-               <div class="absolute inset-0 bg-purple-900/10 group-hover:bg-transparent transition-colors"></div>
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover grayscale-[0.2]" alt="Content"/>
+               <div class="absolute inset-0 bg-purple-900/10"></div>
             </div>
             
             <div class="p-6 pt-5 flex flex-col flex-grow relative">
@@ -144,21 +140,20 @@
                  Learn strictly by topic. Split into Number, Algebra, Geometry, and Data.
                </p>
                <div class="mt-auto text-purple-600 font-bold text-sm flex items-center">
-                 View Modules <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                 View Modules <span class="material-icons text-sm ml-1">arrow_forward</span>
                </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-[#7C3AED] transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-              <span class="material-icons text-white text-4xl mb-2">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest">Coming Soon</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Summer 2025</span>
             </div>
 
             <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Revision"/>
-               <div class="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors"></div>
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover grayscale-[0.2]" alt="Revision"/>
+               <div class="absolute inset-0 bg-blue-900/10"></div>
             </div>
             
             <div class="p-6 pt-5 flex flex-col flex-grow relative">
@@ -167,9 +162,8 @@
                  Prepare for mocks and the real thing. Checklists, strategies, and cram sheets.
                </p>
                <div class="mt-auto text-blue-600 font-bold text-sm flex items-center">
-                 Start Revising <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                 Start Revising <span class="material-icons text-sm ml-1">arrow_forward</span>
                </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-blue-600 transition-colors duration-300"></div>
             </div>
           </a>
 
@@ -202,15 +196,15 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-              <span class="material-icons text-white text-4xl mb-2">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest">Coming Soon</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Soon</span>
             </div>
 
             <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Formula Sheet"/>
-               <div class="absolute inset-0 bg-teal-900/10 group-hover:bg-transparent transition-colors"></div>
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover" alt="Formula Sheet"/>
+               <div class="absolute inset-0 bg-teal-900/10"></div>
             </div>
             
             <div class="p-6 pt-5 flex flex-col flex-grow relative">
@@ -219,21 +213,20 @@
                  Download the official PDF sheet. Know what you are given and what you need to memorize.
                </p>
                <div class="mt-auto text-teal-600 font-bold text-sm flex items-center">
-                 Download PDF <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">file_download</span>
+                 Download PDF <span class="material-icons text-sm ml-1">file_download</span>
                </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-teal-500 transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-              <span class="material-icons text-white text-4xl mb-2">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest">Coming Soon</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Soon</span>
             </div>
 
             <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Calculator"/>
-               <div class="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-colors"></div>
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover" alt="Calculator"/>
+               <div class="absolute inset-0 bg-emerald-900/10"></div>
             </div>
             
             <div class="p-6 pt-5 flex flex-col flex-grow relative">
@@ -242,21 +235,20 @@
                  Master your ClassWiz. Learn the hidden buttons that save you minutes in the exam.
                </p>
                <div class="mt-auto text-emerald-600 font-bold text-sm flex items-center">
-                 Watch Guides <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">play_circle</span>
+                 Watch Guides <span class="material-icons text-sm ml-1">play_circle</span>
                </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-emerald-500 transition-colors duration-300"></div>
             </div>
           </a>
 
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-              <span class="material-icons text-white text-4xl mb-2">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest">Coming Soon</span>
+          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Soon</span>
             </div>
 
             <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Checklist"/>
-               <div class="absolute inset-0 bg-rose-900/10 group-hover:bg-transparent transition-colors"></div>
+               <img src="assets/home-hero4.jpg" class="w-full h-full object-cover" alt="Checklist"/>
+               <div class="absolute inset-0 bg-rose-900/10"></div>
             </div>
             
             <div class="p-6 pt-5 flex flex-col flex-grow relative">
@@ -265,9 +257,8 @@
                  Track your progress. A complete list of every topic you need to cover before May.
                </p>
                <div class="mt-auto text-rose-600 font-bold text-sm flex items-center">
-                 View List <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">checklist</span>
+                 View List <span class="material-icons text-sm ml-1">checklist</span>
                </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-rose-500 transition-colors duration-300"></div>
             </div>
           </a>
 
