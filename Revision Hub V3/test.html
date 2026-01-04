@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>KS3 | Home</title>
+  <title>A-Level | Home</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
   <link rel="stylesheet" href="assets/main.css"/>
 
@@ -21,7 +20,7 @@
 
     /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-
+    
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
@@ -47,13 +46,29 @@
 
     .section-heading { @apply text-2xl font-bold text-gray-800; }
 
-    /* Standard section title row (your requested pattern) */
-    .section-title-row { @apply flex items-center gap-4 mb-8; }
-    .section-title-line { @apply h-px bg-gray-200 flex-grow; }
+    /* Track pills */
+    .track-wrap { @apply flex flex-wrap justify-center gap-3 mb-10; }
+    .track-pill {
+      @apply px-5 py-2.5 rounded-full text-sm font-bold border bg-white text-gray-600 border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:border-gray-300;
+    }
+    .track-pill-active {
+      @apply bg-[#111827] text-white border-[#111827] shadow-md;
+    }
+    .track-pill-active:hover {
+      @apply bg-[#000000] border-[#000000] text-white;
+    }
+
+    /* Cards */
+    .icon-card {
+      @apply flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300;
+    }
+    .icon-card:hover {
+      @apply shadow-lg -translate-y-1 border-blue-200;
+    }
   </style>
 </head>
-
 <body>
+
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
@@ -63,15 +78,15 @@
 
       <nav class="hidden md:flex items-center gap-6">
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-[#135bec]" href="alevel_hub.html">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false">
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
         <span class="material-icons">menu</span>
       </button>
 
@@ -87,630 +102,211 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <main class="relative pt-14">
+  <main class="relative pt-14 pb-20">
 
-    <!-- Full-width banner -->
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-      <span class="material-icons text-base mr-2">construction</span>
-      Page Heavily Under Construction
-    </div>
-
-    <!-- HERO (full width) -->
     <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+      
       <div class="absolute inset-0 z-0">
-        <img src="assets/ks3-hero.jpg" alt="KS3 Hero" class="w-full h-full object-cover object-center" />
+        <img src="assets/alevel-hero.jpg" alt="A-Level Hero" class="w-full h-full object-cover object-center" />
         <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
+           
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-purple-500/20 border border-purple-400/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-purple-400"></span>
+             <span class="text-[10px] font-bold text-purple-200 uppercase tracking-widest">KS5 • Years 12 & 13</span>
+           </div>
+           
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+             A-Level<br>
+             <span class="text-purple-400">Mathematics</span>
+           </h1>
+           
+           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
+             Your home for all A-level revision, please note that all links take you to an external site moderated by our head of KS5 maths.
+           </p>
 
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
-            <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Year 7, 8 and 9</span>
-          </div>
+           <div class="flex flex-wrap gap-4">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+               <span>Exam Revision</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">menu_book</span>
+             </a>
 
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            KS3<br>
-            <span class="text-cyan-400">Revision</span>
-          </h1>
-
-          <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
-            A single place for Years 7–9. Choose your year to find worksheets, videos and problem-solving practice. This KS3 area will grow over time, so be sure to check back!
-          </p>
-
-          <div class="flex flex-wrap gap-4">
-            <a href="#UKMT" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              <span>UKMT - JMC</span>
-              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">emoji_events</span>
-            </a>
-
-            <a href="ks3_eoy.html" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              <span>KS3 EOY Revision</span>
-              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">event</span>
-            </a>
-          </div>
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+               <span>A* Questions</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">edit_note</span>
+             </a>
+           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- Pi day banner container (full width) -->
-    <div id="pi-day-banner-container" style="display: none;">
-      <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
-
-        <div class="absolute inset-0 bg-[#030712]">
-          <div class="absolute inset-0 opacity-20"
-               style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
-          </div>
-        </div>
-
-        <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
-        <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-
-          <div class="flex items-start gap-4">
-            <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
-            <div>
-              <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
-                SYSTEM_ANOMALY_DETECTED
-              </h3>
-              <p class="font-mono text-red-400 text-sm mt-1">
-                <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
-              </p>
-            </div>
-          </div>
-
-          <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
-            <span class="relative z-10 flex items-center gap-2">
-              <span class="material-icons text-sm">terminal</span>
-              INITIATE_DEBUG
-            </span>
-            <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-          </button>
-
-        </div>
-      </div>
-    </div>
-
-    <script>
-      (function() {
-        const today = new Date();
-        const month = today.getMonth(); // Jan=0
-        const day = today.getDate();
-
-        // Set this to 'true' to see the banner RIGHT NOW for testing.
-        // Set to 'false' to only show on actual Pi Day.
-        const testMode = true;
-
-        if (testMode || (month === 2 && day === 14)) {
-          const bannerContainer = document.getElementById('pi-day-banner-container');
-          if (bannerContainer) bannerContainer.style.display = 'block';
-        }
-      })();
-    </script>
-
-    <!-- ✅ CONSISTENT CENTERED CONTAINER FOR ALL POST-HERO CONTENT -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- CHOOSE YEAR -->
-      <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
-        <div class="section-title-row">
-          <h2 class="section-heading">Choose your year</h2>
-          <div class="section-title-line"></div>
+      <div class="track-wrap" id="track-pill-wrap">
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
-          <!-- Year 7 -->
-          <a href="year7_hub.html"
-             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
-            <div class="h-full flex flex-col">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-orange-50">
-                <span class="material-icons text-orange-500">school</span>
-              </div>
-              <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Secure the basics and build confidence with early KS3 topics.
-              </p>
-              <div class="mt-auto pt-3">
-                <span class="inline-flex items-center font-semibold text-blue-600">
-                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Year 8 -->
-          <a href="year8_hub_coming_soon.html"
-             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
-            <div class="h-full flex flex-col">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-emerald-50">
-                <span class="material-icons text-emerald-500">school</span>
-              </div>
-              <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Consolidate key skills and begin stretching into GCSE-style questions.
-              </p>
-              <div class="mt-auto pt-3">
-                <span class="inline-flex items-center font-semibold text-blue-600">
-                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Year 9 -->
-          <a href="year9_hub.html"
-             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
-            <div class="h-full flex flex-col">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50">
-                <span class="material-icons text-indigo-500">school</span>
-              </div>
-              <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Final KS3 year: bridge into GCSE with full unit-by-unit revision resources.
-              </p>
-              <div class="mt-auto pt-3">
-                <span class="inline-flex items-center font-semibold text-blue-600">
-                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
-                </span>
-              </div>
-            </div>
-          </a>
+      <section id="track-panels" class="space-y-12">
+        <div class="animate-pulse space-y-4">
+           <div class="h-8 bg-gray-200 rounded w-1/4"></div>
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+             <div class="h-48 bg-gray-200 rounded-2xl"></div>
+             <div class="h-48 bg-gray-200 rounded-2xl"></div>
+             <div class="h-48 bg-gray-200 rounded-2xl"></div>
+           </div>
         </div>
       </section>
 
-      <!-- KS3 Featured Sites -->
-      <section class="mt-12 mb-8">
-        <div class="section-title-row">
-          <h2 class="section-heading">KS3 Featured Sites</h2>
-          <div class="section-title-line"></div>
-        </div>
-
-        <div id="ks3-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        <p id="ks3-featured-empty" class="text-gray-500" hidden>No featured sites yet.</p>
-      </section>
-
-      <!-- Divider -->
-      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
-
-      <!-- UKMT + AI guidance row -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">
-        <!-- UKMT promo -->
-        <article class="relative bg-white rounded-2xl p-6 border border-amber-100 shadow-xl shadow-amber-900/5 flex flex-col h-full overflow-hidden group hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300">
-
-          <div class="absolute top-0 right-0 w-48 h-48 bg-amber-50 rounded-full blur-3xl -mr-16 -mt-16 transition-opacity opacity-50 group-hover:opacity-100"></div>
-
-          <div class="relative z-10 flex justify-between items-start mb-5">
-            <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-100 to-orange-50 border border-amber-200 flex items-center justify-center text-amber-600 shadow-sm group-hover:scale-110 transition-transform duration-300">
-              <span class="material-icons text-2xl">emoji_events</span>
-            </div>
-            <span class="px-2 py-1 rounded-md bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-wider border border-amber-100">
-              National Challenge
-            </span>
-          </div>
-
-          <div class="relative z-10 mb-6">
-            <h2 class="text-2xl font-bold text-slate-900 mb-2 tracking-tight">
-              Become a Champion
-            </h2>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Prepare for the <strong class="text-amber-600">Junior & Intermediate</strong> Maths Challenges. Master the art of problem solving.
-            </p>
-          </div>
-
-          <div class="relative z-10 flex flex-wrap gap-2 mb-8">
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-1.5"></span> Past Papers
-            </span>
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-1.5"></span> Mark Schemes
-            </span>
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
-              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-1.5"></span> Solutions
-            </span>
-          </div>
-
-          <div class="relative z-10 mt-auto">
-            <a href="#UKMT" class="flex items-center justify-center w-full px-4 py-3 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 font-semibold text-sm hover:bg-amber-100 hover:border-amber-300 transition-colors group-hover:shadow-sm">
-              Access Resources <span class="material-icons text-sm ml-2">arrow_downward</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- AI usage -->
-        <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-[#22d3ee]/20 bg-[#030712]">
-
-          <div class="absolute inset-0 z-0">
-            <img src="assets/neon_beams.webp" alt="" class="w-full h-full object-cover object-bottom opacity-50 mix-blend-screen transition-transform duration-700 group-hover:scale-105"/>
-            <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/80 via-[#030712]/40 to-transparent"></div>
-          </div>
-
-          <div class="relative z-10 p-6 flex flex-col h-full min-h-[280px]">
-
-            <div class="flex justify-end">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22d3ee]/10 border border-[#22d3ee]/30 backdrop-blur-md">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22d3ee] opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22d3ee]"></span>
-                </span>
-                <span class="text-[10px] font-mono font-bold text-[#22d3ee] tracking-widest">AI_MODULE_V3</span>
-              </div>
-            </div>
-
-            <div class="mt-auto">
-              <h2 class="text-3xl font-black text-white mb-2 leading-none tracking-tight">
-                Upgrade your <br/>
-                <span class="font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-blue-400 to-[#a855f7]" style="filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4));">
-                  INTELLIGENCE
-                </span>
-              </h2>
-
-              <p class="text-slate-300 text-sm mb-6 leading-relaxed font-medium">
-                Do you know how to use AI properly to help with your education?
-              </p>
-
-              <a href="ai_usage.html" class="inline-flex items-center w-full justify-center px-4 py-3 rounded-lg bg-[#22d3ee]/5 border border-[#22d3ee]/30 text-[#22d3ee] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#22d3ee]/10 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all duration-300 group-hover:border-[#22d3ee]/60">
-                <span class="mr-3">></span> Initialize Guidance
-              </a>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="mt-12 mb-8">
-        <div class="section-title-row">
-          <h2 class="section-heading">The UKMT Pathway</h2>
-          <div class="section-title-line"></div>
-        </div>
-
-        <div class="relative w-full max-w-4xl mx-auto">
-
-          <div class="relative z-10 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center max-w-xl mx-auto border-t-4 border-t-blue-500">
-            <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-3 uppercase tracking-wide">
-              Tier 1: The Entry
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">Junior Maths Challenge (JMC)</h3>
-            <p class="text-gray-600 text-sm mt-2">
-              60 minutes &bull; 25 Multiple Choice Questions
-            </p>
-            <div class="mt-3 text-sm font-medium text-gray-500 bg-gray-50 rounded-lg py-2 px-4 inline-block">
-              Top 40% receive Bronze, Silver or Gold Certificates
-            </div>
-
-            <div class="mt-5">
-              <a href="#UKMT" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-50 text-blue-700 text-sm font-semibold hover:bg-blue-100 transition">
-                Get Practice Papers
-                <span class="material-icons text-sm ml-2">arrow_downward</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="hidden md:block h-12 w-full relative">
-            <div class="absolute left-1/2 -translate-x-1/2 top-0 h-6 w-0.5 bg-gray-300"></div>
-            <div class="absolute top-6 left-1/4 right-1/4 h-0.5 bg-gray-300"></div>
-            <div class="absolute top-6 left-1/4 h-6 w-0.5 bg-gray-300"></div>
-            <div class="absolute top-6 right-1/4 h-6 w-0.5 bg-gray-300"></div>
-          </div>
-
-          <div class="md:hidden flex justify-center py-2">
-            <span class="material-icons text-gray-300">arrow_downward</span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-
-            <div class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center border-t-4 border-t-pink-500 hover:-translate-y-1 transition duration-300">
-              <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-pink-50 text-pink-700 text-xs font-bold mb-3 uppercase tracking-wide mx-auto">
-                Tier 2: High Achievers
-              </div>
-              <h3 class="text-lg font-bold text-gray-800">Junior Kangaroo</h3>
-              <p class="text-gray-600 text-sm mt-2 mb-3">
-                A 60-minute multiple choice paper.
-              </p>
-              <div class="border-t border-dashed border-gray-200 pt-3 mb-4">
-                <p class="text-xs text-gray-500">
-                  <span class="block font-bold text-gray-700 text-base mb-1">Top ~6,000</span>
-                  Invited based on JMC Score<br/>(usually 85+)
-                </p>
-              </div>
-
-              <div class="mt-auto">
-                <a href="https://ukmt.org.uk/junior-challenges/junior-kangaroo" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-pink-50 text-pink-700 text-sm font-semibold hover:bg-pink-100 transition">
-                  More Info
-                  <span class="material-icons text-sm ml-2">open_in_new</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center border-t-4 border-t-yellow-400 hover:-translate-y-1 transition duration-300">
-              <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-yellow-50 text-yellow-700 text-xs font-bold mb-3 uppercase tracking-wide mx-auto">
-                Tier 3: The Elite Tier
-              </div>
-              <h3 class="text-lg font-bold text-gray-800">Junior Olympiad (JMO)</h3>
-              <p class="text-gray-600 text-sm mt-2 mb-3">
-                2-hour paper requiring <span class="font-semibold text-gray-800">full written solutions</span>.
-              </p>
-              <div class="border-t border-dashed border-gray-200 pt-3 mb-4">
-                <p class="text-xs text-gray-500">
-                  <span class="block font-bold text-gray-700 text-base mb-1">Top ~1,200</span>
-                  Highest scorers in the country<br/>(usually 100+)
-                </p>
-              </div>
-
-              <div class="mt-auto">
-                <a href="https://ukmt.org.uk/junior-challenges/junior-mathematical-olympiad" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-yellow-50 text-yellow-800 text-sm font-semibold hover:bg-yellow-100 transition">
-                  JMO Details
-                  <span class="material-icons text-sm ml-2">open_in_new</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- UKMT resources grid -->
-      <section id="UKMT" class="mt-8 mb-16">
-        <div class="section-title-row">
-          <h2 class="section-heading">UKMT Preparation</h2>
-          <div class="section-title-line"></div>
-        </div>
-
-        <div id="ks3-ukmt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        <p id="ks3-ukmt-empty" class="text-gray-500" hidden>No UKMT items yet.</p>
-      </section>
-
-      <!-- Divider -->
-      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
-
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12">
-
-        <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-800/20 h-full min-h-[320px] flex flex-col">
-
-          <div class="absolute inset-0 z-0">
-            <img src="assets/ks3-hero.jpg" alt="EOY Revision"
-                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]" />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
-            <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/30 to-transparent mix-blend-overlay"></div>
-          </div>
-
-          <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full">
-
-            <div class="flex justify-between items-start mb-4">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-400/30 backdrop-blur-md">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-                </span>
-                <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Exam Prep</span>
-              </div>
-            </div>
-
-            <div class="mt-auto">
-              <h2 class="text-3xl font-black text-white mb-2 leading-tight drop-shadow-lg">
-                End of Year<br/>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
-                  Revision Hub
-                </span>
-              </h2>
-
-              <p class="text-gray-200 text-sm mb-6 leading-relaxed font-medium max-w-sm drop-shadow-md">
-                Everything you need for your finals: topic lists, practice papers, and video walkthroughs.
-              </p>
-
-              <a href="ks3_eoy.html"
-                 class="inline-flex items-center w-full justify-center px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-cyan-50 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]">
-                 Start Revising
-                 <span class="material-icons text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="relative rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col h-full overflow-hidden group transition-all duration-300 hover:shadow-2xl border-2 border-black" style="background-color: #ffe4e6;">
-
-          <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
-          <div class="absolute bottom-10 left-10 w-24 h-24 bg-rose-300/20 rounded-full blur-2xl"></div>
-
-          <div class="absolute right-4 top-[15%] w-[160px] sm:w-[200px] opacity-90 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 origin-center z-0">
-             <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Hero" class="drop-shadow-lg" />
-          </div>
-
-          <div class="relative z-10 flex flex-col h-full">
-
-            <div class="flex justify-start mb-6">
-              <span class="inline-flex items-center px-3 py-1.5 rounded-md bg-black text-white text-[11px] font-black uppercase tracking-wider transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 shadow-md">
-                Fresh out of puns?
-              </span>
-            </div>
-
-            <div class="mt-auto max-w-[60%]">
-              <h2 class="text-4xl font-black text-black mb-3 leading-[0.9] tracking-tighter">
-                BISHOP<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-br from-black to-gray-700">
-                  & CO. SHAKES
-                </span>
-              </h2>
-
-              <p class="text-gray-800 text-sm mb-6 font-bold leading-relaxed">
-                Fuel your brain. Calculate the taste. <br>
-                <span class="text-xs font-medium text-gray-600 italic">Warning: May contain traces of algebra.</span>
-              </p>
-
-              <a href="bishop_shakes.html"
-                 class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-black text-white font-bold text-sm uppercase tracking-wide hover:bg-[#ff4e00] hover:-translate-y-1 transition-all duration-200 shadow-lg">
-                 Visit Shop
-                 <span class="material-icons text-sm ml-2">local_drink</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-      </section>
-
-      <section class="mt-8 mb-16 relative z-10">
-
-        <article class="relative w-full h-auto md:h-[220px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-700/50">
-
-          <div class="absolute inset-0 z-0">
-            <img src="assets/home-hero1.jpg" alt="GCSE Horizon"
-                 class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
-
-            <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-          </div>
-
-          <div class="relative z-10 h-full px-6 py-8 md:py-0 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-
-            <div class="flex-1 text-center md:text-left">
-
-              <div class="inline-flex items-center gap-2 mb-3">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
-                  Year 9 Only
-                </span>
-              </div>
-
-              <h2 class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
-                GCSE <span class="text-blue-400">PREP</span>
-              </h2>
-
-              <p class="text-slate-300 text-sm md:text-base font-medium max-w-lg leading-relaxed shadow-black drop-shadow-md">
-                Your journey to the next level begins here. Master the transition before Year 10 starts.
-              </p>
-            </div>
-
-            <div class="flex-shrink-0 pb-2 md:pb-0">
-              <div class="relative group/btn">
-
-                <button disabled class="relative overflow-hidden flex items-center gap-3 px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 text-white font-bold uppercase tracking-widest text-xs cursor-not-allowed hover:bg-white/20 transition-all duration-300">
-                  <span class="material-icons text-sm text-blue-300">lock</span>
-                  <span>Coming Summer 2025</span>
-
-                  <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover/btn:animate-shine" />
-                </button>
-
-              </div>
-            </div>
-
-          </div>
-        </article>
-      </section>
-
-    </div><!-- /centered container -->
+    </div>
   </main>
 
-  <!-- FOOTER -->
   <div id="footer-slot"></div>
-
   <script src="assets/footer-loader.js" defer></script>
 
-  <!-- KS3 JSON + site cards -->
-  <script src="assets/cards.js"></script>
-
   <script>
-    const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
-    const KS3_UKMT_JSON   = "assets/data/ks3_ukmt.json";
-
-    function normList(data){
-      if (Array.isArray(data)) return data;
-      if (data && Array.isArray(data.items)) return data.items;
-      return [];
-    }
-
-    function createSiteCard(site){
-      if (typeof makeSiteCard === "function") {
-        return makeSiteCard(site);
-      }
-      const a = document.createElement("a");
-      a.href = site.url || "#";
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.className =
-        "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
-        "hover:shadow-md hover:-translate-y-0.5 transition transform";
-      a.innerHTML = `
-        <div class="flex flex-col gap-1">
-          <h3 class="font-semibold text-gray-800">${site.name || site.title || "Resource"}</h3>
-          ${site.description ? `<p class="text-xs text-gray-500">${site.description}</p>` : ``}
-        </div>
-      `;
-      return a;
-    }
-
-    async function loadKS3Sites(){
-      const grid = document.getElementById("ks3-featured-grid");
-      const empty = document.getElementById("ks3-featured-empty");
-      if (!grid || !empty) return;
-
-      try{
-        const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const items = normList(data).filter(x => x && x.active !== false);
-
-        grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(createSiteCard(site)));
-
-        empty.hidden = items.length > 0;
-      }catch(e){
-        console.error("KS3 featured sites load error:", e);
-        empty.hidden = false;
-      }
-    }
-
-    async function loadKs3Ukmt(){
-      const grid = document.getElementById("ks3-ukmt-grid");
-      const empty = document.getElementById("ks3-ukmt-empty");
-      if (!grid || !empty) return;
-
-      try{
-        const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const items = normList(data).filter(x => x && x.active !== false);
-
-        grid.innerHTML = "";
-        items.forEach(site => grid.appendChild(createSiteCard(site)));
-        empty.hidden = items.length > 0;
-      }catch(e){
-        console.error("UKMT load error:", e);
-        empty.hidden = false;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-      loadKS3Sites();
-      loadKs3Ukmt();
-    });
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
   </script>
 
-  <!-- Mobile menu JS -->
   <script>
     (function(){
-      const btn = document.getElementById('menuBtn');
-      const menu = document.getElementById('mobileMenu');
-      if (!btn || !menu) return;
+      const PILL_WRAP = document.getElementById('track-pill-wrap');
+      const PANEL_ROOT = document.getElementById('track-panels');
+      const JSON_URL = 'assets/data/alevel_tracks.json'; 
 
-      function closeMenu(){
-        menu.classList.add('hidden');
-        btn.setAttribute('aria-expanded','false');
+      let TRACKS = [];
+      let activeTrackId = null;
+
+      function createPills(tracks){
+        PILL_WRAP.innerHTML = '';
+        tracks.forEach((track, index) => {
+          const btn = document.createElement('button');
+          btn.className = 'track-pill' + (index === 0 ? ' track-pill-active' : '');
+          btn.dataset.trackId = track.id;
+          btn.textContent = track.label;
+          btn.addEventListener('click', () => {
+            if (activeTrackId === track.id) return;
+            setActiveTrack(track.id);
+          });
+          PILL_WRAP.appendChild(btn);
+        });
       }
 
-      function toggleMenu(e){
-        e.stopPropagation();
-        const willOpen = menu.classList.contains('hidden');
-        menu.classList.toggle('hidden', !willOpen);
-        btn.setAttribute('aria-expanded', String(willOpen));
+      function setActiveTrack(id){
+        activeTrackId = id;
+
+        // Update pills
+        const pills = PILL_WRAP.querySelectorAll('.track-pill');
+        pills.forEach(pill => {
+          const isActive = pill.dataset.trackId === id;
+          pill.classList.toggle('track-pill-active', isActive);
+          // Optional: reset hover styles if needed by removing/adding classes
+        });
+
+        // Render content
+        renderTrack(id);
       }
 
-      btn.addEventListener('click', toggleMenu);
-      document.addEventListener('click', (e)=>{
-        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) closeMenu();
-      });
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') closeMenu();
-      });
+      function renderTrack(id){
+        const track = TRACKS.find(t => t.id === id);
+        if (!track){
+          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Nothing here yet.</p>';
+          return;
+        }
+
+        const sections = Array.isArray(track.sections) ? track.sections : [];
+
+        if (!sections.length){
+          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Content coming soon for this track.</p>';
+          return;
+        }
+
+        const html = sections.map(section => {
+          const cards = Array.isArray(section.cards) ? section.cards : [];
+
+          const cardsHtml = cards.map(card => {
+            const icon = card.icon || 'auto_awesome';
+            const title = card.title || 'Untitled card';
+            const desc = card.description || '';
+            const url  = card.url || '';
+            const isLink = !!url;
+
+            // Generate tags if they exist
+            const tagHtml = Array.isArray(card.tags) && card.tags.length
+              ? '<div class="mt-3 flex flex-wrap justify-center gap-1">' +
+                card.tags.map(t => 
+                  `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-[10px] font-semibold text-slate-500 border border-slate-100">${t}</span>`
+                ).join('') +
+              '</div>'
+              : '';
+
+            const inner = `
+              <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-blue-600 transition-colors">${icon}</span>
+              <p class="mt-3 text-sm text-slate-800 font-bold text-center">${title}</p>
+              <p class="mt-1 text-xs text-slate-500 text-center leading-relaxed">${desc}</p>
+              ${tagHtml}
+            `;
+
+            if (isLink){
+              return `
+                <a href="${url}" target="_blank" rel="noopener" class="icon-card group">
+                  ${inner}
+                </a>
+              `;
+            } else {
+              return `<div class="icon-card group">${inner}</div>`;
+            }
+          }).join('');
+
+          // Using the "Header with line" style requested
+          return `
+            <section>
+              <div class="flex items-center gap-4 mb-6">
+                <h2 class="section-heading">${section.heading || ''}</h2>
+                <div class="h-px bg-gray-200 flex-grow"></div>
+              </div>
+              
+              ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4">${section.subheading}</p>` : ''}
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${cardsHtml}
+              </div>
+            </section>
+          `;
+        }).join('');
+
+        PANEL_ROOT.innerHTML = html;
+      }
+
+      // Load JSON + initialise
+      fetch(JSON_URL, { cache: 'no-store' })
+        .then(r => r.json())
+        .then(data => {
+          TRACKS = Array.isArray(data.tracks) ? data.tracks : [];
+          if (!TRACKS.length){
+            PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">No tracks found.</p>';
+            return;
+          }
+          createPills(TRACKS);
+          setActiveTrack(TRACKS[0].id); // default to first track
+        })
+        .catch(err => {
+          console.error('Error loading A-level tracks JSON', err);
+          PANEL_ROOT.innerHTML =
+            '<div class="p-4 bg-red-50 text-red-600 rounded-lg text-sm">Unable to load content. Please ensure <code>assets/data/alevel_tracks.json</code> exists.</div>';
+        });
     })();
   </script>
+
 </body>
 </html>
