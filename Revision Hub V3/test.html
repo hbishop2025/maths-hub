@@ -29,75 +29,11 @@
 
     .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
 
-    .hero-shell { @apply relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
-
-    /* Hero wrapper */
-    .home-hero-wrap {
-      margin-top: clamp(1.25rem, 5vw, 3.5rem);
-      position: relative;
-      /* UPDATED: Removed overflow:hidden so search dropdown can hang out */
-      overflow: visible; 
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.25),
-        0 0 0 1px rgba(15,23,42,.35);
-      border-radius: 1.5rem; /* Keeps shadow rounded */
-    }
-
-    /* Static Background Image Layer */
-    .home-hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: #000;
-      /* UPDATED: Clip image here instead of parent */
-      border-radius: 1.5rem; 
-      overflow: hidden;
-    }
-
-    /* The Static Image itself */
-    .static-hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(1) saturate(1.05);
-    }
-
-    /* Gradient overlay on top of the image */
-    .home-hero-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(15,23,42,0.3), rgba(15,23,42,0.1)),
-        radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 55%);
-    }
-
-    /* Glass card on top of image */
-    .home-hero-card {
-      position: relative;
-      z-index: 1;
-      @apply px-6 sm:px-10 md:px-14 py-12 sm:py-16 text-center;
-      color: #E5E7EB;
-      /* UPDATED: Lighter fade/gradient */
-      background: linear-gradient(180deg, rgba(15,23,42,0.45), rgba(15,23,42,0.25));
-      backdrop-filter: blur(0px);
-      border-radius: 1.5rem; /* Match parent radius */
-    }
-
-    .home-hero-card h1 {
-      @apply text-4xl sm:text-5xl md:text-6xl font-black leading-tight mt-2;
-    }
-    .home-hero-card p {
-      @apply text-base sm:text-lg mt-3;
-      color: #E5E7EB;
-    }
-
     /* --- SMART SEARCH STYLES --- */
     .smart-wrap {
       width: clamp(240px, 42vw, 400px);
       transition: width .35s ease;
-      /* UPDATED: Reduced margin top (was 2rem) */
-      margin: 1.5rem auto 0; 
+      margin: 2rem auto 0;
       position: relative;
     }
     .smart-wrap:hover,
@@ -171,7 +107,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
-      z-index: 50; /* Ensure high z-index for overflow */
+      z-index: 50;
     }
     #searchSug.open {
       opacity: 1;
@@ -250,48 +186,52 @@
 
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <main class="relative pt-16">
+  <main class="relative pt-14 pb-20">
+
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Page Heavily Under Construction
+    </div>
     
     <section class="relative w-full h-[500px] flex items-center justify-center bg-[#020617] mb-16">
       
-      <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 z-0 overflow-hidden">
         <img src="assets/home-hero5.jpg" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.85]" />
         <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 text-center">
-        <div class="max-w-3xl mx-auto home-hero-wrap">
-           <div class="home-hero-bg"></div> <div class="home-hero-card">
-             <p class="uppercase tracking-widest text-xs font-bold text-blue-200 mb-4">
-               SJWMS Maths
-             </p>
-             
-             <h1 class="text-5xl md:text-6xl font-black text-white mb-6 leading-tight drop-shadow-xl">
-               What will you<br>
-               <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                 revise today
-               </span>
-               and master?
-             </h1>
-             
-             <p class="text-slate-300 text-lg font-medium drop-shadow-md leading-relaxed">
-               Use the smart search to find worksheets, videos and practice quizzes.
-             </p>
+        <div class="max-w-3xl mx-auto">
+           
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+             <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">SJWMS Maths</span>
+           </div>
+           
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+             What will you<br>
+             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+               revise today
+             </span>
+             and master?
+           </h1>
+           
+           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
+             Use the smart search to find worksheets, videos and practice quizzes.
+           </p>
 
-             <div id="smartWrap" class="smart-wrap">
-               <div class="glow-wrap">
-                 <div class="smart-pill">
-                   <span class="material-symbols-outlined text-gray-400">search</span>
-                   <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
-                          aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
-                          role="combobox"/>
-                 </div>
-                 <div id="searchSug" role="listbox"></div>
+           <div id="smartWrap" class="smart-wrap">
+             <div class="glow-wrap">
+               <div class="smart-pill">
+                 <span class="material-symbols-outlined text-gray-400">search</span>
+                 <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
+                        aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
+                        role="combobox"/>
                </div>
+               <div id="searchSug" role="listbox"></div>
              </div>
-             </div>
-
-        </div>
+           </div>
+           </div>
       </div>
     </section>
 
