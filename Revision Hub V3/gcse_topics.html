@@ -15,11 +15,9 @@
   <link rel="stylesheet" href="../assets/main.css"/>
 
   <style>
-    /* THEME OVERRIDES FOR SPACE LOOK */
+    /* THEME OVERRIDES */
     :root {
       --accent: #3B82F6; 
-      --accent-600: #2563EB;
-      --accent-700: #1D4ED8;
     }
 
     body { 
@@ -27,127 +25,59 @@
         background-color: #f8fafc; /* Slate-50 */
     }
 
-    .material-icons { font-size: 24px; }
+    .material-icons { font-size: 20px; } /* Smaller icons for compact cards */
     html { scroll-behavior: smooth; }
 
+    /* Modern Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
     
-    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
-
-    /* ===== Unit tiles Updated ===== */
-    .flip { 
-      perspective: 1000px; 
-      height: 18rem; /* Increased height slightly for breathing room */
-    }
-    
-    .flip-inner { 
-      position: relative; 
-      width: 100%; 
-      height: 100%; 
-      transform-style: preserve-3d; 
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother animation */
+    /* ===== Topic Tile Styles ===== */
+    .topic-tile {
+        position: relative;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
     }
 
-    /* Flip on Hover OR when Focused (Keyboard navigation) */
-    .flip:hover .flip-inner,
-    .flip:focus-within .flip-inner { 
-      transform: rotateY(180deg); 
+    /* Hover State: Lift + Glow Border */
+    .topic-tile:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: var(--theme-color);
     }
 
-    .flip-face { 
-      position: absolute; inset: 0; backface-visibility: hidden;
-      border-radius: 16px; overflow: hidden; /* Increased radius */
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e2e8f0;
-      background: #fff;
-      display: flex; flex-direction: column;
-    }
-
-    /* Hide scrollbar but allow scrolling if absolutely necessary */
-    .flip-face .scroll { 
-        overflow-y: auto; 
-        flex: 1; 
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none;  /* IE 10+ */
-        padding-bottom: 1rem;
-    }
-    .flip-face .scroll::-webkit-scrollbar { 
-        width: 0px; 
-        background: transparent; /* Chrome/Safari/Webkit */
-    }
-
-    /* Front Face Styling */
-    .flip-front {
-      background: #fff;
-      z-index: 2;
-    }
-    
-    /* Decoration for front face */
-    .flip-front::before {
+    /* The colored accent line on the left */
+    .topic-tile::before {
         content: "";
-        position: absolute; top: 0; left: 0; right: 0; height: 6px;
-        background: var(--bar, #3B82F6); /* Fallback color if var is missing */
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 4px;
+        background-color: var(--theme-color);
+        opacity: 0.6;
+        transition: opacity 0.3s;
     }
+    .topic-tile:hover::before { opacity: 1; }
 
-    /* Back Face Styling */
-    .flip-back {
-      transform: rotateY(180deg);
-      background: #f8fafc;
-      padding: 20px;
-      text-align: center;
+    /* Background gradient on hover */
+    .topic-tile::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent 60%, var(--theme-light));
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 0;
     }
+    .topic-tile:hover::after { opacity: 1; }
 
-    /* Typography & Elements */
-    .unit-badge {
-      font-weight: 800; font-size: 0.875rem; color: #fff; 
-      background: var(--bar, #3B82F6);
-      padding: 4px 12px; border-radius: 999px;
-      align-self: flex-start;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .unit-title { 
-        font-weight: 800; 
-        font-size: 1.25rem; 
-        line-height: 1.2;
-        color: #1e293b; 
-        margin-top: 0.75rem;
-    }
+    /* Content z-index fix */
+    .tile-content { position: relative; z-index: 10; }
 
-    .subtopic {
-      display: inline-block;
-      background: #fff; 
-      color: #475569; 
-      border: 1px solid #e2e8f0;
-      border-radius: 6px; 
-      padding: 4px 8px; 
-      font-size: 0.7rem; 
-      font-weight: 600; 
-      margin: 2px;
-    }
-
-    .cta-text {
-        margin-top: auto;
-        font-size: 0.875rem;
-        font-weight: 700;
-        color: var(--bar, #3B82F6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-    }
-
-    /* Whole card link reset */
-    .tile-link { display: block; outline: none; }
-    
-    /* Outline on the card itself when link is focused */
-    .tile-link:focus .flip-face {
-        ring: 2px solid #3B82F6;
-        border-color: #3B82F6;
-    }
   </style>
 </head>
 
@@ -167,7 +97,7 @@
         </div>
       </header>
 
-      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-8 group bg-slate-900">
+      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-10 group bg-slate-900">
         <div class="absolute inset-0 z-0">
             <img src="../assets/home-hero1.jpg" alt="Space Horizon" 
                  class="w-full h-full object-cover object-center opacity-80" />
@@ -202,489 +132,232 @@
         </div>
       </section>
 
-      <!-- Units grid -->
-      <section aria-label="Year 8 Units">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">Units</h2>
+      <section aria-label="GCSE Units">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Topic Units</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <!-- 01 -->
-          <a href="year_gcse/gcse_unit01.html" class="tile-link flip" aria-label="View Unit 01: Factors and Powers">
-  <div class="flip-inner" style="--bar: #F59E0B;"> 
-    
-    <div class="flip-face flip-front p-6">
-      <span class="unit-badge">01</span>
-      <div class="mt-4">
-        <h3 class="unit-title">Factors &amp; Powers</h3>
-        <p class="text-sm text-slate-500 font-medium mt-1">Number Strand</p>
-      </div>
-      <span class="material-icons absolute bottom-4 right-4 text-slate-100 text-6xl select-none">calculate</span>
-    </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 
-    <div class="flip-face flip-back">
-      <div class="scroll">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Key Concepts</p>
-        <div class="flex flex-wrap justify-center gap-1">
-          <span class="subtopic">Prime Decomposition</span>
-          <span class="subtopic">Index Laws</span>
-          <span class="subtopic">Standard Form</span>
-          <span class="subtopic">Estimation</span>
-          <span class="subtopic">Upper/Lower Bounds</span>
-        </div>
-      </div>
-      
-      <div class="cta-text">
-        Open Unit <span class="material-icons text-sm">arrow_forward</span>
-      </div>
-    </div>
-  </div>
-</a>
-
-          <!-- 02 -->
-          <a href="year_gcse/gcse_unit02.html" class="tile-link flip unit-card" aria-label="Open Unit 02">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">02</span>
-                <h3 class="unit-title">Working with powers</h3>
-                <p class="text-sm text-gray-600 mt-1">Algebra</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">2.1 Simplifying expressions</span>
-                    <span class="subtopic">2.2 More simplifying</span>
-                    <span class="subtopic">2.3 Expanding and factorising</span>
-                    <span class="subtopic">2.4 Substituting and solving</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit01.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">01 Number</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Factors &amp; Powers</h3>
             </div>
           </a>
 
-          <!-- 03 -->
-          <a href="year_gcse/gcse_unit03.html" class="tile-link flip unit-card" aria-label="Open Unit 03">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">03</span>
-                <h3 class="unit-title">2D Shapes &amp; 3D Solids</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">3.1 Plans and elevations</span>
-                    <span class="subtopic">3.2 Surface area of prisms</span>
-                    <span class="subtopic">3.3 Volume of prisms</span>
-                    <span class="subtopic">3.4 Circumference of a circle</span>
-                    <span class="subtopic">3.5 Area of a circle</span>
-                    <span class="subtopic">3.6 Working with Cylinders</span>
-                    <span class="subtopic">3.7 Pythagoras' Theorem</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit02.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">02 Algebra</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Working with Powers</h3>
             </div>
           </a>
 
-          <!-- 04 -->
-          <a href="year_gcse/gcse_unit04.html" class="tile-link flip unit-card" aria-label="Open Unit 04">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">04</span>
-                <h3 class="unit-title">Real life graphs</h3>
-                <p class="text-sm text-gray-600 mt-1">Data Handling</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">4.1 Direct proportion</span>
-                    <span class="subtopic">4.2 Interpreting financial graphs</span>
-                    <span class="subtopic">4.3 Distance-time graphs</span>
-                    <span class="subtopic">4.4 Rates of change</span>
-                    <span class="subtopic">4.5 Misleading graphs</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit03.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">03 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">2D Shapes &amp; 3D Solids</h3>
             </div>
           </a>
 
-          <!-- 05 -->
-          <a href="year_gcse/gcse_unit05.html" class="tile-link flip unit-card" aria-label="Open Unit 05">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">05</span>
-                <h3 class="unit-title">Transformation</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">5.1 Reflection &amp; Translation</span>
-                    <span class="subtopic">5.2 Rotation</span>
-                    <span class="subtopic">5.3/4 Enlargement</span>
-                    <span class="subtopic">5.5 STEM: Combining transformations</span>
-                    <span class="subtopic">5.6 2D shapes &amp; 3D solids</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit04.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">04 Data</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Real Life Graphs</h3>
             </div>
           </a>
 
-          <!-- 06 -->
-          <a href="year_gcse/gcse_unit06.html" class="tile-link flip unit-card" aria-label="Open Unit 06">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">06</span>
-                <h3 class="unit-title">Fractions, decimals and percentages</h3>
-                <p class="text-sm text-gray-600 mt-1">Number</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">6.1 Recurring decimals</span>
-                    <span class="subtopic">6.2 Using percentages</span>
-                    <span class="subtopic">6.3 Percentage change</span>
-                    <span class="subtopic">6.4 Repeated percentage change</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit05.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">05 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Transformation</h3>
             </div>
           </a>
 
-          <!-- 07 -->
-          <a href="year_gcse/gcse_unit07.html" class="tile-link flip unit-card" aria-label="Open Unit 07">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">07</span>
-                <h3 class="unit-title">Construction &amp; Loci</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">7.1 Accurate drawings</span>
-                    <span class="subtopic">7.2 Constructing shapes</span>
-                    <span class="subtopic">7.3/4 Constructions</span>
-                    <span class="subtopic">7.5 Loci</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit06.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">06 Number</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Fractions, Decimals &amp; %</h3>
             </div>
           </a>
 
-          <!-- 08 -->
-          <a href="year_gcse/gcse_unit08.html" class="tile-link flip unit-card" aria-label="Open Unit 08">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">08</span>
-                <h3 class="unit-title">Probability</h3>
-                <p class="text-sm text-gray-600 mt-1">Data handling</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">8.1 Comparing probabilities</span>
-                    <span class="subtopic">8.2 Mutually exlusive</span>
-                    <span class="subtopic">8.3 Estimating probability</span>
-                    <span class="subtopic">8.4 Experimental probability</span>
-                    <span class="subtopic">8.5 Probability diagrams</span>
-                    <span class="subtopic">8.6 Tree diagrams</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit07.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">07 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Construction &amp; Loci</h3>
             </div>
           </a>
 
-          <!-- 09 -->
-          <a href="year_gcse/gcse_unit09.html" class="tile-link flip unit-card" aria-label="Open Unit 09">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">09</span>
-                <h3 class="unit-title">Scale drawings &amp; measures</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">9.1 Maps &amp; scales</span>
-                    <span class="subtopic">9.2 Bearings</span>
-                    <span class="subtopic">9.3 Scale &amp; ratio</span>
-                    <span class="subtopic">9.4 Congruent &amp; similar shapes</span>
-                    <span class="subtopic">9.5 Solving geometry problems</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit08.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">08 Data</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Probability</h3>
             </div>
           </a>
 
-          <!-- 10 -->
-          <a href="year_gcse/gcse_unit10.html" class="tile-link flip unit-card" aria-label="Open Unit 10">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">10</span>
-                <h3 class="unit-title">Graphs</h3>
-                <p class="text-sm text-gray-600 mt-1">Algebra</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">10.1 Plotting linear graphs</span>
-                    <span class="subtopic">10.2 The gradient</span>
-                    <span class="subtopic">10.3 y = mx + c</span>
-                    <span class="subtopic">10.4 Parallel &amp; perpendicular lines</span>
-                    <span class="subtopic">10.5 Inverse functions</span>
-                    <span class="subtopic">10.6 Non-linear graphs</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit09.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">09 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Scale Drawings</h3>
             </div>
           </a>
 
-          <!-- 11 -->
-          <a href="year_gcse/gcse_unit11.html" class="tile-link flip unit-card" aria-label="Open Unit 01">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">11</span>
-                <h3 class="unit-title">Factors &amp; Powers</h3>
-                <p class="text-sm text-gray-600 mt-1">Number</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">1.1 Prime factor decomposition</span>
-                    <span class="subtopic">1.2 Laws of Indices</span>
-                    <span class="subtopic">1.3 STEM: Powers of 10</span>
-                    <span class="subtopic">1.4 Calc. and estimating</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit10.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">10 Algebra</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Graphs</h3>
             </div>
           </a>
 
-          <!-- 12 -->
-          <a href="year_gcse/gcse_unit12.html" class="tile-link flip unit-card" aria-label="Open Unit 02">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">12</span>
-                <h3 class="unit-title">Working with powers</h3>
-                <p class="text-sm text-gray-600 mt-1">Algebra</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">2.1 Simplifying expressions</span>
-                    <span class="subtopic">2.2 More simplifying</span>
-                    <span class="subtopic">2.3 Expanding and factorising</span>
-                    <span class="subtopic">2.4 Substituting and solving</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit11.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">11 Number</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Factors &amp; Powers</h3>
             </div>
           </a>
 
-          <!-- 13 -->
-          <a href="year_gcse/gcse_unit13.html" class="tile-link flip unit-card" aria-label="Open Unit 03">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">13</span>
-                <h3 class="unit-title">2D Shapes &amp; 3D Solids</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">3.1 Plans and elevations</span>
-                    <span class="subtopic">3.2 Surface area of prisms</span>
-                    <span class="subtopic">3.3 Volume of prisms</span>
-                    <span class="subtopic">3.4 Circumference of a circle</span>
-                    <span class="subtopic">3.5 Area of a circle</span>
-                    <span class="subtopic">3.6 Working with Cylinders</span>
-                    <span class="subtopic">3.7 Pythagoras' Theorem</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit12.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">12 Algebra</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Working with Powers</h3>
             </div>
           </a>
 
-          <!-- 14 -->
-          <a href="year_gcse/gcse_unit14.html" class="tile-link flip unit-card" aria-label="Open Unit 04">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">14</span>
-                <h3 class="unit-title">Real life graphs</h3>
-                <p class="text-sm text-gray-600 mt-1">Data Handling</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">4.1 Direct proportion</span>
-                    <span class="subtopic">4.2 Interpreting financial graphs</span>
-                    <span class="subtopic">4.3 Distance-time graphs</span>
-                    <span class="subtopic">4.4 Rates of change</span>
-                    <span class="subtopic">4.5 Misleading graphs</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit13.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">13 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">2D &amp; 3D Solids</h3>
             </div>
           </a>
 
-          <!-- 15 -->
-          <a href="year_gcse/gcse_unit15.html" class="tile-link flip unit-card" aria-label="Open Unit 05">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">15</span>
-                <h3 class="unit-title">Transformation</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">5.1 Reflection &amp; Translation</span>
-                    <span class="subtopic">5.2 Rotation</span>
-                    <span class="subtopic">5.3/4 Enlargement</span>
-                    <span class="subtopic">5.5 STEM: Combining transformations</span>
-                    <span class="subtopic">5.6 2D shapes &amp; 3D solids</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit14.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">14 Data</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Real Life Graphs</h3>
             </div>
           </a>
 
-          <!-- 16 -->
-          <a href="year_gcse/gcse_unit16.html" class="tile-link flip unit-card" aria-label="Open Unit 06">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">16</span>
-                <h3 class="unit-title">Fractions, decimals and percentages</h3>
-                <p class="text-sm text-gray-600 mt-1">Number</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">6.1 Recurring decimals</span>
-                    <span class="subtopic">6.2 Using percentages</span>
-                    <span class="subtopic">6.3 Percentage change</span>
-                    <span class="subtopic">6.4 Repeated percentage change</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit15.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">15 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Transformation</h3>
             </div>
           </a>
 
-          <!-- 17 -->
-          <a href="year_gcse/gcse_unit17.html" class="tile-link flip unit-card" aria-label="Open Unit 07">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">17</span>
-                <h3 class="unit-title">Construction &amp; Loci</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">7.1 Accurate drawings</span>
-                    <span class="subtopic">7.2 Constructing shapes</span>
-                    <span class="subtopic">7.3/4 Constructions</span>
-                    <span class="subtopic">7.5 Loci</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit16.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">16 Number</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Fractions &amp; %</h3>
             </div>
           </a>
 
-          <!-- 18 -->
-          <a href="year_gcse/gcse_unit18.html" class="tile-link flip unit-card" aria-label="Open Unit 08">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">18</span>
-                <h3 class="unit-title">Probability</h3>
-                <p class="text-sm text-gray-600 mt-1">Data handling</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">8.1 Comparing probabilities</span>
-                    <span class="subtopic">8.2 Mutually exlusive</span>
-                    <span class="subtopic">8.3 Estimating probability</span>
-                    <span class="subtopic">8.4 Experimental probability</span>
-                    <span class="subtopic">8.5 Probability diagrams</span>
-                    <span class="subtopic">8.6 Tree diagrams</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit17.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">17 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Construction</h3>
             </div>
           </a>
 
-          <!-- 19 -->
-          <a href="year_gcse/gcse_unit19.html" class="tile-link flip unit-card" aria-label="Open Unit 09">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">19</span>
-                <h3 class="unit-title">Scale drawings &amp; measures</h3>
-                <p class="text-sm text-gray-600 mt-1">Geometry</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">9.1 Maps &amp; scales</span>
-                    <span class="subtopic">9.2 Bearings</span>
-                    <span class="subtopic">9.3 Scale &amp; ratio</span>
-                    <span class="subtopic">9.4 Congruent &amp; similar shapes</span>
-                    <span class="subtopic">9.5 Solving geometry problems</span>
-                  </div>
-                </div>
-              </div>
+          <a href="year_gcse/gcse_unit18.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">18 Data</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Probability</h3>
+            </div>
+          </a>
+
+          <a href="year_gcse/gcse_unit19.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             style="--theme-color: #10b981; --theme-light: #ecfdf5;">
+            <div class="tile-content flex justify-between items-start">
+               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">19 Geometry</span>
+               <span class="material-icons text-slate-300">arrow_forward</span>
+            </div>
+            <div class="tile-content">
+               <h3 class="font-bold text-slate-800 leading-tight">Scale Drawings</h3>
             </div>
           </a>
 
         </div>
       </section>
 
-      <!-- Spacer -->
       <div class="h-8"></div>
 
     </main>
   </div>
 
   <script src="../assets/sidebar-loader.js"></script>
- 
-  
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 </body>
 </html>
