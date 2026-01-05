@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg" href="../assets/favicon.svg" />
+  <title>GCSE | Topics</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="../assets/main.css"/>
+
+  <style>
+    /* THEME OVERRIDES FOR SPACE LOOK */
+    :root {
+      --accent: #3B82F6; 
+      --accent-600: #2563EB;
+      --accent-700: #1D4ED8;
+    }
+
+    body { 
+        font-family: 'Lexend', sans-serif; 
+        background-color: #f8fafc; /* Slate-50 */
+    }
+
+    .material-icons { font-size: 24px; }
+    html { scroll-behavior: smooth; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+    
+    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
+  </style>
+</head>
+
+<body class="text-slate-900">
+
+  <div class="layout flex h-screen overflow-hidden">
+    
+    <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
+
+    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
+      
+      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+          <a href="../gcse_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
+            <span class="material-icons mr-1">arrow_back</span> Back to Hub
+          </a>
+        </div>
+      </header>
+
+      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-8 group bg-slate-900">
+        <div class="absolute inset-0 z-0">
+            <img src="../assets/gcse_image2.png" alt="Space Horizon" 
+                 class="w-full h-full object-cover object-center opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-start justify-between gap-6">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 mb-3">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
+                      KS4 Year 10 & 11
+                    </span>
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
+                  GCSE <span class="text-blue-400">Topics</span>
+                </h1>
+                
+                <p class="text-slate-300 text-lg font-medium leading-relaxed drop-shadow-md">
+                   Master the transition before Year 10 starts. This module bridges the gap between KS3 mastery and GCSE application.
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="#section-factorising" class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition backdrop-blur-md">
+                        <span class="material-icons text-sm mr-2">play_circle</span> Watch Videos
+                    </a>
+                    <a href="#section-algebra" class="inline-flex items-center px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition">
+                        <span class="material-icons text-sm mr-2">description</span> Get Worksheets
+                    </a>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      
+
+    </main>
+  </div>
+
+  <script src="../assets/sidebar-loader.js"></script>
+ 
+  
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</body>
+</html>
