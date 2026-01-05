@@ -25,7 +25,7 @@
         background-color: #f8fafc; /* Slate-50 */
     }
 
-    .material-icons { font-size: 20px; } /* Smaller icons for compact cards */
+    .material-icons { font-size: 20px; }
     html { scroll-behavior: smooth; }
 
     /* Modern Scrollbar */
@@ -36,19 +36,32 @@
     /* ===== Topic Tile Styles ===== */
     .topic-tile {
         position: relative;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        background-color: #ffffff;
+        
+        /* UPDATED: Diagonal Stripe Pattern */
+        background-image: repeating-linear-gradient(
+            135deg,
+            #ffffff 0px,
+            #ffffff 10px,
+            #f1f5f9 10px, /* Very light gray stripe (Slate-100) */
+            #f1f5f9 20px
+        );
+
+        /* UPDATED: Slightly stronger border for contrast */
+        border: 1px solid #cbd5e1; 
+        
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
     }
 
-    /* Hover State: Lift + Glow Border */
+    /* Hover State: Lift + Glow Border + White Background */
     .topic-tile:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         border-color: var(--theme-color);
+        /* Remove stripes on hover for a "focus" effect, or keep them. 
+           Here we fade them out by overlaying the gradient below. */
     }
 
     /* The colored accent line on the left */
@@ -58,20 +71,22 @@
         left: 0; top: 0; bottom: 0;
         width: 4px;
         background-color: var(--theme-color);
-        opacity: 0.6;
+        opacity: 0.8; /* Increased visibility */
         transition: opacity 0.3s;
+        z-index: 2;
     }
     .topic-tile:hover::before { opacity: 1; }
 
-    /* Background gradient on hover */
+    /* Background gradient on hover (Clean look) */
     .topic-tile::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, transparent 60%, var(--theme-light));
+        /* This gradient sits on top of the stripes on hover */
+        background: linear-gradient(135deg, #ffffff 40%, var(--theme-light));
         opacity: 0;
         transition: opacity 0.3s;
-        z-index: 0;
+        z-index: 1;
     }
     .topic-tile:hover::after { opacity: 1; }
 
@@ -143,8 +158,8 @@
           <a href="year_gcse/gcse_unit01.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">01 Number</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">01 Number</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Factors &amp; Powers</h3>
@@ -154,8 +169,8 @@
           <a href="year_gcse/gcse_unit02.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">02 Algebra</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">02 Algebra</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Working with Powers</h3>
@@ -165,8 +180,8 @@
           <a href="year_gcse/gcse_unit03.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">03 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">03 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">2D Shapes &amp; 3D Solids</h3>
@@ -176,8 +191,8 @@
           <a href="year_gcse/gcse_unit04.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">04 Data</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">04 Data</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Real Life Graphs</h3>
@@ -187,8 +202,8 @@
           <a href="year_gcse/gcse_unit05.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">05 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Transformation</h3>
@@ -198,8 +213,8 @@
           <a href="year_gcse/gcse_unit06.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">06 Number</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">06 Number</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Fractions, Decimals &amp; %</h3>
@@ -209,8 +224,8 @@
           <a href="year_gcse/gcse_unit07.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">07 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">07 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Construction &amp; Loci</h3>
@@ -220,8 +235,8 @@
           <a href="year_gcse/gcse_unit08.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">08 Data</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">08 Data</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Probability</h3>
@@ -231,8 +246,8 @@
           <a href="year_gcse/gcse_unit09.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">09 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">09 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Scale Drawings</h3>
@@ -242,8 +257,8 @@
           <a href="year_gcse/gcse_unit10.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">10 Algebra</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">10 Algebra</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Graphs</h3>
@@ -253,8 +268,8 @@
           <a href="year_gcse/gcse_unit11.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">11 Number</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">11 Number</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Factors &amp; Powers</h3>
@@ -264,8 +279,8 @@
           <a href="year_gcse/gcse_unit12.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">12 Algebra</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">12 Algebra</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Working with Powers</h3>
@@ -275,8 +290,8 @@
           <a href="year_gcse/gcse_unit13.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">13 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">13 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">2D &amp; 3D Solids</h3>
@@ -286,8 +301,8 @@
           <a href="year_gcse/gcse_unit14.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">14 Data</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">14 Data</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Real Life Graphs</h3>
@@ -297,8 +312,8 @@
           <a href="year_gcse/gcse_unit15.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">15 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">15 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Transformation</h3>
@@ -308,8 +323,8 @@
           <a href="year_gcse/gcse_unit16.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">16 Number</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">16 Number</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Fractions &amp; %</h3>
@@ -319,8 +334,8 @@
           <a href="year_gcse/gcse_unit17.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">17 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">17 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Construction</h3>
@@ -330,8 +345,8 @@
           <a href="year_gcse/gcse_unit18.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">18 Data</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">18 Data</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Probability</h3>
@@ -341,8 +356,8 @@
           <a href="year_gcse/gcse_unit19.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
-               <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">19 Geometry</span>
-               <span class="material-icons text-slate-300">arrow_forward</span>
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">19 Geometry</span>
+               <span class="material-icons text-slate-400">arrow_forward</span>
             </div>
             <div class="tile-content">
                <h3 class="font-bold text-slate-800 leading-tight">Scale Drawings</h3>
@@ -358,6 +373,5 @@
   </div>
 
   <script src="../assets/sidebar-loader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
 </body>
 </html>
