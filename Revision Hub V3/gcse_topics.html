@@ -36,6 +36,67 @@
     
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
+
+    /* ===== Unit tiles (consistent size) ===== */
+    .flip        { perspective:1000px; }
+    .flip-inner  { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition: transform .6s; }
+    .flip:hover .flip-inner { transform: rotateY(180deg); }
+
+    .flip-face   { 
+      position:absolute; inset:0; backface-visibility:hidden;
+      border-radius:14px; overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      border:1px solid rgba(0,0,0,.06);
+      background:#fff;
+      display:flex; flex-direction:column;
+    }
+
+    .unit-card   { height:16rem; } /* fixed height for all */
+    .flip-inner  { height:100%; }
+    .flip-face .scroll { overflow:auto; flex:1; }
+
+    /* Front face: subtle stripes + dark bar */
+    .flip-front{
+      background:#fff;
+      position:relative;
+      padding:16px;
+    }
+    .flip-front::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(-45deg,
+          rgba(0,0,0,0.03) 0px,
+          rgba(0,0,0,0.03) 8px,
+          transparent 8px,
+          transparent 16px);
+      pointer-events:none;
+    }
+    .flip-front .bar{
+      position:absolute; left:0; right:0; top:0; height:5px;
+      background: var(--bar);
+    }
+
+    .flip-back{
+      transform: rotateY(180deg);
+      padding:16px;
+    }
+
+    .unit-badge{
+      font-weight:800; font-size:14px; color:#fff; background:var(--bar);
+      padding:4px 10px; border-radius:999px;
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:2.25rem; box-shadow:0 2px 6px rgba(0,0,0,.2);
+    }
+    .unit-title{ font-weight:800; font-size: clamp(18px, 2.4vw, 20px); color:#111; }
+    .subtopic{
+      background:#f3f4f6; color:#374151; border:1px solid #e5e7eb;
+      border-radius:999px; padding:4px 8px; font-size:12px; font-weight:600; white-space:nowrap;
+    }
+
+    /* Whole card is a link */
+    .tile-link { display:block; outline:none; height:100%; }
+    .tile-link:focus .flip-face{ box-shadow:0 0 0 3px rgba(31,41,55,.3), 0 8px 24px rgba(0,0,0,.10); }
   </style>
 </head>
 
