@@ -60,29 +60,24 @@
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         border-color: var(--theme-color);
-        /* Remove stripes on hover for a "focus" effect, or keep them. 
-           Here we fade them out by overlaying the gradient below. */
     }
 
-    /* The colored accent line on the left */
     .topic-tile::before {
         content: "";
         position: absolute;
         left: 0; top: 0; bottom: 0;
         width: 4px;
         background-color: var(--theme-color);
-        opacity: 0.8; /* Increased visibility */
+        opacity: 0.8; 
         transition: opacity 0.3s;
         z-index: 2;
     }
     .topic-tile:hover::before { opacity: 1; }
 
-    /* Background gradient on hover (Clean look) */
     .topic-tile::after {
         content: "";
         position: absolute;
         inset: 0;
-        /* This gradient sits on top of the stripes on hover */
         background: linear-gradient(135deg, #ffffff 40%, var(--theme-light));
         opacity: 0;
         transition: opacity 0.3s;
@@ -90,8 +85,14 @@
     }
     .topic-tile:hover::after { opacity: 1; }
 
-    /* Content z-index fix */
     .tile-content { position: relative; z-index: 10; }
+
+    /* Filter Button Active State */
+    .filter-btn.active {
+        background-color: var(--btn-color, #334155);
+        color: white;
+        border-color: var(--btn-color, #334155);
+    }
 
   </style>
 </head>
@@ -148,14 +149,25 @@
       </section>
 
       <section aria-label="GCSE Units">
-        <div class="flex items-center gap-4 mb-6">
-          <h2 class="text-2xl font-bold text-gray-800">Topic Units</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div class="flex items-center gap-4">
+            <h2 class="text-2xl font-bold text-gray-800">Topic Units</h2>
+            <div class="h-px bg-gray-200 w-12 hidden md:block"></div>
+          </div>
+          
+          <div class="flex flex-wrap gap-2" id="filter-container">
+            <button onclick="filterTopics('all')" class="filter-btn active px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition" style="--btn-color: #475569;">All</button>
+            <button onclick="filterTopics('number')" class="filter-btn px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-amber-50 transition" style="--btn-color: #d97706;">Number</button>
+            <button onclick="filterTopics('algebra')" class="filter-btn px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-blue-50 transition" style="--btn-color: #2563eb;">Algebra</button>
+            <button onclick="filterTopics('shape')" class="filter-btn px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-emerald-50 transition" style="--btn-color: #059669;">Shape</button>
+            <button onclick="filterTopics('data')" class="filter-btn px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-pink-50 transition" style="--btn-color: #db2777;">Data</button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="topics-grid">
 
           <a href="year_gcse/gcse_unit01.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="number"
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">01 Number</span>
@@ -167,6 +179,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit02.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">02 Algebra</span>
@@ -178,6 +191,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit03.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">03 Data</span>
@@ -189,6 +203,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit04.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="number"
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">04 Number</span>
@@ -200,6 +215,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit05.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 Geometry</span>
@@ -211,6 +227,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit06.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">06 Algebra</span>
@@ -222,6 +239,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit07.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">07 Geometry</span>
@@ -233,6 +251,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit08.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">08 Geometry</span>
@@ -244,6 +263,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit09.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">09 Algebra</span>
@@ -255,6 +275,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit10.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">10 Data</span>
@@ -266,6 +287,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit11.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">11 Measures</span>
@@ -277,6 +299,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit12.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">12 Geometry</span>
@@ -288,6 +311,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit13.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">13 Geometry</span>
@@ -299,6 +323,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit14.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">14 Data</span>
@@ -310,6 +335,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit15.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">15 Algebra</span>
@@ -321,6 +347,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit16.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">16 Geometry</span>
@@ -332,6 +359,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit17.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">17 Algebra</span>
@@ -343,6 +371,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit18.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">18 Geometry</span>
@@ -354,6 +383,7 @@
           </a>
 
           <a href="year_gcse/gcse_unit19.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+             data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">19 Algebra</span>
@@ -373,5 +403,39 @@
   </div>
 
   <script src="../assets/sidebar-loader.js"></script>
+  
+  <script>
+    function filterTopics(category) {
+        // 1. Get all cards
+        const cards = document.querySelectorAll('.topic-tile');
+        
+        // 2. Loop through and Toggle Visibility
+        cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.classList.remove('hidden');
+                card.classList.add('flex'); // Ensure it displays as flex (to keep layout)
+            } else {
+                card.classList.add('hidden');
+                card.classList.remove('flex');
+            }
+        });
+
+        // 3. Update Button Styling
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            // Check if this button was the one clicked
+            // (We check the onclick attribute content or pass 'this' - simpler to match text content or logic)
+            // Simpler approach: check if the function arg matches the intended button type
+            
+            // Reset all to inactive look
+            btn.classList.remove('active');
+            
+            // If this button corresponds to the category clicked, make active
+            if(btn.getAttribute('onclick').includes(`'${category}'`)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+  </script>
 </body>
 </html>
