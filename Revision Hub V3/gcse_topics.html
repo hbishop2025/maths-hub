@@ -37,66 +37,117 @@
     mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
     mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
 
-    /* ===== Unit tiles (consistent size) ===== */
-    .flip        { perspective:1000px; }
-    .flip-inner  { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition: transform .6s; }
-    .flip:hover .flip-inner { transform: rotateY(180deg); }
-
-    .flip-face   { 
-      position:absolute; inset:0; backface-visibility:hidden;
-      border-radius:14px; overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-      border:1px solid rgba(0,0,0,.06);
-      background:#fff;
-      display:flex; flex-direction:column;
+    /* ===== Unit tiles Updated ===== */
+    .flip { 
+      perspective: 1000px; 
+      height: 18rem; /* Increased height slightly for breathing room */
+    }
+    
+    .flip-inner { 
+      position: relative; 
+      width: 100%; 
+      height: 100%; 
+      transform-style: preserve-3d; 
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother animation */
     }
 
-    .unit-card   { height:16rem; } /* fixed height for all */
-    .flip-inner  { height:100%; }
-    .flip-face .scroll { overflow:auto; flex:1; }
-
-    /* Front face: subtle stripes + dark bar */
-    .flip-front{
-      background:#fff;
-      position:relative;
-      padding:16px;
-    }
-    .flip-front::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        repeating-linear-gradient(-45deg,
-          rgba(0,0,0,0.03) 0px,
-          rgba(0,0,0,0.03) 8px,
-          transparent 8px,
-          transparent 16px);
-      pointer-events:none;
-    }
-    .flip-front .bar{
-      position:absolute; left:0; right:0; top:0; height:5px;
-      background: var(--bar);
+    /* Flip on Hover OR when Focused (Keyboard navigation) */
+    .flip:hover .flip-inner,
+    .flip:focus-within .flip-inner { 
+      transform: rotateY(180deg); 
     }
 
-    .flip-back{
+    .flip-face { 
+      position: absolute; inset: 0; backface-visibility: hidden;
+      border-radius: 16px; overflow: hidden; /* Increased radius */
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      display: flex; flex-direction: column;
+    }
+
+    /* Hide scrollbar but allow scrolling if absolutely necessary */
+    .flip-face .scroll { 
+        overflow-y: auto; 
+        flex: 1; 
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE 10+ */
+        padding-bottom: 1rem;
+    }
+    .flip-face .scroll::-webkit-scrollbar { 
+        width: 0px; 
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
+
+    /* Front Face Styling */
+    .flip-front {
+      background: #fff;
+      z-index: 2;
+    }
+    
+    /* Decoration for front face */
+    .flip-front::before {
+        content: "";
+        position: absolute; top: 0; left: 0; right: 0; height: 6px;
+        background: var(--bar, #3B82F6); /* Fallback color if var is missing */
+    }
+
+    /* Back Face Styling */
+    .flip-back {
       transform: rotateY(180deg);
-      padding:16px;
+      background: #f8fafc;
+      padding: 20px;
+      text-align: center;
     }
 
-    .unit-badge{
-      font-weight:800; font-size:14px; color:#fff; background:var(--bar);
-      padding:4px 10px; border-radius:999px;
-      display:inline-flex; align-items:center; justify-content:center;
-      min-width:2.25rem; box-shadow:0 2px 6px rgba(0,0,0,.2);
+    /* Typography & Elements */
+    .unit-badge {
+      font-weight: 800; font-size: 0.875rem; color: #fff; 
+      background: var(--bar, #3B82F6);
+      padding: 4px 12px; border-radius: 999px;
+      align-self: flex-start;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .unit-title{ font-weight:800; font-size: clamp(18px, 2.4vw, 20px); color:#111; }
-    .subtopic{
-      background:#f3f4f6; color:#374151; border:1px solid #e5e7eb;
-      border-radius:999px; padding:4px 8px; font-size:12px; font-weight:600; white-space:nowrap;
+    
+    .unit-title { 
+        font-weight: 800; 
+        font-size: 1.25rem; 
+        line-height: 1.2;
+        color: #1e293b; 
+        margin-top: 0.75rem;
     }
 
-    /* Whole card is a link */
-    .tile-link { display:block; outline:none; height:100%; }
-    .tile-link:focus .flip-face{ box-shadow:0 0 0 3px rgba(31,41,55,.3), 0 8px 24px rgba(0,0,0,.10); }
+    .subtopic {
+      display: inline-block;
+      background: #fff; 
+      color: #475569; 
+      border: 1px solid #e2e8f0;
+      border-radius: 6px; 
+      padding: 4px 8px; 
+      font-size: 0.7rem; 
+      font-weight: 600; 
+      margin: 2px;
+    }
+
+    .cta-text {
+        margin-top: auto;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--bar, #3B82F6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    /* Whole card link reset */
+    .tile-link { display: block; outline: none; }
+    
+    /* Outline on the card itself when link is focused */
+    .tile-link:focus .flip-face {
+        ring: 2px solid #3B82F6;
+        border-color: #3B82F6;
+    }
   </style>
 </head>
 
@@ -159,27 +210,36 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <!-- 01 -->
-          <a href="year_gcse/gcse_unit01.html" class="tile-link flip unit-card" aria-label="Open Unit 01">
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <div class="bar"></div>
-                <span class="unit-badge mb-3">01</span>
-                <h3 class="unit-title">Factors &amp; Powers</h3>
-                <p class="text-sm text-gray-600 mt-1">Number</p>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="scroll">
-                  <p class="font-bold text-gray-800 mb-2">Subtopics</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="subtopic">1.1 Prime factor decomposition</span>
-                    <span class="subtopic">1.2 Laws of Indices</span>
-                    <span class="subtopic">1.3 STEM: Powers of 10</span>
-                    <span class="subtopic">1.4 Calc. and estimating</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
+          <a href="year_gcse/gcse_unit01.html" class="tile-link flip" aria-label="View Unit 01: Factors and Powers">
+  <div class="flip-inner" style="--bar: #F59E0B;"> 
+    
+    <div class="flip-face flip-front p-6">
+      <span class="unit-badge">01</span>
+      <div class="mt-4">
+        <h3 class="unit-title">Factors &amp; Powers</h3>
+        <p class="text-sm text-slate-500 font-medium mt-1">Number Strand</p>
+      </div>
+      <span class="material-icons absolute bottom-4 right-4 text-slate-100 text-6xl select-none">calculate</span>
+    </div>
+
+    <div class="flip-face flip-back">
+      <div class="scroll">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Key Concepts</p>
+        <div class="flex flex-wrap justify-center gap-1">
+          <span class="subtopic">Prime Decomposition</span>
+          <span class="subtopic">Index Laws</span>
+          <span class="subtopic">Standard Form</span>
+          <span class="subtopic">Estimation</span>
+          <span class="subtopic">Upper/Lower Bounds</span>
+        </div>
+      </div>
+      
+      <div class="cta-text">
+        Open Unit <span class="material-icons text-sm">arrow_forward</span>
+      </div>
+    </div>
+  </div>
+</a>
 
           <!-- 02 -->
           <a href="year_gcse/gcse_unit02.html" class="tile-link flip unit-card" aria-label="Open Unit 02">
