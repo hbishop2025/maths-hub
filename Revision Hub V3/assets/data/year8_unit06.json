@@ -20,5 +20,21 @@
       "code": "U332",
       "note": "Compound interest"
     }
+  ],
+  "items": [
+    {
+      "active": true,
+      "title": "Recurring decimals to Fractions",
+      "url": "https://www.youtube.com/watch?v=LhfBLYQ5T7E",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T16:19:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Percentages Worksheet",
+      "url": "https://drive.google.com/file/d/1ubx5QsVN8mHXNnXJimZfooNJbW71f5GQ/view?usp=drive_link",
+      "blockkey": "worksheets",
+      "addediso": "2026-01-10T16:38:00.000+00:00"
+    }
   ]
 }
