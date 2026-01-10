@@ -36,7 +36,15 @@
     {
       "active": true,
       "year": "y7",
-      "title": "Coming Term 5",
+      "url": "https://drive.google.com/file/d/1VMALVqtzriuEZTC-HtIau2wcBzjLv8Qc/view?usp=sharing",
+      "title": "Revision Guide",
+      "date": "2026-01-10",
+      "type": "pdf"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "More Coming Term 5",
       "url": "https://www.google.com/",
       "type": "pdf",
       "date": "2026-01-06"
