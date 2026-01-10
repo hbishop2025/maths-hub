@@ -49,6 +49,13 @@
       "url": "https://www.youtube.com/watch?v=z8NUrhU2e6M",
       "blockkey": "videos",
       "addediso": "2026-01-10T15:59:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Pythagoras' Theorem",
+      "url": "https://www.youtube.com/watch?v=CnHgqfBSgco",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T16:01:00.000+00:00"
     }
   ]
 }
