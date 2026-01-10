@@ -1,0 +1,54 @@
+{
+  "sparx_codes": [
+    {
+      "code": "M139",
+      "note": "Translations"
+    },
+    {
+      "code": "M290",
+      "note": "Reflection"
+    },
+    {
+      "code": "M910",
+      "note": "Rotation"
+    },
+    {
+      "code": "M178",
+      "note": "Enlargement"
+    },
+    {
+      "code": "M881",
+      "note": "Mixed transformations"
+    }
+  ],
+  "items": [
+    {
+      "active": true,
+      "title": "Translations",
+      "url": "https://www.youtube.com/watch?v=iSzIrrydyLM",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T15:57:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Rotation",
+      "url": "https://www.youtube.com/watch?v=gKdTYgrk_8U",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T15:58:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Reflection",
+      "url": "https://www.youtube.com/watch?v=3RlioQo8qwE",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T15:58:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Enlargement",
+      "url": "https://www.youtube.com/watch?v=z8NUrhU2e6M",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T15:59:00.000+00:00"
+    }
+  ]
+}
