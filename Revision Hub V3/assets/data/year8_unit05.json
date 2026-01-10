@@ -60,6 +60,20 @@
       "url": "https://www.youtube.com/watch?v=CnHgqfBSgco",
       "blockkey": "videos",
       "addediso": "2026-01-10T16:01:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Pythagoras' Theorem",
+      "url": "https://corbettmaths.com/wp-content/uploads/2019/02/Pythagoras-pdf.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-01-10T16:04:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Transformations Worksheet",
+      "url": "https://www.maths4everyone.com/resources/downloads/transformations-workbook-34007.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-01-10T16:06:00.000+00:00"
     }
   ]
 }
