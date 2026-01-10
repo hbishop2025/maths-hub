@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "active": true,
+      "title": "All types of constructions",
+      "url": "https://www.youtube.com/watch?v=3viWgGJmkFo",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T14:03:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Loci Construction (First 10 minutes)",
+      "url": "https://www.youtube.com/watch?v=hyC-dmLk3JA",
+      "blockkey": "videos",
+      "addediso": "2026-01-10T14:09:00.000+00:00"
+    }
+  ],
+  "sparx_codes": [
+    {
+      "code": "M565",
+      "note": "Constructing triangles"
+    },
+    {
+      "code": "M239",
+      "note": "Constructing perpendicular bisectors"
+    },
+    {
+      "code": "M232",
+      "note": "Constructing angle bisectors"
+    },
+    {
+      "code": "M253",
+      "note": "Constructing loci"
+    }
+  ]
+}
