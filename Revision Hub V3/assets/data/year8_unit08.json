@@ -60,6 +60,20 @@
       "url": "https://app.mymaths.co.uk/384-lesson/experimental-probability",
       "blockkey": "other",
       "addediso": "2026-02-07T15:53:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Mutually Exclusive Example",
+      "url": "https://www.youtube.com/watch?v=SQLAWVkFk4E",
+      "blockkey": "videos",
+      "addediso": "2026-02-07T15:55:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Independent Example",
+      "url": "https://www.youtube.com/watch?v=7QlZjoLmg3I",
+      "blockkey": "videos",
+      "addediso": "2026-02-07T15:56:00.000+00:00"
     }
   ]
 }
