@@ -34,6 +34,27 @@
       "url": "https://www.youtube.com/watch?v=6XpBX-7cDPE",
       "blockkey": "videos",
       "addediso": "2026-02-07T16:56:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Scales and Maps (Corbett)",
+      "url": "https://corbettmaths.com/2019/09/05/scales-and-maps-practice-questions/",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:00:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Bearings (Corbett)",
+      "url": "https://corbettmaths.com/2018/04/04/bearings-2/",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:01:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Congruent Triangles (Corbett)",
+      "url": "https://corbettmaths.com/wp-content/uploads/2019/02/Congruent-Triangles-pdf.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:02:00.000+00:00"
     }
   ],
   "sparx_codes": [
@@ -44,6 +65,10 @@
     {
       "code": "M112",
       "note": "Drawing and Interpreting scale drawings"
+    },
+    {
+      "code": "U866",
+      "note": "Congruent Triangles"
     }
   ]
 }
