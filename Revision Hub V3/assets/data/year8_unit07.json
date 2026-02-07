@@ -13,6 +13,27 @@
       "url": "https://www.youtube.com/watch?v=hyC-dmLk3JA",
       "blockkey": "videos",
       "addediso": "2026-01-10T14:09:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Loci (MyMaths)",
+      "url": "https://app.mymaths.co.uk/278-lesson/drawing-loci",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:49:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Bisectors (MyMaths)",
+      "url": "https://app.mymaths.co.uk/277-lesson/constructing-shapes",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:49:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Triangle Construction (MyMaths)",
+      "url": "https://app.mymaths.co.uk/276-lesson/constructing-triangles",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:50:00.000+00:00"
     }
   ],
   "sparx_codes": [
