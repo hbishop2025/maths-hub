@@ -6,12 +6,44 @@
       "url": "https://www.youtube.com/watch?v=GdKgyXYlNO8",
       "blockkey": "videos",
       "addediso": "2026-02-07T15:42:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Map Scales (MyMaths)",
+      "url": "https://app.mymaths.co.uk/304-lesson/map-scales",
+      "blockkey": "other",
+      "addediso": "2026-02-07T16:54:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Scale Drawings (MyMaths)",
+      "url": "https://app.mymaths.co.uk/303-lesson/scale-drawing",
+      "blockkey": "other",
+      "addediso": "2026-02-07T16:54:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Scale Triangles (MyMaths)",
+      "url": "https://app.mymaths.co.uk/306-lesson/similar-triangles",
+      "blockkey": "other",
+      "addediso": "2026-02-07T16:55:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Using Scales",
+      "url": "https://www.youtube.com/watch?v=6XpBX-7cDPE",
+      "blockkey": "videos",
+      "addediso": "2026-02-07T16:56:00.000+00:00"
     }
   ],
   "sparx_codes": [
     {
       "code": "M416",
       "note": "Calculating Bearings"
+    },
+    {
+      "code": "M112",
+      "note": "Drawing and Interpreting scale drawings"
     }
   ]
 }
