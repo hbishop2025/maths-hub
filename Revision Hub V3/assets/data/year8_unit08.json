@@ -74,6 +74,20 @@
       "url": "https://www.youtube.com/watch?v=7QlZjoLmg3I",
       "blockkey": "videos",
       "addediso": "2026-02-07T15:56:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Tree Diagrams (Corbett)",
+      "url": "https://corbettmaths.com/wp-content/uploads/2019/04/Tree-Diagrams.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:03:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Sample Spaces (Corbett)",
+      "url": "https://corbettmaths.com/wp-content/uploads/2021/03/Sample-Spaces.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:04:00.000+00:00"
     }
   ]
 }
