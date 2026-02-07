@@ -39,6 +39,27 @@
       "url": "https://www.youtube.com/watch?v=UX489ku79hU&t=41s",
       "blockkey": "videos",
       "addediso": "2026-02-07T15:45:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Independent Probability (MyMaths)",
+      "url": "https://app.mymaths.co.uk/383-lesson/independent-probability",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:52:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Simple Probability (MyMaths)",
+      "url": "https://app.mymaths.co.uk/378-lesson/simple-probability",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:52:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Experimental Probability (MyMaths)",
+      "url": "https://app.mymaths.co.uk/384-lesson/experimental-probability",
+      "blockkey": "other",
+      "addediso": "2026-02-07T15:53:00.000+00:00"
     }
   ]
 }
