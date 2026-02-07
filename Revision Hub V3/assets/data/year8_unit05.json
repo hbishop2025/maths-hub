@@ -74,6 +74,41 @@
       "url": "https://www.maths4everyone.com/resources/downloads/transformations-workbook-34007.pdf",
       "blockkey": "worksheets",
       "addediso": "2026-01-10T16:06:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Translating and Reflecting (MyMaths)",
+      "url": "https://app.mymaths.co.uk/5776-lesson/translating-and-reflecting",
+      "blockkey": "other",
+      "addediso": "2026-02-07T17:07:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Rotation (MyMaths)",
+      "url": "https://app.mymaths.co.uk/315-lesson/rotating-shapes",
+      "blockkey": "other",
+      "addediso": "2026-02-07T17:07:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Enlargement (MyMaths)",
+      "url": "https://app.mymaths.co.uk/314-lesson/enlarging-shapes",
+      "blockkey": "other",
+      "addediso": "2026-02-07T17:08:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Mixed Transformations (MyMaths)",
+      "url": "https://app.mymaths.co.uk/318-homework/all-transformations",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:09:00.000+00:00"
+    },
+    {
+      "active": true,
+      "title": "Enlargement (MyMaths)",
+      "url": "https://app.mymaths.co.uk/314-homework/enlarging-shapes",
+      "blockkey": "worksheets",
+      "addediso": "2026-02-07T17:09:00.000+00:00"
     }
   ]
 }
