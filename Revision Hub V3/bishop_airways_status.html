@@ -24,7 +24,7 @@
     .loader-bar { @apply w-64 h-1 bg-slate-700 rounded-full mt-4 overflow-hidden; }
     .loader-progress { @apply h-full bg-blue-500 w-0 transition-all duration-[3000ms] ease-out; }
 
-    /* Error Banner (Static, no pulse) */
+    /* Error Banner (Static) */
     .error-banner {
       @apply bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4 mb-8 border-l-8 border-red-800;
     }
@@ -32,15 +32,25 @@
     /* Tables */
     .telemetry-table { @apply w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8; }
     .telemetry-table th { @apply bg-slate-100 text-left text-xs font-bold text-gray-500 uppercase tracking-wider px-6 py-3 border-b border-gray-200; }
-    .telemetry-table td { @apply px-6 py-4 text-sm font-medium border-b border-gray-100; }
+    .telemetry-table td { @apply px-6 py-4 text-sm font-medium border-b border-gray-100 align-middle; }
     .telemetry-table tr:last-child td { @apply border-b-0; }
     
     /* Monospaced Data Cells */
     .data-cell { @apply font-['Share_Tech_Mono'] text-lg text-slate-700 tracking-wide; }
     
-    /* Scrambled Text Style */
-    .scrambled-forever { @apply text-red-600 font-bold bg-red-50 px-2 py-1 rounded; }
+    /* Static Scrambled Text (No Animation) */
+    .static-scramble { 
+      @apply text-red-600 font-bold bg-red-50 px-2 py-1 rounded tracking-widest select-none;
+      font-family: 'Share Tech Mono', monospace;
+    }
     
+    /* Status Badges */
+    .status-badge { @apply text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider; }
+    .status-green { @apply bg-green-100 text-green-700; }
+    .status-yellow { @apply bg-yellow-100 text-yellow-700; }
+    .status-red { @apply bg-red-100 text-red-700; }
+    .status-gray { @apply bg-gray-100 text-gray-500; }
+
     /* Back Button */
     .back-btn { @apply inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black transition-colors mb-6; }
   </style>
@@ -115,19 +125,19 @@
             <td class="font-mono font-bold text-blue-600">BA-E01</td>
             <td class="data-cell">340 km</td>
             <td class="data-cell">400 km/h</td>
-            <td class="data-cell scrambled-forever">---</td> <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
+            <td class="static-scramble">#!&%@?</td> <td><span class="status-badge status-green">AIRBORNE</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-blue-600">BA-E02</td>
-            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">800 km/h</td>
+            <td class="static-scramble">@#$$!</td> <td class="data-cell">800 km/h</td>
             <td class="data-cell">2 hrs 15 mins</td>
-            <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
+            <td><span class="status-badge status-red">DELAYED</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-blue-600">BA-E03</td>
             <td class="data-cell">930 km</td>
-            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">1 hr 30 mins</td>
-            <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
+            <td class="static-scramble">??#%&</td> <td class="data-cell">1 hr 30 mins</td>
+            <td><span class="status-badge status-yellow">TAXING</span></td>
           </tr>
         </tbody>
       </table>
@@ -149,6 +159,7 @@
             <th>Time</th>
             <th>Speed (Imperial)</th>
             <th>Speed (Metric)</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -157,12 +168,14 @@
             <td class="data-cell">3,450 miles</td>
             <td class="data-cell">7.5 hours</td>
             <td class="data-cell">460 mph</td>
-            <td class="data-cell scrambled-forever">---</td> </tr>
+            <td class="static-scramble">ERROR</td> <td><span class="status-badge status-yellow">BOARDING</span></td>
+          </tr>
           <tr>
             <td class="font-mono font-bold text-teal-600">BA-P02</td>
-            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">7 hours</td>
+            <td class="static-scramble">!@#&%</td> <td class="data-cell">7 hours</td>
             <td class="data-cell">550 mph</td>
             <td class="data-cell text-gray-300">N/A</td>
+            <td><span class="status-badge status-gray">SCHEDULED</span></td>
           </tr>
         </tbody>
       </table>
@@ -185,6 +198,7 @@
             <th>Time Diff</th>
             <th>Distance</th>
             <th>Avg Speed</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -194,13 +208,15 @@
             <td class="data-cell">13:00 (EST)</td>
             <td class="data-cell text-gray-400">EST = GMT-5</td>
             <td class="data-cell">5,500 km</td>
-            <td class="data-cell scrambled-forever">---</td> </tr>
+            <td class="static-scramble">###.##</td> <td><span class="status-badge status-green">IN FLIGHT</span></td>
+          </tr>
           <tr>
             <td class="font-mono font-bold text-purple-600">BA-B02</td>
             <td class="data-cell">20:00 (GMT)</td>
             <td class="data-cell">16:00 (SGT)+1</td>
             <td class="data-cell text-gray-400">SGT = GMT+8</td>
-            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">900 km/h</td>
+            <td class="static-scramble">#####</td> <td class="data-cell">900 km/h</td>
+            <td><span class="status-badge status-red">DIVERTED</span></td>
           </tr>
         </tbody>
       </table>
@@ -221,6 +237,7 @@
             <th>Flight Data</th>
             <th>Variable Factor</th>
             <th>Result Required</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -228,12 +245,14 @@
             <td class="font-mono font-bold text-yellow-600">BA-F01</td>
             <td class="data-cell">Distance: 2,000 km</td>
             <td class="data-cell">Air Speed: 800 km/h <br><span class="text-red-500 text-xs">Headwind: 50 km/h</span></td>
-            <td class="data-cell scrambled-forever">---</td> </tr>
+            <td class="static-scramble">H:M:S</td> <td><span class="status-badge status-green">FINAL APPROACH</span></td>
+          </tr>
           <tr>
             <td class="font-mono font-bold text-yellow-600">BA-F02</td>
             <td class="data-cell">Leg 1: 2 hrs @ ? <br>Leg 2: 1.5 hrs @ ?</td>
             <td class="data-cell">Total Dist: 2,200 km<br>Total Time: 3.5 hrs</td>
-            <td class="data-cell scrambled-forever">---</td> </tr>
+            <td class="static-scramble">###.#</td> <td><span class="status-badge status-gray">LANDED</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -270,39 +289,35 @@
         setTimeout(() => { loader.style.display = 'none'; }, 500);
         main.style.opacity = '1';
         
-        // TRIGGER DATA SCRAMBLE
-        startScrambleEffect();
+        // TRIGGER DATA REVEAL (The "Airport Sign" effect)
+        startRevealEffect();
       }, 3800);
     });
 
-    // 2. AIRPORT SIGN SCRAMBLE EFFECT
-    function startScrambleEffect() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?#";
+    // 2. DATA REVEAL EFFECT (Only for known numbers)
+    function startRevealEffect() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       const cells = document.querySelectorAll('.data-cell');
 
       cells.forEach(cell => {
-        const finalValue = cell.innerText; 
-        const isForever = cell.classList.contains('scrambled-forever');
-        
-        // If it's the "forever" scrambled cell, we ignore the current text and just run chaos
-        // If it's normal data, we start scrambled and land on the text in the HTML.
-        
-        // However, for this specific request, the HTML already contains the answer for normal cells?
-        // Wait, the HTML above has the DATA visible for the "knowns" and scrambled-forever for "unknowns".
-        // So we only need to "cycle" the visible known data briefly to look cool.
+        // Skip if it contains other HTML elements (like the advanced rows)
+        if(cell.children.length > 0) return;
 
-        if(isForever) return; // The CSS class handles the look, we can animate it if we want chaos
+        const finalValue = cell.innerText; 
+        
+        // Don't animate simple N/A or short text
+        if(finalValue.length < 2) return;
 
         let iterations = 0;
-        const maxIterations = 15 + Math.random() * 20; 
+        const maxIterations = 10 + Math.random() * 20; 
 
         const interval = setInterval(() => {
           let randomStr = "";
           // Keep length somewhat consistent
           const len = finalValue.length; 
           for(let i=0; i<len; i++) {
-             // 50% chance to show correct char, 50% random
-             if(Math.random() > 0.5) {
+             // 30% chance to show correct char during cycle
+             if(Math.random() > 0.7) {
                 randomStr += finalValue[i];
              } else {
                 randomStr += chars[Math.floor(Math.random() * chars.length)];
@@ -317,16 +332,6 @@
           }
         }, 50);
       });
-
-      // Animate the "Unknowns" continuously
-      const foreverCells = document.querySelectorAll('.scrambled-forever');
-      setInterval(() => {
-        foreverCells.forEach(cell => {
-            let r = "";
-            for(let i=0; i<6; i++) r += chars[Math.floor(Math.random() * chars.length)];
-            cell.innerText = r;
-        });
-      }, 100);
     }
   </script>
   <script src="assets/footer-loader.js" defer></script>
