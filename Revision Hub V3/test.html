@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bishop Airways | Book Your Journey</title>
+  <title>Bishop Airways | Official Booking</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -14,81 +14,66 @@
   <style type="text/tailwindcss">
     body { @apply bg-white text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header + mobile menu (Matches Main Site) */
+    /* Nav Bar (Matches SJWMS) */
     .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-50;
-      width: 180px;
-      transform-origin: top right;
-    }
-
-    /* Hero Section */
-    .hero-container {
-      position: relative;
-      height: 85vh;
-      min-height: 650px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Booking Widget */
-    .booking-card {
-      @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-4 relative z-10 border border-gray-100;
-    }
-
-    .input-group { @apply flex flex-col gap-1 w-full relative; }
-    .input-group label { @apply text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1; }
     
-    .airline-input {
-      @apply bg-gray-50 border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all;
+    /* Hero & Widget */
+    .hero-container { @apply relative h-[85vh] min-h-[700px] flex items-center justify-center; }
+    .booking-card { @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-4 relative z-10 border border-gray-100; }
+    
+    /* Custom Dropdown Styling */
+    .airline-select {
+      @apply bg-gray-50 border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 w-full appearance-none;
+    }
+    .select-wrapper { @apply relative w-full flex items-center; }
+    .select-wrapper::after {
+      content: 'expand_more'; font-family: 'Material Icons'; @apply absolute right-3 pointer-events-none text-gray-400;
     }
 
-    /* Suggestions Dropdown */
-    .suggestions {
-      @apply absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-xl mt-1 z-20 hidden overflow-hidden;
-    }
-    .sug-item { @apply px-4 py-2 text-sm cursor-pointer hover:bg-gray-50 transition-colors; }
+    .input-group label { @apply text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1 mb-1; }
 
-    .search-btn {
-      @apply bg-black text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 mt-4 md:mt-0;
+    /* Animated Progress Bar */
+    .tracker-line { @apply relative w-full h-1 bg-gray-200 rounded-full overflow-hidden; }
+    .plane-progress {
+      @apply absolute top-0 left-0 h-full bg-blue-600;
+      animation: flightMove 8s infinite linear;
+    }
+    .plane-icon-anim {
+      @apply absolute top-[-10px];
+      animation: flightIcon 8s infinite linear;
     }
 
-    /* Error Message Overlay */
-    #errorMsg { @apply hidden fixed top-20 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-full font-bold shadow-2xl z-[60] animate-bounce; }
+    @keyframes flightMove {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    @keyframes flightIcon {
+      0% { left: 0%; }
+      100% { left: 95%; }
+    }
+
+    .toggle-btn { @apply text-[10px] font-bold px-4 py-1.5 rounded-full uppercase transition-all border; }
+    .toggle-active { @apply bg-black text-white border-black; }
+    .toggle-inactive { @apply bg-white text-gray-400 border-gray-200; }
   </style>
 </head>
 <body>
 
   <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
         <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
-
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
       </nav>
-
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
-        <span class="material-icons">menu</span>
-      </button>
-
-      <div id="mobileMenu" class="hidden">
-        <a href="index.html" class="block py-2 text-sm text-gray-700 text-center">Home</a>
-        <a href="ks3_hub.html" class="block py-2 text-sm text-gray-700 text-center">KS3</a>
-        <a href="gcse_hub.html" class="block py-2 text-sm text-gray-700 text-center">GCSE</a>
-        <a href="alevel_hub.html" class="block py-2 text-sm text-gray-700 text-center">A-Level</a>
-      </div>
     </div>
   </header>
-
-  <div id="errorMsg">We currently don't fly there!</div>
 
   <main class="pt-14">
     <section class="hero-container">
@@ -99,71 +84,92 @@
 
       <div class="booking-card">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-10 w-auto mb-2"/>
-            <p class="text-gray-500 text-xs font-medium">Official Carrier of the Mathematics Department</p>
-          </div>
-          <div class="flex gap-4">
-            <span class="text-[10px] font-bold bg-gray-100 px-3 py-1 rounded-full uppercase">One Way</span>
-            <span class="text-[10px] font-bold text-gray-400 px-3 py-1 rounded-full uppercase">Return</span>
+          <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-10 w-auto"/>
+          <div class="flex gap-2">
+            <button id="oneWayBtn" onclick="setTripType('one')" class="toggle-btn toggle-active">One Way</button>
+            <button id="returnBtn" onclick="setTripType('return')" class="toggle-btn toggle-inactive">Return</button>
           </div>
         </div>
 
-        <form id="flightSearch" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
           <div class="input-group">
             <label>From</label>
-            <input type="text" id="fromInput" placeholder="Origin City" class="airline-input" autocomplete="off" required />
-            <div id="fromSug" class="suggestions"></div>
+            <div class="select-wrapper">
+              <select id="fromSelect" class="airline-select" required>
+                <option value="" disabled selected>Select Origin</option>
+              </select>
+            </div>
           </div>
 
           <div class="input-group">
             <label>To</label>
-            <input type="text" id="toInput" placeholder="Destination" class="airline-input" autocomplete="off" required />
-            <div id="toSug" class="suggestions"></div>
+            <div class="select-wrapper">
+              <select id="toSelect" class="airline-select" required>
+                <option value="" disabled selected>Select Destination</option>
+              </select>
+            </div>
           </div>
 
           <div class="input-group">
-            <label>Departure Date</label>
-            <input type="date" class="airline-input" required />
+            <label>Departure</label>
+            <input type="date" id="depDate" class="airline-select" required />
           </div>
 
-          <button type="submit" class="search-btn">
-            Find Flights <span class="material-icons">arrow_forward</span>
+          <div class="input-group" id="returnGroup" style="display:none;">
+            <label>Return</label>
+            <input type="date" id="retDate" class="airline-select" />
+          </div>
+
+          <button type="submit" class="bg-black text-white font-bold py-3.5 px-4 rounded-lg hover:bg-yellow-400 hover:text-black transition-all flex items-center justify-center gap-2">
+            Search <span class="material-icons text-base">search</span>
           </button>
         </form>
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 py-20">
-      <div class="flex items-center gap-4 mb-12">
-        <h2 class="text-2xl font-black tracking-tight">Explore Destinations</h2>
-        <div class="h-px bg-gray-200 flex-grow"></div>
+    <section class="max-w-7xl mx-auto px-4 py-16">
+      <div class="flex items-center gap-4 mb-10">
+        <h2 class="text-2xl font-black">Explore Destinations</h2>
+        <div class="h-px bg-gray-100 flex-grow"></div>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="group cursor-pointer">
-          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
-             <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="New York"/>
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">New York</h3><p class="text-xs text-gray-500">The city that never sleeps.</p></div></div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">Dubai</h3><p class="text-xs text-gray-500">Luxury in the desert.</p></div></div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">Tokyo</h3><p class="text-xs text-gray-500">Neon lights and tradition.</p></div></div>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 py-16 border-y border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold uppercase mb-4">
+          <span class="animate-pulse w-2 h-2 bg-blue-600 rounded-full"></span> Live Fleet Tracker
+        </div>
+        <h2 class="text-2xl font-black mb-2">Real-Time Telemetry</h2>
+        <p class="text-gray-500 text-sm mb-10 max-w-lg">Our system tracks every Bishop Airways flight. Due to current database desync, some flight paths may display corrupted data.</p>
+        
+        <div class="w-full max-w-2xl mb-12 relative px-10">
+          <span class="material-icons plane-icon-anim text-blue-600">flight</span>
+          <div class="tracker-line">
+            <div class="plane-progress"></div>
           </div>
-          <h3 class="font-bold text-lg">New York (JFK)</h3>
-          <p class="text-gray-500 text-sm">Experience the Big Apple. Flights departing daily from LHR.</p>
+          <div class="flex justify-between mt-3 text-[10px] font-bold text-gray-400 uppercase">
+            <span>Departure</span>
+            <span>Mid-Flight</span>
+            <span>Arrival</span>
+          </div>
         </div>
 
-        <div class="group cursor-pointer">
-          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
-             <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Dubai"/>
-          </div>
-          <h3 class="font-bold text-lg">Dubai (DXB)</h3>
-          <p class="text-gray-500 text-sm">Where the desert meets the city. Business Class now available.</p>
-        </div>
+        <a href="bishop_airways_status.html" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition-all flex items-center gap-2">
+          View Live Flight Logs <span class="material-icons">dashboard</span>
+        </a>
+      </div>
+    </section>
 
-        <div class="group cursor-pointer">
-          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
-             <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Tokyo"/>
-          </div>
-          <h3 class="font-bold text-lg">Tokyo (HND)</h3>
-          <p class="text-gray-500 text-sm">A perfect blend of tradition and high-tech future.</p>
-        </div>
+    <section class="max-w-7xl mx-auto px-4 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">speed</span><h3 class="font-bold">Accurate Data</h3><p class="text-xs text-gray-500 mt-2">Precision calculations for every nautical mile flown.</p></div>
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">public</span><h3 class="font-bold">Global Reach</h3><p class="text-xs text-gray-500 mt-2">Connecting 16 major international hubs daily.</p></div>
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">support_agent</span><h3 class="font-bold">Ground Control</h3><p class="text-xs text-gray-500 mt-2">Expert support from the Bishop Maths Department.</p></div>
       </div>
     </section>
   </main>
@@ -171,63 +177,28 @@
   <div id="footer-slot"></div>
 
   <script>
-    // AIRPORT DATA (Matches your curriculum questions)
-    const AIRPORTS = [
-      "London (LHR)", "New York (JFK)", "Paris (CDG)", "Amsterdam (AMS)", 
-      "Berlin (BER)", "Madrid (MAD)", "Rome (FCO)", "Dublin (DUB)", 
-      "Munich (MUC)", "Prague (PRG)", "Dubai (DXB)", "Los Angeles (LAX)", 
-      "Cape Town (CPT)", "Tokyo (HND)", "Singapore (SIN)", "Mauritius (MRU)"
-    ];
+    const AIRPORTS = ["London (LHR)", "New York (JFK)", "Paris (CDG)", "Amsterdam (AMS)", "Berlin (BER)", "Madrid (MAD)", "Rome (FCO)", "Dublin (DUB)", "Munich (MUC)", "Prague (PRG)", "Dubai (DXB)", "Los Angeles (LAX)", "Cape Town (CPT)", "Tokyo (HND)", "Singapore (SIN)", "Mauritius (MRU)"];
+    const fromS = document.getElementById('fromSelect');
+    const toS = document.getElementById('toSelect');
 
-    function setupAutocomplete(input, sugBox) {
-      input.addEventListener('input', () => {
-        const val = input.value.toLowerCase();
-        sugBox.innerHTML = '';
-        if(!val) { sugBox.classList.add('hidden'); return; }
+    AIRPORTS.forEach(a => {
+      fromS.add(new Option(a, a));
+      toS.add(new Option(a, a));
+    });
 
-        const filtered = AIRPORTS.filter(a => a.toLowerCase().includes(val));
-        if(filtered.length > 0) {
-          sugBox.classList.remove('hidden');
-          filtered.forEach(a => {
-            const div = document.createElement('div');
-            div.className = 'sug-item';
-            div.textContent = a;
-            div.onclick = () => {
-              input.value = a;
-              sugBox.classList.add('hidden');
-            };
-            sugBox.appendChild(div);
-          });
-        } else {
-          sugBox.classList.add('hidden');
-        }
-      });
+    let tripType = 'one';
+    function setTripType(t) {
+      tripType = t;
+      document.getElementById('oneWayBtn').className = t === 'one' ? 'toggle-btn toggle-active' : 'toggle-btn toggle-inactive';
+      document.getElementById('returnBtn').className = t === 'return' ? 'toggle-btn toggle-active' : 'toggle-btn toggle-inactive';
+      document.getElementById('returnGroup').style.display = t === 'return' ? 'block' : 'none';
+      document.getElementById('retDate').required = t === 'return';
     }
 
-    setupAutocomplete(document.getElementById('fromInput'), document.getElementById('fromSug'));
-    setupAutocomplete(document.getElementById('toInput'), document.getElementById('toSug'));
-
-    // VALIDATION AND REDIRECT
-    document.getElementById('flightSearch').addEventListener('submit', function(e) {
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const from = document.getElementById('fromInput').value;
-      const to = document.getElementById('toInput').value;
-      const error = document.getElementById('errorMsg');
-
-      if(!AIRPORTS.includes(from) || !AIRPORTS.includes(to)) {
-        error.textContent = !AIRPORTS.includes(from) ? "We don't fly from there!" : "We don't fly to there!";
-        error.style.display = 'block';
-        setTimeout(() => { error.style.display = 'none'; }, 3000);
-      } else {
-        window.location.href = "bishop_airways_status.html";
-      }
-    });
-
-    // Mobile Menu
-    document.getElementById('menuBtn').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+      window.location.href = "bishop_airways_status.html";
     });
   </script>
-  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
