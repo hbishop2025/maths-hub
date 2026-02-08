@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bishop Airways | System Status</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <style type="text/tailwindcss">
+    body { @apply bg-slate-50 text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Header (Matches Previous Page) */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
+
+    /* Loading Overlay */
+    #loadingScreen {
+      @apply fixed inset-0 z-[100] bg-slate-900 text-white flex flex-col items-center justify-center transition-opacity duration-500;
+    }
+    .loader-bar { @apply w-64 h-1 bg-slate-700 rounded-full mt-4 overflow-hidden; }
+    .loader-progress { @apply h-full bg-blue-500 w-0 transition-all duration-[3000ms] ease-out; }
+
+    /* Error Banner */
+    .error-banner {
+      @apply bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 mb-8 animate-pulse border-2 border-red-800;
+    }
+
+    /* Tables */
+    .fare-table { @apply w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8; }
+    .fare-table th { @apply bg-slate-100 text-left text-xs font-bold text-gray-500 uppercase tracking-wider px-6 py-3 border-b border-gray-200; }
+    .fare-table td { @apply px-6 py-4 text-sm font-medium border-b border-gray-100; }
+    .fare-table tr:last-child td { @apply border-b-0; }
+    
+    /* The "Airport Sign" Mono Font for numbers */
+    .data-cell { @apply font-['Share_Tech_Mono'] text-lg text-slate-700; }
+    
+    /* The Glitched Text */
+    .scrambled { @apply text-red-600 font-bold bg-red-50 px-2 py-1 rounded; }
+    
+    /* Back Button */
+    .back-btn { @apply inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black transition-colors mb-6; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="loadingScreen">
+    <img src="assets/Bishop Airways.png" class="h-12 w-auto mb-8 invert opacity-80" alt="Logo"/>
+    <h2 class="text-xl font-mono tracking-widest">CONNECTING TO SERVER...</h2>
+    <div class="loader-bar"><div class="loader-progress" id="loadBar"></div></div>
+    <p class="text-xs text-slate-500 mt-2 font-mono" id="loadText">Establishing handshake...</p>
+  </div>
+
+  <main class="pt-24 max-w-5xl mx-auto px-4 pb-20 opacity-0 transition-opacity duration-1000" id="mainContent">
+    
+    <a href="bishop_airways.html" class="back-btn">
+      <span class="material-icons text-sm">arrow_back</span> Return to Search
+    </a>
+
+    <div class="error-banner">
+      <span class="material-icons text-2xl">warning_amber</span>
+      <div>
+        <h3 class="font-bold">SYSTEM ERROR 503: PRICING ENGINE OFFLINE</h3>
+        <p class="text-xs opacity-90">Auto-calculation failed. Manual fare computation required for all passengers.</p>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-black tracking-tight">Flight Tariffs (Raw Data)</h1>
+      <span class="text-xs font-mono text-gray-400">SESSION ID: ERR_Manual_Override</span>
+    </div>
+
+    <div class="mb-2">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+        <h3 class="font-bold text-lg">Economy Class</h3>
+      </div>
+      <table class="fare-table">
+        <thead>
+          <tr>
+            <th>Passenger Type</th>
+            <th>Base Fare</th>
+            <th>Fuel Surcharge</th>
+            <th>Tax Rate</th>
+            <th>Baggage Fee</th>
+            <th>TOTAL PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Adult (12+)</td>
+            <td class="data-cell" data-value="£240.00">---</td>
+            <td class="data-cell" data-value="£45.00">---</td>
+            <td class="data-cell" data-value="10%">---</td>
+            <td class="data-cell" data-value="£25.00">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+          <tr>
+            <td>Child (2-11)</td>
+            <td class="data-cell" data-value="£180.00">---</td>
+            <td class="data-cell" data-value="£45.00">---</td>
+            <td class="data-cell" data-value="5%">---</td>
+            <td class="data-cell" data-value="£15.00">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mb-2">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-3 h-3 rounded-full bg-teal-500"></div>
+        <h3 class="font-bold text-lg">Premium Economy</h3>
+      </div>
+      <table class="fare-table">
+        <thead>
+          <tr>
+            <th>Passenger Type</th>
+            <th>Base Fare</th>
+            <th>Fuel Surcharge</th>
+            <th>Tax Rate</th>
+            <th>Baggage Fee</th>
+            <th>TOTAL PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Adult (12+)</td>
+            <td class="data-cell" data-value="£450.00">---</td>
+            <td class="data-cell" data-value="£60.00">---</td>
+            <td class="data-cell" data-value="12%">---</td>
+            <td class="data-cell" data-value="INCLUDED">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+          <tr>
+            <td>Child (2-11)</td>
+            <td class="data-cell" data-value="£340.00">---</td>
+            <td class="data-cell" data-value="£60.00">---</td>
+            <td class="data-cell" data-value="8%">---</td>
+            <td class="data-cell" data-value="INCLUDED">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mb-2">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-3 h-3 rounded-full bg-purple-600"></div>
+        <h3 class="font-bold text-lg">Business Class</h3>
+      </div>
+      <table class="fare-table">
+        <thead>
+          <tr>
+            <th>Passenger Type</th>
+            <th>Base Fare</th>
+            <th>Fuel Surcharge</th>
+            <th>Tax Rate</th>
+            <th>Lounge Access</th>
+            <th>TOTAL PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Adult (12+)</td>
+            <td class="data-cell" data-value="£1,200.00">---</td>
+            <td class="data-cell" data-value="£120.00">---</td>
+            <td class="data-cell" data-value="15%">---</td>
+            <td class="data-cell" data-value="£50.00">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mb-2">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+        <h3 class="font-bold text-lg">First Class</h3>
+      </div>
+      <table class="fare-table">
+        <thead>
+          <tr>
+            <th>Passenger Type</th>
+            <th>Base Fare</th>
+            <th>Fuel Surcharge</th>
+            <th>Tax Rate</th>
+            <th>Concierge Fee</th>
+            <th>TOTAL PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Adult (12+)</td>
+            <td class="data-cell" data-value="£3,500.00">---</td>
+            <td class="data-cell" data-value="£200.00">---</td>
+            <td class="data-cell" data-value="20%">---</td>
+            <td class="data-cell" data-value="£150.00">---</td>
+            <td class="data-cell scrambled-forever">---</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script>
+    // 1. LOADING SEQUENCE
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loadingScreen');
+      const bar = document.getElementById('loadBar');
+      const text = document.getElementById('loadText');
+      const main = document.getElementById('mainContent');
+
+      // Start Bar Animation
+      setTimeout(() => { bar.style.width = '70%'; }, 100);
+      
+      // Update Text
+      setTimeout(() => { text.innerText = "Retrieving Pricing Matrices..."; }, 1200);
+      setTimeout(() => { text.innerText = "Calculating Fuel Surcharges..."; }, 2400);
+      
+      // CRASH
+      setTimeout(() => {
+        bar.style.backgroundColor = '#ef4444'; // Red
+        text.style.color = '#ef4444';
+        text.innerText = "CONNECTION INTERRUPTED!";
+      }, 3000);
+
+      // HIDE LOADER & SHOW CONTENT
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 500);
+        main.style.opacity = '1';
+        
+        // TRIGGER DATA SCRAMBLE
+        startScrambleEffect();
+      }, 3800);
+    });
+
+    // 2. AIRPORT SIGN SCRAMBLE EFFECT
+    function startScrambleEffect() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$%&@#";
+      const cells = document.querySelectorAll('.data-cell');
+
+      cells.forEach(cell => {
+        const finalValue = cell.getAttribute('data-value');
+        const isForever = cell.classList.contains('scrambled-forever');
+        let iterations = 0;
+        
+        // Random duration for each cell to look organic (between 10 and 40 cycles)
+        const maxIterations = isForever ? 999999 : 20 + Math.random() * 30; 
+
+        const interval = setInterval(() => {
+          // Generate random string of same length as target (or fixed length for forever)
+          let randomStr = "";
+          const len = isForever ? 8 : finalValue.length;
+          
+          for(let i=0; i<len; i++) {
+            randomStr += chars[Math.floor(Math.random() * chars.length)];
+          }
+          
+          cell.innerText = randomStr;
+          
+          // Stop condition
+          iterations++;
+          if (!isForever && iterations > maxIterations) {
+            clearInterval(interval);
+            cell.innerText = finalValue;
+            cell.classList.add('text-black'); // Lock in color
+          }
+        }, 50); // Speed of flicker
+      });
+    }
+  </script>
+  <script src="assets/footer-loader.js" defer></script>
+</body>
+</html>
