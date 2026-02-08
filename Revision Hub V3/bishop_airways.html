@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bishop Airways | Official Booking</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <style type="text/tailwindcss">
+    body { @apply bg-white text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Nav Bar (Matches SJWMS) */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
+    
+    /* Hero & Widget */
+    .hero-container { @apply relative h-[80vh] min-h-[650px] flex items-center justify-center; }
+    .booking-card { @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-6xl mx-4 relative z-10 border border-gray-100; }
+    
+    .airline-select {
+      @apply bg-gray-50 border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 w-full appearance-none;
+    }
+    .select-wrapper { @apply relative w-full flex items-center; }
+    .select-wrapper::after {
+      content: 'expand_more'; font-family: 'Material Icons'; @apply absolute right-3 pointer-events-none text-gray-400;
+    }
+
+    .input-group label { @apply text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1 mb-1; }
+
+    /* Section Headers */
+    .section-header { @apply flex items-center gap-4 mb-10; }
+    .section-header h2 { @apply text-2xl font-black tracking-tight whitespace-nowrap; }
+    .section-header .line { @apply h-px bg-gray-200 flex-grow; }
+
+    /* Tracker Box Styling */
+    .tracker-box { @apply bg-slate-900 rounded-xl p-6 text-white border border-slate-800 shadow-inner; }
+
+    .toggle-btn { @apply text-[10px] font-bold px-4 py-1.5 rounded-full uppercase transition-all border; }
+    .toggle-active { @apply bg-black text-white border-black; }
+    .toggle-inactive { @apply bg-white text-gray-400 border-gray-200; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-14">
+    <section class="hero-container">
+      <div class="absolute inset-0 z-0">
+        <img src="assets/Airways-hero.jpg" alt="Hero" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/20"></div>
+      </div>
+
+      <div class="booking-card">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-10 w-auto mb-1"/>
+            <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Official Carrier of the Mathematics Department</p>
+          </div>
+          <div class="flex gap-2">
+            <button id="oneWayBtn" onclick="setTripType('one')" class="toggle-btn toggle-active">One Way</button>
+            <button id="returnBtn" onclick="setTripType('return')" class="toggle-btn toggle-inactive">Return</button>
+          </div>
+        </div>
+
+        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+          <div class="input-group">
+            <label>From</label>
+            <div class="select-wrapper">
+              <select id="fromSelect" class="airline-select" required>
+                <option value="" disabled selected>Select Origin</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>To</label>
+            <div class="select-wrapper">
+              <select id="toSelect" class="airline-select" required>
+                <option value="" disabled selected>Select Destination</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Departure</label>
+            <input type="date" id="depDate" class="airline-select" required />
+          </div>
+
+          <div class="input-group" id="returnGroup">
+            <div id="returnContent" style="display:none;">
+                <label>Return</label>
+                <input type="date" id="retDate" class="airline-select" />
+            </div>
+          </div>
+
+          <div class="w-full">
+            <button type="submit" class="w-full bg-black text-white font-bold py-3.5 px-4 rounded-lg hover:bg-yellow-400 hover:text-black transition-all flex items-center justify-center gap-2">
+                Search <span class="material-icons text-base">search</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 py-16">
+      <div class="section-header">
+        <h2>Explore Destinations</h2>
+        <div class="line"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">New York (JFK)</h3><p class="text-xs text-gray-500">The city that never sleeps.</p></div></div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">Dubai (DXB)</h3><p class="text-xs text-gray-500">Luxury in the desert.</p></div></div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover"/><div class="p-4"><h3 class="font-bold">Tokyo (HND)</h3><p class="text-xs text-gray-500">Neon lights and tradition.</p></div></div>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 py-16">
+        <div class="section-header">
+            <h2>Live Fleet Tracker</h2>
+            <div class="line"></div>
+        </div>
+        
+        <div class="tracker-box">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex-1 text-center md:text-left">
+                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Active System Status</span>
+                    <h3 class="text-xl font-bold mt-1">Flight BA-109 In Progress</h3>
+                    <p class="text-slate-400 text-sm mt-2">Telemetry is being synchronized with the Bishop Airways Central Database.</p>
+                </div>
+                
+                <div class="flex-[2] w-full">
+                    <div class="flex justify-between items-end mb-2">
+                        <div class="text-left">
+                            <p class="text-[10px] text-slate-500 font-bold uppercase">LHR</p>
+                            <p class="text-lg font-black">LONDON</p>
+                        </div>
+                        <span class="material-icons text-blue-500 mb-1">flight_takeoff</span>
+                        <div class="h-px bg-slate-700 flex-grow mx-4 mb-3 border-t border-dashed"></div>
+                        <span class="material-icons text-blue-500 mb-1">flight_land</span>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-500 font-bold uppercase">SIN</p>
+                            <p class="text-lg font-black">SINGAPORE</p>
+                        </div>
+                    </div>
+                    <div class="w-full h-1 bg-slate-800 rounded-full">
+                        <div class="w-2/3 h-full bg-blue-600 rounded-full relative">
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_10px_white]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full md:w-auto">
+                    <a href="bishop_airways_status.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition-all text-sm">
+                        Open Flight Logs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 py-20">
+      <div class="section-header">
+        <h2>The Bishop Airways Benefits</h2>
+        <div class="line"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">speed</span><h3 class="font-bold">Accurate Data</h3><p class="text-xs text-gray-500 mt-2">Precision calculations for every nautical mile flown.</p></div>
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">public</span><h3 class="font-bold">Global Reach</h3><p class="text-xs text-gray-500 mt-2">Connecting 16 major international hubs daily.</p></div>
+        <div><span class="material-icons text-blue-600 text-4xl mb-4">support_agent</span><h3 class="font-bold">Ground Control</h3><p class="text-xs text-gray-500 mt-2">Expert support from the SJWMS Maths Department.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script>
+    const AIRPORTS = ["London (LHR)", "New York (JFK)", "Paris (CDG)", "Amsterdam (AMS)", "Berlin (BER)", "Madrid (MAD)", "Rome (FCO)", "Dublin (DUB)", "Munich (MUC)", "Prague (PRG)", "Dubai (DXB)", "Los Angeles (LAX)", "Cape Town (CPT)", "Tokyo (HND)", "Singapore (SIN)", "Mauritius (MRU)"];
+    const fromS = document.getElementById('fromSelect');
+    const toS = document.getElementById('toSelect');
+
+    AIRPORTS.forEach(a => {
+      fromS.add(new Option(a, a));
+      toS.add(new Option(a, a));
+    });
+
+    function setTripType(t) {
+      document.getElementById('oneWayBtn').className = t === 'one' ? 'toggle-btn toggle-active' : 'toggle-btn toggle-inactive';
+      document.getElementById('returnBtn').className = t === 'return' ? 'toggle-btn toggle-active' : 'toggle-btn toggle-inactive';
+      document.getElementById('returnContent').style.display = t === 'return' ? 'block' : 'none';
+      document.getElementById('retDate').required = t === 'return';
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = "bishop_airways_status.html";
+    });
+  </script>
+  
+  <script src="assets/footer-loader.js" defer></script>
+</body>
+</html>
