@@ -1,430 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
+<html lang="en">
+<head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>GCSE | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bishop Airways | Book Your Journey</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="assets/main.css"/>
-
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+    body { @apply bg-white text-[#1a1a1a] font-[Lexend]; overflow-x:hidden; }
 
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200; }
+    
+    /* Hero styling */
+    .hero-container {
+      position: relative;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    /* Header + mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* Modern Booking Widget */
+    .booking-card {
+      @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-4 relative z-10;
+    }
+
+    .input-group {
+      @apply flex flex-col gap-1 w-full;
+    }
+
+    .input-group label {
+      @apply text-[10px] font-bold uppercase tracking-wider text-gray-500 ml-1;
+    }
+
+    .airline-input {
+      @apply bg-white border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all;
+    }
+
+    .search-btn {
+      @apply bg-[#000] text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 mt-5 md:mt-0;
+    }
+
     #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      @apply absolute right-4 top-[3.25rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-50;
       width: 180px;
       transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    #mobileMenu a {
-      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
-    }
-
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
-    /* Background dots */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
   </style>
 </head>
 <body>
 
   <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+        <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-8 w-auto"/>
       </div>
 
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="alevel_hub.html">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
       </nav>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
         <span class="material-icons">menu</span>
       </button>
 
       <div id="mobileMenu" class="hidden">
-        <a href="index.html">Home</a>
-        <a href="ks3_hub.html">KS3</a>
-        <a href="gcse_hub.html">GCSE</a>
-        <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a href="index.html" class="block py-2 text-sm text-gray-700">Home</a>
+        <a href="ks3_hub.html" class="block py-2 text-sm text-gray-700">KS3</a>
+        <a href="gcse_hub.html" class="block py-2 text-sm text-gray-700">GCSE</a>
+        <a href="alevel_hub.html" class="block py-2 text-sm text-gray-700">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white text-center font-semibold mt-2 py-1.5 px-3 block text-xs" href="ai_usage.html">AI Usage</a>
       </div>
     </div>
   </header>
 
-  <div class="absolute inset-0 math-grid pointer-events-none"></div>
-
-  <main class="relative pt-14 pb-20">
-
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-      <span class="material-icons text-base mr-2">construction</span>
-      Year 7, 8 and GCSE Still Under Construction
-    </div>
-    
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
-      
-      <div class="absolute inset-0 z-0">
-        <img src="assets/home-hero1.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+  <main class="pt-14">
+    <section class="hero-container">
+      <div class="hero-image">
+        <img src="assets/Airways-hero.jpg" alt="Destination" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/10"></div>
       </div>
 
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">KS4 • Years 10 & 11</span>
-          </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            GCSE<br>
-            <span class="text-blue-400">
-              Mathematics
-            </span>
-          </h1>
-          
-          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
-            Your home for topic learning, exam revision, and past paper practice.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-  <a href="#ukmt" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-    <span>UKMT Challenge</span>
-    <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
-  </a>
-</div>
+      <div class="booking-card">
+        <div class="mb-6">
+          <h1 class="text-2xl font-black tracking-tight text-black">Explore the World with Bishop Airways</h1>
+          <p class="text-gray-600 text-sm">Book your next destination with the UK's premier educational carrier.</p>
         </div>
+
+        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+          <div class="input-group">
+            <label>From</label>
+            <input type="text" placeholder="London (LHR)" class="airline-input" required />
+          </div>
+
+          <div class="input-group">
+            <label>To</label>
+            <input type="text" placeholder="Destination City" class="airline-input" required />
+          </div>
+
+          <div class="input-group">
+            <label>Dates</label>
+            <input type="date" class="airline-input" required />
+          </div>
+
+          <button type="submit" class="search-btn">
+            Search Flights <span class="material-icons text-base">search</span>
+          </button>
+        </form>
       </div>
     </section>
 
-    
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <section class="mb-16">
-        <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">Choose your path</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
+    <section class="max-w-7xl mx-auto px-4 py-20 text-center">
+        <h2 class="text-3xl font-bold mb-4">Why fly Bishop Airways?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+            <div>
+                <span class="material-icons text-yellow-500 text-4xl mb-4">schedule</span>
+                <h3 class="font-bold text-lg">Calculate Your Journey</h3>
+                <p class="text-gray-500 text-sm mt-2">Master speed, distance, and time with our real-time flight telemetry.</p>
+            </div>
+            <div>
+                <span class="material-icons text-yellow-500 text-4xl mb-4">public</span>
+                <h3 class="font-bold text-lg">Global Destinations</h3>
+                <p class="text-gray-500 text-sm mt-2">Connecting students to mathematical concepts across all continents.</p>
+            </div>
+            <div>
+                <span class="material-icons text-yellow-500 text-4xl mb-4">support_agent</span>
+                <h3 class="font-bold text-lg">24/7 Nav Verification</h3>
+                <p class="text-gray-500 text-sm mt-2">Technical support available via our ground-control mathematics department.</p>
+            </div>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Summer 2026</span>
-            </div>
-
-            <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/gcse_image1.png" class="w-full h-full object-cover grayscale-[0.2]" alt="Content"/>
-               <div class="absolute inset-0 bg-purple-900/10"></div>
-            </div>
-            
-            <div class="p-6 pt-5 flex flex-col flex-grow relative">
-               <h3 class="text-xl font-bold text-gray-900 mb-2">Topic Learning</h3>
-               <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                 Learn strictly by topic. Split into Number, Algebra, Geometry, and Data.
-               </p>
-               <div class="mt-auto text-purple-600 font-bold text-sm flex items-center">
-                 View Modules <span class="material-icons text-sm ml-1">arrow_forward</span>
-               </div>
-            </div>
-          </a>
-
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Summer 2026</span>
-            </div>
-
-            <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/gcse_image2.png" class="w-full h-full object-cover grayscale-[0.2]" alt="Revision"/>
-               <div class="absolute inset-0 bg-blue-900/10"></div>
-            </div>
-            
-            <div class="p-6 pt-5 flex flex-col flex-grow relative">
-               <h3 class="text-xl font-bold text-gray-900 mb-2">Exam Revision</h3>
-               <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                 Prepare for mocks and the real thing. Checklists, strategies, and cram sheets.
-               </p>
-               <div class="mt-auto text-blue-600 font-bold text-sm flex items-center">
-                 Start Revising <span class="material-icons text-sm ml-1">arrow_forward</span>
-               </div>
-            </div>
-          </a>
-
-          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-            <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/gcse_image3.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Past Papers"/>
-               <div class="absolute inset-0 bg-amber-900/10 group-hover:bg-transparent transition-colors"></div>
-            </div>
-            
-            <div class="p-6 pt-5 flex flex-col flex-grow relative">
-               <h3 class="text-xl font-bold text-gray-900 mb-2">Past Papers</h3>
-               <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                 Direct access to the MathsGenie archive. Practice with real exam questions.
-               </p>
-               <div class="mt-auto text-amber-600 font-bold text-sm flex items-center">
-                 Open Archive <span class="material-icons text-sm ml-1 text-xs">open_in_new</span>
-               </div>
-               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-amber-500 transition-colors duration-300"></div>
-            </div>
-          </a>
-
-        </div>
-      </section>
-
-      <section>
-        <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">Essentials Toolkit</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          <a href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
-  
-  <div class="h-48 w-full overflow-hidden relative">
-      <img src="assets/gcse_image4.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Formula Sheet"/>
-      <div class="absolute inset-0 bg-teal-900/10 group-hover:bg-transparent transition-colors"></div>
-  </div>
-  
-  <div class="p-6 pt-5 flex flex-col flex-grow relative">
-      <h3 class="text-xl font-bold text-gray-900 mb-2">Formula Sheet</h3>
-      <p class="text-gray-500 text-sm leading-relaxed mb-4">
-        Download the official PDF sheet. Know what you are given and what you need to memorize.
-      </p>
-      <div class="mt-auto text-teal-600 font-bold text-sm flex items-center">
-        Download PDF <span class="material-icons text-sm ml-1 group-hover:translate-x-1 transition-transform">file_download</span>
-      </div>
-      <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-teal-500 transition-colors duration-300"></div>
-  </div>
-</a>
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Soon</span>
-            </div>
-
-            <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/gcse_image5.png" class="w-full h-full object-cover" alt="Calculator"/>
-               <div class="absolute inset-0 bg-emerald-900/10"></div>
-            </div>
-            
-            <div class="p-6 pt-5 flex flex-col flex-grow relative">
-               <h3 class="text-xl font-bold text-gray-900 mb-2">Calculator Hacks</h3>
-               <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                 Master your ClassWiz. Learn the hidden buttons that save you minutes in the exam.
-               </p>
-               <div class="mt-auto text-emerald-600 font-bold text-sm flex items-center">
-                 Watch Guides <span class="material-icons text-sm ml-1">play_circle</span>
-               </div>
-            </div>
-          </a>
-
-          <a href="#" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
-            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
-              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Soon</span>
-            </div>
-
-            <div class="h-48 w-full overflow-hidden relative">
-               <img src="assets/gcse_image6.png" class="w-full h-full object-cover" alt="Checklist"/>
-               <div class="absolute inset-0 bg-rose-900/10"></div>
-            </div>
-            
-            <div class="p-6 pt-5 flex flex-col flex-grow relative">
-               <h3 class="text-xl font-bold text-gray-900 mb-2">Revision Checklist</h3>
-               <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                 Track your progress. A complete list of every topic you need to cover before May.
-               </p>
-               <div class="mt-auto text-rose-600 font-bold text-sm flex items-center">
-                 View List <span class="material-icons text-sm ml-1">checklist</span>
-               </div>
-            </div>
-          </a>
-
-        </div>
-      </section>
-
-      <section id="countdown" class="mt-16 scroll-mt-24">
-        <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">Countdown</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-      
-      <div class="w-full max-w-4xl mx-auto mb-12 text-center">
-  <p class="text-slate-500 font-medium mb-4 uppercase tracking-widest text-xs">Time until first Paper 1</p>
-  
-  <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-    
-    <div class="flex flex-col items-center">
-      <div class="relative bg-slate-800 text-white w-16 h-20 sm:w-20 sm:h-24 rounded-lg shadow-lg flex items-center justify-center text-3xl sm:text-4xl font-black overflow-hidden">
-        <span class="relative z-10" id="cd-days">00</span>
-        <div class="absolute w-full h-px bg-slate-900/50 top-1/2 left-0 z-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-0"></div>
-      </div>
-      <span class="text-xs font-bold text-slate-400 mt-2 uppercase">Days</span>
-    </div>
-
-    <div class="flex flex-col items-center">
-      <div class="relative bg-slate-800 text-white w-16 h-20 sm:w-20 sm:h-24 rounded-lg shadow-lg flex items-center justify-center text-3xl sm:text-4xl font-black overflow-hidden">
-        <span class="relative z-10" id="cd-hours">00</span>
-        <div class="absolute w-full h-px bg-slate-900/50 top-1/2 left-0 z-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-0"></div>
-      </div>
-      <span class="text-xs font-bold text-slate-400 mt-2 uppercase">Hours</span>
-    </div>
-
-    <div class="flex flex-col items-center">
-      <div class="relative bg-slate-800 text-white w-16 h-20 sm:w-20 sm:h-24 rounded-lg shadow-lg flex items-center justify-center text-3xl sm:text-4xl font-black overflow-hidden">
-        <span class="relative z-10" id="cd-minutes">00</span>
-        <div class="absolute w-full h-px bg-slate-900/50 top-1/2 left-0 z-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-0"></div>
-      </div>
-      <span class="text-xs font-bold text-slate-400 mt-2 uppercase">Mins</span>
-    </div>
-
-    <div class="flex flex-col items-center">
-      <div class="relative bg-slate-800 text-white w-16 h-20 sm:w-20 sm:h-24 rounded-lg shadow-lg flex items-center justify-center text-3xl sm:text-4xl font-black overflow-hidden">
-        <span class="relative z-10 text-blue-400" id="cd-seconds">00</span>
-        <div class="absolute w-full h-px bg-slate-900/50 top-1/2 left-0 z-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-0"></div>
-      </div>
-      <span class="text-xs font-bold text-slate-400 mt-2 uppercase">Secs</span>
-    </div>
-
-  </div>
-</div>
-
-        </div>
-      </section>
-      
-      <section id="ukmt" class="mt-16 scroll-mt-24">
-        <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">UKMT</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-        
-        <div class="relative overflow-hidden rounded-2xl bg-[#0f172a] shadow-2xl border border-slate-700">
-          
-          <div class="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl"></div>
-          <div class="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl"></div>
-          
-          <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center p-8 md:p-10">
-            
-            <div class="md:col-span-2 space-y-4">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-widest">
-                <span class="material-icons text-sm">emoji_events</span>
-                High Achievers
-              </div>
-              
-              <h2 class="text-3xl md:text-4xl font-black text-white">
-                Intermediate <span class="text-amber-400">Maths Challenge</span>
-              </h2>
-              
-              <p class="text-slate-300 text-sm md:text-base leading-relaxed max-w-xl">
-                Go beyond the curriculum. The UKMT Challenge is about logic, lateral thinking, and problem-solving. Prepare for the competition, aim for Gold, and qualify for the Kangaroo or Olympiad rounds.
-              </p>
-              
-              <div class="flex flex-wrap gap-4 pt-2">
-                <a href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 text-slate-900 font-bold text-sm hover:bg-amber-400 hover:-translate-y-0.5 transition-all shadow-lg shadow-amber-500/20">
-                  Practice Papers
-                  <span class="material-icons text-sm">open_in_new</span>
-                </a>
-                
-                <a href="https://www.drfrost.org/worksheets.php?wdid=46" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white font-semibold text-sm hover:bg-white/10 transition-colors">
-                  Dr Frost
-                  <span class="material-icons text-sm">open_in_new</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="flex justify-center md:justify-end">
-              <div class="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 shadow-inner">
-                 <span class="material-icons text-6xl md:text-7xl text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">
-                   psychology
-                 </span>
-                 <div class="absolute top-0 right-2 w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-75"></div>
-                 <div class="absolute bottom-4 left-0 w-2 h-2 bg-amber-400 rounded-full animate-bounce"></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      
-    </div>
+    </section>
   </main>
 
   <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
-  
+
   <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+    // Mobile Menu Script
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Handle Search Submission -> Redirect to the "Error" page
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // This will link to your next page: e.g., bishop_airways_status.html
+      window.location.href = "bishop_airways_status.html"; 
     });
   </script>
-  <script>
-  // SET THE DATE HERE: Year, Month (0-11), Day, Hour, Minute
-  // Note: Month is 0-indexed (0 = Jan, 4 = May)
-  // Example: May 15, 2026 at 9:00 AM
-  const targetDate = new Date(2026, 4, 15, 9, 0, 0).getTime();
-
-  const timerInterval = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance < 0) {
-      clearInterval(timerInterval);
-      document.getElementById("cd-days").innerText = "00";
-      document.getElementById("cd-hours").innerText = "00";
-      document.getElementById("cd-minutes").innerText = "00";
-      document.getElementById("cd-seconds").innerText = "00";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Update Elements with leading zeros
-    document.getElementById("cd-days").innerText = days < 10 ? "0" + days : days;
-    document.getElementById("cd-hours").innerText = hours < 10 ? "0" + hours : hours;
-    document.getElementById("cd-minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-    document.getElementById("cd-seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
-  }, 1000);
-</script>
+  
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
