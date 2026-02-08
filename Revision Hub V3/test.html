@@ -12,70 +12,67 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-white text-[#1a1a1a] font-[Lexend]; overflow-x:hidden; }
+    body { @apply bg-white text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200; }
-    
-    /* Hero styling */
-    .hero-container {
-      position: relative;
-      height: 90vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-image {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    /* Modern Booking Widget */
-    .booking-card {
-      @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-4 relative z-10;
-    }
-
-    .input-group {
-      @apply flex flex-col gap-1 w-full;
-    }
-
-    .input-group label {
-      @apply text-[10px] font-bold uppercase tracking-wider text-gray-500 ml-1;
-    }
-
-    .airline-input {
-      @apply bg-white border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all;
-    }
-
-    .search-btn {
-      @apply bg-[#000] text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 mt-5 md:mt-0;
-    }
-
+    /* Header + mobile menu (Matches Main Site) */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-50;
       width: 180px;
       transform-origin: top right;
     }
+
+    /* Hero Section */
+    .hero-container {
+      position: relative;
+      height: 85vh;
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Booking Widget */
+    .booking-card {
+      @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-4 relative z-10 border border-gray-100;
+    }
+
+    .input-group { @apply flex flex-col gap-1 w-full relative; }
+    .input-group label { @apply text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1; }
+    
+    .airline-input {
+      @apply bg-gray-50 border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all;
+    }
+
+    /* Suggestions Dropdown */
+    .suggestions {
+      @apply absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-xl mt-1 z-20 hidden overflow-hidden;
+    }
+    .sug-item { @apply px-4 py-2 text-sm cursor-pointer hover:bg-gray-50 transition-colors; }
+
+    .search-btn {
+      @apply bg-black text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2 mt-4 md:mt-0;
+    }
+
+    /* Error Message Overlay */
+    #errorMsg { @apply hidden fixed top-20 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-full font-bold shadow-2xl z-[60] animate-bounce; }
   </style>
 </head>
 <body>
 
   <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
-        <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-8 w-auto"/>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
 
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600 transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
       </nav>
 
       <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
@@ -83,89 +80,154 @@
       </button>
 
       <div id="mobileMenu" class="hidden">
-        <a href="index.html" class="block py-2 text-sm text-gray-700">Home</a>
-        <a href="ks3_hub.html" class="block py-2 text-sm text-gray-700">KS3</a>
-        <a href="gcse_hub.html" class="block py-2 text-sm text-gray-700">GCSE</a>
-        <a href="alevel_hub.html" class="block py-2 text-sm text-gray-700">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white text-center font-semibold mt-2 py-1.5 px-3 block text-xs" href="ai_usage.html">AI Usage</a>
+        <a href="index.html" class="block py-2 text-sm text-gray-700 text-center">Home</a>
+        <a href="ks3_hub.html" class="block py-2 text-sm text-gray-700 text-center">KS3</a>
+        <a href="gcse_hub.html" class="block py-2 text-sm text-gray-700 text-center">GCSE</a>
+        <a href="alevel_hub.html" class="block py-2 text-sm text-gray-700 text-center">A-Level</a>
       </div>
     </div>
   </header>
 
+  <div id="errorMsg">We currently don't fly there!</div>
+
   <main class="pt-14">
     <section class="hero-container">
-      <div class="hero-image">
-        <img src="assets/Airways-hero.jpg" alt="Destination" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-black/10"></div>
+      <div class="absolute inset-0 z-0">
+        <img src="assets/Airways-hero.jpg" alt="Hero" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/20"></div>
       </div>
 
       <div class="booking-card">
-        <div class="mb-6">
-          <h1 class="text-2xl font-black tracking-tight text-black">Explore the World with Bishop Airways</h1>
-          <p class="text-gray-600 text-sm">Book your next destination with the UK's premier educational carrier.</p>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <img src="assets/Bishop Airways.png" alt="Bishop Airways" class="h-10 w-auto mb-2"/>
+            <p class="text-gray-500 text-xs font-medium">Official Carrier of the Mathematics Department</p>
+          </div>
+          <div class="flex gap-4">
+            <span class="text-[10px] font-bold bg-gray-100 px-3 py-1 rounded-full uppercase">One Way</span>
+            <span class="text-[10px] font-bold text-gray-400 px-3 py-1 rounded-full uppercase">Return</span>
+          </div>
         </div>
 
-        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <form id="flightSearch" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
           <div class="input-group">
             <label>From</label>
-            <input type="text" placeholder="London (LHR)" class="airline-input" required />
+            <input type="text" id="fromInput" placeholder="Origin City" class="airline-input" autocomplete="off" required />
+            <div id="fromSug" class="suggestions"></div>
           </div>
 
           <div class="input-group">
             <label>To</label>
-            <input type="text" placeholder="Destination City" class="airline-input" required />
+            <input type="text" id="toInput" placeholder="Destination" class="airline-input" autocomplete="off" required />
+            <div id="toSug" class="suggestions"></div>
           </div>
 
           <div class="input-group">
-            <label>Dates</label>
+            <label>Departure Date</label>
             <input type="date" class="airline-input" required />
           </div>
 
           <button type="submit" class="search-btn">
-            Search Flights <span class="material-icons text-base">search</span>
+            Find Flights <span class="material-icons">arrow_forward</span>
           </button>
         </form>
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h2 class="text-3xl font-bold mb-4">Why fly Bishop Airways?</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
-            <div>
-                <span class="material-icons text-yellow-500 text-4xl mb-4">schedule</span>
-                <h3 class="font-bold text-lg">Calculate Your Journey</h3>
-                <p class="text-gray-500 text-sm mt-2">Master speed, distance, and time with our real-time flight telemetry.</p>
-            </div>
-            <div>
-                <span class="material-icons text-yellow-500 text-4xl mb-4">public</span>
-                <h3 class="font-bold text-lg">Global Destinations</h3>
-                <p class="text-gray-500 text-sm mt-2">Connecting students to mathematical concepts across all continents.</p>
-            </div>
-            <div>
-                <span class="material-icons text-yellow-500 text-4xl mb-4">support_agent</span>
-                <h3 class="font-bold text-lg">24/7 Nav Verification</h3>
-                <p class="text-gray-500 text-sm mt-2">Technical support available via our ground-control mathematics department.</p>
-            </div>
+    <section class="max-w-7xl mx-auto px-4 py-20">
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-2xl font-black tracking-tight">Explore Destinations</h2>
+        <div class="h-px bg-gray-200 flex-grow"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="group cursor-pointer">
+          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
+             <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="New York"/>
+          </div>
+          <h3 class="font-bold text-lg">New York (JFK)</h3>
+          <p class="text-gray-500 text-sm">Experience the Big Apple. Flights departing daily from LHR.</p>
         </div>
+
+        <div class="group cursor-pointer">
+          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
+             <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Dubai"/>
+          </div>
+          <h3 class="font-bold text-lg">Dubai (DXB)</h3>
+          <p class="text-gray-500 text-sm">Where the desert meets the city. Business Class now available.</p>
+        </div>
+
+        <div class="group cursor-pointer">
+          <div class="h-64 rounded-2xl overflow-hidden mb-4 shadow-lg">
+             <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Tokyo"/>
+          </div>
+          <h3 class="font-bold text-lg">Tokyo (HND)</h3>
+          <p class="text-gray-500 text-sm">A perfect blend of tradition and high-tech future.</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <div id="footer-slot"></div>
 
   <script>
-    // Mobile Menu Script
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    // AIRPORT DATA (Matches your curriculum questions)
+    const AIRPORTS = [
+      "London (LHR)", "New York (JFK)", "Paris (CDG)", "Amsterdam (AMS)", 
+      "Berlin (BER)", "Madrid (MAD)", "Rome (FCO)", "Dublin (DUB)", 
+      "Munich (MUC)", "Prague (PRG)", "Dubai (DXB)", "Los Angeles (LAX)", 
+      "Cape Town (CPT)", "Tokyo (HND)", "Singapore (SIN)", "Mauritius (MRU)"
+    ];
 
-    // Handle Search Submission -> Redirect to the "Error" page
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
+    function setupAutocomplete(input, sugBox) {
+      input.addEventListener('input', () => {
+        const val = input.value.toLowerCase();
+        sugBox.innerHTML = '';
+        if(!val) { sugBox.classList.add('hidden'); return; }
+
+        const filtered = AIRPORTS.filter(a => a.toLowerCase().includes(val));
+        if(filtered.length > 0) {
+          sugBox.classList.remove('hidden');
+          filtered.forEach(a => {
+            const div = document.createElement('div');
+            div.className = 'sug-item';
+            div.textContent = a;
+            div.onclick = () => {
+              input.value = a;
+              sugBox.classList.add('hidden');
+            };
+            sugBox.appendChild(div);
+          });
+        } else {
+          sugBox.classList.add('hidden');
+        }
+      });
+    }
+
+    setupAutocomplete(document.getElementById('fromInput'), document.getElementById('fromSug'));
+    setupAutocomplete(document.getElementById('toInput'), document.getElementById('toSug'));
+
+    // VALIDATION AND REDIRECT
+    document.getElementById('flightSearch').addEventListener('submit', function(e) {
       e.preventDefault();
-      // This will link to your next page: e.g., bishop_airways_status.html
-      window.location.href = "bishop_airways_status.html"; 
+      const from = document.getElementById('fromInput').value;
+      const to = document.getElementById('toInput').value;
+      const error = document.getElementById('errorMsg');
+
+      if(!AIRPORTS.includes(from) || !AIRPORTS.includes(to)) {
+        error.textContent = !AIRPORTS.includes(from) ? "We don't fly from there!" : "We don't fly to there!";
+        error.style.display = 'block';
+        setTimeout(() => { error.style.display = 'none'; }, 3000);
+      } else {
+        window.location.href = "bishop_airways_status.html";
+      }
+    });
+
+    // Mobile Menu
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
     });
   </script>
-  
   <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
