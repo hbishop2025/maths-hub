@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bishop Airways | System Status</title>
+  <title>Bishop Airways | Flight Telemetry Status</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -14,7 +14,7 @@
   <style type="text/tailwindcss">
     body { @apply bg-slate-50 text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Header (Matches Previous Page) */
+    /* Header */
     .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
 
     /* Loading Overlay */
@@ -24,22 +24,22 @@
     .loader-bar { @apply w-64 h-1 bg-slate-700 rounded-full mt-4 overflow-hidden; }
     .loader-progress { @apply h-full bg-blue-500 w-0 transition-all duration-[3000ms] ease-out; }
 
-    /* Error Banner */
+    /* Error Banner (Static, no pulse) */
     .error-banner {
-      @apply bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 mb-8 animate-pulse border-2 border-red-800;
+      @apply bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4 mb-8 border-l-8 border-red-800;
     }
 
     /* Tables */
-    .fare-table { @apply w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8; }
-    .fare-table th { @apply bg-slate-100 text-left text-xs font-bold text-gray-500 uppercase tracking-wider px-6 py-3 border-b border-gray-200; }
-    .fare-table td { @apply px-6 py-4 text-sm font-medium border-b border-gray-100; }
-    .fare-table tr:last-child td { @apply border-b-0; }
+    .telemetry-table { @apply w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8; }
+    .telemetry-table th { @apply bg-slate-100 text-left text-xs font-bold text-gray-500 uppercase tracking-wider px-6 py-3 border-b border-gray-200; }
+    .telemetry-table td { @apply px-6 py-4 text-sm font-medium border-b border-gray-100; }
+    .telemetry-table tr:last-child td { @apply border-b-0; }
     
-    /* The "Airport Sign" Mono Font for numbers */
-    .data-cell { @apply font-['Share_Tech_Mono'] text-lg text-slate-700; }
+    /* Monospaced Data Cells */
+    .data-cell { @apply font-['Share_Tech_Mono'] text-lg text-slate-700 tracking-wide; }
     
-    /* The Glitched Text */
-    .scrambled { @apply text-red-600 font-bold bg-red-50 px-2 py-1 rounded; }
+    /* Scrambled Text Style */
+    .scrambled-forever { @apply text-red-600 font-bold bg-red-50 px-2 py-1 rounded; }
     
     /* Back Button */
     .back-btn { @apply inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black transition-colors mb-6; }
@@ -65,158 +65,175 @@
 
   <div id="loadingScreen">
     <img src="assets/Bishop Airways.png" class="h-12 w-auto mb-8 invert opacity-80" alt="Logo"/>
-    <h2 class="text-xl font-mono tracking-widest">CONNECTING TO SERVER...</h2>
+    <h2 class="text-xl font-mono tracking-widest">CONNECTING TO FLIGHT DATA RECORDER...</h2>
     <div class="loader-bar"><div class="loader-progress" id="loadBar"></div></div>
     <p class="text-xs text-slate-500 mt-2 font-mono" id="loadText">Establishing handshake...</p>
   </div>
 
-  <main class="pt-24 max-w-5xl mx-auto px-4 pb-20 opacity-0 transition-opacity duration-1000" id="mainContent">
+  <main class="pt-24 max-w-6xl mx-auto px-4 pb-20 opacity-0 transition-opacity duration-1000" id="mainContent">
     
     <a href="bishop_airways.html" class="back-btn">
       <span class="material-icons text-sm">arrow_back</span> Return to Search
     </a>
 
     <div class="error-banner">
-      <span class="material-icons text-2xl">warning_amber</span>
+      <span class="material-icons text-3xl">warning</span>
       <div>
-        <h3 class="font-bold">SYSTEM ERROR 503: PRICING ENGINE OFFLINE</h3>
-        <p class="text-xs opacity-90">Auto-calculation failed. Manual fare computation required for all passengers.</p>
+        <h3 class="font-bold text-lg">SYSTEM FAILURE: TELEMETRY DATA CORRUPT</h3>
+        <p class="text-sm opacity-90">Flight computer offline. Manual calculation of Speed, Distance, and Time parameters required.</p>
       </div>
     </div>
 
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-black tracking-tight">Flight Tariffs (Raw Data)</h1>
-      <span class="text-xs font-mono text-gray-400">SESSION ID: ERR_Manual_Override</span>
+    <div class="flex items-center justify-between mb-8 border-b pb-4">
+      <div>
+        <h1 class="text-3xl font-black tracking-tight">Flight Telemetry Logs</h1>
+        <p class="text-slate-500 text-sm mt-1">Authorized Personnel Only</p>
+      </div>
+      <span class="text-xs font-mono text-gray-400 bg-gray-100 px-3 py-1 rounded">LOG ID: ERR_SDT_MANUAL</span>
     </div>
 
-    <div class="mb-2">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-        <h3 class="font-bold text-lg">Economy Class</h3>
+    <div class="mb-10">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-1.5 h-6 bg-blue-500 rounded-full"></div>
+        <div>
+            <h3 class="font-bold text-xl">Sector 1: Local Flights (Fluency)</h3>
+            <p class="text-xs text-gray-400">Basic Telemetry. Standard Units.</p>
+        </div>
       </div>
-      <table class="fare-table">
+      <table class="telemetry-table">
         <thead>
           <tr>
-            <th>Passenger Type</th>
-            <th>Base Fare</th>
-            <th>Fuel Surcharge</th>
-            <th>Tax Rate</th>
-            <th>Baggage Fee</th>
-            <th>TOTAL PRICE</th>
+            <th>Flight ID</th>
+            <th>Distance (km)</th>
+            <th>Speed (km/h)</th>
+            <th>Time / Duration</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Adult (12+)</td>
-            <td class="data-cell" data-value="£240.00">---</td>
-            <td class="data-cell" data-value="£45.00">---</td>
-            <td class="data-cell" data-value="10%">---</td>
-            <td class="data-cell" data-value="£25.00">---</td>
-            <td class="data-cell scrambled-forever">---</td>
+            <td class="font-mono font-bold text-blue-600">BA-E01</td>
+            <td class="data-cell">340 km</td>
+            <td class="data-cell">400 km/h</td>
+            <td class="data-cell scrambled-forever">---</td> <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
           </tr>
           <tr>
-            <td>Child (2-11)</td>
-            <td class="data-cell" data-value="£180.00">---</td>
-            <td class="data-cell" data-value="£45.00">---</td>
-            <td class="data-cell" data-value="5%">---</td>
-            <td class="data-cell" data-value="£15.00">---</td>
-            <td class="data-cell scrambled-forever">---</td>
+            <td class="font-mono font-bold text-blue-600">BA-E02</td>
+            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">800 km/h</td>
+            <td class="data-cell">2 hrs 15 mins</td>
+            <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-blue-600">BA-E03</td>
+            <td class="data-cell">930 km</td>
+            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">1 hr 30 mins</td>
+            <td><span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">CALC REQ</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="mb-2">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-3 h-3 rounded-full bg-teal-500"></div>
-        <h3 class="font-bold text-lg">Premium Economy</h3>
+    <div class="mb-10">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-1.5 h-6 bg-teal-500 rounded-full"></div>
+        <div>
+            <h3 class="font-bold text-xl">Sector 2: International (Unit Conversion)</h3>
+            <p class="text-xs text-gray-400">WARNING: Imperial/Metric Mismatch Detected. Use 5 miles ≈ 8 km.</p>
+        </div>
       </div>
-      <table class="fare-table">
+      <table class="telemetry-table">
         <thead>
           <tr>
-            <th>Passenger Type</th>
-            <th>Base Fare</th>
-            <th>Fuel Surcharge</th>
-            <th>Tax Rate</th>
-            <th>Baggage Fee</th>
-            <th>TOTAL PRICE</th>
+            <th>Flight ID</th>
+            <th>Distance</th>
+            <th>Time</th>
+            <th>Speed (Imperial)</th>
+            <th>Speed (Metric)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Adult (12+)</td>
-            <td class="data-cell" data-value="£450.00">---</td>
-            <td class="data-cell" data-value="£60.00">---</td>
-            <td class="data-cell" data-value="12%">---</td>
-            <td class="data-cell" data-value="INCLUDED">---</td>
-            <td class="data-cell scrambled-forever">---</td>
-          </tr>
+            <td class="font-mono font-bold text-teal-600">BA-P01</td>
+            <td class="data-cell">3,450 miles</td>
+            <td class="data-cell">7.5 hours</td>
+            <td class="data-cell">460 mph</td>
+            <td class="data-cell scrambled-forever">---</td> </tr>
           <tr>
-            <td>Child (2-11)</td>
-            <td class="data-cell" data-value="£340.00">---</td>
-            <td class="data-cell" data-value="£60.00">---</td>
-            <td class="data-cell" data-value="8%">---</td>
-            <td class="data-cell" data-value="INCLUDED">---</td>
-            <td class="data-cell scrambled-forever">---</td>
+            <td class="font-mono font-bold text-teal-600">BA-P02</td>
+            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">7 hours</td>
+            <td class="data-cell">550 mph</td>
+            <td class="data-cell text-gray-300">N/A</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="mb-2">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-3 h-3 rounded-full bg-purple-600"></div>
-        <h3 class="font-bold text-lg">Business Class</h3>
+    <div class="mb-10">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-1.5 h-6 bg-purple-600 rounded-full"></div>
+        <div>
+            <h3 class="font-bold text-xl">Sector 3: Intercontinental (Time Zones)</h3>
+            <p class="text-xs text-gray-400">Departure/Arrival sync failure. Calculate duration from GMT offsets.</p>
+        </div>
       </div>
-      <table class="fare-table">
+      <table class="telemetry-table">
         <thead>
           <tr>
-            <th>Passenger Type</th>
-            <th>Base Fare</th>
-            <th>Fuel Surcharge</th>
-            <th>Tax Rate</th>
-            <th>Lounge Access</th>
-            <th>TOTAL PRICE</th>
+            <th>Flight ID</th>
+            <th>Departure (Local)</th>
+            <th>Arrival (Local)</th>
+            <th>Time Diff</th>
+            <th>Distance</th>
+            <th>Avg Speed</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Adult (12+)</td>
-            <td class="data-cell" data-value="£1,200.00">---</td>
-            <td class="data-cell" data-value="£120.00">---</td>
-            <td class="data-cell" data-value="15%">---</td>
-            <td class="data-cell" data-value="£50.00">---</td>
-            <td class="data-cell scrambled-forever">---</td>
+            <td class="font-mono font-bold text-purple-600">BA-B01</td>
+            <td class="data-cell">10:00 (GMT)</td>
+            <td class="data-cell">13:00 (EST)</td>
+            <td class="data-cell text-gray-400">EST = GMT-5</td>
+            <td class="data-cell">5,500 km</td>
+            <td class="data-cell scrambled-forever">---</td> </tr>
+          <tr>
+            <td class="font-mono font-bold text-purple-600">BA-B02</td>
+            <td class="data-cell">20:00 (GMT)</td>
+            <td class="data-cell">16:00 (SGT)+1</td>
+            <td class="data-cell text-gray-400">SGT = GMT+8</td>
+            <td class="data-cell scrambled-forever">---</td> <td class="data-cell">900 km/h</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="mb-2">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <h3 class="font-bold text-lg">First Class</h3>
+    <div class="mb-10">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-1.5 h-6 bg-yellow-500 rounded-full"></div>
+        <div>
+            <h3 class="font-bold text-xl">Sector 4: Experimental (Advanced)</h3>
+            <p class="text-xs text-gray-400">Complex Variable Telemetry.</p>
+        </div>
       </div>
-      <table class="fare-table">
+      <table class="telemetry-table">
         <thead>
           <tr>
-            <th>Passenger Type</th>
-            <th>Base Fare</th>
-            <th>Fuel Surcharge</th>
-            <th>Tax Rate</th>
-            <th>Concierge Fee</th>
-            <th>TOTAL PRICE</th>
+            <th>Flight ID</th>
+            <th>Flight Data</th>
+            <th>Variable Factor</th>
+            <th>Result Required</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Adult (12+)</td>
-            <td class="data-cell" data-value="£3,500.00">---</td>
-            <td class="data-cell" data-value="£200.00">---</td>
-            <td class="data-cell" data-value="20%">---</td>
-            <td class="data-cell" data-value="£150.00">---</td>
-            <td class="data-cell scrambled-forever">---</td>
-          </tr>
+            <td class="font-mono font-bold text-yellow-600">BA-F01</td>
+            <td class="data-cell">Distance: 2,000 km</td>
+            <td class="data-cell">Air Speed: 800 km/h <br><span class="text-red-500 text-xs">Headwind: 50 km/h</span></td>
+            <td class="data-cell scrambled-forever">---</td> </tr>
+          <tr>
+            <td class="font-mono font-bold text-yellow-600">BA-F02</td>
+            <td class="data-cell">Leg 1: 2 hrs @ ? <br>Leg 2: 1.5 hrs @ ?</td>
+            <td class="data-cell">Total Dist: 2,200 km<br>Total Time: 3.5 hrs</td>
+            <td class="data-cell scrambled-forever">---</td> </tr>
         </tbody>
       </table>
     </div>
@@ -237,14 +254,14 @@
       setTimeout(() => { bar.style.width = '70%'; }, 100);
       
       // Update Text
-      setTimeout(() => { text.innerText = "Retrieving Pricing Matrices..."; }, 1200);
-      setTimeout(() => { text.innerText = "Calculating Fuel Surcharges..."; }, 2400);
+      setTimeout(() => { text.innerText = "Retrieving Flight Manifests..."; }, 1200);
+      setTimeout(() => { text.innerText = "Syncing Telemetry..."; }, 2400);
       
       // CRASH
       setTimeout(() => {
         bar.style.backgroundColor = '#ef4444'; // Red
         text.style.color = '#ef4444';
-        text.innerText = "CONNECTION INTERRUPTED!";
+        text.innerText = "CONNECTION FAILURE!";
       }, 3000);
 
       // HIDE LOADER & SHOW CONTENT
@@ -260,37 +277,56 @@
 
     // 2. AIRPORT SIGN SCRAMBLE EFFECT
     function startScrambleEffect() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789£$%&@#";
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?#";
       const cells = document.querySelectorAll('.data-cell');
 
       cells.forEach(cell => {
-        const finalValue = cell.getAttribute('data-value');
+        const finalValue = cell.innerText; 
         const isForever = cell.classList.contains('scrambled-forever');
-        let iterations = 0;
         
-        // Random duration for each cell to look organic (between 10 and 40 cycles)
-        const maxIterations = isForever ? 999999 : 20 + Math.random() * 30; 
+        // If it's the "forever" scrambled cell, we ignore the current text and just run chaos
+        // If it's normal data, we start scrambled and land on the text in the HTML.
+        
+        // However, for this specific request, the HTML already contains the answer for normal cells?
+        // Wait, the HTML above has the DATA visible for the "knowns" and scrambled-forever for "unknowns".
+        // So we only need to "cycle" the visible known data briefly to look cool.
+
+        if(isForever) return; // The CSS class handles the look, we can animate it if we want chaos
+
+        let iterations = 0;
+        const maxIterations = 15 + Math.random() * 20; 
 
         const interval = setInterval(() => {
-          // Generate random string of same length as target (or fixed length for forever)
           let randomStr = "";
-          const len = isForever ? 8 : finalValue.length;
-          
+          // Keep length somewhat consistent
+          const len = finalValue.length; 
           for(let i=0; i<len; i++) {
-            randomStr += chars[Math.floor(Math.random() * chars.length)];
+             // 50% chance to show correct char, 50% random
+             if(Math.random() > 0.5) {
+                randomStr += finalValue[i];
+             } else {
+                randomStr += chars[Math.floor(Math.random() * chars.length)];
+             }
           }
-          
           cell.innerText = randomStr;
           
-          // Stop condition
           iterations++;
-          if (!isForever && iterations > maxIterations) {
+          if (iterations > maxIterations) {
             clearInterval(interval);
-            cell.innerText = finalValue;
-            cell.classList.add('text-black'); // Lock in color
+            cell.innerText = finalValue; // Lock in correct value
           }
-        }, 50); // Speed of flicker
+        }, 50);
       });
+
+      // Animate the "Unknowns" continuously
+      const foreverCells = document.querySelectorAll('.scrambled-forever');
+      setInterval(() => {
+        foreverCells.forEach(cell => {
+            let r = "";
+            for(let i=0; i<6; i++) r += chars[Math.floor(Math.random() * chars.length)];
+            cell.innerText = r;
+        });
+      }, 100);
     }
   </script>
   <script src="assets/footer-loader.js" defer></script>
