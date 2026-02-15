@@ -31,11 +31,11 @@
     }
     .module-card:active{ transform: translateY(-1px); }
 
-    /* Subtle “Apple” focus ring */
+    /* Subtle “Apple” focus ring (UPDATED to purple) */
     .module-card:focus{
       outline: none;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, .18), 0 14px 30px rgba(15, 23, 42, .08);
-      border-color: rgba(59, 130, 246, .45);
+      box-shadow: 0 0 0 4px rgba(168, 85, 247, .18), 0 14px 30px rgba(15, 23, 42, .08);
+      border-color: rgba(168, 85, 247, .45);
     }
 
     /* Tiny chevron motion */
@@ -59,12 +59,12 @@
   <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
     <div class="absolute inset-0 bg-[#f8fafc]"></div>
 
-    <!-- very subtle light bloom -->
+    <!-- very subtle light bloom (UPDATED to purple/fuchsia) -->
     <div class="absolute -top-40 -left-40 w-[720px] h-[720px] rounded-full blur-3xl
-                bg-gradient-to-br from-blue-200/18 via-slate-200/10 to-transparent"></div>
+                bg-gradient-to-br from-purple-200/18 via-slate-200/10 to-transparent"></div>
 
     <div class="absolute -bottom-48 -right-48 w-[720px] h-[720px] rounded-full blur-3xl
-                bg-gradient-to-tr from-indigo-200/16 via-slate-200/10 to-transparent"></div>
+                bg-gradient-to-tr from-fuchsia-200/16 via-slate-200/10 to-transparent"></div>
   </div>
 
   <div class="layout">
@@ -75,7 +75,7 @@
     <main class="main p-8 lg:pl-12 overflow-y-auto">
       <div class="max-w-7xl mx-auto">
 
-        <!-- Header (keep simple + compatible with your existing global mobile behaviour) -->
+        <!-- Header -->
         <header class="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div class="flex items-center gap-2">
             <a href="ks3_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
@@ -85,13 +85,10 @@
           </div>
         </header>
 
-        <!-- Hero (more Apple-like) -->
+        <!-- Hero -->
         <section class="mb-24 text-center relative">
-
           <div class="max-w-4xl mx-auto relative">
-
             <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
-
               <span class="relative inline-flex items-center gap-4 flex-wrap justify-center">
 
                 <!-- Year 9 highlight -->
@@ -102,22 +99,19 @@
                 <!-- Mathematics with upward curve underline -->
                 <span class="relative inline-block">
                   Mathematics
-
                   <svg class="absolute left-0 right-0 -bottom-4 w-full h-6"
                        viewBox="0 0 200 30"
                        preserveAspectRatio="none"
                        xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 22 Q100 6 195 20"
-                        stroke="rgba(168, 85, 247, 0.55)"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                        fill="none"/>
+                    <path d="M5 22 Q100 6 195 20"
+                          stroke="rgba(168, 85, 247, 0.55)"
+                          stroke-width="5"
+                          stroke-linecap="round"
+                          fill="none"/>
                   </svg>
-
                 </span>
 
               </span>
-
             </h1>
 
             <p class="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
@@ -140,11 +134,9 @@
                 2 End of Year Tests
               </div>
             </div>
-
           </div>
 
           <div class="mt-16 h-px bg-gray-200"></div>
-
         </section>
 
         <!-- Units -->
@@ -154,7 +146,6 @@
             <span class="text-sm text-gray-500">Academic Year Structure</span>
           </div>
 
-          <!-- Apple-ish grid cards -->
           <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
             <!-- Unit 01 -->
@@ -173,7 +164,7 @@
                 <div>• Surds</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -194,7 +185,7 @@
                 <div>• Sequences</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -215,7 +206,7 @@
                 <div>• Algebraic Fractions</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -236,7 +227,7 @@
                 <div>• Cumulative Frequency</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -257,7 +248,7 @@
                 <div>• Arcs &amp; Sectors</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -278,7 +269,7 @@
                 <div>• Reciprocal Graphs</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -299,7 +290,7 @@
                 <div>• Rates of Change</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -320,7 +311,7 @@
                 <div>• Inequalities</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -341,7 +332,7 @@
                 <div>• Problem Solving</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -362,7 +353,7 @@
                 <div>• Proof Methods</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-purple-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -373,16 +364,16 @@
         <!-- Apple-ish highlight section -->
         <section class="mt-24 mb-10">
           <div class="rounded-3xl border border-gray-200 bg-white p-10 md:p-16 relative overflow-hidden">
-            <!-- subtle accent highlight -->
-            <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-blue-500 via-sky-400 to-blue-500"></div>
-            <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl bg-blue-200/30"></div>
+            <!-- subtle accent highlight (UPDATED to purple) -->
+            <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-purple-600 via-fuchsia-400 to-purple-600"></div>
+            <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl bg-purple-200/30"></div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center">
 
               <!-- Left -->
               <div>
                 <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold
-                            bg-blue-50 text-blue-700 border border-blue-100">
+                            bg-purple-50 text-purple-700 border border-purple-100">
                   <span class="material-icons text-[16px]">auto_awesome</span>
                   Featured
                 </div>
@@ -413,8 +404,8 @@
               <div class="flex md:justify-end">
                 <a href="ks3_eoy.html"
                    class="inline-flex items-center justify-center px-8 py-4 rounded-full
-                          bg-blue-600 text-white font-semibold text-sm
-                          hover:bg-blue-700 transition-all duration-300
+                          bg-purple-600 text-white font-semibold text-sm
+                          hover:bg-purple-700 transition-all duration-300
                           hover:shadow-lg">
                   Start revision
                   <span class="material-icons ml-2 text-base">arrow_forward</span>
