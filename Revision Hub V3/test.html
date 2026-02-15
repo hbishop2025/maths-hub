@@ -277,198 +277,35 @@
   <div id="footer-slot"></div>
 
   <script>
-    // ===== Sidebar active section =====
-    (function(){
-      const nav = document.getElementById('sideNav');
-      if(!nav) return;
-      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
-      const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+(function(){
+  const nav = document.getElementById('sideNav');
+  if(!nav) return;
 
-      const obs = new IntersectionObserver((entries)=>{
-        const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
-        if(!visible) return;
-        const id = '#' + visible.target.id;
-        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
-      }, { rootMargin: "-30% 0px -60% 0px", threshold: [0.12, 0.2, 0.3] });
+  const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+  const sections = links
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
 
-      targets.forEach(t => obs.observe(t));
-    })();
-
-    // ===== Prompt Builder: state =====
-    let promptData = {
-      goalKey: "",
-      goalLabel: "",
-      goalText: "",
-      yearLabel: "",
-      yearText: "",
-      styleLabel: "",
-      styleText: "",
-      extras: {
-        showSteps: false,
-        checkAnswer: false,
-        noBigJumps: false,
-        miniQuiz: false
-      }
-    };
-
-    const extrasText = {
-      showSteps: "Show every step and explain why each step is valid.",
-      checkAnswer: "At the end, verify the answer using a different method or a quick check.",
-      noBigJumps: "Do not skip steps or make big jumps in reasoning.",
-      miniQuiz: "After explaining, quiz me with 2 short questions and mark my answers."
-    };
-
-    const topicEl = () => document.getElementById('topicInput');
-    const probEl  = () => document.getElementById('problemInput');
-
-    document.addEventListener('input', (e) => {
-      if(e.target && (e.target.id === 'topicInput' || e.target.id === 'problemInput')) updatePreview();
+  function setActive(id){
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
     });
+  }
 
-    function setGoal(key, label, text){
-      promptData.goalKey = key;
-      promptData.goalLabel = label;
-      promptData.goalText = text;
-
-      // auto-open problem box when "stuck"
-      if(key === "Stuck") toggleProblemBox(true);
-
-      updatePreview();
-    }
-
-    function setYear(label, text){
-      promptData.yearLabel = label;
-      promptData.yearText = text;
-      markChipGroup('year', label);
-      updatePreview();
-    }
-
-    function setStyle(label, text){
-      promptData.styleLabel = label;
-      promptData.styleText = text;
-      markChipGroup('style', label);
-      updatePreview();
-    }
-
-    function toggleExtra(key){
-      promptData.extras[key] = !promptData.extras[key];
-      const chip = document.getElementById(`chip-${key}`);
-      if(chip) chip.classList.toggle('on', promptData.extras[key]);
-      updatePreview();
-    }
-
-    function markChipGroup(group, label){
-      // Simple: visually "on" by toggling class based on innerText match
-      // Year chips are in one bar; Style chips in another.
-      const bars = document.querySelectorAll('.chipbar');
-      bars.forEach(bar => {
-        // identify year/style by presence of known items
-        const text = bar.innerText || "";
-        const isYear = text.includes("Year 7") && text.includes("GCSE");
-        const isStyle = text.includes("Socratic") && text.includes("Mark scheme");
-        if((group === 'year' && !isYear) || (group === 'style' && !isStyle)) return;
-
-        Array.from(bar.querySelectorAll('.chip')).forEach(chip => {
-          chip.classList.toggle('on', chip.innerText.trim() === label);
-        });
-      });
-    }
-
-    function toggleProblemBox(forceOpen){
-      const wrap = document.getElementById('problemWrap');
-      const toggleText = document.getElementById('problemToggleText');
-      const open = (typeof forceOpen === "boolean") ? forceOpen : (wrap.style.display === "none");
-
-      wrap.style.display = open ? "block" : "none";
-      toggleText.innerText = open ? "Hide my question/working" : "Add my question/working";
-      updatePreview();
-    }
-
-    function updatePreview(){
-      const t = (topicEl()?.value || "").trim();
-      const p = (probEl()?.value || "").trim();
-
-      const lines = [];
-
-      if(promptData.yearText) lines.push(promptData.yearText);
-
-      if(promptData.goalText){
-        if(t) lines.push(`Please ${promptData.goalText} ${t}.`);
-        else lines.push(`Please ${promptData.goalText} [INSERT TOPIC HERE].`);
-      } else {
-        // no goal chosen yet
-        if(t) lines.push(`Topic: ${t}`);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
       }
+    });
+  }, {
+    rootMargin: "-40% 0px -55% 0px",
+    threshold: 0
+  });
 
-      if(promptData.styleText) lines.push(promptData.styleText);
-
-      const stuckMode = (promptData.goalKey === "Stuck");
-      const includeProblem = stuckMode || p.length > 0;
-
-      if(includeProblem){
-        lines.push("");
-        lines.push("Here is the problem (and my working if included):");
-        lines.push(p ? p : "[PASTE QUESTION / WORKING HERE]");
-        lines.push("");
-        lines.push("Rules:");
-        lines.push("- Give me ONE hint first (or ask me one question).");
-        lines.push("- Do not give the full solution unless I ask.");
-        lines.push("- If you spot a mistake in my working, tell me the first incorrect step and why.");
-      }
-
-      const enabledExtras = Object.keys(promptData.extras).filter(k => promptData.extras[k]);
-      if(enabledExtras.length){
-        lines.push("");
-        lines.push("Extra requirements:");
-        enabledExtras.forEach(k => lines.push(`- ${extrasText[k]}`));
-      }
-
-      lines.push("");
-      lines.push("If you are unsure at any point, say so. Keep the method consistent with what is taught at school.");
-
-      const prompt = lines.join("\n").trim();
-      document.getElementById('promptPreview').innerText = prompt || "Choose options on the left, then type your topic.";
-    }
-
-    function copyPrompt(){
-      const text = document.getElementById('promptPreview').innerText;
-      if(!text || text.includes("Choose options")) return;
-
-      navigator.clipboard.writeText(text).then(() => {
-        const btnText = document.getElementById('copyText');
-        const btnIcon = document.getElementById('copyIcon');
-        btnText.innerText = "Copied!";
-        btnIcon.innerText = "done";
-
-        setTimeout(() => {
-          btnText.innerText = "Copy";
-          btnIcon.innerText = "content_copy";
-        }, 1400);
-      });
-    }
-
-    function resetBuilder(){
-      promptData = {
-        goalKey: "", goalLabel: "", goalText: "",
-        yearLabel: "", yearText: "",
-        styleLabel: "", styleText: "",
-        extras: { showSteps:false, checkAnswer:false, noBigJumps:false, miniQuiz:false }
-      };
-
-      // reset chips
-      document.querySelectorAll('.chip').forEach(ch => ch.classList.remove('on'));
-
-      // hide problem box (but keep typed text)
-      const wrap = document.getElementById('problemWrap');
-      wrap.style.display = "none";
-      document.getElementById('problemToggleText').innerText = "Add my question/working";
-
-      updatePreview();
-    }
-
-    // init
-    updatePreview();
-  </script>
+  sections.forEach(section => observer.observe(section));
+})();
+</script>
 
   <script src="assets/footer-loader.js" defer></script>
 </body>
