@@ -60,23 +60,23 @@
 
     /* Approved tools mesh aura (CSS-only, Option A) */
     .mesh {
-      position: relative;
-      overflow: hidden;
-    }
-    .mesh::before{
-      content:"";
-      position:absolute;
-      inset:-120px -120px auto -120px;
-      height: 340px;
-      pointer-events:none;
-      background:
-        radial-gradient(450px 240px at 18% 70%, rgba(59,130,246,.16), rgba(255,255,255,0) 60%),
-        radial-gradient(520px 280px at 55% 25%, rgba(99,102,241,.14), rgba(255,255,255,0) 65%),
-        radial-gradient(520px 280px at 85% 70%, rgba(236,72,153,.12), rgba(255,255,255,0) 60%);
-      filter: blur(10px);
-      opacity: .9;
-      transform: translateZ(0);
-    }
+  position: relative;
+  overflow: hidden;
+}
+
+.mesh::before{
+  content:"";
+  position:absolute;
+  inset:-200px;
+  pointer-events:none;
+  background:
+    radial-gradient(600px 320px at 10% 20%, rgba(59,130,246,.18), transparent 60%),
+    radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.16), transparent 65%),
+    radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.14), transparent 60%);
+  filter: blur(40px);
+  opacity:.9;
+  z-index:0;
+}
 
     /* Do / Don't layout (no cards) */
     .two-col { @apply grid md:grid-cols-2 gap-10; }
@@ -244,76 +244,69 @@
               </span>
             </div>
 
-            <div class="mt-10 border-t border-gray-200">
-              <!-- Gemini -->
-              <div class="row">
-                <div>
-                  <div class="row-title">
-                    <span class="material-icons text-blue-600">hub</span>
-                    <h3>Google Gemini</h3>
-                  </div>
-                  <div class="row-desc">
-                    Step-by-step explanations, checking methods, and targeted practice.
-                  </div>
-                  <div class="tags">
-                    <span class="tag">Hints-first</span>
-                    <span class="tag">Practice</span>
-                    <span class="tag">Marking</span>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <a class="btn-link" href="https://gemini.google.com" target="_blank">
-                    Open <span class="material-icons text-[18px]">open_in_new</span>
-                  </a>
-                </div>
-              </div>
+            <div class="relative z-10 mt-12 grid md:grid-cols-3 gap-8">
 
-              <!-- NotebookLM -->
-              <div class="row">
-                <div>
-                  <div class="row-title">
-                    <span class="material-icons text-purple-600">menu_book</span>
-                    <h3>NotebookLM</h3>
-                  </div>
-                  <div class="row-desc">
-                    Talk to your notes: upload revision packs and get quizzes from your sources.
-                  </div>
-                  <div class="tags">
-                    <span class="tag">Your sources</span>
-                    <span class="tag">Quizzes</span>
-                    <span class="tag">Summaries</span>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <a class="btn-link" href="https://notebooklm.google.com" target="_blank">
-                    Open <span class="material-icons text-[18px]">open_in_new</span>
-                  </a>
-                </div>
-              </div>
+  <!-- Gemini -->
+  <div class="rounded-2xl border border-gray-200/60 bg-white/40 backdrop-blur-md p-6 flex flex-col">
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-blue-600 text-2xl">hub</span>
+      <h3 class="font-black text-lg">Google Gemini</h3>
+    </div>
 
-              <!-- Canva -->
-              <div class="row">
-                <div>
-                  <div class="row-title">
-                    <span class="material-icons text-pink-600">brush</span>
-                    <h3>Canva AI</h3>
-                  </div>
-                  <div class="row-desc">
-                    Great for clean revision posters and diagrams (don’t use it to invent maths facts).
-                  </div>
-                  <div class="tags">
-                    <span class="tag">Posters</span>
-                    <span class="tag">Diagrams</span>
-                    <span class="tag">Slides</span>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <a class="btn-link" href="https://www.canva.com" target="_blank">
-                    Open <span class="material-icons text-[18px]">open_in_new</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+    <p class="mt-4 text-sm text-gray-700 flex-grow">
+      Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+    </p>
+
+    <div class="mt-6">
+      <a href="https://gemini.google.com" target="_blank"
+         class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-black text-white font-bold text-sm hover:bg-gray-900 transition">
+        Launch Gemini
+        <span class="material-icons text-[18px]">open_in_new</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- NotebookLM -->
+  <div class="rounded-2xl border border-gray-200/60 bg-white/40 backdrop-blur-md p-6 flex flex-col">
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-purple-600 text-2xl">menu_book</span>
+      <h3 class="font-black text-lg">NotebookLM</h3>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-700 flex-grow">
+      Upload revision packs and talk directly to your own notes. Great for quizzes and summaries.
+    </p>
+
+    <div class="mt-6">
+      <a href="https://notebooklm.google.com" target="_blank"
+         class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-black text-white font-bold text-sm hover:bg-gray-900 transition">
+        Open NotebookLM
+        <span class="material-icons text-[18px]">open_in_new</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Canva -->
+  <div class="rounded-2xl border border-gray-200/60 bg-white/40 backdrop-blur-md p-6 flex flex-col">
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-pink-600 text-2xl">brush</span>
+      <h3 class="font-black text-lg">Canva AI</h3>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-700 flex-grow">
+      Ideal for creating clean revision posters, diagrams, and slides. Not for inventing maths facts.
+    </p>
+
+    <div class="mt-6">
+      <a href="https://www.canva.com" target="_blank"
+         class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-black text-white font-bold text-sm hover:bg-gray-900 transition">
+        Open Canva
+        <span class="material-icons text-[18px]">open_in_new</span>
+      </a>
+    </div>
+  </div>
+
+</div>
           </section>
 
           <!-- DO / DON'T (no cards) -->
