@@ -131,6 +131,46 @@
   </header>
 
   <main class="page">
+      <!-- Full-width branch hero (matches KS3/GCSE/A-Level vibe) -->
+  <section class="relative w-full h-[460px] md:h-[520px] flex items-center overflow-hidden bg-[#020617] border-b border-gray-200">
+    <div class="absolute inset-0 z-0">
+      <img src="assets/home-hero5.jpg" alt="AI Usage" class="w-full h-full object-cover object-center"/>
+      <!-- Dark gradient so text reads well -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+      <!-- Optional: subtle fade at bottom into white page -->
+      <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/10 border border-white/15 backdrop-blur-sm">
+          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300"></span>
+          <span class="text-[10px] font-bold text-slate-200 uppercase tracking-widest">School Approved • AI + Mathematics</span>
+        </div>
+
+        <h1 class="text-5xl md:text-6xl font-black text-white leading-tight drop-shadow-xl">
+          AI Usage<br/>
+          <span class="text-sky-300">in Mathematics</span>
+        </h1>
+
+        <p class="mt-4 text-slate-200 text-lg font-medium drop-shadow-md max-w-lg">
+          Use AI to learn methods, practise, and check your reasoning — not to replace your own working.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#builder" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]">
+            <span>Open Prompt Builder</span>
+            <span class="material-icons text-sm group-hover:translate-y-0.5 transition-transform">arrow_downward</span>
+          </a>
+
+          <a href="#approved" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-black/50 border border-white/15 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-black/60 hover:scale-[1.02]">
+            <span>Approved tools</span>
+            <span class="material-icons text-sm">verified</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
     <div class="wrap">
       <div class="grid-docs">
 
@@ -159,43 +199,6 @@
 
         <!-- Main -->
         <div>
-
-          <!-- HERO (full width feel, no container) -->
-          <section id="top" class="anchor section">
-            <div class="flex flex-wrap items-center gap-3 mb-6">
-              <span class="pill"><span class="material-icons text-[16px] text-indigo-600">verified</span>School approved guidance</span>
-              <span class="pill"><span class="material-icons text-[16px]">functions</span>AI + Mathematics</span>
-            </div>
-
-            <h1 class="h1">
-              AI usage in Mathematics
-              <span class="block text-gray-500 font-extrabold">smart, safe, exam-ready.</span>
-            </h1>
-
-            <p class="lead mt-5">
-              Use AI to learn methods, practise, and improve explanations — not to replace your own working.
-              Great prompts = great help.
-            </p>
-
-            <div class="mt-8 flex flex-wrap gap-3 items-center">
-              <a class="btn btn-primary" href="#builder">
-                <span class="material-icons text-[18px]">auto_fix_high</span>
-                Open Prompt Builder
-              </a>
-              <a class="btn" href="#approved">
-                <span class="material-icons text-[18px]">verified</span>
-                See approved tools
-              </a>
-            </div>
-
-            <div class="mt-6 tiny text-gray-500">
-              Jump to: <a class="hover:underline" href="#approved">Approved tools</a> ·
-              <a class="hover:underline" href="#dos">Do’s & Don’ts</a> ·
-              <a class="hover:underline" href="#builder">Prompt Builder</a> ·
-              <a class="hover:underline" href="#hallucinations">Hallucinations</a> ·
-              <a class="hover:underline" href="#ai-on-site">AI on this website</a>
-            </div>
-          </section>
 
           <!-- OVERVIEW -->
           <section id="overview" class="anchor section">
