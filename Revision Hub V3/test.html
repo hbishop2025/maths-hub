@@ -37,21 +37,40 @@
 <body class="bg-[#f8fafc] text-gray-900" data-page="year9">
   <div class="layout">
     <!-- Global Sidebar (same as other subpages) -->
-    <div id="sidebar" aria-label="Sidebar"></div>
-
+    <div id="sidebar"
+         class="fixed inset-y-0 left-0 z-40 w-[260px] bg-white border-r border-gray-200
+                transform -translate-x-full transition-transform duration-300
+                lg:translate-x-0 lg:static lg:inset-auto"
+         aria-label="Sidebar">
+    </div>
+    <div id="sidebarOverlay"
+     class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
     <!-- Main -->
     <main class="main main-with-sidebar p-8 overflow-y-auto">
       <div class="max-w-7xl mx-auto">
 
         <!-- Back -->
-        <div class="mb-10">
-          <a href="ks3_hub.html"
-             class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-black transition">
-            <span class="material-icons text-base mr-1">arrow_back</span>
-            Back to KS3
-          </a>
-        </div>
+        <header class="flex items-center justify-between mb-8">
 
+  <!-- Left side -->
+  <div class="flex items-center gap-3">
+
+    <!-- Hamburger (mobile only) -->
+    <button id="menuBtn"
+            class="lg:hidden p-2 rounded-md hover:bg-gray-200 transition"
+            aria-label="Open Menu">
+      <span class="material-icons">menu</span>
+    </button>
+
+    <a href="ks3_hub.html"
+       class="inline-flex items-center text-gray-600 hover:text-gray-900">
+      <span class="material-icons mr-1">arrow_back</span>
+      Back to KS3
+    </a>
+
+  </div>
+
+</header>
         <!-- Hero -->
         <section class="mb-16">
           <div class="grid lg:grid-cols-3 gap-2 items-start">
@@ -306,5 +325,27 @@
 
   <!-- Sidebar loader -->
   <script src="assets/sidebar-loader.js"></script>
+  <script>
+(function(){
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const btn = document.getElementById('menuBtn');
+
+  if(!sidebar || !overlay || !btn) return;
+
+  function openMenu(){
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+  }
+
+  function closeMenu(){
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+  }
+
+  btn.addEventListener('click', openMenu);
+  overlay.addEventListener('click', closeMenu);
+})();
+</script>
 </body>
 </html>
