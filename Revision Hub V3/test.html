@@ -6,67 +6,50 @@
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>KS3 | Year 9</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+  <!-- Shared CSS (IMPORTANT: this is what makes the sidebar system work) -->
+  <link rel="stylesheet" href="assets/main.css"/>
+
   <style>
-    body{ font-family: Inter, system-ui, -apple-system, sans-serif; }
+    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 
     .module-card{ transition: all .25s ease; }
     .module-card:hover{ transform: translateY(-4px); }
 
     /* Keep EOY card hover smooth */
     .eoy-card:hover img{ transform: scale(1.05); }
-
-    .main-with-sidebar {
-  margin-left: 260px; /* match sidebar width */
-}
-
-    @media (max-width: 1024px) {
-  .main-with-sidebar {
-    margin-left: 0;
-  }
-}
   </style>
 </head>
 
 <body class="bg-[#f8fafc] text-gray-900" data-page="year9">
   <div class="layout">
-    <!-- Global Sidebar (same as other subpages) -->
-    <div id="sidebar"
-         class="fixed inset-y-0 left-0 z-40 w-[260px] bg-white border-r border-gray-200
-                transform -translate-x-full transition-transform duration-300
-                lg:translate-x-0 lg:static lg:inset-auto"
-         aria-label="Sidebar">
-    </div>
-    <div id="sidebarOverlay"
-     class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
-    <!-- Main -->
-    <main class="main main-with-sidebar p-8 overflow-y-auto">
+
+    <!-- Sidebar (leave EXACTLY like original working pages) -->
+    <div id="sidebar" aria-label="Sidebar"></div>
+
+    <!-- Main (leave class structure EXACTLY like original working pages) -->
+    <main class="main p-8 overflow-y-auto">
       <div class="max-w-7xl mx-auto">
 
-        <!-- Back -->
-        <header class="flex items-center justify-between mb-8">
+        <!-- Header (keep simple + compatible with your existing global mobile behaviour) -->
+        <header class="flex flex-wrap items-center justify-between gap-4 mb-10">
+          <div class="flex items-center gap-2">
+            <a href="ks3_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+              <span class="material-icons mr-1">arrow_back</span>
+              Back to KS3
+            </a>
+          </div>
+        </header>
 
-  <!-- Left side -->
-  <div class="flex items-center gap-3">
-
-    <a href="ks3_hub.html"
-       class="inline-flex items-center text-gray-600 hover:text-gray-900">
-      <span class="material-icons mr-1">arrow_back</span>
-      Back to KS3
-    </a>
-
-  </div>
-
-</header>
         <!-- Hero -->
         <section class="mb-16">
-          <div class="grid lg:grid-cols-3 gap-2 items-start">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
             <!-- Left -->
             <div class="lg:col-span-2">
@@ -80,7 +63,7 @@
                 and extension material.
               </p>
 
-              <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
+              <div class="mt-8 flex flex-wrap items-center gap-6 text-sm text-gray-500">
                 <div class="flex items-center gap-2">
                   <span class="material-icons text-base">grid_view</span>
                   10 Core Modules
@@ -95,7 +78,8 @@
             <!-- Right: KS3-style EOY card -->
             <a href="ks3_eoy.html"
                class="eoy-card group relative rounded-2xl overflow-hidden shadow-sm border border-gray-200 h-[260px] flex flex-col">
-              <!-- Background image + overlays (your KS3 style) -->
+
+              <!-- Background image + overlays -->
               <div class="absolute inset-0 z-0">
                 <img src="assets/ks3-hero.jpg" alt="EOY Revision"
                      class="w-full h-full object-cover transition-transform duration-700 filter brightness-[0.85]" />
@@ -148,14 +132,13 @@
 
           <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-            <!-- UNIT 01 -->
             <a href="year_9/year9_unit01.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 01</div>
               <h3 class="text-lg font-bold">Powers &amp; Roots</h3>
               <p class="text-sm text-gray-500 mt-1">Algebra / Number</p>
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Reciprocals & Indices</div>
+                <div>• Reciprocals &amp; Indices</div>
                 <div>• Standard Form</div>
                 <div>• Surds</div>
               </div>
@@ -164,14 +147,13 @@
               </div>
             </a>
 
-            <!-- UNIT 02 -->
             <a href="year_9/year9_unit02.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 02</div>
               <h3 class="text-lg font-bold">Quadratics</h3>
               <p class="text-sm text-gray-500 mt-1">Algebra</p>
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Expanding & Factorising</div>
+                <div>• Expanding &amp; Factorising</div>
                 <div>• Solving Equations</div>
                 <div>• Sequences</div>
               </div>
@@ -180,7 +162,6 @@
               </div>
             </a>
 
-            <!-- UNIT 03 -->
             <a href="year_9/year9_unit03.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 03</div>
@@ -196,7 +177,6 @@
               </div>
             </a>
 
-            <!-- UNIT 04 -->
             <a href="year_9/year9_unit04.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 04</div>
@@ -212,7 +192,6 @@
               </div>
             </a>
 
-            <!-- UNIT 05 -->
             <a href="year_9/year9_unit05.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 05</div>
@@ -221,14 +200,13 @@
               <div class="mt-6 space-y-1 text-xs text-gray-500">
                 <div>• Direct Proportion</div>
                 <div>• Non-linear Proportion</div>
-                <div>• Arcs & Sectors</div>
+                <div>• Arcs &amp; Sectors</div>
               </div>
               <div class="mt-6 flex items-center text-sm font-semibold text-gray-700">
                 Explore <span class="material-icons text-base ml-2">arrow_forward</span>
               </div>
             </a>
 
-            <!-- UNIT 06 -->
             <a href="year_9/year9_unit06.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 06</div>
@@ -244,7 +222,6 @@
               </div>
             </a>
 
-            <!-- UNIT 07 -->
             <a href="year_9/year9_unit07.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 07</div>
@@ -252,7 +229,7 @@
               <p class="text-sm text-gray-500 mt-1">Number</p>
               <div class="mt-6 space-y-1 text-xs text-gray-500">
                 <div>• Bounds</div>
-                <div>• Density & Pressure</div>
+                <div>• Density &amp; Pressure</div>
                 <div>• Rates of Change</div>
               </div>
               <div class="mt-6 flex items-center text-sm font-semibold text-gray-700">
@@ -260,7 +237,6 @@
               </div>
             </a>
 
-            <!-- UNIT 08 -->
             <a href="year_9/year9_unit08.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 08</div>
@@ -276,7 +252,6 @@
               </div>
             </a>
 
-            <!-- UNIT 09 -->
             <a href="year_9/year9_unit09.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 09</div>
@@ -292,7 +267,6 @@
               </div>
             </a>
 
-            <!-- UNIT 10 -->
             <a href="year_9/year9_unit10.html"
                class="module-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300">
               <div class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Unit 10</div>
@@ -316,29 +290,7 @@
     </main>
   </div>
 
-  <!-- Sidebar loader -->
+  <!-- Sidebar loader (this MUST remain and MUST be the only sidebar logic) -->
   <script src="assets/sidebar-loader.js"></script>
-  <script>
-(function(){
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  const btn = document.getElementById('menuBtn');
-
-  if(!sidebar || !overlay || !btn) return;
-
-  function openMenu(){
-    sidebar.classList.remove('-translate-x-full');
-    overlay.classList.remove('hidden');
-  }
-
-  function closeMenu(){
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-  }
-
-  btn.addEventListener('click', openMenu);
-  overlay.addEventListener('click', closeMenu);
-})();
-</script>
 </body>
 </html>
