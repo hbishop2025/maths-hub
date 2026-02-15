@@ -51,14 +51,6 @@
       background: rgba(168, 85, 247, .14);
       box-shadow: 0 10px 30px rgba(168, 85, 247, .12) inset;
     }
-
-    /* Keep SVG subtle + optional */
-    .hero-accent img{
-      opacity: .45;
-      filter: saturate(.85) contrast(.9);
-      transition: opacity .35s ease, transform .35s ease;
-    }
-    .hero-accent:hover img{ opacity: .60; transform: translateY(-2px); }
   </style>
 </head>
 
@@ -96,67 +88,75 @@
         <!-- Hero (more Apple-like) -->
         <section class="mb-24 text-center relative">
 
-  <div class="max-w-4xl mx-auto relative">
+          <div class="max-w-4xl mx-auto relative">
 
-    <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
 
-      <span class="relative inline-flex items-center gap-4 flex-wrap justify-center">
+              <span class="relative inline-flex items-center gap-4 flex-wrap justify-center">
 
-        <!-- Year 9 highlight -->
-        <span class="relative inline-block px-6 py-1 rounded-full bg-purple-100 text-gray-900">
-          Year 9
-        </span>
+                <!-- Year 9 highlight -->
+                <span class="relative inline-block px-6 py-1 rounded-full bg-purple-100 text-gray-900">
+                  Year 9
+                </span>
 
-        <!-- Mathematics with upward curve underline -->
-        <span class="relative inline-block">
-          Mathematics
+                <!-- Mathematics with upward curve underline -->
+                <span class="relative inline-block">
+                  Mathematics
 
-          <svg class="absolute left-0 right-0 -bottom-4 w-full h-6"
-               viewBox="0 0 200 30"
-               preserveAspectRatio="none"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 22 Q100 5 195 20"
-                  stroke="rgba(168, 85, 247, 0.55)"
-                  stroke-width="5"
-                  stroke-linecap="round"
-                  fill="none"/>
-          </svg>
+                  <svg class="absolute left-0 right-0 -bottom-2 w-full h-5"
+                       viewBox="0 0 200 30"
+                       preserveAspectRatio="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <!-- base stroke -->
+                    <path d="M5 22 Q100 6 195 20"
+                          stroke="rgba(168, 85, 247, 0.50)"
+                          stroke-width="4"
+                          stroke-linecap="round"
+                          fill="none"/>
+                    <!-- thicker tail (right end) -->
+                    <path d="M140 17 Q170 19 195 20"
+                          stroke="rgba(168, 85, 247, 0.55)"
+                          stroke-width="6"
+                          stroke-linecap="round"
+                          fill="none"/>
+                  </svg>
 
-        </span>
+                </span>
 
-      </span>
+              </span>
 
-    </h1>
+            </h1>
 
-    <p class="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-      Structured modules designed to bridge KS3 into GCSE.
-      Each unit contains worksheets, guided examples,
-      exam-style questions and extension material.
-    </p>
+            <p class="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              Structured units designed to bridge you from KS3 into GCSE.
+              Each unit contains worksheets, guided examples,
+              exam-style questions and extension material.
+            </p>
 
-    <div class="mt-10 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">grid_view</span>
-        10 Core Units
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">schedule</span>
-        Full Year Curriculum
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">description</span>
-        2 End of Year Tests
-      </div>
-    </div>
+            <div class="mt-10 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">grid_view</span>
+                10 Core Units
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">schedule</span>
+                Full Year Curriculum
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">description</span>
+                2 End of Year Tests
+              </div>
+            </div>
 
-  </div>
+          </div>
 
-  <div class="mt-16 h-px bg-gray-200"></div>
+          <div class="mt-16 h-px bg-gray-200"></div>
 
-</section>
+        </section>
+
         <!-- Units -->
         <section aria-label="Year 9 Units">
-          <div class="flex items-center justify-between mb-10">
+          <div class="flex items-end justify-between mb-12">
             <h2 class="text-2xl font-bold tracking-tight">Units</h2>
             <span class="text-sm text-gray-500">Academic Year Structure</span>
           </div>
@@ -166,7 +166,7 @@
 
             <!-- Unit 01 -->
             <a href="year_9/year9_unit01.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 01</div>
                 <span class="material-icons text-gray-300 text-[18px]">auto_awesome</span>
@@ -187,7 +187,7 @@
 
             <!-- Unit 02 -->
             <a href="year_9/year9_unit02.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 02</div>
                 <span class="material-icons text-gray-300 text-[18px]">functions</span>
@@ -208,7 +208,7 @@
 
             <!-- Unit 03 -->
             <a href="year_9/year9_unit03.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 03</div>
                 <span class="material-icons text-gray-300 text-[18px]">rule</span>
@@ -229,7 +229,7 @@
 
             <!-- Unit 04 -->
             <a href="year_9/year9_unit04.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 04</div>
                 <span class="material-icons text-gray-300 text-[18px]">insights</span>
@@ -250,7 +250,7 @@
 
             <!-- Unit 05 -->
             <a href="year_9/year9_unit05.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 05</div>
                 <span class="material-icons text-gray-300 text-[18px]">percent</span>
@@ -271,7 +271,7 @@
 
             <!-- Unit 06 -->
             <a href="year_9/year9_unit06.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 06</div>
                 <span class="material-icons text-gray-300 text-[18px]">show_chart</span>
@@ -292,7 +292,7 @@
 
             <!-- Unit 07 -->
             <a href="year_9/year9_unit07.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 07</div>
                 <span class="material-icons text-gray-300 text-[18px]">straighten</span>
@@ -313,7 +313,7 @@
 
             <!-- Unit 08 -->
             <a href="year_9/year9_unit08.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 08</div>
                 <span class="material-icons text-gray-300 text-[18px]">route</span>
@@ -334,7 +334,7 @@
 
             <!-- Unit 09 -->
             <a href="year_9/year9_unit09.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 09</div>
                 <span class="material-icons text-gray-300 text-[18px]">change_history</span>
@@ -355,7 +355,7 @@
 
             <!-- Unit 10 -->
             <a href="year_9/year9_unit10.html"
-               class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
+               class="module-card group bg-gradient-to-b from-white/90 to-white/70 backdrop-blur border border-gray-200/80 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 10</div>
                 <span class="material-icons text-gray-300 text-[18px]">verified</span>
