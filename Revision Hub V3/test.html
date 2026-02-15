@@ -28,20 +28,17 @@
 </head>
 
 <body class="bg-[#f8fafc] text-gray-900" data-page="year9">
-  <!-- Global Mesh Background -->
+ <!-- Global Background (Apple-ish subtle) -->
 <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+  <div class="absolute inset-0 bg-[#f8fafc]"></div>
 
-  <!-- Top left glow -->
-  <div class="absolute top-[-200px] left-[-150px] w-[700px] h-[700px]
-              bg-gradient-to-br from-cyan-200/25 via-blue-200/15 to-transparent
-              rounded-full blur-3xl">
-  </div>
+  <!-- very subtle light bloom -->
+  <div class="absolute -top-40 -left-40 w-[720px] h-[720px] rounded-full blur-3xl
+              bg-gradient-to-br from-blue-200/20 via-slate-200/10 to-transparent"></div>
 
-  <!-- Bottom right glow -->
-  <div class="absolute bottom-[-250px] right-[-200px] w-[700px] h-[700px]
-              bg-gradient-to-tr from-indigo-200/25 via-purple-200/15 to-transparent
-              rounded-full blur-3xl">
-  </div>
+  <div class="absolute -bottom-48 -right-48 w-[720px] h-[720px] rounded-full blur-3xl
+              bg-gradient-to-tr from-indigo-200/18 via-slate-200/10 to-transparent"></div>
+</div>
 
 </div>
   <div class="layout">
@@ -282,31 +279,52 @@
           </div>
         </section>
         <section class="mt-24 mb-10">
-  <div class="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur-sm p-10 md:p-16">
+  <div class="rounded-3xl border border-gray-200 bg-white p-10 md:p-16 relative overflow-hidden">
+
+    <!-- subtle accent highlight (Apple-like) -->
+    <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-blue-500 via-sky-400 to-blue-500"></div>
+    <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl bg-blue-200/30"></div>
 
     <div class="grid md:grid-cols-2 gap-12 items-center">
 
       <!-- Left -->
       <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-          Prepare for your<br>
-          <span class="text-gray-900">End of Year Assessment.</span>
+        <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold
+                    bg-blue-50 text-blue-700 border border-blue-100">
+          <span class="material-icons text-[16px]">auto_awesome</span>
+          Featured
+        </div>
+
+        <h2 class="mt-6 text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+          End of Year<br>
+          <span class="text-gray-900">Assessment prep.</span>
         </h2>
 
         <p class="mt-6 text-lg text-gray-600 leading-relaxed max-w-xl">
-          Focused revision guidance, topic checklists, practice papers and walkthroughs —
+          Revision guidance, topic checklists, practice papers and walkthroughs —
           everything you need to feel confident walking into your exam.
         </p>
+
+        <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
+          <div class="flex items-center gap-2">
+            <span class="material-icons text-[18px]">check_circle</span>
+            Topic checklist
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-icons text-[18px]">description</span>
+            Practice papers
+          </div>
+        </div>
       </div>
 
       <!-- Right -->
       <div class="flex md:justify-end">
         <a href="ks3_eoy.html"
            class="inline-flex items-center justify-center px-8 py-4 rounded-full
-                  bg-gray-900 text-white font-semibold text-sm
-                  hover:bg-black transition-all duration-300
+                  bg-blue-600 text-white font-semibold text-sm
+                  hover:bg-blue-700 transition-all duration-300
                   hover:shadow-lg">
-          Start Revision
+          Start revision
           <span class="material-icons ml-2 text-base">arrow_forward</span>
         </a>
       </div>
