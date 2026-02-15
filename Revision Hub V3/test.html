@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Usage</title>
+  <title>AI Usage | SJWMS Maths</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -17,31 +17,14 @@
     /* Nav Bar (Matches SJWMS) */
     .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
     
-    /* Hero & Widget */
-    .hero-container { @apply relative h-[80vh] min-h-[650px] flex items-center justify-center; }
-    .booking-card { @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-6xl mx-4 relative z-10 border border-gray-100; }
+    /* OpenAI Aesthetic Classes */
+    .ai-card { @apply border border-gray-200 rounded-2xl p-8 transition-all duration-300 hover:border-black; }
+    .step-btn { @apply border border-gray-200 rounded-lg px-4 py-3 text-sm font-medium transition-all hover:bg-gray-50 active:scale-95 text-left flex justify-between items-center; }
+    .step-btn.active { @apply border-black bg-black text-white; }
     
-    .airline-select {
-      @apply bg-gray-50 border-gray-200 rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-blue-600 focus:border-blue-600 w-full appearance-none;
-    }
-    .select-wrapper { @apply relative w-full flex items-center; }
-    .select-wrapper::after {
-      content: 'expand_more'; font-family: 'Material Icons'; @apply absolute right-3 pointer-events-none text-gray-400;
-    }
-
-    .input-group label { @apply text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1 mb-1; }
-
-    /* Section Headers */
-    .section-header { @apply flex items-center gap-4 mb-10; }
-    .section-header h2 { @apply text-2xl font-black tracking-tight whitespace-nowrap; }
-    .section-header .line { @apply h-px bg-gray-200 flex-grow; }
-
-    /* Tracker Box Styling */
-    .tracker-box { @apply bg-slate-900 rounded-xl p-6 text-white border border-slate-800 shadow-inner; }
-
-    .toggle-btn { @apply text-[10px] font-bold px-4 py-1.5 rounded-full uppercase transition-all border; }
-    .toggle-active { @apply bg-black text-white border-black; }
-    .toggle-inactive { @apply bg-white text-gray-400 border-gray-200; }
+    .prompt-preview { @apply font-mono bg-gray-50 border border-gray-200 rounded-xl p-6 text-sm leading-relaxed text-gray-700 min-h-[120px] relative; }
+    
+    .section-spacing { @apply py-20 px-4 max-w-6xl mx-auto; }
   </style>
 </head>
 <body>
@@ -63,11 +46,182 @@
   </header>
 
   <main class="pt-14">
-   
+    
+    <section class="section-spacing text-center border-b border-gray-100">
+      <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6">AI for Mathematics.</h1>
+      <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Leverage artificial intelligence as a tutor, not a shortcut. Explore approved tools and build high-quality prompts to accelerate your learning.
+      </p>
+    </section>
+
+    <section class="section-spacing">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="ai-card">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="material-icons text-blue-600">auto_awesome</span>
+            <h3 class="text-2xl font-bold">Google Gemini</h3>
+          </div>
+          <p class="text-gray-600 mb-6">Best for logical reasoning, step-by-step math explanations, and checking your working against exam-style methods.</p>
+          <a href="https://gemini.google.com" target="_blank" class="text-sm font-bold uppercase tracking-widest hover:underline">Launch Gemini →</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="material-icons text-purple-600">library_books</span>
+            <h3 class="text-2xl font-bold">NotebookLM</h3>
+          </div>
+          <p class="text-gray-600 mb-6">Upload teacher-provided PDFs or Google Drive resources. It answers questions based solely on your specific school materials.</p>
+          <a href="https://notebooklm.google.com" target="_blank" class="text-sm font-bold uppercase tracking-widest hover:underline">Launch NotebookLM →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 border-y border-gray-100 py-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-12">
+          <h2 class="text-3xl font-black mb-2">Prompt Builder</h2>
+          <p class="text-gray-500">Refine your request through layers of context to get better AI responses.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="space-y-8">
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Step 1: The Goal</label>
+              <div class="grid grid-cols-1 gap-2">
+                <button onclick="setPromptPart('goal', 'Explain the concept of', this)" class="step-btn">Explain a Concept <span class="material-icons text-xs">chevron_right</span></button>
+                <button onclick="setPromptPart('goal', 'Generate a practice question for', this)" class="step-btn">Generate Practice <span class="material-icons text-xs">chevron_right</span></button>
+                <button onclick="setPromptPart('goal', 'Review my working for', this)" class="step-btn">Check My Logic <span class="material-icons text-xs">chevron_right</span></button>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Step 2: The Level</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="setPromptPart('level', 'KS3', this)" class="step-btn justify-center">KS3</button>
+                <button onclick="setPromptPart('level', 'GCSE', this)" class="step-btn justify-center">GCSE</button>
+                <button onclick="setPromptPart('level', 'A-Level', this)" class="step-btn justify-center">A-Level</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Step 3: Output Style</label>
+              <div class="grid grid-cols-1 gap-2">
+                <button onclick="setPromptPart('style', 'Use step-by-step logic and simple language.', this)" class="step-btn">Simple & Visual</button>
+                <button onclick="setPromptPart('style', 'Provide hints first, then the full solution only if I ask.', this)" class="step-btn">Tutor Mode (Hints First)</button>
+                <button onclick="setPromptPart('style', 'Align your explanation with standard UK Exam Board marks schemes.', this)" class="step-btn">Exam Focused</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col h-full">
+            <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Generated Prompt</label>
+            <div class="prompt-preview mb-4" id="promptResult">
+              I am a [Level] student. Please [Goal] [Topic]. [Style]
+            </div>
+            <div class="flex gap-3">
+              <button onclick="copyPrompt()" class="flex-grow bg-black text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all">
+                <span class="material-icons text-sm" id="copyIcon">content_copy</span>
+                <span id="copyText">Copy Prompt</span>
+              </button>
+              <a href="https://gemini.google.com" target="_blank" class="w-16 h-14 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-white hover:border-black transition-all">
+                <span class="material-icons">launch</span>
+              </a>
+            </div>
+            <button onclick="resetBuilder()" class="mt-4 text-xs text-gray-400 hover:text-black transition-colors underline decoration-dotted">Clear and Start Over</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-spacing">
+      <h2 class="text-3xl font-black mb-12 text-center">Safety & Academic Integrity</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <span class="material-icons text-green-500">check_circle</span>
+            <div>
+              <h4 class="font-bold">Always double-check calculations</h4>
+              <p class="text-sm text-gray-500">AI can sometimes hallucinate arithmetic. Use it for the "how" and "why," but verify the final answer.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="material-icons text-green-500">check_circle</span>
+            <div>
+              <h4 class="font-bold">Use AI for personalized tutoring</h4>
+              <p class="text-sm text-gray-500">Ask the AI to explain a topic in five different ways until one clicks for you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <span class="material-icons text-red-400">cancel</span>
+            <div>
+              <h4 class="font-bold">Never input personal data</h4>
+              <p class="text-sm text-gray-500">Don't provide names, addresses, or school IDs. Keep conversations strictly about maths.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="material-icons text-red-400">cancel</span>
+            <div>
+              <h4 class="font-bold">Avoid "Copy-Paste" Homework</h4>
+              <p class="text-sm text-gray-500">Submitting AI responses as your own work is plagiarism. Use it to learn, not to do.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div id="footer-slot"></div>
   
+  <script>
+    // --- Prompt Builder Logic ---
+    let selections = {
+      goal: '[Goal]',
+      level: '[Level]',
+      style: '[Style]'
+    };
+
+    function setPromptPart(part, value, element) {
+      // Toggle button styles
+      const parent = element.parentElement;
+      parent.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+
+      // Update selection
+      selections[part] = value;
+      renderPrompt();
+    }
+
+    function renderPrompt() {
+      const promptText = `I am a ${selections.level} Maths student. Please ${selections.goal} [Specific Topic Here]. ${selections.style}`;
+      document.getElementById('promptResult').innerText = promptText;
+    }
+
+    function resetBuilder() {
+      selections = { goal: '[Goal]', level: '[Level]', style: '[Style]' };
+      document.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('active'));
+      renderPrompt();
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('promptResult').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copyText');
+        const btnIcon = document.getElementById('copyIcon');
+        
+        btnText.innerText = "Copied!";
+        btnIcon.innerText = "check";
+        
+        setTimeout(() => {
+          btnText.innerText = "Copy Prompt";
+          btnIcon.innerText = "content_copy";
+        }, 2000);
+      });
+    }
+  </script>
   <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
