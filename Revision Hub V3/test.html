@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>KS3 | Year 9</title>
+  <title>KS3 | Year 8</title>
 
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -31,48 +31,30 @@
     }
     .module-card:active{ transform: translateY(-1px); }
 
-    /* Subtle “Apple” focus ring */
+    /* Subtle focus ring */
     .module-card:focus{
       outline: none;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, .18), 0 14px 30px rgba(15, 23, 42, .08);
-      border-color: rgba(59, 130, 246, .45);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, .18), 0 14px 30px rgba(15, 23, 42, .08);
+      border-color: rgba(34, 197, 94, .45);
     }
 
     /* Tiny chevron motion */
     .module-card:hover .card-arrow{ transform: translateX(3px); }
     .card-arrow{ transition: transform .22s ease; }
-
-    /* Purple highlight blob behind "Year 9" (Apple-ish but fun) */
-    .y9-highlight{
-      position: relative;
-      display: inline-block;
-      padding: .08em .22em;
-      border-radius: 999px;
-      background: rgba(168, 85, 247, .14);
-      box-shadow: 0 10px 30px rgba(168, 85, 247, .12) inset;
-    }
-
-    /* Keep SVG subtle + optional */
-    .hero-accent img{
-      opacity: .45;
-      filter: saturate(.85) contrast(.9);
-      transition: opacity .35s ease, transform .35s ease;
-    }
-    .hero-accent:hover img{ opacity: .60; transform: translateY(-2px); }
   </style>
 </head>
 
-<body class="bg-[#f8fafc] text-gray-900" data-page="year9">
+<body class="bg-[#f8fafc] text-gray-900" data-page="year8">
   <!-- Global Background (Apple-ish subtle) -->
   <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
     <div class="absolute inset-0 bg-[#f8fafc]"></div>
 
     <!-- very subtle light bloom -->
     <div class="absolute -top-40 -left-40 w-[720px] h-[720px] rounded-full blur-3xl
-                bg-gradient-to-br from-blue-200/18 via-slate-200/10 to-transparent"></div>
+                bg-gradient-to-br from-emerald-200/16 via-slate-200/10 to-transparent"></div>
 
     <div class="absolute -bottom-48 -right-48 w-[720px] h-[720px] rounded-full blur-3xl
-                bg-gradient-to-tr from-indigo-200/16 via-slate-200/10 to-transparent"></div>
+                bg-gradient-to-tr from-green-200/14 via-slate-200/10 to-transparent"></div>
   </div>
 
   <div class="layout">
@@ -83,7 +65,7 @@
     <main class="main p-8 lg:pl-12 overflow-y-auto">
       <div class="max-w-7xl mx-auto">
 
-        <!-- Header (keep simple + compatible with your existing global mobile behaviour) -->
+        <!-- Header -->
         <header class="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div class="flex items-center gap-2">
             <a href="ks3_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
@@ -93,70 +75,61 @@
           </div>
         </header>
 
-        <!-- Hero (more Apple-like) -->
+        <!-- Hero -->
         <section class="mb-24 text-center relative">
+          <div class="max-w-4xl mx-auto relative">
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
+              <span class="relative inline-flex items-center gap-4 flex-wrap justify-center">
 
-  <div class="max-w-4xl mx-auto relative">
+                <!-- Year 8 highlight (GREEN) -->
+                <span class="relative inline-block px-6 py-1 rounded-full bg-green-100 text-gray-900">
+                  Year 8
+                </span>
 
-    <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
+                <!-- Mathematics underline (GREEN) -->
+                <span class="relative inline-block">
+                  Mathematics
+                  <svg class="absolute left-0 right-0 -bottom-4 w-full h-6"
+                       viewBox="0 0 200 30"
+                       preserveAspectRatio="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 22 Q100 6 195 20"
+                          stroke="rgba(34, 197, 94, 0.55)"
+                          stroke-width="5"
+                          stroke-linecap="round"
+                          fill="none"/>
+                  </svg>
+                </span>
 
-      <span class="relative inline-flex items-center gap-4 flex-wrap justify-center">
+              </span>
+            </h1>
 
-        <!-- Year 9 highlight -->
-        <span class="relative inline-block px-6 py-1 rounded-full bg-purple-100 text-gray-900">
-          Year 9
-        </span>
+            <p class="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              Structured modules designed to build confidence and fluency in KS3 mathematics.
+              Each unit contains worksheets, guided examples, exam-style questions and extension material.
+            </p>
 
-        <!-- Mathematics with upward curve underline -->
-        <span class="relative inline-block">
-          Mathematics
+            <div class="mt-10 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">grid_view</span>
+                10 Core Units
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">schedule</span>
+                Full Year Curriculum
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-icons text-base">description</span>
+                End of Year Tests
+              </div>
+            </div>
+          </div>
 
-          <svg class="absolute left-0 right-0 -bottom-4 w-full h-6"
-               viewBox="0 0 200 30"
-               preserveAspectRatio="none"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 22 Q100 5 195 20"
-                  stroke="rgba(168, 85, 247, 0.55)"
-                  stroke-width="5"
-                  stroke-linecap="round"
-                  fill="none"/>
-          </svg>
+          <div class="mt-16 h-px bg-gray-200"></div>
+        </section>
 
-        </span>
-
-      </span>
-
-    </h1>
-
-    <p class="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-      Structured modules designed to bridge KS3 into GCSE.
-      Each unit contains worksheets, guided examples,
-      exam-style questions and extension material.
-    </p>
-
-    <div class="mt-10 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">grid_view</span>
-        10 Core Units
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">schedule</span>
-        Full Year Curriculum
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="material-icons text-base">description</span>
-        2 End of Year Tests
-      </div>
-    </div>
-
-  </div>
-
-  <div class="mt-16 h-px bg-gray-200"></div>
-
-</section>
-        
         <!-- Units -->
-        <section aria-label="Year 9 Units">
+        <section aria-label="Year 8 Units">
           <div class="flex items-center justify-between mb-10">
             <h2 class="text-2xl font-bold tracking-tight">Units</h2>
             <span class="text-sm text-gray-500">Academic Year Structure</span>
@@ -166,211 +139,211 @@
           <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
             <!-- Unit 01 -->
-            <a href="year_9/year9_unit01.html"
+            <a href="year_8/year8_unit01.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 01</div>
-                <span class="material-icons text-gray-300 text-[18px]">auto_awesome</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_one</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Powers &amp; Roots</h3>
-              <p class="text-sm text-gray-500 mt-1">Algebra / Number</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Factors &amp; Powers</h3>
+              <p class="text-sm text-gray-500 mt-1">Number</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Reciprocals &amp; Indices</div>
-                <div>• Standard Form</div>
-                <div>• Surds</div>
+                <div>• Prime factor decomposition</div>
+                <div>• Laws of indices</div>
+                <div>• Calculating &amp; estimating</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 02 -->
-            <a href="year_9/year9_unit02.html"
+            <a href="year_8/year8_unit02.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 02</div>
-                <span class="material-icons text-gray-300 text-[18px]">functions</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_two</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Quadratics</h3>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Working with Powers</h3>
               <p class="text-sm text-gray-500 mt-1">Algebra</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Expanding &amp; Factorising</div>
-                <div>• Solving Equations</div>
-                <div>• Sequences</div>
+                <div>• Simplifying expressions</div>
+                <div>• Expanding &amp; factorising</div>
+                <div>• Substituting &amp; solving</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 03 -->
-            <a href="year_9/year9_unit03.html"
+            <a href="year_8/year8_unit03.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 03</div>
-                <span class="material-icons text-gray-300 text-[18px]">rule</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_3</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Inequalities &amp; Formulae</h3>
-              <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">2D Shapes &amp; 3D Solids</h3>
+              <p class="text-sm text-gray-500 mt-1">Geometry</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Inequalities</div>
-                <div>• Changing the Subject</div>
-                <div>• Algebraic Fractions</div>
+                <div>• Plans &amp; elevations</div>
+                <div>• Surface area &amp; volume</div>
+                <div>• Circles &amp; Pythagoras</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 04 -->
-            <a href="year_9/year9_unit04.html"
+            <a href="year_8/year8_unit04.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 04</div>
-                <span class="material-icons text-gray-300 text-[18px]">insights</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_4</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Collecting &amp; Analysing Data</h3>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Real Life Graphs</h3>
               <p class="text-sm text-gray-500 mt-1">Data Handling</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Box Plots</div>
-                <div>• Histograms</div>
-                <div>• Cumulative Frequency</div>
+                <div>• Distance-time graphs</div>
+                <div>• Rates of change</div>
+                <div>• Misleading graphs</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 05 -->
-            <a href="year_9/year9_unit05.html"
+            <a href="year_8/year8_unit05.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 05</div>
-                <span class="material-icons text-gray-300 text-[18px]">percent</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_5</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Multiplicative Reasoning</h3>
-              <p class="text-sm text-gray-500 mt-1">Number</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Transformation</h3>
+              <p class="text-sm text-gray-500 mt-1">Geometry</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Direct Proportion</div>
-                <div>• Non-linear Proportion</div>
-                <div>• Arcs &amp; Sectors</div>
+                <div>• Reflection &amp; translation</div>
+                <div>• Rotation</div>
+                <div>• Enlargement</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 06 -->
-            <a href="year_9/year9_unit06.html"
+            <a href="year_8/year8_unit06.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 06</div>
-                <span class="material-icons text-gray-300 text-[18px]">show_chart</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_6</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Non-linear Graphs</h3>
-              <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Fractions, Decimals &amp; Percentages</h3>
+              <p class="text-sm text-gray-500 mt-1">Number</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Quadratics</div>
-                <div>• Cubics</div>
-                <div>• Reciprocal Graphs</div>
+                <div>• Recurring decimals</div>
+                <div>• Percentage change</div>
+                <div>• Repeated change</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 07 -->
-            <a href="year_9/year9_unit07.html"
+            <a href="year_8/year8_unit07.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 07</div>
-                <span class="material-icons text-gray-300 text-[18px]">straighten</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_7</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Accuracy &amp; Measures</h3>
-              <p class="text-sm text-gray-500 mt-1">Number</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Construction &amp; Loci</h3>
+              <p class="text-sm text-gray-500 mt-1">Geometry</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Bounds</div>
-                <div>• Density &amp; Pressure</div>
-                <div>• Rates of Change</div>
+                <div>• Accurate drawings</div>
+                <div>• Constructions</div>
+                <div>• Loci</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 08 -->
-            <a href="year_9/year9_unit08.html"
+            <a href="year_8/year8_unit08.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 08</div>
-                <span class="material-icons text-gray-300 text-[18px]">route</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_8</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Graphical Solutions</h3>
-              <p class="text-sm text-gray-500 mt-1">Algebra</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Probability</h3>
+              <p class="text-sm text-gray-500 mt-1">Data Handling</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Simultaneous Equations</div>
-                <div>• y = mx + c</div>
-                <div>• Inequalities</div>
+                <div>• Comparing probabilities</div>
+                <div>• Tree diagrams</div>
+                <div>• Experimental probability</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 09 -->
-            <a href="year_9/year9_unit09.html"
+            <a href="year_8/year8_unit09.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 09</div>
-                <span class="material-icons text-gray-300 text-[18px]">change_history</span>
+                <span class="material-icons text-gray-300 text-[18px]">looks_9</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Trigonometry</h3>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Scale Drawings &amp; Measures</h3>
               <p class="text-sm text-gray-500 mt-1">Geometry</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• SOHCAHTOA</div>
-                <div>• Finding Angles</div>
-                <div>• Problem Solving</div>
+                <div>• Maps &amp; scales</div>
+                <div>• Bearings</div>
+                <div>• Similar shapes</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
 
             <!-- Unit 10 -->
-            <a href="year_9/year9_unit10.html"
+            <a href="year_8/year8_unit10.html"
                class="module-card group bg-white/85 backdrop-blur border border-gray-200 rounded-3xl p-6">
               <div class="flex items-start justify-between">
                 <div class="text-[11px] font-semibold uppercase tracking-wider text-gray-400">Unit 10</div>
-                <span class="material-icons text-gray-300 text-[18px]">verified</span>
+                <span class="material-icons text-gray-300 text-[18px]">filter_10</span>
               </div>
-              <h3 class="mt-3 text-lg font-semibold tracking-tight">Proof (Not in EOY)</h3>
-              <p class="text-sm text-gray-500 mt-1">Number</p>
+              <h3 class="mt-3 text-lg font-semibold tracking-tight">Graphs</h3>
+              <p class="text-sm text-gray-500 mt-1">Algebra</p>
 
               <div class="mt-6 space-y-1 text-xs text-gray-500">
-                <div>• Explain / Justify</div>
-                <div>• Modelling</div>
-                <div>• Proof Methods</div>
+                <div>• Plotting linear graphs</div>
+                <div>• Gradient &amp; y = mx + c</div>
+                <div>• Non-linear graphs</div>
               </div>
 
-              <div class="mt-7 inline-flex items-center text-sm font-semibold text-blue-600">
+              <div class="mt-7 inline-flex items-center text-sm font-semibold text-emerald-600">
                 Explore <span class="material-icons text-base ml-1 card-arrow">arrow_forward</span>
               </div>
             </a>
@@ -378,19 +351,16 @@
           </div>
         </section>
 
-        <!-- Apple-ish highlight section -->
+        <!-- Optional highlight section (green + points to EOY) -->
         <section class="mt-24 mb-10">
           <div class="rounded-3xl border border-gray-200 bg-white p-10 md:p-16 relative overflow-hidden">
-            <!-- subtle accent highlight -->
-            <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-blue-500 via-sky-400 to-blue-500"></div>
-            <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl bg-blue-200/30"></div>
+            <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-emerald-600 via-green-400 to-emerald-600"></div>
+            <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl bg-emerald-200/30"></div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center">
-
-              <!-- Left -->
               <div>
                 <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold
-                            bg-blue-50 text-blue-700 border border-blue-100">
+                            bg-emerald-50 text-emerald-700 border border-emerald-100">
                   <span class="material-icons text-[16px]">auto_awesome</span>
                   Featured
                 </div>
@@ -401,8 +371,8 @@
                 </h2>
 
                 <p class="mt-6 text-lg text-gray-600 leading-relaxed max-w-xl">
-                  Revision guidance, topic checklists, practice papers and walkthroughs —
-                  everything you need to feel confident walking into your exam.
+                  Revision guidance, topic checklists, practice papers and more!
+                  Everything you need to feel confident walking into your exam.
                 </p>
 
                 <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
@@ -417,18 +387,16 @@
                 </div>
               </div>
 
-              <!-- Right -->
               <div class="flex md:justify-end">
                 <a href="ks3_eoy.html"
                    class="inline-flex items-center justify-center px-8 py-4 rounded-full
-                          bg-blue-600 text-white font-semibold text-sm
-                          hover:bg-blue-700 transition-all duration-300
+                          bg-emerald-600 text-white font-semibold text-sm
+                          hover:bg-emerald-700 transition-all duration-300
                           hover:shadow-lg">
                   Start revision
                   <span class="material-icons ml-2 text-base">arrow_forward</span>
                 </a>
               </div>
-
             </div>
           </div>
         </section>
