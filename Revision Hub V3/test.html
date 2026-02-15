@@ -94,15 +94,19 @@
         </header>
 
         <!-- Hero (more Apple-like) -->
-        <section class="mb-24 text-center">
+        <section class="mb-24 text-center relative">
 
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto relative">
 
     <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-tight">
       Mathematics for
-      <span class="inline-block px-5 py-1 rounded-full
-                   bg-purple-100 text-purple-700">
+      <span class="relative inline-block px-5 py-1 rounded-full bg-purple-100 text-gray-900">
         Year 9
+
+        <!-- Pencil-style underline -->
+        <span class="absolute left-4 right-4 -bottom-1 h-[6px]
+                     bg-purple-300/60 rounded-full blur-[0.5px]">
+        </span>
       </span>
     </h1>
 
@@ -115,11 +119,15 @@
     <div class="mt-10 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
       <div class="flex items-center gap-2">
         <span class="material-icons text-base">grid_view</span>
-        10 Core Modules
+        10 Core Units
       </div>
       <div class="flex items-center gap-2">
         <span class="material-icons text-base">schedule</span>
         Full Year Curriculum
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="material-icons text-base">description</span>
+        2 End of Year Tests
       </div>
     </div>
 
