@@ -1,489 +1,782 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI | Usage & Policy</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'neon-cyan': '#22d3ee',
-            'neon-purple': '#a855f7',
-            'dark-bg': '#030712',
-          },
-          fontFamily: {
-            sans: ['Lexend', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="assets/main.css"/>
+  <style type="text/tailwindcss">
+    body { @apply bg-white text-[#0b0f17] font-[Lexend] overflow-x-hidden; }
 
-  <style>
-    body {
-      background-color: #030712;
-      color: #cbd5e1;
+    /* KEEP: top nav */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
+
+    /* Page geometry */
+    .page { @apply pb-20; }
+    .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
+    .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
+
+    /* Docs-like sidebar */
+    .side { @apply hidden lg:block sticky top-20; }
+    .side-title { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .side-link { @apply flex items-center gap-3 px-2 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition; }
+    .side-link .material-icons { @apply text-[18px] text-gray-400; }
+    .side-link.active { @apply bg-gray-100 text-gray-900; }
+    .side-link.active .material-icons { @apply text-gray-900; }
+
+    /* Sections: full-width feel via dividers and spacing */
+    .section { @apply py-14; }
+    .section + .section { @apply border-t border-gray-200; }
+    .anchor { scroll-margin-top: 92px; }
+
+    /* Typography rhythm */
+    .eyebrow { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .h1 { @apply text-4xl md:text-6xl font-black tracking-tight leading-[1.05]; }
+    .h2 { @apply text-2xl md:text-3xl font-black tracking-tight; }
+    .lead { @apply text-lg text-gray-600 max-w-2xl; }
+    .p { @apply text-gray-600 leading-relaxed; }
+    .tiny { @apply text-[12px] text-gray-600 leading-relaxed; }
+
+    /* Pills + buttons */
+    .pill { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold border border-gray-200 bg-white hover:bg-gray-50 active:scale-[0.99] transition; }
+    .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
+    .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
+
+    /* Divider list rows (Approved tools) */
+    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
+    .row + .row { @apply border-t border-gray-200; }
+    .row-title { @apply flex items-center gap-3; }
+    .row-title h3 { @apply font-black text-lg; }
+    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
+    .tags { @apply mt-3 flex flex-wrap gap-2; }
+    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
+
+    /* Approved tools mesh aura (CSS-only, Option A) */
+    .mesh {
+    position: relative;
+    overflow: hidden;
     }
 
-    /* Text Glow Effect */
-    .text-glow {
-      text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+    .mesh::before{
+    content:"";
+    position:absolute;
+    inset:-200px;
+    pointer-events:none;
+    background:
+      radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
+      radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
+      radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
+    filter: blur(60px);
+    opacity:.8;
+    z-index:0;
     }
 
-    /* Glassmorphism Panel */
-    .glass-panel {
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* Do / Don't layout (no cards) */
+    .two-col { @apply grid md:grid-cols-2 gap-10; }
+    .col-head { @apply flex items-center gap-2 font-black text-lg; }
+    .list { @apply mt-4 space-y-3 text-sm text-gray-700; }
+    .li { @apply flex gap-2; }
+    .li .material-icons { @apply text-[18px]; }
+    .divider-v { @apply hidden md:block w-px bg-gray-200; }
+
+    /* Prompt Builder: tool area with internal dividers, not cards */
+    .tool { @apply border-y border-gray-200; }
+    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
+    .tool-col { @apply py-10; }
+    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
+
+    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
+    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
+    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
+    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
+    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
+
+    .prompt-box {
+      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
+      white-space: pre-wrap;
     }
 
-    /* Gradient Mask for Image */
-    .mask-image-fade {
-      mask-image: linear-gradient(to top, black 20%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
-    }
+    .hint { @apply text-[12px] text-gray-500; }
 
-    /* Blinking Cursor - Static Implementation */
-    .cursor-blink {
-      display: inline-block;
-      width: 8px;
-      height: 15px;
-      background-color: #22d3ee;
-      animation: blink 1s step-end infinite;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #030712; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+    /* Callouts (Hallucinations + Privacy) */
+    .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
+    .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
   </style>
 </head>
-<body class="relative min-h-screen flex flex-col font-sans overflow-x-hidden">
 
-  <div class="fixed inset-0 z-0 pointer-events-none">
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-[#030712] to-[#030712]"></div>
-    <img src="assets/neon_beams.webp" 
-         class="absolute bottom-0 left-0 w-full h-[80vh] object-cover opacity-60 mix-blend-screen mask-image-fade" 
-         alt="Digital streams">
-  </div>
+<body>
 
-  <header class="fixed top-0 w-full z-50 bg-[#030712]/80 backdrop-blur-lg border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <!-- KEEP: Top Nav (unchanged) -->
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto"/> 
-        <span class="font-bold tracking-tight text-white text-lg">
-          SJWMS <span class="text-neon-cyan">Maths</span>
-        </span>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
-
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="index.html">Home</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="alevel_hub.html">A-Level</a>
-        <a class="text-sm font-medium text-white border-b-2 border-neon-cyan pb-1" href="ai_usage.html">AI Usage</a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
       </nav>
-
-      <button id="menuBtn" class="md:hidden text-white p-2">
-        <span class="material-icons">menu</span>
-      </button>
-    </div>
-
-    <div id="mobileMenu" class="hidden absolute top-16 left-0 w-full bg-[#030712] border-b border-white/10 p-4 flex flex-col gap-4 shadow-2xl">
-      <a class="text-slate-300 hover:text-neon-cyan" href="index.html">Home</a>
-      <a class="text-slate-300 hover:text-neon-cyan" href="ks3_hub.html">KS3</a>
-      <a class="text-slate-300 hover:text-neon-cyan" href="gcse_hub.html">GCSE</a>
-      <a class="text-slate-300 hover:text-neon-cyan" href="alevel_hub.html">A-Level</a>
-      <a class="text-neon-cyan font-semibold" href="ai_usage.html">AI Intelligence</a>
     </div>
   </header>
 
-  <main class="relative z-10 flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+  <main class="relative pt-14 pb-20">
 
-    <section class="mb-20 mt-10 text-center relative">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/30 text-neon-cyan text-xs font-mono mb-6">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-        </span>
-        SYSTEM ONLINE // READY TO LEARN
-      </div>
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
+    </div>
+    
+    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
       
-      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-        Upgrade Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-cyan via-blue-500 to-purple-500 text-glow">Intelligence</span>
-      </h1>
-      
-      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-        AI isn't a cheat code. It's a <span class="text-white font-semibold">hyper-tutor</span>. 
-        Learn how to use Gemini and NotebookLM to debug your maths, verify your logic, and master the curriculum.
-      </p>
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-      <a href="https://gemini.google.com/" target="_blank" class="group glass-panel rounded-2xl p-1 relative overflow-hidden hover:bg-slate-800/60 transition-all duration-300 block">
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative p-6 flex flex-col h-full">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-blue-400 text-3xl">auto_awesome</span>
-              <h3 class="text-xl font-bold text-white">Google Gemini</h3>
-            </div>
-            <span class="material-icons text-slate-600 group-hover:text-blue-400 -rotate-45 group-hover:rotate-0 transition-transform">arrow_forward</span>
-          </div>
-          <p class="text-sm text-slate-400 mb-4">Your general purpose study partner. Best for step-by-step explanations, generating quiz questions, and checking your working out.</p>
-          <div class="mt-auto">
-            <span class="text-xs font-mono text-blue-300 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">STATUS: AUTHORIZED</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://notebooklm.google.com/" target="_blank" class="group glass-panel rounded-2xl p-1 relative overflow-hidden hover:bg-slate-800/60 transition-all duration-300 block">
-        <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative p-6 flex flex-col h-full">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-              <span class="material-icons text-teal-400 text-3xl">library_books</span>
-              <h3 class="text-xl font-bold text-white">NotebookLM</h3>
-            </div>
-            <span class="material-icons text-slate-600 group-hover:text-teal-400 -rotate-45 group-hover:rotate-0 transition-transform">arrow_forward</span>
-          </div>
-          <p class="text-sm text-slate-400 mb-4">The ultimate revision synthesiser. Upload your class notes or PDFs and it becomes an expert on <em>your</em> specific materials.</p>
-          <div class="mt-auto">
-            <span class="text-xs font-mono text-teal-300 bg-teal-500/10 px-2 py-1 rounded border border-teal-500/20">STATUS: AUTHORIZED</span>
-          </div>
-        </div>
-      </a>
-    </section>
-
-    <section class="mb-24">
-      <div class="flex items-center gap-4 mb-8">
-        <h2 class="text-2xl font-bold text-white">System Protocols</h2>
-        <div class="h-px bg-slate-800 flex-grow"></div>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-emerald-500">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-emerald-400 font-bold tracking-wide">OPTIMIZED USAGE</h3>
-            <span class="material-icons text-emerald-500/50">check_circle</span>
-          </div>
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
-              <span class="text-sm text-slate-300">Debugging: "Why is my answer wrong?"</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
-              <span class="text-sm text-slate-300">Generation: "Create 5 practice questions."</span>
-            </li>
-          </ul>
-        </div>
-        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-red-500">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-red-400 font-bold tracking-wide">RESTRICTED ACTION</h3>
-            <span class="material-icons text-red-500/50">block</span>
-          </div>
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-              <span class="text-sm text-slate-300">Plagiarism: Copying AI answers directly.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-              <span class="text-sm text-slate-300">Bypass: Using AI during assessments.</span>
-            </li>
-          </ul>
-        </div>
-        <div class="glass-panel rounded-xl p-6 border-l-4 border-l-amber-500 bg-amber-950/20">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-amber-400 font-bold tracking-wide">CORE DIRECTIVE</h3>
-            <span class="material-icons text-amber-500/50">vpn_key</span>
-          </div>
-          <p class="text-sm text-slate-300 leading-relaxed mb-4">
-            If you cannot explain <strong>how</strong> you got the answer, you haven't learned it. 
-          </p>
-          <div class="bg-amber-500/10 p-3 rounded border border-amber-500/20">
-            <p class="text-xs text-amber-200 font-mono">
-              > IF (users.feelsLikeCheating) { return "Don't do it"; }
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-white mb-2">Prompt Terminal</h2>
-        <p class="text-slate-500 text-sm">Select your level to initialize command sequences.</p>
+      <div class="absolute inset-0 z-0">
+        <img src="assets/home-hero5.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist">
-        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('common', this)">Common_Configs</button>
-        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks3', this)">KS3_Module</button>
-        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks4', this)">GCSE_Module</button>
-        <button class="neon-tab px-5 py-2 rounded-full text-xs font-semibold tracking-wide border border-transparent transition-all duration-300 bg-white/5 text-slate-400 hover:text-white" onclick="switchTab('ks5', this)">A-Level_Module</button>
-      </div>
-
-      <div id="terminal-display">
-        
-        <div id="panel-common" class="grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">School Approved</span>
+          </div>
           
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">config_tutor_mode.json</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-               <span class="text-neon-purple">Act as</span> a maths tutor. <br>
-               I am stuck on <span class="text-neon-cyan">[Topic Name]</span>. <br>
-               Explain the method step-by-step, but <span class="text-red-400">do not</span> give me the final answer yet. Ask me a guiding question to help me solve it myself.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
-              <span class="material-icons text-[14px]">content_copy</span> Copy
-            </button>
-          </div>
-
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">config_quiz_gen.json</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              Generate 5 practice questions on <span class="text-neon-cyan">[Topic]</span> suitable for <span class="text-neon-cyan">[Year Group]</span>. <br>
-              <span class="text-neon-purple">Order them</span> by difficulty (Easy -> Hard). <br>
-              Provide the answers in a hidden dropdown or at the very bottom of the response.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">
-              <span class="material-icons text-[14px]">content_copy</span> Copy
-            </button>
-          </div>
+          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            AI Usage<br>
+            <span class="text-blue-400">
+              In Mathematics
+            </span>
+          </h1>
+          
+          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
+            Use AI to learn methods, practise, and check your reasoning. Never to replace your own working.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+  <a href="#builder" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+    <span>OPEN Prompt Builder</span>
+    <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
+  </a>
+</div>
         </div>
-
-        <div id="panel-ks3" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">ks3_fractions.exe</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              I am in Year 7. Explain how to add fractions with different denominators. <br>
-              Use a <span class="text-neon-cyan">real-life example</span> involving pizza or chocolate. <br>
-              Then give me 3 practice questions.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-               <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-               <span class="text-[10px] text-slate-500 font-mono">ks3_ratios.exe</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              Create a ratio word problem suitable for Year 8. <br>
-              Show me the <span class="text-neon-purple">Bar Model</span> method to solve it.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-        </div>
-
-        <div id="panel-ks4" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">gcse_exam_sim.exe</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              Give me a Grade 7 question on <span class="text-neon-cyan">Circle Theorems</span>. <br>
-              Wait for my answer. <br>
-              If I get it wrong, tell me <span class="text-red-400">which theorem</span> I missed, rather than just giving the solution.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">gcse_mark_scheme.exe</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              Here is my working out for a question on <span class="text-neon-cyan">Simultaneous Equations</span>: <br>
-              [PASTE YOUR WORKING] <br>
-              Mark this out of 3 marks. Highlighting exactly where I lost marks.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-        </div>
-
-        <div id="panel-ks5" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 tab-panel">
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">alevel_stats.py</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              I am confused about <span class="text-neon-cyan">Hypothesis Testing</span>. <br>
-              Explain the difference between a one-tailed and two-tailed test using a context about manufacturing bolts. <br>
-              Show how to write the hypotheses H0 and H1.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-          <div class="relative bg-[#0b1221] border border-slate-800 rounded-xl overflow-hidden group hover:border-slate-600 hover:shadow-2xl transition-all">
-            <div class="bg-[#0f172a] border-b border-slate-800 px-4 py-2 flex items-center justify-between">
-              <div class="flex gap-1.5">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">alevel_pure.py</span>
-            </div>
-            <div class="p-5 font-mono text-sm leading-relaxed text-slate-300 prompt-text">
-              Generate a hard integration by parts question involving <span class="text-neon-cyan">ln(x)</span>. <br>
-              Provide a <span class="text-neon-purple">hint</span> about which term to set as 'u' and which as 'dv/dx', but don't solve it yet.<span class="cursor-blink"></span>
-            </div>
-            <button class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-700/80 hover:bg-neon-cyan hover:text-white text-xs px-2 py-1 rounded flex items-center gap-1 backdrop-blur-sm" onclick="copyText(this)">Copy</button>
-          </div>
-        </div>
-
       </div>
     </section>
 
+    <div class="wrap pt-8">
+      <div class="grid-docs">
+
+        <!-- Sidebar (no box) -->
+        <aside class="side pt-6">
+          <div class="px-2">
+            <div class="side-title">AI Usage</div>
+            <div class="text-lg font-black tracking-tight mt-1">Mathematics</div>
+          </div>
+
+          <nav class="mt-4 space-y-1" id="sideNav">
+            <a class="side-link active" href="#overview"><span class="material-icons">space_dashboard</span>Overview</a>
+            <a class="side-link" href="#approved"><span class="material-icons">verified</span>Approved tools</a>
+            <a class="side-link" href="#dos"><span class="material-icons">checklist</span>Do’s & Don’ts</a>
+            <a class="side-link" href="#builder"><span class="material-icons">architecture</span>Prompt Builder</a>
+            <a class="side-link" href="#hallucinations"><span class="material-icons">warning_amber</span>Hallucinations</a>
+            <a class="side-link" href="#ai-on-site"><span class="material-icons">info</span>AI on this website</a>
+          </nav>
+
+          <div class="mt-6 px-2 pt-6 border-t border-gray-200">
+            <div class="tiny">
+              Tip: use <span class="pill">Ctrl</span> + <span class="pill">F</span> to find topics quickly.
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <div>
+
+          <!-- OVERVIEW -->
+          <section id="overview" class="anchor section">
+            <div class="eyebrow">Overview</div>
+            <h2 class="h2 mt-2">What “good AI use” looks like</h2>
+            <p class="p mt-4 max-w-3xl">
+              In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing.
+              You should still be able to explain the reasoning yourself.
+            </p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Explaining steps</div>
+                <p class="p mt-2">Ask for hints first, then the full method after you’ve attempted it.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Practice & quizzes</div>
+                <p class="p mt-2">Generate questions at your level and mark your working.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Finding mistakes</div>
+                <p class="p mt-2">Paste your attempt and ask for the first incorrect step + why.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- APPROVED TOOLS (mesh aura header + divider rows) -->
+          <section id="approved" class="anchor section mesh">
+            <div class="flex items-start justify-between gap-6 flex-wrap relative">
+              <div>
+                <div class="eyebrow">School approved</div>
+                <h2 class="h2 mt-2">Tools you can use</h2>
+                <p class="p mt-4 max-w-3xl">
+                  Use responsibly. If you’re unsure whether something is allowed for assessed work, ask your teacher first.
+                </p>
+              </div>
+              <span class="pill relative">
+                <span class="material-icons text-[16px] text-emerald-600">task_alt</span>
+                Approved list
+              </span>
+            </div>
+
+            <div class="relative z-10 mt-14 grid md:grid-cols-3 gap-8">
+
+  <!-- Card -->
+  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+    
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-blue-600 text-2xl">auto_awesome</span>
+      <h3 class="font-black text-lg tracking-tight">Google Gemini</h3>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+      Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+    </p>
+
+    <div class="mt-8">
+      <a href="https://gemini.google.com" target="_blank"
+         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
+        Launch Gemini
+        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+    
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-purple-600 text-2xl">menu_book</span>
+      <h3 class="font-black text-lg tracking-tight">NotebookLM</h3>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+      Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
+    </p>
+
+    <div class="mt-8">
+      <a href="https://notebooklm.google.com" target="_blank"
+         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
+        Open NotebookLM
+        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+    
+    <div class="flex items-center gap-3">
+      <span class="material-icons text-pink-600 text-2xl">brush</span>
+      <h3 class="font-black text-lg tracking-tight">Canva AI</h3>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+      Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
+    </p>
+
+    <div class="mt-8">
+      <a href="https://www.canva.com" target="_blank"
+         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
+        Open Canva
+        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+          </section>
+
+          <!-- DO / DON'T (no cards) -->
+          <section id="dos" class="anchor section">
+            <div class="eyebrow">Guidance</div>
+            <h2 class="h2 mt-2">Do’s & Don’ts</h2>
+            <p class="p mt-4 max-w-3xl">AI is a study partner — not a shortcut. Use it to learn and verify.</p>
+
+            <div class="mt-10 grid md:grid-cols-[1fr,auto,1fr] gap-10 items-start">
+              <div class="col">
+                <div class="col-head">
+                  <span class="material-icons text-emerald-600">task_alt</span> Do
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Ask for hints first, then a full solution if needed.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Paste your working and ask for the first mistake.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Generate practice at your year/exam level.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Request a mark-scheme style checklist.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Verify with notes, examples, or another method.</li>
+                </ul>
+              </div>
+
+              <div class="divider-v"></div>
+
+              <div class="col">
+                <div class="col-head">
+                  <span class="material-icons text-rose-600">block</span> Don’t
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Copy answers without understanding the method.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Use AI for assessed work unless your teacher allows it.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Trust it blindly on formulas, theorems, or “facts”.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Ask vague questions like “help with algebra”. Be specific.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Share personal data (logins, phone numbers, etc.).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-10 callout">
+              <div class="eyebrow">Gold standard prompt</div>
+              <p class="mt-2 text-sm text-gray-700">
+                “I’m in <b>Year 9</b>. I tried this question and my working is below.
+                Please <b>identify the first mistake</b>, explain why, then give me <b>one hint</b> to fix it.
+                Don’t give the final answer until I ask.”
+              </p>
+            </div>
+          </section>
+
+          <!-- PROMPT BUILDER (single tool area, dividers not boxes) -->
+          <section id="builder" class="anchor section">
+            <div class="flex items-start justify-between gap-6 flex-wrap">
+              <div>
+                <div class="eyebrow">Interactive</div>
+                <h2 class="h2 mt-2">Prompt Builder</h2>
+                <p class="p mt-4 max-w-3xl">
+                  Choose options to build a strong prompt, then type your <b>topic</b>.
+                  If you’re stuck, paste the question (and your working) so the AI can help properly.
+                </p>
+              </div>
+
+              <div class="flex gap-2 flex-wrap">
+                <button class="btn" onclick="resetBuilder()">
+                  <span class="material-icons text-[18px]">refresh</span> Reset
+                </button>
+                <a class="btn btn-primary" href="https://gemini.google.com" target="_blank">
+                  <span class="material-icons text-[18px]">rocket_launch</span> Open Gemini
+                </a>
+              </div>
+            </div>
+
+            <!-- Tool area -->
+            <div class="tool mt-10">
+              <div class="tool-grid">
+                <!-- Left: controls -->
+                <div class="tool-col">
+                  <div class="eyebrow">1) Choose what you need</div>
+                  <div class="opt-grid mt-4">
+                    <button class="opt" onclick="setGoal('Explain','Explain a concept','explain it to me step-by-step')">
+                      Explain a concept <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Practice','Practice questions','give me 5 practice questions on')">
+                      Practice questions <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Check','Check my working','check my working and identify the first mistake for')">
+                      Check my working <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Pitfalls','Common mistakes','show me the common mistakes students make in')">
+                      Common mistakes <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+
+                    <button class="opt" onclick="setGoal('Stuck','I’m stuck (hint me)','I am stuck on this problem. Please help me without giving the final answer first. Ask me a question or give a single hint to move me forward.')">
+                      I’m stuck (hint me) <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Revise','Revision summary','create a short revision summary with key steps and 3 quick check questions for')">
+                      Revision summary <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Exam','Exam technique','teach me the exam technique and structure for answering questions on')">
+                      Exam technique <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Flash','Flashcards','make 8 flashcards (Q/A) for')">
+                      Flashcards <span class="material-icons text-gray-300">arrow_forward</span>
+                    </button>
+                  </div>
+
+                  <div class="mt-10">
+                    <div class="eyebrow">2) Your year group</div>
+                    <div class="chipbar">
+                      <div class="chip" onclick="setYear('Year 7','I am a Year 7 student.')">Year 7</div>
+                      <div class="chip" onclick="setYear('Year 8','I am a Year 8 student.')">Year 8</div>
+                      <div class="chip" onclick="setYear('Year 9','I am a Year 9 student.')">Year 9</div>
+                      <div class="chip" onclick="setYear('GCSE','I am a GCSE Maths student.')">GCSE</div>
+                      <div class="chip" onclick="setYear('A-Level','I am an A-Level Maths student.')">A-Level</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-10">
+                    <div class="eyebrow">3) Response style</div>
+                    <div class="chipbar">
+                      <div class="chip" onclick="setStyle('Socratic','Do not give the final answer immediately. Guide me with hints and questions first, then a full solution only if I ask.')">Socratic</div>
+                      <div class="chip" onclick="setStyle('Simple','Use simple language, short steps, and helpful visual analogies if possible.')">Simple & visual</div>
+                      <div class="chip" onclick="setStyle('Markscheme','Format your answer like an exam mark scheme with clear method marks and final answer.')">Mark scheme</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-10">
+                    <div class="eyebrow">4) Extras (optional)</div>
+                    <div class="chipbar">
+                      <div class="chip" id="chip-showSteps" onclick="toggleExtra('showSteps')">Show every step</div>
+                      <div class="chip" id="chip-checkAnswer" onclick="toggleExtra('checkAnswer')">Verify answer</div>
+                      <div class="chip" id="chip-noBigJumps" onclick="toggleExtra('noBigJumps')">No big jumps</div>
+                      <div class="chip" id="chip-miniQuiz" onclick="toggleExtra('miniQuiz')">Mini quiz after</div>
+                    </div>
+                    <div class="hint mt-3">Tip: fewer extras = clearer responses. Add only what you need.</div>
+                  </div>
+                </div>
+
+                <!-- Right: preview + inputs -->
+                <div class="tool-col">
+                  <div class="eyebrow">Your prompt</div>
+
+                  <div class="mt-4">
+                    <label class="eyebrow">Topic</label>
+                    <input id="topicInput" type="text"
+                      placeholder="e.g. solving linear equations, circle theorems, differentiation..."
+                      class="mt-2 w-full rounded-xl border-gray-200 focus:border-black focus:ring-black"/>
+                    <div class="hint mt-2">This is the most important part. Be specific.</div>
+                  </div>
+
+                  <div class="mt-6" id="problemWrap" style="display:none;">
+                    <label class="eyebrow">My question / working (recommended when stuck)</label>
+                    <textarea id="problemInput" rows="7"
+                      placeholder="Paste the question here. If you have working, paste it too."
+                      class="mt-2 w-full rounded-xl border-gray-200 focus:border-black focus:ring-black"></textarea>
+                    <div class="hint mt-2">Include your attempt — AI can find the first mistake and give a better hint.</div>
+                  </div>
+
+                  <div class="mt-6 flex flex-wrap gap-3 items-center">
+                    <button class="btn" onclick="toggleProblemBox()">
+                      <span class="material-icons text-[18px]">edit_note</span>
+                      <span id="problemToggleText">Add my question/working</span>
+                    </button>
+
+                    <button class="btn btn-primary" onclick="copyPrompt()">
+                      <span class="material-icons text-[18px]" id="copyIcon">content_copy</span>
+                      <span id="copyText">Copy</span>
+                    </button>
+                  </div>
+
+                  <div class="mt-6 prompt-box" id="promptPreview">
+                    Choose options on the left, then type your topic.
+                  </div>
+
+                  <div class="mt-6 grid grid-cols-2 gap-3">
+                    <a href="https://gemini.google.com" target="_blank" class="btn btn-primary">
+                      <span class="material-icons text-[18px]">rocket_launch</span> Gemini
+                    </a>
+                    <a href="https://notebooklm.google.com" target="_blank" class="btn">
+                      <span class="material-icons text-[18px]">menu_book</span> NotebookLM
+                    </a>
+                  </div>
+
+                  <div class="mt-6 tiny text-gray-500">
+                    Always check steps and final answers. If anything looks off, verify with notes or ask a teacher.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- HALLUCINATIONS (callout style) -->
+          <section id="hallucinations" class="anchor section">
+            <div class="eyebrow">Reliability</div>
+            <h2 class="h2 mt-2">Hallucinations: confident answers that can be wrong</h2>
+            <p class="p mt-4 max-w-3xl">
+              AI can invent steps, definitions, or results that look believable. In maths, verification is part of learning.
+            </p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">Check 1</div>
+                <div class="mt-2 font-black text-lg">Use another method</div>
+                <p class="p mt-2">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Check 2</div>
+                <div class="mt-2 font-black text-lg">Compare with your notes</div>
+                <p class="p mt-2">If it uses a method you haven’t learned, ask for the class method.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Check 3</div>
+                <div class="mt-2 font-black text-lg">Inspect each step</div>
+                <p class="p mt-2">Treat it like marking: one incorrect step breaks the whole solution.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 callout-warn">
+              <div class="eyebrow">A question that prevents nonsense</div>
+              <p class="mt-2 text-sm text-gray-700">
+                “Before you answer, list your assumptions. If you’re not sure, say so. Show the method used at school.”
+              </p>
+            </div>
+          </section>
+
+          <!-- AI ON THIS WEBSITE (transparent disclosure, no cards) -->
+          <section id="ai-on-site" class="anchor section">
+            <div class="eyebrow">Transparency</div>
+            <h2 class="h2 mt-2">AI on this website</h2>
+            <p class="p mt-4 max-w-3xl">Transparency matters. Here’s how AI relates to SJWMS Maths revision website.</p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">On-page AI</div>
+                <div class="mt-2 font-black text-lg">No AI runs on this website</div>
+                <p class="p mt-2">This site does not include an AI chatbot or AI that reads your typing. It’s a normal website.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Resources</div>
+                <div class="mt-2 font-black text-lg">Some worksheets used AI in creation</div>
+                <p class="p mt-2">In places, AI may have helped draft questions, examples, or explanations — then reviewed and edited by staff.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Development</div>
+                <div class="mt-2 font-black text-lg">The site code was developed with AI support</div>
+                <p class="p mt-2">AI tools assisted in writing and improving code, layouts, and components — final decisions remain human-made.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 callout">
+              <div class="flex items-start gap-3">
+                <span class="material-icons text-gray-900">privacy_tip</span>
+                <div>
+                  <div class="font-black">Privacy note</div>
+                  <p class="tiny mt-1">
+                    When you use external AI tools (Gemini/NotebookLM/Canva), treat them like public services.
+                    Don’t share personal data or school logins.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-10 flex justify-between flex-wrap gap-3">
+              <a href="#top" class="btn"><span class="material-icons text-[18px]">north</span> Back to top</a>
+              <div class="tiny text-gray-500">If something seems wrong, ask a teacher — that’s good learning.</div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer class="mt-16 border-t border-white/10 bg-[#030712] py-8 relative z-10">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-
-    <div class="flex items-center gap-3">
-      <img src="assets/sjwms-maths-logo (1).png" 
-           alt="SJWMS Maths Logo"
-           class="h-10 w-auto" />
-      <div>
-        <p class="text-sm font-semibold text-slate-300">
-          SJWMS Maths Revision Hub
-        </p>
-        <p class="text-xs text-slate-500">
-          © 2026 SJWMS — All rights reserved.
-        </p>
-      </div>
-    </div>
-
-    <div class="text-xs text-slate-500 text-right">
-      <p>Built with ambition for SJWMS students</p>
-      <p class="mt-1 text-[10px] text-slate-600">
-        Revision Hub v3.1
-      </p>
-    </div>
-
-  </div>
-</footer>
+  <div id="footer-slot"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const firstBtn = document.querySelector('.neon-tab');
-        if(firstBtn) switchTab('common', firstBtn);
+    // ===== Sidebar active section =====
+    (function(){
+      const nav = document.getElementById('sideNav');
+      if(!nav) return;
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+      const obs = new IntersectionObserver((entries)=>{
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+        if(!visible) return;
+        const id = '#' + visible.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }, { rootMargin: "-30% 0px -60% 0px", threshold: [0.12, 0.2, 0.3] });
+
+      targets.forEach(t => obs.observe(t));
+    })();
+
+    // ===== Prompt Builder: state =====
+    let promptData = {
+      goalKey: "",
+      goalLabel: "",
+      goalText: "",
+      yearLabel: "",
+      yearText: "",
+      styleLabel: "",
+      styleText: "",
+      extras: {
+        showSteps: false,
+        checkAnswer: false,
+        noBigJumps: false,
+        miniQuiz: false
+      }
+    };
+
+    const extrasText = {
+      showSteps: "Show every step and explain why each step is valid.",
+      checkAnswer: "At the end, verify the answer using a different method or a quick check.",
+      noBigJumps: "Do not skip steps or make big jumps in reasoning.",
+      miniQuiz: "After explaining, quiz me with 2 short questions and mark my answers."
+    };
+
+    const topicEl = () => document.getElementById('topicInput');
+    const probEl  = () => document.getElementById('problemInput');
+
+    document.addEventListener('input', (e) => {
+      if(e.target && (e.target.id === 'topicInput' || e.target.id === 'problemInput')) updatePreview();
     });
 
-    // 1. TAB SWITCHING (No Animation Logic)
-    function switchTab(tabName, clickedBtn) {
-      // Style Buttons
-      document.querySelectorAll('.neon-tab').forEach(btn => {
-        btn.classList.remove('bg-cyan-500/10', 'text-neon-cyan', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.25)]');
-        btn.classList.add('bg-white/5', 'text-slate-400');
-      });
-      clickedBtn.classList.remove('bg-white/5', 'text-slate-400');
-      clickedBtn.classList.add('bg-cyan-500/10', 'text-neon-cyan', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.25)]');
+    function setGoal(key, label, text){
+      promptData.goalKey = key;
+      promptData.goalLabel = label;
+      promptData.goalText = text;
 
-      // Hide Panels
-      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
-      
-      // Show Target Panel
-      const target = document.getElementById('panel-' + tabName);
-      target.classList.remove('hidden');
-      target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+      // auto-open problem box when "stuck"
+      if(key === "Stuck") toggleProblemBox(true);
+
+      updatePreview();
     }
 
-    // 2. COPY LOGIC
-    function copyText(btn) {
-      const container = btn.parentElement.querySelector('.prompt-text');
-      // Clone so we don't mess up the actual DOM
-      const clone = container.cloneNode(true);
-      
-      // Remove the blinking cursor from the text we want to copy
-      const cursor = clone.querySelector('.cursor-blink');
-      if(cursor) cursor.remove();
+    function setYear(label, text){
+      promptData.yearLabel = label;
+      promptData.yearText = text;
+      markChipGroup('year', label);
+      updatePreview();
+    }
 
-      // Get text content
-      const cleanText = clone.textContent || clone.innerText || "";
-      
-      navigator.clipboard.writeText(cleanText.trim()).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<span class="material-icons text-[14px]">check</span> Copied';
-        btn.classList.add('text-green-400');
+    function setStyle(label, text){
+      promptData.styleLabel = label;
+      promptData.styleText = text;
+      markChipGroup('style', label);
+      updatePreview();
+    }
+
+    function toggleExtra(key){
+      promptData.extras[key] = !promptData.extras[key];
+      const chip = document.getElementById(`chip-${key}`);
+      if(chip) chip.classList.toggle('on', promptData.extras[key]);
+      updatePreview();
+    }
+
+    function markChipGroup(group, label){
+      // Simple: visually "on" by toggling class based on innerText match
+      // Year chips are in one bar; Style chips in another.
+      const bars = document.querySelectorAll('.chipbar');
+      bars.forEach(bar => {
+        // identify year/style by presence of known items
+        const text = bar.innerText || "";
+        const isYear = text.includes("Year 7") && text.includes("GCSE");
+        const isStyle = text.includes("Socratic") && text.includes("Mark scheme");
+        if((group === 'year' && !isYear) || (group === 'style' && !isStyle)) return;
+
+        Array.from(bar.querySelectorAll('.chip')).forEach(chip => {
+          chip.classList.toggle('on', chip.innerText.trim() === label);
+        });
+      });
+    }
+
+    function toggleProblemBox(forceOpen){
+      const wrap = document.getElementById('problemWrap');
+      const toggleText = document.getElementById('problemToggleText');
+      const open = (typeof forceOpen === "boolean") ? forceOpen : (wrap.style.display === "none");
+
+      wrap.style.display = open ? "block" : "none";
+      toggleText.innerText = open ? "Hide my question/working" : "Add my question/working";
+      updatePreview();
+    }
+
+    function updatePreview(){
+      const t = (topicEl()?.value || "").trim();
+      const p = (probEl()?.value || "").trim();
+
+      const lines = [];
+
+      if(promptData.yearText) lines.push(promptData.yearText);
+
+      if(promptData.goalText){
+        if(t) lines.push(`Please ${promptData.goalText} ${t}.`);
+        else lines.push(`Please ${promptData.goalText} [INSERT TOPIC HERE].`);
+      } else {
+        // no goal chosen yet
+        if(t) lines.push(`Topic: ${t}`);
+      }
+
+      if(promptData.styleText) lines.push(promptData.styleText);
+
+      const stuckMode = (promptData.goalKey === "Stuck");
+      const includeProblem = stuckMode || p.length > 0;
+
+      if(includeProblem){
+        lines.push("");
+        lines.push("Here is the problem (and my working if included):");
+        lines.push(p ? p : "[PASTE QUESTION / WORKING HERE]");
+        lines.push("");
+        lines.push("Rules:");
+        lines.push("- Give me ONE hint first (or ask me one question).");
+        lines.push("- Do not give the full solution unless I ask.");
+        lines.push("- If you spot a mistake in my working, tell me the first incorrect step and why.");
+      }
+
+      const enabledExtras = Object.keys(promptData.extras).filter(k => promptData.extras[k]);
+      if(enabledExtras.length){
+        lines.push("");
+        lines.push("Extra requirements:");
+        enabledExtras.forEach(k => lines.push(`- ${extrasText[k]}`));
+      }
+
+      lines.push("");
+      lines.push("If you are unsure at any point, say so. Keep the method consistent with what is taught at school.");
+
+      const prompt = lines.join("\n").trim();
+      document.getElementById('promptPreview').innerText = prompt || "Choose options on the left, then type your topic.";
+    }
+
+    function copyPrompt(){
+      const text = document.getElementById('promptPreview').innerText;
+      if(!text || text.includes("Choose options")) return;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copyText');
+        const btnIcon = document.getElementById('copyIcon');
+        btnText.innerText = "Copied!";
+        btnIcon.innerText = "done";
+
         setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('text-green-400');
-        }, 2000);
+          btnText.innerText = "Copy";
+          btnIcon.innerText = "content_copy";
+        }, 1400);
       });
     }
 
-    // 3. MOBILE MENU
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if(menuBtn) {
-      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    function resetBuilder(){
+      promptData = {
+        goalKey: "", goalLabel: "", goalText: "",
+        yearLabel: "", yearText: "",
+        styleLabel: "", styleText: "",
+        extras: { showSteps:false, checkAnswer:false, noBigJumps:false, miniQuiz:false }
+      };
+
+      // reset chips
+      document.querySelectorAll('.chip').forEach(ch => ch.classList.remove('on'));
+
+      // hide problem box (but keep typed text)
+      const wrap = document.getElementById('problemWrap');
+      wrap.style.display = "none";
+      document.getElementById('problemToggleText').innerText = "Add my question/working";
+
+      updatePreview();
     }
 
-    // 4. Parallax
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const beams = document.querySelector('img[alt="Digital streams"]');
-        if(beams) beams.style.transform = `translateY(${scrolled * 0.2}px)`;
-    });
+    // init
+    updatePreview();
   </script>
+
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
