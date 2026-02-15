@@ -1,28 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
+<html lang="en">
+<head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SPARX | Usage & Policy</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
+  <title>KS3 | Home</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="assets/main.css"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-white text-[#0b0f17] font-[Lexend] overflow-x-hidden; }
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    /* KEEP: top nav */
-    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Page geometry */
-    .page { @apply pb-20; }
+    /* Header + mobile menu */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    /* Background dots */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    .section-heading { @apply text-2xl font-bold text-gray-800; }
+
+    /* Standard section title row (your requested pattern) */
+    .section-title-row { @apply flex items-center gap-4 mb-8; }
+    .section-title-line { @apply h-px bg-gray-200 flex-grow; }
+
+    /* Docs-like sidebar (desktop only) */
     .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
     .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
-
-    /* Docs-like sidebar */
     .side { @apply hidden lg:block sticky top-20; }
     .side-title { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
     .side-link { @apply flex items-center gap-3 px-2 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition; }
@@ -30,263 +61,617 @@
     .side-link.active { @apply bg-gray-100 text-gray-900; }
     .side-link.active .material-icons { @apply text-gray-900; }
 
-    /* Sections: full-width feel via dividers and spacing */
-    .section { @apply py-14; }
-    .section + .section { @apply border-t border-gray-200; }
+    /* Anchor offset for fixed header */
     .anchor { scroll-margin-top: 92px; }
-
-    /* Typography rhythm */
-    .eyebrow { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
-    .h1 { @apply text-4xl md:text-6xl font-black tracking-tight leading-[1.05]; }
-    .h2 { @apply text-2xl md:text-3xl font-black tracking-tight; }
-    .lead { @apply text-lg text-gray-600 max-w-2xl; }
-    .p { @apply text-gray-600 leading-relaxed; }
-    .tiny { @apply text-[12px] text-gray-600 leading-relaxed; }
-
-    /* Pills + buttons */
-    .pill { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700; }
-    .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold border border-gray-200 bg-white hover:bg-gray-50 active:scale-[0.99] transition; }
-    .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
-    .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
-
-    /* Divider list rows (Approved tools) */
-    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
-    .row + .row { @apply border-t border-gray-200; }
-    .row-title { @apply flex items-center gap-3; }
-    .row-title h3 { @apply font-black text-lg; }
-    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
-    .tags { @apply mt-3 flex flex-wrap gap-2; }
-    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
-
-    /* Approved tools mesh aura (CSS-only, Option A) */
-    .mesh {
-    position: relative;
-    overflow: hidden;
-    }
-
-    .mesh::before{
-    content:"";
-    position:absolute;
-    inset:-200px;
-    pointer-events:none;
-    background:
-      radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
-      radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
-      radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
-    filter: blur(60px);
-    opacity:.8;
-    z-index:0;
-    }
-
-    /* Do / Don't layout (no cards) */
-    .two-col { @apply grid md:grid-cols-2 gap-10; }
-    .col-head { @apply flex items-center gap-2 font-black text-lg; }
-    .list { @apply mt-4 space-y-3 text-sm text-gray-700; }
-    .li { @apply flex gap-2; }
-    .li .material-icons { @apply text-[18px]; }
-    .divider-v { @apply hidden md:block w-px bg-gray-200; }
-
-    /* Prompt Builder: tool area with internal dividers, not cards */
-    .tool { @apply border-y border-gray-200; }
-    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
-    .tool-col { @apply py-10; }
-    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
-
-    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
-    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
-    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
-    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
-    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
-
-    .prompt-box {
-      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
-      white-space: pre-wrap;
-    }
-
-    .hint { @apply text-[12px] text-gray-500; }
-
-    /* Callouts (Hallucinations + Privacy) */
-    .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
-    .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
   </style>
 </head>
 
 <body>
-
-  <!-- KEEP: Top Nav (unchanged) -->
   <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
         <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
+
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
       </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60" aria-expanded="false">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
     </div>
   </header>
 
-  <main class="relative pt-14 pb-20">
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
-  <!-- HERO -->
-  <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
-    <div class="absolute inset-0 z-0">
-      <img src="assets/home-hero5.jpg" alt="Sparx Setup" class="w-full h-full object-cover object-center" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+  <main class="relative pt-14">
+
+    <!-- Full-width banner -->
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-      <div class="max-w-xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-          <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Online Homework</span>
+    <!-- HERO (full width) -->
+    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+      <div class="absolute inset-0 z-0">
+        <img src="assets/ks3-hero.jpg" alt="KS3 Hero" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-2xl">
+
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+            <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">KS3 • Years 7, 8 & 9</span>
+          </div>
+
+          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            KS3<br>
+            <span class="text-cyan-400">Mathematics</span>
+          </h1>
+
+          <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
+            A single place for Years 7–9. Choose your year to find worksheets, videos and problem-solving practice. This KS3 area will grow over time, so be sure to check back!
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="#UKMT" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <span>UKMT - JMC</span>
+              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">emoji_events</span>
+            </a>
+
+            <a href="ks3_eoy.html" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <span>KS3 EOY Revision</span>
+              <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">event</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Pi day banner container (full width) -->
+    <div id="pi-day-banner-container" style="display: none;">
+      <div class="relative w-full overflow-hidden my-8 group cursor-pointer" onclick="window.location.href='pi_event.html'">
+
+        <div class="absolute inset-0 bg-[#030712]">
+          <div class="absolute inset-0 opacity-20"
+               style="background-image: linear-gradient(0deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(34, 211, 238, .3) 25%, rgba(34, 211, 238, .3) 26%, transparent 27%, transparent 74%, rgba(34, 211, 238, .3) 75%, rgba(34, 211, 238, .3) 76%, transparent 77%, transparent); background-size: 50px 50px;">
+          </div>
         </div>
 
-        <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-          Sparx Homework<br>
-          <span class="text-blue-400">Setup & Guidance</span>
-        </h1>
+        <div class="absolute top-0 bottom-0 left-0 w-1 bg-red-500 animate-pulse"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-1 bg-red-500 animate-pulse"></div>
 
-        <p class="text-slate-300 text-lg font-medium drop-shadow-md">
-          How to log in, complete homework properly, and avoid common mistakes.
-        </p>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
-        <div class="mt-8">
-          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold hover:bg-white/20 transition">
-            Launch Sparx
-            <span class="material-icons text-sm">open_in_new</span>
+          <div class="flex items-start gap-4">
+            <span class="material-icons text-4xl text-red-500 animate-bounce">warning</span>
+            <div>
+              <h3 class="font-mono text-2xl md:text-3xl font-black text-white tracking-tighter uppercase" style="text-shadow: 2px 0 #ef4444, -2px 0 #22d3ee;">
+                SYSTEM_ANOMALY_DETECTED
+              </h3>
+              <p class="font-mono text-red-400 text-sm mt-1">
+                <span class="animate-pulse">>>></span> INFINITE RECURSION ERROR (π) FOUND. MEMORY LEAK IMMINENT.
+              </p>
+            </div>
+          </div>
+
+          <button class="relative overflow-hidden px-8 py-3 bg-red-600 hover:bg-red-500 text-white font-mono font-bold uppercase tracking-widest transition-all duration-200 clip-path-polygon shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)]">
+            <span class="relative z-10 flex items-center gap-2">
+              <span class="material-icons text-sm">terminal</span>
+              INITIATE_DEBUG
+            </span>
+            <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const today = new Date();
+        const month = today.getMonth(); // Jan=0
+        const day = today.getDate();
+
+        // Set this to 'true' to see the banner RIGHT NOW for testing.
+        // Set to 'false' to only show on actual Pi Day.
+        const testMode = false;
+
+        if (testMode || (month === 2 && day === 14)) {
+          const bannerContainer = document.getElementById('pi-day-banner-container');
+          if (bannerContainer) bannerContainer.style.display = 'block';
+        }
+      })();
+    </script>
+
+    <!-- ✅ CONSISTENT CENTERED CONTAINER FOR ALL POST-HERO CONTENT -->
+    <div class="wrap pt-8">
+  <div class="grid-docs">
+
+    <!-- Sidebar -->
+    <aside class="side pt-6">
+      <div class="px-2">
+        <div class="side-title">KS3</div>
+        <div class="text-lg font-black tracking-tight mt-1">Home</div>
+      </div>
+
+      <nav class="mt-4 space-y-1" id="sideNav">
+        <a class="side-link active" href="#years"><span class="material-icons">school</span>Choose year</a>
+        <a class="side-link" href="#featured"><span class="material-icons">star</span>Featured sites</a>
+        <a class="side-link" href="#pathway"><span class="material-icons">emoji_events</span>UKMT pathway</a>
+        <a class="side-link" href="#UKMT"><span class="material-icons">article</span>UKMT prep</a>
+        <a class="side-link" href="#extras"><span class="material-icons">widgets</span>More</a>
+      </nav>
+
+      <div class="mt-6 px-2 pt-6 border-t border-gray-200">
+        <div class="text-[12px] text-gray-600 leading-relaxed">
+          Tip: use <span class="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-extrabold text-gray-700">Ctrl</span>
+          + <span class="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-extrabold text-gray-700">F</span>
+        </div>
+      </div>
+    </aside>
+
+      <!-- CHOOSE YEAR -->
+      <section id="years" class="mt-10 mb-10" aria-label="Choose a year">
+        <div class="section-title-row">
+          <h2 class="section-heading">Choose your year</h2>
+          <div class="section-title-line"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[14rem]">
+          
+          <a href="year7_hub_soon.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6 relative overflow-hidden">
+            
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Term 4</span>
+            </div>
+
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-orange-50">
+                <span class="material-icons text-orange-500">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 7</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Secure the basics and build confidence with early KS3 topics.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a href="year8_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6 relative overflow-hidden">
+            
+            <div class="absolute inset-0 z-20 bg-[#0f172a]/80 backdrop-blur-[2px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="material-icons text-white text-4xl mb-2 drop-shadow-lg">lock</span>
+              <span class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-md">Coming Term 3</span>
+            </div>
+
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-emerald-50">
+                <span class="material-icons text-emerald-500">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 8</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Consolidate key skills and begin stretching into GCSE-style questions.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <a href="year9_hub.html"
+             class="group block h-full rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition p-6">
+            <div class="h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50">
+                <span class="material-icons text-indigo-500">school</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800">Year 9</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Final KS3 year: bridge into GCSE with full unit-by-unit revision resources.
+              </p>
+              <div class="mt-auto pt-3">
+                <span class="inline-flex items-center font-semibold text-blue-600">
+                  Open <span class="material-icons ml-1 text-base">arrow_forward</span>
+                </span>
+              </div>
+            </div>
           </a>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <div class="wrap pt-8">
-    <div class="grid-docs">
-
-      <!-- SIDEBAR -->
-      <aside class="side pt-6">
-        <div class="px-2">
-          <div class="side-title">Sparx</div>
-          <div class="text-lg font-black tracking-tight mt-1">Setup Guide</div>
+      <!-- KS3 Featured Sites -->
+      <section is="featured" class="mt-12 mb-8 anchor">
+        <div class="section-title-row">
+          <h2 class="section-heading">KS3 Featured Sites</h2>
+          <div class="section-title-line"></div>
         </div>
 
-        <nav class="mt-4 space-y-1" id="sideNav">
-          <a class="side-link active" href="#overview"><span class="material-icons">info</span>Overview</a>
-          <a class="side-link" href="#cycle"><span class="material-icons">schedule</span>Homework Cycle</a>
-          <a class="side-link" href="#orange"><span class="material-icons">menu_book</span>Orange Book</a>
-          <a class="side-link" href="#videos"><span class="material-icons">play_circle</span>Video Guides</a>
-          <a class="side-link" href="#anti-cheat"><span class="material-icons">warning</span>AI & Cheating</a>
-          <a class="side-link" href="#launch"><span class="material-icons">rocket_launch</span>Launch Sparx</a>
-        </nav>
-      </aside>
+        <div id="ks3-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <p id="ks3-featured-empty" class="text-gray-500" hidden>No featured sites yet.</p>
+      </section>
 
-      <!-- MAIN CONTENT -->
-      <div>
+      <section id="pathway" class="mt-12 mb-8 anchor">
+        <div class="section-title-row">
+          <h2 class="section-heading">The UKMT Pathway</h2>
+          <div class="section-title-line"></div>
+        </div>
 
-        <!-- OVERVIEW -->
-        <section id="overview" class="anchor section">
-          <div class="eyebrow">Overview</div>
-          <h2 class="h2 mt-2">What Sparx is for</h2>
-          <p class="p mt-4 max-w-3xl">
-            Sparx is one of the SJWMS mathematics departments homework platforms. Each week you complete a personalised set of maths questions.
-            The goal is progress through consistency, enhancing your mathematics and to not rush or guess.
-          </p>
-        </section>
+        <div class="relative w-full max-w-4xl mx-auto">
 
-        <!-- HOMEWORK CYCLE -->
-        <section id="cycle" class="anchor section">
-          <div class="eyebrow">Schedule</div>
-          <h2 class="h2 mt-2">Homework Cycle</h2>
-          <p class="p mt-4 max-w-3xl">
-            Sparx runs from <b>Wednesday to Wednesday</b> (unless stated overwise). All work must be completed before the deadline.
-          </p>
-        </section>
-
-        <!-- ORANGE BOOK -->
-        <section id="orange" class="anchor section">
-          <div class="eyebrow">Protocol</div>
-          <h2 class="h2 mt-2">Orange Book Requirements</h2>
-          <p class="p mt-4 max-w-3xl">
-            Every Sparx question must be supported with written working in your orange book.
-          </p>
-
-          <ul class="mt-8 space-y-4 text-sm text-gray-700">
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the Bookwork Code</li>
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Show full working clearly</li>
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the final answer neatly</li>
-          </ul>
-        </section>
-
-        <!-- VIDEO GUIDES -->
-        <section id="videos" class="anchor section">
-          <div class="eyebrow">Support</div>
-          <h2 class="h2 mt-2">Video Guides</h2>
-
-          <div class="mt-8 grid md:grid-cols-2 gap-8">
-            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/a92XCC0MeM0"
-                allowfullscreen></iframe>
+          <div class="relative z-10 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center max-w-xl mx-auto border-t-4 border-t-blue-500">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-3 uppercase tracking-wide">
+              Tier 1: The Entry
             </div>
-            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/IQUMypfwHnU"
-                allowfullscreen></iframe>
+            <h3 class="text-xl font-bold text-gray-800">Junior Maths Challenge (JMC)</h3>
+            <p class="text-gray-600 text-sm mt-2">
+              60 minutes &bull; 25 Multiple Choice Questions
+            </p>
+            <div class="mt-3 text-sm font-medium text-gray-500 bg-gray-50 rounded-lg py-2 px-4 inline-block">
+              Top 40% receive Bronze, Silver or Gold Certificates
+            </div>
+
+            <div class="mt-5">
+              <a href="#UKMT" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-50 text-blue-700 text-sm font-semibold hover:bg-blue-100 transition">
+                Get Practice Papers
+                <span class="material-icons text-sm ml-2">arrow_downward</span>
+              </a>
             </div>
           </div>
-        </section>
 
-        <!-- ANTI CHEAT -->
-        <section id="anti-cheat" class="anchor section">
-          <div class="eyebrow">Important</div>
-          <h2 class="h2 mt-2">AI & Homework</h2>
-          <p class="p mt-4 max-w-3xl">
-            Using AI solvers to complete Sparx may trick the algorithm into thinking you are more advanced than you are.
-            This results in future homework becoming significantly harder.
-          </p>
-
-          <div class="mt-8 callout-warn">
-            Always attempt questions yourself first. Use AI only as a study aid, not as an answer generator.
+          <div class="hidden md:block h-12 w-full relative">
+            <div class="absolute left-1/2 -translate-x-1/2 top-0 h-6 w-0.5 bg-gray-300"></div>
+            <div class="absolute top-6 left-1/4 right-1/4 h-0.5 bg-gray-300"></div>
+            <div class="absolute top-6 left-1/4 h-6 w-0.5 bg-gray-300"></div>
+            <div class="absolute top-6 right-1/4 h-6 w-0.5 bg-gray-300"></div>
           </div>
-          <p class="p mt-4 max-w-3xl">
-            Discover more about AI and how best to use it for mathmetics with our dedicated AI Usage page.
-          </p>
-          <div class="mt-8">
-            <a href="ai_usage.html"
-               target="_blank"
-               class="btn btn-primary">
-              AI Usage
-              <span class="material-icons text-sm">open_in_new</span>
-            </a>
+
+          <div class="md:hidden flex justify-center py-2">
+            <span class="material-icons text-gray-300">arrow_downward</span>
           </div>
-        </section>
 
-        <!-- LAUNCH -->
-        <section id="launch" class="anchor section">
-          <div class="eyebrow">Access</div>
-          <h2 class="h2 mt-2">Launch Sparx</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
 
-          <div class="mt-8">
-            <a href="https://selectschool.sparx-learning.com/"
-               target="_blank"
-               class="btn btn-primary">
-              <span class="material-icons text-[18px]">rocket_launch</span>
-              Launch Sparx
-            </a>
+            <div class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center border-t-4 border-t-pink-500 hover:-translate-y-1 transition duration-300">
+              <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-pink-50 text-pink-700 text-xs font-bold mb-3 uppercase tracking-wide mx-auto">
+                Tier 2: High Achievers
+              </div>
+              <h3 class="text-lg font-bold text-gray-800">Junior Kangaroo</h3>
+              <p class="text-gray-600 text-sm mt-2 mb-3">
+                A 60-minute multiple choice paper.
+              </p>
+              <div class="border-t border-dashed border-gray-200 pt-3 mb-4">
+                <p class="text-xs text-gray-500">
+                  <span class="block font-bold text-gray-700 text-base mb-1">Top ~6,000</span>
+                  Invited based on JMC Score<br/>(usually 85+)
+                </p>
+              </div>
+
+              <div class="mt-auto">
+                <a href="https://ukmt.org.uk/junior-challenges/junior-kangaroo" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-pink-50 text-pink-700 text-sm font-semibold hover:bg-pink-100 transition">
+                  More Info
+                  <span class="material-icons text-sm ml-2">open_in_new</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center border-t-4 border-t-yellow-400 hover:-translate-y-1 transition duration-300">
+              <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-yellow-50 text-yellow-700 text-xs font-bold mb-3 uppercase tracking-wide mx-auto">
+                Tier 3: The Elite Tier
+              </div>
+              <h3 class="text-lg font-bold text-gray-800">Junior Olympiad (JMO)</h3>
+              <p class="text-gray-600 text-sm mt-2 mb-3">
+                2-hour paper requiring <span class="font-semibold text-gray-800">full written solutions</span>.
+              </p>
+              <div class="border-t border-dashed border-gray-200 pt-3 mb-4">
+                <p class="text-xs text-gray-500">
+                  <span class="block font-bold text-gray-700 text-base mb-1">Top ~1,200</span>
+                  Highest scorers in the country<br/>(usually 100+)
+                </p>
+              </div>
+
+              <div class="mt-auto">
+                <a href="https://ukmt.org.uk/junior-challenges/junior-mathematical-olympiad" target="_blank" class="inline-flex items-center px-4 py-2 rounded-lg bg-yellow-50 text-yellow-800 text-sm font-semibold hover:bg-yellow-100 transition">
+                  JMO Details
+                  <span class="material-icons text-sm ml-2">open_in_new</span>
+                </a>
+              </div>
+            </div>
+
           </div>
-        </section>
+        </div>
+      </section>
 
-      </div>
-    </div>
+      <!-- UKMT resources grid -->
+      <section id="UKMT" class="mt-8 mb-16">
+        <div class="section-title-row">
+          <h2 class="section-heading">UKMT Preparation</h2>
+          <div class="section-title-line"></div>
+        </div>
+
+        <div id="ks3-ukmt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <p id="ks3-ukmt-empty" class="text-gray-500" hidden>No UKMT items yet.</p>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+      <section id="extra" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 mb-12 anchor">
+
+        <article class="relative rounded-2xl overflow-hidden shadow-2xl group border border-gray-800/20 h-full min-h-[320px] flex flex-col">
+
+          <div class="absolute inset-0 z-0">
+            <img src="assets/ks3-hero.jpg" alt="EOY Revision"
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/30 to-transparent mix-blend-overlay"></div>
+          </div>
+
+          <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full">
+
+            <div class="flex justify-between items-start mb-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-400/30 backdrop-blur-md">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
+                <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">Exam Prep</span>
+              </div>
+            </div>
+
+            <div class="mt-auto">
+              <h2 class="text-3xl font-black text-white mb-2 leading-tight drop-shadow-lg">
+                End of Year<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+                  Revision Hub
+                </span>
+              </h2>
+
+              <p class="text-gray-200 text-sm mb-6 leading-relaxed font-medium max-w-sm drop-shadow-md">
+                Everything you need for your finals: topic lists, practice papers, and video walkthroughs.
+              </p>
+
+              <a href="ks3_eoy.html"
+                 class="inline-flex items-center w-full justify-center px-4 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-cyan-50 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+                 Start Revising
+                 <span class="material-icons text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="relative rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col h-full overflow-hidden group transition-all duration-300 hover:shadow-2xl border-2 border-black" style="background-color: #ffe4e6;">
+
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-10 left-10 w-24 h-24 bg-rose-300/20 rounded-full blur-2xl"></div>
+
+          <div class="absolute right-4 top-[15%] w-[160px] sm:w-[200px] opacity-90 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 origin-center z-0">
+             <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Hero" class="drop-shadow-lg" />
+          </div>
+
+          <div class="relative z-10 flex flex-col h-full">
+
+            <div class="flex justify-start mb-6">
+              <span class="inline-flex items-center px-3 py-1.5 rounded-md bg-black text-white text-[11px] font-black uppercase tracking-wider transform -rotate-2 group-hover:rotate-0 transition-transform duration-300 shadow-md">
+                Fresh out of puns?
+              </span>
+            </div>
+
+            <div class="mt-auto max-w-[60%]">
+              <h2 class="text-4xl font-black text-black mb-3 leading-[0.9] tracking-tighter">
+                BISHOP<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-black to-gray-700">
+                  & CO. SHAKES
+                </span>
+              </h2>
+
+              <p class="text-gray-800 text-sm mb-6 font-bold leading-relaxed">
+                Fuel your brain. Calculate the taste. <br>
+                <span class="text-xs font-medium text-gray-600 italic">Warning: May contain traces of algebra.</span>
+              </p>
+
+              <a href="bishop_shakes.html"
+                 class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-black text-white font-bold text-sm uppercase tracking-wide hover:bg-[#ff4e00] hover:-translate-y-1 transition-all duration-200 shadow-lg">
+                 Visit Shop
+                 <span class="material-icons text-sm ml-2">local_drink</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <section class="mt-8 mb-16 relative z-10">
+
+        <article class="relative w-full h-auto md:h-[220px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-700/50">
+
+          <div class="absolute inset-0 z-0">
+            <img src="assets/home-hero1.jpg" alt="GCSE Horizon"
+                 class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
+
+            <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 h-full px-6 py-8 md:py-0 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+
+            <div class="flex-1 text-center md:text-left">
+
+              <div class="inline-flex items-center gap-2 mb-3">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
+                  Year 9 Only
+                </span>
+              </div>
+
+              <h2 class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
+                GCSE <span class="text-blue-400">PREP</span>
+              </h2>
+
+              <p class="text-slate-300 text-sm md:text-base font-medium max-w-lg leading-relaxed shadow-black drop-shadow-md">
+                Your journey to the next level begins here. Master the transition before Year 10 starts.
+              </p>
+            </div>
+
+            <div class="flex-shrink-0 pb-2 md:pb-0">
+              <div class="relative group/btn">
+
+                <button disabled class="relative overflow-hidden flex items-center gap-3 px-8 py-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 text-white font-bold uppercase tracking-widest text-xs cursor-not-allowed hover:bg-white/20 transition-all duration-300">
+                  <span class="material-icons text-sm text-blue-300">lock</span>
+                  <span>Coming Summer 2025</span>
+
+                  <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover/btn:animate-shine" />
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+        </article>
+      </section>
   </div>
-</main>
+    </div><!-- /centered container -->
+  </main>
+
+  <!-- FOOTER -->
   <div id="footer-slot"></div>
 
+  <script src="assets/footer-loader.js" defer></script>
+
+  <!-- KS3 JSON + site cards -->
+  <script src="assets/cards.js"></script>
+
+  <script>
+    const KS3_SITES_JSON  = "assets/data/ks3_featured_sites.json";
+    const KS3_UKMT_JSON   = "assets/data/ks3_ukmt.json";
+
+    function normList(data){
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.items)) return data.items;
+      return [];
+    }
+
+    function createSiteCard(site){
+      if (typeof makeSiteCard === "function") {
+        return makeSiteCard(site);
+      }
+      const a = document.createElement("a");
+      a.href = site.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.className =
+        "block bg-white p-4 rounded-xl shadow-sm border border-gray-200 " +
+        "hover:shadow-md hover:-translate-y-0.5 transition transform";
+      a.innerHTML = `
+        <div class="flex flex-col gap-1">
+          <h3 class="font-semibold text-gray-800">${site.name || site.title || "Resource"}</h3>
+          ${site.description ? `<p class="text-xs text-gray-500">${site.description}</p>` : ``}
+        </div>
+      `;
+      return a;
+    }
+
+    async function loadKS3Sites(){
+      const grid = document.getElementById("ks3-featured-grid");
+      const empty = document.getElementById("ks3-featured-empty");
+      if (!grid || !empty) return;
+
+      try{
+        const res = await fetch(KS3_SITES_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const items = normList(data).filter(x => x && x.active !== false);
+
+        grid.innerHTML = "";
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
+
+        empty.hidden = items.length > 0;
+      }catch(e){
+        console.error("KS3 featured sites load error:", e);
+        empty.hidden = false;
+      }
+    }
+
+    async function loadKs3Ukmt(){
+      const grid = document.getElementById("ks3-ukmt-grid");
+      const empty = document.getElementById("ks3-ukmt-empty");
+      if (!grid || !empty) return;
+
+      try{
+        const res = await fetch(KS3_UKMT_JSON, {cache:"no-store"});
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const items = normList(data).filter(x => x && x.active !== false);
+
+        grid.innerHTML = "";
+        items.forEach(site => grid.appendChild(createSiteCard(site)));
+        empty.hidden = items.length > 0;
+      }catch(e){
+        console.error("UKMT load error:", e);
+        empty.hidden = false;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+      loadKS3Sites();
+      loadKs3Ukmt();
+    });
+  </script>
+
+  <!-- Mobile menu JS -->
+  <script>
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+
+      function closeMenu(){
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded','false');
+      }
+
+      function toggleMenu(e){
+        e.stopPropagation();
+        const willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !willOpen);
+        btn.setAttribute('aria-expanded', String(willOpen));
+      }
+
+      btn.addEventListener('click', toggleMenu);
+      document.addEventListener('click', (e)=>{
+        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuBtn')) closeMenu();
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
   <script>
 (function(){
   const nav = document.getElementById('sideNav');
@@ -294,30 +679,36 @@
 
   const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
   const sections = links
-    .map(link => document.querySelector(link.getAttribute('href')))
+    .map(a => document.querySelector(a.getAttribute('href')))
     .filter(Boolean);
 
-  function setActive(id){
-    links.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-    });
+  function setActiveById(id){
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        setActive(entry.target.id);
+  function updateActive(){
+    const y = 120; // accounts for fixed header
+    let best = null;
+    let bestDist = Infinity;
+
+    sections.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      const dist = Math.abs(r.top - y);
+      if (r.top <= y + 200 && dist < bestDist) {
+        best = sec;
+        bestDist = dist;
       }
     });
-  }, {
-    rootMargin: "-40% 0px -55% 0px",
-    threshold: 0
-  });
 
-  sections.forEach(section => observer.observe(section));
+    if(best) setActiveById(best.id);
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive);
+  links.forEach(a => a.addEventListener('click', () => setTimeout(updateActive, 80)));
+
+  updateActive();
 })();
 </script>
-
-  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
