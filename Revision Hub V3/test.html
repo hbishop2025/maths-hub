@@ -21,6 +21,16 @@
 
     /* Keep EOY card hover smooth */
     .eoy-card:hover img{ transform: scale(1.05); }
+
+    .main-with-sidebar {
+  margin-left: 260px; /* match sidebar width */
+}
+
+    @media (max-width: 1024px) {
+  .main-with-sidebar {
+    margin-left: 0;
+  }
+}
   </style>
 </head>
 
@@ -30,7 +40,7 @@
     <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
-    <main class="main p-8 overflow-y-auto ml-[260px]">
+    <main class="main main-with-sidebar p-8 overflow-y-auto">
       <div class="max-w-7xl mx-auto">
 
         <!-- Back -->
