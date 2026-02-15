@@ -18,7 +18,7 @@
     .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
 
     /* Page geometry */
-    .page { @apply pt-20 pb-20; }
+    .page { @apply pb-20; }
     .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
     .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
 
@@ -138,49 +138,45 @@
     </div>
       <!-- Full-width branch hero (matches KS3/GCSE/A-Level vibe) -->
   <section class="relative w-full h-[460px] md:h-[520px] flex items-center overflow-hidden bg-[#020617] border-b border-gray-200">
-    <div class="absolute inset-0 z-0">
-      <img src="assets/home-hero5.jpg" alt="AI Usage" class="w-full h-full object-cover object-center"/>
-      <!-- Dark gradient so text reads well -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-      <!-- Optional: subtle fade at bottom into white page -->
-      <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
-    </div>
+  <div class="absolute inset-0 z-0">
+    <img src="assets/home-hero5.jpg" alt="AI Usage" class="w-full h-full object-cover object-center"/>
+  </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-      <div class="max-w-xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/10 border border-white/15 backdrop-blur-sm">
-          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300"></span>
-          <span class="text-[10px] font-bold text-slate-200 uppercase tracking-widest">School Approved • AI + Mathematics</span>
-        </div>
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="max-w-xl rounded-2xl bg-black/35 backdrop-blur-md border border-white/10 p-6 md:p-7">
+      <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/10 border border-white/15">
+        <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300"></span>
+        <span class="text-[10px] font-bold text-slate-200 uppercase tracking-widest">School Approved • AI + Mathematics</span>
+      </div>
 
-        <h1 class="text-5xl md:text-6xl font-black text-white leading-tight drop-shadow-xl">
-          AI Usage<br/>
-          <span class="text-sky-300">in Mathematics</span>
-        </h1>
+      <h1 class="text-5xl md:text-6xl font-black text-white leading-tight drop-shadow-xl">
+        AI Usage<br/>
+        <span class="text-sky-300">in Mathematics</span>
+      </h1>
 
-        <p class="mt-4 text-slate-200 text-lg font-medium drop-shadow-md max-w-lg">
-          Use AI to learn methods, practise, and check your reasoning — not to replace your own working.
-        </p>
+      <p class="mt-4 text-slate-200 text-lg font-medium drop-shadow-md max-w-lg">
+        Use AI to learn methods, practise, and check your reasoning — not to replace your own working.
+      </p>
 
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#builder" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]">
-            <span>Open Prompt Builder</span>
-            <span class="material-icons text-sm group-hover:translate-y-0.5 transition-transform">arrow_downward</span>
-          </a>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#builder" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]">
+          <span>Open Prompt Builder</span>
+          <span class="material-icons text-sm group-hover:translate-y-0.5 transition-transform">arrow_downward</span>
+        </a>
 
-          <a href="#approved" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-black/50 border border-white/15 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-black/60 hover:scale-[1.02]">
-            <span>Approved tools</span>
-            <span class="material-icons text-sm">verified</span>
-          </a>
-        </div>
+        <a href="#approved" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-black/40 border border-white/15 text-white font-semibold transition-all duration-300 hover:bg-black/55 hover:scale-[1.02]">
+          <span>Approved tools</span>
+          <span class="material-icons text-sm">verified</span>
+        </a>
       </div>
     </div>
-  </section>
-    <div class="wrap">
+  </div>
+</section>
+    <div class="wrap pt-12">
       <div class="grid-docs">
 
         <!-- Sidebar (no box) -->
-        <aside class="side">
+        <aside class="side pt-6">
           <div class="px-2">
             <div class="side-title">AI Usage</div>
             <div class="text-lg font-black tracking-tight mt-1">Mathematics</div>
