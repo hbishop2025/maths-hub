@@ -13,95 +13,166 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <!-- Shared CSS (sidebar system) -->
-  <link rel="stylesheet" href="../assets/main.css"/>
-
   <style>
     :root{
-      --accent: rgba(59,130,246,0.78);    /* blue-500-ish */
-      --accent-soft: rgba(59,130,246,0.14);
-      --ring: rgba(59,130,246,0.18);
-      --bg: #f8fafc;
-      --text: #0f172a;
+      --blue: rgba(59,130,246,.85);
+      --blueSoft: rgba(59,130,246,.18);
+      --ring: rgba(59,130,246,.22);
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --border: rgba(148,163,184,.18);
+      --text: rgba(226,232,240,.92);
+      --muted: rgba(148,163,184,.9);
     }
 
     body{
       font-family: 'Lexend', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(900px 400px at 20% 0%, rgba(59,130,246,.22), transparent 60%),
+                  radial-gradient(800px 500px at 90% 10%, rgba(99,102,241,.16), transparent 55%),
+                  var(--bg);
       color: var(--text);
     }
+
     .material-icons{ font-size: 20px; }
-    html{ scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-    /* Modern Scrollbar */
-    ::-webkit-scrollbar{ width: 8px; }
-    ::-webkit-scrollbar-track{ background: transparent; }
-    ::-webkit-scrollbar-thumb{ background-color: #cbd5e1; border-radius: 4px; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: rgba(148,163,184,.35); border-radius: 999px; }
 
-    /* Subtle Apple-ish background bloom */
-    .bg-bloom{
-      position: fixed; inset: 0; z-index: -10; pointer-events: none; overflow: hidden;
-    }
-    .bg-bloom .b1{
-      position:absolute; top:-220px; left:-240px;
-      width:760px; height:760px; border-radius:999px;
-      filter: blur(80px);
-      background: radial-gradient(circle at 35% 35%, rgba(59,130,246,.16), rgba(59,130,246,0) 60%);
-    }
-    .bg-bloom .b2{
-      position:absolute; bottom:-260px; right:-280px;
-      width:820px; height:820px; border-radius:999px;
-      filter: blur(90px);
-      background: radial-gradient(circle at 70% 60%, rgba(99,102,241,.12), rgba(99,102,241,0) 60%);
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(2,6,23,.55);
+      border-bottom: 1px solid var(--border);
     }
 
-    /* HERO (clean, Apple-like) */
-    .hero-wrap{
-      position: relative;
-      border-radius: 28px;
-      border: 1px solid rgba(226,232,240,.9);
-      background: rgba(255,255,255,.70);
+    /* Segmented control (Apple-ish) */
+    .seg{
+      display:inline-flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
       backdrop-filter: blur(10px);
-      box-shadow: 0 18px 40px rgba(15,23,42,.08);
-      overflow: hidden;
     }
-    .hero-wrap::before{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(900px 260px at 20% 10%, rgba(59,130,246,.18), transparent 60%);
-      pointer-events:none;
+    .filter-btn{
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(226,232,240,.78);
+      transition: background-color .2s ease, box-shadow .2s ease, transform .12s ease, color .2s ease;
+      border: 1px solid transparent;
     }
-    .hero-wrap::after{
-      content:"";
-      position:absolute; inset-x:0; top:0; height: 3px;
-      background: linear-gradient(90deg, rgba(59,130,246,.65), rgba(14,165,233,.55), rgba(59,130,246,.65));
-      pointer-events:none;
+    .filter-btn:hover{ background: rgba(255,255,255,.06); }
+    .filter-btn:active{ transform: scale(.98); }
+    .filter-btn.active{
+      background: var(--blueSoft);
+      border-color: rgba(59,130,246,.28);
+      color: rgba(239,246,255,.95);
+      box-shadow: 0 10px 24px rgba(59,130,246,.12);
     }
 
-    .pill{
+    /* Topic cards */
+    .topic-tile{
+      position: relative;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.045));
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      overflow: hidden;
+      will-change: transform;
+      height: 8.75rem;
+      padding: 1.25rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .topic-tile::before{
+      content:"";
+      position:absolute; left:0; top:0; bottom:0;
+      width: 4px;
+      background: var(--blue);
+      opacity: .55;
+      transition: opacity .22s ease;
+    }
+    .topic-tile:hover{
+      transform: translateY(-3px);
+      border-color: rgba(148,163,184,.30);
+      box-shadow: 0 18px 40px rgba(0,0,0,.34);
+    }
+    .topic-tile:hover::before{ opacity: .9; }
+    .topic-tile:active{ transform: translateY(-1px); }
+    .topic-tile:focus{
+      outline:none;
+      box-shadow: 0 0 0 4px var(--ring), 0 18px 40px rgba(0,0,0,.34);
+      border-color: rgba(59,130,246,.35);
+    }
+
+    .chip{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding: 6px 12px;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(148,163,184,.95);
+    }
+    .dot{
+      width: 8px; height: 8px;
       border-radius: 999px;
-      background: rgba(59,130,246,.10);
-      border: 1px solid rgba(59,130,246,.18);
-      color: #0b3b8f;
-      font-weight: 800;
-      letter-spacing: .08em;
+      box-shadow: 0 0 0 4px rgba(2,6,23,.35);
+    }
+
+    .tile-arrow{ transition: transform .22s ease; color: rgba(148,163,184,.8); }
+    .topic-tile:hover .tile-arrow{ transform: translateX(3px); }
+
+    /* “Pro” hero */
+    .hero{
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 22px 60px rgba(0,0,0,.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 320px at 25% 10%, rgba(59,130,246,.25), transparent 60%),
+        radial-gradient(700px 300px at 85% 20%, rgba(99,102,241,.18), transparent 55%);
+      pointer-events:none;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset-x:0; top:0; height:3px;
+      background: linear-gradient(90deg, rgba(59,130,246,.7), rgba(14,165,233,.55), rgba(59,130,246,.7));
+      pointer-events:none;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      background: rgba(59,130,246,.12);
+      border: 1px solid rgba(59,130,246,.22);
+      color: rgba(239,246,255,.9);
+      font-weight: 900;
+      letter-spacing: .10em;
       text-transform: uppercase;
       font-size: 11px;
     }
 
-    .blue-highlight{
-      display:inline-block;
-      padding: .10em .55em;
-      border-radius: 999px;
-      background: rgba(59,130,246,.12);
-      border: 1px solid rgba(147,197,253,.22);
-    }
-
-    /* Hand-drawn underline (upward curve + thicker end) */
+    /* Underline (Apple hand drawn) */
     .underline-wrap{ position: relative; display:inline-block; }
     .apple-underline{
       position:absolute;
@@ -112,351 +183,259 @@
       pointer-events:none;
     }
 
-    /* Segmented filter (Apple-ish) */
-    .seg{
-      display:inline-flex;
-      gap: 6px;
-      padding: 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(226,232,240,.95);
-      background: rgba(255,255,255,.70);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 26px rgba(15,23,42,.06);
-    }
-    .filter-btn{
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-weight: 800;
-      font-size: 13px;
-      color: #475569;
-      transition: background-color .2s ease, box-shadow .2s ease, transform .12s ease;
-    }
-    .filter-btn:active{ transform: scale(.98); }
-    .filter-btn.active{
-      background: rgba(59,130,246,.12);
-      color: #0b3b8f;
-      box-shadow: 0 10px 18px rgba(59,130,246,.10);
-    }
-
-    /* Topic tiles (calm, consistent) */
-    .topic-tile{
-      position: relative;
-      border-radius: 22px;
-      background: rgba(255,255,255,.86);
-      border: 1px solid rgba(226,232,240,.95);
-      box-shadow: 0 6px 18px rgba(15,23,42,.05);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      overflow: hidden;
-      will-change: transform;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 8.25rem;
-      padding: 1.25rem;
-    }
-    .topic-tile::before{
-      content:"";
-      position:absolute; left:0; top:0; bottom:0;
-      width: 4px;
-      background: var(--accent);
-      opacity: .55;
-      transition: opacity .22s ease;
-    }
-    .topic-tile:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 18px 36px rgba(15,23,42,.10);
-      border-color: rgba(148,163,184,.55);
-    }
-    .topic-tile:hover::before{ opacity: .9; }
-    .topic-tile:active{ transform: translateY(-1px); }
-    .topic-tile:focus{
-      outline:none;
-      box-shadow: 0 0 0 4px var(--ring), 0 18px 36px rgba(15,23,42,.10);
-      border-color: rgba(59,130,246,.45);
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #64748b;
-    }
-    .dot{
-      width: 8px; height: 8px;
-      border-radius: 999px;
-      box-shadow: 0 0 0 4px rgba(2,6,23,.04);
-    }
-    .tile-arrow{ transition: transform .22s ease; }
-    .topic-tile:hover .tile-arrow{ transform: translateX(3px); }
-
-    /* Small KS4-only identity: "Study Mode" micro line */
-    .meta-row{
-      display:flex; flex-wrap:wrap; gap: 14px;
-      color:#64748b;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .meta-row .item{
-      display:flex; align-items:center; gap: 6px;
-    }
-    .meta-row .material-icons{ font-size: 18px; }
-
-    /* Layout height */
-    .layout{ height: 100vh; overflow: hidden; }
+    .muted{ color: rgba(148,163,184,.9); }
   </style>
 </head>
 
-<body class="text-slate-900">
-  <div class="bg-bloom">
-    <div class="b1"></div>
-    <div class="b2"></div>
+<body>
+  <!-- Top menu -->
+  <div class="topbar">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col gap-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <a href="../gcse_hub.html" class="inline-flex items-center gap-2 text-slate-200/80 hover:text-white transition font-semibold">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </a>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <a href="https://www.mathsgenie.co.uk/papers.php"
+             class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-bold
+                    hover:bg-blue-500 transition shadow-lg shadow-blue-500/20">
+            <span class="material-icons text-[18px]">description</span>
+            Past Papers
+          </a>
+        </div>
+      </div>
+
+      <!-- Filter segmented control -->
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div class="seg" id="filter-container" role="tablist" aria-label="Topic filters">
+          <button onclick="filterTopics('all')" class="filter-btn active" role="tab" aria-selected="true">All</button>
+          <button onclick="filterTopics('number')" class="filter-btn" role="tab" aria-selected="false">Number</button>
+          <button onclick="filterTopics('algebra')" class="filter-btn" role="tab" aria-selected="false">Algebra</button>
+          <button onclick="filterTopics('shape')" class="filter-btn" role="tab" aria-selected="false">Shape</button>
+          <button onclick="filterTopics('data')" class="filter-btn" role="tab" aria-selected="false">Data</button>
+        </div>
+
+        <!-- Quick jump links (optional but nice) -->
+        <div class="flex flex-wrap gap-2">
+          <a href="#topics" class="px-4 py-2 rounded-full border border-slate-400/20 bg-white/5 text-sm font-bold text-slate-200/80 hover:bg-white/10 transition">Browse</a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="layout flex h-screen overflow-hidden">
-    <!-- Sidebar (MUST stay) -->
-    <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-10">
 
-    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
-
-      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div class="flex items-center gap-3">
-          <a href="../gcse_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
-            <span class="material-icons mr-1">arrow_back</span> Back to Hub
-          </a>
-        </div>
-      </header>
-
-      <!-- Apple-ish hero (no big image) -->
-      <section class="hero-wrap mb-10">
-        <div class="relative p-8 md:p-12">
-          <div class="max-w-4xl">
-            <div class="pill">
-              <span class="material-icons text-[16px]">school</span>
-              KS4 • Years 10 &amp; 11
-            </div>
-
-            <h1 class="mt-5 text-4xl md:text-6xl font-black tracking-tight leading-[1.05] text-slate-900">
-              GCSE
-              <span class="ml-2 underline-wrap">
-                <span class="blue-highlight">Topics</span>
-                <svg class="apple-underline" viewBox="0 0 220 34" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 24 Q110 8 210 22" stroke="rgba(59,130,246,0.55)" stroke-width="6" stroke-linecap="round" fill="none"/>
-                  <path d="M190 21 Q205 22 214 20" stroke="rgba(59,130,246,0.55)" stroke-width="9" stroke-linecap="round" fill="none"/>
-                </svg>
-              </span>
-            </h1>
-
-            <p class="mt-7 text-lg md:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl">
-              Choose a topic unit to revise. Clear notes, worked examples, and exam-style practice — built for GCSE pace.
-            </p>
-
-            <div class="mt-7 meta-row">
-              <div class="item"><span class="material-icons">task_alt</span> Quick checks</div>
-              <div class="item"><span class="material-icons">insights</span> Exam-style questions</div>
-              <div class="item"><span class="material-icons">schedule</span> Trackable progress</div>
-            </div>
-
-            <div class="mt-8 flex flex-wrap gap-3">
-              <a href="#topics"
-                 class="inline-flex items-center px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-semibold
-                        hover:bg-black transition shadow-lg shadow-slate-900/10">
-                Browse topics <span class="material-icons ml-2 text-[18px]">arrow_forward</span>
-              </a>
-
-              <a href="https://www.mathsgenie.co.uk/papers.php"
-                 class="inline-flex items-center px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold
-                        hover:bg-blue-500 transition shadow-lg shadow-blue-500/20">
-                <span class="material-icons text-[18px] mr-2">description</span> Past Papers
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Topics -->
-      <section id="topics" aria-label="GCSE Units">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-          <div class="flex items-center gap-4">
-            <h2 class="text-2xl font-bold text-slate-800">Topic Units</h2>
-            <div class="h-px bg-slate-200 w-12 hidden md:block"></div>
+    <!-- Hero -->
+    <section class="hero mb-10">
+      <div class="relative p-8 md:p-12">
+        <div class="max-w-4xl">
+          <div class="pill">
+            <span class="material-icons text-[16px]">school</span>
+            KS4 • GCSE
           </div>
 
-          <div class="seg" id="filter-container" role="tablist" aria-label="Topic filters">
-            <button onclick="filterTopics('all')" class="filter-btn active" role="tab" aria-selected="true">All</button>
-            <button onclick="filterTopics('number')" class="filter-btn" role="tab" aria-selected="false">Number</button>
-            <button onclick="filterTopics('algebra')" class="filter-btn" role="tab" aria-selected="false">Algebra</button>
-            <button onclick="filterTopics('shape')" class="filter-btn" role="tab" aria-selected="false">Shape</button>
-            <button onclick="filterTopics('data')" class="filter-btn" role="tab" aria-selected="false">Data</button>
+          <h1 class="mt-5 text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+            Topics for
+            <span class="underline-wrap">
+              exam confidence
+              <svg class="apple-underline" viewBox="0 0 240 34" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 24 Q120 8 230 22" stroke="rgba(59,130,246,0.55)" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <path d="M205 21 Q222 22 234 20" stroke="rgba(59,130,246,0.55)" stroke-width="9" stroke-linecap="round" fill="none"/>
+              </svg>
+            </span>
+          </h1>
+
+          <p class="mt-7 text-lg md:text-xl muted font-medium leading-relaxed max-w-3xl">
+            Pick a topic unit. Clean notes, worked examples, and exam-style practice — built for GCSE pace.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#topics"
+               class="inline-flex items-center px-5 py-2.5 rounded-full bg-white text-slate-900 text-sm font-black
+                      hover:bg-slate-100 transition shadow-lg shadow-black/20">
+              Browse topics <span class="material-icons ml-2 text-[18px]">arrow_forward</span>
+            </a>
+
+            <a href="https://www.mathsgenie.co.uk/papers.php"
+               class="inline-flex items-center px-5 py-2.5 rounded-full bg-white/10 text-white text-sm font-bold
+                      border border-white/15 hover:bg-white/15 transition">
+              <span class="material-icons text-[18px] mr-2">description</span>
+              Past papers
+            </a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="topics-grid">
+    <!-- Topics -->
+    <section id="topics" aria-label="GCSE Units">
+      <div class="flex items-end justify-between mb-6">
+        <h2 class="text-2xl font-black tracking-tight">Topic Units</h2>
+        <span class="text-sm muted hidden md:block">Choose a unit to start</span>
+      </div>
 
-          <!-- Cards (same links/content as you provided) -->
-          <a href="year_gcse/gcse_unit01.html" class="topic-tile" data-category="number" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#f59e0b"></span> 01 • Number</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Number</h3>
-          </a>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="topics-grid">
 
-          <a href="year_gcse/gcse_unit02.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 02 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Algebra</h3>
-          </a>
+        <!-- Keep your same links + titles -->
+        <a href="year_gcse/gcse_unit01.html" class="topic-tile" data-category="number" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#f59e0b"></span> 01 • Number</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Number</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit03.html" class="topic-tile" data-category="data" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#ec4899"></span> 03 • Data</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Interpreting &amp; Representing Data</h3>
-          </a>
+        <a href="year_gcse/gcse_unit02.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 02 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Algebra</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit04.html" class="topic-tile" data-category="number" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#f59e0b"></span> 04 • Number</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Fractions, Decimals &amp; Percentages</h3>
-          </a>
+        <a href="year_gcse/gcse_unit03.html" class="topic-tile" data-category="data" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#ec4899"></span> 03 • Data</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Interpreting &amp; Representing Data</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit05.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 05 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Angles &amp; Trigonometry</h3>
-          </a>
+        <a href="year_gcse/gcse_unit04.html" class="topic-tile" data-category="number" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#f59e0b"></span> 04 • Number</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Fractions, Decimals &amp; Percentages</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit06.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 06 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Graphs</h3>
-          </a>
+        <a href="year_gcse/gcse_unit05.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 05 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Angles &amp; Trigonometry</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit07.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 07 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Area &amp; Volume</h3>
-          </a>
+        <a href="year_gcse/gcse_unit06.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 06 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Graphs</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit08.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 08 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Transformations &amp; Constructions</h3>
-          </a>
+        <a href="year_gcse/gcse_unit07.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 07 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Area &amp; Volume</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit09.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 09 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Equations &amp; Inequalities</h3>
-          </a>
+        <a href="year_gcse/gcse_unit08.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 08 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Transformations &amp; Constructions</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit10.html" class="topic-tile" data-category="data" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#ec4899"></span> 10 • Data</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Probability</h3>
-          </a>
+        <a href="year_gcse/gcse_unit09.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 09 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Equations &amp; Inequalities</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit11.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 11 • Measures</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Compound Measures</h3>
-          </a>
+        <a href="year_gcse/gcse_unit10.html" class="topic-tile" data-category="data" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#ec4899"></span> 10 • Data</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Probability</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit12.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 12 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Congruence &amp; Similarity</h3>
-          </a>
+        <a href="year_gcse/gcse_unit11.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 11 • Measures</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Compound Measures</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit13.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 13 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">More Trigonometry</h3>
-          </a>
+        <a href="year_gcse/gcse_unit12.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 12 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Congruence &amp; Similarity</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit14.html" class="topic-tile" data-category="data" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#ec4899"></span> 14 • Data</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Further Statistics</h3>
-          </a>
+        <a href="year_gcse/gcse_unit13.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 13 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">More Trigonometry</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit15.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 15 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Equations &amp; Graphs</h3>
-          </a>
+        <a href="year_gcse/gcse_unit14.html" class="topic-tile" data-category="data" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#ec4899"></span> 14 • Data</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Further Statistics</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit16.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 16 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Circle Theorems</h3>
-          </a>
+        <a href="year_gcse/gcse_unit15.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 15 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Equations &amp; Graphs</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit17.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 17 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">More Algebra</h3>
-          </a>
+        <a href="year_gcse/gcse_unit16.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 16 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Circle Theorems</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit18.html" class="topic-tile" data-category="shape" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#10b981"></span> 18 • Geometry</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Vectors &amp; Geometric Proofs</h3>
-          </a>
+        <a href="year_gcse/gcse_unit17.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 17 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">More Algebra</h3>
+        </a>
 
-          <a href="year_gcse/gcse_unit19.html" class="topic-tile" data-category="algebra" tabindex="0">
-            <div class="flex justify-between items-start">
-              <span class="chip"><span class="dot" style="background:#3b82f6"></span> 19 • Algebra</span>
-              <span class="material-icons text-slate-400 tile-arrow">arrow_forward</span>
-            </div>
-            <h3 class="font-bold text-slate-900 leading-tight">Proportion &amp; Graphs</h3>
-          </a>
+        <a href="year_gcse/gcse_unit18.html" class="topic-tile" data-category="shape" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#10b981"></span> 18 • Geometry</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Vectors &amp; Geometric Proofs</h3>
+        </a>
 
-        </div>
-      </section>
+        <a href="year_gcse/gcse_unit19.html" class="topic-tile" data-category="algebra" tabindex="0">
+          <div class="flex justify-between items-start">
+            <span class="chip"><span class="dot" style="background:#3b82f6"></span> 19 • Algebra</span>
+            <span class="material-icons tile-arrow">arrow_forward</span>
+          </div>
+          <h3 class="font-black text-slate-100 leading-tight">Proportion &amp; Graphs</h3>
+        </a>
 
-      <div class="h-8"></div>
-    </main>
-  </div>
+      </div>
 
-  <script src="../assets/sidebar-loader.js"></script>
+      <div class="h-10"></div>
+    </section>
+  </main>
 
   <script>
     function filterTopics(category) {
