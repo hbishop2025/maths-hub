@@ -1,455 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="scroll-smooth">
+  <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | SPARX Protocol</title>
+  <title>SPARX | Usage & Policy</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <style>
-    /* --- THEME COLORS --- */
-    :root {
-        --neon-cyan: #22d3ee;
-        --neon-purple: #a855f7;
-        --neon-red: #ef4444;
-    }
-    
-    body { 
-        font-family: 'Inter', sans-serif; 
-        background-color: #030712; 
-        color: #e2e8f0; 
-    }
-    
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  <style type="text/tailwindcss">
+    body { @apply bg-white text-[#0b0f17] font-[Lexend] overflow-x-hidden; }
 
-    /* --- STYLES COPIED FROM AI USAGE PAGE --- */
+    /* KEEP: top nav */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
 
-    /* Text Glow Effect */
-    .text-glow {
-      text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
-    }
+    /* Page geometry */
+    .page { @apply pb-20; }
+    .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
+    .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
 
-    /* Glassmorphism Panel (Applied to Mainframe & Dev Panels) */
-    .glass-panel {
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    }
+    /* Docs-like sidebar */
+    .side { @apply hidden lg:block sticky top-20; }
+    .side-title { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .side-link { @apply flex items-center gap-3 px-2 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition; }
+    .side-link .material-icons { @apply text-[18px] text-gray-400; }
+    .side-link.active { @apply bg-gray-100 text-gray-900; }
+    .side-link.active .material-icons { @apply text-gray-900; }
 
-    /* Gradient Mask for Image */
-    .mask-image-fade {
-      mask-image: linear-gradient(to top, black 20%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
-    }
+    /* Sections: full-width feel via dividers and spacing */
+    .section { @apply py-14; }
+    .section + .section { @apply border-t border-gray-200; }
+    .anchor { scroll-margin-top: 92px; }
 
-    /* --- SPECIFIC COMPONENT STYLES --- */
+    /* Typography rhythm */
+    .eyebrow { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .h1 { @apply text-4xl md:text-6xl font-black tracking-tight leading-[1.05]; }
+    .h2 { @apply text-2xl md:text-3xl font-black tracking-tight; }
+    .lead { @apply text-lg text-gray-600 max-w-2xl; }
+    .p { @apply text-gray-600 leading-relaxed; }
+    .tiny { @apply text-[12px] text-gray-600 leading-relaxed; }
 
-    /* The Presentation Box */
-    .mainframe {
-        /* Glass panel styles applied via class in HTML, these are layout specific */
-        border-radius: 0.75rem;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: height 0.3s ease;
-        min-height: 450px; 
-    }
+    /* Pills + buttons */
+    .pill { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold border border-gray-200 bg-white hover:bg-gray-50 active:scale-[0.99] transition; }
+    .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
+    .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
 
-    .mainframe-header {
-        background: rgba(30, 41, 59, 0.4); /* lighter for glass effect */
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-shrink: 0;
+    /* Divider list rows (Approved tools) */
+    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
+    .row + .row { @apply border-t border-gray-200; }
+    .row-title { @apply flex items-center gap-3; }
+    .row-title h3 { @apply font-black text-lg; }
+    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
+    .tags { @apply mt-3 flex flex-wrap gap-2; }
+    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
+
+    /* Approved tools mesh aura (CSS-only, Option A) */
+    .mesh {
+    position: relative;
+    overflow: hidden;
     }
 
-    .mainframe-screen {
-        flex-grow: 1;
-        position: relative;
-        /* Very subtle gradient to ensure text readability over glass */
-        background: radial-gradient(circle at center, rgba(30, 41, 59, 0.1) 0%, rgba(15, 23, 42, 0.4) 100%);
-        display: flex;
-        flex-direction: column;
+    .mesh::before{
+    content:"";
+    position:absolute;
+    inset:-200px;
+    pointer-events:none;
+    background:
+      radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
+      radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
+      radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
+    filter: blur(60px);
+    opacity:.8;
+    z-index:0;
     }
 
-    .mainframe-footer {
-        background: rgba(2, 6, 23, 0.4);
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-shrink: 0;
+    /* Do / Don't layout (no cards) */
+    .two-col { @apply grid md:grid-cols-2 gap-10; }
+    .col-head { @apply flex items-center gap-2 font-black text-lg; }
+    .list { @apply mt-4 space-y-3 text-sm text-gray-700; }
+    .li { @apply flex gap-2; }
+    .li .material-icons { @apply text-[18px]; }
+    .divider-v { @apply hidden md:block w-px bg-gray-200; }
+
+    /* Prompt Builder: tool area with internal dividers, not cards */
+    .tool { @apply border-y border-gray-200; }
+    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
+    .tool-col { @apply py-10; }
+    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
+
+    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
+    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
+    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
+    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
+    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
+
+    .prompt-box {
+      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
+      white-space: pre-wrap;
     }
 
-    /* Slides */
-    .slide {
-        display: none; 
-        width: 100%;
-        padding: 2rem;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        animation: fadeIn 0.4s ease-out;
-        flex-grow: 1;
-    }
-    .slide.active { display: flex; }
+    .hint { @apply text-[12px] text-gray-500; }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(5px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Video Container */
-    .video-container {
-        width: 100%;
-        max-width: 600px;
-        aspect-ratio: 16/9;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .video-container iframe { width: 100%; height: 100%; }
-
-    /* Controls */
-    .cmd-btn {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #94a3b8;
-        font-family: 'JetBrains Mono', monospace;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        user-select: none;
-        transition: all 0.2s;
-    }
-    .cmd-btn:hover {
-        background: rgba(34, 211, 238, 0.1);
-        color: var(--neon-cyan);
-        border-color: var(--neon-cyan);
-    }
-
-    /* Dev Panel Styles */
-    .dev-panel {
-        /* Glass panel styles applied via class in HTML */
-        border-radius: 0.5rem;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-height: 200px;
-    }
-    .dev-header {
-        background: rgba(30, 41, 59, 0.4);
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        color: #94a3b8;
-        font-family: 'JetBrains Mono', monospace;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .code-block {
-        padding: 1.5rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.85rem;
-        color: #e2e8f0;
-        line-height: 1.6;
-        overflow-x: auto;
-        /* Slight dark tint for code readability */
-        background: rgba(0, 0, 0, 0.2);
-    }
-    .tag { color: #f472b6; } 
-    .attr { color: #22d3ee; } 
-    .val { color: #fde047; } 
-    .txt { color: #e2e8f0; } 
-    .comment { color: #64748b; font-style: italic; }
-
-    /* Buttons */
-    .sparx-launch-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        background: linear-gradient(135deg, #7c3aed, #2563eb);
-        color: white;
-        font-weight: 700;
-        padding: 1rem 2rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .sparx-launch-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
-    }
-
-    .glitch-btn {
-        position: relative;
-        overflow: hidden;
-        transition: 0.2s;
-        animation: pulse-red 2s infinite;
-    }
-    @keyframes pulse-red {
-        0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-        70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
+    /* Callouts (Hallucinations + Privacy) */
+    .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
+    .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
   </style>
 </head>
 
-<body class="relative min-h-screen flex flex-col overflow-x-hidden">
-  
-  <div class="fixed inset-0 z-0 pointer-events-none">
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-[#030712] to-[#030712]"></div>
-    
-    <img src="assets/neon_beams.webp" 
-         class="absolute bottom-0 left-0 w-full h-[80vh] object-cover opacity-60 mix-blend-screen mask-image-fade" 
-         alt="Digital streams">
-  </div>
+<body>
 
-  <header class="fixed top-0 w-full z-50 bg-[#030712]/80 backdrop-blur-lg border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <!-- KEEP: Top Nav (unchanged) -->
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto"/> 
-        <span class="font-bold tracking-tight text-white text-lg">
-          SJWMS <span class="text-[#22d3ee]">Maths</span>
-        </span>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
-
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="index.html">Home</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="alevel_hub.html">A-Level</a>
-        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="ai_usage.html">AI Usage</a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
       </nav>
-
-      <button id="menuBtn" class="md:hidden text-white p-2">
-        <span class="material-icons">menu</span>
-      </button>
-    </div>
-
-    <div id="mobileMenu" class="hidden absolute top-16 left-0 w-full bg-[#030712] border-b border-white/10 p-4 flex flex-col gap-4 shadow-2xl">
-      <a class="text-slate-300 hover:text-[#22d3ee]" href="index.html">Home</a>
-      <a class="text-slate-300 hover:text-[#22d3ee]" href="ks3_hub.html">KS3</a>
-      <a class="text-slate-300 hover:text-[#22d3ee]" href="gcse_hub.html">GCSE</a>
-      <a class="text-slate-300 hover:text-[#22d3ee]" href="alevel_hub.html">A-Level</a>
-      <a class="text-[#22d3ee] font-semibold" href="ai_usage.html">AI Intelligence</a>
     </div>
   </header>
 
-  <main class="relative z-10 flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-12">
+  <main class="relative pt-14 pb-20">
 
-    <section class="text-center relative">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/30 text-[#22d3ee] text-xs font-mono mb-6">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-          </span>
-          SYSTEM ONLINE // PRESENTATION MODE
+  <!-- HERO -->
+  <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+    <div class="absolute inset-0 z-0">
+      <img src="assets/home-hero5.jpg" alt="Sparx Setup" class="w-full h-full object-cover object-center" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+          <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Online Homework</span>
         </div>
-        
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-          SPARX <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#22d3ee] via-blue-500 to-purple-500 text-glow">PROTOCOL</span>
+
+        <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+          Sparx Homework<br>
+          <span class="text-blue-400">Setup & Guidance</span>
         </h1>
-        
-        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          The definitive guide to Homework completion. Follow the cycle, master the Orange Book, and avoid the AI trap.
+
+        <p class="text-slate-300 text-lg font-medium drop-shadow-md">
+          How to log in, complete homework properly, and avoid common mistakes.
         </p>
-    </section>
 
-    <div class="mainframe glass-panel">
-        <div class="mainframe-header">
-            <div class="flex gap-2">
-                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-            </div>
-            <div class="font-mono text-xs text-slate-400">~/presentation/deck.pptx</div>
-            <div class="font-mono text-xs text-[#22d3ee]" id="slide-counter">1 / 5</div>
+        <div class="mt-8">
+          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold hover:bg-white/20 transition">
+            Launch Sparx
+            <span class="material-icons text-sm">open_in_new</span>
+          </a>
         </div>
-
-        <div class="mainframe-screen">
-            
-            <div class="slide active" id="slide-0">
-                <span class="material-icons text-7xl text-purple-500 mb-6 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">rocket_launch</span>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Initialise Sparx</h2>
-                <p class="text-lg text-slate-300 max-w-2xl font-mono">
-                    Cycle: <span class="text-[#22d3ee] bg-cyan-950/30 px-2 rounded">Wednesday</span> to <span class="text-[#22d3ee] bg-cyan-950/30 px-2 rounded">Wednesday</span>
-                </p>
-                <div class="mt-8 p-3 bg-white/5 border border-white/10 rounded text-sm text-slate-400 font-mono animate-pulse">
-                    > Press 'Next' to view guides & protocol_
-                </div>
-            </div>
-
-            <div class="slide" id="slide-1">
-                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                    <span class="material-icons text-purple-400">play_circle</span> Module 01: Getting Started
-                </h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/a92XCC0MeM0" title="Getting Started" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="slide" id="slide-2">
-                <span class="material-icons text-6xl text-orange-500 mb-6 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]">menu_book</span>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Orange Book Protocol</h2>
-                <p class="text-lg text-orange-200/80 mb-6">
-                    Digital answers require physical evidence.
-                </p>
-                <div class="bg-orange-950/40 border border-orange-500/30 p-6 rounded-lg text-left max-w-md w-full backdrop-blur-sm">
-                    <ul class="space-y-3 font-mono text-slate-200">
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-400 material-icons text-sm">check_circle</span> Write Bookwork Code
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-400 material-icons text-sm">check_circle</span> Show Full Working
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-400 material-icons text-sm">check_circle</span> Write Final Answer
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="slide" id="slide-3">
-                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                    <span class="material-icons text-purple-400">play_circle</span> Module 02: Success Tips
-                </h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/IQUMypfwHnU" title="Tips" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="slide" id="slide-4">
-                <span class="material-icons text-7xl text-red-500 mb-4 animate-pulse drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">gpp_bad</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-red-500 mb-2">ANTI-CHEAT ACTIVE</h2>
-                <p class="text-slate-300 max-w-xl mb-8 leading-relaxed">
-                    Using AI solvers (ChatGPT/PhotoMath) fools the algorithm into thinking you are an expert. Next week's homework will be impossibly hard.
-                </p>
-                
-                <a href="ai_usage.html" class="glitch-btn inline-flex items-center gap-2 px-6 py-4 bg-red-600/20 hover:bg-red-600/40 text-red-200 font-bold font-mono rounded border border-red-500 transition-all">
-                    <span class="material-icons text-sm">visibility</span>
-                    READ_AI_POLICY.exe
-                </a>
-            </div>
-
-        </div>
-
-        <div class="mainframe-footer">
-            <button class="cmd-btn" onclick="changeSlide(-1)">[ < PREV ]</button>
-            
-            <div class="flex gap-2">
-                <div class="w-2 h-2 rounded-full bg-purple-500 transition-colors duration-300" id="dot-0"></div>
-                <div class="w-2 h-2 rounded-full bg-slate-700 transition-colors duration-300" id="dot-1"></div>
-                <div class="w-2 h-2 rounded-full bg-slate-700 transition-colors duration-300" id="dot-2"></div>
-                <div class="w-2 h-2 rounded-full bg-slate-700 transition-colors duration-300" id="dot-3"></div>
-                <div class="w-2 h-2 rounded-full bg-slate-700 transition-colors duration-300" id="dot-4"></div>
-            </div>
-
-            <button class="cmd-btn" onclick="changeSlide(1)">[ NEXT > ]</button>
-        </div>
+      </div>
     </div>
+  </section>
 
+  <div class="wrap pt-8">
+    <div class="grid-docs">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-        
-        <div class="dev-panel glass-panel group">
-            <div class="dev-header">
-                <span><i class="material-icons text-xs mr-1 align-middle">code</i> button_component.html</span>
-                <span class="flex gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-slate-600"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-600"></span>
-                </span>
-            </div>
-            <div class="code-block flex-grow">
-                <div><span class="comment">&lt;!-- Sparx Link Component --&gt;</span></div>
-                <div><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://sparx..."</span></div>
-                <div>&nbsp;&nbsp;&nbsp;<span class="attr">class</span>=<span class="val">"btn-primary"</span><span class="tag">&gt;</span></div>
-                <div>&nbsp;&nbsp;<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"icon"</span><span class="tag">&gt;</span></div>
-                <div>&nbsp;&nbsp;&nbsp;&nbsp;rocket_launch</div>
-                <div>&nbsp;&nbsp;<span class="tag">&lt;/span&gt;</span></div>
-                <div>&nbsp;&nbsp;<span class="txt">LAUNCH SPARX</span></div>
-                <div><span class="tag">&lt;/a&gt;</span></div>
-                <br>
-                <div class="animate-pulse">_</div> 
-            </div>
+      <!-- SIDEBAR -->
+      <aside class="side pt-6">
+        <div class="px-2">
+          <div class="side-title">Sparx</div>
+          <div class="text-lg font-black tracking-tight mt-1">Setup Guide</div>
         </div>
 
-        <div class="dev-panel glass-panel border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)]">
-            <div class="dev-header bg-purple-900/20 border-purple-500/30">
-                <span class="text-purple-300"><i class="material-icons text-xs mr-1 align-middle">preview</i> Live Preview</span>
-                <span class="text-xs text-green-400">● Active</span>
-            </div>
-            <div class="flex-grow flex items-center justify-center p-8">
-                
-                <a href="https://selectschool.sparx-learning.com/" target="_blank" class="sparx-launch-btn">
-                    <span class="material-icons">rocket_launch</span>
-                    <span>LAUNCH SPARX</span>
-                    <span class="material-icons text-sm ml-1 opacity-70">open_in_new</span>
-                </a>
+        <nav class="mt-4 space-y-1" id="sideNav">
+          <a class="side-link active" href="#overview"><span class="material-icons">info</span>Overview</a>
+          <a class="side-link" href="#cycle"><span class="material-icons">schedule</span>Homework Cycle</a>
+          <a class="side-link" href="#orange"><span class="material-icons">menu_book</span>Orange Book</a>
+          <a class="side-link" href="#videos"><span class="material-icons">play_circle</span>Video Guides</a>
+          <a class="side-link" href="#anti-cheat"><span class="material-icons">warning</span>AI & Cheating</a>
+          <a class="side-link" href="#launch"><span class="material-icons">rocket_launch</span>Launch Sparx</a>
+        </nav>
+      </aside>
 
-            </div>
-        </div>
+      <!-- MAIN CONTENT -->
+      <div>
 
+        <!-- OVERVIEW -->
+        <section id="overview" class="anchor section">
+          <div class="eyebrow">Overview</div>
+          <h2 class="h2 mt-2">What Sparx is for</h2>
+          <p class="p mt-4 max-w-3xl">
+            Sparx is one of the SJWMS mathematics departments homework platforms. Each week you complete a personalised set of maths questions.
+            The goal is progress through consistency, enhancing your mathematics and to not rush or guess.
+          </p>
+        </section>
+
+        <!-- HOMEWORK CYCLE -->
+        <section id="cycle" class="anchor section">
+          <div class="eyebrow">Schedule</div>
+          <h2 class="h2 mt-2">Homework Cycle</h2>
+          <p class="p mt-4 max-w-3xl">
+            Sparx runs from <b>Wednesday to Wednesday</b> (unless stated overwise). All work must be completed before the deadline.
+          </p>
+        </section>
+
+        <!-- ORANGE BOOK -->
+        <section id="orange" class="anchor section">
+          <div class="eyebrow">Protocol</div>
+          <h2 class="h2 mt-2">Orange Book Requirements</h2>
+          <p class="p mt-4 max-w-3xl">
+            Every Sparx question must be supported with written working in your orange book.
+          </p>
+
+          <ul class="mt-8 space-y-4 text-sm text-gray-700">
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the Bookwork Code</li>
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Show full working clearly</li>
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the final answer neatly</li>
+          </ul>
+        </section>
+
+        <!-- VIDEO GUIDES -->
+        <section id="videos" class="anchor section">
+          <div class="eyebrow">Support</div>
+          <h2 class="h2 mt-2">Video Guides</h2>
+
+          <div class="mt-8 grid md:grid-cols-2 gap-8">
+            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/a92XCC0MeM0"
+                allowfullscreen></iframe>
+            </div>
+            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/IQUMypfwHnU"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </section>
+
+        <!-- ANTI CHEAT -->
+        <section id="anti-cheat" class="anchor section">
+          <div class="eyebrow">Important</div>
+          <h2 class="h2 mt-2">AI & Homework</h2>
+          <p class="p mt-4 max-w-3xl">
+            Using AI solvers to complete Sparx may trick the algorithm into thinking you are more advanced than you are.
+            This results in future homework becoming significantly harder.
+          </p>
+
+          <div class="mt-8 callout-warn">
+            Always attempt questions yourself first. Use AI only as a study aid, not as an answer generator.
+          </div>
+          <p class="p mt-4 max-w-3xl">
+            Discover more about AI and how best to use it for mathmetics with our dedicated AI Usage page.
+          </p>
+          <div class="mt-8">
+            <a href="ai_usage.html"
+               target="_blank"
+               class="btn btn-primary">
+              AI Usage
+              <span class="material-icons text-sm">open_in_new</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- LAUNCH -->
+        <section id="launch" class="anchor section">
+          <div class="eyebrow">Access</div>
+          <h2 class="h2 mt-2">Launch Sparx</h2>
+
+          <div class="mt-8">
+            <a href="https://selectschool.sparx-learning.com/"
+               target="_blank"
+               class="btn btn-primary">
+              <span class="material-icons text-[18px]">rocket_launch</span>
+              Launch Sparx
+            </a>
+          </div>
+        </section>
+
+      </div>
     </div>
-
-  </main>
+  </div>
+</main>
+  <div id="footer-slot"></div>
 
   <script>
-    // --- Mobile Menu ---
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+(function(){
+  const nav = document.getElementById('sideNav');
+  if(!nav) return;
+
+  const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+  const sections = links
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  function setActive(id){
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
     });
+  }
 
-    // --- Parallax Effect (Copied from AI Usage) ---
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const beams = document.querySelector('img[alt="Digital streams"]');
-        if(beams) beams.style.transform = `translateY(${scrolled * 0.2}px)`;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+      }
     });
+  }, {
+    rootMargin: "-40% 0px -55% 0px",
+    threshold: 0
+  });
 
-    // --- Presentation Logic ---
-    let currentSlide = 0;
-    const totalSlides = 5; 
-    
-    function changeSlide(direction) {
-        document.getElementById(`slide-${currentSlide}`).classList.remove('active');
-        document.getElementById(`dot-${currentSlide}`).classList.remove('bg-purple-500');
-        document.getElementById(`dot-${currentSlide}`).classList.add('bg-slate-700');
+  sections.forEach(section => observer.observe(section));
+})();
+</script>
 
-        currentSlide += direction;
-
-        if (currentSlide >= totalSlides) currentSlide = 0;
-        if (currentSlide < 0) currentSlide = totalSlides - 1;
-
-        document.getElementById(`slide-${currentSlide}`).classList.add('active');
-        document.getElementById(`dot-${currentSlide}`).classList.remove('bg-slate-700');
-        document.getElementById(`dot-${currentSlide}`).classList.add('bg-purple-500');
-
-        document.getElementById('slide-counter').innerText = `${currentSlide + 1} / ${totalSlides}`;
-        
-        const videos = document.querySelectorAll('iframe');
-        videos.forEach(iframe => {
-            const src = iframe.src;
-            iframe.src = src; 
-        });
-    }
-  </script>
-
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
