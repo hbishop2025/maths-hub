@@ -14,28 +14,44 @@
   <style type="text/tailwindcss">
     body { @apply bg-white text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Nav Bar (Matches SJWMS) */
+    /* Nav Bar (Matches SJWMS Skeleton) */
     .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
     
-    /* Vibrant OpenAI Style */
+    /* Vibrant OpenAI Style Background */
     .gradient-bg {
       background: radial-gradient(circle at top right, #f0f7ff 0%, #ffffff 50%),
                   radial-gradient(circle at bottom left, #fdf2ff 0%, #ffffff 50%);
+      background-attachment: fixed;
     }
 
-    .glass-card { @apply bg-white/70 backdrop-blur-md border border-white shadow-xl shadow-indigo-500/5 rounded-3xl p-8 transition-all duration-500; }
+    /* Glassmorphism Cards */
+    .glass-card { 
+      @apply bg-white/80 backdrop-blur-xl border border-white shadow-2xl shadow-indigo-100/50 rounded-3xl p-8 transition-all duration-500; 
+    }
     
-    .option-btn { @apply bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold transition-all hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 active:scale-95 text-center; }
+    .option-btn { 
+      @apply bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm font-semibold transition-all 
+             hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 active:scale-95 text-left flex justify-between items-center; 
+    }
     
-    .selected-tag { @apply bg-indigo-600 text-white border-indigo-600 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 animate-in fade-in zoom-in duration-300; }
+    .selected-tag { 
+      @apply bg-indigo-600 text-white px-4 py-2 rounded-full text-[10px] font-bold flex items-center gap-2 animate-bounce; 
+      animation: bounce 0.5s cubic-bezier(0.8,0,1,1) 1;
+    }
 
-    .prompt-box { @apply font-mono bg-slate-900 text-indigo-100 rounded-2xl p-6 text-sm leading-relaxed shadow-inner border border-slate-800 relative overflow-hidden; }
-    .prompt-box::before { content: ''; @apply absolute top-0 left-0 w-1 h-full bg-indigo-500; }
+    .prompt-box { 
+      @apply font-mono bg-slate-900 text-indigo-100 rounded-2xl p-6 text-sm leading-relaxed shadow-2xl border border-slate-800 relative overflow-hidden; 
+    }
+    .prompt-box::before { content: ''; @apply absolute top-0 left-0 w-1.5 h-full bg-indigo-500; }
 
-    .step-container { @apply space-y-8 min-h-[300px]; }
-    
-    .hidden-step { @apply hidden opacity-0 translate-y-4; }
-    .visible-step { @apply block opacity-100 translate-y-0 transition-all duration-500; }
+    /* Visibility Utilities */
+    .step-hidden { display: none !important; }
+    .step-active { display: block !important; animation: fadeIn 0.4s ease-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body class="gradient-bg">
@@ -56,83 +72,106 @@
     </div>
   </header>
 
-  <main class="pt-24 pb-20">
+  <main class="pt-28 pb-20">
     
-    <section class="max-w-6xl mx-auto px-4 text-center mb-16">
-      <span class="text-indigo-600 font-bold tracking-widest text-[10px] uppercase bg-indigo-50 px-3 py-1 rounded-full">School Approved AI Guidance</span>
-      <h1 class="text-5xl md:text-7xl font-black tracking-tighter mt-4 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-600">
-        Mastering Maths with AI.
+    <section class="max-w-6xl mx-auto px-4 text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 px-4 py-1.5 rounded-full mb-6">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+        </span>
+        <span class="text-indigo-600 font-bold tracking-widest text-[10px] uppercase">School Approved AI Guidance</span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-600">
+        Maths, Augmented.
       </h1>
+      <p class="text-gray-500 max-w-2xl mx-auto text-lg">Use our custom prompt architect to build the perfect request for Gemini or NotebookLM.</p>
     </section>
 
     <section class="max-w-5xl mx-auto px-4">
       <div class="glass-card">
-        <div class="flex flex-col md:flex-row gap-12">
+        <div class="flex flex-col lg:flex-row gap-12">
           
           <div class="flex-grow">
-            <div class="mb-8 border-b border-gray-100 pb-4">
-              <h2 class="text-2xl font-black italic">Prompt Architect</h2>
-              <div id="breadcrumbs" class="flex flex-wrap gap-2 mt-4 min-h-[32px]">
+            <div class="mb-10 border-b border-gray-100 pb-6">
+              <h2 class="text-2xl font-black italic flex items-center gap-2">
+                <span class="material-icons text-indigo-600">architecture</span>
+                Prompt Architect
+              </h2>
+              <div id="breadcrumbs" class="flex flex-wrap gap-2 mt-4 min-h-[36px]">
                 </div>
             </div>
 
-            <div id="builder-steps" class="step-container">
+            <div id="builder-steps">
               
-              <div id="step-1" class="visible-step">
+              <div id="step-1" class="step-active">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 block mb-6">Step 1: What is your goal?</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button onclick="nextStep(1, 'Explain', 'Explain a concept', 'explain it to me step-by-step')" class="option-btn">Explain a Concept</button>
-                  <button onclick="nextStep(1, 'Practice', 'Generate practice', 'give me 3 practice questions on')" class="option-btn">Generate Practice Questions</button>
-                  <button onclick="nextStep(1, 'Solve', 'Solve/Check', 'solve this problem and explain the logic for')" class="option-btn">Check My Solution</button>
-                  <button onclick="nextStep(1, 'Revise', 'Exam Prep', 'show me the common exam pitfalls for')" class="option-btn">Identify Common Mistakes</button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <button onclick="nextStep(1, 'Explain', 'Explain a concept', 'explain it to me step-by-step')" class="option-btn group">
+                    Explain a Concept <span class="material-icons text-gray-300 group-hover:text-indigo-500 transition-colors">arrow_forward</span>
+                  </button>
+                  <button onclick="nextStep(1, 'Practice', 'Generate practice', 'give me 3 practice questions on')" class="option-btn group">
+                    Practice Questions <span class="material-icons text-gray-300 group-hover:text-indigo-500 transition-colors">arrow_forward</span>
+                  </button>
+                  <button onclick="nextStep(1, 'Solve', 'Solve/Check', 'solve this problem and explain the logic for')" class="option-btn group">
+                    Check My Working <span class="material-icons text-gray-300 group-hover:text-indigo-500 transition-colors">arrow_forward</span>
+                  </button>
+                  <button onclick="nextStep(1, 'Revise', 'Common Pitfalls', 'show me the common mistakes students make in')" class="option-btn group">
+                    Find Common Pitfalls <span class="material-icons text-gray-300 group-hover:text-indigo-500 transition-colors">arrow_forward</span>
+                  </button>
                 </div>
               </div>
 
-              <div id="step-2" class="hidden-step">
+              <div id="step-2" class="step-hidden">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 block mb-6">Step 2: What is your Year Group?</label>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <button onclick="nextStep(2, 'Year 7', 'Year 7', 'I am in Year 7.')" class="option-btn">Year 7</button>
-                  <button onclick="nextStep(2, 'Year 8', 'Year 8', 'I am in Year 8.')" class="option-btn">Year 8</button>
-                  <button onclick="nextStep(2, 'Year 9', 'Year 9', 'I am in Year 9.')" class="option-btn">Year 9</button>
-                  <button onclick="nextStep(2, 'GCSE', 'GCSE', 'I am studying for my GCSEs.')" class="option-btn bg-indigo-50 border-indigo-200">GCSE</button>
-                  <button onclick="nextStep(2, 'A-Level', 'A-Level', 'I am studying A-Level Maths.')" class="option-btn bg-indigo-50 border-indigo-200">A-Level</button>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <button onclick="nextStep(2, 'Year 7', 'Year 7', 'I am a Year 7 student.')" class="option-btn">Year 7</button>
+                  <button onclick="nextStep(2, 'Year 8', 'Year 8', 'I am a Year 8 student.')" class="option-btn">Year 8</button>
+                  <button onclick="nextStep(2, 'Year 9', 'Year 9', 'I am a Year 9 student.')" class="option-btn">Year 9</button>
+                  <button onclick="nextStep(2, 'GCSE', 'GCSE', 'I am a GCSE Maths student.')" class="option-btn bg-indigo-50/50">GCSE</button>
+                  <button onclick="nextStep(2, 'A-Level', 'A-Level', 'I am an A-Level Maths student.')" class="option-btn bg-indigo-50/50">A-Level</button>
                 </div>
               </div>
 
-              <div id="step-3" class="hidden-step">
+              <div id="step-3" class="step-hidden">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 block mb-6">Step 3: Response Style?</label>
-                <div class="grid grid-cols-1 gap-3">
-                  <button onclick="nextStep(3, 'Tutor', 'Socratic Tutor', 'Don\'t give me the answer immediately; guide me with hints.')" class="option-btn text-left">Socratic Tutor (Hints only)</button>
-                  <button onclick="nextStep(3, 'Visual', 'Visual/Simple', 'Use simple language and visual analogies.')" class="option-btn text-left">Simple & Visual</button>
-                  <button onclick="nextStep(3, 'Formal', 'Exam Focused', 'Format your answer like a mark scheme.')" class="option-btn text-left">Exam Board Style</button>
+                <div class="grid grid-cols-1 gap-4">
+                  <button onclick="nextStep(3, 'Tutor', 'Socratic Tutor', 'Do not give me the answer immediately; guide me with hints.')" class="option-btn">Socratic Mode (Hints first)</button>
+                  <button onclick="nextStep(3, 'Visual', 'Simple/Visual', 'Use simple language and visual analogies.')" class="option-btn">Simple & Visual</button>
+                  <button onclick="nextStep(3, 'Formal', 'Exam Focus', 'Format your answer like a formal exam mark scheme.')" class="option-btn">Exam Board Style</button>
                 </div>
               </div>
 
-              <div id="step-final" class="hidden-step text-center py-10">
-                <span class="material-icons text-indigo-600 text-5xl mb-4">auto_fix_high</span>
+              <div id="step-final" class="step-hidden text-center py-10">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="material-icons text-indigo-600">auto_fix_high</span>
+                </div>
                 <h3 class="text-xl font-bold italic">Prompt Ready!</h3>
-                <p class="text-gray-500 text-sm mt-2">Add your specific topic below and head to Gemini.</p>
+                <p class="text-gray-500 text-sm mt-2 mb-6">Don't forget to add your specific topic into the box.</p>
+                <button onclick="resetBuilder()" class="text-indigo-600 text-xs font-bold uppercase tracking-widest hover:underline">Start New Architect</button>
               </div>
 
             </div>
           </div>
 
-          <div class="md:w-80 flex flex-col">
-            <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Live Output</label>
-            <div class="prompt-box h-full min-h-[200px]" id="promptPreview">
-              Select an option to begin building your prompt...
+          <div class="lg:w-96 flex flex-col">
+            <div class="bg-slate-50 rounded-3xl p-6 border border-gray-100 h-full flex flex-col shadow-inner">
+              <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-3">Live Prompt Preview</label>
+              <div class="prompt-box flex-grow min-h-[220px]" id="promptPreview">
+                Select an option to begin building...
+              </div>
+              
+              <div class="mt-6 space-y-3">
+                <button onclick="copyPrompt()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all active:scale-95">
+                  <span class="material-icons text-sm" id="copyIcon">content_copy</span>
+                  <span id="copyText">Copy Prompt</span>
+                </button>
+                <a href="https://gemini.google.com" target="_blank" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all">
+                  <span class="material-icons text-sm">rocket_launch</span>
+                  Open Gemini
+                </a>
+              </div>
             </div>
-            
-            <div class="mt-6 flex gap-2">
-              <button onclick="copyPrompt()" class="flex-grow bg-indigo-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 shadow-lg shadow-indigo-200">
-                <span class="material-icons text-sm" id="copyIcon">content_copy</span>
-                <span id="copyText">Copy</span>
-              </button>
-              <a href="https://gemini.google.com" target="_blank" class="w-14 h-14 bg-black text-white rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
-                <span class="material-icons">launch</span>
-              </a>
-            </div>
-            <button onclick="resetBuilder()" class="mt-4 text-[10px] font-bold text-gray-400 hover:text-red-500 uppercase tracking-widest transition-colors">Reset Architect</button>
           </div>
 
         </div>
@@ -140,15 +179,25 @@
     </section>
 
     <section class="max-w-6xl mx-auto px-4 mt-20 grid md:grid-cols-2 gap-8">
-      <div class="glass-card !p-6 border-l-4 border-l-blue-500">
-         <h4 class="font-black text-lg mb-2">Google Gemini</h4>
-         <p class="text-sm text-gray-600 mb-4">The core engine for mathematical reasoning and step-by-step logic.</p>
-         <a href="https://gemini.google.com" class="text-xs font-bold text-blue-600 underline">Open Gemini</a>
+      <div class="glass-card !p-8 border-t-4 border-t-blue-500 hover:scale-[1.02]">
+         <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-4">
+           <span class="material-icons">Hub</span>
+         </div>
+         <h4 class="font-black text-xl mb-2">Google Gemini</h4>
+         <p class="text-sm text-gray-600 mb-6 leading-relaxed">The school's primary AI tool for step-by-step logic and explaining complex mathematical proofs.</p>
+         <a href="https://gemini.google.com" target="_blank" class="text-xs font-black uppercase tracking-widest text-blue-600 flex items-center gap-1 hover:gap-2 transition-all">
+           Launch Engine <span class="material-icons text-xs">arrow_forward</span>
+         </a>
       </div>
-      <div class="glass-card !p-6 border-l-4 border-l-purple-500">
-        <h4 class="font-black text-lg mb-2">NotebookLM</h4>
-        <p class="text-sm text-gray-600 mb-4">Use this to talk directly to your school textbooks and teacher hand-outs.</p>
-        <a href="https://notebooklm.google.com" class="text-xs font-bold text-purple-600 underline">Open Notebook</a>
+      <div class="glass-card !p-8 border-t-4 border-t-purple-500 hover:scale-[1.02]">
+        <div class="w-12 h-12 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-4">
+          <span class="material-icons">menu_book</span>
+        </div>
+        <h4 class="font-black text-xl mb-2">NotebookLM</h4>
+        <p class="text-sm text-gray-600 mb-6 leading-relaxed">Best for "talking" to your school notes. Upload a PDF of a worksheet and ask the AI to quiz you on it.</p>
+        <a href="https://notebooklm.google.com" target="_blank" class="text-xs font-black uppercase tracking-widest text-purple-600 flex items-center gap-1 hover:gap-2 transition-all">
+          Launch Notebook <span class="material-icons text-xs">arrow_forward</span>
+        </a>
      </div>
     </section>
 
@@ -157,63 +206,81 @@
   <div id="footer-slot"></div>
   
   <script>
-    let promptData = { goal: "", year: "", style: "", goalText: "", yearText: "", styleText: "" };
+    // State Management
+    let promptData = { goalText: "", yearText: "", styleText: "" };
 
-    function nextStep(current, val, label, rawText) {
-      // 1. Create Breadcrumb Tag
+    function nextStep(currentStep, valueKey, label, rawText) {
+      // 1. Add Breadcrumb
       const breadcrumbs = document.getElementById('breadcrumbs');
       const tag = document.createElement('div');
       tag.className = 'selected-tag';
-      tag.innerHTML = `${label} <span class="material-icons text-[14px]">check_circle</span>`;
+      tag.innerHTML = `${label} <span class="material-icons text-[12px]">check</span>`;
       breadcrumbs.appendChild(tag);
 
-      // 2. Store Data
-      if(current === 1) { promptData.goal = label; promptData.goalText = rawText; }
-      if(current === 2) { promptData.year = label; promptData.yearText = rawText; }
-      if(current === 3) { promptData.style = label; promptData.styleText = rawText; }
+      // 2. Map Data
+      if(currentStep === 1) promptData.goalText = rawText;
+      if(currentStep === 2) promptData.yearText = rawText;
+      if(currentStep === 3) promptData.styleText = rawText;
 
-      // 3. Update Prompt
+      // 3. Update Preview
       updatePreview();
 
-      // 4. Transition UI
-      document.getElementById(`step-${current}`).classList.add('hidden');
-      document.getElementById(`step-${current}`).classList.remove('visible-step');
+      // 4. Handle Visibility Transitions
+      const currentEl = document.getElementById(`step-${currentStep}`);
+      const nextEl = document.getElementById(currentStep === 3 ? 'step-final' : `step-${currentStep + 1}`);
+
+      currentEl.classList.remove('step-active');
+      currentEl.classList.add('step-hidden');
       
-      const next = current === 3 ? 'final' : current + 1;
-      document.getElementById(`step-${next}`).classList.remove('hidden');
-      setTimeout(() => {
-        document.getElementById(`step-${next}`).classList.add('visible-step');
-      }, 50);
+      nextEl.classList.remove('step-hidden');
+      nextEl.classList.add('step-active');
     }
 
     function updatePreview() {
       const { goalText, yearText, styleText } = promptData;
       let prompt = "";
       if(yearText) prompt += `${yearText} `;
-      if(goalText) prompt += `Please ${goalText} [ENTER TOPIC HERE]. `;
+      if(goalText) prompt += `Please ${goalText} [INSERT TOPIC HERE]. `;
       if(styleText) prompt += `${styleText}`;
       
-      document.getElementById('promptPreview').innerText = prompt || "Select an option to begin...";
+      document.getElementById('promptPreview').innerText = prompt || "Select an option to begin building your prompt...";
     }
 
     function resetBuilder() {
-      promptData = { goal: "", year: "", style: "", goalText: "", yearText: "", styleText: "" };
+      // Reset Data
+      promptData = { goalText: "", yearText: "", styleText: "" };
+      
+      // Reset Breadcrumbs
       document.getElementById('breadcrumbs').innerHTML = "";
-      document.querySelectorAll('.visible-step').forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('visible-step');
+      
+      // Reset Step Visibility
+      document.querySelectorAll('#builder-steps > div').forEach(div => {
+        div.classList.remove('step-active');
+        div.classList.add('step-hidden');
       });
-      document.getElementById('step-1').classList.remove('hidden');
-      document.getElementById('step-1').classList.add('visible-step');
+      document.getElementById('step-1').classList.add('step-active');
+      document.getElementById('step-1').classList.remove('step-hidden');
+      
+      // Reset Preview
       updatePreview();
     }
 
     function copyPrompt() {
       const text = document.getElementById('promptPreview').innerText;
+      if(text.includes("Select an option")) return;
+
       navigator.clipboard.writeText(text).then(() => {
         const btnText = document.getElementById('copyText');
-        btnText.innerText = "Copied!";
-        setTimeout(() => btnText.innerText = "Copy", 2000);
+        const btnIcon = document.getElementById('copyIcon');
+        
+        const oldText = btnText.innerText;
+        btnText.innerText = "Copied to Clipboard!";
+        btnIcon.innerText = "done";
+        
+        setTimeout(() => {
+          btnText.innerText = oldText;
+          btnIcon.innerText = "content_copy";
+        }, 2000);
       });
     }
   </script>
