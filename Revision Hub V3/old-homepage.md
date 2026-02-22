@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Home</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Dotted paper background */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+
+    /* --- SMART SEARCH STYLES --- */
+    .smart-wrap {
+      width: clamp(240px, 42vw, 400px);
+      transition: width .35s ease;
+      margin: 2rem auto 0;
+      position: relative;
+    }
+    .smart-wrap:hover,
+    .smart-wrap:focus-within { width: clamp(320px, 56vw, 640px); }
+
+    @media (max-width:640px){
+      .smart-wrap { width: 90vw !important; max-width: 440px; }
+      .smart-pill { padding: .6rem .9rem; }
+      input.smart-input { font-size: .95rem; }
+    }
+
+    .smart-pill {
+      @apply flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow-md;
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+    .smart-wrap:hover .smart-pill,
+    .smart-wrap:focus-within .smart-pill {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 2px rgba(124,58,237,.08),
+        0 0 0 6px rgba(59,130,246,.06),
+        0 16px 32px rgba(0,0,0,.10);
+    }
+    
+    .smart-input {
+      @apply flex-1 bg-transparent border-0 focus:ring-0 text-base text-center;
+      color: #111827; 
+    }
+    .smart-input::placeholder { color: #9CA3AF; }
+
+    .glow-wrap {
+      position: relative;
+      z-index: 30;
+      border-radius: 9999px;
+      isolation: isolate;
+    }
+    .glow-wrap::before {
+      content: ""; position: absolute; inset: -3px; border-radius: 9999px;
+      background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
+      background-size: 400% 100%;
+      filter: blur(6px);
+      opacity: 0;
+      transition: opacity .25s ease-out;
+      z-index: 0;
+      animation: siri-glow 8s linear infinite;
+    }
+    .glow-wrap:focus-within::before { opacity: 1; }
+    .glow-wrap > .smart-pill { position: relative; z-index: 1; background: #fff; }
+
+    @keyframes siri-glow {
+      0%{background-position:0% 50%}
+      50%{background-position:200% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Suggestions dropdown */
+    #searchSug {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      top: calc(100% + 8px);
+      width: clamp(260px, 48vw, 520px);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 14px;
+      box-shadow: 0 16px 30px rgba(0,0,0,.12);
+      padding: .25rem;
+      max-height: 60vh;
+      overflow: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+      z-index: 50;
+    }
+    #searchSug.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      transition: opacity .18s ease, transform .18s ease, visibility 0s;
+    }
+
+    .sug-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .6rem .85rem;
+      cursor: pointer;
+      border-radius: .75rem;
+    }
+    .sug-item:hover { background: #f9fafb; }
+
+    .sug-badge {
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: .15rem .5rem;
+      border-radius: 9999px;
+    }
+
+    /* Header + mobile menu */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
+    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    /* Dynamic Featured Card Hover */
+    .feat-card:hover .feat-cta {
+      background-color: var(--accent-color, #3b82f6);
+      color: #ffffff;
+      border-color: var(--accent-color, #3b82f6);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-[#135bec]" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <main class="relative pt-14 pb-8">
+
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
+    </div>
+    
+    <section class="relative w-full h-[500px] flex items-center justify-center bg-[#020617] mb-16">
+      
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <img src="assets/home-hero6.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.85]" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 text-center">
+        <div class="max-w-3xl mx-auto">
+           
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+             <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">SJWMS Maths</span>
+           </div>
+           
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-6 leading-tight drop-shadow-xl">
+             What will you<br>
+             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+               revise today
+             </span>
+             and master?
+           </h1>
+           
+           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
+             Use the smart search to find worksheets, videos and practice quizzes.
+           </p>
+
+           <div id="smartWrap" class="smart-wrap">
+             <div class="glow-wrap">
+               <div class="smart-pill">
+                 <span class="material-symbols-outlined text-gray-400">search</span>
+                 <input id="smartSearch" class="smart-input" type="text" placeholder="Try ‘Trigonometry’" autocomplete="off"
+                        aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchSug"
+                        role="combobox"/>
+               </div>
+               <div id="searchSug" role="listbox"></div>
+             </div>
+           </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <section class="mb-16">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Choose your path</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <a href="ks3_hub.html" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/ks3-hero.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="KS3"/>
+               <div class="absolute inset-0 bg-cyan-900/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">Key Stage 3</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Years 7, 8 and 9. Secure the basics, build confidence, and prepare for end of year exams.
+               </p>
+               <div class="mt-auto text-cyan-600 font-bold text-sm flex items-center">
+                 Go to KS3 <span class="material-icons text-sm ml-1">arrow_forward</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-cyan-500 transition-colors duration-300"></div>
+            </div>
+          </a>
+
+          <a href="gcse_hub.html" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/home-hero1.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="GCSE"/>
+               <div class="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">GCSE</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Years 10 and 11. Topic learning, revision checklists, and past paper practice.
+               </p>
+               <div class="mt-auto text-blue-600 font-bold text-sm flex items-center">
+                 Go to GCSE <span class="material-icons text-sm ml-1">arrow_forward</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-blue-500 transition-colors duration-300"></div>
+            </div>
+          </a>
+
+          <a href="alevel_hub.html" class="group relative bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col">
+            <div class="h-48 w-full overflow-hidden relative">
+               <img src="assets/alevel-hero.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="A-Level"/>
+               <div class="absolute inset-0 bg-purple-900/10 group-hover:bg-transparent transition-colors"></div>
+            </div>
+            
+            <div class="p-6 pt-5 flex flex-col flex-grow relative">
+               <h3 class="text-xl font-bold text-gray-900 mb-2">A-Level</h3>
+               <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                 Years 12 and 13. Advanced Pure, Statistics, and Mechanics resources.
+               </p>
+               <div class="mt-auto text-purple-600 font-bold text-sm flex items-center">
+                 Go to A-Level <span class="material-icons text-sm ml-1">arrow_forward</span>
+               </div>
+               <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-100 group-hover:bg-purple-500 transition-colors duration-300"></div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+        
+      <section id="featured-sites" class="mb-16">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Featured sites</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        
+        <div id="featuredSitesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="col-span-full text-center py-8 text-gray-400 text-sm animate-pulse">Loading sites...</div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
+
+  <script>
+  (async function loadFeatured() {
+    const grid = document.getElementById('featuredSitesGrid');
+    if(!grid) return;
+    try {
+      const req = await fetch('assets/data/featured_sites.json');
+      const data = await req.json();
+      const items = (data.items || []).filter(i => i.active !== false);
+      
+      if(items.length === 0) {
+        grid.innerHTML = '<p class="col-span-full text-center text-gray-500 text-sm">No sites available.</p>';
+        return;
+      }
+
+      grid.innerHTML = items.map(item => {
+        // Use provided accent or default blue
+        const accent = item.accent || '#3b82f6';
+        
+        return `
+          <a href="${item.url}" target="_blank" rel="noopener" 
+             class="group feat-card flex flex-col bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden h-full"
+             style="--accent-color: ${accent};">
+            
+            <div class="h-1.5 w-full" style="background-color: var(--accent-color);"></div>
+            
+            <div class="p-6 flex flex-col items-center flex-grow">
+              <div class="h-16 w-full flex items-center justify-center mb-4 p-2">
+                <img src="${item.logo}" alt="${item.name}" class="h-full w-auto object-contain max-w-full">
+              </div>
+              
+              <h3 class="text-base font-bold text-gray-900 text-center mb-4">${item.name}</h3>
+              
+              <div class="mt-auto">
+                <span class="feat-cta inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-gray-600 bg-gray-50 border border-gray-100 transition-colors duration-200">
+                  ${item.cta} 
+                  <span class="material-icons text-[14px]">open_in_new</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
+    } catch(e) {
+      console.error('Failed to load featured sites', e);
+      grid.innerHTML = '<p class="col-span-full text-center text-red-400 text-sm">Unable to load sites.</p>';
+    }
+  })();
+  </script>
+
+  <script>
+  (function(){
+    const input=document.getElementById('smartSearch');
+    const sug=document.getElementById('searchSug');
+    if(!input||!sug)return;
+
+    const HINTS=["Try ‘Trigonometry’","Try ‘Surds’","Try ‘Standard form’","Try ‘Indices’","Try ‘Differentation’"];
+    let hintIdx=0;
+    function cycleHint(){
+      if(document.activeElement!==input&&input.value.trim()===""){
+        input.setAttribute('placeholder',HINTS[hintIdx%HINTS.length]); hintIdx++;
+      }
+    }
+    cycleHint(); setInterval(cycleHint,3000);
+
+    const debounce=(fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+    let INDEX=[],open=false,active=-1,current=[];
+    const YEAR_COLOR_CLASS = {
+      "y7": "bg-orange-500", "y8": "bg-green-500", "y9": "bg-[#7B61FF]", "gcse": "bg-blue-500",
+      "as-level pure": "bg-[#FFD1DF]", "a-level pure": "bg-yellow-400",
+      "as-level stats": "bg-[#CAEEC2]", "a-level stats": "bg-[#90EE91]",
+      "as-level mechanics": "bg-[#FFDBBB]", "a-level mechanics": "bg-[#FFC067]",
+      "further core 1": "bg-[#01F9C6]", "further core 2": "bg-[#01F9C6]", 
+      "further mechanics": "bg-[#01F9C6]", "further decision": "bg-[#01F9C6]"
+    };
+
+    const colorFor = level => {
+      const key = (level || "").toLowerCase().trim();
+      return YEAR_COLOR_CLASS[key] || "bg-blue-500";
+    };
+    const normalize=s=>(s||"").toLowerCase().trim();
+
+    function scoreRow(r,q){
+      const lab=normalize(r.label),lev=normalize(r.level);
+      const hay=[lab,lev,...((r.keywords||[]).map(normalize))];
+      if(lab.startsWith(q))return 100;
+      if(lab.includes(q))return 70;
+      if(hay.some(h=>h.startsWith(q)))return 60;
+      if(hay.some(h=>h.includes(q)))return 40;
+      return 0;
+    }
+
+    function search(q){
+      const Q=normalize(q);
+      if(!Q)return[];
+      return INDEX.map(r=>({r,score:scoreRow(r,Q)}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,12)
+        .map(x=>x.r);
+    }
+
+    function navigate(url){ if(url) window.location.href=url; }
+
+    function render(list){
+      sug.innerHTML="";
+      list.forEach((r,i)=>{
+        const el=document.createElement('div');
+        el.className="sug-item flex justify-between items-center";
+        el.setAttribute('role','option');
+        el.setAttribute('data-i',i);
+        el.innerHTML=`
+          <div class="flex items-center gap-3 pl-2">
+            <span class="sug-badge ${colorFor(r.level)}">${r.level||""}</span>
+            <span class="text-gray-900 font-medium">${r.label}</span>
+          </div>
+          <span class="material-symbols-outlined text-gray-400 pr-2">arrow_forward</span>`;
+        el.addEventListener('mousedown',e=>{e.preventDefault();navigate(r.url)});
+        sug.appendChild(el);
+      });
+    }
+
+    const setOpen=s=>{open=s;sug.classList.toggle('open',open);input.setAttribute('aria-expanded',String(open));};
+
+    function update(){
+      const q=input.value;
+      current=search(q);
+      active=-1;
+      if(current.length===0){setOpen(false);return;}
+      render(current); setOpen(true);
+    }
+
+    function highlight(i){
+      Array.from(sug.children).forEach((el,idx)=>{
+        el.classList.toggle('bg-gray-50',idx===i);
+        if(idx===i)el.setAttribute('aria-selected','true'); else el.removeAttribute('aria-selected');
+      });
+    }
+
+    function ensureVisible(i){
+      const c=sug.children[i]; if(!c)return;
+      const chT=c.offsetTop,chB=chT+c.offsetHeight,vT=sug.scrollTop,vB=vT+sug.clientHeight;
+      if(chT<vT)sug.scrollTop=chT-8; else if(chB>vB)sug.scrollTop=chB-sug.clientHeight+8;
+    }
+
+    const debouncedUpdate=debounce(()=>{if(INDEX.length)update();},240);
+    input.addEventListener('input',debouncedUpdate);
+    input.addEventListener('keydown',e=>{
+      if(!open&&(e.key==='ArrowDown'||e.key==='Tab')){update();return;}
+      if(!open)return;
+      if(e.key==='ArrowDown'){e.preventDefault();active=Math.min(active+1,current.length-1);highlight(active);ensureVisible(active);}
+      else if(e.key==='ArrowUp'){e.preventDefault();active=Math.max(active-1,0);highlight(active);ensureVisible(active);}
+      else if(e.key==='Enter'){e.preventDefault();if(active>=0)navigate(current[active].url);else if(current.length)navigate(current[0].url);}
+      else if(e.key==='Escape'){setOpen(false);}
+    });
+    input.addEventListener('focus',()=>{if(input.value.trim()&&INDEX.length)update();});
+    input.addEventListener('blur',()=>{setTimeout(()=>setOpen(false),120);});
+    document.addEventListener('click',e=>{if(!e.target.closest('#searchSug')&&!e.target.closest('#smartWrap'))setOpen(false);});
+
+    fetch('/assets/data/search_index.json',{cache:'no-store'})
+      .then(r=>r.json()).then(d=>{INDEX=Array.isArray(d)?d:(Array.isArray(d.items)?d.items:[]);})
+      .catch(()=>{INDEX=[];});
+  })();
+  </script>
+
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
+</body>
+</html>
