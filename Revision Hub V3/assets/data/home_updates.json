@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "icon": "info",
+      "title": "Under construction",
+      "text": "Year 7, 8 & GCSE modules are currently under construction. \nMore details will be shared in the future."
+    },
+    {
       "icon": "campaign",
       "text": "This month has seen new updates including a refreshed homepage for easy navigation. The updated AI section now makes writing AI prompts even easier! Finally, new resources have been added to the year 8 section, getting you ready for the end of year assessments.",
       "title": "February Updates",
