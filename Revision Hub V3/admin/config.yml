@@ -564,7 +564,7 @@ collections:
   - name: "home_page"
     label: "Home Page Content"
     files:
-      - file: "assets/data/home_updates.json" # Make sure this folder path matches your setup
+      - file: "Revision Hub V3/assets/data/home_updates.json" # Make sure this folder path matches your setup
         label: "Site Updates (Right Column)"
         name: "home_updates"
         format: json
