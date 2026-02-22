@@ -13,11 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
-
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    .nav-link { @apply text-sm font-medium text-gray-700 hover:text-[#135bec] transition; }
+    body { @apply bg-[#020617] text-[#212121] font-[Lexend]; overflow: hidden; }
 
     /* --- PREMIUM GLOW BUTTON STYLES --- */
     .glow-wrap {
@@ -47,121 +43,64 @@
       50%{background-position:200% 50%}
       100%{background-position:0% 50%}
     }
-
-    /* Header + mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
-
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
-      <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
-      </div>
+  <main class="relative w-full h-screen flex flex-col justify-center bg-[#020617]">
+    
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <img src="assets/home-hero6.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
+    </div>
 
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-[#135bec]" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold hover:bg-gray-800 transition" href="ai_usage.html">
-          AI Usage
-        </a>
-      </nav>
+    <div class="absolute top-8 left-6 md:left-10 z-20 flex items-center gap-3">
+      <img src="assets/hub_logo.png" alt="SJWMS" class="h-8 w-auto filter drop-shadow-lg"/>
+      <span class="font-extrabold tracking-tight text-white text-lg drop-shadow-md">SJWMS Maths</span>
+    </div>
 
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
-        <span class="material-icons">menu</span>
-      </button>
+    <div class="absolute top-8 right-6 md:right-10 z-20 bg-amber-400/20 border border-amber-400/30 backdrop-blur-md text-amber-200 px-4 py-2 rounded-full flex items-center justify-center text-xs font-bold uppercase tracking-widest shadow-lg hidden sm:flex">
+      <span class="material-icons text-base mr-2">construction</span>
+      KS3 & GCSE Under Construction
+    </div>
 
-      <div id="mobileMenu" class="hidden">
-        <a href="index.html">Home</a>
-        <a href="ks3_hub.html">KS3</a>
-        <a href="gcse_hub.html">GCSE</a>
-        <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 text-left">
+      <div class="max-w-2xl">
+          
+         <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg">
+           <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+           <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Select Your Level</span>
+         </div>
+         
+         <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-xl">
+           What will you<br>
+           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+             revise today
+           </span><br>
+           and master?
+         </h1>
+         
+         <p class="text-slate-300 text-lg md:text-xl font-medium drop-shadow-md mb-10 leading-relaxed max-w-lg">
+           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
+         </p>
+
+         <div class="flex flex-wrap items-center gap-4">
+           <a href="ks3_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-xl">KS3</a>
+           <a href="gcse_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-xl">GCSE</a>
+           <a href="alevel_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-xl">A-Level</a>
+           
+           <a href="ai_usage.html" class="glow-wrap ml-2" aria-label="AI Usage">
+             <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center relative z-10 hover:-translate-y-0.5 transition-transform duration-200 shadow-xl">
+               <span class="material-symbols-outlined text-[28px] text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#3B82F6]">
+                 auto_awesome
+               </span>
+             </div>
+           </a>
+         </div>
+
       </div>
     </div>
-  </header>
-
-  <main>
-    <section class="relative w-full h-screen flex items-center bg-[#020617]">
-      
-      <div class="absolute top-14 left-0 w-full z-20 bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-        <span class="material-icons text-base mr-2">construction</span>
-        Year 7, 8 and GCSE Still Under Construction
-      </div>
-
-      <div class="absolute inset-0 z-0 overflow-hidden">
-        <img src="assets/home-hero6.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left mt-10">
-        <div class="max-w-2xl">
-            
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-             <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">SJWMS Maths</span>
-           </div>
-           
-           <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-xl">
-             What will you<br>
-             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-               revise today
-             </span><br>
-             and master?
-           </h1>
-           
-           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-10 leading-relaxed max-w-lg">
-             Select your level below to find worksheets, videos, and practice quizzes tailored to your exams.
-           </p>
-
-           <div class="flex flex-wrap items-center gap-4">
-             <a href="ks3_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-lg">KS3</a>
-             <a href="gcse_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-lg">GCSE</a>
-             <a href="alevel_hub.html" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/25 hover:-translate-y-0.5 transition-all shadow-lg">A-Level</a>
-             
-             <a href="ai_usage.html" class="glow-wrap ml-2">
-               <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center relative z-10 hover:-translate-y-0.5 transition-transform duration-200 shadow-xl">
-                 <span class="material-symbols-outlined text-[28px] text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#3B82F6]">
-                   auto_awesome
-                 </span>
-               </div>
-             </a>
-           </div>
-
-        </div>
-      </div>
-    </section>
   </main>
 
-  <script>
-  (function(){
-    const btn=document.getElementById('menuBtn');
-    const menu=document.getElementById('mobileMenu');
-    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
-    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
-    btn.addEventListener('click',toggleMenu);
-    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
-  })();
-  </script>
-
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
