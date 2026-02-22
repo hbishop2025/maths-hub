@@ -12,7 +12,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend]; overflow: hidden; }
+    /* FIX: Changed overflow: hidden to overflow-x-hidden to allow vertical scrolling on mobile */
+    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
 
     /* --- ENTRANCE ANIMATIONS --- */
     @keyframes fadeInUp {
@@ -32,7 +33,7 @@
 </head>
 <body>
 
-  <main class="relative w-full h-screen flex flex-col justify-center bg-[#020617]">
+  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 lg:py-0">
     
     <div class="absolute inset-0 z-0 overflow-hidden">
       <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
@@ -101,9 +102,6 @@
   </main>
 
   <script>
-    // In the future, you will pull this data from your config.yml.
-    // For now, change this array to test it. 
-    // To see the "no updates" view, simply change it to: const siteUpdates = [];
     const siteUpdates = [
       {
         icon: "campaign",
