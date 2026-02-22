@@ -3,180 +3,374 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | Home</title>
+  <title>SJWMS Maths | AI Usage Dashboard</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
+    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-hidden; }
 
-    /* --- ENTRANCE ANIMATIONS --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
+    
+    /* Scrollbar styling for a premium feel */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
   </style>
 </head>
 <body>
 
-  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 lg:py-0">
-    
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
-    </div>
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.50]" />
+    <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+  </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-left">
-      
-      <div class="max-w-2xl w-full">
-         
-         <div class="flex items-center gap-3 mb-6 animate-fade-in delay-100">
-           <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
-           <span class="font-extrabold tracking-tight text-white text-xl md:text-2xl drop-shadow-md">SJWMS Maths</span>
-         </div>
-         
-         <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
-           What will you<br>
-           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-             revise today
-           </span><br>
-           and master?
-         </h1>
-         
-         <p class="text-slate-300 text-lg md:text-xl font-medium drop-shadow-md mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
-           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
-         </p>
+  <div class="relative z-10 flex flex-col lg:flex-row w-full h-screen">
 
-         <div class="flex flex-wrap items-center gap-4 animate-fade-in delay-400">
-           
-           <a href="ks3_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
-           </a>
-
-           <a href="gcse_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
-           </a>
-
-           <a href="alevel_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
-           </a>
-           
-           <div class="w-px h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
-
-           <a href="ai_usage.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
-           </a>
-
-         </div>
-
-        <div class="mt-8 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
-           <span class="material-icons text-[16px] text-white">camera</span>
-           <p class="text-xs md:text-sm font-medium tracking-wide">Photo by <a href="https://unsplash.com/@sunx?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Li Zhang</a></p>
-         </div>
-
-      </div>
-
-      <div id="updates-column" class="hidden w-full max-w-lg lg:w-[480px] flex-col gap-4 animate-fade-in delay-500 z-20">
+    <aside class="w-full lg:w-[320px] lg:h-screen flex flex-col bg-[#020617]/60 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/10 shadow-2xl flex-shrink-0">
+      <div class="p-6 lg:p-8 flex flex-col h-full overflow-y-auto">
+        
+        <div class="flex items-center gap-3 mb-8">
+          <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
+          <div>
+            <span class="block font-extrabold tracking-tight text-white text-lg leading-tight">SJWMS Maths</span>
+            <span class="block text-blue-400 text-xs font-bold uppercase tracking-widest">AI Policy</span>
+          </div>
         </div>
 
-    </div>
-  </main>
+        <div class="mb-8">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 px-2">Site Navigation</p>
+          <div class="flex flex-wrap gap-2">
+            <a href="index.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">Home</a>
+            <a href="ks3_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">KS3</a>
+            <a href="gcse_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">GCSE</a>
+            <a href="alevel_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">A-Level</a>
+          </div>
+        </div>
+
+        <div class="w-full h-px bg-white/10 mb-8"></div>
+
+        <div class="flex-1">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 px-2">Dashboard</p>
+          <nav class="flex flex-col gap-1" id="tab-nav">
+            <button onclick="switchTab('overview')" class="tab-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all bg-blue-500/20 border border-blue-400/30 text-white shadow-lg">
+              <span class="material-icons text-[20px] text-blue-400">space_dashboard</span>
+              <span class="font-semibold text-sm">Overview</span>
+            </button>
+            <button onclick="switchTab('tools')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
+              <span class="material-icons text-[20px]">verified</span>
+              <span class="font-semibold text-sm">Approved Tools</span>
+            </button>
+            <button onclick="switchTab('dos-donts')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
+              <span class="material-icons text-[20px]">checklist</span>
+              <span class="font-semibold text-sm">Do's & Don'ts</span>
+            </button>
+            <button onclick="switchTab('builder')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
+              <span class="material-icons text-[20px] text-purple-400">architecture</span>
+              <span class="font-semibold text-sm">Prompt Builder</span>
+            </button>
+            <button onclick="switchTab('hallucinations')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
+              <span class="material-icons text-[20px] text-amber-400">warning_amber</span>
+              <span class="font-semibold text-sm">Hallucinations</span>
+            </button>
+            <button onclick="switchTab('transparency')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
+              <span class="material-icons text-[20px]">info</span>
+              <span class="font-semibold text-sm">AI on this Website</span>
+            </button>
+          </nav>
+        </div>
+
+      </div>
+    </aside>
+
+    <main class="flex-1 lg:h-screen overflow-y-auto p-6 lg:p-12 xl:p-16 scroll-smooth">
+      <div class="max-w-4xl mx-auto pb-20">
+
+        <section id="overview" class="tab-content active">
+          <h1 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">
+            What <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">good AI use</span> looks like
+          </h1>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing. You should still be able to explain the reasoning yourself.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
+              <span class="material-icons text-blue-400 mb-4 block text-3xl">lightbulb</span>
+              <h3 class="text-white font-bold mb-2">Explaining Steps</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Ask for hints first, then the full method after you've attempted it.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
+              <span class="material-icons text-purple-400 mb-4 block text-3xl">quiz</span>
+              <h3 class="text-white font-bold mb-2">Practice & Quizzes</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Generate questions at your level and have the AI mark your working.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
+              <span class="material-icons text-amber-400 mb-4 block text-3xl">troubleshoot</span>
+              <h3 class="text-white font-bold mb-2">Finding Mistakes</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Paste your attempt and ask for the first incorrect step and why.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tools" class="tab-content">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Approved Tools</h2>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            Use responsibly. If you're unsure whether something is allowed for assessed work, ask your teacher first.
+          </p>
+
+          <div class="flex flex-col gap-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
+              <div class="flex gap-4 items-start">
+                <span class="material-icons text-blue-400 text-4xl mt-1">auto_awesome</span>
+                <div>
+                  <h3 class="text-white font-bold text-xl mb-1">Google Gemini</h3>
+                  <p class="text-slate-400 text-sm max-w-lg">Step-by-step explanations, checking methods, and targeted practice for mathematics learning.</p>
+                </div>
+              </div>
+              <a href="https://gemini.google.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-blue-500/20 border border-blue-400/30 text-blue-200 text-sm font-bold uppercase tracking-wider hover:bg-blue-500/40 hover:text-white transition-colors flex items-center gap-2">
+                Launch <span class="material-icons text-[18px]">arrow_forward</span>
+              </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
+              <div class="flex gap-4 items-start">
+                <span class="material-icons text-purple-400 text-4xl mt-1">menu_book</span>
+                <div>
+                  <h3 class="text-white font-bold text-xl mb-1">NotebookLM</h3>
+                  <p class="text-slate-400 text-sm max-w-lg">Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.</p>
+                </div>
+              </div>
+              <a href="https://notebooklm.google.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-purple-500/20 border border-purple-400/30 text-purple-200 text-sm font-bold uppercase tracking-wider hover:bg-purple-500/40 hover:text-white transition-colors flex items-center gap-2">
+                Launch <span class="material-icons text-[18px]">arrow_forward</span>
+              </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
+              <div class="flex gap-4 items-start">
+                <span class="material-icons text-teal-400 text-4xl mt-1">brush</span>
+                <div>
+                  <h3 class="text-white font-bold text-xl mb-1">Canva AI</h3>
+                  <p class="text-slate-400 text-sm max-w-lg">Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.</p>
+                </div>
+              </div>
+              <a href="https://www.canva.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-teal-500/20 border border-teal-400/30 text-teal-200 text-sm font-bold uppercase tracking-wider hover:bg-teal-500/40 hover:text-white transition-colors flex items-center gap-2">
+                Launch <span class="material-icons text-[18px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="dos-donts" class="tab-content">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Do's & Don'ts</h2>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            AI is a study partner — not a shortcut. Use it to learn and verify.
+          </p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="p-8 rounded-2xl border border-green-500/30 bg-green-900/10 backdrop-blur-md shadow-lg relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+              <div class="flex items-center gap-2 mb-6">
+                <span class="material-icons text-green-400 text-3xl">task_alt</span>
+                <h3 class="text-white font-bold text-2xl">Do</h3>
+              </div>
+              <ul class="space-y-4 text-slate-300">
+                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Ask for hints first, then a full solution if needed.</li>
+                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Paste your working and ask for the first mistake.</li>
+                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Generate practice at your year/exam level.</li>
+                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Request a mark-scheme style checklist.</li>
+                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Verify with notes, examples, or another method.</li>
+              </ul>
+            </div>
+
+            <div class="p-8 rounded-2xl border border-red-500/30 bg-red-900/10 backdrop-blur-md shadow-lg relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+              <div class="flex items-center gap-2 mb-6">
+                <span class="material-icons text-red-400 text-3xl">block</span>
+                <h3 class="text-white font-bold text-2xl">Don't</h3>
+              </div>
+              <ul class="space-y-4 text-slate-300">
+                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Copy answers without understanding the method.</li>
+                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Use AI for assessed work unless your teacher allows it.</li>
+                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Trust it blindly on formulas, theorems, or "facts".</li>
+                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Ask vague questions like "help with algebra". Be specific.</li>
+                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Share personal data (logins, phone numbers, etc.).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 p-6 rounded-2xl border border-amber-500/30 bg-amber-900/20 backdrop-blur-md">
+            <h4 class="text-amber-400 font-bold text-sm uppercase tracking-widest mb-2 flex items-center gap-2"><span class="material-icons text-[18px]">star</span> Gold Standard Prompt</h4>
+            <p class="text-slate-200 italic font-medium">"I'm in <strong class="text-white">Year 9</strong>. I tried this question and my working is below. Please <strong class="text-white">identify the first mistake</strong>, explain why, then give me <strong class="text-white">one hint</strong> to fix it. Don't give the final answer until I ask."</p>
+          </div>
+        </section>
+
+        <section id="builder" class="tab-content">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Prompt Builder</h2>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            Choose options to build a strong prompt, then type your topic. Copy the result directly into Gemini or NotebookLM.
+          </p>
+
+          <div class="p-8 rounded-2xl border border-white/20 bg-[#020617]/80 backdrop-blur-xl shadow-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              
+              <div>
+                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">1) Choose what you need</label>
+                <select class="w-full bg-white/5 border border-white/20 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
+                  <option class="bg-[#0f172a]">Explain a concept</option>
+                  <option class="bg-[#0f172a]">Practice questions</option>
+                  <option class="bg-[#0f172a]">Check my working</option>
+                  <option class="bg-[#0f172a]">I'm stuck (hint me)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">2) Your year group</label>
+                <div class="flex flex-wrap gap-2">
+                  <button class="px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-semibold shadow-md">Year 7</button>
+                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">Year 8</button>
+                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">GCSE</button>
+                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">A-Level</button>
+                </div>
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">3) Topic & Working</label>
+                <textarea rows="3" class="w-full bg-white/5 border border-white/20 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 mb-3 placeholder-slate-500" placeholder="E.g. Solving simultaneous equations with quadratics..."></textarea>
+              </div>
+            </div>
+
+            <div class="bg-black/50 border border-white/10 rounded-xl p-6 relative">
+              <div class="absolute top-0 right-0 p-4">
+                <button class="text-slate-400 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase font-bold tracking-widest">
+                  <span class="material-icons text-[16px]">content_copy</span> Copy
+                </button>
+              </div>
+              <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Generated Prompt</p>
+              <p class="text-green-400 font-mono text-sm leading-relaxed">I am in Year 7. Please explain the concept of [Topic]. Use a step-by-step Socratic method, and do not make large jumps in logic. Ask me a mini-quiz question at the end to check my understanding.</p>
+            </div>
+            
+            <div class="flex gap-4 mt-6">
+              <a href="https://gemini.google.com" target="_blank" class="flex-1 text-center px-4 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold uppercase tracking-wider transition-colors shadow-lg shadow-blue-500/30">
+                Open in Gemini
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="hallucinations" class="tab-content">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Hallucinations</h2>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            AI can invent steps, definitions, or results that look believable. In maths, verification is part of learning. Confident answers can still be wrong.
+          </p>
+
+          <div class="space-y-4">
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
+                <span class="text-amber-400 font-bold">1</span>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg mb-1">Use another method</h3>
+                <p class="text-slate-400 text-sm">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
+                <span class="text-amber-400 font-bold">2</span>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg mb-1">Compare with your notes</h3>
+                <p class="text-slate-400 text-sm">If it uses a method you haven't learned, ask for the class method.</p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
+                <span class="text-amber-400 font-bold">3</span>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg mb-1">Inspect each step</h3>
+                <p class="text-slate-400 text-sm">Treat it like marking: one incorrect step breaks the whole solution.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="transparency" class="tab-content">
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">AI on this Website</h2>
+          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
+            Transparency matters. Here's how AI relates to the SJWMS Maths revision website.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
+              <span class="material-icons text-slate-400 mb-4 block text-3xl">public_off</span>
+              <h3 class="text-white font-bold mb-2">No On-Page AI</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">This site does not include an AI chatbot or AI that reads your typing. It's a standard static website.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
+              <span class="material-icons text-blue-400 mb-4 block text-3xl">description</span>
+              <h3 class="text-white font-bold mb-2">Resources</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">In places, AI may have helped draft questions, examples, or explanations — which are then reviewed and edited by staff.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
+              <span class="material-icons text-purple-400 mb-4 block text-3xl">code</span>
+              <h3 class="text-white font-bold mb-2">Development</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">AI tools assisted in writing and improving code, layouts, and components — final decisions remain human-made.</p>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl border border-slate-500/30 bg-slate-800/50 backdrop-blur-md flex items-start gap-4">
+            <span class="material-icons text-slate-300 text-2xl mt-0.5">privacy_tip</span>
+            <div>
+              <h4 class="text-white font-bold mb-1">Privacy Note</h4>
+              <p class="text-slate-300 text-sm">When you use external AI tools (Gemini/NotebookLM/Canva), treat them like public services. Do not share personal data or school logins.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const response = await fetch('assets/data/home_updates.json');
-        
-        if (!response.ok) return; 
-
-        const data = await response.json();
-        const siteUpdates = data.items || []; 
-
-        const updatesColumn = document.getElementById('updates-column');
-
-        if (siteUpdates.length > 0) {
-          updatesColumn.classList.remove('hidden');
-          updatesColumn.classList.add('flex'); 
-
-          siteUpdates.forEach((update, index) => {
-            
-            // 1. Handle long text with a smooth expander
-            const isLong = update.text.length > 120; // Triggers if text is over ~2 lines
-            let textHTML = '';
-            
-            if (isLong) {
-              textHTML = `
-                <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
-                  <p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>
-                </div>
-                <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
-                  Show More
-                </button>
-              `;
-            } else {
-              textHTML = `<p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>`;
-            }
-
-            // 2. Handle optional button
-            let buttonHTML = '';
-            if (update.btnText && update.btnLink) {
-              buttonHTML = `
-                <div class="mt-4">
-                  <a href="${update.btnLink}" class="inline-flex items-center px-4 py-2 rounded bg-blue-500/20 border border-blue-400/30 text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
-                    ${update.btnText}
-                  </a>
-                </div>
-              `;
-            }
-
-            // 3. Construct the Card
-            const updateCard = document.createElement('div');
-            updateCard.className = "p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
-            updateCard.innerHTML = `
-              <div class="flex items-center gap-2 mb-2">
-                <span class="material-icons text-blue-400 text-[18px]">${update.icon || 'info'}</span>
-                <h3 class="text-white font-bold text-sm tracking-wide uppercase">${update.title}</h3>
-              </div>
-              ${textHTML}
-              ${buttonHTML}
-            `;
-            
-            updatesColumn.appendChild(updateCard);
-          });
-        }
-      } catch (error) {
-        console.error("Error loading updates:", error);
-      }
-    });
-
-    // Global function to handle expanding/collapsing the text
-    window.toggleUpdateText = function(index) {
-      const wrapper = document.getElementById(`text-wrapper-${index}`);
-      const btn = document.getElementById(`toggle-btn-${index}`);
+    function switchTab(tabId) {
+      // 1. Hide all content sections
+      document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.remove('active');
+      });
       
-      if (wrapper.classList.contains('max-h-[4.5rem]')) {
-        wrapper.classList.remove('max-h-[4.5rem]');
-        wrapper.classList.add('max-h-[800px]'); // arbitrary tall height to fit content
-        btn.innerText = 'Show Less';
-      } else {
-        wrapper.classList.add('max-h-[4.5rem]');
-        wrapper.classList.remove('max-h-[800px]');
-        btn.innerText = 'Show More';
+      // 2. Remove 'active' styling from all buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-500/20', 'border-blue-400/30', 'text-white', 'shadow-lg');
+        btn.classList.add('hover:bg-white/5', 'text-slate-400', 'border-transparent');
+      });
+
+      // 3. Show the selected content section
+      const targetSection = document.getElementById(tabId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+        // Reset scroll position to top when switching tabs
+        document.querySelector('main').scrollTo(0, 0); 
       }
-    };
+
+      // 4. Add 'active' styling to the clicked button
+      const activeBtn = event.currentTarget;
+      activeBtn.classList.remove('hover:bg-white/5', 'text-slate-400', 'border-transparent');
+      activeBtn.classList.add('bg-blue-500/20', 'border-blue-400/30', 'text-white', 'shadow-lg');
+    }
   </script>
 </body>
 </html>
