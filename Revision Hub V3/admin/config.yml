@@ -559,3 +559,23 @@ collections:
               - { label: "Type", name: "type", widget: "select", options: ["worksheet", "video", "link"] }
               - { label: "URL", name: "url", widget: "string" }
               - { label: "Category", name: "category", widget: "select", options: ["algebra", "factorising", "formula", "completing-square"] }
+
+# Add this into your collections list
+  - name: "home_page"
+    label: "Home Page Content"
+    files:
+      - file: "assets/data/home_updates.json" # Make sure this folder path matches your setup
+        label: "Site Updates (Right Column)"
+        name: "home_updates"
+        format: json
+        fields:
+          - label: "Updates"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Icon Name", name: "icon", widget: "string", hint: "E.g., campaign, info, warning", default: "info" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text Content", name: "text", widget: "text" }
+              - { label: "Button Text", name: "btnText", widget: "string", required: false, hint: "Leave blank for no button" }
+              - { label: "Button Link URL", name: "btnLink", widget: "string", required: false, hint: "Leave blank for no button" }
