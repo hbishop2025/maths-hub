@@ -35,13 +35,14 @@
   <main class="relative w-full h-screen flex flex-col justify-center bg-[#020617]">
     
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/blue-abstract.webp" alt="Maths Revision Background" class="w-full h-full object-cover object-center filter brightness-[0.70]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/90 via-[#0f172a]/80 to-transparent"></div>
+      <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
     </div>
 
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-left">
       
       <div class="max-w-2xl w-full">
+         
          <div class="flex items-center gap-3 mb-6 animate-fade-in delay-100">
            <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
            <span class="font-extrabold tracking-tight text-white text-xl md:text-2xl drop-shadow-md">SJWMS Maths</span>
@@ -60,25 +61,37 @@
          </p>
 
          <div class="flex flex-wrap items-center gap-4 animate-fade-in delay-400">
+           
            <a href="ks3_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
              <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
            </a>
+
            <a href="gcse_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
              <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
            </a>
+
            <a href="alevel_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
              <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
            </a>
+           
            <div class="w-px h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
+
            <a href="ai_usage.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
              <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
            </a>
+
          </div>
 
          <div class="mt-8 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
-           <span class="material-icons text-[16px] text-amber-400/70">build</span>
-           <p class="text-xs md:text-sm font-medium tracking-wide">KS3 & GCSE modules are currently under construction.</p>
+           <span class="material-icons text-[16px] text-white">build</span>
+           <p class="text-xs md:text-sm font-medium tracking-wide">Year 7, 8 & GCSE modules are currently under construction.</p>
          </div>
+
+        <div class="mt-2 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
+           <span class="material-icons text-[16px] text-white">camera</span>
+           <p class="text-xs md:text-sm font-medium tracking-wide">Photo by <a href="https://unsplash.com/@sunx?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Li Zhang</a></p>
+         </div>
+
       </div>
 
       <div id="updates-column" class="hidden w-full max-w-md lg:w-[400px] flex-col gap-4 animate-fade-in delay-500 z-20">
@@ -103,20 +116,18 @@
         icon: "info",
         title: "Platform Maintenance",
         text: "The GCSE past paper section will be undergoing brief maintenance this Friday evening.",
-        btnText: null, // No button for this update
+        btnText: null, 
         btnLink: null
       }
     ];
 
     const updatesColumn = document.getElementById('updates-column');
 
-    // If there are updates, build the UI and reveal the column
     if (siteUpdates.length > 0) {
       updatesColumn.classList.remove('hidden');
-      updatesColumn.classList.add('flex'); // Add flexbox layout
+      updatesColumn.classList.add('flex'); 
 
       siteUpdates.forEach(update => {
-        // Build the optional button HTML
         let buttonHTML = '';
         if (update.btnText && update.btnLink) {
           buttonHTML = `
@@ -126,7 +137,6 @@
           `;
         }
 
-        // Build the update card HTML (Clear background, white border)
         const updateCard = document.createElement('div');
         updateCard.className = "p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
         updateCard.innerHTML = `
