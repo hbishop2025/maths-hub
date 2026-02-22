@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
@@ -28,48 +27,6 @@
     .delay-200 { animation-delay: 200ms; }
     .delay-300 { animation-delay: 300ms; }
     .delay-400 { animation-delay: 400ms; }
-
-    /* --- DARK GLASS AI BUTTON --- */
-    .ai-btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 1rem; /* Squircle base */
-      background: rgba(99, 102, 241, 0.1); /* indigo-500/10 */
-      border: 1px solid rgba(129, 140, 248, 0.2); /* indigo-400/20 */
-      backdrop-filter: blur(4px);
-      /* Smooth transition for both hovering in AND out */
-      transition: border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                  background 0.4s ease, 
-                  box-shadow 0.4s ease, 
-                  border-color 0.4s ease;
-    }
-
-    .ai-btn:hover {
-      border-radius: 50%; /* Smoothly morph to circle */
-      background: rgba(99, 102, 241, 0.2); /* Slightly brighter background */
-      border-color: rgba(129, 140, 248, 0.4);
-      transform: translateY(-2px); /* Gentle lift */
-      /* Soft, elegant purple/indigo aura instead of a blinding glow */
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 15px rgba(139, 92, 246, 0.25); 
-    }
-
-    /* AI Icon Gradient Text */
-    .ai-icon {
-      background: linear-gradient(90deg, #818cf8, #c084fc); /* indigo-400 to purple-400 */
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.8;
-      transition: opacity 0.4s ease, filter 0.4s ease;
-    }
-
-    .ai-btn:hover .ai-icon {
-      opacity: 1;
-      /* Adds a tiny bit of brightness to the icon itself on hover */
-      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.3)); 
-    }
   </style>
 </head>
 <body>
@@ -115,11 +72,12 @@
              <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
            </a>
            
-           <a href="ai_usage.html" class="ai-btn w-12 h-12 md:w-14 md:h-14 ml-2 shadow-lg" aria-label="AI Usage">
-             <span class="ai-icon material-symbols-outlined text-[24px] md:text-[28px]">
-               auto_awesome
-             </span>
+           <div class="w-px h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
+
+           <a href="ai_usage.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
+             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
            </a>
+
          </div>
 
          <div class="mt-8 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
