@@ -22,7 +22,7 @@
     }
     .animate-fade-in {
       animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0; /* Stays invisible until animation starts */
+      opacity: 0;
     }
     .delay-100 { animation-delay: 100ms; }
     .delay-200 { animation-delay: 200ms; }
@@ -35,19 +35,21 @@
       z-index: 30;
       isolation: isolate;
       cursor: pointer;
+      display: inline-block;
     }
     
-    /* The Glow Effect */
+    /* The Glow Effect Background */
     .glow-wrap::before {
       content: ""; 
       position: absolute; 
       inset: -4px; 
-      border-radius: 1.25rem; /* Squircle default */
+      border-radius: 1rem; /* Squircle base */
       background: linear-gradient(90deg,#7C3AED,#3B82F6,#10B981,#F59E0B,#EC4899,#7C3AED);
       background-size: 400% 100%;
       filter: blur(8px);
       opacity: 0;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      /* Smooth transition for both hovering in AND out */
+      transition: border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
       z-index: 0;
       animation: siri-glow 8s linear infinite;
     }
@@ -57,22 +59,26 @@
       position: relative;
       z-index: 10;
       background: white;
-      border-radius: 1.25rem; /* Squircle default */
+      border-radius: 1rem; /* Squircle base */
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      /* Explicitly transition border-radius, transform, and shadow so it reverses smoothly */
+      transition: border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.4s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Hover States: Morph to circle, rotate, and glow */
+    /* Hover States: Smoothly morph to circle, lift, and glow */
     .glow-wrap:hover::before { 
       opacity: 1; 
-      border-radius: 9999px; /* Morph to circle */
+      border-radius: 50%; /* Morph to perfect circle */
     }
     .glow-wrap:hover .ai-inner {
-      border-radius: 9999px; /* Morph to circle */
-      transform: rotate(360deg) translateY(-2px); /* Rotate 360 and lift slightly */
+      border-radius: 50%; /* Morph to perfect circle */
+      transform: translateY(-2px); /* Gentle lift, NO rotation */
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
 
     @keyframes siri-glow {
