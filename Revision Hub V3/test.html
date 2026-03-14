@@ -3,374 +3,603 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | AI Usage Dashboard</title>
+  <title>AI | Usage & Policy</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-hidden; }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            marathon: {
+              bg: '#090a0f',
+              panel: '#11131a',
+              border: '#1f2232',
+              lime: '#ccff00',
+              cyan: '#00f0ff',
+              orange: '#ff5c00',
+              text: '#e2e8f0',
+              muted: '#64748b'
+            }
+          },
+          fontFamily: {
+            sans: ['Lexend', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
     }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
+  </script>
+
+  <style type="text/tailwindcss">
+    /* Core Background with Marathon Grid Pattern */
+    body { 
+      @apply bg-marathon-bg text-marathon-text font-sans overflow-x-hidden selection:bg-marathon-lime selection:text-black;
+      background-image: 
+        linear-gradient(rgba(204, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204, 255, 0, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center center;
+    }
+
+    /* KEEP: top nav EXACTLY AS REQUESTED */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
+
+    /* Page geometry */
+    .page { @apply pb-20; }
+    .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
+    .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
+
+    /* Docs-like sidebar -> HUD Terminal Menu */
+    .side { @apply hidden lg:block sticky top-24; }
+    .side-title { @apply text-[10px] font-mono font-black uppercase tracking-[0.25em] text-marathon-cyan mb-4 flex items-center gap-2; }
+    .side-title::before { content:''; @apply block w-2 h-2 bg-marathon-cyan; }
+    .side-link { @apply flex items-center gap-3 px-3 py-2.5 border-l-2 border-transparent text-xs font-mono font-bold uppercase tracking-widest text-marathon-muted hover:text-marathon-lime hover:bg-marathon-lime/5 hover:border-marathon-lime/50 transition-all; }
+    .side-link .material-icons { @apply text-[16px] transition-colors; }
+    .side-link.active { @apply border-marathon-lime text-marathon-lime bg-marathon-lime/10; }
     
-    /* Scrollbar styling for a premium feel */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    /* Sections */
+    .section { @apply py-16 relative; }
+    .section::before { content:''; @apply absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-marathon-border to-transparent; }
+    .anchor { scroll-margin-top: 100px; }
+
+    /* Typography rhythm -> Stark, Bold, Uppercase emphasis */
+    .eyebrow { @apply text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-marathon-cyan block; }
+    .h1 { @apply text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] text-white; }
+    .h2 { @apply text-2xl md:text-4xl font-black uppercase tracking-tight text-white flex items-center gap-3; }
+    .h2::before { content: ''; @apply block w-3 h-8 bg-marathon-lime; }
+    .lead { @apply text-lg text-marathon-text max-w-2xl font-medium; }
+    .p { @apply text-marathon-text/80 leading-relaxed font-light; }
+    .tiny { @apply text-[11px] font-mono text-marathon-muted uppercase tracking-wider; }
+
+    /* UI Elements: Hard corners, solid borders */
+    .pill { @apply inline-flex items-center gap-2 border border-marathon-cyan bg-marathon-cyan/10 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-widest text-marathon-cyan shadow-[0_0_10px_rgba(0,240,255,0.2)]; }
+    
+    .btn { @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-xs font-mono font-bold uppercase tracking-widest border-2 border-marathon-border bg-marathon-panel text-white hover:border-marathon-lime hover:text-marathon-lime active:scale-[0.98] transition-all duration-200; }
+    
+    .btn-primary { @apply border-marathon-lime bg-marathon-lime text-black hover:bg-white hover:border-white hover:text-black shadow-[0_0_15px_rgba(204,255,0,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]; }
+
+    /* Cards & Bracket styling (Marathon HUD) */
+    .hud-card { @apply bg-marathon-panel border border-marathon-border p-8 relative transition-all duration-300 hover:border-marathon-cyan hover:bg-[#161924]; }
+    .hud-card::after { content:''; @apply absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-marathon-muted transition-colors duration-300; }
+    .hud-card:hover::after { @apply border-marathon-cyan; }
+
+    /* Do / Don't layout */
+    .two-col { @apply grid md:grid-cols-2 gap-10; }
+    .col-head { @apply flex items-center gap-3 font-mono font-black uppercase tracking-widest text-lg; }
+    .list { @apply mt-6 space-y-4 text-sm text-marathon-text/80; }
+    .li { @apply flex gap-3 font-light; }
+    .li .material-icons { @apply text-[18px] mt-0.5; }
+
+    /* Prompt Builder - Terminal Style */
+    .tool { @apply border-y border-marathon-border bg-marathon-bg/50 backdrop-blur-sm relative; }
+    .tool::before { content:'[ SYS_TOOL_ACTIVE ]'; @apply absolute -top-3 left-4 bg-marathon-bg px-2 text-[10px] font-mono text-marathon-lime tracking-widest; }
+    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-0; }
+    .tool-col { @apply py-10 px-6 lg:px-10 relative; }
+    .tool-col + .tool-col::before { content:''; @apply hidden lg:block absolute left-0 top-10 bottom-10 w-px bg-marathon-border; }
+
+    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
+    .opt { @apply w-full border border-marathon-border bg-marathon-panel px-4 py-3 text-xs font-mono font-bold uppercase tracking-wider text-marathon-muted hover:border-marathon-lime hover:text-marathon-lime active:scale-[0.99] transition-all flex items-center justify-between text-left; }
+    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
+    .chip { @apply inline-flex items-center gap-2 border border-marathon-border bg-marathon-panel px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-widest text-marathon-muted hover:border-marathon-lime hover:text-marathon-lime cursor-pointer select-none transition-colors; }
+    .chip.on { @apply bg-marathon-lime text-black border-marathon-lime shadow-[0_0_10px_rgba(204,255,0,0.3)]; }
+
+    .prompt-box {
+      @apply font-mono bg-black text-marathon-cyan rounded-none p-6 text-sm leading-relaxed border-2 border-marathon-cyan shadow-[inset_0_0_20px_rgba(0,240,255,0.1)];
+      white-space: pre-wrap;
+    }
+
+    .hint { @apply text-[10px] font-mono text-marathon-muted uppercase tracking-wider mt-2; }
+    
+    /* Inputs */
+    input[type="text"], textarea {
+      @apply bg-marathon-panel border-marathon-border text-white font-mono text-sm rounded-none focus:border-marathon-lime focus:ring-1 focus:ring-marathon-lime transition-colors;
+    }
+
+    /* Callouts */
+    .callout { @apply border-l-4 border-marathon-cyan bg-marathon-cyan/5 pl-5 py-4 font-mono; }
+    .callout-warn { @apply border-l-4 border-marathon-orange bg-marathon-orange/5 pl-5 py-4 font-mono; }
   </style>
 </head>
+
 <body>
 
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-    <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.50]" />
-    <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-  </div>
-
-  <div class="relative z-10 flex flex-col lg:flex-row w-full h-screen">
-
-    <aside class="w-full lg:w-[320px] lg:h-screen flex flex-col bg-[#020617]/60 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/10 shadow-2xl flex-shrink-0">
-      <div class="p-6 lg:p-8 flex flex-col h-full overflow-y-auto">
-        
-        <div class="flex items-center gap-3 mb-8">
-          <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
-          <div>
-            <span class="block font-extrabold tracking-tight text-white text-lg leading-tight">SJWMS Maths</span>
-            <span class="block text-blue-400 text-xs font-bold uppercase tracking-widest">AI Policy</span>
-          </div>
-        </div>
-
-        <div class="mb-8">
-          <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 px-2">Site Navigation</p>
-          <div class="flex flex-wrap gap-2">
-            <a href="index.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">Home</a>
-            <a href="ks3_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">KS3</a>
-            <a href="gcse_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">GCSE</a>
-            <a href="alevel_hub.html" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 hover:text-white transition-colors">A-Level</a>
-          </div>
-        </div>
-
-        <div class="w-full h-px bg-white/10 mb-8"></div>
-
-        <div class="flex-1">
-          <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 px-2">Dashboard</p>
-          <nav class="flex flex-col gap-1" id="tab-nav">
-            <button onclick="switchTab('overview')" class="tab-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all bg-blue-500/20 border border-blue-400/30 text-white shadow-lg">
-              <span class="material-icons text-[20px] text-blue-400">space_dashboard</span>
-              <span class="font-semibold text-sm">Overview</span>
-            </button>
-            <button onclick="switchTab('tools')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
-              <span class="material-icons text-[20px]">verified</span>
-              <span class="font-semibold text-sm">Approved Tools</span>
-            </button>
-            <button onclick="switchTab('dos-donts')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
-              <span class="material-icons text-[20px]">checklist</span>
-              <span class="font-semibold text-sm">Do's & Don'ts</span>
-            </button>
-            <button onclick="switchTab('builder')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
-              <span class="material-icons text-[20px] text-purple-400">architecture</span>
-              <span class="font-semibold text-sm">Prompt Builder</span>
-            </button>
-            <button onclick="switchTab('hallucinations')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
-              <span class="material-icons text-[20px] text-amber-400">warning_amber</span>
-              <span class="font-semibold text-sm">Hallucinations</span>
-            </button>
-            <button onclick="switchTab('transparency')" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all hover:bg-white/5 text-slate-400 border border-transparent hover:text-white">
-              <span class="material-icons text-[20px]">info</span>
-              <span class="font-semibold text-sm">AI on this Website</span>
-            </button>
-          </nav>
-        </div>
-
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight text-[#0b0f17]">SJWMS Maths</span>
       </div>
-    </aside>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
+      </nav>
+    </div>
+  </header>
 
-    <main class="flex-1 lg:h-screen overflow-y-auto p-6 lg:p-12 xl:p-16 scroll-smooth">
-      <div class="max-w-4xl mx-auto pb-20">
+  <main class="relative pt-14 pb-20">
 
-        <section id="overview" class="tab-content active">
-          <h1 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">
-            What <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">good AI use</span> looks like
+    <div class="w-full bg-marathon-orange text-black border-y-2 border-black px-4 py-2 flex items-center justify-center text-xs font-mono font-black uppercase tracking-[0.2em]">
+      <span class="material-icons text-base mr-2">warning</span>
+      SYS_WARNING: Year 7, 8 and GCSE Still Under Construction
+    </div>
+    
+    <section class="relative w-full h-[550px] flex items-center overflow-hidden bg-black mb-16 border-b border-marathon-border">
+      
+      <div class="absolute inset-0 z-0 opacity-40 mix-blend-luminosity">
+        <img src="assets/home-hero5.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center grayscale" />
+      </div>
+      <div class="absolute inset-0 z-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+      
+      <div class="absolute inset-0 z-0 bg-[linear-gradient(rgba(204,255,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(204,255,0,0.1)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none"></div>
+
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-2xl border-l-4 border-marathon-lime pl-8 py-4">
+          
+          <div class="inline-flex items-center gap-3 px-3 py-1 mb-6 border border-marathon-lime bg-marathon-lime/10">
+            <span class="animate-pulse inline-block h-2 w-2 bg-marathon-lime shadow-[0_0_8px_#ccff00]"></span>
+            <span class="text-[10px] font-mono font-bold text-marathon-lime uppercase tracking-[0.25em]">School Protocol Approved</span>
+          </div>
+          
+          <h1 class="h1 mb-6">
+            AI Usage<br>
+            <span class="text-marathon-lime block mt-2">
+              In Mathematics
+            </span>
           </h1>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing. You should still be able to explain the reasoning yourself.
+          
+          <p class="text-marathon-text text-lg font-light tracking-wide max-w-xl">
+            Use AI to learn methods, practise, and check your reasoning. <strong class="text-white font-bold">Never to replace your own working.</strong>
           </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
-              <span class="material-icons text-blue-400 mb-4 block text-3xl">lightbulb</span>
-              <h3 class="text-white font-bold mb-2">Explaining Steps</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Ask for hints first, then the full method after you've attempted it.</p>
-            </div>
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
-              <span class="material-icons text-purple-400 mb-4 block text-3xl">quiz</span>
-              <h3 class="text-white font-bold mb-2">Practice & Quizzes</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Generate questions at your level and have the AI mark your working.</p>
-            </div>
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg">
-              <span class="material-icons text-amber-400 mb-4 block text-3xl">troubleshoot</span>
-              <h3 class="text-white font-bold mb-2">Finding Mistakes</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Paste your attempt and ask for the first incorrect step and why.</p>
-            </div>
+          
+          <div class="mt-10">
+            <a href="#builder" class="btn btn-primary group">
+              <span>Initialize Prompt Builder</span>
+              <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
+            </a>
           </div>
-        </section>
-
-        <section id="tools" class="tab-content">
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Approved Tools</h2>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            Use responsibly. If you're unsure whether something is allowed for assessed work, ask your teacher first.
-          </p>
-
-          <div class="flex flex-col gap-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
-              <div class="flex gap-4 items-start">
-                <span class="material-icons text-blue-400 text-4xl mt-1">auto_awesome</span>
-                <div>
-                  <h3 class="text-white font-bold text-xl mb-1">Google Gemini</h3>
-                  <p class="text-slate-400 text-sm max-w-lg">Step-by-step explanations, checking methods, and targeted practice for mathematics learning.</p>
-                </div>
-              </div>
-              <a href="https://gemini.google.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-blue-500/20 border border-blue-400/30 text-blue-200 text-sm font-bold uppercase tracking-wider hover:bg-blue-500/40 hover:text-white transition-colors flex items-center gap-2">
-                Launch <span class="material-icons text-[18px]">arrow_forward</span>
-              </a>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
-              <div class="flex gap-4 items-start">
-                <span class="material-icons text-purple-400 text-4xl mt-1">menu_book</span>
-                <div>
-                  <h3 class="text-white font-bold text-xl mb-1">NotebookLM</h3>
-                  <p class="text-slate-400 text-sm max-w-lg">Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.</p>
-                </div>
-              </div>
-              <a href="https://notebooklm.google.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-purple-500/20 border border-purple-400/30 text-purple-200 text-sm font-bold uppercase tracking-wider hover:bg-purple-500/40 hover:text-white transition-colors flex items-center gap-2">
-                Launch <span class="material-icons text-[18px]">arrow_forward</span>
-              </a>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg gap-6">
-              <div class="flex gap-4 items-start">
-                <span class="material-icons text-teal-400 text-4xl mt-1">brush</span>
-                <div>
-                  <h3 class="text-white font-bold text-xl mb-1">Canva AI</h3>
-                  <p class="text-slate-400 text-sm max-w-lg">Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.</p>
-                </div>
-              </div>
-              <a href="https://www.canva.com" target="_blank" class="shrink-0 px-6 py-2 rounded-lg bg-teal-500/20 border border-teal-400/30 text-teal-200 text-sm font-bold uppercase tracking-wider hover:bg-teal-500/40 hover:text-white transition-colors flex items-center gap-2">
-                Launch <span class="material-icons text-[18px]">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section id="dos-donts" class="tab-content">
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Do's & Don'ts</h2>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            AI is a study partner — not a shortcut. Use it to learn and verify.
-          </p>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="p-8 rounded-2xl border border-green-500/30 bg-green-900/10 backdrop-blur-md shadow-lg relative overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-              <div class="flex items-center gap-2 mb-6">
-                <span class="material-icons text-green-400 text-3xl">task_alt</span>
-                <h3 class="text-white font-bold text-2xl">Do</h3>
-              </div>
-              <ul class="space-y-4 text-slate-300">
-                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Ask for hints first, then a full solution if needed.</li>
-                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Paste your working and ask for the first mistake.</li>
-                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Generate practice at your year/exam level.</li>
-                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Request a mark-scheme style checklist.</li>
-                <li class="flex gap-3"><span class="material-icons text-green-400 text-[20px] shrink-0 mt-0.5">check</span> Verify with notes, examples, or another method.</li>
-              </ul>
-            </div>
-
-            <div class="p-8 rounded-2xl border border-red-500/30 bg-red-900/10 backdrop-blur-md shadow-lg relative overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-              <div class="flex items-center gap-2 mb-6">
-                <span class="material-icons text-red-400 text-3xl">block</span>
-                <h3 class="text-white font-bold text-2xl">Don't</h3>
-              </div>
-              <ul class="space-y-4 text-slate-300">
-                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Copy answers without understanding the method.</li>
-                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Use AI for assessed work unless your teacher allows it.</li>
-                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Trust it blindly on formulas, theorems, or "facts".</li>
-                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Ask vague questions like "help with algebra". Be specific.</li>
-                <li class="flex gap-3"><span class="material-icons text-red-400 text-[20px] shrink-0 mt-0.5">close</span> Share personal data (logins, phone numbers, etc.).</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mt-8 p-6 rounded-2xl border border-amber-500/30 bg-amber-900/20 backdrop-blur-md">
-            <h4 class="text-amber-400 font-bold text-sm uppercase tracking-widest mb-2 flex items-center gap-2"><span class="material-icons text-[18px]">star</span> Gold Standard Prompt</h4>
-            <p class="text-slate-200 italic font-medium">"I'm in <strong class="text-white">Year 9</strong>. I tried this question and my working is below. Please <strong class="text-white">identify the first mistake</strong>, explain why, then give me <strong class="text-white">one hint</strong> to fix it. Don't give the final answer until I ask."</p>
-          </div>
-        </section>
-
-        <section id="builder" class="tab-content">
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Prompt Builder</h2>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            Choose options to build a strong prompt, then type your topic. Copy the result directly into Gemini or NotebookLM.
-          </p>
-
-          <div class="p-8 rounded-2xl border border-white/20 bg-[#020617]/80 backdrop-blur-xl shadow-2xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              
-              <div>
-                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">1) Choose what you need</label>
-                <select class="w-full bg-white/5 border border-white/20 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3">
-                  <option class="bg-[#0f172a]">Explain a concept</option>
-                  <option class="bg-[#0f172a]">Practice questions</option>
-                  <option class="bg-[#0f172a]">Check my working</option>
-                  <option class="bg-[#0f172a]">I'm stuck (hint me)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">2) Your year group</label>
-                <div class="flex flex-wrap gap-2">
-                  <button class="px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-semibold shadow-md">Year 7</button>
-                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">Year 8</button>
-                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">GCSE</button>
-                  <button class="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-slate-300 text-sm hover:bg-white/10 transition-colors">A-Level</button>
-                </div>
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="block text-xs font-bold text-blue-400 uppercase tracking-widest mb-3">3) Topic & Working</label>
-                <textarea rows="3" class="w-full bg-white/5 border border-white/20 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 mb-3 placeholder-slate-500" placeholder="E.g. Solving simultaneous equations with quadratics..."></textarea>
-              </div>
-            </div>
-
-            <div class="bg-black/50 border border-white/10 rounded-xl p-6 relative">
-              <div class="absolute top-0 right-0 p-4">
-                <button class="text-slate-400 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase font-bold tracking-widest">
-                  <span class="material-icons text-[16px]">content_copy</span> Copy
-                </button>
-              </div>
-              <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Generated Prompt</p>
-              <p class="text-green-400 font-mono text-sm leading-relaxed">I am in Year 7. Please explain the concept of [Topic]. Use a step-by-step Socratic method, and do not make large jumps in logic. Ask me a mini-quiz question at the end to check my understanding.</p>
-            </div>
-            
-            <div class="flex gap-4 mt-6">
-              <a href="https://gemini.google.com" target="_blank" class="flex-1 text-center px-4 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold uppercase tracking-wider transition-colors shadow-lg shadow-blue-500/30">
-                Open in Gemini
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section id="hallucinations" class="tab-content">
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">Hallucinations</h2>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            AI can invent steps, definitions, or results that look believable. In maths, verification is part of learning. Confident answers can still be wrong.
-          </p>
-
-          <div class="space-y-4">
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
-              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
-                <span class="text-amber-400 font-bold">1</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg mb-1">Use another method</h3>
-                <p class="text-slate-400 text-sm">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
-              </div>
-            </div>
-
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
-              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
-                <span class="text-amber-400 font-bold">2</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg mb-1">Compare with your notes</h3>
-                <p class="text-slate-400 text-sm">If it uses a method you haven't learned, ask for the class method.</p>
-              </div>
-            </div>
-
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md flex items-start gap-4">
-              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
-                <span class="text-amber-400 font-bold">3</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg mb-1">Inspect each step</h3>
-                <p class="text-slate-400 text-sm">Treat it like marking: one incorrect step breaks the whole solution.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="transparency" class="tab-content">
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">AI on this Website</h2>
-          <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-2xl">
-            Transparency matters. Here's how AI relates to the SJWMS Maths revision website.
-          </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
-              <span class="material-icons text-slate-400 mb-4 block text-3xl">public_off</span>
-              <h3 class="text-white font-bold mb-2">No On-Page AI</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">This site does not include an AI chatbot or AI that reads your typing. It's a standard static website.</p>
-            </div>
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
-              <span class="material-icons text-blue-400 mb-4 block text-3xl">description</span>
-              <h3 class="text-white font-bold mb-2">Resources</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">In places, AI may have helped draft questions, examples, or explanations — which are then reviewed and edited by staff.</p>
-            </div>
-            <div class="p-6 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md">
-              <span class="material-icons text-purple-400 mb-4 block text-3xl">code</span>
-              <h3 class="text-white font-bold mb-2">Development</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">AI tools assisted in writing and improving code, layouts, and components — final decisions remain human-made.</p>
-            </div>
-          </div>
-
-          <div class="p-6 rounded-2xl border border-slate-500/30 bg-slate-800/50 backdrop-blur-md flex items-start gap-4">
-            <span class="material-icons text-slate-300 text-2xl mt-0.5">privacy_tip</span>
-            <div>
-              <h4 class="text-white font-bold mb-1">Privacy Note</h4>
-              <p class="text-slate-300 text-sm">When you use external AI tools (Gemini/NotebookLM/Canva), treat them like public services. Do not share personal data or school logins.</p>
-            </div>
-          </div>
-        </section>
-
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
+
+    <div class="wrap pt-8">
+      <div class="grid-docs">
+
+        <aside class="side pt-6">
+          <div class="px-2 mb-8">
+            <div class="side-title">Directory</div>
+            <div class="text-sm font-mono text-white tracking-widest uppercase">Mathematics / AI</div>
+          </div>
+
+          <nav class="space-y-1" id="sideNav">
+            <a class="side-link active" href="#overview"><span class="material-icons">data_object</span> Overview</a>
+            <a class="side-link" href="#approved"><span class="material-icons">verified</span> Approved Tools</a>
+            <a class="side-link" href="#dos"><span class="material-icons">rule</span> Parameters</a>
+            <a class="side-link" href="#builder"><span class="material-icons">terminal</span> Prompt Builder</a>
+            <a class="side-link" href="#hallucinations"><span class="material-icons">warning_amber</span> Anomalies</a>
+            <a class="side-link" href="#ai-on-site"><span class="material-icons">policy</span> Transparency</a>
+          </nav>
+
+          <div class="mt-10 px-2 pt-6 border-t border-marathon-border">
+            <div class="tiny text-marathon-lime/70 flex items-center gap-2">
+              <span class="material-icons text-[14px]">keyboard</span>
+              CTRL + F to query
+            </div>
+          </div>
+        </aside>
+
+        <div>
+
+          <section id="overview" class="anchor section !pt-0">
+            <div class="eyebrow mb-4">// 01. Overview</div>
+            <h2 class="h2">Optimal Utilization</h2>
+            <p class="p mt-6 max-w-3xl">
+              In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing. You should still be able to explain the reasoning yourself.
+            </p>
+
+            <div class="mt-12 grid md:grid-cols-3 gap-6">
+              <div class="hud-card">
+                <div class="eyebrow">Target:</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Explaining Steps</div>
+                <p class="p mt-3 text-sm">Ask for hints first, then the full method after you’ve attempted it.</p>
+              </div>
+              <div class="hud-card">
+                <div class="eyebrow">Target:</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Practice & Quizzes</div>
+                <p class="p mt-3 text-sm">Generate questions at your level and mark your working.</p>
+              </div>
+              <div class="hud-card">
+                <div class="eyebrow">Target:</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Error Detection</div>
+                <p class="p mt-3 text-sm">Paste your attempt and ask for the first incorrect step + why.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="approved" class="anchor section">
+            <div class="flex items-start justify-between gap-6 flex-wrap relative">
+              <div>
+                <div class="eyebrow mb-4">// 02. Verified Software</div>
+                <h2 class="h2">Approved Tools</h2>
+                <p class="p mt-6 max-w-3xl">
+                  Use responsibly. If you’re unsure whether something is allowed for assessed work, ask your teacher first.
+                </p>
+              </div>
+              <span class="pill mt-2">
+                <span class="material-icons text-[14px]">lock_open</span>
+                Access Granted
+              </span>
+            </div>
+
+            <div class="relative z-10 mt-12 grid md:grid-cols-3 gap-6">
+
+              <div class="hud-card group flex flex-col">
+                <div class="flex items-center gap-3 border-b border-marathon-border pb-4 mb-4">
+                  <span class="material-icons text-marathon-cyan text-2xl group-hover:animate-pulse">terminal</span>
+                  <h3 class="font-black text-white uppercase tracking-widest">Google Gemini</h3>
+                </div>
+                <p class="text-sm text-marathon-text/80 leading-relaxed flex-grow font-light">
+                  Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+                </p>
+                <div class="mt-8">
+                  <a href="https://gemini.google.com" target="_blank" class="text-[10px] font-mono font-bold text-marathon-cyan uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    [ Launch Sequence ]
+                    <span class="material-icons text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="hud-card group flex flex-col">
+                <div class="flex items-center gap-3 border-b border-marathon-border pb-4 mb-4">
+                  <span class="material-icons text-marathon-lime text-2xl group-hover:animate-pulse">storage</span>
+                  <h3 class="font-black text-white uppercase tracking-widest">NotebookLM</h3>
+                </div>
+                <p class="text-sm text-marathon-text/80 leading-relaxed flex-grow font-light">
+                  Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
+                </p>
+                <div class="mt-8">
+                  <a href="https://notebooklm.google.com" target="_blank" class="text-[10px] font-mono font-bold text-marathon-lime uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    [ Access Database ]
+                    <span class="material-icons text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="hud-card group flex flex-col">
+                <div class="flex items-center gap-3 border-b border-marathon-border pb-4 mb-4">
+                  <span class="material-icons text-marathon-orange text-2xl group-hover:animate-pulse">brush</span>
+                  <h3 class="font-black text-white uppercase tracking-widest">Canva AI</h3>
+                </div>
+                <p class="text-sm text-marathon-text/80 leading-relaxed flex-grow font-light">
+                  Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
+                </p>
+                <div class="mt-8">
+                  <a href="https://www.canva.com" target="_blank" class="text-[10px] font-mono font-bold text-marathon-orange uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors">
+                    [ Open Interface ]
+                    <span class="material-icons text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section id="dos" class="anchor section">
+            <div class="eyebrow mb-4">// 03. Execution Parameters</div>
+            <h2 class="h2">Do’s & Don’ts</h2>
+            <p class="p mt-6 max-w-3xl">AI is a study partner — not a shortcut. Use it to learn and verify.</p>
+
+            <div class="mt-12 grid md:grid-cols-[1fr,auto,1fr] gap-10 items-start">
+              
+              <div class="bg-marathon-cyan/5 border border-marathon-cyan/30 p-8">
+                <div class="col-head text-marathon-cyan">
+                  <span class="material-icons">check_box</span> Authorized
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-marathon-cyan">subdirectory_arrow_right</span>Ask for hints first, then a full solution if needed.</li>
+                  <li class="li"><span class="material-icons text-marathon-cyan">subdirectory_arrow_right</span>Paste your working and ask for the first mistake.</li>
+                  <li class="li"><span class="material-icons text-marathon-cyan">subdirectory_arrow_right</span>Generate practice at your year/exam level.</li>
+                  <li class="li"><span class="material-icons text-marathon-cyan">subdirectory_arrow_right</span>Request a mark-scheme style checklist.</li>
+                  <li class="li"><span class="material-icons text-marathon-cyan">subdirectory_arrow_right</span>Verify with notes, examples, or another method.</li>
+                </ul>
+              </div>
+
+              <div class="hidden md:block w-px bg-marathon-border h-full"></div>
+
+              <div class="bg-marathon-orange/5 border border-marathon-orange/30 p-8">
+                <div class="col-head text-marathon-orange">
+                  <span class="material-icons">warning</span> Restricted
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-marathon-orange">close</span>Copy answers without understanding the method.</li>
+                  <li class="li"><span class="material-icons text-marathon-orange">close</span>Use AI for assessed work unless your teacher allows it.</li>
+                  <li class="li"><span class="material-icons text-marathon-orange">close</span>Trust it blindly on formulas, theorems, or “facts”.</li>
+                  <li class="li"><span class="material-icons text-marathon-orange">close</span>Ask vague questions like “help with algebra”. Be specific.</li>
+                  <li class="li"><span class="material-icons text-marathon-orange">close</span>Share personal data (logins, phone numbers, etc.).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-10 callout">
+              <div class="eyebrow text-marathon-cyan">// Gold Standard Syntax</div>
+              <p class="mt-4 text-sm text-white font-medium">
+                “I’m in <span class="text-marathon-lime">Year 9</span>. I tried this question and my working is below. 
+                Please <span class="text-marathon-lime">identify the first mistake</span>, explain why, then give me <span class="text-marathon-lime">one hint</span> to fix it. 
+                Don’t give the final answer until I ask.”
+              </p>
+            </div>
+          </section>
+
+          <section id="builder" class="anchor section">
+            <div class="flex items-start justify-between gap-6 flex-wrap mb-10">
+              <div>
+                <div class="eyebrow mb-4">// 04. Terminal Console</div>
+                <h2 class="h2">Prompt Builder</h2>
+                <p class="p mt-6 max-w-3xl">
+                  Choose options to compile a strict syntax prompt, then define your <b>topic</b>. 
+                  If you’re stuck, input the raw question data (and your working) for optimal targeting.
+                </p>
+              </div>
+
+              <div class="flex gap-4 flex-wrap mt-2">
+                <button class="btn" onclick="resetBuilder()">
+                  <span class="material-icons text-[16px]">refresh</span> Reset Config
+                </button>
+                <a class="btn btn-primary" href="https://gemini.google.com" target="_blank">
+                  <span class="material-icons text-[16px]">open_in_new</span> Execute
+                </a>
+              </div>
+            </div>
+
+            <div class="tool mt-8 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+              <div class="tool-grid">
+                
+                <div class="tool-col">
+                  <div class="eyebrow">// Step 01: Operation Target</div>
+                  <div class="opt-grid mt-4">
+                    <button class="opt" onclick="setGoal('Explain','Explain a concept','explain it to me step-by-step')">
+                      Explain Concept <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Practice','Practice questions','give me 5 practice questions on')">
+                      Practice Data <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Check','Check my working','check my working and identify the first mistake for')">
+                      Verify Logic <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Pitfalls','Common mistakes','show me the common mistakes students make in')">
+                      Error Analysis <span class="material-icons text-marathon-border">add</span>
+                    </button>
+
+                    <button class="opt" onclick="setGoal('Stuck','I’m stuck (hint me)','I am stuck on this problem. Please help me without giving the final answer first. Ask me a question or give a single hint to move me forward.')">
+                      Request Hint <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Revise','Revision summary','create a short revision summary with key steps and 3 quick check questions for')">
+                      Data Summary <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Exam','Exam technique','teach me the exam technique and structure for answering questions on')">
+                      Exam Tactics <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                    <button class="opt" onclick="setGoal('Flash','Flashcards','make 8 flashcards (Q/A) for')">
+                      Compile Cards <span class="material-icons text-marathon-border">add</span>
+                    </button>
+                  </div>
+
+                  <div class="mt-12">
+                    <div class="eyebrow">// Step 02: User Level</div>
+                    <div class="chipbar">
+                      <div class="chip" onclick="setYear('Year 7','I am a Year 7 student.')">Year 7</div>
+                      <div class="chip" onclick="setYear('Year 8','I am a Year 8 student.')">Year 8</div>
+                      <div class="chip" onclick="setYear('Year 9','I am a Year 9 student.')">Year 9</div>
+                      <div class="chip" onclick="setYear('GCSE','I am a GCSE Maths student.')">GCSE</div>
+                      <div class="chip" onclick="setYear('A-Level','I am an A-Level Maths student.')">A-Level</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-12">
+                    <div class="eyebrow">// Step 03: Output Formatting</div>
+                    <div class="chipbar">
+                      <div class="chip" onclick="setStyle('Socratic','Do not give the final answer immediately. Guide me with hints and questions first, then a full solution only if I ask.')">Socratic</div>
+                      <div class="chip" onclick="setStyle('Simple','Use simple language, short steps, and helpful visual analogies if possible.')">Simple/Visual</div>
+                      <div class="chip" onclick="setStyle('Markscheme','Format your answer like an exam mark scheme with clear method marks and final answer.')">Mark Scheme</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-12">
+                    <div class="eyebrow">// Step 04: Modifiers (Optional)</div>
+                    <div class="chipbar">
+                      <div class="chip" id="chip-showSteps" onclick="toggleExtra('showSteps')">Show All Steps</div>
+                      <div class="chip" id="chip-checkAnswer" onclick="toggleExtra('checkAnswer')">Verify Answer</div>
+                      <div class="chip" id="chip-noBigJumps" onclick="toggleExtra('noBigJumps')">No Big Jumps</div>
+                      <div class="chip" id="chip-miniQuiz" onclick="toggleExtra('miniQuiz')">Add Mini Quiz</div>
+                    </div>
+                    <div class="hint">Optimize: Fewer modifiers = Clearer output.</div>
+                  </div>
+                </div>
+
+                <div class="tool-col bg-[#0b0c13]">
+                  <div class="eyebrow text-marathon-lime">// Output Buffer</div>
+
+                  <div class="mt-6">
+                    <label class="eyebrow text-marathon-muted">Target Variable (Topic)</label>
+                    <input id="topicInput" type="text"
+                      placeholder="e.g. solving linear equations..."
+                      class="mt-3 w-full border-marathon-border bg-black py-3 px-4 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]"/>
+                    <div class="hint mt-2">Critical field. Specify exact topic.</div>
+                  </div>
+
+                  <div class="mt-8" id="problemWrap" style="display:none;">
+                    <label class="eyebrow text-marathon-muted">Raw Data (Question/Working)</label>
+                    <textarea id="problemInput" rows="5"
+                      placeholder="Input question or working data here..."
+                      class="mt-3 w-full border-marathon-border bg-black py-3 px-4 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]"></textarea>
+                    <div class="hint mt-2">Including attempt data improves error detection.</div>
+                  </div>
+
+                  <div class="mt-8 flex flex-wrap gap-3 items-center">
+                    <button class="btn !px-4 !py-2" onclick="toggleProblemBox()">
+                      <span class="material-icons text-[16px]">data_array</span>
+                      <span id="problemToggleText">Input Raw Data</span>
+                    </button>
+
+                    <button class="btn btn-primary !px-4 !py-2 ml-auto" onclick="copyPrompt()">
+                      <span class="material-icons text-[16px]" id="copyIcon">content_copy</span>
+                      <span id="copyText">Copy Syntax</span>
+                    </button>
+                  </div>
+
+                  <div class="mt-8 prompt-box" id="promptPreview">
+> Waiting for parameters...
+> Select configuration on the left.
+> Define target variable.
+                  </div>
+
+                  <div class="mt-8 grid grid-cols-2 gap-4">
+                    <a href="https://gemini.google.com" target="_blank" class="btn btn-primary justify-center">
+                      <span class="material-icons text-[16px]">terminal</span> Run Gemini
+                    </a>
+                    <a href="https://notebooklm.google.com" target="_blank" class="btn justify-center">
+                      <span class="material-icons text-[16px]">storage</span> NotebookLM
+                    </a>
+                  </div>
+
+                  <div class="mt-8 tiny text-marathon-muted">
+                    SYS_NOTE: Always verify output logic. Anomalies may occur. Consult human authority (teacher) if uncertain.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="hallucinations" class="anchor section">
+            <div class="eyebrow mb-4 text-marathon-orange">// 05. System Anomalies</div>
+            <h2 class="h2">Hallucinations: False Positives</h2>
+            <p class="p mt-6 max-w-3xl">
+              AI systems can invent steps, definitions, or results that look structurally sound but are logically flawed. Verification is a mandatory phase of calculation.
+            </p>
+
+            <div class="mt-12 grid md:grid-cols-3 gap-6">
+              <div class="hud-card !border-t-2 !border-t-marathon-orange">
+                <div class="eyebrow text-marathon-orange">Protocol 01</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Cross-Verify</div>
+                <p class="p mt-3 text-sm">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
+              </div>
+              <div class="hud-card !border-t-2 !border-t-marathon-orange">
+                <div class="eyebrow text-marathon-orange">Protocol 02</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Database Match</div>
+                <p class="p mt-3 text-sm">Compare with your notes. If it uses an unknown method, request the class method.</p>
+              </div>
+              <div class="hud-card !border-t-2 !border-t-marathon-orange">
+                <div class="eyebrow text-marathon-orange">Protocol 03</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Step Inspection</div>
+                <p class="p mt-3 text-sm">Treat it like marking: one incorrect step breaks the whole solution tree.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 callout-warn">
+              <div class="eyebrow text-marathon-orange">// Fail-Safe Query</div>
+              <p class="mt-4 text-sm text-white font-medium">
+                “Before you answer, list your assumptions. If you’re not sure, say so. Show the method used at school.”
+              </p>
+            </div>
+          </section>
+
+          <section id="ai-on-site" class="anchor section">
+            <div class="eyebrow mb-4">// 06. System Transparency</div>
+            <h2 class="h2">AI On This Domain</h2>
+            <p class="p mt-6 max-w-3xl">Transparency matters. Here is the operational status of AI across the SJWMS Maths revision network.</p>
+
+            <div class="mt-12 grid md:grid-cols-3 gap-6">
+              <div class="hud-card">
+                <div class="eyebrow text-marathon-cyan">Frontend Status</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Offline</div>
+                <p class="p mt-3 text-sm">This domain contains no active AI chatbot or tracking AI. It operates as standard static markup.</p>
+              </div>
+              <div class="hud-card">
+                <div class="eyebrow text-marathon-cyan">Asset Creation</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Partial Use</div>
+                <p class="p mt-3 text-sm">AI models assisted in drafting select questions and examples—all finalized by human staff.</p>
+              </div>
+              <div class="hud-card">
+                <div class="eyebrow text-marathon-cyan">Architecture</div>
+                <div class="mt-2 font-black text-white uppercase tracking-wider text-lg">Assisted</div>
+                <p class="p mt-3 text-sm">Code execution and component layouts were developed with AI toolchains. Final structure remains human.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 border border-marathon-border bg-black p-6 flex items-start gap-4">
+              <span class="material-icons text-marathon-lime text-2xl">privacy_tip</span>
+              <div>
+                <div class="font-mono font-bold uppercase text-white tracking-widest text-sm">Data Security Notice</div>
+                <p class="text-xs font-mono text-marathon-muted mt-2 leading-relaxed">
+                  When accessing external terminals (Gemini/NotebookLM/Canva), operate as if on a public network. 
+                  <strong class="text-marathon-orange">Do not transmit personal data or secure school credentials.</strong>
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-16 flex justify-between flex-wrap gap-4 pt-6 border-t border-marathon-border">
+              <a href="#top" class="btn !bg-transparent !text-marathon-text !border-marathon-border hover:!border-white hover:!text-white">
+                <span class="material-icons text-[16px]">north</span> Return to Top
+              </a>
+              <div class="tiny text-marathon-muted mt-3">Anomalies expected. Query human staff for confirmation.</div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-slot"></div>
 
   <script>
-    function switchTab(tabId) {
-      // 1. Hide all content sections
-      document.querySelectorAll('.tab-content').forEach(section => {
-        section.classList.remove('active');
-      });
-      
-      // 2. Remove 'active' styling from all buttons
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-blue-500/20', 'border-blue-400/30', 'text-white', 'shadow-lg');
-        btn.classList.add('hover:bg-white/5', 'text-slate-400', 'border-transparent');
-      });
+    // ===== Sidebar active section =====
+    (function(){
+      const nav = document.getElementById('sideNav');
+      if(!nav) return;
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
-      // 3. Show the selected content section
-      const targetSection = document.getElementById(tabId);
-      if (targetSection) {
-        targetSection.classList.add('active');
-        // Reset scroll position to top when switching tabs
-        document.querySelector('main').scrollTo(0, 0); 
-      }
+      const obs = new IntersectionObserver((entries)=>{
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+        if(!visible) return;
+        
+        links.forEach(l => l.classList.remove('active'));
+        const activeLink = document.querySelector(`a[href="#${visible.target.id}"]`);
+        if(activeLink) activeLink.classList.add('active');
+      }, { rootMargin: '-100px 0px -60% 0px' });
 
-      // 4. Add 'active' styling to the clicked button
-      const activeBtn = event.currentTarget;
-      activeBtn.classList.remove('hover:bg-white/5', 'text-slate-400', 'border-transparent');
-      activeBtn.classList.add('bg-blue-500/20', 'border-blue-400/30', 'text-white', 'shadow-lg');
-    }
+      targets.forEach(t => obs.observe(t));
+    })();
   </script>
 </body>
 </html>
