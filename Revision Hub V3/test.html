@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SJWMS Maths - AI Portal</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SJWMS Maths | AI Usage & Policy</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+
     <style>
-        /* Dynamic Geometric Pattern - Diagonal Speed Lines */
-        .bg-marathon-pattern {
-            background-color: #ffffff;
-            background-image: repeating-linear-gradient(
-                45deg, 
-                transparent, 
-                transparent 10px, 
-                #f1f5f9 10px, 
-                #f1f5f9 20px
-            );
-        }
-        
-        /* Sharp athletic cut for sections */
-        .clip-diagonal {
-            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
-        }
+        body { font-family: 'Lexend', sans-serif; overflow-x-hidden; background-color: #f8fafc; }
 
         /* Custom Colors based on School Crest */
         .text-school-gold { color: #FFC72C; }
         .bg-school-gold { background-color: #FFC72C; }
         .border-school-gold { border-color: #FFC72C; }
-        .shadow-school-gold { box-shadow: 8px 8px 0px 0px #FFC72C; }
+        .shadow-school-gold { box-shadow: 6px 6px 0px 0px #FFC72C; }
         
         .text-school-charcoal { color: #333F48; }
         .bg-school-charcoal { background-color: #333F48; }
         .border-school-charcoal { border-color: #333F48; }
+        .shadow-school-charcoal { box-shadow: 6px 6px 0px 0px #333F48; }
+
+        /* Dynamic Geometric Pattern */
+        .bg-marathon-pattern {
+            background-color: #ffffff;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #f1f5f9 10px, #f1f5f9 20px);
+        }
+        .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+
+        /* Typography & Layout */
+        .eyebrow { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; }
+        .section-heading { font-size: 2.25rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #333F48; border-bottom: 4px solid #FFC72C; display: inline-block; padding-bottom: 0.5rem; margin-bottom: 1.5rem; line-height: 1; }
+        .anchor { scroll-margin-top: 100px; }
+        .section { padding-top: 4rem; padding-bottom: 4rem; border-bottom: 4px solid #e2e8f0; }
+
+        /* Sidebar Navigation */
+        .side-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; color: #64748b; border-left: 4px solid transparent; transition: all 0.2s; }
+        .side-link:hover { color: #333F48; background-color: #f1f5f9; border-left-color: #cbd5e1; }
+        .side-link.active { color: #333F48; background-color: #FFC72C; border-left-color: #333F48; }
+
+        /* Brutalist Buttons & Elements */
+        .btn-brutal { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-size: 0.875rem; font-weight: 900; text-transform: uppercase; border: 2px solid #333F48; background-color: white; color: #333F48; transition: all 0.2s; box-shadow: 4px 4px 0px 0px #333F48; cursor: pointer; }
+        .btn-brutal:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px #333F48; }
+        .btn-brutal:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px 0px #333F48; }
+        .btn-primary { background-color: #333F48; color: white; border-color: #333F48; box-shadow: 4px 4px 0px 0px #FFC72C; }
+        .btn-primary:hover { box-shadow: 2px 2px 0px 0px #FFC72C; }
+        .btn-primary:active { box-shadow: 0px 0px 0px 0px #FFC72C; }
+
+        /* Prompt Builder Specifics */
+        .opt { width: 100%; border: 2px solid #e2e8f0; padding: 1rem; font-size: 0.875rem; font-weight: 700; text-align: left; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; cursor: pointer; background: white; }
+        .opt:hover { border-color: #333F48; }
+        .opt.on { border-color: #333F48; background-color: #f1f5f9; box-shadow: inset 4px 0 0 0 #FFC72C; }
+        
+        .chip { display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid #e2e8f0; background: white; padding: 0.5rem 1rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+        .chip:hover { border-color: #333F48; }
+        .chip.on { background-color: #333F48; color: white; border-color: #333F48; }
+
+        .prompt-box { font-family: monospace; background-color: #0f172a; color: #f8fafc; padding: 1.5rem; font-size: 0.875rem; line-height: 1.6; border: 4px solid #333F48; white-space: pre-wrap; box-shadow: 6px 6px 0px 0px #FFC72C; }
+        
+        /* Form Inputs */
+        .brutal-input { width: 100%; border: 2px solid #333F48; padding: 0.75rem; font-family: inherit; font-size: 0.875rem; outline: none; transition: box-shadow 0.2s; }
+        .brutal-input:focus { box-shadow: 4px 4px 0px 0px #FFC72C; }
     </style>
 </head>
-<body class="bg-gray-50 text-school-charcoal font-sans antialiased overflow-x-hidden">
+<body>
 
     <header class="bg-white/90 backdrop-blur border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,62 +96,465 @@
         </div>
     </header>
 
-    <main>
-        <section class="relative bg-marathon-pattern clip-diagonal pb-32 pt-20 border-b-8 border-school-charcoal">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="md:w-2/3">
-                    <div class="inline-block bg-school-charcoal text-white px-4 py-1 mb-6 font-bold uppercase tracking-widest text-sm transform -skew-x-12">
-                        <span class="skew-x-12 inline-block">System v2.0 Online</span>
+    <main class="relative pb-20">
+        <div class="w-full bg-school-gold text-school-charcoal border-b-4 border-school-charcoal px-4 py-3 flex items-center justify-center text-xs md:text-sm font-black uppercase tracking-widest">
+            <span class="material-icons text-base mr-2">construction</span>
+            Year 7, 8 and GCSE Still Under Construction
+        </div>
+        
+        <section class="relative w-full py-20 md:py-32 flex items-center overflow-hidden bg-marathon-pattern clip-diagonal border-b-8 border-school-charcoal mb-12">
+            <div class="absolute inset-0 z-0 opacity-10 grayscale mix-blend-multiply">
+                <img src="assets/home-hero5.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
+            </div>
+
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-2xl bg-white p-8 md:p-12 border-4 border-school-charcoal shadow-school-gold">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 bg-school-charcoal text-white font-bold text-xs uppercase tracking-widest">
+                        <span class="material-icons text-[14px] text-school-gold">verified</span>
+                        School Approved
                     </div>
                     
-                    <h1 class="text-6xl md:text-8xl font-black text-school-charcoal leading-none tracking-tighter uppercase mb-6">
-                        Master Maths <br>
-                        <span class="text-school-gold">With AI.</span>
+                    <h1 class="text-5xl md:text-7xl font-black text-school-charcoal mb-6 leading-none tracking-tighter uppercase">
+                        AI Usage<br>
+                        <span class="text-school-gold" style="text-shadow: 2px 2px 0 #333F48;">In Mathematics</span>
                     </h1>
                     
-                    <p class="text-xl md:text-2xl font-medium text-gray-600 mb-10 max-w-xl border-l-4 border-school-gold pl-4 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
-                        Supercharge your revision. Our new AI-driven platform adapts to your learning speed, generating custom quizzes and step-by-step breakdowns for every topic.
+                    <p class="text-gray-700 text-lg md:text-xl font-semibold mb-8 border-l-4 border-school-gold pl-4">
+                        Use AI to learn methods, practise, and check your reasoning. Never to replace your own working.
                     </p>
                     
-                    <div class="flex gap-4">
-                        <a href="ai_usage.html" class="bg-school-charcoal text-white px-8 py-4 font-black uppercase tracking-wider text-lg hover:bg-school-gold hover:text-school-charcoal transition-all shadow-school-gold hover:shadow-none hover:translate-y-1 hover:translate-x-1">
-                            Start AI Session
-                        </a>
-                    </div>
+                    <a href="#builder" class="btn-brutal btn-primary">
+                        <span>OPEN Prompt Builder</span>
+                        <span class="material-icons text-sm">arrow_downward</span>
+                    </a>
                 </div>
             </div>
-            
-            <div class="absolute right-0 top-0 h-full w-1/3 bg-school-gold opacity-20" style="clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);"></div>
         </section>
 
-        <section class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-12">
-                    <h2 class="text-4xl font-black text-school-charcoal uppercase tracking-tight border-b-4 border-school-gold inline-block pb-2">Intelligent Learning</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="bg-gray-50 p-8 border-t-4 border-school-charcoal relative overflow-hidden group hover:-translate-y-2 transition-transform shadow-sm">
-                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-gray-200 rounded-full group-hover:bg-school-gold transition-colors z-0 opacity-50"></div>
-                        <h3 class="text-2xl font-black text-school-charcoal uppercase tracking-tight mb-4 relative z-10">Smart Solver</h3>
-                        <p class="text-gray-600 font-medium relative z-10">Stuck on algebra? Input your equation and our AI will break down the solution line-by-line so you understand the "why", not just the "how".</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-[240px,1fr] gap-12 items-start">
+
+                <aside class="hidden lg:block sticky top-28 bg-white border-4 border-school-charcoal p-4 shadow-school-gold">
+                    <div class="mb-4 pb-4 border-b-2 border-gray-100">
+                        <div class="eyebrow">AI Usage</div>
+                        <div class="text-xl font-black tracking-tighter uppercase text-school-charcoal mt-1">Mathematics</div>
                     </div>
-                    <div class="bg-gray-50 p-8 border-t-4 border-school-gold relative overflow-hidden group hover:-translate-y-2 transition-transform shadow-sm">
-                        <div class="absolute right-0 bottom-0 w-32 h-32 bg-marathon-pattern opacity-50 z-0" style="clip-path: polygon(100% 0, 0% 100%, 100% 100%);"></div>
-                        <h3 class="text-2xl font-black text-school-charcoal uppercase tracking-tight mb-4 relative z-10">Dynamic Quizzes</h3>
-                        <p class="text-gray-600 font-medium relative z-10">Generate infinite practice papers. The AI analyzes your weak points and automatically weights the quiz to help you improve faster.</p>
-                    </div>
-                    <div class="bg-gray-50 p-8 border-t-4 border-school-charcoal relative overflow-hidden group hover:-translate-y-2 transition-transform shadow-sm">
-                        <div class="absolute -left-4 top-1/2 w-16 h-32 bg-gray-200 transform -skew-x-12 group-hover:bg-school-gold transition-colors z-0 opacity-50"></div>
-                        <h3 class="text-2xl font-black text-school-charcoal uppercase tracking-tight mb-4 relative z-10">Exam Predictor</h3>
-                        <p class="text-gray-600 font-medium relative z-10">Upload past mock results and let our machine learning model project your target grade while highlighting the exact topics needed to reach it.</p>
-                    </div>
+                    <nav class="space-y-1" id="sideNav">
+                        <a class="side-link active" href="#overview"><span class="material-icons text-[18px]">space_dashboard</span>Overview</a>
+                        <a class="side-link" href="#approved"><span class="material-icons text-[18px]">verified</span>Approved tools</a>
+                        <a class="side-link" href="#dos"><span class="material-icons text-[18px]">checklist</span>Do’s & Don’ts</a>
+                        <a class="side-link" href="#builder"><span class="material-icons text-[18px]">architecture</span>Prompt Builder</a>
+                        <a class="side-link" href="#hallucinations"><span class="material-icons text-[18px]">warning_amber</span>Hallucinations</a>
+                        <a class="side-link" href="#ai-on-site"><span class="material-icons text-[18px]">info</span>AI on this website</a>
+                    </nav>
+                </aside>
+
+                <div>
+                    <section id="overview" class="anchor section pt-0">
+                        <h2 class="section-heading">What “good AI use” looks like</h2>
+                        <p class="text-lg text-gray-700 font-medium mb-10 max-w-3xl">
+                            In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing. You should still be able to explain the reasoning yourself.
+                        </p>
+
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-white border-2 border-school-charcoal p-6 hover:-translate-y-1 transition-transform">
+                                <div class="eyebrow text-school-gold">Best for</div>
+                                <div class="mt-2 font-black text-xl uppercase tracking-tight text-school-charcoal">Explaining steps</div>
+                                <p class="text-gray-600 mt-2 font-medium">Ask for hints first, then the full method after you’ve attempted it.</p>
+                            </div>
+                            <div class="bg-white border-2 border-school-charcoal p-6 hover:-translate-y-1 transition-transform">
+                                <div class="eyebrow text-school-gold">Best for</div>
+                                <div class="mt-2 font-black text-xl uppercase tracking-tight text-school-charcoal">Practice & quizzes</div>
+                                <p class="text-gray-600 mt-2 font-medium">Generate questions at your level and mark your working.</p>
+                            </div>
+                            <div class="bg-white border-2 border-school-charcoal p-6 hover:-translate-y-1 transition-transform">
+                                <div class="eyebrow text-school-gold">Best for</div>
+                                <div class="mt-2 font-black text-xl uppercase tracking-tight text-school-charcoal">Finding mistakes</div>
+                                <p class="text-gray-600 mt-2 font-medium">Paste your attempt and ask for the first incorrect step + why.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="approved" class="anchor section">
+                        <div class="flex justify-between items-end flex-wrap gap-4 mb-10">
+                            <div>
+                                <h2 class="section-heading mb-0">Tools you can use</h2>
+                                <p class="text-lg text-gray-700 font-medium mt-4 max-w-2xl">
+                                    Use responsibly. If you’re unsure whether something is allowed for assessed work, ask your teacher first.
+                                </p>
+                            </div>
+                            <span class="inline-flex items-center gap-2 bg-green-100 text-green-800 border-2 border-green-800 px-3 py-1 font-bold text-xs uppercase">
+                                <span class="material-icons text-[16px]">task_alt</span> Approved list
+                            </span>
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="bg-white border-4 border-school-charcoal p-6 shadow-school-charcoal flex flex-col hover:-translate-y-2 transition-transform">
+                                <div class="flex items-center gap-3 border-b-2 border-gray-100 pb-4 mb-4">
+                                    <span class="material-icons text-blue-600 text-3xl">auto_awesome</span>
+                                    <h3 class="font-black text-xl uppercase tracking-tight text-school-charcoal">Google Gemini</h3>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-6 flex-grow">
+                                    Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+                                </p>
+                                <a href="https://gemini.google.com" target="_blank" class="btn-brutal text-center w-full">Launch Gemini</a>
+                            </div>
+
+                            <div class="bg-white border-4 border-school-charcoal p-6 shadow-school-charcoal flex flex-col hover:-translate-y-2 transition-transform">
+                                <div class="flex items-center gap-3 border-b-2 border-gray-100 pb-4 mb-4">
+                                    <span class="material-icons text-purple-600 text-3xl">menu_book</span>
+                                    <h3 class="font-black text-xl uppercase tracking-tight text-school-charcoal">NotebookLM</h3>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-6 flex-grow">
+                                    Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
+                                </p>
+                                <a href="https://notebooklm.google.com" target="_blank" class="btn-brutal text-center w-full">Open NotebookLM</a>
+                            </div>
+
+                            <div class="bg-white border-4 border-school-charcoal p-6 shadow-school-charcoal flex flex-col hover:-translate-y-2 transition-transform">
+                                <div class="flex items-center gap-3 border-b-2 border-gray-100 pb-4 mb-4">
+                                    <span class="material-icons text-pink-600 text-3xl">brush</span>
+                                    <h3 class="font-black text-xl uppercase tracking-tight text-school-charcoal">Canva AI</h3>
+                                </div>
+                                <p class="text-gray-600 font-medium mb-6 flex-grow">
+                                    Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
+                                </p>
+                                <a href="https://www.canva.com" target="_blank" class="btn-brutal text-center w-full">Open Canva</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="dos" class="anchor section">
+                        <h2 class="section-heading">Do’s & Don’ts</h2>
+                        <p class="text-lg text-gray-700 font-medium mb-10 max-w-3xl">AI is a study partner — not a shortcut. Use it to learn and verify.</p>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-green-50 border-4 border-green-800 p-6 md:p-8">
+                                <h3 class="flex items-center gap-3 font-black text-2xl uppercase tracking-tight text-green-900 border-b-2 border-green-800/20 pb-4 mb-4">
+                                    <span class="material-icons">task_alt</span> Do
+                                </h3>
+                                <ul class="space-y-4 text-green-900 font-medium">
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5">check</span>Ask for hints first, then a full solution if needed.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5">check</span>Paste your working and ask for the first mistake.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5">check</span>Generate practice at your year/exam level.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5">check</span>Request a mark-scheme style checklist.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5">check</span>Verify with notes, examples, or another method.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-red-50 border-4 border-red-800 p-6 md:p-8">
+                                <h3 class="flex items-center gap-3 font-black text-2xl uppercase tracking-tight text-red-900 border-b-2 border-red-800/20 pb-4 mb-4">
+                                    <span class="material-icons">block</span> Don’t
+                                </h3>
+                                <ul class="space-y-4 text-red-900 font-medium">
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5 text-red-700">close</span>Copy answers without understanding the method.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5 text-red-700">close</span>Use AI for assessed work unless allowed.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5 text-red-700">close</span>Trust it blindly on formulas, theorems, or “facts”.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5 text-red-700">close</span>Ask vague questions like “help with algebra”.</li>
+                                    <li class="flex items-start gap-3"><span class="material-icons mt-0.5 text-red-700">close</span>Share personal data (logins, phone numbers, etc.).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-school-charcoal text-white p-6 border-l-8 border-school-gold shadow-school-gold">
+                            <div class="eyebrow text-school-gold mb-2">Gold standard prompt</div>
+                            <p class="font-mono text-sm md:text-base leading-relaxed">
+                                “I’m in <b>Year 9</b>. I tried this question and my working is below. Please <b>identify the first mistake</b>, explain why, then give me <b>one hint</b> to fix it. Don’t give the final answer until I ask.”
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="builder" class="anchor section bg-gray-100 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-y-4 border-school-charcoal">
+                        <div class="flex justify-between items-end flex-wrap gap-4 mb-8">
+                            <div>
+                                <h2 class="section-heading mb-0">Prompt Builder</h2>
+                                <p class="text-lg text-gray-700 font-medium mt-4 max-w-2xl">
+                                    Select options to build a strong prompt, type your topic, and paste your working.
+                                </p>
+                            </div>
+                            <button class="btn-brutal bg-white" onclick="resetBuilder()">
+                                <span class="material-icons text-[18px]">refresh</span> Reset
+                            </button>
+                        </div>
+
+                        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+                            <div class="space-y-10">
+                                <div>
+                                    <div class="eyebrow mb-4">1) Choose your goal</div>
+                                    <div class="grid grid-cols-2 gap-3" id="goalGrid">
+                                        <button class="opt" onclick="setGoal('explain', this, 'explain it to me step-by-step')">Explain Concept</button>
+                                        <button class="opt" onclick="setGoal('practice', this, 'give me 5 practice questions on')">Practice Questions</button>
+                                        <button class="opt" onclick="setGoal('check', this, 'check my working and identify the first mistake for')">Check Working</button>
+                                        <button class="opt" onclick="setGoal('stuck', this, 'I am stuck. Please give a single hint to move me forward without giving the final answer for')">I'm Stuck (Hint)</button>
+                                        <button class="opt" onclick="setGoal('revise', this, 'create a short revision summary with key steps and 3 quick check questions for')">Revision Summary</button>
+                                        <button class="opt" onclick="setGoal('flash', this, 'make 8 flashcards (Q/A) for')">Flashcards</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="eyebrow mb-4">2) Year Group</div>
+                                    <div class="flex flex-wrap gap-2" id="yearGrid">
+                                        <div class="chip" onclick="setYear(this, 'I am a Year 7 student.')">Year 7</div>
+                                        <div class="chip" onclick="setYear(this, 'I am a Year 8 student.')">Year 8</div>
+                                        <div class="chip" onclick="setYear(this, 'I am a Year 9 student.')">Year 9</div>
+                                        <div class="chip" onclick="setYear(this, 'I am a GCSE Maths student.')">GCSE</div>
+                                        <div class="chip" onclick="setYear(this, 'I am an A-Level Maths student.')">A-Level</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="eyebrow mb-4">3) Response Style</div>
+                                    <div class="flex flex-wrap gap-2" id="styleGrid">
+                                        <div class="chip" onclick="setStyle(this, 'Do not give the final answer immediately. Guide me with hints.')">Socratic</div>
+                                        <div class="chip" onclick="setStyle(this, 'Use simple language and helpful visual analogies if possible.')">Simple & Visual</div>
+                                        <div class="chip" onclick="setStyle(this, 'Format like an exam mark scheme with clear method marks.')">Mark Scheme</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="eyebrow mb-4">4) Extras</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="chip" id="chip-showSteps" onclick="toggleExtra('showSteps', 'Show every single step of your working.', this)">Show Steps</div>
+                                        <div class="chip" id="chip-verify" onclick="toggleExtra('verify', 'Double-check your final answer using a different method.', this)">Verify Answer</div>
+                                        <div class="chip" id="chip-quiz" onclick="toggleExtra('quiz', 'End your response with a mini-quiz to test my understanding.', this)">Mini Quiz After</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 md:p-8 border-4 border-school-charcoal shadow-school-gold flex flex-col">
+                                <div class="eyebrow mb-4">Your Context</div>
+                                
+                                <label class="font-bold text-school-charcoal text-sm uppercase block mb-2">Topic</label>
+                                <input id="topicInput" type="text" placeholder="e.g. solving linear equations..." class="brutal-input mb-6" oninput="updatePrompt()"/>
+
+                                <div id="problemWrap" style="display:none;" class="mb-6">
+                                    <label class="font-bold text-school-charcoal text-sm uppercase block mb-2">Question / Working</label>
+                                    <textarea id="problemInput" rows="4" placeholder="Paste the question and your working here..." class="brutal-input resize-none" oninput="updatePrompt()"></textarea>
+                                </div>
+
+                                <button class="btn-brutal text-sm mb-6 self-start" onclick="toggleProblemBox()">
+                                    <span class="material-icons text-[16px]">edit_note</span> <span id="problemToggleText">Add Question/Working</span>
+                                </button>
+
+                                <div class="eyebrow mb-2">Generated Prompt</div>
+                                <div class="prompt-box flex-grow mb-6" id="promptPreview">Select options on the left to build your prompt.</div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button class="btn-brutal bg-gray-100 border-gray-400 text-gray-700 w-full" onclick="copyPrompt()" id="copyBtn">
+                                        <span class="material-icons text-[18px]">content_copy</span> Copy
+                                    </button>
+                                    <a href="https://gemini.google.com" target="_blank" class="btn-brutal btn-primary w-full">
+                                        Launch Gemini
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="hallucinations" class="anchor section">
+                        <h2 class="section-heading">Hallucinations</h2>
+                        <p class="text-lg text-gray-700 font-medium mb-10 max-w-3xl">
+                            AI can invent steps, definitions, or results that look believable. In maths, verification is part of learning.
+                        </p>
+
+                        <div class="grid md:grid-cols-3 gap-6 mb-10">
+                            <div class="border-l-4 border-school-charcoal pl-4">
+                                <div class="eyebrow">Check 1</div>
+                                <div class="font-black text-lg text-school-charcoal uppercase mt-1 mb-2">Another Method</div>
+                                <p class="text-gray-600 font-medium text-sm">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
+                            </div>
+                            <div class="border-l-4 border-school-charcoal pl-4">
+                                <div class="eyebrow">Check 2</div>
+                                <div class="font-black text-lg text-school-charcoal uppercase mt-1 mb-2">Check Notes</div>
+                                <p class="text-gray-600 font-medium text-sm">If it uses a method you haven’t learned, ask for the class method.</p>
+                            </div>
+                            <div class="border-l-4 border-school-charcoal pl-4">
+                                <div class="eyebrow">Check 3</div>
+                                <div class="font-black text-lg text-school-charcoal uppercase mt-1 mb-2">Inspect Steps</div>
+                                <p class="text-gray-600 font-medium text-sm">Treat it like marking: one incorrect step breaks the whole solution.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-100 border-4 border-amber-500 p-6 shadow-[6px_6px_0px_0px_#f59e0b]">
+                            <div class="eyebrow text-amber-800 mb-2 flex items-center gap-2">
+                                <span class="material-icons text-[16px]">warning</span> Anti-Hallucination Prompt
+                            </div>
+                            <p class="font-mono text-sm text-amber-900 font-bold">
+                                “Before you answer, list your assumptions. If you’re not sure, say so. Show the method used at school.”
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="ai-on-site" class="anchor section border-none pb-8">
+                        <h2 class="section-heading">AI on this website</h2>
+                        <p class="text-lg text-gray-700 font-medium mb-10 max-w-3xl">Transparency matters. Here’s how AI relates to SJWMS Maths revision website.</p>
+
+                        <div class="grid md:grid-cols-3 gap-8 mb-10">
+                            <div>
+                                <div class="eyebrow">On-page AI</div>
+                                <div class="mt-2 font-black text-lg uppercase leading-tight text-school-charcoal">No AI runs on this website</div>
+                                <p class="text-gray-600 text-sm font-medium mt-2">This site does not include an AI chatbot or AI that reads your typing. It’s a normal website.</p>
+                            </div>
+                            <div>
+                                <div class="eyebrow">Resources</div>
+                                <div class="mt-2 font-black text-lg uppercase leading-tight text-school-charcoal">AI Assisted Worksheets</div>
+                                <p class="text-gray-600 text-sm font-medium mt-2">In places, AI may have helped draft questions or examples — always reviewed and edited by staff.</p>
+                            </div>
+                            <div>
+                                <div class="eyebrow">Development</div>
+                                <div class="mt-2 font-black text-lg uppercase leading-tight text-school-charcoal">Code & Layout AI</div>
+                                <p class="text-gray-600 text-sm font-medium mt-2">AI tools assisted in writing code, layouts, and components — final decisions remain human-made.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 border-2 border-school-charcoal p-4 flex gap-4 items-start">
+                            <span class="material-icons text-school-charcoal text-2xl">privacy_tip</span>
+                            <div>
+                                <div class="font-black uppercase text-school-charcoal">Privacy Note</div>
+                                <p class="text-sm font-medium text-gray-600 mt-1">
+                                    When you use external AI tools (Gemini/NotebookLM/Canva), treat them like public services. Don’t share personal data or school logins.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <div id="footer-slot"></div>
     <script src="assets/footer-loader.js" defer></script>
-    
+
+    <script>
+        // Sidebar active section logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('sideNav');
+            if(!nav) return;
+            const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+            const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+            const obs = new IntersectionObserver((entries)=>{
+                const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+                if(!visible) return;
+                const id = '#' + visible.target.id;
+                links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }, { rootMargin: "-20% 0px -70% 0px", threshold: [0.1] });
+
+            targets.forEach(t => obs.observe(t));
+        });
+
+        // Prompt Builder Logic
+        let builderState = {
+            goalText: "",
+            yearText: "",
+            styleText: "",
+            extrasText: {},
+            topic: "",
+            problem: ""
+        };
+
+        function resetBuilder() {
+            builderState = { goalText: "", yearText: "", styleText: "", extrasText: {}, topic: "", problem: "" };
+            
+            // Clear UI Selections
+            document.querySelectorAll('#goalGrid .opt').forEach(el => el.classList.remove('on'));
+            document.querySelectorAll('#yearGrid .chip').forEach(el => el.classList.remove('on'));
+            document.querySelectorAll('#styleGrid .chip').forEach(el => el.classList.remove('on'));
+            document.querySelectorAll('[id^="chip-"]').forEach(el => el.classList.remove('on'));
+            
+            document.getElementById('topicInput').value = "";
+            document.getElementById('problemInput').value = "";
+            
+            updatePrompt();
+        }
+
+        function setGoal(id, element, text) {
+            document.querySelectorAll('#goalGrid .opt').forEach(el => el.classList.remove('on'));
+            element.classList.add('on');
+            builderState.goalText = text;
+            updatePrompt();
+        }
+
+        function setYear(element, text) {
+            document.querySelectorAll('#yearGrid .chip').forEach(el => el.classList.remove('on'));
+            element.classList.add('on');
+            builderState.yearText = text;
+            updatePrompt();
+        }
+
+        function setStyle(element, text) {
+            document.querySelectorAll('#styleGrid .chip').forEach(el => el.classList.remove('on'));
+            element.classList.add('on');
+            builderState.styleText = text;
+            updatePrompt();
+        }
+
+        function toggleExtra(id, text, element) {
+            element.classList.toggle('on');
+            if (element.classList.contains('on')) {
+                builderState.extrasText[id] = text;
+            } else {
+                delete builderState.extrasText[id];
+            }
+            updatePrompt();
+        }
+
+        function toggleProblemBox() {
+            const wrap = document.getElementById('problemWrap');
+            const txt = document.getElementById('problemToggleText');
+            if (wrap.style.display === 'none') {
+                wrap.style.display = 'block';
+                txt.textContent = 'Hide Question/Working';
+            } else {
+                wrap.style.display = 'none';
+                txt.textContent = 'Add Question/Working';
+                document.getElementById('problemInput').value = "";
+                updatePrompt();
+            }
+        }
+
+        function updatePrompt() {
+            builderState.topic = document.getElementById('topicInput').value.trim();
+            builderState.problem = document.getElementById('problemInput').value.trim();
+
+            let parts = [];
+            
+            if (builderState.yearText) parts.push(builderState.yearText);
+            
+            let actionText = builderState.goalText || "[Select a goal]";
+            let topicText = builderState.topic ? `"${builderState.topic}"` : "[Type your topic]";
+            parts.push(`Please ${actionText} ${topicText}.`);
+
+            if (builderState.styleText) parts.push(builderState.styleText);
+            
+            let extras = Object.values(builderState.extrasText);
+            if (extras.length > 0) {
+                parts.push(extras.join(" "));
+            }
+
+            if (builderState.problem) {
+                parts.push(`\nHere is my question/working:\n"""\n${builderState.problem}\n"""`);
+            }
+
+            const output = parts.join(" ");
+            document.getElementById('promptPreview').textContent = output || "Select options to build your prompt.";
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('promptPreview').textContent;
+            if (text === "Select options to build your prompt.") return;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<span class="material-icons text-[18px]">check</span> Copied!';
+                btn.classList.add('border-green-600', 'text-green-700', 'bg-green-50');
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('border-green-600', 'text-green-700', 'bg-green-50');
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
