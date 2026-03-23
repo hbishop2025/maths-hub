@@ -106,16 +106,16 @@
       <div class="flex items-center gap-2 mb-3">
         <div class="w-1.5 h-6 bg-blue-500 rounded-full"></div>
         <div>
-            <h3 class="font-bold text-xl">Sector 1: Local Flights (Fluency)</h3>
-            <p class="text-xs text-gray-400">Basic Telemetry. Standard Units.</p>
+            <h3 class="font-bold text-xl">Sector 1: Standard Flight Telemetry (Fluency)</h3>
+            <p class="text-xs text-gray-400">Core Speed, Distance, and Time calculations.</p>
         </div>
       </div>
       <table class="telemetry-table">
         <thead>
           <tr>
             <th>Flight ID</th>
-            <th>Distance (km)</th>
-            <th>Speed (km/h)</th>
+            <th>Distance</th>
+            <th>Speed</th>
             <th>Time / Duration</th>
             <th>Status</th>
           </tr>
@@ -123,21 +123,33 @@
         <tbody>
           <tr>
             <td class="font-mono font-bold text-blue-600">BA-E01</td>
-            <td class="data-cell">340 km</td>
-            <td class="data-cell">400 km/h</td>
-            <td class="static-scramble">#!&%@?</td> <td><span class="status-badge status-green">AIRBORNE</span></td>
+            <td class="data-cell">1,200 km</td>
+            <td class="static-scramble">#!&%@?</td> <td class="data-cell">2 hours</td>
+            <td><span class="status-badge status-green">AIRBORNE</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-blue-600">BA-E02</td>
             <td class="static-scramble">@#$$!</td> <td class="data-cell">800 km/h</td>
-            <td class="data-cell">2 hrs 15 mins</td>
+            <td class="data-cell">3.5 hours</td>
             <td><span class="status-badge status-red">DELAYED</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-blue-600">BA-E03</td>
-            <td class="data-cell">930 km</td>
-            <td class="static-scramble">??#%&</td> <td class="data-cell">1 hr 30 mins</td>
-            <td><span class="status-badge status-yellow">TAXING</span></td>
+            <td class="data-cell">2,400 km</td>
+            <td class="data-cell">600 km/h</td>
+            <td class="static-scramble">??#%&</td> <td><span class="status-badge status-yellow">TAXING</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-blue-600">BA-E04</td>
+            <td class="data-cell">450 km</td>
+            <td class="data-cell">600 km/h</td>
+            <td class="static-scramble">MINS_ERR</td> <td><span class="status-badge status-green">APPROACH</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-blue-600">BA-E05</td>
+            <td class="data-cell">1,750 km</td>
+            <td class="static-scramble">ERR_SPD</td> <td class="data-cell">2 hrs 30 mins</td>
+            <td><span class="status-badge status-gray">SCHEDULED</span></td>
           </tr>
         </tbody>
       </table>
@@ -147,35 +159,49 @@
       <div class="flex items-center gap-2 mb-3">
         <div class="w-1.5 h-6 bg-teal-500 rounded-full"></div>
         <div>
-            <h3 class="font-bold text-xl">Sector 2: International (Unit Conversion)</h3>
-            <p class="text-xs text-gray-400">WARNING: Imperial/Metric Mismatch Detected. Use 5 miles ≈ 8 km.</p>
+            <h3 class="font-bold text-xl">Sector 2: High-Speed Telemetry (Metric Conversions)</h3>
+            <p class="text-xs text-gray-400">Converting between km/h, m/s, and km/s.</p>
         </div>
       </div>
       <table class="telemetry-table">
         <thead>
           <tr>
             <th>Flight ID</th>
-            <th>Distance</th>
-            <th>Time</th>
-            <th>Speed (Imperial)</th>
-            <th>Speed (Metric)</th>
+            <th>Initial Telemetry</th>
+            <th>Required Conversion</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="font-mono font-bold text-teal-600">BA-P01</td>
-            <td class="data-cell">3,450 miles</td>
-            <td class="data-cell">7.5 hours</td>
-            <td class="data-cell">460 mph</td>
-            <td class="static-scramble">ERROR</td> <td><span class="status-badge status-yellow">BOARDING</span></td>
+            <td class="data-cell">Speed: 100 m/s</td>
+            <td>Speed in <span class="static-scramble">km/h</span></td> 
+            <td><span class="status-badge status-green">IN FLIGHT</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-teal-600">BA-P02</td>
-            <td class="static-scramble">!@#&%</td> <td class="data-cell">7 hours</td>
-            <td class="data-cell">550 mph</td>
-            <td class="data-cell text-gray-300">N/A</td>
-            <td><span class="status-badge status-gray">SCHEDULED</span></td>
+            <td class="data-cell">Speed: 0.25 km/s</td>
+            <td>Speed in <span class="static-scramble">km/h</span></td>
+            <td><span class="status-badge status-yellow">CLIMBING</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-teal-600">BA-P03</td>
+            <td class="data-cell">Speed: 720 km/h</td>
+            <td>Speed in <span class="static-scramble">m/s</span></td>
+            <td><span class="status-badge status-gray">LANDED</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-teal-600">BA-P04</td>
+            <td class="data-cell">Dist: 1,800 km <br>Time: 2 hrs</td>
+            <td>Avg Speed in <span class="static-scramble">m/s</span></td>
+            <td><span class="status-badge status-green">CRUISING</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono font-bold text-teal-600">BA-P05</td>
+            <td class="data-cell">Speed: 250 m/s <br>Time: 4 hrs</td>
+            <td>Total Dist in <span class="static-scramble">km</span></td>
+            <td><span class="status-badge status-red">HOLDING</span></td>
           </tr>
         </tbody>
       </table>
@@ -185,73 +211,41 @@
       <div class="flex items-center gap-2 mb-3">
         <div class="w-1.5 h-6 bg-purple-600 rounded-full"></div>
         <div>
-            <h3 class="font-bold text-xl">Sector 3: Intercontinental (Time Zones)</h3>
-            <p class="text-xs text-gray-400">Departure/Arrival sync failure. Calculate duration from GMT offsets.</p>
+            <h3 class="font-bold text-xl">Sector 3: Global Routing (Time Zones)</h3>
+            <p class="text-xs text-gray-400">Calculate duration across time zones. All departures from LHR (GMT).</p>
         </div>
       </div>
       <table class="telemetry-table">
         <thead>
           <tr>
             <th>Flight ID</th>
-            <th>Departure (Local)</th>
+            <th>Departure (GMT)</th>
             <th>Arrival (Local)</th>
-            <th>Time Diff</th>
-            <th>Distance</th>
-            <th>Avg Speed</th>
+            <th>Target Variable</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="font-mono font-bold text-purple-600">BA-B01</td>
-            <td class="data-cell">10:00 (GMT)</td>
-            <td class="data-cell">13:00 (EST)</td>
-            <td class="data-cell text-gray-400">EST = GMT-5</td>
-            <td class="data-cell">5,500 km</td>
-            <td class="static-scramble">###.##</td> <td><span class="status-badge status-green">IN FLIGHT</span></td>
+            <td class="data-cell">10:00 (LHR)</td>
+            <td class="data-cell">20:00 (DXB GMT+4)</td>
+            <td>Calculate: <span class="static-scramble">Duration</span></td>
+            <td><span class="status-badge status-green">IN FLIGHT</span></td>
           </tr>
           <tr>
             <td class="font-mono font-bold text-purple-600">BA-B02</td>
-            <td class="data-cell">20:00 (GMT)</td>
-            <td class="data-cell">16:00 (SGT)+1</td>
-            <td class="data-cell text-gray-400">SGT = GMT+8</td>
-            <td class="static-scramble">#####</td> <td class="data-cell">900 km/h</td>
-            <td><span class="status-badge status-red">DIVERTED</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="mb-10">
-      <div class="flex items-center gap-2 mb-3">
-        <div class="w-1.5 h-6 bg-yellow-500 rounded-full"></div>
-        <div>
-            <h3 class="font-bold text-xl">Sector 4: Experimental (Advanced)</h3>
-            <p class="text-xs text-gray-400">Complex Variable Telemetry.</p>
-        </div>
-      </div>
-      <table class="telemetry-table">
-        <thead>
-          <tr>
-            <th>Flight ID</th>
-            <th>Flight Data</th>
-            <th>Variable Factor</th>
-            <th>Result Required</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="font-mono font-bold text-yellow-600">BA-F01</td>
-            <td class="data-cell">Distance: 2,000 km</td>
-            <td class="data-cell">Air Speed: 800 km/h <br><span class="text-red-500 text-xs">Headwind: 50 km/h</span></td>
-            <td class="static-scramble">H:M:S</td> <td><span class="status-badge status-green">FINAL APPROACH</span></td>
+            <td class="data-cell">14:00 (LHR)<br><span class="text-xs text-gray-500">Dist: 5,600 km</span></td>
+            <td class="data-cell">17:00 (NYC GMT-5)</td>
+            <td>Calculate: <span class="static-scramble">Speed</span></td>
+            <td><span class="status-badge status-yellow">DIVERTED</span></td>
           </tr>
           <tr>
-            <td class="font-mono font-bold text-yellow-600">BA-F02</td>
-            <td class="data-cell">Leg 1: 2 hrs @ ? <br>Leg 2: 1.5 hrs @ ?</td>
-            <td class="data-cell">Total Dist: 2,200 km<br>Total Time: 3.5 hrs</td>
-            <td class="static-scramble">###.#</td> <td><span class="status-badge status-gray">LANDED</span></td>
+            <td class="font-mono font-bold text-purple-600">BA-B03</td>
+            <td class="data-cell">18:00 (LHR)<br><span class="text-xs text-gray-500">Speed: 850 km/h</span></td>
+            <td class="data-cell">15:00 (+1) (TYO GMT+9)</td>
+            <td>Calculate: <span class="static-scramble">Distance</span></td>
+            <td><span class="status-badge status-gray">SCHEDULED</span></td>
           </tr>
         </tbody>
       </table>
