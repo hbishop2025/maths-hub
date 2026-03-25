@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridGraph Transformations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #111827; color: #f3f4f6; }
+        #canvas-container { flex: 1; position: relative; width: 100%; cursor: crosshair; }
+        canvas { display: block; width: 100%; height: 100%; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+        .mode-select { cursor: default !important; }
+        .panning { cursor: grabbing !important; }
+        
+        #toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 50; pointer-events: none; }
+        .toast { background: #374151; color: #fff; padding: 8px 16px; border-radius: 6px; margin-top: 8px; font-size: 14px; opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(10px); box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid #4b5563; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="flex h-screen antialiased selection:bg-blue-500/30">
+
+    <!-- LEFT SIDEBAR: Shape Tools -->
+    <div class="w-64 bg-gray-900 border-r border-gray-700 flex flex-col shadow-xl z-20 flex-shrink-0">
+        <!-- Header -->
+        <div class="p-4 border-b border-gray-700 bg-gray-800 flex justify-between items-center">
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                GridGraph
+            </h1>
+            <div class="flex gap-2">
+                <button id="btn-undo" onclick="App.undoSequence()" class="text-xs font-semibold text-gray-300 hover:text-white px-2 py-1 rounded bg-gray-700 hover:bg-gray-600 transition disabled:opacity-30 disabled:cursor-not-allowed">
+                    Undo
+                </button>
+                <button onclick="App.clearAll()" class="text-xs font-semibold text-red-400 hover:text-red-300 px-2 py-1 rounded bg-gray-700 hover:bg-gray-600 transition">
+                    Clear
+                </button>
+            </div>
+        </div>
+
+        <!-- Creation Tools -->
+        <div class="p-4 flex-1 overflow-y-auto">
+            <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Tools</h2>
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-1.5">
+                    <button id="btn-select" class="flex-1 py-1.5 px-1 rounded bg-gray-800 hover:bg-gray-700 border border-gray-600 transition-colors text-xs font-medium" onclick="App.setMode('SELECT')">
+                        Select
+                    </button>
+                    <button id="btn-draw" class="flex-1 py-1.5 px-1 rounded bg-blue-600 hover:bg-blue-500 border border-blue-500 transition-colors text-xs font-medium text-white" onclick="App.setMode('DRAW')">
+                        Polygon
+                    </button>
+                    <button id="btn-line" class="flex-1 py-1.5 px-1 rounded bg-gray-800 hover:bg-gray-700 border border-gray-600 transition-colors text-xs font-medium" onclick="App.setMode('LINE')">
+                        Eq Line
+                    </button>
+                </div>
+                <div class="flex gap-1.5 mt-1">
+                    <button id="btn-ref-point" class="flex-1 py-1.5 px-1 rounded bg-gray-800 hover:bg-gray-700 border border-gray-600 transition-colors text-xs font-medium text-stone-300" onclick="App.setMode('REF_POINT')">
+                        Ref Point
+                    </button>
+                    <button id="btn-ref-line" class="flex-1 py-1.5 px-1 rounded bg-gray-800 hover:bg-gray-700 border border-gray-600 transition-colors text-xs font-medium text-stone-300" onclick="App.setMode('REF_LINE')">
+                        Ref Line
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quick Polygon UI -->
+            <div id="panel-draw" class="mt-4 bg-gray-800 p-3 rounded border border-gray-700 flex flex-col gap-3">
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Quick Generator</div>
+                <div class="flex items-center gap-2">
+                    <label class="text-xs text-gray-400 w-10">Sides:</label>
+                    <input type="range" id="poly-sides" min="1" max="25" value="3" class="flex-1 accent-indigo-500" 
+                        oninput="
+                            document.getElementById('poly-sides-val').textContent = this.value;
+                            document.getElementById('poly-size-label').textContent = this.value == 1 ? 'Diam:' : 'Size:';
+                        ">
+                    <span id="poly-sides-val" class="text-xs text-gray-300 font-mono w-4 text-center">3</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <label id="poly-size-label" class="text-xs text-gray-400 w-10">Size:</label>
+                    <input type="range" id="poly-size" min="1" max="25" value="3" class="flex-1 accent-indigo-500" oninput="document.getElementById('poly-size-val').textContent = this.value">
+                    <span id="poly-size-val" class="text-xs text-gray-300 font-mono w-4 text-center">3</span>
+                </div>
+                <button onclick="App.createRegularPolygon()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white rounded py-2 text-xs font-medium transition-colors border border-indigo-500 shadow-sm mt-1">
+                    Create at Origin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CANVAS -->
+    <div class="flex-1 flex flex-col relative bg-[#0f172a] min-w-0">
+        <div id="canvas-container">
+            <canvas id="grid-canvas"></canvas>
+        </div>
+        
+        <!-- Environment Toggles -->
+        <div class="absolute top-4 right-4 bg-gray-900/90 backdrop-blur px-4 py-3 rounded border border-gray-700 shadow-lg flex flex-col gap-2 pointer-events-auto z-10">
+            <label class="flex items-center gap-2 cursor-pointer text-xs font-medium text-gray-200">
+                <input type="checkbox" id="toggle-gridlock" class="accent-indigo-500 w-3.5 h-3.5" checked onchange="App.toggleGridlock(this.checked)">
+                Gridlock (Snap)
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-xs font-medium text-gray-200">
+                <input type="checkbox" id="toggle-ghosts" class="accent-indigo-500 w-3.5 h-3.5" checked onchange="App.toggleGhosts(this.checked)">
+                Show Ghost Shapes
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-xs font-medium text-gray-200">
+                <input type="checkbox" id="toggle-angles" class="accent-indigo-500 w-3.5 h-3.5" onchange="App.toggleAngles(this.checked)">
+                Show Intersections
+            </label>
+        </div>
+
+        <!-- Coordinates -->
+        <div class="absolute bottom-4 left-4 bg-gray-900/80 backdrop-blur px-3 py-1.5 rounded border border-gray-700 text-xs text-gray-400 font-mono shadow-lg flex gap-4 pointer-events-none z-10">
+            <span id="coord-display">X: 0, Y: 0</span>
+            <span class="border-l border-gray-600 pl-4">Grid: 1 unit</span>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR: Objects & Sequences -->
+    <div class="w-80 bg-gray-900 border-l border-gray-700 flex flex-col shadow-xl z-20 flex-shrink-0">
+        
+        <!-- Canvas Objects List -->
+        <div class="flex flex-col border-b border-gray-700 max-h-[30vh]">
+            <div class="p-3 bg-gray-800 flex justify-between items-center shrink-0">
+                <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider">Canvas Objects</h3>
+                <span id="obj-count" class="text-[10px] bg-gray-700 px-1.5 py-0.5 rounded text-gray-300">0</span>
+            </div>
+            <div id="shape-list" class="p-2 space-y-1 overflow-y-auto flex-1 bg-gray-900/50">
+                <div id="empty-state" class="text-xs text-gray-500 text-center py-3 italic">No objects yet</div>
+                <!-- Items injected here -->
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col overflow-y-auto min-h-0">
+            <!-- Line Graph UI (Contextual) -->
+            <div id="panel-line" class="p-4 bg-gray-800/80 border-b border-gray-700 flex-col gap-3 hidden">
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-2">Linear Equation</div>
+                <div class="flex items-center gap-2 bg-gray-900 border border-gray-600 rounded px-2 focus-within:border-blue-500 transition-colors">
+                    <span class="text-gray-400 font-mono text-sm">y =</span>
+                    <input type="text" id="line-eq" placeholder="e.g. 4x+2 or x=3" class="w-full bg-transparent py-1.5 text-xs text-white outline-none font-mono">
+                </div>
+                <button onclick="App.plotLine()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white rounded py-1.5 text-xs font-medium transition-colors border border-indigo-500 shadow-sm mt-2">
+                    Plot Line
+                </button>
+
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-4 mb-2">Relational Tools</div>
+                <div class="flex gap-2">
+                    <button id="btn-parallel" onclick="App.setLineSubMode('PARALLEL')" class="flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 text-[10px] rounded border border-gray-600 text-white transition-colors">Parallel</button>
+                    <button id="btn-perp" onclick="App.setLineSubMode('PERPENDICULAR')" class="flex-1 py-1.5 bg-gray-700 hover:bg-gray-600 text-[10px] rounded border border-gray-600 text-white transition-colors">Perpendicular</button>
+                </div>
+            </div>
+
+            <!-- Sequence Step Setup -->
+            <div class="p-4 flex flex-col gap-3 shrink-0">
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex justify-between">
+                    <span>Target</span>
+                    <span class="text-gray-500 font-normal">Select shape to edit</span>
+                </div>
+                
+                <div id="target-shapes-display" class="flex flex-wrap gap-1.5 bg-gray-900 p-2 rounded border border-gray-700 min-h-[38px] items-center">
+                    <span class="text-gray-600 italic text-xs">None selected</span>
+                </div>
+
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-2">Protocol Step</div>
+                <select id="trans-type" class="w-full bg-gray-900 text-white text-sm rounded border border-gray-600 p-2 outline-none focus:border-blue-500 transition-colors" onchange="UI.updateTransParams()">
+                    <option value="translate">Translation (Vector)</option>
+                    <option value="reflect">Reflection (Line)</option>
+                    <option value="rotate">Rotation (Origin)</option>
+                    <option value="enlarge">Enlargement (Scale)</option>
+                </select>
+
+                <div id="params-translate" class="trans-params grid grid-cols-2 gap-2 mt-1">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">X Shift</label>
+                        <input type="number" id="trans-x" value="2" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">Y Shift</label>
+                        <input type="number" id="trans-y" value="0" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                </div>
+
+                <div id="params-reflect" class="trans-params hidden flex flex-col gap-2 mt-1">
+                    <label class="text-[10px] text-gray-500">Line of Reflection</label>
+                    <select id="refl-line" class="w-full bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white" onchange="UI.onReflectLineChange()">
+                        <option value="x">X-Axis (y=0)</option>
+                        <option value="y">Y-Axis (x=0)</option>
+                        <option value="y=x">Line y = x</option>
+                        <option value="y=-x">Line y = -x</option>
+                        <option value="custom">Custom...</option>
+                    </select>
+                    <div id="custom-refl-inputs" class="hidden grid grid-cols-2 gap-2 mt-1">
+                        <div class="flex items-center gap-1 bg-gray-900 border border-gray-600 rounded px-2">
+                            <span id="custom-refl-axis" class="text-xs text-gray-400">x =</span>
+                            <input type="number" id="refl-custom-val" value="2" step="1" class="bg-transparent text-sm text-white w-full py-1 outline-none">
+                        </div>
+                        <button onclick="UI.toggleCustomReflAxis()" class="text-xs bg-gray-700 hover:bg-gray-600 rounded border border-gray-600 text-white">Toggle X/Y</button>
+                    </div>
+                </div>
+
+                <div id="params-rotate" class="trans-params hidden grid grid-cols-2 gap-2 mt-1">
+                    <div class="flex flex-col gap-1 col-span-2">
+                        <label class="text-[10px] text-gray-500">Angle (Degrees)</label>
+                        <select id="rot-angle" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                            <option value="90">90 Anti-clockwise</option>
+                            <option value="-90">90 Clockwise</option>
+                            <option value="180">180</option>
+                            <option value="270">270 Anti-clockwise</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">Origin X</label>
+                        <input type="number" id="rot-ox" value="0" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">Origin Y</label>
+                        <input type="number" id="rot-oy" value="0" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                </div>
+
+                <div id="params-enlarge" class="trans-params hidden grid grid-cols-2 gap-2 mt-1">
+                    <div class="flex flex-col gap-1 col-span-2">
+                        <label class="text-[10px] text-gray-500">Scale Factor</label>
+                        <input type="number" id="enl-scale" value="2" step="0.5" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">Center X</label>
+                        <input type="number" id="enl-cx" value="0" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[10px] text-gray-500">Center Y</label>
+                        <input type="number" id="enl-cy" value="0" step="1" class="bg-gray-900 border border-gray-600 rounded p-1.5 text-sm text-white w-full">
+                    </div>
+                </div>
+
+                <button onclick="UI.addProtocolStep()" class="w-full bg-blue-600 hover:bg-blue-500 text-white rounded py-2 text-xs font-semibold shadow transition-colors border border-blue-500 mt-2">
+                    Add to Sequence
+                </button>
+            </div>
+
+            <!-- Sequence List -->
+            <div class="flex-1 flex flex-col min-h-[150px] border-t border-gray-700">
+                <div class="p-3 border-b border-gray-700 bg-gray-800 flex justify-between items-center shrink-0">
+                    <h2 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                        Sequence
+                    </h2>
+                    <span id="seq-count" class="text-[10px] bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded">0 steps</span>
+                </div>
+                
+                <div id="protocol-list" class="flex-1 p-3 space-y-2 bg-gray-900/50 overflow-y-auto">
+                    <div id="protocol-empty" class="text-xs text-gray-500 text-center py-4 border border-dashed border-gray-700 rounded bg-gray-800/30">
+                        No steps in sequence.<br>Select a shape and add a step above.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Run Button -->
+            <div class="p-4 bg-gray-800 border-t border-gray-700 shrink-0">
+                <button onclick="App.runProtocol()" class="w-full bg-green-600 hover:bg-green-500 text-white rounded py-2.5 text-sm font-bold shadow-lg transition-colors border border-green-500">
+                    Run Sequence
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        // --- CONFIG & STATE ---
+        const CONFIG = {
+            gridUnit: 40,
+            gridSubdivisions: 5,
+            colors: {
+                bg: '#0f172a',
+                gridMajor: '#334155',
+                gridMinor: '#1e293b',
+                axes: '#64748b',
+                axesText: '#94a3b8',
+                drawingLine: '#3b82f6',
+                drawingFill: 'rgba(59, 130, 246, 0.2)',
+                ghostLine: '#6b7280',
+                ghostFill: 'rgba(107, 114, 128, 0.1)',
+                refObject: '#a8a29e', // stone-400
+                shapePalette: ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316']
+            }
+        };
+
+        const State = {
+            cam: { x: 0, y: 0, zoom: 1 },
+            mode: 'DRAW',
+            
+            shapes: [],
+            lines: [],
+            refPoints: [],
+            refLines: [],
+            selectedIds: [],
+            
+            isDrawing: false,
+            currentDrawingPoints: [],
+            currentRefLineStart: null,
+            lineSubMode: 'NONE', 
+            
+            snapToGrid: true,
+            showGhosts: true,
+            showAngles: false,
+            
+            isPanning: false,
+            panStart: { x: 0, y: 0 },
+            
+            isDraggingShape: false,
+            dragStartMouseWorld: { x: 0, y: 0 },
+            dragStartShapes: [],
+            dragStartLines: [],
+            dragStartRefPoints: [],
+            dragStartRefLines: [],
+
+            ghostShapes: [],
+            animShapes: [], 
+            isAnimating: false,
+            
+            protocol: [],
+            history: [], 
+            shapeCounter: 0,
+            refCounter: 0
+        };
+
+        // --- CLASSES ---
+        class Vector2 {
+            constructor(x, y) { this.x = x; this.y = y; }
+            clone() { return new Vector2(this.x, this.y); }
+        }
+
+        class Shape {
+            constructor(id, name, points, color, isCircle = false) {
+                this.id = id;
+                this.name = name;
+                this.points = points.map(p => p.clone());
+                this.color = color;
+                this.isCircle = isCircle;
+            }
+            clone() { return new Shape(this.id, this.name, this.points, this.color, this.isCircle); }
+            
+            contains(pt) {
+                if (this.points.length === 2) {
+                    const v = this.points[0];
+                    const w = this.points[1];
+                    const l2 = Math.pow(w.x - v.x, 2) + Math.pow(w.y - v.y, 2);
+                    let dist;
+                    if (l2 === 0) {
+                        dist = Math.hypot(pt.x - v.x, pt.y - v.y);
+                    } else {
+                        let t = ((pt.x - v.x) * (w.x - v.x) + (pt.y - v.y) * (w.y - v.y)) / l2;
+                        t = Math.max(0, Math.min(1, t));
+                        const projX = v.x + t * (w.x - v.x);
+                        const projY = v.y + t * (w.y - v.y);
+                        dist = Math.hypot(pt.x - projX, pt.y - projY);
+                    }
+                    return dist < (15 / (CONFIG.gridUnit * State.cam.zoom));
+                }
+
+                let inside = false;
+                for (let i = 0, j = this.points.length - 1; i < this.points.length; j = i++) {
+                    let xi = this.points[i].x, yi = this.points[i].y;
+                    let xj = this.points[j].x, yj = this.points[j].y;
+                    let intersect = ((yi > pt.y) !== (yj > pt.y)) && (pt.x < (xj - xi) * (pt.y - yi) / (yj - yi) + xi);
+                    if (intersect) inside = !inside;
+                }
+                return inside;
+            }
+        }
+
+        class LineObj {
+            constructor(id, name, color) {
+                this.id = id;
+                this.name = name;
+                this.color = color;
+                this.m = 1;
+                this.c = 0;
+                this.isVertical = false;
+                this.xVal = 0;
+            }
+            clone() {
+                let l = new LineObj(this.id, this.name, this.color);
+                l.m = this.m; 
+                l.c = this.c;
+                l.isVertical = this.isVertical; 
+                l.xVal = this.xVal;
+                return l;
+            }
+        }
+
+        class RefPoint {
+            constructor(id, name, pos) {
+                this.id = id;
+                this.name = name;
+                this.pos = pos.clone();
+                this.color = CONFIG.colors.refObject;
+            }
+            clone() { return new RefPoint(this.id, this.name, this.pos); }
+        }
+
+        class RefLine {
+            constructor(id, name, p1, p2) {
+                this.id = id;
+                this.name = name;
+                this.p1 = p1.clone();
+                this.p2 = p2.clone();
+                this.color = CONFIG.colors.refObject;
+            }
+            clone() { return new RefLine(this.id, this.name, this.p1, this.p2); }
+        }
+
+        // --- UTILS & MATH ---
+        const Utils = {
+            generateId: () => Math.random().toString(36).substr(2, 9),
+            
+            worldToScreen: (wx, wy) => {
+                return new Vector2(
+                    (wx * CONFIG.gridUnit * State.cam.zoom) + State.cam.x + (Canvas.width / 2),
+                    (-wy * CONFIG.gridUnit * State.cam.zoom) + State.cam.y + (Canvas.height / 2)
+                );
+            },
+            
+            screenToWorld: (sx, sy) => {
+                return new Vector2(
+                    (sx - State.cam.x - (Canvas.width / 2)) / (CONFIG.gridUnit * State.cam.zoom),
+                    -(sy - State.cam.y - (Canvas.height / 2)) / (CONFIG.gridUnit * State.cam.zoom)
+                );
+            },
+            
+            getSnappedWorldPos: (wPos) => {
+                if (!State.snapToGrid) return wPos;
+                return new Vector2(Math.round(wPos.x), Math.round(wPos.y));
+            },
+
+            easeOutCubic: (t) => 1 - Math.pow(1 - t, 3)
+        };
+
+        // --- UI MANAGER ---
+        const UI = {
+            init: () => {
+                ['select', 'draw', 'line', 'ref-point', 'ref-line'].forEach(id => {
+                    document.getElementById(`btn-${id}`).classList.remove('bg-blue-600', 'text-white', 'border-blue-500');
+                    document.getElementById(`btn-${id}`).classList.add('bg-gray-800');
+                });
+                
+                document.getElementById('panel-draw').classList.add('hidden');
+                document.getElementById('panel-line').classList.add('hidden');
+                document.getElementById('panel-line').classList.remove('flex');
+                if (Canvas.el) Canvas.el.classList.remove('mode-select');
+                
+                if (State.mode === 'SELECT') {
+                    const btn = document.getElementById('btn-select');
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-500');
+                    btn.classList.remove('bg-gray-800');
+                    if (Canvas.el) Canvas.el.classList.add('mode-select');
+                    document.getElementById('panel-draw').classList.remove('hidden'); 
+                } else if (State.mode === 'DRAW') {
+                    const btn = document.getElementById('btn-draw');
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-500');
+                    btn.classList.remove('bg-gray-800');
+                    document.getElementById('panel-draw').classList.remove('hidden');
+                } else if (State.mode === 'LINE') {
+                    const btn = document.getElementById('btn-line');
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-500');
+                    btn.classList.remove('bg-gray-800');
+                    if (Canvas.el) Canvas.el.classList.add('mode-select');
+                    document.getElementById('panel-line').classList.remove('hidden');
+                    document.getElementById('panel-line').classList.add('flex');
+                } else if (State.mode === 'REF_POINT') {
+                    const btn = document.getElementById('btn-ref-point');
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-500');
+                    btn.classList.remove('bg-gray-800');
+                } else if (State.mode === 'REF_LINE') {
+                    const btn = document.getElementById('btn-ref-line');
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-500');
+                    btn.classList.remove('bg-gray-800');
+                }
+            },
+
+            updateShapeList: () => {
+                const list = document.getElementById('shape-list');
+                const empty = document.getElementById('empty-state');
+                const objCount = document.getElementById('obj-count');
+                if (!list) return;
+
+                const allItems = [...State.shapes, ...State.lines, ...State.refPoints, ...State.refLines];
+                if (objCount) objCount.innerText = allItems.length;
+
+                const targetDisplay = document.getElementById('target-shapes-display');
+                if (targetDisplay) {
+                    const selectedShapes = State.shapes.filter(s => State.selectedIds.includes(s.id));
+                    targetDisplay.innerHTML = selectedShapes.length > 0 
+                        ? selectedShapes.map(s => `
+                            <span class="flex items-center gap-1.5 px-2 py-0.5 rounded border text-xs font-medium" 
+                                  style="background-color: ${s.color}20; border-color: ${s.color}50; color: ${s.color};">
+                                <div class="w-2 h-2 rounded-full" style="background-color: ${s.color};"></div>
+                                ${s.name}
+                            </span>`).join('')
+                        : '<span class="text-gray-600 italic">None selected</span>';
+                }
+
+                Array.from(list.children).forEach(child => {
+                    if (child.id !== 'empty-state') child.remove();
+                });
+                
+                if (allItems.length === 0) {
+                    if (empty) empty.style.display = 'block';
+                    return;
+                }
+                
+                if (empty) empty.style.display = 'none';
+                
+                allItems.forEach(item => {
+                    const isSelected = State.selectedIds.includes(item.id);
+                    const isRef = State.refPoints.includes(item) || State.refLines.includes(item);
+                    
+                    const el = document.createElement('div');
+                    el.className = `flex items-center justify-between p-2 rounded cursor-pointer border ${isSelected ? 'bg-blue-900/40 border-blue-500' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`;
+                    
+                    el.onclick = (e) => {
+                        if (e.shiftKey) {
+                            if (isSelected) State.selectedIds = State.selectedIds.filter(id => id !== item.id);
+                            else State.selectedIds.push(item.id);
+                        } else {
+                            State.selectedIds = [item.id];
+                        }
+                        App.setMode('SELECT');
+                        UI.updateShapeList();
+                    };
+
+                    const leftDiv = document.createElement('div');
+                    leftDiv.className = "flex items-center gap-2 min-w-0 flex-1 pointer-events-none pr-2";
+                    
+                    if (isRef) {
+                        leftDiv.innerHTML = `<span class="text-xs truncate font-mono ${isSelected ? 'text-white font-medium' : 'text-gray-400'}" title="${item.name}">${item.name}</span>`;
+                    } else {
+                        leftDiv.innerHTML = `
+                            <div class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: ${item.color}; box-shadow: 0 0 5px ${item.color}80"></div>
+                            <span class="text-xs truncate font-mono ${isSelected ? 'text-white font-medium' : 'text-gray-300'}" title="${item.name}">${item.name}</span>
+                        `;
+                    }
+                    el.appendChild(leftDiv);
+                    
+                    const delBtn = document.createElement('button');
+                    delBtn.type = "button";
+                    delBtn.className = "text-gray-500 hover:text-red-400 font-bold hover:bg-red-400/10 px-2 py-0.5 rounded flex-shrink-0 transition-colors z-10 focus:outline-none";
+                    delBtn.innerText = "X";
+                    delBtn.onmousedown = (e) => e.stopPropagation();
+                    delBtn.onclick = (e) => {
+                        e.stopPropagation(); 
+                        App.deleteShape(item.id);
+                    };
+                    el.appendChild(delBtn);
+
+                    list.appendChild(el);
+                });
+            },
+
+            updateTransParams: () => {
+                document.querySelectorAll('.trans-params').forEach(el => el.classList.add('hidden'));
+                const type = document.getElementById('trans-type').value;
+                document.getElementById(`params-${type}`).classList.remove('hidden');
+            },
+
+            onReflectLineChange: () => {
+                const line = document.getElementById('refl-line').value;
+                const customInputs = document.getElementById('custom-refl-inputs');
+                if (line === 'custom') customInputs.classList.remove('hidden');
+                else customInputs.classList.add('hidden');
+            },
+
+            toggleCustomReflAxis: () => {
+                const label = document.getElementById('custom-refl-axis');
+                label.textContent = label.textContent === 'x =' ? 'y =' : 'x =';
+            },
+
+            addProtocolStep: () => {
+                // Ensure Reference Objects cannot be targeted
+                const validTargetIds = State.selectedIds.filter(id => State.shapes.some(s => s.id === id));
+                if (validTargetIds.length === 0) {
+                    UI.showToast("Select at least one polygon to target! (Lines and Ref Objects cannot be sequenced)");
+                    return;
+                }
+
+                const type = document.getElementById('trans-type').value;
+                let step = { 
+                    type, 
+                    id: Utils.generateId(),
+                    targetIds: [...validTargetIds],
+                    targetNames: State.shapes.filter(s => validTargetIds.includes(s.id)).map(s => s.name),
+                    targetColors: State.shapes.filter(s => validTargetIds.includes(s.id)).map(s => s.color)
+                };
+
+                if (type === 'translate') {
+                    step.dx = parseFloat(document.getElementById('trans-x').value) || 0;
+                    step.dy = parseFloat(document.getElementById('trans-y').value) || 0;
+                    step.desc = `Translate by vector [${step.dx}, ${step.dy}]`;
+                } else if (type === 'reflect') {
+                    const lineType = document.getElementById('refl-line').value;
+                    step.lineType = lineType;
+                    if (lineType === 'custom') {
+                        step.axis = document.getElementById('custom-refl-axis').textContent.trim() === 'x =' ? 'x' : 'y';
+                        step.val = parseFloat(document.getElementById('refl-custom-val').value) || 0;
+                        step.desc = `Reflect in line ${step.axis}=${step.val}`;
+                    } else {
+                        const labels = { 'x': 'X-Axis', 'y': 'Y-Axis', 'y=x': 'y=x', 'y=-x': 'y=-x' };
+                        step.desc = `Reflect in ${labels[lineType]}`;
+                    }
+                } else if (type === 'rotate') {
+                    step.angle = parseFloat(document.getElementById('rot-angle').value) || 90;
+                    step.ox = parseFloat(document.getElementById('rot-ox').value) || 0;
+                    step.oy = parseFloat(document.getElementById('rot-oy').value) || 0;
+                    let dir = step.angle > 0 ? 'Anti-clockwise' : (step.angle < 0 ? 'Clockwise' : '');
+                    step.desc = `Rotate ${Math.abs(step.angle)} degrees ${dir} about (${step.ox}, ${step.oy})`;
+                } else if (type === 'enlarge') {
+                    step.scale = parseFloat(document.getElementById('enl-scale').value) || 1;
+                    step.cx = parseFloat(document.getElementById('enl-cx').value) || 0;
+                    step.cy = parseFloat(document.getElementById('enl-cy').value) || 0;
+                    step.desc = `Enlarge by SF ${step.scale} from (${step.cx}, ${step.cy})`;
+                }
+
+                State.protocol.push(step);
+                UI.renderProtocolList();
+                UI.showToast("Added step to sequence");
+            },
+
+            removeProtocolStep: (id) => {
+                State.protocol = State.protocol.filter(s => s.id !== id);
+                UI.renderProtocolList();
+            },
+
+            renderProtocolList: () => {
+                const list = document.getElementById('protocol-list');
+                const empty = document.getElementById('protocol-empty');
+                const count = document.getElementById('seq-count');
+                
+                count.textContent = `${State.protocol.length} step${State.protocol.length !== 1 ? 's' : ''}`;
+                
+                Array.from(list.children).forEach(child => {
+                    if (child.id !== 'protocol-empty') child.remove();
+                });
+
+                if (State.protocol.length === 0) {
+                    empty.style.display = 'block';
+                    return;
+                }
+                empty.style.display = 'none';
+
+                State.protocol.forEach((step, index) => {
+                    const el = document.createElement('div');
+                    el.className = "bg-gray-800 border border-gray-700 p-2.5 rounded shadow-sm relative group text-xs";
+                    
+                    const targetsHtml = step.targetNames.map((name, i) => 
+                        `<span class="inline-flex items-center gap-1 bg-gray-900 px-1.5 py-0.5 rounded border border-gray-600 mr-1 mt-1 font-mono text-[10px]" style="color:${step.targetColors[i]}">
+                            <div class="w-1.5 h-1.5 rounded-full" style="background-color:${step.targetColors[i]}"></div>${name}
+                        </span>`
+                    ).join('');
+
+                    el.innerHTML = `
+                        <div class="flex justify-between items-start mb-1">
+                            <div class="font-bold text-gray-200 flex items-center gap-1.5">
+                                <span class="bg-gray-700 text-gray-300 w-4 h-4 rounded-full flex items-center justify-center text-[9px]">${index + 1}</span>
+                                <span class="capitalize text-blue-400">${step.type}</span>
+                            </div>
+                            <button onclick="UI.removeProtocolStep('${step.id}')" class="text-gray-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 p-0.5 font-bold">
+                                X
+                            </button>
+                        </div>
+                        <div class="text-gray-400 mb-1.5">${step.desc}</div>
+                        <div class="flex flex-wrap">${targetsHtml}</div>
+                    `;
+                    list.appendChild(el);
+                });
+            },
+
+            showToast: (msg) => {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast show';
+                toast.innerText = msg;
+                container.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 2500);
+            },
+
+            updateUndoBtn: () => {
+                document.getElementById('btn-undo').disabled = State.history.length === 0;
+            }
+        };
+
+        // --- APP LOGIC ---
+        const App = {
+            init: () => {
+                Canvas.init(); 
+                UI.init();
+                UI.updateTransParams();
+                UI.updateShapeList();
+                UI.updateUndoBtn();
+                
+                window.addEventListener('resize', Canvas.resize);
+                Canvas.el.addEventListener('mousedown', App.onMouseDown);
+                Canvas.el.addEventListener('mousemove', App.onMouseMove);
+                window.addEventListener('mouseup', App.onMouseUp);
+                Canvas.el.addEventListener('wheel', App.onWheel, { passive: false });
+                
+                Canvas.render();
+            },
+
+            toggleGridlock: (val) => { State.snapToGrid = val; },
+            toggleGhosts: (val) => { State.showGhosts = val; },
+            toggleAngles: (val) => { State.showAngles = val; },
+
+            clearProtocol: () => {
+                State.protocol = [];
+                UI.renderProtocolList();
+            },
+
+            saveState: () => {
+                State.history.push({
+                    shapes: State.shapes.map(s => s.clone()),
+                    lines: State.lines.map(l => l.clone()),
+                    refPoints: State.refPoints.map(p => p.clone()),
+                    refLines: State.refLines.map(l => l.clone()),
+                    ghostShapes: State.ghostShapes.map(s => s.clone()),
+                    protocol: JSON.parse(JSON.stringify(State.protocol)) 
+                });
+                if (State.history.length > 20) State.history.shift(); 
+                UI.updateUndoBtn();
+            },
+
+            undoSequence: () => {
+                if (State.history.length === 0 || State.isAnimating) return;
+                const lastState = State.history.pop();
+                
+                State.shapes = lastState.shapes.map(s => s.clone());
+                State.lines = (lastState.lines || []).map(l => l.clone());
+                State.refPoints = (lastState.refPoints || []).map(p => p.clone());
+                State.refLines = (lastState.refLines || []).map(l => l.clone());
+                State.ghostShapes = lastState.ghostShapes.map(s => s.clone());
+                State.protocol = JSON.parse(JSON.stringify(lastState.protocol)); 
+                State.selectedIds = []; 
+                
+                UI.updateShapeList();
+                UI.renderProtocolList();
+                UI.updateUndoBtn();
+                UI.showToast("Undid last action");
+            },
+
+            createRegularPolygon: () => {
+                const sides = parseInt(document.getElementById('poly-sides').value);
+                const size = parseInt(document.getElementById('poly-size').value);
+                
+                App.saveState();
+                
+                const points = [];
+                let isCircle = false;
+                
+                if (sides === 1) {
+                    isCircle = true;
+                    const numPoints = 64; 
+                    const radius = size / 2;
+                    for (let i = 0; i < numPoints; i++) {
+                        const angle = (i * 2 * Math.PI) / numPoints;
+                        points.push(new Vector2(
+                            parseFloat((Math.cos(angle) * radius).toFixed(3)), 
+                            parseFloat((Math.sin(angle) * radius).toFixed(3))
+                        ));
+                    }
+                } else if (sides === 2) {
+                    points.push(new Vector2(-size/2, 0));
+                    points.push(new Vector2(size/2, 0));
+                } else {
+                    for (let i = 0; i < sides; i++) {
+                        const angle = (i * 2 * Math.PI) / sides - Math.PI / 2;
+                        points.push(new Vector2(
+                            parseFloat((Math.cos(angle) * size).toFixed(3)), 
+                            parseFloat((Math.sin(angle) * size).toFixed(3))
+                        ));
+                    }
+                }
+                
+                State.shapeCounter++;
+                const color = CONFIG.colors.shapePalette[State.shapeCounter % CONFIG.colors.shapePalette.length];
+                const shapeName = isCircle ? `Circle ${State.shapeCounter}` : (sides === 2 ? `Line Seg ${State.shapeCounter}` : `Polygon ${State.shapeCounter}`);
+                
+                const shape = new Shape(Utils.generateId(), shapeName, points, color, isCircle);
+                
+                State.shapes.push(shape);
+                State.selectedIds = [shape.id];
+                App.setMode('SELECT');
+                UI.updateShapeList();
+                UI.showToast(`Created ${shapeName}`);
+            },
+
+            runProtocol: async () => {
+                if (State.protocol.length === 0) {
+                    UI.showToast("No steps in protocol to run!");
+                    return;
+                }
+                if (State.isAnimating) return;
+
+                App.saveState();
+
+                State.ghostShapes = State.shapes.map(s => s.clone());
+                State.isAnimating = true;
+                State.animShapes = [];
+
+                let runningShapes = {}; 
+                State.shapes.forEach(s => { runningShapes[s.id] = s.clone(); });
+                State.shapes = []; 
+                State.selectedIds = [];
+                UI.updateShapeList();
+
+                const duration = 800; 
+
+                for (let step of State.protocol) {
+                    let animTasks = [];
+
+                    for (let targetId of step.targetIds) {
+                        if (!runningShapes[targetId]) continue;
+                        let shape = runningShapes[targetId];
+                        let startPoints = shape.points.map(p => p.clone());
+                        let endPoints = App.transformPoints(startPoints, step);
+                        
+                        animTasks.push({ shape, startPoints, endPoints });
+                        if (!State.animShapes.includes(shape)) {
+                            State.animShapes.push(shape);
+                        }
+                    }
+
+                    if (animTasks.length === 0) continue;
+
+                    let startTime = performance.now();
+                    await new Promise(resolve => {
+                        function animLoop(time) {
+                            let progress = (time - startTime) / duration;
+                            if (progress >= 1) progress = 1;
+                            
+                            let ease = Utils.easeOutCubic(progress);
+
+                            animTasks.forEach(task => {
+                                for (let i = 0; i < task.shape.points.length; i++) {
+                                    task.shape.points[i].x = task.startPoints[i].x + (task.endPoints[i].x - task.startPoints[i].x) * ease;
+                                    task.shape.points[i].y = task.startPoints[i].y + (task.endPoints[i].y - task.startPoints[i].y) * ease;
+                                }
+                            });
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animLoop);
+                            } else {
+                                resolve();
+                            }
+                        }
+                        requestAnimationFrame(animLoop);
+                    });
+
+                    animTasks.forEach(task => {
+                        task.shape.points = task.endPoints.map(pt => new Vector2(
+                            Math.round(pt.x * 1000) / 1000, 
+                            Math.round(pt.y * 1000) / 1000 
+                        ));
+                    });
+                }
+
+                State.animShapes = [];
+                const finalShapes = Object.values(runningShapes);
+                State.shapes.push(...finalShapes);
+                State.selectedIds = finalShapes.map(s => s.id);
+                State.isAnimating = false;
+                
+                State.protocol = [];
+                UI.renderProtocolList();
+                
+                UI.updateShapeList();
+                UI.showToast("Protocol Animation Complete!");
+            },
+
+            transformPoints: (points, step) => {
+                return points.map(pt => {
+                    let nx = pt.x, ny = pt.y;
+                    if (step.type === 'translate') {
+                        nx += step.dx; ny += step.dy;
+                    } else if (step.type === 'reflect') {
+                        if (step.lineType === 'x') ny = -ny;
+                        else if (step.lineType === 'y') nx = -nx;
+                        else if (step.lineType === 'y=x') { let t = nx; nx = ny; ny = t; }
+                        else if (step.lineType === 'y=-x') { let t = nx; nx = -ny; ny = -t; }
+                        else if (step.lineType === 'custom') {
+                            if (step.axis === 'x') nx = step.val + (step.val - nx);
+                            else ny = step.val + (step.val - ny);
+                        }
+                    } else if (step.type === 'rotate') {
+                        let rad = step.angle * (Math.PI / 180);
+                        let dx = nx - step.ox; let dy = ny - step.oy;
+                        nx = step.ox + dx * Math.cos(rad) - dy * Math.sin(rad);
+                        ny = step.oy + dx * Math.sin(rad) + dy * Math.cos(rad);
+                    } else if (step.type === 'enlarge') {
+                        nx = step.cx + (nx - step.cx) * step.scale;
+                        ny = step.cy + (ny - step.cy) * step.scale;
+                    }
+                    return new Vector2(nx, ny);
+                });
+            },
+
+            setMode: (mode) => {
+                State.mode = mode;
+                if (mode !== 'DRAW') {
+                    State.isDrawing = false;
+                    State.currentDrawingPoints = [];
+                }
+                if (mode !== 'REF_LINE') {
+                    State.currentRefLineStart = null;
+                }
+                App.setLineSubMode('NONE'); 
+                UI.init();
+            },
+
+            setLineSubMode: (mode) => {
+                State.lineSubMode = (State.lineSubMode === mode) ? 'NONE' : mode;
+                document.getElementById('btn-parallel').classList.toggle('bg-blue-600', State.lineSubMode === 'PARALLEL');
+                document.getElementById('btn-perp').classList.toggle('bg-blue-600', State.lineSubMode === 'PERPENDICULAR');
+                if (State.lineSubMode === 'PARALLEL') UI.showToast("Select a line, then click anywhere on canvas");
+                if (State.lineSubMode === 'PERPENDICULAR') UI.showToast("Click directly near any line to intercept");
+            },
+
+            plotLine: () => {
+                const eqStr = document.getElementById('line-eq').value;
+                if (!eqStr) return;
+                let str = eqStr.toLowerCase().replace(/\s+/g, '');
+                if (str.startsWith('y=')) str = str.substring(2);
+                
+                let m = 0, c = 0, isVertical = false, xVal = 0;
+
+                if (str.startsWith('x=')) {
+                    isVertical = true;
+                    xVal = parseFloat(str.substring(2));
+                    if (isNaN(xVal)) { UI.showToast("Invalid x value"); return; }
+                } else {
+                    let mStr = '', cStr = '';
+                    if (str.includes('x')) {
+                        let parts = str.split('x');
+                        mStr = parts[0]; cStr = parts[1];
+                        if (mStr === '' || mStr === '+') m = 1;
+                        else if (mStr === '-') m = -1;
+                        else m = parseFloat(mStr);
+                        if (cStr) c = parseFloat(cStr); else c = 0;
+                    } else {
+                        m = 0; c = parseFloat(str);
+                    }
+                    if (isNaN(m) || isNaN(c)) { UI.showToast("Invalid equation format"); return; }
+                }
+
+                App.saveState();
+                const color = CONFIG.colors.shapePalette[State.lines.length % CONFIG.colors.shapePalette.length];
+                const lineId = State.lines.length + 1;
+                
+                let eqLabel = '';
+                if (isVertical) eqLabel = `x = ${xVal}`;
+                else eqLabel = `y = ${m !== 1 && m !== 0 ? m : (m === 1 ? '' : '0')}x ${c >= 0 ? '+' : '-'} ${Math.abs(c)}`;
+                if (m===0 && !isVertical) eqLabel = `y = ${c}`;
+
+                const name = `Eq Line ${lineId}: ${eqLabel}`;
+                
+                let newLine = new LineObj(Utils.generateId(), name, color);
+                newLine.m = m; newLine.c = c;
+                newLine.isVertical = isVertical; newLine.xVal = xVal;
+                
+                State.lines.push(newLine);
+                UI.updateShapeList();
+                document.getElementById('line-eq').value = '';
+                UI.showToast(`Plotted ${name}`);
+            },
+
+            deleteShape: (id) => {
+                App.saveState();
+                State.shapes = State.shapes.filter(s => s.id !== id);
+                State.lines = State.lines.filter(l => l.id !== id);
+                State.refPoints = State.refPoints.filter(p => p.id !== id);
+                State.refLines = State.refLines.filter(l => l.id !== id);
+                State.selectedIds = State.selectedIds.filter(selId => selId !== id);
+                
+                State.protocol = State.protocol.map(step => {
+                    const idx = step.targetIds.indexOf(id);
+                    if (idx > -1) {
+                        step.targetIds.splice(idx, 1);
+                        step.targetNames.splice(idx, 1);
+                        step.targetColors.splice(idx, 1);
+                    }
+                    return step;
+                }).filter(step => step.targetIds.length > 0);
+                
+                UI.renderProtocolList();
+                UI.updateShapeList();
+            },
+
+            clearAll: () => {
+                App.saveState();
+                State.shapes = [];
+                State.lines = [];
+                State.refPoints = [];
+                State.refLines = [];
+                State.selectedIds = [];
+                State.ghostShapes = [];
+                State.isDrawing = false;
+                State.currentDrawingPoints = [];
+                State.currentRefLineStart = null;
+                App.clearProtocol();
+                UI.updateShapeList();
+                State.shapeCounter = 0;
+                State.refCounter = 0;
+            },
+
+            onMouseDown: (e) => {
+                if (e.target.closest('.absolute.top-4') || e.target.closest('label')) return;
+
+                if (e.button === 1 || (e.button === 0 && e.altKey)) {
+                    State.isPanning = true;
+                    State.panStart = { x: e.clientX - State.cam.x, y: e.clientY - State.cam.y };
+                    if (Canvas.el) Canvas.el.classList.add('panning');
+                    return;
+                }
+
+                if (e.button !== 0 || State.isAnimating) return;
+
+                const rect = Canvas.el.getBoundingClientRect();
+                const sx = e.clientX - rect.left;
+                const sy = e.clientY - rect.top;
+                
+                const wPos = Utils.screenToWorld(sx, sy);
+                const snappedPos = Utils.getSnappedWorldPos(wPos);
+
+                if (State.mode === 'DRAW') {
+                    if (State.currentDrawingPoints.length > 2) {
+                        const firstPtScreen = Utils.worldToScreen(State.currentDrawingPoints[0].x, State.currentDrawingPoints[0].y);
+                        const dist = Math.hypot(sx - firstPtScreen.x, sy - firstPtScreen.y);
+                        if (dist < 15) {
+                            App.saveState();
+                            State.shapeCounter++;
+                            const color = CONFIG.colors.shapePalette[State.shapeCounter % CONFIG.colors.shapePalette.length];
+                            const shape = new Shape(Utils.generateId(), `Polygon ${State.shapeCounter}`, State.currentDrawingPoints, color);
+                            State.shapes.push(shape);
+                            State.selectedIds = [shape.id];
+                            State.isDrawing = false;
+                            State.currentDrawingPoints = [];
+                            App.setMode('SELECT');
+                            UI.updateShapeList();
+                            return;
+                        }
+                    }
+                    State.isDrawing = true;
+                    State.currentDrawingPoints.push(snappedPos);
+                    
+                } else if (State.mode === 'REF_POINT') {
+                    App.saveState();
+                    State.refCounter++;
+                    const refPoint = new RefPoint(Utils.generateId(), `Ref Point ${State.refCounter}`, snappedPos);
+                    State.refPoints.push(refPoint);
+                    State.selectedIds = [refPoint.id];
+                    App.setMode('SELECT');
+                    UI.updateShapeList();
+
+                } else if (State.mode === 'REF_LINE') {
+                    if (!State.currentRefLineStart) {
+                        State.currentRefLineStart = snappedPos;
+                    } else {
+                        App.saveState();
+                        State.refCounter++;
+                        const refLine = new RefLine(Utils.generateId(), `Ref Line ${State.refCounter}`, State.currentRefLineStart, snappedPos);
+                        State.refLines.push(refLine);
+                        State.selectedIds = [refLine.id];
+                        State.currentRefLineStart = null;
+                        App.setMode('SELECT');
+                        UI.updateShapeList();
+                    }
+
+                } else if (State.mode === 'LINE') {
+                    if (State.lineSubMode === 'PARALLEL') {
+                        let selectedLine = State.lines.find(l => State.selectedIds.includes(l.id));
+                        if (!selectedLine) { UI.showToast("Please select a line from the list first!"); return; }
+                        
+                        App.saveState();
+                        let newLine = new LineObj(Utils.generateId(), `Line ${State.lines.length + 1}`, CONFIG.colors.shapePalette[State.lines.length % CONFIG.colors.shapePalette.length]);
+                        if (selectedLine.isVertical) {
+                            newLine.isVertical = true; newLine.xVal = wPos.x;
+                            newLine.name = `Eq Line ${State.lines.length}: x = ${newLine.xVal.toFixed(2)}`;
+                        } else {
+                            newLine.m = selectedLine.m;
+                            newLine.c = wPos.y - selectedLine.m * wPos.x;
+                            newLine.name = `Eq Line ${State.lines.length}: y = ${newLine.m !== 1 ? newLine.m.toFixed(2) : ''}x ${newLine.c >= 0 ? '+' : '-'} ${Math.abs(newLine.c).toFixed(2)}`;
+                        }
+                        State.lines.push(newLine);
+                        UI.updateShapeList();
+                        App.setLineSubMode('NONE');
+                    }
+                    else if (State.lineSubMode === 'PERPENDICULAR') {
+                        let closestLine = null;
+                        let minDist = Infinity;
+                        State.lines.forEach(line => {
+                            let d = line.isVertical ? Math.abs(wPos.x - line.xVal) : Math.abs(line.m * wPos.x - wPos.y + line.c) / Math.sqrt(line.m * line.m + 1);
+                            if (d < minDist) { minDist = d; closestLine = line; }
+                        });
+                        
+                        const threshold = 35 / (CONFIG.gridUnit * State.cam.zoom);
+                        
+                        if (closestLine && minDist < threshold) {
+                            App.saveState();
+                            let intX, intY;
+                            if (closestLine.isVertical) {
+                                intX = closestLine.xVal; intY = wPos.y;
+                            } else if (closestLine.m === 0) {
+                                intX = wPos.x; intY = closestLine.c;
+                            } else {
+                                const mPerp = -1 / closestLine.m;
+                                const cPerp = wPos.y - mPerp * wPos.x;
+                                intX = (cPerp - closestLine.c) / (closestLine.m - mPerp);
+                                intY = closestLine.m * intX + closestLine.c;
+                            }
+                            
+                            let newLine = new LineObj(Utils.generateId(), `Line ${State.lines.length + 1}`, CONFIG.colors.shapePalette[State.lines.length % CONFIG.colors.shapePalette.length]);
+                            if (closestLine.isVertical) {
+                                newLine.m = 0; newLine.c = intY;
+                                newLine.name = `Eq Line ${State.lines.length}: y = ${newLine.c.toFixed(2)}`;
+                            } else if (closestLine.m === 0) {
+                                newLine.isVertical = true; newLine.xVal = intX;
+                                newLine.name = `Eq Line ${State.lines.length}: x = ${newLine.xVal.toFixed(2)}`;
+                            } else {
+                                newLine.m = -1 / closestLine.m;
+                                newLine.c = intY - newLine.m * intX;
+                                newLine.name = `Eq Line ${State.lines.length}: y = ${newLine.m.toFixed(2)}x ${newLine.c >= 0 ? '+' : '-'} ${Math.abs(newLine.c).toFixed(2)}`;
+                            }
+                            State.lines.push(newLine);
+                            UI.updateShapeList();
+                            App.setLineSubMode('NONE');
+                        } else {
+                            UI.showToast("Click closer to an existing line! (Or zoom in)");
+                        }
+                    } else {
+                        State.isPanning = true;
+                        State.panStart = { x: e.clientX - State.cam.x, y: e.clientY - State.cam.y };
+                        if (Canvas.el) Canvas.el.classList.add('panning');
+                    }
+
+                } else if (State.mode === 'SELECT') {
+                    const threshold = 15 / (CONFIG.gridUnit * State.cam.zoom); 
+                    const lineThreshold = 35 / (CONFIG.gridUnit * State.cam.zoom);
+                    
+                    let clickedItem = null;
+
+                    // 1. Check Shapes
+                    for (let i = State.shapes.length - 1; i >= 0; i--) {
+                        if (State.shapes[i].contains(wPos)) { clickedItem = State.shapes[i]; break; }
+                    }
+                    
+                    // 2. Check Ref Points
+                    if (!clickedItem) {
+                        for (let i = State.refPoints.length - 1; i >= 0; i--) {
+                            let p = State.refPoints[i];
+                            if (Math.hypot(p.pos.x - wPos.x, p.pos.y - wPos.y) < threshold) { clickedItem = p; break; }
+                        }
+                    }
+                    
+                    // 3. Check Ref Lines
+                    if (!clickedItem) {
+                        for (let i = State.refLines.length - 1; i >= 0; i--) {
+                            let l = State.refLines[i];
+                            let l2 = Math.pow(l.p2.x - l.p1.x, 2) + Math.pow(l.p2.y - l.p1.y, 2);
+                            let dist = 0;
+                            if (l2 === 0) {
+                                dist = Math.hypot(wPos.x - l.p1.x, wPos.y - l.p1.y);
+                            } else {
+                                let t = ((wPos.x - l.p1.x) * (l.p2.x - l.p1.x) + (wPos.y - l.p1.y) * (l.p2.y - l.p1.y)) / l2;
+                                t = Math.max(0, Math.min(1, t));
+                                const projX = l.p1.x + t * (l.p2.x - l.p1.x);
+                                const projY = l.p1.y + t * (l.p2.y - l.p1.y);
+                                dist = Math.hypot(wPos.x - projX, wPos.y - projY);
+                            }
+                            if (dist < threshold) { clickedItem = l; break; }
+                        }
+                    }
+
+                    // 4. Check Eq Lines
+                    if (!clickedItem) {
+                        let minDist = Infinity;
+                        for (let i = State.lines.length - 1; i >= 0; i--) {
+                            let line = State.lines[i];
+                            let d = line.isVertical ? Math.abs(wPos.x - line.xVal) : Math.abs(line.m * wPos.x - wPos.y + line.c) / Math.sqrt(line.m * line.m + 1);
+                            if (d < minDist && d < lineThreshold) { minDist = d; clickedItem = line; }
+                        }
+                    }
+
+                    if (clickedItem) {
+                        if (e.shiftKey) {
+                            if (State.selectedIds.includes(clickedItem.id)) State.selectedIds = State.selectedIds.filter(id => id !== clickedItem.id);
+                            else State.selectedIds.push(clickedItem.id);
+                        } else {
+                            if (!State.selectedIds.includes(clickedItem.id)) State.selectedIds = [clickedItem.id];
+                        }
+                        
+                        State.isDraggingShape = true;
+                        State.dragStartMouseWorld = Utils.getSnappedWorldPos(wPos);
+                        State.dragStartShapes = State.shapes.filter(s => State.selectedIds.includes(s.id)).map(s => s.clone());
+                        State.dragStartLines = State.lines.filter(l => State.selectedIds.includes(l.id)).map(l => l.clone());
+                        State.dragStartRefPoints = State.refPoints.filter(p => State.selectedIds.includes(p.id)).map(p => p.clone());
+                        State.dragStartRefLines = State.refLines.filter(l => State.selectedIds.includes(l.id)).map(l => l.clone());
+                            
+                    } else {
+                        State.selectedIds = [];
+                        State.isPanning = true;
+                        State.panStart = { x: e.clientX - State.cam.x, y: e.clientY - State.cam.y };
+                        if (Canvas.el) Canvas.el.classList.add('panning');
+                    }
+                    UI.updateShapeList();
+                }
+            },
+
+onMouseMove: (e) => {
+                const rect = Canvas.el.getBoundingClientRect();
+                const sx = e.clientX - rect.left;
+                const sy = e.clientY - rect.top;
+                const wPos = Utils.screenToWorld(sx, sy);
+                const snapped = Utils.getSnappedWorldPos(wPos);
+
+                // Added to track mouse for live drawing
+                State.mouseWorldSnapped = snapped;
+
+                const coordDisplay = document.getElementById('coord-display');
+                if (coordDisplay) coordDisplay.textContent = `X: ${snapped.x}, Y: ${snapped.y}`;
+
+                if (State.isPanning) {
+                    State.cam.x = e.clientX - State.panStart.x;
+                    State.cam.y = e.clientY - State.panStart.y;
+                }
+                else if (State.isDraggingShape && State.selectedIds.length > 0 && !State.isAnimating) {
+                    const deltaX = snapped.x - State.dragStartMouseWorld.x;
+                    const deltaY = snapped.y - State.dragStartMouseWorld.y;
+
+                    State.shapes.forEach(shape => {
+                        if (State.selectedIds.includes(shape.id)) {
+                            const startShape = State.dragStartShapes.find(s => s.id === shape.id);
+                            if (startShape) {
+                                for (let i = 0; i < shape.points.length; i++) {
+                                    shape.points[i].x = startShape.points[i].x + deltaX;
+                                    shape.points[i].y = startShape.points[i].y + deltaY;
+                                }
+                            }
+                        }
+                    });
+
+                    State.lines.forEach(line => {
+                        if (State.selectedIds.includes(line.id)) {
+                            const startLine = State.dragStartLines.find(l => l.id === line.id);
+                            if (startLine) {
+                                if (line.isVertical) line.xVal = startLine.xVal + deltaX;
+                                else line.c = startLine.c - startLine.m * deltaX + deltaY;
+                            }
+                        }
+                    });
+
+                    State.refPoints.forEach(p => {
+                        if (State.selectedIds.includes(p.id)) {
+                            const startP = State.dragStartRefPoints.find(sp => sp.id === p.id);
+                            if (startP) {
+                                p.pos.x = startP.pos.x + deltaX;
+                                p.pos.y = startP.pos.y + deltaY;
+                            }
+                        }
+                    });
+
+                    State.refLines.forEach(l => {
+                        if (State.selectedIds.includes(l.id)) {
+                            const startL = State.dragStartRefLines.find(sl => sl.id === l.id);
+                            if (startL) {
+                                l.p1.x = startL.p1.x + deltaX; l.p1.y = startL.p1.y + deltaY;
+                                l.p2.x = startL.p2.x + deltaX; l.p2.y = startL.p2.y + deltaY;
+                            }
+                        }
+                    });
+                }
+            },
+
+            onMouseUp: (e) => {
+                if (State.isPanning) {
+                    State.isPanning = false;
+                    if (Canvas.el) Canvas.el.classList.remove('panning');
+                }
+                if (State.isDraggingShape) {
+                    let moved = false;
+                    for(let shape of State.shapes) {
+                        if (State.selectedIds.includes(shape.id)) {
+                             const startShape = State.dragStartShapes.find(s => s.id === shape.id);
+                             if (startShape && (shape.points[0].x !== startShape.points[0].x || shape.points[0].y !== startShape.points[0].y)) { moved = true; break; }
+                        }
+                    }
+                    if(!moved) {
+                        for(let line of State.lines) {
+                             if(State.selectedIds.includes(line.id)) {
+                                 const startLine = State.dragStartLines.find(l => l.id === line.id);
+                                 if (startLine && (line.c !== startLine.c || line.xVal !== startLine.xVal)) { moved = true; break; }
+                             }
+                        }
+                    }
+                    if(!moved) {
+                        for(let p of State.refPoints) {
+                             if(State.selectedIds.includes(p.id)) {
+                                 const startP = State.dragStartRefPoints.find(sp => sp.id === p.id);
+                                 if (startP && (p.pos.x !== startP.pos.x || p.pos.y !== startP.pos.y)) { moved = true; break; }
+                             }
+                        }
+                    }
+                    
+                    if(moved) {
+                        let tempShapes = State.shapes.map(s => s.clone());
+                        let tempLines = State.lines.map(l => l.clone());
+                        let tempRefPoints = State.refPoints.map(p => p.clone());
+                        let tempRefLines = State.refLines.map(l => l.clone());
+                        
+                        State.shapes.forEach(shape => {
+                            if (State.selectedIds.includes(shape.id)) {
+                                const startShape = State.dragStartShapes.find(s => s.id === shape.id);
+                                if (startShape) shape.points = startShape.points.map(p => p.clone());
+                            }
+                        });
+                        State.lines.forEach(line => {
+                            if (State.selectedIds.includes(line.id)) {
+                                const startLine = State.dragStartLines.find(l => l.id === line.id);
+                                if (startLine) { line.c = startLine.c; line.xVal = startLine.xVal; }
+                            }
+                        });
+                        State.refPoints.forEach(p => {
+                            if (State.selectedIds.includes(p.id)) {
+                                const startP = State.dragStartRefPoints.find(sp => sp.id === p.id);
+                                if (startP) { p.pos = startP.pos.clone(); }
+                            }
+                        });
+                        State.refLines.forEach(l => {
+                            if (State.selectedIds.includes(l.id)) {
+                                const startL = State.dragStartRefLines.find(sl => sl.id === l.id);
+                                if (startL) { l.p1 = startL.p1.clone(); l.p2 = startL.p2.clone(); }
+                            }
+                        });
+                        
+                        App.saveState();
+                        
+                        State.shapes = tempShapes;
+                        State.lines = tempLines;
+                        State.refPoints = tempRefPoints;
+                        State.refLines = tempRefLines;
+                    }
+                    
+                    State.isDraggingShape = false;
+                    State.dragStartShapes = [];
+                    State.dragStartLines = [];
+                    State.dragStartRefPoints = [];
+                    State.dragStartRefLines = [];
+                }
+            },
+
+            onWheel: (e) => {
+                e.preventDefault();
+                const zoomFactor = 1.1;
+                const minZoom = 0.1; 
+                const maxZoom = 10.0;
+
+                const rect = Canvas.el.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                const worldX = (mouseX - State.cam.x - (Canvas.width / 2)) / (CONFIG.gridUnit * State.cam.zoom);
+                const worldY = (mouseY - State.cam.y - (Canvas.height / 2)) / (CONFIG.gridUnit * State.cam.zoom);
+
+                if (e.deltaY < 0) State.cam.zoom = Math.min(maxZoom, State.cam.zoom * zoomFactor);
+                else State.cam.zoom = Math.max(minZoom, State.cam.zoom / zoomFactor);
+
+                State.cam.x = mouseX - worldX * (CONFIG.gridUnit * State.cam.zoom) - (Canvas.width / 2);
+                State.cam.y = mouseY - worldY * (CONFIG.gridUnit * State.cam.zoom) - (Canvas.height / 2);
+            }
+        };
+
+        // --- CANVAS RENDERER ---
+        const Canvas = {
+            el: null, ctx: null, dpr: 1, width: 0, height: 0,
+
+            init: () => {
+                Canvas.el = document.getElementById('grid-canvas');
+                Canvas.ctx = Canvas.el.getContext('2d');
+                Canvas.resize();
+            },
+
+            resize: () => {
+                const container = document.getElementById('canvas-container');
+                const rect = container.getBoundingClientRect();
+                
+                Canvas.width = rect.width; Canvas.height = rect.height;
+                Canvas.dpr = window.devicePixelRatio || 1;
+                
+                Canvas.el.width = Canvas.width * Canvas.dpr;
+                Canvas.el.height = Canvas.height * Canvas.dpr;
+                
+                Canvas.ctx.scale(Canvas.dpr, Canvas.dpr);
+                if (!State.isAnimating) Canvas.render();
+            },
+
+            clear: () => {
+                Canvas.ctx.fillStyle = CONFIG.colors.bg;
+                Canvas.ctx.fillRect(0, 0, Canvas.width, Canvas.height);
+            },
+
+            drawGrid: () => {
+                const ctx = Canvas.ctx;
+                const width = Canvas.width; const height = Canvas.height;
+                const scaledUnit = CONFIG.gridUnit * State.cam.zoom;
+                
+                const centerX = State.cam.x + width / 2;
+                const centerY = State.cam.y + height / 2;
+
+                ctx.save();
+                
+                let startX = (centerX % scaledUnit) - scaledUnit;
+                let startY = (centerY % scaledUnit) - scaledUnit;
+
+                ctx.beginPath();
+                ctx.strokeStyle = CONFIG.colors.gridMinor;
+                ctx.lineWidth = 1;
+                const minorStep = scaledUnit / CONFIG.gridSubdivisions;
+                if (minorStep > 4) {
+                    let minorStartX = (centerX % minorStep) - minorStep;
+                    let minorStartY = (centerY % minorStep) - minorStep;
+                    for (let x = minorStartX; x < width; x += minorStep) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+                    for (let y = minorStartY; y < height; y += minorStep) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+                    ctx.stroke();
+                }
+
+                ctx.beginPath();
+                ctx.strokeStyle = CONFIG.colors.gridMajor;
+                ctx.lineWidth = 1;
+                for (let x = startX; x < width; x += scaledUnit) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+                for (let y = startY; y < height; y += scaledUnit) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.strokeStyle = CONFIG.colors.axes;
+                ctx.lineWidth = 2;
+                if (centerX >= 0 && centerX <= width) { ctx.moveTo(centerX, 0); ctx.lineTo(centerX, height); }
+                if (centerY >= 0 && centerY <= height) { ctx.moveTo(0, centerY); ctx.lineTo(width, centerY); }
+                ctx.stroke();
+
+                if (scaledUnit > 20) {
+                    ctx.fillStyle = CONFIG.colors.axesText;
+                    ctx.font = '10px monospace';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+
+                    for (let x = startX; x < width; x += scaledUnit) {
+                        let val = Math.round((x - centerX) / scaledUnit);
+                        if (val !== 0 && centerY >= -20 && centerY <= height + 20) {
+                            ctx.fillText(val, x, Math.max(5, Math.min(centerY + 5, height - 15)));
+                        }
+                    }
+
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    for (let y = startY; y < height; y += scaledUnit) {
+                        let val = -Math.round((y - centerY) / scaledUnit);
+                        if (val !== 0 && centerX >= -20 && centerX <= width + 20) {
+                            ctx.fillText(val, Math.max(5, Math.min(centerX + 5, width - 20)), y);
+                        }
+                    }
+                }
+                ctx.restore();
+            },
+
+            drawGhosts: () => {
+                if (!State.showGhosts) return;
+                const ctx = Canvas.ctx;
+                ctx.save();
+                State.ghostShapes.forEach(shape => {
+                    if (shape.points.length < 2) return;
+                    
+                    const screenPoints = shape.points.map(p => Utils.worldToScreen(p.x, p.y));
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+                    for (let i = 1; i < screenPoints.length; i++) {
+                        ctx.lineTo(screenPoints[i].x, screenPoints[i].y);
+                    }
+                    ctx.closePath();
+                    
+                    ctx.fillStyle = CONFIG.colors.ghostFill; ctx.fill();
+                    ctx.strokeStyle = CONFIG.colors.ghostLine;
+                    ctx.lineWidth = 1; ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
+                });
+                ctx.restore();
+            },
+
+            drawRefObjects: () => {
+                const ctx = Canvas.ctx;
+                ctx.save();
+
+                // Draw Reference Lines
+                State.refLines.forEach(line => {
+                    const sp1 = Utils.worldToScreen(line.p1.x, line.p1.y);
+                    const sp2 = Utils.worldToScreen(line.p2.x, line.p2.y);
+                    const isSelected = State.selectedIds.includes(line.id);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(sp1.x, sp1.y);
+                    ctx.lineTo(sp2.x, sp2.y);
+                    ctx.strokeStyle = isSelected ? '#ffffff' : line.color;
+                    ctx.lineWidth = isSelected ? 3 : 2;
+                    ctx.setLineDash([6, 6]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                });
+
+                // Active Reference Line being drawn
+                if (State.mode === 'REF_LINE' && State.currentRefLineStart && State.mouseWorldSnapped) {
+                    const sp1 = Utils.worldToScreen(State.currentRefLineStart.x, State.currentRefLineStart.y);
+                    const sp2 = Utils.worldToScreen(State.mouseWorldSnapped.x, State.mouseWorldSnapped.y);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(sp1.x, sp1.y);
+                    ctx.lineTo(sp2.x, sp2.y);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([4, 4]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Draw Reference Points
+                State.refPoints.forEach(p => {
+                    const sp = Utils.worldToScreen(p.pos.x, p.pos.y);
+                    const isSelected = State.selectedIds.includes(p.id);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(sp.x - 6, sp.y - 6);
+                    ctx.lineTo(sp.x + 6, sp.y + 6);
+                    ctx.moveTo(sp.x - 6, sp.y + 6);
+                    ctx.lineTo(sp.x + 6, sp.y - 6);
+                    
+                    ctx.strokeStyle = isSelected ? '#ffffff' : p.color;
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                });
+
+                ctx.restore();
+            },
+
+            drawInfiniteLines: () => {
+                if (State.lines.length === 0) return;
+                const ctx = Canvas.ctx;
+                const width = Canvas.width; const height = Canvas.height;
+                ctx.save();
+
+                const leftW = Utils.screenToWorld(0, 0).x;
+                const rightW = Utils.screenToWorld(width, 0).x;
+                const topW = Utils.screenToWorld(0, 0).y;
+                const bottomW = Utils.screenToWorld(0, height).y;
+
+                for (let line of State.lines) {
+                    const isSelected = State.selectedIds.includes(line.id);
+                    ctx.lineWidth = isSelected ? 3 : 2;
+                    ctx.strokeStyle = line.color + (isSelected ? 'FF' : 'CC');
+
+                    ctx.beginPath();
+                    if (line.isVertical) {
+                        let p1 = Utils.worldToScreen(line.xVal, topW);
+                        let p2 = Utils.worldToScreen(line.xVal, bottomW);
+                        ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+                    } else {
+                        let yLeft = line.m * leftW + line.c;
+                        let yRight = line.m * rightW + line.c;
+                        let p1 = Utils.worldToScreen(leftW, yLeft);
+                        let p2 = Utils.worldToScreen(rightW, yRight);
+                        ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+                    }
+                    ctx.stroke();
+                }
+                ctx.restore();
+            },
+
+            drawAngles: () => {
+                if (State.lines.length < 2) return;
+                const ctx = Canvas.ctx;
+                ctx.save();
+                for (let i = 0; i < State.lines.length; i++) {
+                    for (let j = i + 1; j < State.lines.length; j++) {
+                        let L1 = State.lines[i]; let L2 = State.lines[j];
+                        if (L1.isVertical && L2.isVertical) continue;
+                        if (!L1.isVertical && !L2.isVertical && Math.abs(L1.m - L2.m) < 0.0001) continue;
+                        
+                        let intX, intY;
+                        if (L1.isVertical) { intX = L1.xVal; intY = L2.m * intX + L2.c; }
+                        else if (L2.isVertical) { intX = L2.xVal; intY = L1.m * intX + L1.c; }
+                        else { intX = (L2.c - L1.c) / (L1.m - L2.m); intY = L1.m * intX + L1.c; }
+                        
+                        let isx = Utils.worldToScreen(intX, intY);
+                        if (isx.x < -50 || isx.x > Canvas.width + 50 || isx.y < -50 || isx.y > Canvas.height + 50) continue;
+                        
+                        let d1 = L1.isVertical ? {x: 0, y: 1} : {x: 1, y: L1.m};
+                        let d2 = L2.isVertical ? {x: 0, y: 1} : {x: 1, y: L2.m};
+                        let sx1 = Utils.worldToScreen(intX + d1.x, intY + d1.y);
+                        let sx2 = Utils.worldToScreen(intX + d2.x, intY + d2.y);
+                        let screenAngle1 = Math.atan2(sx1.y - isx.y, sx1.x - isx.x);
+                        let screenAngle2 = Math.atan2(sx2.y - isx.y, sx2.x - isx.x);
+                        
+                        let angles = [
+                            screenAngle1, screenAngle1 + Math.PI, screenAngle2, screenAngle2 + Math.PI
+                        ].map(a => (a % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)).sort((a, b) => a - b);
+                         
+                        for (let k = 0; k < 4; k++) {
+                            let startAngle = angles[k];
+                            let endAngle = angles[(k + 1) % 4];
+                            if (k === 3) endAngle += 2 * Math.PI;
+                            
+                            let diff = endAngle - startAngle;
+                            if (diff < 0.01) continue;
+                            
+                            let degValue = Math.round(diff * 180 / Math.PI * 10) / 10;
+                            if (degValue >= 180) continue; 
+                            
+                            let isRightAngle = Math.abs(degValue - 90) < 0.5;
+                            
+                            ctx.beginPath();
+                            if (isRightAngle) {
+                                const size = 12;
+                                let p1x = isx.x + size * Math.cos(startAngle);
+                                let p1y = isx.y + size * Math.sin(startAngle);
+                                let p2x = isx.x + Math.sqrt(2)*size * Math.cos(startAngle + diff/2);
+                                let p2y = isx.y + Math.sqrt(2)*size * Math.sin(startAngle + diff/2);
+                                let p3x = isx.x + size * Math.cos(endAngle);
+                                let p3y = isx.y + size * Math.sin(endAngle);
+                                ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y); ctx.lineTo(p3x, p3y);
+                            } else {
+                                ctx.arc(isx.x, isx.y, 20, startAngle, endAngle);
+                            }
+                            
+                            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)'; ctx.lineWidth = 1.5; ctx.stroke();
+                            
+                            let midAngle = startAngle + diff / 2;
+                            let tx = isx.x + 35 * Math.cos(midAngle);
+                            let ty = isx.y + 35 * Math.sin(midAngle);
+                            let degStr = Number.isInteger(degValue) ? degValue.toString() : degValue.toFixed(1);
+                            
+                            ctx.font = 'bold 10px monospace';
+                            const textWidth = ctx.measureText(degStr + '°').width;
+                            ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
+                            ctx.fillRect(tx - textWidth/2 - 2, ty - 6, textWidth + 4, 12);
+                            ctx.fillStyle = '#60a5fa'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                            ctx.fillText(degStr + '°', tx, ty);
+                        }
+                        
+                        ctx.beginPath();
+                        ctx.arc(isx.x, isx.y, 3, 0, 2*Math.PI);
+                        ctx.fillStyle = '#ef4444'; ctx.fill();
+                    }
+                }
+                ctx.restore();
+            },
+
+            drawShapes: () => {
+                const ctx = Canvas.ctx;
+                const width = Canvas.width; const height = Canvas.height;
+                const pad = 50; 
+                ctx.save();
+
+                for (let shape of State.shapes) {
+                    if (shape.points.length < 2) continue;
+                    const screenPoints = shape.points.map(p => Utils.worldToScreen(p.x, p.y));
+                    
+                    let inBounds = screenPoints.some(sp => sp.x >= -pad && sp.x <= width+pad && sp.y >= -pad && sp.y <= height+pad);
+                    if (!inBounds && screenPoints.length > 2) inBounds = true; 
+                    
+                    if (inBounds) {
+                        ctx.beginPath();
+                        ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+                        for (let i = 1; i < screenPoints.length; i++) { ctx.lineTo(screenPoints[i].x, screenPoints[i].y); }
+                        ctx.closePath();
+
+                        const isSelected = State.selectedIds.includes(shape.id);
+                        ctx.fillStyle = isSelected ? shape.color + '66' : shape.color + '33'; ctx.fill();
+                        ctx.strokeStyle = shape.color; ctx.lineWidth = isSelected ? 3 : 2;
+                        if (isSelected) { ctx.shadowColor = shape.color; ctx.shadowBlur = 10; }
+                        ctx.stroke(); ctx.shadowBlur = 0;
+
+                        if (!shape.isCircle) {
+                            ctx.fillStyle = CONFIG.colors.bg; ctx.strokeStyle = shape.color; ctx.lineWidth = 2;
+                            for (let sp of screenPoints) {
+                                if (sp.x >= -pad && sp.x <= width+pad && sp.y >= -pad && sp.y <= height+pad) {
+                                    ctx.beginPath(); ctx.arc(sp.x, sp.y, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+                }
+                ctx.restore();
+            },
+
+            drawAnimShapes: () => {
+                const ctx = Canvas.ctx;
+                ctx.save();
+                for (let shape of State.animShapes) {
+                    if (shape.points.length < 2) continue;
+                    const screenPoints = shape.points.map(p => Utils.worldToScreen(p.x, p.y));
+                    ctx.beginPath();
+                    ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+                    for (let i = 1; i < screenPoints.length; i++) { ctx.lineTo(screenPoints[i].x, screenPoints[i].y); }
+                    ctx.closePath();
+
+                    ctx.fillStyle = shape.color + '88'; ctx.fill();
+                    ctx.strokeStyle = shape.color; ctx.lineWidth = 3;
+                    ctx.shadowColor = shape.color; ctx.shadowBlur = 15; ctx.stroke(); ctx.shadowBlur = 0;
+
+                    if (!shape.isCircle) {
+                        ctx.fillStyle = '#fff';
+                        for (let sp of screenPoints) {
+                            ctx.beginPath(); ctx.arc(sp.x, sp.y, 4, 0, Math.PI * 2); ctx.fill();
+                        }
+                    }
+                }
+                ctx.restore();
+            },
+
+            drawActiveDrawing: () => {
+                if (!State.isDrawing || State.currentDrawingPoints.length === 0) return;
+                const ctx = Canvas.ctx;
+                ctx.save();
+                const screenPoints = State.currentDrawingPoints.map(p => Utils.worldToScreen(p.x, p.y));
+                ctx.beginPath();
+                ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+                for (let i = 1; i < screenPoints.length; i++) { ctx.lineTo(screenPoints[i].x, screenPoints[i].y); }
+                ctx.strokeStyle = CONFIG.colors.drawingLine; ctx.lineWidth = 2; ctx.stroke();
+
+                ctx.fillStyle = CONFIG.colors.bg;
+                for (let sp of screenPoints) {
+                    ctx.beginPath(); ctx.arc(sp.x, sp.y, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                }
+                if (screenPoints.length > 2) {
+                    ctx.beginPath(); ctx.arc(screenPoints[0].x, screenPoints[0].y, 8, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#10b981'; ctx.stroke();
+                }
+                ctx.restore();
+            },
+
+            render: () => {
+                Canvas.clear();
+                Canvas.drawGrid();
+                Canvas.drawGhosts();
+                Canvas.drawShapes();
+                Canvas.drawInfiniteLines(); 
+                Canvas.drawRefObjects(); 
+                if (State.showAngles) Canvas.drawAngles();
+                Canvas.drawAnimShapes(); 
+                Canvas.drawActiveDrawing();
+                requestAnimationFrame(Canvas.render);
+            }
+        };
+
+        window.onload = App.init;
+    </script>
+</body>
+</html>
