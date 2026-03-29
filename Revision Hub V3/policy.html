@@ -4,53 +4,131 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>Maths Hub — Policy</title>
+  <title>SJWMS Maths | Policy</title>
 
-  <!-- Shared CSS (layout + sidebar + cards etc.) -->
   <link rel="stylesheet" href="assets/main.css">
 
-  <!-- Tailwind (CDN while prototyping) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100" data-page="policy">
   <div class="layout">
-    <!-- Sidebar placeholder (injected by sidebar-loader.js) -->
     <div id="sidebar" aria-label="Sidebar"></div>
 
-    <!-- Main content -->
     <main class="main p-8 overflow-y-auto">
       <header class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Privacy & Policy</h1>
+        <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <span class="material-icons text-blue-600">verified_user</span>
+          Privacy & Policy
+        </h1>
       </header>
 
-      <section class="card mb-6">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Our Commitment</h2>
-        <p class="card-text mb-4">
-          This Maths Hub is a revision platform for students. We keep things simple and private:
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+          <span class="material-icons text-green-500 mb-2">lock</span>
+          <span class="text-sm font-semibold text-gray-700">100% Secure</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+          <span class="material-icons text-blue-500 mb-2">visibility_off</span>
+          <span class="text-sm font-semibold text-gray-700">No Tracking</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+          <span class="material-icons text-purple-500 mb-2">person_off</span>
+          <span class="text-sm font-semibold text-gray-700">No Accounts</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+          <span class="material-icons text-orange-500 mb-2">gpp_good</span>
+          <span class="text-sm font-semibold text-gray-700">GDPR Compliant</span>
+        </div>
+      </div>
+
+      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="material-icons text-gray-400">info</span>
+          Our Commitment
+        </h2>
+        <p class="card-text mb-4 text-gray-600">
+          This Maths website is a revision platform for students. We keep things simple and private:
         </p>
-        <ul class="list-disc pl-6 text-gray-700 space-y-2">
-          <li>No personal data is collected from students or teachers.</li>
-          <li>No logins or accounts are required to access resources.</li>
-          <li>Resources are linked from trusted, teacher-approved sources only.</li>
-          <li>We comply with GDPR because no identifying data is processed or stored.</li>
+        <ul class="list-none pl-0 text-gray-700 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
+            No personal data is collected from students or teachers.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
+            No logins or accounts are required to access resources.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
+            Resources are linked from trusted, teacher-approved sources only.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
+            We comply with GDPR because no identifying data is processed or stored.
+          </li>
         </ul>
       </section>
 
-      <section class="card">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Questions?</h2>
-        <p class="card-text">
+      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="material-icons text-indigo-500">assignment</span>
+          Terms & Conditions
+        </h2>
+        <p class="card-text mb-4 text-gray-600">
+          By using the Maths website, you agree to the following terms:
+        </p>
+        <ul class="list-none pl-0 text-gray-700 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
+            This platform is designed for personal, non-commercial educational use only.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
+            You may not copy, scrape, or redistribute the site's structure without permission.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
+            All linked revision materials and videos remain the intellectual property of their respective creators.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="material-icons text-red-500">link</span>
+          External Links Disclaimer
+        </h2>
+        <p class="card-text text-gray-600 mb-4">
+          The Maths website contains links to third-party websites (e.g., YouTube, external revision sites, exam boards) to support your learning. Please be aware:
+        </p>
+        <ul class="list-none pl-0 text-gray-700 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-red-400 text-sm mt-1">error_outline</span>
+            We do not control the content, availability, or privacy practices of these external sites.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-icons text-red-400 text-sm mt-1">error_outline</span>
+            Once you leave the Maths website, our privacy commitment no longer applies. We recommend reviewing the policies of any external site you visit.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card bg-white p-6 rounded-xl shadow-sm">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="material-icons text-gray-400">help_outline</span>
+          Questions?
+        </h2>
+        <p class="card-text flex items-center gap-2">
           If you have any questions about how this site works, please speak to the
-          <strong>Maths Hub website administrator</strong>.
+          <strong class="text-blue-700">SJWMS Maths website administrator</strong>.
         </p>
       </section>
     </main>
   </div>
 
-  <!-- Shared sidebar loader (injects sidebar.html and highlights the active link) -->
   <script src="assets/sidebar-loader.js" defer></script>
 </body>
 </html>
