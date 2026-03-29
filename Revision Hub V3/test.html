@@ -184,7 +184,7 @@
       const styleTag = document.getElementById('seasonal-styles');
 
       // 3 = March, 4 = April (Easter Theme)
-      if (month === 3 || month === 4) {
+      if (month === 12) {
         let eggsHTML = '';
         const colors = ['#fca5a5', '#fcd34d', '#86efac', '#93c5fd', '#d8b4fe']; // Tailwind pastel hexes
         
@@ -224,7 +224,7 @@
         `;
       } 
       // 12 = December (Christmas Theme)
-      else if (month === 12) {
+      else if (month === 3 || month === 4) {
         let lightsHTML = '<div class="fairy-wire"></div>';
         const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308']; 
         
