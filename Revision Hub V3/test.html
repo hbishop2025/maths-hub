@@ -34,7 +34,7 @@
 </head>
 <body>
 
-  <div id="seasonal-container" class="absolute top-0 left-0 w-full overflow-hidden z-50 pointer-events-none h-32"></div>
+  <div id="seasonal-container" class="fixed inset-0 w-full h-full overflow-hidden z-50 pointer-events-none"></div>
 
   <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 lg:py-0">
     
@@ -183,62 +183,97 @@
       const container = document.getElementById('seasonal-container');
       const styleTag = document.getElementById('seasonal-styles');
 
-      // 3 = March, 4 = April (Easter Theme - Upgraded 3D Eggs)
-      if (month === 11) {
-        let eggsHTML = '';
-        const colors = ['#fca5a5', '#fcd34d', '#86efac', '#93c5fd', '#d8b4fe']; 
+      // 3 = March, 4 = April (Easter Theme - Peeking Bunny Ears)
+      if (month === 3 || month === 4) {
+        let bunnyHTML = '';
         
-        for(let i = 0; i < 20; i++) {
-           let color = colors[i % colors.length];
-           let leftPosition = (i * 5) + (Math.random() * 3); 
-           let delay = Math.random() * 2;
-           eggsHTML += `<div class="easter-egg" style="left: ${leftPosition}%; background-color: ${color}; animation-delay: ${delay}s;"></div>`;
+        // Generate 4 bunnies spread across the bottom
+        for(let i = 0; i < 4; i++) {
+           let leftPosition = 15 + (i * 22) + (Math.random() * 6 - 3); 
+           let delay = Math.random() * 5;
+           bunnyHTML += `
+             <div class="bunny" style="left: ${leftPosition}%; animation-delay: ${delay}s;">
+               <div class="bunny-ear left" style="animation-delay: ${delay}s;"></div>
+               <div class="bunny-ear right" style="animation-delay: ${delay + 0.3}s;"></div>
+             </div>
+           `;
         }
         
-        container.innerHTML = eggsHTML;
+        container.innerHTML = bunnyHTML;
         styleTag.innerHTML = `
-          .easter-egg {
+          .bunny {
             position: absolute;
-            top: -10px;
-            width: 18px;
-            height: 26px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            /* 3D Shading effect to make it look round instead of flat */
-            box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2), 0 0 12px rgba(255,255,255,0.15);
-            background-image: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.5), transparent 60%);
-            animation: swing 3s ease-in-out infinite alternate;
-            transform-origin: top center;
+            bottom: -70px; /* Hidden below the screen initially */
+            width: 50px;
+            height: 70px;
+            animation: peek-up 8s ease-in-out infinite;
           }
-          .easter-egg::after {
+          .bunny-ear {
+            position: absolute;
+            bottom: 0;
+            width: 18px;
+            height: 60px;
+            background-color: #f8fafc; /* White/Light gray */
+            border-radius: 50% 50% 0 0;
+            box-shadow: inset -2px -2px 6px rgba(0,0,0,0.1);
+            transform-origin: bottom center;
+          }
+          /* Pink inner ear */
+          .bunny-ear::after {
             content: '';
             position: absolute;
-            top: -20px;
-            left: 8px;
-            width: 2px;
-            height: 20px;
-            background: rgba(255,255,255,0.2);
+            bottom: 5px;
+            left: 4px;
+            width: 10px;
+            height: 45px;
+            background-color: #f472b6; /* Soft pink */
+            border-radius: 50% 50% 0 0;
           }
-          @keyframes swing {
-            0% { transform: rotate(8deg); }
-            100% { transform: rotate(-8deg); }
+          .bunny-ear.left {
+            left: 2px;
+            transform: rotate(-12deg);
+            animation: twitch-left 8s infinite;
+          }
+          .bunny-ear.right {
+            right: 2px;
+            transform: rotate(12deg);
+            animation: twitch-right 8s infinite;
+          }
+          
+          /* The whole bunny peeking up and down */
+          @keyframes peek-up {
+            0%, 15%, 85%, 100% { transform: translateY(0); }
+            30%, 70% { transform: translateY(-55px); }
+          }
+          
+          /* Ear twitches while up */
+          @keyframes twitch-left {
+            0%, 40%, 60%, 100% { transform: rotate(-12deg); }
+            45% { transform: rotate(-25deg); }
+            50% { transform: rotate(-8deg); }
+            55% { transform: rotate(-20deg); }
+          }
+          @keyframes twitch-right {
+            0%, 40%, 60%, 100% { transform: rotate(12deg); }
+            48% { transform: rotate(25deg); }
+            52% { transform: rotate(8deg); }
+            56% { transform: rotate(20deg); }
           }
         `;
       } 
       // 10 = October (Halloween Theme - Creepy Eyes & Embers)
-      else if (month === 3) {
+      else if (month === 10) {
         let halloweenHTML = '';
-        const eyeColors = ['#ea580c', '#9333ea']; // Orange and Purple
+        const eyeColors = ['#ea580c', '#9333ea']; 
         
-        // Generate Creepy Blinking Eyes
         for(let i = 0; i < 10; i++) {
            let color = eyeColors[i % eyeColors.length];
            let leftPosition = Math.random() * 95; 
            let topPosition = Math.random() * 80 + 10;
            let delay = Math.random() * 5;
-           halloweenHTML += `<div class="creepy-eyes" style="left: ${leftPosition}%; top: ${topPosition}px; background-color: ${color}; box-shadow: 12px 0 0 ${color}, 0 0 10px ${color}, 12px 0 10px ${color}; animation-delay: ${delay}s;"></div>`;
+           halloweenHTML += `<div class="creepy-eyes" style="left: ${leftPosition}%; top: ${topPosition}%; background-color: ${color}; box-shadow: 12px 0 0 ${color}, 0 0 10px ${color}, 12px 0 10px ${color}; animation-delay: ${delay}s;"></div>`;
         }
 
-        // Generate drifting embers
         for(let i = 0; i < 15; i++) {
            let leftPosition = Math.random() * 100;
            let delay = Math.random() * 3;
@@ -269,12 +304,12 @@
           @keyframes blink-eyes {
             0%, 40%, 60%, 100% { opacity: 0; transform: scale(0.8); }
             45%, 55% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 0.1; transform: scaleX(1.2) scaleY(0.2); } /* Blink */
+            50% { opacity: 0.1; transform: scaleX(1.2) scaleY(0.2); }
           }
           @keyframes float-ember {
             0% { transform: translateY(0) scale(1); opacity: 0; }
             50% { opacity: 0.6; }
-            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
           }
         `;
       }
