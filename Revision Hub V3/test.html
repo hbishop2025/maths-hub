@@ -2,133 +2,266 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>SJWMS Maths — Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SJWMS Maths | Home</title>
 
-  <link rel="stylesheet" href="assets/main.css">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+  <style type="text/tailwindcss">
+    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
+
+    /* --- ENTRANCE ANIMATIONS --- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
+    .delay-500 { animation-delay: 500ms; }
+  </style>
+
+  <style id="seasonal-styles"></style>
 </head>
-<body class="bg-gray-100" data-page="policy">
-  <div class="layout">
-    <div id="sidebar" aria-label="Sidebar"></div>
+<body>
 
-    <main class="main p-8 overflow-y-auto">
-      <header class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <span class="material-icons text-blue-600">verified_user</span>
-          Privacy & Policy
-        </h1>
-      </header>
+  <div id="seasonal-container" class="absolute top-0 left-0 w-full overflow-hidden z-50 pointer-events-none h-32"></div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
-          <span class="material-icons text-green-500 mb-2">lock</span>
-          <span class="text-sm font-semibold text-gray-700">100% Secure</span>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
-          <span class="material-icons text-blue-500 mb-2">visibility_off</span>
-          <span class="text-sm font-semibold text-gray-700">No Tracking</span>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
-          <span class="material-icons text-purple-500 mb-2">person_off</span>
-          <span class="text-sm font-semibold text-gray-700">No Accounts</span>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
-          <span class="material-icons text-orange-500 mb-2">gpp_good</span>
-          <span class="text-sm font-semibold text-gray-700">GDPR Compliant</span>
-        </div>
+  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 lg:py-0">
+    
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/90 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-left">
+      
+      <div class="max-w-2xl w-full">
+         
+         <div class="flex items-center gap-3 mb-6 animate-fade-in delay-100">
+           <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
+           <span class="font-extrabold tracking-tight text-white text-xl md:text-2xl drop-shadow-md">SJWMS Maths</span>
+         </div>
+         
+         <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
+           What will you<br>
+           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+             revise today
+           </span><br>
+           and master?
+         </h1>
+         
+         <p class="text-slate-300 text-lg md:text-xl font-medium drop-shadow-md mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
+           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
+         </p>
+
+         <div class="flex flex-wrap items-center gap-4 animate-fade-in delay-400">
+           
+           <a href="ks3_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
+             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
+           </a>
+
+           <a href="gcse_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
+             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
+           </a>
+
+           <a href="alevel_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
+             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
+           </a>
+           
+           <div class="w-px h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
+
+           <a href="ai_usage.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
+             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
+           </a>
+
+         </div>
+
+        <div class="mt-8 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
+           <span class="material-icons text-[16px] text-white">camera</span>
+           <p class="text-xs md:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@sunx?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Li Zhang</a></p>
+         </div>
+
       </div>
 
-      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <span class="material-icons text-gray-400">info</span>
-          Our Commitment
-        </h2>
-        <p class="card-text mb-4 text-gray-600">
-          This Maths Hub is a revision platform for students. We keep things simple and private:
-        </p>
-        <ul class="list-none pl-0 text-gray-700 space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
-            No personal data is collected from students or teachers.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
-            No logins or accounts are required to access resources.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
-            Resources are linked from trusted, teacher-approved sources only.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-green-500 text-sm mt-1">check_circle</span>
-            We comply with GDPR because no identifying data is processed or stored.
-          </li>
-        </ul>
-      </section>
+      <div id="updates-column" class="hidden w-full max-w-lg lg:w-[480px] flex-col gap-4 animate-fade-in delay-500 z-20">
+      </div>
 
-      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <span class="material-icons text-indigo-500">assignment</span>
-          Terms & Conditions
-        </h2>
-        <p class="card-text mb-4 text-gray-600">
-          By using the Maths Hub, you agree to the following terms:
-        </p>
-        <ul class="list-none pl-0 text-gray-700 space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
-            This platform is designed for personal, non-commercial educational use only.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
-            You may not copy, scrape, or redistribute the site's structure without permission.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-indigo-400 text-sm mt-1">chevron_right</span>
-            All linked revision materials and videos remain the intellectual property of their respective creators.
-          </li>
-        </ul>
-      </section>
+    </div>
+  </main>
 
-      <section class="card mb-6 bg-white p-6 rounded-xl shadow-sm">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <span class="material-icons text-red-500">link</span>
-          External Links Disclaimer
-        </h2>
-        <p class="card-text text-gray-600 mb-4">
-          The Maths Hub contains links to third-party websites (e.g., YouTube, external revision sites, exam boards) to support your learning. Please be aware:
-        </p>
-        <ul class="list-none pl-0 text-gray-700 space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-red-400 text-sm mt-1">error_outline</span>
-            We do not control the content, availability, or privacy practices of these external sites.
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="material-icons text-red-400 text-sm mt-1">error_outline</span>
-            Once you leave the Maths Hub, our privacy commitment no longer applies. We recommend reviewing the policies of any external site you visit.
-          </li>
-        </ul>
-      </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('assets/data/home_updates.json');
+        if (!response.ok) return; 
 
-      <section class="card bg-white p-6 rounded-xl shadow-sm">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <span class="material-icons text-gray-400">help_outline</span>
-          Questions?
-        </h2>
-        <p class="card-text flex items-center gap-2">
-          If you have any questions about how this site works, please speak to the
-          <strong class="text-blue-700">Maths Hub website administrator</strong>.
-        </p>
-      </section>
-    </main>
-  </div>
+        const data = await response.json();
+        const siteUpdates = data.items || []; 
 
-  <script src="assets/sidebar-loader.js" defer></script>
+        const updatesColumn = document.getElementById('updates-column');
+
+        if (siteUpdates.length > 0) {
+          updatesColumn.classList.remove('hidden');
+          updatesColumn.classList.add('flex'); 
+
+          siteUpdates.forEach((update, index) => {
+            const isLong = update.text.length > 120;
+            let textHTML = '';
+            
+            if (isLong) {
+              textHTML = `
+                <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
+                  <p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>
+                </div>
+                <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
+                  Show More
+                </button>
+              `;
+            } else {
+              textHTML = `<p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>`;
+            }
+
+            let buttonHTML = '';
+            if (update.btnText && update.btnLink) {
+              buttonHTML = `
+                <div class="mt-4">
+                  <a href="${update.btnLink}" class="inline-flex items-center px-4 py-2 rounded bg-blue-500/20 border border-blue-400/30 text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
+                    ${update.btnText}
+                  </a>
+                </div>
+              `;
+            }
+
+            const updateCard = document.createElement('div');
+            updateCard.className = "p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
+            updateCard.innerHTML = `
+              <div class="flex items-center gap-2 mb-2">
+                <span class="material-icons text-blue-400 text-[18px]">${update.icon || 'info'}</span>
+                <h3 class="text-white font-bold text-sm tracking-wide uppercase">${update.title}</h3>
+              </div>
+              ${textHTML}
+              ${buttonHTML}
+            `;
+            
+            updatesColumn.appendChild(updateCard);
+          });
+        }
+      } catch (error) {
+        console.error("Error loading updates:", error);
+      }
+    });
+
+    window.toggleUpdateText = function(index) {
+      const wrapper = document.getElementById(`text-wrapper-${index}`);
+      const btn = document.getElementById(`toggle-btn-${index}`);
+      
+      if (wrapper.classList.contains('max-h-[4.5rem]')) {
+        wrapper.classList.remove('max-h-[4.5rem]');
+        wrapper.classList.add('max-h-[800px]');
+        btn.innerText = 'Show Less';
+      } else {
+        wrapper.classList.add('max-h-[4.5rem]');
+        wrapper.classList.remove('max-h-[800px]');
+        btn.innerText = 'Show More';
+      }
+    };
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const month = new Date().getMonth() + 1; // 1-12
+      const container = document.getElementById('seasonal-container');
+      const styleTag = document.getElementById('seasonal-styles');
+
+      // 3 = March, 4 = April (Easter Theme)
+      if (month === 3 || month === 4) {
+        let eggsHTML = '';
+        const colors = ['#fca5a5', '#fcd34d', '#86efac', '#93c5fd', '#d8b4fe']; // Tailwind pastel hexes
+        
+        for(let i = 0; i < 20; i++) {
+           let color = colors[i % colors.length];
+           let leftPosition = (i * 5) + (Math.random() * 3); // Spread across top
+           let delay = Math.random() * 2;
+           eggsHTML += `<div class="easter-egg" style="left: ${leftPosition}%; background-color: ${color}; animation-delay: ${delay}s;"></div>`;
+        }
+        
+        container.innerHTML = eggsHTML;
+        styleTag.innerHTML = `
+          .easter-egg {
+            position: absolute;
+            top: -10px;
+            width: 18px;
+            height: 26px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 12px rgba(255,255,255,0.15);
+            animation: swing 3s ease-in-out infinite alternate;
+            transform-origin: top center;
+          }
+          /* The string holding the egg */
+          .easter-egg::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 8px;
+            width: 2px;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+          }
+          @keyframes swing {
+            0% { transform: rotate(8deg); }
+            100% { transform: rotate(-8deg); }
+          }
+        `;
+      } 
+      // 12 = December (Christmas Theme)
+      else if (month === 12) {
+        let lightsHTML = '<div class="fairy-wire"></div>';
+        const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308']; 
+        
+        for(let i = 0; i < 30; i++) {
+           let color = colors[i % colors.length];
+           let leftPosition = (i * 3.33); 
+           let delay = Math.random() * 1.5;
+           lightsHTML += `<div class="fairy-light" style="left: ${leftPosition}%; background-color: ${color}; box-shadow: 0 0 15px 5px ${color}aa; animation-delay: ${delay}s;"></div>`;
+        }
+        
+        container.innerHTML = lightsHTML;
+        styleTag.innerHTML = `
+          .fairy-wire {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+            z-index: 1;
+          }
+          .fairy-light {
+            position: absolute;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            z-index: 2;
+            animation: blink 1.5s infinite alternate;
+          }
+          @keyframes blink {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.1); }
+          }
+        `;
+      }
+    });
+  </script>
 </body>
 </html>
