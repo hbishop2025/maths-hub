@@ -183,14 +183,14 @@
       const container = document.getElementById('seasonal-container');
       const styleTag = document.getElementById('seasonal-styles');
 
-      // 3 = March, 4 = April (Easter Theme)
-      if (month === 12) {
+      // 3 = March, 4 = April (Easter Theme - Upgraded 3D Eggs)
+      if (month === 3 || month === 4) {
         let eggsHTML = '';
-        const colors = ['#fca5a5', '#fcd34d', '#86efac', '#93c5fd', '#d8b4fe']; // Tailwind pastel hexes
+        const colors = ['#fca5a5', '#fcd34d', '#86efac', '#93c5fd', '#d8b4fe']; 
         
         for(let i = 0; i < 20; i++) {
            let color = colors[i % colors.length];
-           let leftPosition = (i * 5) + (Math.random() * 3); // Spread across top
+           let leftPosition = (i * 5) + (Math.random() * 3); 
            let delay = Math.random() * 2;
            eggsHTML += `<div class="easter-egg" style="left: ${leftPosition}%; background-color: ${color}; animation-delay: ${delay}s;"></div>`;
         }
@@ -203,11 +203,12 @@
             width: 18px;
             height: 26px;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 12px rgba(255,255,255,0.15);
+            /* 3D Shading effect to make it look round instead of flat */
+            box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2), 0 0 12px rgba(255,255,255,0.15);
+            background-image: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.5), transparent 60%);
             animation: swing 3s ease-in-out infinite alternate;
             transform-origin: top center;
           }
-          /* The string holding the egg */
           .easter-egg::after {
             content: '';
             position: absolute;
@@ -223,8 +224,62 @@
           }
         `;
       } 
+      // 10 = October (Halloween Theme - Creepy Eyes & Embers)
+      else if (month === 10) {
+        let halloweenHTML = '';
+        const eyeColors = ['#ea580c', '#9333ea']; // Orange and Purple
+        
+        // Generate Creepy Blinking Eyes
+        for(let i = 0; i < 10; i++) {
+           let color = eyeColors[i % eyeColors.length];
+           let leftPosition = Math.random() * 95; 
+           let topPosition = Math.random() * 80 + 10;
+           let delay = Math.random() * 5;
+           halloweenHTML += `<div class="creepy-eyes" style="left: ${leftPosition}%; top: ${topPosition}px; background-color: ${color}; box-shadow: 12px 0 0 ${color}, 0 0 10px ${color}, 12px 0 10px ${color}; animation-delay: ${delay}s;"></div>`;
+        }
+
+        // Generate drifting embers
+        for(let i = 0; i < 15; i++) {
+           let leftPosition = Math.random() * 100;
+           let delay = Math.random() * 3;
+           halloweenHTML += `<div class="ember" style="left: ${leftPosition}%; animation-delay: ${delay}s;"></div>`;
+        }
+        
+        container.innerHTML = halloweenHTML;
+        styleTag.innerHTML = `
+          .creepy-eyes {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: blink-eyes 6s infinite;
+          }
+          .ember {
+            position: absolute;
+            bottom: -10px;
+            width: 4px;
+            height: 4px;
+            background: #ea580c;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px #ea580c;
+            opacity: 0;
+            animation: float-ember 4s ease-in-out infinite;
+          }
+          @keyframes blink-eyes {
+            0%, 40%, 60%, 100% { opacity: 0; transform: scale(0.8); }
+            45%, 55% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 0.1; transform: scaleX(1.2) scaleY(0.2); } /* Blink */
+          }
+          @keyframes float-ember {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+          }
+        `;
+      }
       // 12 = December (Christmas Theme)
-      else if (month === 3 || month === 4) {
+      else if (month === 12) {
         let lightsHTML = '<div class="fairy-wire"></div>';
         const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308']; 
         
@@ -253,9 +308,9 @@
             height: 10px;
             border-radius: 50%;
             z-index: 2;
-            animation: blink 1.5s infinite alternate;
+            animation: blink-light 1.5s infinite alternate;
           }
-          @keyframes blink {
+          @keyframes blink-light {
             0% { opacity: 0.4; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1.1); }
           }
