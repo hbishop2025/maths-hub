@@ -44,14 +44,17 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Light Green Hero Mesh */
+    /* New Bright Mesh Hero Mesh */
     .mesh-alevel {
-      background-color: #ecfdf5; /* emerald-50 */
-      background-image: 
-        radial-gradient(at 20% 20%, #a7f3d0 0px, transparent 50%), /* emerald-200 */
-        radial-gradient(at 80% 10%, #6ee7b7 0px, transparent 50%), /* emerald-300 */
-        radial-gradient(at 80% 80%, #34d399 0px, transparent 50%), /* emerald-400 */
-        radial-gradient(at 20% 90%, #d1fae5 0px, transparent 50%); /* emerald-100 */
+      background-color:#ffaa99;
+      background-image:
+        radial-gradient(at 8% 32%, hsla(145,85%,68%,1) 0px, transparent 50%),
+        radial-gradient(at 88% 18%, hsla(36,89%,71%,1) 0px, transparent 50%),
+        radial-gradient(at 57% 13%, hsla(126,98%,68%,1) 0px, transparent 50%),
+        radial-gradient(at 34% 15%, hsla(133,88%,60%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 80%, hsla(70,74%,61%,1) 0px, transparent 50%),
+        radial-gradient(at 43% 84%, hsla(167,86%,62%,1) 0px, transparent 50%),
+        radial-gradient(at 92% 68%, hsla(160,90%,79%,1) 0px, transparent 50%);
     }
 
     /* Spotify-style Card Meshes */
@@ -76,9 +79,9 @@
       @apply bg-[#000000] border-[#000000] text-white;
     }
 
-    /* Cards - Spotify Album Style */
+    /* Cards - Spotify Album Style (Updated to not be square) */
     .icon-card {
-      @apply relative flex flex-col overflow-hidden rounded-[24px] aspect-square shadow-sm transition-all duration-300 transform;
+      @apply relative flex flex-col overflow-hidden rounded-[20px] shadow-sm transition-all duration-300 transform h-28 sm:h-32;
     }
     .icon-card:hover {
       @apply shadow-2xl -translate-y-2;
@@ -127,24 +130,24 @@
       Year 7, 8 and GCSE Still Under Construction
     </div>
 
-    <section class="relative w-full h-[450px] flex items-center overflow-hidden mesh-alevel mb-16 shadow-md">
+    <section class="relative w-full h-[450px] flex items-center overflow-hidden mesh-alevel mb-16 shadow-md border-b-2 border-emerald-100">
       
-      <div class="absolute inset-0 z-0 bg-white/20 backdrop-blur-[1px]"></div>
+      <div class="absolute inset-0 z-0 bg-white/10 backdrop-blur-[1px]"></div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
             
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-             <span class="text-[10px] font-bold text-emerald-800 uppercase tracking-widest">KS5 • Years 12 & 13</span>
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/20 border border-white/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-white"></span>
+             <span class="text-[10px] font-bold text-white uppercase tracking-widest">KS5 • Years 12 & 13</span>
            </div>
            
-           <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-4 leading-tight">
+           <h1 class="text-5xl md:text-6xl font-black text-slate-950 mb-4 leading-tight">
              A-Level<br>
-             <span class="text-emerald-600">Mathematics</span>
+             <span class="text-emerald-700">Mathematics</span>
            </h1>
            
-           <p class="text-slate-700 text-lg font-medium mb-8 leading-relaxed max-w-xl">
+           <p class="text-slate-900/90 text-lg font-medium mb-8 leading-relaxed max-w-xl">
              Your home for all A-level revision. Please note that all links take you to an external site moderated by our head of KS5 maths.
            </p>
 
@@ -154,7 +157,7 @@
                <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
              </a>
 
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/50 border border-white/60 backdrop-blur-md text-slate-900 font-semibold transition-all duration-300 hover:bg-white/80 hover:scale-105">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/60 border border-white/80 backdrop-blur-md text-slate-950 font-semibold transition-all duration-300 hover:bg-white/80 hover:scale-105 shadow">
                <span>A* Questions</span>
                <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">star</span>
              </a>
@@ -172,11 +175,10 @@
       <section id="track-panels" class="space-y-12">
         <div class="animate-pulse space-y-4">
            <div class="h-8 bg-gray-200 rounded w-1/4"></div>
-           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
-             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
-             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
-             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
+           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+             <div class="h-32 bg-gray-200 rounded-[20px]"></div>
+             <div class="h-32 bg-gray-200 rounded-[20px]"></div>
+             <div class="h-32 bg-gray-200 rounded-[20px]"></div>
            </div>
         </div>
       </section>
@@ -263,21 +265,20 @@
 
             const meshClass = meshGradients[index % meshGradients.length];
             
-            // Format unit number as 01, 02, 03...
             const unitNumber = String(index + 1).padStart(2, '0');
 
-            // Stripped down inner layout: Unit Number, Icon, Title only.
+            // Template adjusted for tighter horizontal layout, aspect-square removed
             const inner = `
               <div class="absolute inset-0 ${meshClass} opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent mix-blend-multiply"></div>
-              <div class="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10">
-                <div class="flex justify-between items-start w-full">
-                  <span class="text-white/90 font-black text-2xl tracking-tighter opacity-80">${unitNumber}</span>
-                  <div class="bg-black/30 backdrop-blur-md h-10 w-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-black/50 transition-all duration-300 shadow-lg">
-                    <span class="material-symbols-outlined text-white text-xl">${isLink ? 'north_east' : icon}</span>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent mix-blend-multiply"></div>
+              <div class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between z-10">
+                <div class="flex justify-between items-center w-full">
+                  <span class="text-white font-black text-3xl tracking-tighter opacity-80">${unitNumber}</span>
+                  <div class="bg-black/30 backdrop-blur-md h-9 w-9 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-black/50 transition-all duration-300 shadow">
+                    <span class="material-symbols-outlined text-white text-lg">${isLink ? 'north_east' : icon}</span>
                   </div>
                 </div>
-                <h3 class="text-white font-extrabold text-xl sm:text-2xl leading-tight tracking-tight">${title}</h3>
+                <h3 class="text-white font-extrabold text-lg sm:text-xl leading-snug tracking-tight">${title}</h3>
               </div>
             `;
 
@@ -292,8 +293,9 @@
             }
           }).join('');
 
+          // Restored to grid-cols-2 md:grid-cols-3 for horizontal tiles
           return `
-            <section class="mb-12">
+            <section class="mb-10">
               <div class="flex items-center gap-4 mb-6">
                 <h2 class="section-heading">${section.heading || ''}</h2>
                 <div class="h-px bg-gray-200 flex-grow"></div>
@@ -301,7 +303,7 @@
               
               ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4 font-medium">${section.subheading}</p>` : ''}
               
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
                 ${cardsHtml}
               </div>
             </section>
