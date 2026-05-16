@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/main.css"/>
 
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+    :root { --accent1:#10b981; --accent2:#34d399; }
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
@@ -44,14 +44,14 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Hero Mesh */
+    /* Light Green Hero Mesh */
     .mesh-alevel {
-      background-color: #0f172a;
+      background-color: #ecfdf5; /* emerald-50 */
       background-image: 
-        radial-gradient(at 10% 20%, #7c3aed 0px, transparent 50%), 
-        radial-gradient(at 90% 10%, #db2777 0px, transparent 50%), 
-        radial-gradient(at 80% 80%, #4f46e5 0px, transparent 50%), 
-        radial-gradient(at 20% 90%, #2563eb 0px, transparent 50%);
+        radial-gradient(at 20% 20%, #a7f3d0 0px, transparent 50%), /* emerald-200 */
+        radial-gradient(at 80% 10%, #6ee7b7 0px, transparent 50%), /* emerald-300 */
+        radial-gradient(at 80% 80%, #34d399 0px, transparent 50%), /* emerald-400 */
+        radial-gradient(at 20% 90%, #d1fae5 0px, transparent 50%); /* emerald-100 */
     }
 
     /* Spotify-style Card Meshes */
@@ -64,7 +64,7 @@
 
     .section-heading { @apply text-2xl font-bold text-gray-800 tracking-tight; }
 
-    /* Track pills (Simplified, rounder, punchier) */
+    /* Track pills */
     .track-wrap { @apply flex flex-wrap gap-3 mb-10; }
     .track-pill {
       @apply px-6 py-2.5 rounded-full text-sm font-bold bg-white text-gray-600 border border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:bg-gray-100;
@@ -129,30 +129,32 @@
 
     <section class="relative w-full h-[450px] flex items-center overflow-hidden mesh-alevel mb-16 shadow-md">
       
-      <div class="absolute inset-0 z-0 bg-slate-900/40"></div> <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+      <div class="absolute inset-0 z-0 bg-white/20 backdrop-blur-[1px]"></div>
+
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
             
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-purple-500/20 border border-purple-400/30 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-purple-400"></span>
-             <span class="text-[10px] font-bold text-purple-100 uppercase tracking-widest">KS5 • Years 12 & 13</span>
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+             <span class="text-[10px] font-bold text-emerald-800 uppercase tracking-widest">KS5 • Years 12 & 13</span>
            </div>
            
-           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+           <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-4 leading-tight">
              A-Level<br>
-             <span class="text-purple-300">Mathematics</span>
+             <span class="text-emerald-600">Mathematics</span>
            </h1>
            
-           <p class="text-slate-100 text-lg font-medium drop-shadow-md mb-8 leading-relaxed max-w-xl">
+           <p class="text-slate-700 text-lg font-medium mb-8 leading-relaxed max-w-xl">
              Your home for all A-level revision. Please note that all links take you to an external site moderated by our head of KS5 maths.
            </p>
 
            <div class="flex flex-wrap gap-4">
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-gray-900 font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white font-bold transition-all duration-300 hover:scale-105 hover:bg-slate-800 hover:shadow-lg">
                <span>Exam Revision</span>
                <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
              </a>
 
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/50 border border-white/60 backdrop-blur-md text-slate-900 font-semibold transition-all duration-300 hover:bg-white/80 hover:scale-105">
                <span>A* Questions</span>
                <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">star</span>
              </a>
@@ -206,7 +208,6 @@
       let TRACKS = [];
       let activeTrackId = null;
 
-      // Define an array of our new gradient meshes
       const meshGradients = [
         'mesh-card-1', 'mesh-card-2', 'mesh-card-3', 
         'mesh-card-4', 'mesh-card-5', 'mesh-card-6'
@@ -229,15 +230,11 @@
 
       function setActiveTrack(id){
         activeTrackId = id;
-
-        // Update pills
         const pills = PILL_WRAP.querySelectorAll('.track-pill');
         pills.forEach(pill => {
           const isActive = pill.dataset.trackId === id;
           pill.classList.toggle('track-pill-active', isActive);
         });
-
-        // Render content
         renderTrack(id);
       }
 
@@ -261,35 +258,26 @@
           const cardsHtml = cards.map((card, index) => {
             const icon = card.icon || 'auto_awesome';
             const title = card.title || 'Untitled';
-            const desc = card.description || '';
             const url  = card.url || '#';
             const isLink = !!card.url;
 
-            // Pick a rotating gradient from our array
             const meshClass = meshGradients[index % meshGradients.length];
+            
+            // Format unit number as 01, 02, 03...
+            const unitNumber = String(index + 1).padStart(2, '0');
 
-            // Generate tags if they exist (styled as dark pills for contrast)
-            const tagHtml = Array.isArray(card.tags) && card.tags.length
-              ? '<div class="mt-2 flex flex-wrap gap-1">' +
-                card.tags.map(t => 
-                  `<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-black/30 text-[10px] font-bold text-white backdrop-blur-sm">${t}</span>`
-                ).join('') +
-              '</div>'
-              : '';
-
-            // The Inner Card Structure - Spotify Style
+            // Stripped down inner layout: Unit Number, Icon, Title only.
             const inner = `
               <div class="absolute inset-0 ${meshClass} opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent mix-blend-multiply"></div>
               <div class="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10">
-                <div class="self-end bg-black/30 backdrop-blur-md h-10 w-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-black/50 transition-all duration-300 shadow-lg">
-                  <span class="material-symbols-outlined text-white text-xl">${isLink ? 'north_east' : icon}</span>
+                <div class="flex justify-between items-start w-full">
+                  <span class="text-white/90 font-black text-2xl tracking-tighter opacity-80">${unitNumber}</span>
+                  <div class="bg-black/30 backdrop-blur-md h-10 w-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-black/50 transition-all duration-300 shadow-lg">
+                    <span class="material-symbols-outlined text-white text-xl">${isLink ? 'north_east' : icon}</span>
+                  </div>
                 </div>
-                <div class="flex flex-col gap-1">
-                  <h3 class="text-white font-extrabold text-xl sm:text-2xl leading-tight tracking-tight">${title}</h3>
-                  <p class="text-white/80 text-xs sm:text-sm line-clamp-2 font-medium">${desc}</p>
-                  ${tagHtml}
-                </div>
+                <h3 class="text-white font-extrabold text-xl sm:text-2xl leading-tight tracking-tight">${title}</h3>
               </div>
             `;
 
@@ -304,7 +292,6 @@
             }
           }).join('');
 
-          // 4 columns on large screens to better fit the square aspect ratio
           return `
             <section class="mb-12">
               <div class="flex items-center gap-4 mb-6">
@@ -324,7 +311,6 @@
         PANEL_ROOT.innerHTML = html;
       }
 
-      // Load JSON + initialise
       fetch(JSON_URL, { cache: 'no-store' })
         .then(r => r.json())
         .then(data => {
@@ -334,7 +320,7 @@
             return;
           }
           createPills(TRACKS);
-          setActiveTrack(TRACKS[0].id); // default to first track
+          setActiveTrack(TRACKS[0].id);
         })
         .catch(err => {
           console.error('Error loading A-level tracks JSON', err);
