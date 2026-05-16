@@ -19,15 +19,6 @@ collections:
   - name: "ks3_hub"
     label: "KS3 Hub Content"
     files:
-    # --- Hero (left card at top) ---
-      - file: "Revision Hub V3/assets/data/ks3_hero.json"
-        label: "Hero Text"
-        name: "ks3_hero"
-        format: json
-        fields:
-          - { label: "Title", name: "headline", widget: "string" }
-          - { label: "Body",  name: "body", widget: "text" }
-        # - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
 
     # --- Featured Sites grid (KS3-specific) ---
       - file: "Revision Hub V3/assets/data/ks3_featured_sites.json"
@@ -56,26 +47,6 @@ collections:
                   - { label: "Stripe", name: "stripe", widget: "string", required: false, hint: "e.g. rgba(0,0,0,.05)" }
               - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
               - { label: "Active",      name: "active", widget: "boolean", default: true }
-
-    # --- Split hero (lower row): left = UKMT hero text ---
-      - file: "Revision Hub V3/assets/data/ks3_ukmt_hero.json"
-        label: "UKMT Hero Text"
-        name: "ks3_ukmt_hero"
-        format: json
-        fields:
-          - { label: "Title",    name: "title",    widget: "string" }
-          - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
-
-    # --- Split hero (lower row): right = AI card (dark) ---
-      - file: "Revision Hub V3/assets/data/ks3_ai_card.json"
-        label: "AI Card"
-        name: "ks3_ai_card"
-        format: json
-        fields:
-          - { label: "Title",        name: "title",  widget: "string", default: "Do you know how to use AI?" }
-          - { label: "Body",         name: "body",   widget: "text", required: false, default: "Quick guide to using AI appropriately in maths." }
-          - { label: "Button Label", name: "cta",    widget: "string", default: "AI Guidance" }
-          - { label: "Button URL",   name: "url",    widget: "string", default: "/ai_usage.html" }
 
     # --- UKMT grid (cards) ---
       - file: "Revision Hub V3/assets/data/ks3_ukmt.json"
@@ -109,35 +80,6 @@ collections:
     label: "KS3 EOY Content"
     files:
 
-    # --- EOY exam dates (feeds countdowns) ---
-      - file: "Revision Hub V3/assets/data/ks3_eoy_dates.json"
-        label: "EOY Exam Dates"
-        name: "ks3_eoy_dates"
-        format: json
-        fields:
-          - label: "Exams"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.year}} – {{fields.label}} ({{fields.date}})"
-            fields:
-              - label: "Year"
-                name: "year"
-                widget: "select"
-                options:
-                  - { label: "Year 7", value: "y7" }
-                  - { label: "Year 8", value: "y8" }
-                  - { label: "Year 9", value: "y9" }
-              - { label: "Label", name: "label", widget: "string", default: "Paper 1" }
-              # Store as string in YYYY-MM-DD (no time needed)
-              - label: "Date (YYYY-MM-DD)"
-                name: "datetime"
-                widget: "string"
-                pattern:
-                  - "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
-                  - "Use YYYY-MM-DD, e.g. 2025-06-10"
-                hint: "Enter date like 2025-06-10. Time is ignored on the site."
-              - { label: "Active", name: "active", widget: "boolean", default: true }
-
       # --- EOY resources (feeds Year 7/8/9 resource grids) ---
       - file: "Revision Hub V3/assets/data/ks3_eoy_resources.json"
         label: "EOY Resources"
@@ -168,59 +110,6 @@ collections:
               - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
               - { label: "Active", name: "active", widget: "boolean", default: true }
               
-  # Explore Hero
-  - name: "explore_hero"
-    label: "Explore - Welcome Text"
-    files:
-      - file: "Revision Hub V3/assets/data/explore_hero.json"
-        label: "Explore Hero Content"
-        name: "explore_hero"
-        format: json
-        fields:
-          - { label: "Title", name: "headline", widget: "string" }
-          - { label: "body", name: "body", widget: "text" }
-
-  # Featured Sites
-  - name: "featured_sites"
-    label: "Featured Sites"
-    files:
-      - file: "Revision Hub V3/assets/data/featured_sites.json"
-        label: "Sites"
-        name: "featured_sites"
-        format: json
-        fields:
-          - label: "Sites"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}}"
-            fields:
-              - { label: "Name", name: "name", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
-              - { label: "Description", name: "desc", widget: "text", required: false }
-              - { label: "Logo (image)", name: "logo", widget: "image", required: false }
-              - { label: "CTA Label", name: "cta", widget: "string", required: false, default: "Open" }
-              - { label: "Category", name: "category", widget: "select", options: ["Practice","Textbook","Video","Tools","Other"], required: false }
-              - { label: "Accent Color", name: "accent", widget: "string", required: false }
-              - { label: "Active", name: "active", widget: "boolean", default: true }
-
-  # Info Notices
-  - name: "info"
-    label: "Info (Homepage Notices)"
-    files:
-      - file: "Revision Hub V3/assets/data/info.json"
-        label: "Info Items"
-        name: "info_items"
-        format: json
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Type", name: "type", widget: "select", options: ["Announcement","Update","Information"], default: "Announcement" }
-              - { label: "Text", name: "text", widget: "string" }
-              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
-              - { label: "URL (optional)", name: "url", widget: "string", required: false }
-
   # Year 7
   - name: "year7"
     label: "Year 7 Resources"
@@ -579,3 +468,49 @@ collections:
               - { label: "Text Content", name: "text", widget: "text" }
               - { label: "Button Text", name: "btnText", widget: "string", required: false, hint: "Leave blank for no button" }
               - { label: "Button Link URL", name: "btnLink", widget: "string", required: false, hint: "Leave blank for no button" }
+
+  # Year 9
+  - name: "GCSE"
+    label: "GCSE Resources"
+    files:
+      - name: "gcse_unit01"
+        label: "GCSE — Unit 01"
+        file: "Revision Hub V3/assets/data/gcse_unit01.json"
+        format: json
+        fields: &gcse_fields
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            label_singular: "Resource"
+            summary: "{{fields.blockkey}} — {{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Block", name: "blockkey", widget: "select", options: ["worksheets","videos","other"] }
+              - { label: "Date Added", name: "addediso", widget: "datetime" }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
+
+          # NEW: SPARX codes for optional practice
+          - label: "SPARX Codes"
+            name: "sparx_codes"
+            widget: "list"
+            label_singular: "SPARX Code"
+            summary: "{{fields.code}}"
+            collapsed: false
+            hint: "Add SPARX practice codes for this unit (optional). Leave empty to hide the section."
+            fields:
+              - label: "Code"
+                name: "code"
+                widget: "string"
+                hint: "e.g. ABC123 (letters/numbers, usually 6 chars)"
+                pattern:
+                  - "^[A-Za-z0-9]{4,8}$"
+                  - "Use 4–8 letters/numbers"
+              - { label: "Note (optional)", name: "note", widget: "string", required: false }
+
+      - name: "gcse_unit02"
+        label: "GCSE — Unit 02"
+        file: "Revision Hub V3/assets/data/gcse_unit02.json"
+        format: json
+        fields: *gcse_fields
+
