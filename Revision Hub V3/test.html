@@ -1,178 +1,412 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="scroll-smooth">
+  <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | Home</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
+  <title>GCSE | Home</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
+  <link rel="stylesheet" href="assets/main.css"/>
 
-    /* --- ENTRANCE ANIMATIONS --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+  <style type="text/tailwindcss">
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* Header + mobile menu */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
     }
-    .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
+    #mobileMenu a {
+      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
     }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    /* Background dots */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    /* Custom CSS Mesh Gradients */
+    .mesh-1 {
+      background-color: #1e1b4b;
+      background-image: 
+        radial-gradient(at 0% 0%, #3b82f6 0px, transparent 50%), 
+        radial-gradient(at 100% 0%, #8b5cf6 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
+        radial-gradient(at 0% 100%, #3b82f6 0px, transparent 50%);
+    }
+    .mesh-2 {
+      background-color: #064e3b;
+      background-image: 
+        radial-gradient(at 0% 0%, #10b981 0px, transparent 50%), 
+        radial-gradient(at 100% 0%, #3b82f6 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, #06b6d4 0px, transparent 50%), 
+        radial-gradient(at 0% 100%, #10b981 0px, transparent 50%);
+    }
+    .mesh-3 {
+      background-color: #7c2d12;
+      background-image: 
+        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
+        radial-gradient(at 100% 0%, #ef4444 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
+        radial-gradient(at 0% 100%, #f59e0b 0px, transparent 50%);
+    }
+    .mesh-4 {
+      background-color: #312e81;
+      background-image: 
+        radial-gradient(at 0% 0%, #6366f1 0px, transparent 50%), 
+        radial-gradient(at 100% 0%, #a855f7 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
+        radial-gradient(at 0% 100%, #6366f1 0px, transparent 50%);
+    }
   </style>
 </head>
 <body>
 
-  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 md:py-16 min-[1400px]:py-20">
-    
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/paul-pastourmatzis-r0J9sGBWFOc-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/80 via-[#0f172a]/50 to-transparent"></div>
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
+          AI Usage
+        </a>
+      </div>
     </div>
+  </header>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 min-[1400px]:px-16 flex flex-col lg:flex-row items-center justify-center gap-10 min-[1400px]:gap-20 text-left">
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <main class="relative pt-14 pb-20">
+
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
+    </div>
+    
+    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
       
-      <div class="w-full max-w-xl min-[1400px]:max-w-2xl">
-         
-         <div class="flex items-center gap-2 min-[1400px]:gap-3 mb-4 min-[1400px]:mb-6 animate-fade-in delay-100">
-           <img src="assets/hub_logo.png" alt="SJWMS" class="h-6 md:h-8 min-[1400px]:h-10 w-auto filter drop-shadow-lg"/>
-           <span class="font-extrabold tracking-tight text-white text-base md:text-lg min-[1400px]:text-2xl drop-shadow-md">SJWMS Maths</span>
-         </div>
-         
-         <h1 class="text-4xl lg:text-5xl min-[1400px]:text-7xl font-black text-white mb-4 min-[1400px]:mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
-           What will you<br>
-           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-             revise today
-           </span><br>
-           and master?
-         </h1>
-         
-         <p class="text-slate-300 text-sm md:text-base min-[1400px]:text-xl font-medium drop-shadow-md mb-6 min-[1400px]:mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
-           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
-         </p>
-
-         <div class="flex flex-wrap items-center gap-2 min-[1400px]:gap-4 animate-fade-in delay-400">
-           
-           <a href="ks3_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
-           </a>
-
-           <a href="gcse_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
-           </a>
-
-           <a href="alevel_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
-           </a>
-           
-           <div class="w-px h-5 min-[1400px]:h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
-
-           <a href="ai_usage.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
-           </a>
-
-         </div>
-
-        <div class="mt-6 min-[1400px]:mt-8 flex items-center gap-1.5 min-[1400px]:gap-2 text-slate-400/80 animate-fade-in delay-400">
-           <span class="material-icons text-[12px] min-[1400px]:text-[16px] text-white">camera</span>
-          <p class="text-[10px] md:text-xs min-[1400px]:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@paulpastourmatzis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Paul Pastourmatzis</a></p>
-         </div>
-
+      <div class="absolute inset-0 z-0">
+        <img src="assets/home-hero1.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
       </div>
 
-      <div id="updates-column" class="hidden w-full max-w-md lg:w-[380px] min-[1400px]:w-[440px] shrink-0 flex-col gap-3 min-[1400px]:gap-4 animate-fade-in delay-500 z-20">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
+            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">KS4 • Years 10 & 11</span>
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            GCSE<br>
+            <span class="text-blue-400">
+              Mathematics
+            </span>
+          </h1>
+          
+          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
+            Your home for topic learning, exam revision, and past paper practice.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#ukmt" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <span>UKMT Challenge</span>
+              <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
+            </a>
+          </div>
+        </div>
       </div>
+    </section>
 
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16">
+        
+        <div class="lg:col-span-4 flex flex-col gap-6">
+          <div class="flex items-center gap-3 mb-2">
+            <h2 class="text-2xl font-bold text-gray-800">Resources</h2>
+            <div class="h-px bg-gray-200 flex-grow"></div>
+          </div>
+
+          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
+            <div class="absolute inset-0 mesh-1 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+              <span class="material-icons text-white/80 text-3xl">psychology</span>
+              <div>
+                <h3 class="text-white font-bold text-lg">Exam Revision</h3>
+                <p class="text-white/70 text-sm">Checklists and cram sheets.</p>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
+            <div class="absolute inset-0 mesh-3 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+              <div class="flex justify-between items-start">
+                <span class="material-icons text-white/80 text-3xl">history_edu</span>
+                <span class="material-icons text-white/50 text-sm">open_in_new</span>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg">Past Papers</h3>
+                <p class="text-white/70 text-sm">MathsGenie exam archive.</p>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
+            <div class="absolute inset-0 mesh-2 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+              <span class="material-icons text-white/80 text-3xl">calculate</span>
+              <div>
+                <h3 class="text-white font-bold text-lg">Formula Sheet</h3>
+                <p class="text-white/70 text-sm">Download the official PDF.</p>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
+            <div class="absolute inset-0 mesh-4 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+              <span class="material-icons text-white/80 text-3xl">lightbulb</span>
+              <div>
+                <h3 class="text-white font-bold text-lg">Calculator Hacks</h3>
+                <p class="text-white/70 text-sm">Master your ClassWiz.</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="lg:col-span-8">
+          
+          <div class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+              <h2 class="text-2xl font-bold text-gray-800">Edexcel Mathematics</h2>
+              <div class="h-px bg-gray-200 flex-grow"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">1</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Number</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">2</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Algebra</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">3</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Graphs, Tables & Charts</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">4</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Fractions & Percentages</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">5</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Sequences</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">6</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Angles</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">7</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Averages & Range</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">8</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Perimeter, Area & Vol 1</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">9</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Graphs</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">10</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Transformations</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">11</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Ratio & Proportion</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">12</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Right-Angled Triangles</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">13</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Probability</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">14</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Multiplicative Reasoning</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">15</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Constructions & Loci</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">16</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Quadratics & Graphs</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">17</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Perimeter, Area & Vol 2</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">18</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Fractions & Indices</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">19</div>
+                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Similarity & Congruence</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <h2 class="text-2xl font-bold text-gray-800">AQA Further Maths</h2>
+              <div class="h-px bg-gray-200 flex-grow"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">1</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Number</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">2</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Algebra</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Coordinate Geometry</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">4</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Calculus</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">5</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Matrix Transformations</span>
+              </a>
+              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
+                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">6</div>
+                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Geometry</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <section id="ukmt" class="mt-20 scroll-mt-24">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">UKMT</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        
+        <div class="relative overflow-hidden rounded-2xl bg-[#0f172a] shadow-2xl border border-slate-700">
+          
+          <div class="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl"></div>
+          
+          <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center p-8 md:p-10">
+            
+            <div class="md:col-span-2 space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-widest">
+                <span class="material-icons text-sm">emoji_events</span>
+                High Achievers
+              </div>
+              
+              <h2 class="text-3xl md:text-4xl font-black text-white">
+                Intermediate <span class="text-amber-400">Maths Challenge</span>
+              </h2>
+              
+              <p class="text-slate-300 text-sm md:text-base leading-relaxed max-w-xl">
+                Go beyond the curriculum. The UKMT Challenge is about logic, lateral thinking, and problem-solving. Prepare for the competition, aim for Gold, and qualify for the Kangaroo or Olympiad rounds.
+              </p>
+              
+              <div class="flex flex-wrap gap-4 pt-2">
+                <a href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 text-slate-900 font-bold text-sm hover:bg-amber-400 hover:-translate-y-0.5 transition-all shadow-lg shadow-amber-500/20">
+                  Practice Papers
+                  <span class="material-icons text-sm">open_in_new</span>
+                </a>
+                
+                <a href="https://www.drfrost.org/worksheets.php?wdid=46" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white font-semibold text-sm hover:bg-white/10 transition-colors">
+                  Dr Frost
+                  <span class="material-icons text-sm">open_in_new</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="flex justify-center md:justify-end">
+              <div class="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 shadow-inner">
+                 <span class="material-icons text-6xl md:text-7xl text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+                   psychology
+                 </span>
+                 <div class="absolute top-0 right-2 w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-75"></div>
+                 <div class="absolute bottom-4 left-0 w-2 h-2 bg-amber-400 rounded-full animate-bounce"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      
     </div>
   </main>
 
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
+  
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const response = await fetch('assets/data/home_updates.json');
-        
-        if (!response.ok) return; 
-
-        const data = await response.json();
-        const siteUpdates = data.items || []; 
-
-        const updatesColumn = document.getElementById('updates-column');
-
-        if (siteUpdates.length > 0) {
-          updatesColumn.classList.remove('hidden');
-          updatesColumn.classList.add('flex'); 
-
-          siteUpdates.forEach((update, index) => {
-            
-            const isLong = update.text.length > 120;
-            let textHTML = '';
-            
-            if (isLong) {
-              textHTML = `
-                <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
-                  <p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${update.text}</p>
-                </div>
-                <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-[10px] min-[1400px]:text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
-                  Show More
-                </button>
-              `;
-            } else {
-              textHTML = `<p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${update.text}</p>`;
-            }
-
-            let buttonHTML = '';
-            if (update.btnText && update.btnLink) {
-              buttonHTML = `
-                <div class="mt-3 min-[1400px]:mt-4">
-                  <a href="${update.btnLink}" class="inline-flex items-center px-3 py-1.5 min-[1400px]:px-4 min-[1400px]:py-2 rounded bg-blue-500/20 border border-blue-400/30 text-[10px] min-[1400px]:text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
-                    ${update.btnText}
-                  </a>
-                </div>
-              `;
-            }
-
-            const updateCard = document.createElement('div');
-            updateCard.className = "p-4 min-[1400px]:p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
-            updateCard.innerHTML = `
-              <div class="flex items-center gap-2 mb-1.5 min-[1400px]:mb-2">
-                <span class="material-icons text-blue-400 text-[16px] min-[1400px]:text-[18px]">${update.icon || 'info'}</span>
-                <h3 class="text-white font-bold text-xs min-[1400px]:text-sm tracking-wide uppercase">${update.title}</h3>
-              </div>
-              ${textHTML}
-              ${buttonHTML}
-            `;
-            
-            updatesColumn.appendChild(updateCard);
-          });
-        }
-      } catch (error) {
-        console.error("Error loading updates:", error);
-      }
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
-
-    window.toggleUpdateText = function(index) {
-      const wrapper = document.getElementById(`text-wrapper-${index}`);
-      const btn = document.getElementById(`toggle-btn-${index}`);
-      
-      if (wrapper.classList.contains('max-h-[4.5rem]')) {
-        wrapper.classList.remove('max-h-[4.5rem]');
-        wrapper.classList.add('max-h-[800px]'); 
-        btn.innerText = 'Show Less';
-      } else {
-        wrapper.classList.add('max-h-[4.5rem]');
-        wrapper.classList.remove('max-h-[800px]');
-        btn.innerText = 'Show More';
-      }
-    };
   </script>
 </body>
 </html>
