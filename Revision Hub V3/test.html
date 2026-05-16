@@ -158,7 +158,7 @@
            </p>
 
            <div class="flex flex-wrap gap-4">
-             <a href="#eoy-resources" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+             <a href="#exam-tips" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                <span>Start Revising</span>
                <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
              </a>
@@ -174,7 +174,39 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <section id="exam-tips" class="mb-12" aria-label="Exam Tips">
+      <section id="eoy-resources" class="mb-12 scroll-mt-24">
+        
+        <div class="flex items-center gap-4 mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">Mixed revision resources</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+          <p class="text-gray-600 mb-6">
+            Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
+          </p>
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          
+          <div class="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
+            <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
+            <button type="button" class="year-pill" data-year="y8">Year 8</button>
+            <button type="button" class="year-pill" data-year="y9">Year 9</button>
+          </div>
+        </div>
+
+        <div>
+          <div id="grid-y7" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y8" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y9" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+          <p id="unit-empty" class="text-gray-500 text-center mt-4" hidden>
+            No resources available yet. Please check back later.
+          </p>
+        </div>
+        
+      </section>
+
+      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+      <section id="exam-tips" class="mb-0 scroll-mt-24" aria-label="Exam Tips">
         <div class="flex items-center gap-4 mb-8">
           <h2 class="text-2xl font-bold text-gray-800">Exam Tips</h2>
           <div class="h-px bg-gray-200 flex-grow"></div>
@@ -237,42 +269,9 @@
         </div>
       </section>
 
-      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
-
-      <section id="eoy-resources" class="mb-0 scroll-mt-24">
-        
-        <div class="flex items-center gap-4 mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">Mixed revision resources</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-          <p class="text-gray-600 mb-6">
-            Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
-          </p>
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          
-          <div class="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
-            <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
-            <button type="button" class="year-pill" data-year="y8">Year 8</button>
-            <button type="button" class="year-pill" data-year="y9">Year 9</button>
-          </div>
-        </div>
-
-        <div>
-          <div id="grid-y7" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-          <div id="grid-y8" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-          <div id="grid-y9" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-          <p id="unit-empty" class="text-gray-500 text-center mt-4" hidden>
-            No resources available yet. Please check back later.
-          </p>
-        </div>
-        
-        <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
-
-        <div class="mt-6 text-xs text-gray-500 text-center">
-          Tip: Remember to take regular breaks!
-        </div>
-      </section>
+      <div class="mt-10 text-xs text-gray-500 text-center">
+        Tip: Remember to take regular breaks!
+      </div>
 
     </div>
   </main>
