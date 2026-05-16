@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
+<head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>GCSE | Home</title>
+  <title>GCSE | Module 01</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <link rel="stylesheet" href="assets/main.css"/>
@@ -46,30 +46,6 @@
     }
 
     /* Custom CSS Mesh Gradients */
-    .mesh-1 {
-      background-color: #1e1b4b;
-      background-image: 
-        radial-gradient(at 0% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #3b82f6 0px, transparent 50%);
-    }
-    .mesh-2 {
-      background-color: #064e3b;
-      background-image: 
-        radial-gradient(at 0% 0%, #10b981 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #06b6d4 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #10b981 0px, transparent 50%);
-    }
-    .mesh-3 {
-      background-color: #7c2d12;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #ef4444 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #f59e0b 0px, transparent 50%);
-    }
     .mesh-4 {
       background-color: #312e81;
       background-image: 
@@ -78,17 +54,13 @@
         radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
         radial-gradient(at 0% 100%, #6366f1 0px, transparent 50%);
     }
-    .mesh-5 {
-      background-color: #78350f;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #d97706 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #fbbf24 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #ea580c 0px, transparent 50%);
-    }
+
+    /* MathJax inline rendering */
+    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
+    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
   </style>
 </head>
-<body>
+<body data-page="gcse" data-json="assets/data/gcse_module01.json">
 
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
@@ -123,262 +95,136 @@
     </div>
   </header>
 
-  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+  <div class="absolute inset-0 math-grid pointer-events-none z-0"></div>
 
-  <main class="relative pt-14 pb-20">
-
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-      <span class="material-icons text-base mr-2">construction</span>
-      Year 7, 8 and GCSE Still Under Construction
-    </div>
+  <main class="relative z-10 pt-20 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
-      
-      <div class="absolute inset-0 z-0">
-        <img src="assets/home-hero1.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-      </div>
+    <div class="mb-6">
+      <a href="gcse_hub.html" class="inline-flex items-center text-gray-500 hover:text-[#135bec] font-semibold transition-colors">
+        <span class="material-icons mr-1 text-xl">arrow_back</span> Back to GCSE Hub
+      </a>
+    </div>
 
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">KS4 • Years 10 & 11</span>
+    <section class="relative rounded-3xl shadow-lg mb-10 overflow-hidden mesh-4">
+      <div class="relative z-10 p-8 md:p-10">
+        <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+          
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 rounded bg-white/20 border border-white/30 backdrop-blur-sm">
+              <span class="text-[10px] font-bold text-white uppercase tracking-widest">Edexcel • Module 1</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-md">
+              Number
+            </h1>
+            
+            <p class="text-white/90 text-lg font-medium drop-shadow-sm mb-6">
+              Master indices, roots, and surds — the building blocks for simplifying and comparing numbers, from powers to standard form.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.1 Reciprocals</span>
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.2 Indices</span>
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.3 Standard form</span>
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.4 Calc. with standard form</span>
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.5 Fractional indices</span>
+              <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">1.6 Surds</span>
+            </div>
           </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            GCSE<br>
-            <span class="text-blue-400">
-              Mathematics
-            </span>
-          </h1>
-          
-          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
-            Your home for topic learning, exam revision, and past paper practice.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#ukmt" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              <span>UKMT Challenge</span>
-              <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
+
+          <div class="flex flex-row md:flex-col items-center md:items-stretch gap-3 w-full md:w-auto mt-4 md:mt-0">
+            <a href="#videos" class="flex-1 md:flex-none justify-center bg-white text-[#312e81] font-bold px-5 py-3 rounded-xl flex items-center hover:bg-gray-100 transition-colors shadow-md">
+              Jump to Videos <span class="material-icons ml-2 text-lg">arrow_downward</span>
+            </a>
+            <a href="#sparx-section" class="flex-1 md:flex-none justify-center bg-[#111827]/60 border border-white/20 backdrop-blur-sm text-white font-bold px-5 py-3 rounded-xl flex items-center hover:bg-[#111827]/80 transition-colors shadow-md">
+              Jump to SPARX <span class="material-icons ml-2 text-lg">arrow_downward</span>
             </a>
           </div>
+
         </div>
       </div>
     </section>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="unit-resources">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16">
-        
-        <div class="lg:col-span-4 flex flex-col gap-6">
-          <div class="flex items-center gap-3 mb-2">
-            <h2 class="text-2xl font-bold text-gray-800">Resources</h2>
-            <div class="h-px bg-gray-200 flex-grow"></div>
-          </div>
+      <div class="flex flex-wrap gap-4 mb-10">
+        <a href="https://gemini.google.com/gem/1hAbIdcP5hCrFWZqJ-1GS53dQ1HvX8nG9?usp=drive_link" target="_blank" rel="noopener"
+           class="inline-flex items-center px-6 py-3 rounded-xl font-bold text-white
+                  bg-gradient-to-r from-purple-600 to-blue-500 shadow-md
+                  hover:from-purple-700 hover:to-blue-600 transition-all transform hover:-translate-y-1">
+          <span class="material-icons mr-2">auto_awesome</span> Try the AI Quiz
+        </a>
 
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-1 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">psychology</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Exam Revision</h3>
-                <p class="text-white/70 text-sm">Checklists and cram sheets.</p>
-              </div>
-            </div>
-          </a>
+        <a href="games/surd-o.html" target="_blank" rel="noopener"
+           class="inline-flex items-center px-6 py-3 rounded-xl font-bold text-white
+                  bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-500 shadow-md
+                  hover:from-yellow-500 hover:via-pink-500 hover:to-purple-600 transition-all transform hover:-translate-y-1">
+          <span class="material-icons mr-2">sports_esports</span> Play Surd-o
+        </a>
 
-          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-3 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <div class="flex justify-between items-start">
-                <span class="material-icons text-white/80 text-3xl">history_edu</span>
-                <span class="material-icons text-white/50 text-sm">open_in_new</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg">Past Papers</h3>
-                <p class="text-white/70 text-sm">MathsGenie exam archive.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-2 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">calculate</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Formula Sheet</h3>
-                <p class="text-white/70 text-sm">Download the official PDF.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-4 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">lightbulb</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Calculator Hacks</h3>
-                <p class="text-white/70 text-sm">Master your ClassWiz.</p>
-              </div>
-            </div>
-          </a>
-
-          <div id="ukmt" class="relative rounded-2xl overflow-hidden shadow-sm scroll-mt-24 flex flex-col border border-amber-900/10">
-            <div class="absolute inset-0 mesh-5 opacity-90"></div>
-            <div class="relative z-10 p-5 flex flex-col gap-3">
-              <div class="flex items-center gap-3">
-                <span class="material-icons text-white/90 text-3xl">emoji_events</span>
-                <div>
-                  <h3 class="text-white font-bold text-lg leading-tight">UKMT Challenge</h3>
-                  <p class="text-white/70 text-xs">Intermediate prep & practice.</p>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 mt-2">
-                <a href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>UKMT Past Papers</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-                <a href="https://www.drfrost.org/" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>Dr Frost Revision</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="lg:col-span-8">
-          
-          <div class="mb-12">
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">Edexcel Mathematics</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Number</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Interpreting & Representing Data</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Fractions, Decimals & Percentages</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Angles & Trigonometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Graphs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">7</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Area & Volume</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">8</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Transformations & Constructions</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">9</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Inequalities</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">10</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Probability</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">11</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Compound Measures</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">12</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Congruence & Similarity</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">13</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Trigonometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">14</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Further Statistics</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">15</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Graphs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">16</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Circle Theorems</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">17</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">18</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Vectors & Geometric Proofs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">19</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Proportion & Graphs</span>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">AQA Further Maths</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Number</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Coordinate Geometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Calculus</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Matrix Transformations</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Geometry</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
+        <a href="https://www.bbc.co.uk/bitesize/articles/zmj3khv#zxqb8p3" target="_blank" rel="noopener"
+           class="inline-flex items-center px-6 py-3 rounded-xl font-bold text-white
+                  bg-gradient-to-r from-[#111827] to-[#374151] shadow-md
+                  hover:from-black hover:to-[#111827] transition-all transform hover:-translate-y-1">
+          <span class="material-icons mr-2">quiz</span> BBC Bitesize
+        </a>
       </div>
-      
-    </div>
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-2xl font-bold text-gray-800">Worksheets</h3>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <div class="mb-12" id="videos">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-2xl font-bold text-gray-800">Videos</h3>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-6">
+          <h3 class="text-2xl font-bold text-gray-800">Other</h3>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <p id="unit-empty" class="text-gray-500 text-center py-10 italic" hidden>No resources available yet.</p>
+    </section>
+
+    <section id="sparx-section" class="mt-8 mb-10 hidden">
+      <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+          <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            <span class="material-icons text-purple-600 bg-purple-100 p-1.5 rounded-lg">bolt</span>
+            SPARX Quick Revision
+          </h2>
+          <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-white
+                    bg-gray-900 shadow hover:bg-black transition-colors">
+            <span class="material-icons text-sm mr-2">open_in_new</span> Go to SPARX
+          </a>
+        </div>
+        
+        <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
+      </div>
+    </section>
+
   </main>
 
   <div id="footer-slot"></div>
   <script src="assets/footer-loader.js" defer></script>
-  
+
+  <script src="assets/cards.js"></script>
+  <script src="assets/unit-common.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -386,5 +232,6 @@
       mobileMenu.classList.toggle('hidden');
     });
   </script>
+
 </body>
 </html>
