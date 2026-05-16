@@ -51,14 +51,6 @@
     },
     {
       "active": true,
-      "year": "y7",
-      "title": "More Coming Soon!",
-      "url": "https://www.google.com/",
-      "type": "pdf",
-      "date": "2026-01-10"
-    },
-    {
-      "active": true,
       "url": "https://drive.google.com/file/d/1DTLPA4AKzKgJV1C7BZtpNHNPzzVXuEN2/view?usp=drive_link",
       "year": "y8",
       "title": "Revision Guide",
@@ -79,6 +71,23 @@
       "title": "Dr Frost | Mixed Practice #1",
       "url": "https://www.drfrost.org/worksheets.php?wid=2986004",
       "description": "This is a Dr Frost task. Click the link and press start task.",
+      "date": "2026-05-16",
+      "type": "site"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "Angles in Parallel Lines | Questions",
+      "url": "https://drive.google.com/file/d/1qA52Vjik4SWBYn-0euEzXSy9gzgPOMs0/view",
+      "type": "pdf",
+      "date": "2026-05-16"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "Angles in Parallel Lines | Solutions",
+      "url": "https://drive.google.com/file/d/1aOp74agBc0NHiSJyx-cB0Ux2UY_ei7MS/view",
+      "type": "pdf",
       "date": "2026-05-16"
     }
   ]
