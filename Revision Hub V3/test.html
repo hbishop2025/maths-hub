@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
+<html lang="en">
+<head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>GCSE | Home</title>
+  <title>A-Level | Home</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
   <link rel="stylesheet" href="assets/main.css"/>
 
@@ -20,15 +20,14 @@
 
     /* Header + mobile menu */
     .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    
     #mobileMenu {
       @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
       width: 180px;
       transform-origin: top right;
       animation: menuIn .22s ease-out;
     }
-    #mobileMenu a {
-      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
-    }
+    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
 
     @keyframes menuIn {
       from { opacity: 0; transform: translateY(-6px) scale(0.98); }
@@ -45,54 +44,44 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    /* Custom CSS Mesh Gradients */
-    .mesh-gcse {
+    /* Hero Mesh */
+    .mesh-alevel {
       background-color: #0f172a;
       background-image: 
-        radial-gradient(at 20% 30%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 80% 20%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 90% 80%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 10% 90%, #06b6d4 0px, transparent 50%);
+        radial-gradient(at 10% 20%, #7c3aed 0px, transparent 50%), 
+        radial-gradient(at 90% 10%, #db2777 0px, transparent 50%), 
+        radial-gradient(at 80% 80%, #4f46e5 0px, transparent 50%), 
+        radial-gradient(at 20% 90%, #2563eb 0px, transparent 50%);
     }
-    .mesh-1 {
-      background-color: #1e1b4b;
-      background-image: 
-        radial-gradient(at 0% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #3b82f6 0px, transparent 50%);
+
+    /* Spotify-style Card Meshes */
+    .mesh-card-1 { background: linear-gradient(135deg, #a855f7, #ec4899); }
+    .mesh-card-2 { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+    .mesh-card-3 { background: linear-gradient(135deg, #f43f5e, #fb923c); }
+    .mesh-card-4 { background: linear-gradient(135deg, #10b981, #06b6d4); }
+    .mesh-card-5 { background: linear-gradient(135deg, #6366f1, #3b82f6); }
+    .mesh-card-6 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+
+    .section-heading { @apply text-2xl font-bold text-gray-800 tracking-tight; }
+
+    /* Track pills (Simplified, rounder, punchier) */
+    .track-wrap { @apply flex flex-wrap gap-3 mb-10; }
+    .track-pill {
+      @apply px-6 py-2.5 rounded-full text-sm font-bold bg-white text-gray-600 border border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:bg-gray-100;
     }
-    .mesh-2 {
-      background-color: #064e3b;
-      background-image: 
-        radial-gradient(at 0% 0%, #10b981 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #06b6d4 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #10b981 0px, transparent 50%);
+    .track-pill-active {
+      @apply bg-[#111827] text-white border-[#111827] shadow-md;
     }
-    .mesh-3 {
-      background-color: #7c2d12;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #ef4444 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #f59e0b 0px, transparent 50%);
+    .track-pill-active:hover {
+      @apply bg-[#000000] border-[#000000] text-white;
     }
-    .mesh-4 {
-      background-color: #312e81;
-      background-image: 
-        radial-gradient(at 0% 0%, #6366f1 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #a855f7 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #6366f1 0px, transparent 50%);
+
+    /* Cards - Spotify Album Style */
+    .icon-card {
+      @apply relative flex flex-col overflow-hidden rounded-[24px] aspect-square shadow-sm transition-all duration-300 transform;
     }
-    .mesh-5 {
-      background-color: #78350f;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #d97706 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #fbbf24 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #ea580c 0px, transparent 50%);
+    .icon-card:hover {
+      @apply shadow-2xl -translate-y-2;
     }
   </style>
 </head>
@@ -108,8 +97,8 @@
       <nav class="hidden md:flex items-center gap-6">
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
         <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-[#135bec]" href="alevel_hub.html">A-Level</a>
         <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
           AI Usage
         </a>
@@ -124,9 +113,7 @@
         <a href="ks3_hub.html">KS3</a>
         <a href="gcse_hub.html">GCSE</a>
         <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
       </div>
     </div>
   </header>
@@ -135,256 +122,227 @@
 
   <main class="relative pt-14 pb-20">
 
-    
-    
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden mesh-gcse mb-16 shadow-md">
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
+    </div>
+
+    <section class="relative w-full h-[450px] flex items-center overflow-hidden mesh-alevel mb-16 shadow-md">
       
-      <div class="absolute inset-0 z-0 bg-slate-900/30"></div> <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-            <span class="text-[10px] font-bold text-blue-100 uppercase tracking-widest">KS4 • Years 10 & 11</span>
-          </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            GCSE<br>
-            <span class="text-blue-300">
-              Mathematics
-            </span>
-          </h1>
-          
-          <p class="text-slate-100 text-lg font-medium drop-shadow-md">
-            Your home for topic learning, exam revision, and past paper practice.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#ukmt" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              <span>UKMT Challenge</span>
-              <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
-            </a>
-          </div>
+      <div class="absolute inset-0 z-0 bg-slate-900/40"></div> <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-2xl">
+            
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-purple-500/20 border border-purple-400/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-purple-400"></span>
+             <span class="text-[10px] font-bold text-purple-100 uppercase tracking-widest">KS5 • Years 12 & 13</span>
+           </div>
+           
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+             A-Level<br>
+             <span class="text-purple-300">Mathematics</span>
+           </h1>
+           
+           <p class="text-slate-100 text-lg font-medium drop-shadow-md mb-8 leading-relaxed max-w-xl">
+             Your home for all A-level revision. Please note that all links take you to an external site moderated by our head of KS5 maths.
+           </p>
+
+           <div class="flex flex-wrap gap-4">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-gray-900 font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg">
+               <span>Exam Revision</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+             </a>
+
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105">
+               <span>A* Questions</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">star</span>
+             </a>
+           </div>
+
         </div>
       </div>
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16">
-        
-        <div class="lg:col-span-4 flex flex-col gap-6">
-          <div class="flex items-center gap-3 mb-2">
-            <h2 class="text-2xl font-bold text-gray-800">Resources</h2>
-            <div class="h-px bg-gray-200 flex-grow"></div>
-          </div>
 
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-1 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">psychology</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Exam Revision</h3>
-                <p class="text-white/70 text-sm">Checklists and cram sheets.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-3 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <div class="flex justify-between items-start">
-                <span class="material-icons text-white/80 text-3xl">history_edu</span>
-                <span class="material-icons text-white/50 text-sm">open_in_new</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg">Past Papers</h3>
-                <p class="text-white/70 text-sm">MathsGenie exam archive.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-2 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">calculate</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Formula Sheet</h3>
-                <p class="text-white/70 text-sm">Download the official PDF.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-4 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">lightbulb</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Calculator Hacks</h3>
-                <p class="text-white/70 text-sm">Master your ClassWiz.</p>
-              </div>
-            </div>
-          </a>
-
-          <div id="ukmt" class="relative rounded-2xl overflow-hidden shadow-sm scroll-mt-24 flex flex-col border border-amber-900/10">
-            <div class="absolute inset-0 mesh-5 opacity-90"></div>
-            <div class="relative z-10 p-5 flex flex-col gap-3">
-              <div class="flex items-center gap-3">
-                <span class="material-icons text-white/90 text-3xl">emoji_events</span>
-                <div>
-                  <h3 class="text-white font-bold text-lg leading-tight">UKMT Challenge</h3>
-                  <p class="text-white/70 text-xs">Intermediate prep & practice.</p>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 mt-2">
-                <a href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>UKMT Past Papers</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-                <a href="https://www.drfrost.org/" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>Dr Frost Revision</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
+      <div class="track-wrap" id="track-pill-wrap">
         </div>
 
-        <div class="lg:col-span-8">
-          
-          <div class="mb-12">
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">Edexcel Mathematics</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="gcse/gcse_unit01.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Number</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Interpreting & Representing Data</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Fractions, Decimals & Percentages</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Angles & Trigonometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Graphs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">7</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Area & Volume</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">8</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Transformations & Constructions</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">9</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Inequalities</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">10</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Probability</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">11</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Compound Measures</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">12</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Congruence & Similarity</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">13</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Trigonometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">14</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Further Statistics</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">15</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Graphs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">16</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Circle Theorems</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">17</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">18</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Vectors & Geometric Proofs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">19</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Proportion & Graphs</span>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">AQA Further Maths</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Number</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Coordinate Geometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Calculus</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Matrix Transformations</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Geometry</span>
-              </a>
-            </div>
-          </div>
-
+      <section id="track-panels" class="space-y-12">
+        <div class="animate-pulse space-y-4">
+           <div class="h-8 bg-gray-200 rounded w-1/4"></div>
+           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
+             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
+             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
+             <div class="aspect-square bg-gray-200 rounded-[24px]"></div>
+           </div>
         </div>
-      </div>
-      
+      </section>
+
     </div>
   </main>
 
   <div id="footer-slot"></div>
   <script src="assets/footer-loader.js" defer></script>
-  
+
   <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+  (function(){
+    const btn=document.getElementById('menuBtn');
+    const menu=document.getElementById('mobileMenu');
+    function closeMenu(){ menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
+    function toggleMenu(e){ e.stopPropagation(); const open=menu.classList.contains('hidden'); menu.classList.toggle('hidden',!open); btn.setAttribute('aria-expanded',String(open)); }
+    btn.addEventListener('click',toggleMenu);
+    document.addEventListener('click',e=>{ if(!e.target.closest('#mobileMenu')&&!e.target.closest('#menuBtn')) closeMenu(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
   </script>
+
+  <script>
+    (function(){
+      const PILL_WRAP = document.getElementById('track-pill-wrap');
+      const PANEL_ROOT = document.getElementById('track-panels');
+      const JSON_URL = 'assets/data/alevel_tracks.json'; 
+
+      let TRACKS = [];
+      let activeTrackId = null;
+
+      // Define an array of our new gradient meshes
+      const meshGradients = [
+        'mesh-card-1', 'mesh-card-2', 'mesh-card-3', 
+        'mesh-card-4', 'mesh-card-5', 'mesh-card-6'
+      ];
+
+      function createPills(tracks){
+        PILL_WRAP.innerHTML = '';
+        tracks.forEach((track, index) => {
+          const btn = document.createElement('button');
+          btn.className = 'track-pill' + (index === 0 ? ' track-pill-active' : '');
+          btn.dataset.trackId = track.id;
+          btn.textContent = track.label;
+          btn.addEventListener('click', () => {
+            if (activeTrackId === track.id) return;
+            setActiveTrack(track.id);
+          });
+          PILL_WRAP.appendChild(btn);
+        });
+      }
+
+      function setActiveTrack(id){
+        activeTrackId = id;
+
+        // Update pills
+        const pills = PILL_WRAP.querySelectorAll('.track-pill');
+        pills.forEach(pill => {
+          const isActive = pill.dataset.trackId === id;
+          pill.classList.toggle('track-pill-active', isActive);
+        });
+
+        // Render content
+        renderTrack(id);
+      }
+
+      function renderTrack(id){
+        const track = TRACKS.find(t => t.id === id);
+        if (!track){
+          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Nothing here yet.</p>';
+          return;
+        }
+
+        const sections = Array.isArray(track.sections) ? track.sections : [];
+
+        if (!sections.length){
+          PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">Content coming soon for this track.</p>';
+          return;
+        }
+
+        const html = sections.map(section => {
+          const cards = Array.isArray(section.cards) ? section.cards : [];
+
+          const cardsHtml = cards.map((card, index) => {
+            const icon = card.icon || 'auto_awesome';
+            const title = card.title || 'Untitled';
+            const desc = card.description || '';
+            const url  = card.url || '#';
+            const isLink = !!card.url;
+
+            // Pick a rotating gradient from our array
+            const meshClass = meshGradients[index % meshGradients.length];
+
+            // Generate tags if they exist (styled as dark pills for contrast)
+            const tagHtml = Array.isArray(card.tags) && card.tags.length
+              ? '<div class="mt-2 flex flex-wrap gap-1">' +
+                card.tags.map(t => 
+                  `<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-black/30 text-[10px] font-bold text-white backdrop-blur-sm">${t}</span>`
+                ).join('') +
+              '</div>'
+              : '';
+
+            // The Inner Card Structure - Spotify Style
+            const inner = `
+              <div class="absolute inset-0 ${meshClass} opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent mix-blend-multiply"></div>
+              <div class="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10">
+                <div class="self-end bg-black/30 backdrop-blur-md h-10 w-10 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-black/50 transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-white text-xl">${isLink ? 'north_east' : icon}</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="text-white font-extrabold text-xl sm:text-2xl leading-tight tracking-tight">${title}</h3>
+                  <p class="text-white/80 text-xs sm:text-sm line-clamp-2 font-medium">${desc}</p>
+                  ${tagHtml}
+                </div>
+              </div>
+            `;
+
+            if (isLink){
+              return `
+                <a href="${url}" target="_blank" rel="noopener" class="icon-card group">
+                  ${inner}
+                </a>
+              `;
+            } else {
+              return `<div class="icon-card group">${inner}</div>`;
+            }
+          }).join('');
+
+          // 4 columns on large screens to better fit the square aspect ratio
+          return `
+            <section class="mb-12">
+              <div class="flex items-center gap-4 mb-6">
+                <h2 class="section-heading">${section.heading || ''}</h2>
+                <div class="h-px bg-gray-200 flex-grow"></div>
+              </div>
+              
+              ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4 font-medium">${section.subheading}</p>` : ''}
+              
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                ${cardsHtml}
+              </div>
+            </section>
+          `;
+        }).join('');
+
+        PANEL_ROOT.innerHTML = html;
+      }
+
+      // Load JSON + initialise
+      fetch(JSON_URL, { cache: 'no-store' })
+        .then(r => r.json())
+        .then(data => {
+          TRACKS = Array.isArray(data.tracks) ? data.tracks : [];
+          if (!TRACKS.length){
+            PANEL_ROOT.innerHTML = '<p class="text-sm text-slate-500">No tracks found.</p>';
+            return;
+          }
+          createPills(TRACKS);
+          setActiveTrack(TRACKS[0].id); // default to first track
+        })
+        .catch(err => {
+          console.error('Error loading A-level tracks JSON', err);
+          PANEL_ROOT.innerHTML =
+            '<div class="p-4 bg-red-50 text-red-600 rounded-lg text-sm">Unable to load content. Please ensure <code>assets/data/alevel_tracks.json</code> exists.</div>';
+        });
+    })();
+  </script>
+
 </body>
 </html>
