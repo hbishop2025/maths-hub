@@ -1,356 +1,423 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | Home</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
+  <title>KS3 | EOY Revision</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+  <link rel="stylesheet" href="assets/main.css"/>
+
   <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
+    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
 
-    /* --- ENTRANCE ANIMATIONS --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
+
+    /* --- MENU CSS FROM GCSE PAGE --- */
+    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
+    
+    #mobileMenu {
+      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
+      width: 180px;
+      transform-origin: top right;
+      animation: menuIn .22s ease-out;
     }
-    .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
+    
+    #mobileMenu a {
+      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
     }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    /* ------------------------------ */
+
+    /* Background dots pattern */
+    .math-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
+    }
+
+    .section-heading { @apply text-2xl font-bold text-gray-800 mb-4; }
+
+    /* Year colours */
+    :root{
+      --y7:#F97316;
+      --y8:#16A34A;
+      --y9:#7B61FF;
+      --y7-soft:#FFEDD5;
+      --y8-soft:#DCFCE7;
+      --y9-soft:#EDE9FE;
+    }
+
+    /* Resource stripe backgrounds */
+    .stripe-y7 {
+      background: repeating-linear-gradient(45deg, var(--y7-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #FED7AA;
+    }
+    .stripe-y8 {
+      background: repeating-linear-gradient(45deg, var(--y8-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #86EFAC;
+    }
+    .stripe-y9 {
+      background: repeating-linear-gradient(45deg, var(--y9-soft) 0 10px, #FFFFFF 10px 20px);
+      border: 1px solid #C4B5FD;
+    }
+
+    .card-y7 { border-top: 4px solid var(--y7); }
+    .card-y8 { border-top: 4px solid var(--y8); }
+    .card-y9 { border-top: 4px solid var(--y9); }
+
+    /* Year toggle pills */
+    .year-pill {
+      @apply px-4 py-1.5 text-sm font-semibold rounded-full border border-gray-200 bg-white/90 text-gray-700 cursor-pointer select-none;
+      transition: all .2s ease;
+    }
+    .year-pill-active {
+      @apply bg-gray-900 text-white border-gray-900 shadow-md;
+      transform: translateY(-1px);
+    }
   </style>
-
-  <style id="seasonal-styles"></style>
 </head>
 <body>
 
-  <div id="seasonal-container" class="fixed inset-0 w-full h-full overflow-hidden z-50 pointer-events-none"></div>
+  <header class="header">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+      <div class="flex items-center gap-3">
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+      </div>
 
-  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 lg:py-0">
-    
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/li-zhang-DvwKzaY6Xm8-unsplash.webp" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/70 via-[#0f172a]/50 to-transparent"></div>
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
+        <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
+          AI Usage
+        </a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div id="mobileMenu" class="hidden">
+        <a href="index.html">Home</a>
+        <a href="ks3_hub.html">KS3</a>
+        <a href="gcse_hub.html">GCSE</a>
+        <a href="alevel_hub.html">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
+          AI Usage
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="absolute inset-0 math-grid pointer-events-none"></div>
+
+  <main class="relative pt-14 pb-20">
+
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-left">
-      
-      <div class="max-w-2xl w-full">
-         
-         <div class="flex items-center gap-3 mb-6 animate-fade-in delay-100">
-           <img src="assets/hub_logo.png" alt="SJWMS" class="h-10 w-auto filter drop-shadow-lg"/>
-           <span class="font-extrabold tracking-tight text-white text-xl md:text-2xl drop-shadow-md">SJWMS Maths</span>
-         </div>
-         
-         <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
-           What will you<br>
-           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-             revise today
-           </span><br>
-           and master?
-         </h1>
-         
-         <p class="text-slate-300 text-lg md:text-xl font-medium drop-shadow-md mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
-           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
-         </p>
-
-         <div class="flex flex-wrap items-center gap-4 animate-fade-in delay-400">
-           
-           <a href="ks3_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
-           </a>
-
-           <a href="gcse_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
-           </a>
-
-           <a href="alevel_hub.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
-           </a>
-           
-           <div class="w-px h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
-
-           <a href="ai_usage.html" class="group inline-flex items-center px-6 py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-xs md:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
-           </a>
-
-         </div>
-
-        <div class="mt-8 flex items-center gap-2 text-slate-400/80 animate-fade-in delay-400">
-           <span class="material-icons text-[16px] text-white">camera</span>
-           <p class="text-xs md:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@sunx?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Li Zhang</a></p>
-         </div>
-
+    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+      <div class="absolute inset-0 z-0">
+        <img src="assets/ks3-hero.jpg" alt="EOY Revision" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
       </div>
 
-      <div id="updates-column" class="hidden w-full max-w-lg lg:w-[480px] flex-col gap-4 animate-fade-in delay-500 z-20">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-xl">
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-cyan-500/20 border border-cyan-400/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+             <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">KS3 • Years 7, 8 & 9</span>
+           </div>
+           
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+             End of Year<br>
+             <span class="text-cyan-400">
+               Revision
+             </span>
+           </h1>
+           
+           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8">
+             Everything you need for your end of year assessments: mixed practice papers, topic lists, and focused topic worksheets.
+           </p>
+
+           <div class="flex flex-wrap gap-4">
+             <a href="#eoy-resources" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+               <span>Start Revising</span>
+               <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
+             </a>
+
+             <a href="ks3_hub.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-slate-300 font-semibold hover:text-white transition-colors">
+               <span class="material-icons text-sm">arrow_back</span>
+               <span>Back to KS3</span>
+             </a>
+           </div>
+        </div>
       </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <section id="exam-tips" class="mb-12" aria-label="Exam Tips">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Exam Tips</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+        
+        <p class="text-gray-600 mb-6">
+          Keep these essential dos and don'ts in mind as you prepare for and sit your maths exams.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 border-t-4 border-t-green-500">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="material-icons text-3xl text-green-500">check_circle</span>
+              <h3 class="text-xl font-bold text-gray-800">Do</h3>
+            </div>
+            <ul class="space-y-4 text-gray-600">
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-green-500 text-sm mt-1">done</span> 
+                <span><strong>Show all your working out.</strong> Even if you use a calculator or make a mistake at the end, working marks can save your grade.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-green-500 text-sm mt-1">done</span> 
+                <span><strong>Read the question carefully.</strong> Double-check what the question is actually asking for before writing your final answer.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-green-500 text-sm mt-1">done</span> 
+                <span><strong>Bring the right equipment.</strong> Always have a pen, pencil, ruler, and a scientific calculator ready.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-green-500 text-sm mt-1">done</span> 
+                <span><strong>Check your answers.</strong> If you finish early, use the extra time to recalculate and verify your solutions.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 border-t-4 border-t-red-500">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="material-icons text-3xl text-red-500">cancel</span>
+              <h3 class="text-xl font-bold text-gray-800">Don't</h3>
+            </div>
+            <ul class="space-y-4 text-gray-600">
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-red-500 text-sm mt-1">close</span> 
+                <span><strong>Don't get stuck.</strong> If you can't figure out a question after a couple of minutes, move on and come back to it later.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-red-500 text-sm mt-1">close</span> 
+                <span><strong>Don't leave blanks.</strong> Especially on multiple-choice questions! Always write down your best guess if you aren't sure.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-red-500 text-sm mt-1">close</span> 
+                <span><strong>Don't rub out your working.</strong> If you change your mind, cross it out with a single line so the examiner can still read it if needed.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-icons text-red-500 text-sm mt-1">close</span> 
+                <span><strong>Don't cram the night before.</strong> A well-rested brain performs much better than a tired one. Prioritize a good night's sleep.</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+      <section id="eoy-resources" class="mb-0 scroll-mt-24">
+        
+        <div class="flex items-center gap-4 mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">Mixed revision resources</h2>
+          <div class="h-px bg-gray-200 flex-grow"></div>
+        </div>
+          <p class="text-gray-600 mb-6">
+            Choose your year group below. Start with a mixed paper, then use topic resources to fill any gaps.
+          </p>
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          
+          <div class="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200 px-1.5 py-1 shadow-sm">
+            <button type="button" class="year-pill year-pill-active" data-year="y7">Year 7</button>
+            <button type="button" class="year-pill" data-year="y8">Year 8</button>
+            <button type="button" class="year-pill" data-year="y9">Year 9</button>
+          </div>
+        </div>
+
+        <div>
+          <div id="grid-y7" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y8" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          <div id="grid-y9" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+          <p id="unit-empty" class="text-gray-500 text-center mt-4" hidden>
+            No resources available yet. Please check back later.
+          </p>
+        </div>
+        
+        <div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-gray-300/40 to-transparent"></div>
+
+        <div class="mt-6 text-xs text-gray-500 text-center">
+          Tip: Remember to take regular breaks!
+        </div>
+      </section>
 
     </div>
   </main>
 
+  <div id="footer-slot"></div>
+  <script src="assets/footer-loader.js" defer></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const response = await fetch('assets/data/home_updates.json');
-        if (!response.ok) return; 
-
-        const data = await response.json();
-        const siteUpdates = data.items || []; 
-
-        const updatesColumn = document.getElementById('updates-column');
-
-        if (siteUpdates.length > 0) {
-          updatesColumn.classList.remove('hidden');
-          updatesColumn.classList.add('flex'); 
-
-          siteUpdates.forEach((update, index) => {
-            const isLong = update.text.length > 120;
-            let textHTML = '';
-            
-            if (isLong) {
-              textHTML = `
-                <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
-                  <p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>
-                </div>
-                <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
-                  Show More
-                </button>
-              `;
-            } else {
-              textHTML = `<p class="text-slate-300 text-sm leading-relaxed">${update.text}</p>`;
-            }
-
-            let buttonHTML = '';
-            if (update.btnText && update.btnLink) {
-              buttonHTML = `
-                <div class="mt-4">
-                  <a href="${update.btnLink}" class="inline-flex items-center px-4 py-2 rounded bg-blue-500/20 border border-blue-400/30 text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
-                    ${update.btnText}
-                  </a>
-                </div>
-              `;
-            }
-
-            const updateCard = document.createElement('div');
-            updateCard.className = "p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
-            updateCard.innerHTML = `
-              <div class="flex items-center gap-2 mb-2">
-                <span class="material-icons text-blue-400 text-[18px]">${update.icon || 'info'}</span>
-                <h3 class="text-white font-bold text-sm tracking-wide uppercase">${update.title}</h3>
-              </div>
-              ${textHTML}
-              ${buttonHTML}
-            `;
-            
-            updatesColumn.appendChild(updateCard);
-          });
-        }
-      } catch (error) {
-        console.error("Error loading updates:", error);
-      }
-    });
-
-    window.toggleUpdateText = function(index) {
-      const wrapper = document.getElementById(`text-wrapper-${index}`);
-      const btn = document.getElementById(`toggle-btn-${index}`);
-      
-      if (wrapper.classList.contains('max-h-[4.5rem]')) {
-        wrapper.classList.remove('max-h-[4.5rem]');
-        wrapper.classList.add('max-h-[800px]');
-        btn.innerText = 'Show Less';
-      } else {
-        wrapper.classList.add('max-h-[4.5rem]');
-        wrapper.classList.remove('max-h-[800px]');
-        btn.innerText = 'Show More';
-      }
-    };
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // Simple toggle logic from GCSE file
+    if(menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
   </script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const month = new Date().getMonth() + 1; // 1-12
-      const container = document.getElementById('seasonal-container');
-      const styleTag = document.getElementById('seasonal-styles');
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      const EOY_RESOURCES_URL = "assets/data/ks3_eoy_resources.json";
 
-      // 3 = March, 4 = April (Easter Theme - Peeking Bunny Ears)
-      if (month === 3 || month === 4) {
-        let bunnyHTML = '';
-        
-        // Generate 4 bunnies spread across the bottom
-        for(let i = 0; i < 4; i++) {
-           let leftPosition = 15 + (i * 22) + (Math.random() * 6 - 3); 
-           let delay = Math.random() * 5;
-           bunnyHTML += `
-             <div class="bunny" style="left: ${leftPosition}%; animation-delay: ${delay}s;">
-               <div class="bunny-ear left" style="animation-delay: ${delay}s;"></div>
-               <div class="bunny-ear right" style="animation-delay: ${delay + 0.3}s;"></div>
-             </div>
-           `;
-        }
-        
-        container.innerHTML = bunnyHTML;
-        styleTag.innerHTML = `
-          .bunny {
-            position: absolute;
-            bottom: -70px; /* Hidden below the screen initially */
-            width: 50px;
-            height: 70px;
-            animation: peek-up 8s ease-in-out infinite;
-          }
-          .bunny-ear {
-            position: absolute;
-            bottom: 0;
-            width: 18px;
-            height: 60px;
-            background-color: #f8fafc; /* White/Light gray */
-            border-radius: 50% 50% 0 0;
-            box-shadow: inset -2px -2px 6px rgba(0,0,0,0.1);
-            transform-origin: bottom center;
-          }
-          /* Pink inner ear */
-          .bunny-ear::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 4px;
-            width: 10px;
-            height: 45px;
-            background-color: #f472b6; /* Soft pink */
-            border-radius: 50% 50% 0 0;
-          }
-          .bunny-ear.left {
-            left: 2px;
-            transform: rotate(-12deg);
-            animation: twitch-left 8s infinite;
-          }
-          .bunny-ear.right {
-            right: 2px;
-            transform: rotate(12deg);
-            animation: twitch-right 8s infinite;
-          }
-          
-          /* The whole bunny peeking up and down */
-          @keyframes peek-up {
-            0%, 15%, 85%, 100% { transform: translateY(0); }
-            30%, 70% { transform: translateY(-55px); }
-          }
-          
-          /* Ear twitches while up */
-          @keyframes twitch-left {
-            0%, 40%, 60%, 100% { transform: rotate(-12deg); }
-            45% { transform: rotate(-25deg); }
-            50% { transform: rotate(-8deg); }
-            55% { transform: rotate(-20deg); }
-          }
-          @keyframes twitch-right {
-            0%, 40%, 60%, 100% { transform: rotate(12deg); }
-            48% { transform: rotate(25deg); }
-            52% { transform: rotate(8deg); }
-            56% { transform: rotate(20deg); }
-          }
-        `;
-      } 
-      // 10 = October (Halloween Theme - Creepy Eyes & Embers)
-      else if (month === 10) {
-        let halloweenHTML = '';
-        const eyeColors = ['#ea580c', '#9333ea']; 
-        
-        for(let i = 0; i < 10; i++) {
-           let color = eyeColors[i % eyeColors.length];
-           let leftPosition = Math.random() * 95; 
-           let topPosition = Math.random() * 80 + 10;
-           let delay = Math.random() * 5;
-           halloweenHTML += `<div class="creepy-eyes" style="left: ${leftPosition}%; top: ${topPosition}%; background-color: ${color}; box-shadow: 12px 0 0 ${color}, 0 0 10px ${color}, 12px 0 10px ${color}; animation-delay: ${delay}s;"></div>`;
-        }
+      function normList(d){
+        if (Array.isArray(d)) return d;
+        if (d && Array.isArray(d.items)) return d.items;
+        return [];
+      }
+      function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
+      
+      // Icon Helper
+      function iconFor(url){
+        const u=(url||"").toLowerCase();
+        if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View"};
+        if(u.includes("youtube")||u.includes("youtu.be")||u.includes("watch")) return {icon:"videocam", cta:"Watch Now"};
+        if(u.includes("quiz")||u.includes("forms.gle")||u.includes("form")) return {icon:"quiz", cta:"Take Quiz"};
+        return {icon:"description", cta:"Open"};
+      }
 
-        for(let i = 0; i < 15; i++) {
-           let leftPosition = Math.random() * 100;
-           let delay = Math.random() * 3;
-           halloweenHTML += `<div class="ember" style="left: ${leftPosition}%; animation-delay: ${delay}s;"></div>`;
-        }
+      // Card Builder
+      function makeResCard({ title, url, year }){
+        const safeUrl = ensureHttps(url);
+        const { icon, cta } = iconFor(url);
+        const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
         
-        container.innerHTML = halloweenHTML;
-        styleTag.innerHTML = `
-          .creepy-eyes {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: blink-eyes 6s infinite;
-          }
-          .ember {
-            position: absolute;
-            bottom: -10px;
-            width: 4px;
-            height: 4px;
-            background: #ea580c;
-            border-radius: 50%;
-            box-shadow: 0 0 8px 2px #ea580c;
-            opacity: 0;
-            animation: float-ember 4s ease-in-out infinite;
-          }
-          @keyframes blink-eyes {
-            0%, 40%, 60%, 100% { opacity: 0; transform: scale(0.8); }
-            45%, 55% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 0.1; transform: scaleX(1.2) scaleY(0.2); }
-          }
-          @keyframes float-ember {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-          }
+        const stripeClass = year==="y7" ? "stripe-y7" : year==="y8" ? "stripe-y8" : "stripe-y9";
+        const topClass    = year==="y7" ? "card-y7"   : year==="y8" ? "card-y8"   : "card-y9";
+        const textColor   = year==="y7" ? "var(--y7)" : year==="y8" ? "var(--y8)" : "var(--y9)";
+
+        const media = yt
+          ? (() => {
+              const id = yt[1];
+              const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+              return `
+                <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative border border-gray-200 group-hover:border-gray-300">
+                  <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
+                  <span class="material-icons absolute inset-0 m-auto w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-gray-900 shadow-md group-hover:scale-110 transition-transform">play_arrow</span>
+                </div>`;
+            })()
+          : `<div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center ${stripeClass}">
+               <span class="material-icons text-4xl text-gray-700 opacity-60">${icon}</span>
+             </div>`;
+
+        const el = document.createElement("a");
+        el.href = safeUrl; el.target = "_blank"; el.rel = "noopener";
+        el.className =
+          "group block bg-white border border-gray-200 p-4 rounded-xl shadow-sm " +
+          "hover:shadow-lg transition-all duration-300 hover:-translate-y-1 focus:outline-none " +
+          "focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 " + topClass;
+        el.innerHTML = `
+          ${media}
+          <h3 class="font-semibold text-gray-800 mb-2 leading-tight">${title || "Untitled resource"}</h3>
+          <div class="flex items-center text-sm font-bold mt-auto" style="color:${textColor}">
+            ${cta}
+            <span class="material-icons ml-1 text-base group-hover:translate-x-1 transition-transform">
+              ${cta==='Watch Now' ? 'play_arrow' : (cta==='Take Quiz' ? 'arrow_forward' : 'open_in_new')}
+            </span>
+          </div>
         `;
+        return el;
       }
-      // 12 = December (Christmas Theme)
-      else if (month === 12) {
-        let lightsHTML = '<div class="fairy-wire"></div>';
-        const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308']; 
-        
-        for(let i = 0; i < 30; i++) {
-           let color = colors[i % colors.length];
-           let leftPosition = (i * 3.33); 
-           let delay = Math.random() * 1.5;
-           lightsHTML += `<div class="fairy-light" style="left: ${leftPosition}%; background-color: ${color}; box-shadow: 0 0 15px 5px ${color}aa; animation-delay: ${delay}s;"></div>`;
+
+      const GRID = {
+        y7: document.getElementById("grid-y7"),
+        y8: document.getElementById("grid-y8"),
+        y9: document.getElementById("grid-y9"),
+      };
+
+      function extractYearResources(data, key){
+        if (Array.isArray(data[key])) return data[key];
+        return normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
+      }
+
+      async function loadResources(){
+        try{
+          const data = await fetch(EOY_RESOURCES_URL, {cache:"no-store"}).then(r=>r.json());
+          let total = 0;
+          ["y7","y8","y9"].forEach(key=>{
+            const grid = GRID[key]; if (!grid) return;
+            grid.innerHTML = "";
+            const items = extractYearResources(data, key) || [];
+            items.forEach(item=>{
+              if (item && item.title && item.url) {
+                grid.appendChild(makeResCard({ title:item.title, url:item.url, year:key }));
+                total++;
+              }
+            });
+          });
+          const empty = document.getElementById("unit-empty");
+          if (empty) empty.hidden = total > 0;
+        }catch(e){
+          console.error("EOY resources load error", e);
+          const empty = document.getElementById("unit-empty");
+          if (empty) empty.hidden = false;
         }
-        
-        container.innerHTML = lightsHTML;
-        styleTag.innerHTML = `
-          .fairy-wire {
-            position: absolute;
-            top: 10px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(255,255,255,0.2);
-            z-index: 1;
-          }
-          .fairy-light {
-            position: absolute;
-            top: 10px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            z-index: 2;
-            animation: blink-light 1.5s infinite alternate;
-          }
-          @keyframes blink-light {
-            0% { opacity: 0.4; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.1); }
-          }
-        `;
       }
+
+      function setupYearToggle(){
+        const buttons = document.querySelectorAll(".year-pill");
+        let current = "y7";
+        const showYear = (year)=>{
+          if (!GRID[year]) return;
+          current = year;
+          Object.entries(GRID).forEach(([k,grid])=>{
+            if (!grid) return;
+            grid.classList.toggle("hidden", k !== year);
+          });
+          buttons.forEach(btn=>{
+            const y = btn.getAttribute("data-year");
+            btn.classList.toggle("year-pill-active", y === year);
+          });
+        };
+        buttons.forEach(btn=>{
+          btn.addEventListener("click", ()=>{
+            const y = btn.getAttribute("data-year");
+            if (y && y !== current) showYear(y);
+          });
+        });
+        showYear("y7");
+      }
+
+      // Initialize Data
+      loadResources();
+      setupYearToggle();
     });
   </script>
 </body>
