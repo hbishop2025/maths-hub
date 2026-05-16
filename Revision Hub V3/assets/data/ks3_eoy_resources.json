@@ -71,7 +71,7 @@
       "title": "Dr Frost | Mixed Practice #1",
       "url": "https://www.drfrost.org/worksheets.php?wid=2986004",
       "description": "This is a Dr Frost task. Click the link and press start task.",
-      "date": "2026-05-16",
+      "date": "2026-05-15",
       "type": "site"
     },
     {
@@ -89,6 +89,14 @@
       "url": "https://drive.google.com/file/d/1aOp74agBc0NHiSJyx-cB0Ux2UY_ei7MS/view",
       "type": "pdf",
       "date": "2026-05-16"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "Dr Frost | Algebra Mastery Pack",
+      "url": "https://www.drfrost.org/worksheets.php?wid=2986012",
+      "type": "site",
+      "date": "2026-05-15"
     }
   ]
 }
