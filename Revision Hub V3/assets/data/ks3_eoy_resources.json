@@ -105,6 +105,22 @@
       "url": "https://www.drfrost.org/worksheets.php?wid=2986012",
       "type": "site",
       "date": "2026-05-15"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "Dr Frost | Geometry Mastery Pack",
+      "url": "https://www.drfrost.org/worksheets.php?wid=2986023",
+      "type": "site",
+      "date": "2026-05-16"
+    },
+    {
+      "active": true,
+      "year": "y7",
+      "title": "Dr Frost | Data Mastery Pack",
+      "url": "https://www.drfrost.org/worksheets.php?wid=2986024",
+      "type": "site",
+      "date": "2026-05-16"
     }
   ]
 }
