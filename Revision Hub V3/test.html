@@ -2,460 +2,314 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>KS3 | EOY Revision</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPARX | Usage & Policy</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="assets/main.css"/>
-
   <style type="text/tailwindcss">
-    :root { 
-      --accent1: #7C3AED; 
-      --accent2: #3B82F6; 
-      --y7: #F97316;
-      --y8: #16A34A;
-      --y9: #7B61FF;
-      --y7-soft: #FFEDD5;
-      --y8-soft: #DCFCE7;
-      --y9-soft: #EDE9FE;
-    }
+    body { @apply bg-white text-[#0b0f17] font-[Lexend] overflow-x-hidden; }
 
-    body { @apply bg-[#f8fafc] text-[#1e293b] font-[Lexend]; overflow-x:hidden; }
+    /* KEEP: top nav */
+    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
 
-    /* --- MENU CSS --- */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-slate-200; }
-    
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-slate-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    
-    #mobileMenu a {
-      @apply block text-sm font-medium text-slate-700 hover:text-[#135bec] py-1 text-center;
-    }
+    /* Page geometry */
+    .page { @apply pb-20; }
+    .wrap { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
+    .grid-docs { @apply grid lg:grid-cols-[260px,1fr] gap-10 items-start; }
 
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
+    /* Docs-like sidebar */
+    .side { @apply hidden lg:block sticky top-20; }
+    .side-title { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .side-link { @apply flex items-center gap-3 px-2 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition; }
+    .side-link .material-icons { @apply text-[18px] text-gray-400; }
+    .side-link.active { @apply bg-gray-100 text-gray-900; }
+    .side-link.active .material-icons { @apply text-gray-900; }
 
-    /* Background dots pattern */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 75%, transparent 100%);
-    }
+    /* Sections: full-width feel via dividers and spacing */
+    .section { @apply py-14; }
+    .section + .section { @apply border-t border-gray-200; }
+    .anchor { scroll-margin-top: 92px; }
 
-    /* Hero Mesh Layer */
+    /* Typography rhythm */
+    .eyebrow { @apply text-[11px] font-black uppercase tracking-widest text-gray-500; }
+    .h1 { @apply text-4xl md:text-6xl font-black tracking-tight leading-[1.05]; }
+    .h2 { @apply text-2xl md:text-3xl font-black tracking-tight; }
+    .lead { @apply text-lg text-gray-600 max-w-2xl; }
+    .p { @apply text-gray-600 leading-relaxed; }
+    .tiny { @apply text-[12px] text-gray-600 leading-relaxed; }
+
+    /* Pills + buttons */
+    .pill { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold border border-gray-200 bg-white hover:bg-gray-50 active:scale-[0.99] transition; }
+    .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
+    .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
+
+    /* Divider list rows (Approved tools) */
+    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
+    .row + .row { @apply border-t border-gray-200; }
+    .row-title { @apply flex items-center gap-3; }
+    .row-title h3 { @apply font-black text-lg; }
+    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
+    .tags { @apply mt-3 flex flex-wrap gap-2; }
+    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
+
+    /* Custom New Mesh Hero Style */
     .hero-mesh {
-      background-color: hsla(197, 100%, 11%, 1);
-      background-image: 
-        radial-gradient(circle at 5% 6%, hsla(197, 66%, 26%, 0.44) 20.685703949140766%, transparent 83.7756762680543%), 
-        radial-gradient(circle at 50% 100%, hsla(197, 100%, 11%, 1) 20%, transparent 72.96864907091052%), 
-        radial-gradient(circle at 10% 90%, hsla(197, 100%, 11%, 1) 20%, transparent 75%), 
-        radial-gradient(circle at 87% 35%, hsla(178, 100%, 32%, 0.47) 9.824340451073803%, transparent 81.83421367222947%), 
-        radial-gradient(circle at 100% 0%, hsla(179, 100%, 40%, 0.64) 13%, transparent 82%);
-      background-blend-mode: normal, darken, normal, normal, normal;
+      background-color: hsla(0, 0%, 100%, 1);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 759 759' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"), radial-gradient(circle at 16% 6%, hsla(0, 90%, 65%, 1) 0%, transparent 50%), radial-gradient(circle at 87% 20%, hsla(210, 100%, 78%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 68% 47%, hsla(346, 100%, 83%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 19% 87%, hsla(216, 77%, 36%, 1) 0%, transparent 50%), radial-gradient(circle at 88% 97%, hsla(346, 100%, 83%, 1) 0%, transparent 50%);
+      background-blend-mode: overlay, normal, normal, normal, normal, normal;
     }
 
-    /* Resource stripe backgrounds */
-    .stripe-y7 {
-      background: repeating-linear-gradient(45deg, var(--y7-soft) 0 10px, #FFFFFF 10px 20px);
-      border: 1px solid #FED7AA;
-    }
-    .stripe-y8 {
-      background: repeating-linear-gradient(45deg, var(--y8-soft) 0 10px, #FFFFFF 10px 20px);
-      border: 1px solid #86EFAC;
-    }
-    .stripe-y9 {
-      background: repeating-linear-gradient(45deg, var(--y9-soft) 0 10px, #FFFFFF 10px 20px);
-      border: 1px solid #C4B5FD;
+    /* Approved tools mesh aura (CSS-only, Option A) */
+    .mesh {
+      position: relative;
+      overflow: hidden;
     }
 
-    .card-y7 { border-top: 4px solid var(--y7); }
-    .card-y8 { border-top: 4px solid var(--y8); }
-    .card-y9 { border-top: 4px solid var(--y9); }
+    .mesh::before{
+      content:"";
+      position:absolute;
+      inset:-200px;
+      pointer-events:none;
+      background:
+        radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
+        radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
+        radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
+      filter: blur(60px);
+      opacity:.8;
+      z-index:0;
+    }
 
-    /* Year Navigation Side-Pills */
-    .sidebar-pill {
-      @apply w-full flex items-center justify-between px-4 py-3 text-left font-semibold rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all duration-200 select-none shadow-sm hover:bg-slate-50;
+    /* Do / Don't layout (no cards) */
+    .two-col { @apply grid md:grid-cols-2 gap-10; }
+    .col-head { @apply flex items-center gap-2 font-black text-lg; }
+    .list { @apply mt-4 space-y-3 text-sm text-gray-700; }
+    .li { @apply flex gap-2; }
+    .li .material-icons { @apply text-[18px]; }
+    .divider-v { @apply hidden md:block w-px bg-gray-200; }
+
+    /* Prompt Builder: tool area with internal dividers, not cards */
+    .tool { @apply border-y border-gray-200; }
+    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
+    .tool-col { @apply py-10; }
+    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
+
+    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
+    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
+    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
+    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
+    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
+
+    .prompt-box {
+      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
+      white-space: pre-wrap;
     }
-    
-    /* Year Specific Highlight Variants without translate-x shifting */
-    .sidebar-pill-y7-active {
-      background-color: var(--y7) !important;
-      border-color: var(--y7) !important;
-      @apply text-white shadow-md;
-    }
-    .sidebar-pill-y8-active {
-      background-color: var(--y8) !important;
-      border-color: var(--y8) !important;
-      @apply text-white shadow-md;
-    }
-    .sidebar-pill-y9-active {
-      background-color: var(--y9) !important;
-      border-color: var(--y9) !important;
-      @apply text-white shadow-md;
-    }
+
+    .hint { @apply text-[12px] text-gray-500; }
+
+    /* Callouts (Hallucinations + Privacy) */
+    .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
+    .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
   </style>
 </head>
+
 <body>
 
   <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight text-slate-900">SJWMS Maths</span>
+        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
       </div>
-
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-slate-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-[#135bec]" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-slate-700 hover:text-[#135bec] transition" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-slate-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
+        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
+        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
       </nav>
-
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-200/60 text-slate-700">
-        <span class="material-icons">menu</span>
-      </button>
-
-      <div id="mobileMenu" class="hidden">
-        <a href="index.html">Home</a>
-        <a href="ks3_hub.html">KS3</a>
-        <a href="gcse_hub.html">GCSE</a>
-        <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-slate-900 text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
-          AI Usage
-        </a>
-      </div>
     </div>
   </header>
 
-  <div class="absolute inset-0 math-grid pointer-events-none"></div>
-
   <main class="relative pt-14 pb-20">
 
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest relative z-10">
-      <span class="material-icons text-base mr-2">construction</span>
-      Year 7, 8 and GCSE Still Under Construction
-    </div>
+  <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-16 border-b border-gray-200">
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-600/10 border border-blue-500/20 backdrop-blur-sm">
+          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+          <span class="text-[10px] font-bold text-blue-800 uppercase tracking-widest">Online Homework</span>
+        </div>
 
-    <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-12">
-      <div class="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px]"></div>
+        <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-4 leading-tight">
+          Sparx Homework<br>
+          <span class="text-blue-600">Setup & Guidance</span>
+        </h1>
 
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl">
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-md bg-white/10 border border-white/10 backdrop-blur-md">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
-             <span class="text-[10px] font-bold text-cyan-200 uppercase tracking-widest">KS3 Revision</span>
-           </div>
-           
-           <h1 class="text-4xl md:text-6xl font-black text-white mb-4 leading-tight tracking-tight">
-             End of Year<br>
-             <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400">
-               Revision
-             </span>
-           </h1>
-           
-           <p class="text-slate-300 text-base md:text-lg font-medium mb-8 max-w-xl leading-relaxed">
-             Everything you need to succeed in your end of year assessments: Revision guides, Dr Frost tasks, custom worksheets and more.
-           </p>
+        <p class="text-gray-700 text-lg font-medium">
+          How to log in, complete homework properly, and avoid common mistakes.
+        </p>
 
-           <div class="flex flex-wrap gap-4">
-             <a href="ks3_hub.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-slate-300 font-semibold text-sm hover:text-white transition-colors border border-slate-700 bg-slate-900/50 backdrop-blur-sm">
-               <span class="material-icons text-sm">arrow_back</span>
-               <span>Back to KS3</span>
-             </a>
-           </div>
+        <div class="mt-8">
+          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-gray-800 transition shadow-sm">
+            Launch Sparx
+            <span class="material-icons text-sm">open_in_new</span>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <div id="revision-workspace" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">
-      
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
-        
-        <aside class="md:col-span-1 space-y-8 sticky top-20">
-          
-          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1 mb-2">Select Year Group</h3>
-            <button type="button" class="sidebar-pill" data-year="y7">
-              <span>Year 7</span>
-              <span class="material-icons text-lg opacity-70">chevron_right</span>
-            </button>
-            <button type="button" class="sidebar-pill" data-year="y8">
-              <span>Year 8</span>
-              <span class="material-icons text-lg opacity-70">chevron_right</span>
-            </button>
-            <button type="button" class="sidebar-pill" data-year="y9">
-              <span>Year 9</span>
-              <span class="material-icons text-lg opacity-70">chevron_right</span>
-            </button>
-          </div>
+  <div class="wrap pt-8">
+    <div class="grid-docs">
 
-          <div class="space-y-4">
-            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">Exam Reminders</h3>
-            
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 border-l-4 border-l-emerald-500 shadow-sm">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="material-icons text-lg text-emerald-500">check_circle</span>
-                <h4 class="font-bold text-sm text-slate-800">Key Dos</h4>
-              </div>
-              <ul class="space-y-2.5 text-xs text-slate-600 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-emerald-500 font-bold">•</span>
-                  <span><strong>Show method:</strong> Missing steps loses potential marks even if final values are wrong.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-emerald-500 font-bold">•</span>
-                  <span><strong>Read fully:</strong> Check the question carefully to you know what is required.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-emerald-500 font-bold">•</span>
-                  <span><strong>Equipment:</strong> Ensure you have your ruler, pen, pencil and scientific calculator.</span>
-                </li>
-              </ul>
+      <aside class="side pt-6">
+        <div class="px-2">
+          <div class="side-title">Sparx</div>
+          <div class="text-lg font-black tracking-tight mt-1">Setup Guide</div>
+        </div>
+
+        <nav class="mt-4 space-y-1" id="sideNav">
+          <a class="side-link active" href="#overview"><span class="material-icons">info</span>Overview</a>
+          <a class="side-link" href="#cycle"><span class="material-icons">schedule</span>Homework Cycle</a>
+          <a class="side-link" href="#orange"><span class="material-icons">menu_book</span>Orange Book</a>
+          <a class="side-link" href="#videos"><span class="material-icons">play_circle</span>Video Guides</a>
+          <a class="side-link" href="#anti-cheat"><span class="material-icons">warning</span>AI & Cheating</a>
+          <a class="side-link" href="#launch"><span class="material-icons">rocket_launch</span>Launch Sparx</a>
+        </nav>
+      </aside>
+
+      <div>
+
+        <section id="overview" class="anchor section">
+          <div class="eyebrow">Overview</div>
+          <h2 class="h2 mt-2">What Sparx is for</h2>
+          <p class="p mt-4 max-w-3xl">
+            Sparx is one of the SJWMS mathematics departments homework platforms. Each week you complete a personalised set of maths questions.
+            The goal is progress through consistency, enhancing your mathematics and to not rush or guess.
+          </p>
+        </section>
+
+        <section id="cycle" class="anchor section">
+          <div class="eyebrow">Schedule</div>
+          <h2 class="h2 mt-2">Homework Cycle</h2>
+          <p class="p mt-4 max-w-3xl">
+            Sparx runs from <b>Wednesday to Wednesday</b> (unless stated overwise). All work must be completed before the deadline.
+          </p>
+        </section>
+
+        <section id="orange" class="anchor section">
+          <div class="eyebrow">Protocol</div>
+          <h2 class="h2 mt-2">Orange Book Requirements</h2>
+          <p class="p mt-4 max-w-3xl">
+            Every Sparx question must be supported with written working in your orange book.
+          </p>
+
+          <ul class="mt-8 space-y-4 text-sm text-gray-700">
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the Bookwork Code</li>
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Show full working clearly</li>
+            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the final answer neatly</li>
+          </ul>
+        </section>
+
+        <section id="videos" class="anchor section">
+          <div class="eyebrow">Support</div>
+          <h2 class="h2 mt-2">Video Guides</h2>
+
+          <div class="mt-8 grid md:grid-cols-2 gap-8">
+            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/a92XCC0MeM0"
+                allowfullscreen></iframe>
             </div>
-
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 border-l-4 border-l-rose-500 shadow-sm">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="material-icons text-lg text-rose-500">cancel</span>
-                <h4 class="font-bold text-sm text-slate-800">Key Don'ts</h4>
-              </div>
-              <ul class="space-y-2.5 text-xs text-slate-600 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-rose-500 font-bold">•</span>
-                  <span><strong>Don't stall:</strong> Don't stay on the same question for ages, move on and circle back.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-rose-500 font-bold">•</span>
-                  <span><strong>No blanks:</strong> Unanswered questions are guaranteed zero. Ensure you have a go!</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-rose-500 font-bold">•</span>
-                  <span><strong>Don't cram:</strong> Your brain is a muscle and needs time to recover.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </aside>
-
-        <section class="md:col-span-3 space-y-6">
-          <div class="border-b border-slate-200 pb-4">
-            <h2 id="dynamic-year-heading" class="text-2xl font-bold text-slate-900 tracking-tight">Year 7 Revision Resources</h2>
-            <p class="text-slate-500 text-sm mt-1">Start by working through complete exam practices, then target specific knowledge gaps.</p>
-          </div>
-
-          <div>
-            <div id="grid-y7" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-300"></div>
-            <div id="grid-y8" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-300"></div>
-            <div id="grid-y9" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-300"></div>
-
-            <div id="unit-empty" class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-12 text-center mt-4" hidden>
-              <span class="material-icons text-4xl text-slate-300 mb-2">folder_open</span>
-              <p class="text-slate-500 text-sm font-medium">No files listed under this category yet. Check back shorty!</p>
+            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
+              <iframe class="w-full h-full"
+                src="https://www.youtube.com/embed/IQUMypfwHnU"
+                allowfullscreen></iframe>
             </div>
           </div>
         </section>
 
-      </div>
+        <section id="anti-cheat" class="anchor section">
+          <div class="eyebrow">Important</div>
+          <h2 class="h2 mt-2">AI & Homework</h2>
+          <p class="p mt-4 max-w-3xl">
+            Using AI solvers to complete Sparx may trick the algorithm into thinking you are more advanced than you are.
+            This results in future homework becoming significantly harder.
+          </p>
 
-      <div class="mt-16 pt-6 border-t border-slate-200 text-xs text-slate-400 text-center">
-        Tip: Remember to take regular breaks!
-      </div>
-
-    </div>
-  </main>
-
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
-
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    if(menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
-  </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      const EOY_RESOURCES_URL = "assets/data/ks3_eoy_resources.json";
-
-      function normList(d){
-        if (Array.isArray(d)) return d;
-        if (d && Array.isArray(d.items)) return d.items;
-        return [];
-      }
-      function ensureHttps(u){ return /^https?:\/\//i.test(u) ? u : ("https://" + u); }
-      
-      function iconFor(url){
-        const u=(url||"").toLowerCase();
-        if(u.endsWith(".pdf")) return {icon:"picture_as_pdf", cta:"View PDF"};
-        if(u.includes("youtube")||u.includes("youtu.be")||u.includes("watch")) return {icon:"videocam", cta:"Watch Now"};
-        if(u.includes("quiz")||u.includes("forms.gle")||u.includes("form")) return {icon:"quiz", cta:"Take Quiz"};
-        return {icon:"description", cta:"Open File"};
-      }
-
-      function makeResCard({ title, url, year }){
-        const safeUrl = ensureHttps(url);
-        const { icon, cta } = iconFor(url);
-        const yt = (url||"").match(/(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-        
-        const stripeClass = year==="y7" ? "stripe-y7" : year==="y8" ? "stripe-y8" : "stripe-y9";
-        const topClass    = year==="y7" ? "card-y7"   : year==="y8" ? "card-y8"   : "card-y9";
-        const textColor   = year==="y7" ? "var(--y7)" : year==="y8" ? "var(--y8)" : "var(--y9)";
-
-        const media = yt
-          ? (() => {
-              const id = yt[1];
-              const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-              return `
-                <div class="w-full h-28 rounded-lg mb-3 overflow-hidden relative border border-slate-200 group-hover:border-slate-300">
-                  <img src="${img}" alt="Thumbnail" class="w-full h-full object-cover">
-                  <span class="material-icons absolute inset-0 m-auto w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-md group-hover:scale-110 transition-transform text-lg">play_arrow</span>
-                </div>`;
-            })()
-          : `<div class="w-full h-28 rounded-lg mb-3 flex items-center justify-center ${stripeClass}">
-               <span class="material-icons text-3xl text-slate-700 opacity-50">${icon}</span>
-             </div>`;
-
-        const el = document.createElement("a");
-        el.href = safeUrl; el.target = "_blank"; el.rel = "noopener";
-        el.className =
-          "group block bg-white border border-slate-200 p-3.5 rounded-xl shadow-sm " +
-          "hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 focus:outline-none " +
-          "focus:ring-2 focus:ring-offset-2 focus:ring-slate-300 " + topClass;
-        el.innerHTML = `
-          ${media}
-          <h3 class="font-semibold text-slate-800 text-sm mb-2 leading-tight group-hover:text-slate-900">${title || "Untitled Resource"}</h3>
-          <div class="flex items-center text-xs font-bold mt-auto" style="color:${textColor}">
-            ${cta}
-            <span class="material-icons ml-1 text-sm group-hover:translate-x-0.5 transition-transform">
-              ${cta==='Watch Now' ? 'play_arrow' : (cta==='Take Quiz' ? 'arrow_forward' : 'open_in_new')}
-            </span>
+          <div class="mt-8 callout-warn">
+            Always attempt questions yourself first. Use AI only as a study aid, not as an answer generator.
           </div>
-        `;
-        return el;
-      }
+          <p class="p mt-4 max-w-3xl">
+            Discover more about AI and how best to use it for mathmetics with our dedicated AI Usage page.
+          </p>
+          <div class="mt-8">
+            <a href="ai_usage.html"
+               target="_blank"
+               class="btn btn-primary">
+              AI Usage
+              <span class="material-icons text-sm">open_in_new</span>
+            </a>
+          </div>
+        </section>
 
-      const GRID = {
-        y7: document.getElementById("grid-y7"),
-        y8: document.getElementById("grid-y8"),
-        y9: document.getElementById("grid-y9"),
-      };
+        <section id="launch" class="anchor section">
+          <div class="eyebrow">Access</div>
+          <h2 class="h2 mt-2">Launch Sparx</h2>
 
-      const headingMap = {
-        y7: "Year 7 Revision Resources",
-        y8: "Year 8 Revision Resources",
-        y9: "Year 9 Revision Resources"
-      };
+          <div class="mt-8">
+            <a href="https://selectschool.sparx-learning.com/"
+               target="_blank"
+               class="btn btn-primary">
+              <span class="material-icons text-[18px]">rocket_launch</span>
+              Launch Sparx
+            </a>
+          </div>
+        </section>
 
-      function extractYearResources(data, key){
-        if (Array.isArray(data[key])) return data[key];
-        return normList(data).filter(x => (x.year||x.group||"").toLowerCase() === key);
-      }
+      </div>
+    </div>
+  </div>
+</main>
+  <div id="footer-slot"></div>
 
-      async function loadResources(){
-        try{
-          const data = await fetch(EOY_RESOURCES_URL, {cache:"no-store"}).then(r=>r.json());
-          let total = 0;
-          ["y7","y8","y9"].forEach(key=>{
-            const grid = GRID[key]; if (!grid) return;
-            grid.innerHTML = "";
-            const items = extractYearResources(data, key) || [];
-            items.forEach(item=>{
-              if (item && item.title && item.url) {
-                grid.appendChild(makeResCard({ title:item.title, url:item.url, year:key }));
-                total++;
-              }
-            });
-          });
-          updateEmptyStateDisplay();
-        }catch(e){
-          console.error("EOY data mapping breakdown Exception:", e);
-          updateEmptyStateDisplay();
-        }
-      }
+  <script>
+(function(){
+  const nav = document.getElementById('sideNav');
+  if(!nav) return;
 
-      function updateEmptyStateDisplay(){
-        const activeBtn = document.querySelector("[class*='sidebar-pill-'][class*='-active']");
-        if (!activeBtn) return;
-        const currentYear = activeBtn.getAttribute("data-year");
-        const currentGrid = GRID[currentYear];
-        const emptyState = document.getElementById("unit-empty");
-        
-        if(currentGrid && emptyState) {
-          emptyState.hidden = currentGrid.children.length > 0;
-        }
-      }
+  const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+  const sections = links
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
 
-      function setupYearToggle(){
-        const buttons = document.querySelectorAll(".sidebar-pill");
-        const headingElement = document.getElementById("dynamic-year-heading");
-        let current = "y7";
-
-        const showYear = (year)=>{
-          if (!GRID[year]) return;
-          current = year;
-
-          // Toggle grid container view filters
-          Object.entries(GRID).forEach(([k,grid])=>{
-            if (!grid) return;
-            grid.classList.toggle("hidden", k !== year);
-          });
-
-          // Toggle custom distinct highlight classes on sidebar navigation items
-          buttons.forEach(btn => {
-            const y = btn.getAttribute("data-year");
-            const activeClassName = `sidebar-pill-${y}-active`;
-            
-            if (y === year) {
-              btn.classList.add(activeClassName);
-            } else {
-              btn.classList.remove(`sidebar-pill-y7-active`, `sidebar-pill-y8-active`, `sidebar-pill-y9-active`);
-            }
-          });
-
-          // Realign title node copy texts strings
-          if(headingElement && headingMap[year]) {
-            headingElement.textContent = headingMap[year];
-          }
-
-          updateEmptyStateDisplay();
-        };
-
-        buttons.forEach(btn=>{
-          btn.addEventListener("click", ()=>{
-            const y = btn.getAttribute("data-year");
-            if (y && y !== current) showYear(y);
-          });
-        });
-
-        showYear("y7");
-      }
-
-      loadResources();
-      setupYearToggle();
+  function setActive(id){
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
     });
-  </script>
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+      }
+    });
+  }, {
+    rootMargin: "-40% 0px -55% 0px",
+    threshold: 0
+  });
+
+  sections.forEach(section => observer.observe(section));
+})();
+</script>
+
+  <script src="assets/footer-loader.js" defer></script>
 </body>
 </html>
