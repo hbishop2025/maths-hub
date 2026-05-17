@@ -1,0 +1,19 @@
+{
+  "sparx_codes": [],
+  "items": [
+    {
+      "active": true,
+      "title": "Test",
+      "url": "https://www.youtube.com/watch?v=JSvoP-JuYDI",
+      "blockkey": "videos",
+      "addediso": "2026-05-17T22:31:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Test",
+      "url": "www.google.com",
+      "blockkey": "other",
+      "addediso": "2026-05-17T22:31:00.000+01:00"
+    }
+  ]
+}
