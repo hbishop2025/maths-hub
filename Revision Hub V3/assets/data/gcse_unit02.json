@@ -1,5 +1,14 @@
 {
-  "sparx_codes": [],
+  "sparx_codes": [
+    {
+      "code": "P000",
+      "note": "This is a test"
+    },
+    {
+      "code": "P0001",
+      "note": "This is another test"
+    }
+  ],
   "items": [
     {
       "active": true,
