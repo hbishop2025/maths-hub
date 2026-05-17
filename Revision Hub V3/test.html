@@ -74,16 +74,6 @@
         radial-gradient(at 85% 15%, #ec4899 0px, transparent 50%);
     }
 
-    /* Faint White/Grey Mesh for EOY Card */
-    .mesh-eoy-light {
-      background-color: #fcfcfd;
-      background-image:
-        radial-gradient(at 0% 0%, #ffffff 0px, transparent 50%),
-        radial-gradient(at 100% 0%, #e2e8f0 0px, transparent 60%),
-        radial-gradient(at 70% 100%, #f1f5f9 0px, transparent 50%),
-        radial-gradient(at 10% 80%, #f8fafc 0px, transparent 40%);
-    }
-
     @keyframes menuIn {
       from { opacity: 0; transform: translateY(-6px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0)    scale(1); }
@@ -221,8 +211,11 @@
                 <div class="h-px bg-gray-200 flex-grow"></div>
               </div>
 
-              <article class="relative rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl group border border-gray-200 mesh-eoy-light min-h-[300px] flex flex-col transition-all duration-300 cursor-pointer" onclick="window.location.href='ks3_eoy.html'">
-                <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-gray-400 z-20">Advertisement</span>
+              <article class="relative rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl group border border-gray-200 bg-white min-h-[300px] flex flex-col transition-all duration-300 cursor-pointer" onclick="window.location.href='ks3_eoy.html'">
+                
+                <div class="absolute -right-6 -bottom-6 text-gray-100 pointer-events-none transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500 select-none">
+                  <span class="material-icons text-[13rem]">menu_book</span>
+                </div>
                 
                 <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full grow justify-end">
                   <div class="flex justify-start items-start mb-4">
