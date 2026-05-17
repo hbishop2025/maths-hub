@@ -10,7 +10,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
   <link rel="stylesheet" href="assets/main.css"/>
@@ -79,16 +79,6 @@
         radial-gradient(at 0% 100%, #06b6d4 0px, transparent 50%);
     }
 
-    /* Chessington jungle mesh */
-    .mesh-chessington {
-      background-color: #166534;
-      background-image: 
-        radial-gradient(at 0% 0%, #facc15 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #fb923c 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #a3e635 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #facc15 0px, transparent 50%);
-    }
-
     .section-heading { @apply text-2xl font-bold text-gray-800 tracking-tight; }
     
     /* "Fake Advert" Micro-Tag */
@@ -99,13 +89,7 @@
       @apply absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-black/30 z-20;
     }
 
-    /* Ad Grid Layout */
-    .ad-feed-grid { @apply lg:col-span-8 flex flex-col gap-10; }
-
     /* Right Sidebar (Links) */
-    .quick-links-sidebar { @apply lg:col-span-4 lg:sticky lg:top-24 self-start space-y-6; }
-
-    /* Link list styling */
     .link-list-card { @apply bg-white rounded-3xl p-6 border border-gray-100 shadow-sm; }
     .link-item { @apply flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group; }
 
@@ -218,7 +202,6 @@
 
           <div class="mesh-jmc rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="window.location.href='#UKMT'">
             <span class="ad-tag">Promoted</span>
-            
             <div class="absolute -right-4 -bottom-4 opacity-20 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
               <span class="material-icons text-9xl">emoji_events</span>
             </div>
@@ -228,7 +211,6 @@
               </div>
               <h3 class="font-black text-2xl mb-1 leading-tight drop-shadow-sm">Junior Maths Challenge</h3>
               <p class="text-white/90 text-sm mb-5 leading-relaxed font-medium">Test your logic. Solve the impossible. Prepare for the ultimate challenge.</p>
-              
               <button class="bg-white text-orange-600 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 group-hover:bg-gray-50 transition-colors shadow-sm">
                 Access Resources <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_downward</span>
               </button>
@@ -238,7 +220,6 @@
         </div>
 
         <div class="md:col-span-12 lg:col-span-9">
-          
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
             <div class="lg:col-span-8 flex flex-col gap-10">
@@ -279,14 +260,10 @@
               </article>
 
               <article class="relative rounded-[2rem] p-1 shadow-md flex flex-col min-h-[300px] overflow-hidden group transition-all duration-300 hover:shadow-xl hover:shadow-[#ec4899]/30" style="background-color: #ffe4e6;">
-                
                 <span class="ad-tag-dark">Sponsored</span>
-
                 <div class="absolute inset-0 rounded-[2rem] border-2 border-[#ec4899]/30 transition-opacity duration-300 group-hover:border-[#ec4899] z-0"></div>
-
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/60 rounded-full blur-3xl z-1"></div>
-                
-                <div class="absolute right-[5%] top-[10%] bottom-[10%] w-[35%] opacity-90 group-hover:scale-105 transition-transform duration-500 origin-center z-1 flex items-center justify-center">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/60 rounded-full blur-3xl z-0"></div>
+                <div class="absolute right-[5%] top-[10%] bottom-[10%] w-[35%] opacity-90 group-hover:scale-105 transition-transform duration-500 origin-center z-0 flex items-center justify-center pointer-events-none">
                    <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Hero" class="h-full w-auto object-contain drop-shadow-2xl" />
                 </div>
 
@@ -325,7 +302,7 @@
 
                 <div class="absolute inset-0 z-20 bg-slate-950/85 backdrop-blur-[2px] flex flex-col items-center justify-center transition-opacity duration-300">
                   <span class="material-icons text-sky-300 text-5xl mb-3 drop-shadow-lg group-hover:scale-110 transition-transform">lock</span>
-                  <p class="text-sky-200 font-mono font-bold uppercase tracking-widest text-xs drop-shadow-md">>>> Access_Denied_ (Coming_Soon) <<<</p>
+                  <p class="text-sky-200 font-mono font-bold uppercase tracking-widest text-xs drop-shadow-md">&gt;&gt;&gt; Access_Denied_ (Coming_Soon) &lt;&lt;&lt;</p>
                 </div>
               </article>
 
@@ -402,7 +379,8 @@
           </div>
         </div>
       </div>
-      </div></main>
+    </div>
+  </main>
 
   <div id="footer-slot"></div>
   <script src="assets/footer-loader.js" defer></script>
