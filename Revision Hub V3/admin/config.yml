@@ -15,66 +15,6 @@ editor:
   preview: false
 
 collections:
-   # KS3 Hub (Hero + Featured + UKMT + Problem Solvers + AI card)
-  - name: "ks3_hub"
-    label: "KS3 Hub Content"
-    files:
-
-    # --- Featured Sites grid (KS3-specific) ---
-      - file: "Revision Hub V3/assets/data/ks3_featured_sites.json"
-        label: "Featured Sites"
-        name: "ks3_featured_sites"
-        format: json
-        fields:
-          - label: "Sites"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}}"
-            fields:
-              - { label: "Name",        name: "name",  widget: "string" }
-              - { label: "URL",         name: "url",   widget: "string" }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
-              - { label: "Type",        name: "type",  widget: "select", options: ["site","drive","quiz","textbook","tools","other"], required: false }
-              - label: "Brand"
-                name: "brand"
-                widget: "object"
-                collapsed: true
-                required: false
-                fields:
-                  - { label: "BG",     name: "bg",     widget: "string", required: false, hint: "e.g. #F3F4F6" }
-                  - { label: "FG",     name: "fg",     widget: "string", required: false, hint: "e.g. #111827" }
-                  - { label: "Stripe", name: "stripe", widget: "string", required: false, hint: "e.g. rgba(0,0,0,.05)" }
-              - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
-              - { label: "Active",      name: "active", widget: "boolean", default: true }
-
-    # --- UKMT grid (cards) ---
-      - file: "Revision Hub V3/assets/data/ks3_ukmt.json"
-        label: "UKMT Items"
-        name: "ks3_ukmt_items"
-        format: json
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}}"
-            fields:
-              - { label: "Name",        name: "name",  widget: "string" }
-              - { label: "URL",         name: "url",   widget: "string" }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Logo (image)",name: "logo",  widget: "image", required: false }
-              - { label: "Type",        name: "type",  widget: "select", options: ["site","pdf","puzzle","quiz","other"], required: false }
-              - label: "Brand"
-                name: "brand"
-                widget: "object"
-                collapsed: true
-                required: false
-                fields:
-                  - { label: "BG",     name: "bg",     widget: "string", required: false }
-                  - { label: "FG",     name: "fg",     widget: "string", required: false } 
-              - { label: "CTA Label",   name: "cta",   widget: "string", required: false, default: "Open" }
-              - { label: "Active",      name: "active", widget: "boolean", default: true }
-
     # =========================== KS3 EOY (End of Year) ===========================
   - name: "ks3_eoy"
     label: "KS3 EOY Content"
@@ -514,3 +454,141 @@ collections:
         format: json
         fields: *gcse_fields
 
+      - name: "gcse_unit03"
+        label: "GCSE — Unit 03"
+        file: "Revision Hub V3/assets/data/gcse_unit03.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit04"
+        label: "GCSE — Unit 04"
+        file: "Revision Hub V3/assets/data/gcse_unit04.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit05"
+        label: "GCSE — Unit 05"
+        file: "Revision Hub V3/assets/data/gcse_unit05.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit06"
+        label: "GCSE — Unit 06"
+        file: "Revision Hub V3/assets/data/gcse_unit06.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit07"
+        label: "GCSE — Unit 07"
+        file: "Revision Hub V3/assets/data/gcse_unit07.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit08"
+        label: "GCSE — Unit 08"
+        file: "Revision Hub V3/assets/data/gcse_unit08.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit09"
+        label: "GCSE — Unit 09"
+        file: "Revision Hub V3/assets/data/gcse_unit09.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit10"
+        label: "GCSE — Unit 10"
+        file: "Revision Hub V3/assets/data/gcse_unit10.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit11"
+        label: "GCSE — Unit 11"
+        file: "Revision Hub V3/assets/data/gcse_unit11.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit12"
+        label: "GCSE — Unit 12"
+        file: "Revision Hub V3/assets/data/gcse_unit12.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit13"
+        label: "GCSE — Unit 13"
+        file: "Revision Hub V3/assets/data/gcse_unit13.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit14"
+        label: "GCSE — Unit 14"
+        file: "Revision Hub V3/assets/data/gcse_unit14.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit15"
+        label: "GCSE — Unit 15"
+        file: "Revision Hub V3/assets/data/gcse_unit15.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit16"
+        label: "GCSE — Unit 16"
+        file: "Revision Hub V3/assets/data/gcse_unit16.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit17"
+        label: "GCSE — Unit 17"
+        file: "Revision Hub V3/assets/data/gcse_unit17.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit18"
+        label: "GCSE — Unit 18"
+        file: "Revision Hub V3/assets/data/gcse_unit18.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "gcse_unit19"
+        label: "GCSE — Unit 19"
+        file: "Revision Hub V3/assets/data/gcse_unit19.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "further_gcse_unit01"
+        label: "Further GCSE — Unit 01"
+        file: "Revision Hub V3/assets/data/further_gcse_unit01.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "further_gcse_unit02"
+        label: "Further GCSE — Unit 02"
+        file: "Revision Hub V3/assets/data/further_gcse_unit02.json"
+        format: json
+        fields: *gcse_fields
+
+       - name: "further_gcse_unit03"
+        label: "Further GCSE — Unit 03"
+        file: "Revision Hub V3/assets/data/further_gcse_unit03.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "further_gcse_unit04"
+        label: "Further GCSE — Unit 04"
+        file: "Revision Hub V3/assets/data/further_gcse_unit04.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "further_gcse_unit05"
+        label: "Further GCSE — Unit 05"
+        file: "Revision Hub V3/assets/data/further_gcse_unit05.json"
+        format: json
+        fields: *gcse_fields
+
+      - name: "further_gcse_unit06"
+        label: "Further GCSE — Unit 06"
+        file: "Revision Hub V3/assets/data/further_gcse_unit06.json"
+        format: json
+        fields: *gcse_fields
+        
