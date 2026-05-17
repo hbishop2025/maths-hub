@@ -109,7 +109,7 @@
     list.forEach((item) => {
       const chip = document.createElement("span");
       chip.className =
-        "inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-800 text-sm font-medium border border-gray-200";
+        "inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-100 text-gray-800 text-sm font-medium border border-gray-200";
 
       chip.innerHTML = `
         <span class="font-mono text-purple-600 font-semibold">${item.code}</span>
