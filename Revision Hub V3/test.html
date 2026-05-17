@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SPARX | Usage & Policy</title>
+  <title>AI | Usage & Policy</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -49,15 +49,6 @@
     .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
     .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
 
-    /* Divider list rows (Approved tools) */
-    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
-    .row + .row { @apply border-t border-gray-200; }
-    .row-title { @apply flex items-center gap-3; }
-    .row-title h3 { @apply font-black text-lg; }
-    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
-    .tags { @apply mt-3 flex flex-wrap gap-2; }
-    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
-
     /* Custom New Mesh Hero Style */
     .hero-mesh {
       background-color: hsla(0, 0%, 100%, 1);
@@ -93,25 +84,6 @@
     .li .material-icons { @apply text-[18px]; }
     .divider-v { @apply hidden md:block w-px bg-gray-200; }
 
-    /* Prompt Builder: tool area with internal dividers, not cards */
-    .tool { @apply border-y border-gray-200; }
-    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
-    .tool-col { @apply py-10; }
-    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
-
-    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
-    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
-    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
-    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
-    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
-
-    .prompt-box {
-      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
-      white-space: pre-wrap;
-    }
-
-    .hint { @apply text-[12px] text-gray-500; }
-
     /* Callouts (Hallucinations + Privacy) */
     .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
     .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
@@ -138,177 +110,302 @@
 
   <main class="relative pt-14 pb-20">
 
-  <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-16 border-b border-gray-200">
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-gray-900/10 border border-blue-500/20 backdrop-blur-sm">
-          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-gray-900"></span>
-          <span class="text-[10px] font-bold text-white uppercase tracking-widest">Online Homework</span>
+    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
+      <span class="material-icons text-base mr-2">construction</span>
+      Year 7, 8 and GCSE Still Under Construction
+    </div>
+    
+    <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-16 border-b border-gray-200">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-600/10 border border-blue-500/20 backdrop-blur-sm">
+            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+            <span class="text-[10px] font-bold text-blue-800 uppercase tracking-widest">School Approved</span>
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-4 leading-tight">
+            AI Usage<br>
+            <span class="text-blue-600">In Mathematics</span>
+          </h1>
+          
+          <p class="text-gray-700 text-lg font-medium">
+            Use AI to learn methods, practise, and check your reasoning. Never to replace your own working.
+          </p>
+          
+          <div class="mt-8">
+            <a href="#overview" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-gray-800 transition shadow-sm">
+              View Guidelines
+              <span class="material-icons text-sm">arrow_downward</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-4 leading-tight">
-          Sparx Homework<br>
-          <span class="text-white">Setup & Guidance</span>
-        </h1>
+    <div class="wrap pt-8">
+      <div class="grid-docs">
 
-        <p class="text-gray-700 text-lg font-medium">
-          How to log in, complete homework properly, and avoid common mistakes.
-        </p>
+        <aside class="side pt-6">
+          <div class="px-2">
+            <div class="side-title">AI Usage</div>
+            <div class="text-lg font-black tracking-tight mt-1">Mathematics</div>
+          </div>
 
-        <div class="mt-8">
-          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-gray-800 transition shadow-sm">
-            Launch Sparx
-            <span class="material-icons text-sm">open_in_new</span>
-          </a>
+          <nav class="mt-4 space-y-1" id="sideNav">
+            <a class="side-link active" href="#overview"><span class="material-icons">space_dashboard</span>Overview</a>
+            <a class="side-link" href="#approved"><span class="material-icons">verified</span>Approved tools</a>
+            <a class="side-link" href="#dos"><span class="material-icons">checklist</span>Do’s & Don’ts</a>
+            <a class="side-link" href="#hallucinations"><span class="material-icons">warning_amber</span>Hallucinations</a>
+            <a class="side-link" href="#ai-on-site"><span class="material-icons">info</span>AI on this website</a>
+          </nav>
+
+          <div class="mt-6 px-2 pt-6 border-t border-gray-200">
+            <div class="tiny">
+              Tip: use <span class="pill">Ctrl</span> + <span class="pill">F</span> to find topics quickly.
+            </div>
+          </div>
+        </aside>
+
+        <div>
+
+          <section id="overview" class="anchor section">
+            <div class="eyebrow">Overview</div>
+            <h2 class="h2 mt-2">What “good AI use” looks like</h2>
+            <p class="p mt-4 max-w-3xl">
+              In maths, AI should help you understand the method. Use it for hints, practice, checking steps, and quizzing.
+              You should still be able to explain the reasoning yourself.
+            </p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Explaining steps</div>
+                <p class="p mt-2">Ask for hints first, then the full method after you’ve attempted it.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Practice & quizzes</div>
+                <p class="p mt-2">Generate questions at your level and mark your working.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Best for</div>
+                <div class="mt-2 font-black text-lg">Finding mistakes</div>
+                <p class="p mt-2">Paste your attempt and ask for the first incorrect step + why.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="approved" class="anchor section mesh">
+            <div class="flex items-start justify-between gap-6 flex-wrap relative">
+              <div>
+                <div class="eyebrow">School approved</div>
+                <h2 class="h2 mt-2">Tools you can use</h2>
+                <p class="p mt-4 max-w-3xl">
+                  Use responsibly. If you’re unsure whether something is allowed for assessed work, ask your teacher first.
+                </p>
+              </div>
+              <span class="pill relative">
+                <span class="material-icons text-[16px] text-emerald-600">task_alt</span>
+                Approved list
+              </span>
+            </div>
+
+            <div class="relative z-10 mt-14 grid md:grid-cols-3 gap-8">
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-blue-600 text-2xl">auto_awesome</span>
+                  <h3 class="font-black text-lg tracking-tight">Google Gemini</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+                </p>
+                <div class="mt-8">
+                  <a href="https://gemini.google.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Launch Gemini
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-purple-600 text-2xl">menu_book</span>
+                  <h3 class="font-black text-lg tracking-tight">NotebookLM</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
+                </p>
+                <div class="mt-8">
+                  <a href="https://notebooklm.google.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Open NotebookLM
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-pink-600 text-2xl">brush</span>
+                  <h3 class="font-black text-lg tracking-tight">Canva AI</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
+                </p>
+                <div class="mt-8">
+                  <a href="https://www.canva.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Open Canva
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="dos" class="anchor section">
+            <div class="eyebrow">Guidance</div>
+            <h2 class="h2 mt-2">Do’s & Don’ts</h2>
+            <p class="p mt-4 max-w-3xl">AI is a study partner — not a shortcut. Use it to learn and verify.</p>
+
+            <div class="mt-10 grid md:grid-cols-[1fr,auto,1fr] gap-10 items-start">
+              <div class="col">
+                <div class="col-head">
+                  <span class="material-icons text-emerald-600">task_alt</span> Do
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Ask for hints first, then a full solution if needed.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Paste your working and ask for the first mistake.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Generate practice at your year/exam level.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Request a mark-scheme style checklist.</li>
+                  <li class="li"><span class="material-icons text-emerald-600">check</span>Verify with notes, examples, or another method.</li>
+                </ul>
+              </div>
+
+              <div class="divider-v"></div>
+
+              <div class="col">
+                <div class="col-head">
+                  <span class="material-icons text-rose-600">block</span> Don’t
+                </div>
+                <ul class="list">
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Copy answers without understanding the method.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Use AI for assessed work unless your teacher allows it.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Trust it blindly on formulas, theorems, or “facts”.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Ask vague questions like “help with algebra”. Be specific.</li>
+                  <li class="li"><span class="material-icons text-rose-600">close</span>Share personal data (logins, phone numbers, etc.).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-10 callout">
+              <div class="eyebrow">Gold standard prompt example</div>
+              <p class="mt-2 text-sm text-gray-700 font-medium">
+                “I’m in <b>Year 9</b>. I tried this question and my working is below.
+                Please <b>identify the first mistake</b>, explain why, then give me <b>one hint</b> to fix it.
+                Don’t give the final answer until I ask.”
+              </p>
+            </div>
+          </section>
+
+          <section id="hallucinations" class="anchor section">
+            <div class="eyebrow">Reliability</div>
+            <h2 class="h2 mt-2">Hallucinations: confident answers that can be wrong</h2>
+            <p class="p mt-4 max-w-3xl">
+              AI can invent steps, definitions, or results that look believable. In maths, verification is part of learning.
+            </p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">Check 1</div>
+                <div class="mt-2 font-black text-lg">Use another method</div>
+                <p class="p mt-2">Substitute back in, estimate, or solve a simpler version to sanity-check.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Check 2</div>
+                <div class="mt-2 font-black text-lg">Compare with your notes</div>
+                <p class="p mt-2">If it uses a method you haven’t learned, ask for the class method.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Check 3</div>
+                <div class="mt-2 font-black text-lg">Inspect each step</div>
+                <p class="p mt-2">Treat it like marking: one incorrect step breaks the whole solution.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 callout-warn">
+              <div class="eyebrow">A question that prevents nonsense</div>
+              <p class="mt-2 text-sm text-gray-700 font-medium">
+                “Before you answer, list your assumptions. If you’re not sure, say so. Show the method used at school.”
+              </p>
+            </div>
+          </section>
+
+          <section id="ai-on-site" class="anchor section">
+            <div class="eyebrow">Transparency</div>
+            <h2 class="h2 mt-2">AI on this website</h2>
+            <p class="p mt-4 max-w-3xl">Transparency matters. Here’s how AI relates to SJWMS Maths revision website.</p>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-8">
+              <div>
+                <div class="eyebrow">On-page AI</div>
+                <div class="mt-2 font-black text-lg">No AI runs on this website</div>
+                <p class="p mt-2">This site does not include an AI chatbot or AI that reads your typing. It’s a normal website.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Resources</div>
+                <div class="mt-2 font-black text-lg">Some worksheets used AI in creation</div>
+                <p class="p mt-2">In places, AI may have helped draft questions, examples, or explanations — then reviewed and edited by staff.</p>
+              </div>
+              <div>
+                <div class="eyebrow">Development</div>
+                <div class="mt-2 font-black text-lg">The site code was developed with AI support</div>
+                <p class="p mt-2">AI tools assisted in writing and improving code, layouts, and components — final decisions remain human-made.</p>
+              </div>
+            </div>
+
+            <div class="mt-10 callout">
+              <div class="flex items-start gap-3">
+                <span class="material-icons text-gray-900">privacy_tip</span>
+                <div>
+                  <div class="font-black">Privacy note</div>
+                  <p class="tiny mt-1">
+                    When you use external AI tools (Gemini/NotebookLM/Canva), treat them like public services.
+                    Don’t share personal data or school logins.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-10 flex justify-between flex-wrap gap-3">
+              <a href="#top" class="btn"><span class="material-icons text-[18px]">north</span> Back to top</a>
+              <div class="tiny text-gray-500">If something seems wrong, ask a teacher — that’s good learning.</div>
+            </div>
+          </section>
+
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <div class="wrap pt-8">
-    <div class="grid-docs">
-
-      <aside class="side pt-6">
-        <div class="px-2">
-          <div class="side-title">Sparx</div>
-          <div class="text-lg font-black tracking-tight mt-1">Setup Guide</div>
-        </div>
-
-        <nav class="mt-4 space-y-1" id="sideNav">
-          <a class="side-link active" href="#overview"><span class="material-icons">info</span>Overview</a>
-          <a class="side-link" href="#cycle"><span class="material-icons">schedule</span>Homework Cycle</a>
-          <a class="side-link" href="#orange"><span class="material-icons">menu_book</span>Orange Book</a>
-          <a class="side-link" href="#videos"><span class="material-icons">play_circle</span>Video Guides</a>
-          <a class="side-link" href="#anti-cheat"><span class="material-icons">warning</span>AI & Cheating</a>
-          <a class="side-link" href="#launch"><span class="material-icons">rocket_launch</span>Launch Sparx</a>
-        </nav>
-      </aside>
-
-      <div>
-
-        <section id="overview" class="anchor section">
-          <div class="eyebrow">Overview</div>
-          <h2 class="h2 mt-2">What Sparx is for</h2>
-          <p class="p mt-4 max-w-3xl">
-            Sparx is one of the SJWMS mathematics departments homework platforms. Each week you complete a personalised set of maths questions.
-            The goal is progress through consistency, enhancing your mathematics and to not rush or guess.
-          </p>
-        </section>
-
-        <section id="cycle" class="anchor section">
-          <div class="eyebrow">Schedule</div>
-          <h2 class="h2 mt-2">Homework Cycle</h2>
-          <p class="p mt-4 max-w-3xl">
-            Sparx runs from <b>Wednesday to Wednesday</b> (unless stated overwise). All work must be completed before the deadline.
-          </p>
-        </section>
-
-        <section id="orange" class="anchor section">
-          <div class="eyebrow">Protocol</div>
-          <h2 class="h2 mt-2">Orange Book Requirements</h2>
-          <p class="p mt-4 max-w-3xl">
-            Every Sparx question must be supported with written working in your orange book.
-          </p>
-
-          <ul class="mt-8 space-y-4 text-sm text-gray-700">
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the Bookwork Code</li>
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Show full working clearly</li>
-            <li class="flex gap-2"><span class="material-icons text-emerald-600">check</span>Write the final answer neatly</li>
-          </ul>
-        </section>
-
-        <section id="videos" class="anchor section">
-          <div class="eyebrow">Support</div>
-          <h2 class="h2 mt-2">Video Guides</h2>
-
-          <div class="mt-8 grid md:grid-cols-2 gap-8">
-            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/a92XCC0MeM0"
-                allowfullscreen></iframe>
-            </div>
-            <div class="aspect-video rounded-xl overflow-hidden border border-gray-200">
-              <iframe class="w-full h-full"
-                src="https://www.youtube.com/embed/IQUMypfwHnU"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </section>
-
-        <section id="anti-cheat" class="anchor section">
-          <div class="eyebrow">Important</div>
-          <h2 class="h2 mt-2">AI & Homework</h2>
-          <p class="p mt-4 max-w-3xl">
-            Using AI solvers to complete Sparx may trick the algorithm into thinking you are more advanced than you are.
-            This results in future homework becoming significantly harder.
-          </p>
-
-          <div class="mt-8 callout-warn">
-            Always attempt questions yourself first. Use AI only as a study aid, not as an answer generator.
-          </div>
-          <p class="p mt-4 max-w-3xl">
-            Discover more about AI and how best to use it for mathmetics with our dedicated AI Usage page.
-          </p>
-          <div class="mt-8">
-            <a href="ai_usage.html"
-               target="_blank"
-               class="btn btn-primary">
-              AI Usage
-              <span class="material-icons text-sm">open_in_new</span>
-            </a>
-          </div>
-        </section>
-
-        <section id="launch" class="anchor section">
-          <div class="eyebrow">Access</div>
-          <h2 class="h2 mt-2">Launch Sparx</h2>
-
-          <div class="mt-8">
-            <a href="https://selectschool.sparx-learning.com/"
-               target="_blank"
-               class="btn btn-primary">
-              <span class="material-icons text-[18px]">rocket_launch</span>
-              Launch Sparx
-            </a>
-          </div>
-        </section>
-
-      </div>
-    </div>
-  </div>
-</main>
   <div id="footer-slot"></div>
 
   <script>
-(function(){
-  const nav = document.getElementById('sideNav');
-  if(!nav) return;
+    // ===== Sidebar active section =====
+    (function(){
+      const nav = document.getElementById('sideNav');
+      if(!nav) return;
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
-  const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
-  const sections = links
-    .map(link => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
+      const obs = new IntersectionObserver((entries)=>{
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+        if(!visible) return;
+        const id = '#' + visible.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }, { rootMargin: "-30% 0px -60% 0px", threshold: [0.12, 0.2, 0.3] });
 
-  function setActive(id){
-    links.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-    });
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        setActive(entry.target.id);
-      }
-    });
-  }, {
-    rootMargin: "-40% 0px -55% 0px",
-    threshold: 0
-  });
-
-  sections.forEach(section => observer.observe(section));
-})();
-</script>
+      targets.forEach(t => obs.observe(t));
+    })();
+  </script>
 
   <script src="assets/footer-loader.js" defer></script>
 </body>
