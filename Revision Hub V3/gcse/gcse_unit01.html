@@ -256,9 +256,11 @@
         </div>
       </section>
 
-      <div class="hidden md:flex md:col-span-1 items-stretch">
-        <div class="w-full bg-white/60 backdrop-blur border border-gray-200/80 rounded-2xl flex items-center justify-center p-4 shadow-sm">
-          <div class="text-gray-400/80 font-black text-3xl tracking-[0.45em] select-none uppercase pointer-events-none rotate-180 [writing-mode:vertical-rl] text-center">
+      <div class="hidden md:flex md:col-span-1 items-stretch p-[1px] relative rounded-2xl overflow-hidden shadow-sm">
+        <div class="absolute inset-0 mesh-1 opacity-90 z-0"></div>
+        
+        <div class="relative z-10 w-full bg-white/95 backdrop-blur-md rounded-[15px] flex items-center justify-center p-4">
+          <div class="font-black text-3xl tracking-[0.45em] select-none uppercase pointer-events-none rotate-180 [writing-mode:vertical-rl] text-center bg-clip-text text-transparent mesh-4">
             Unit 01
           </div>
         </div>
