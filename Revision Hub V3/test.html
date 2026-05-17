@@ -78,8 +78,22 @@
     .sidebar-pill {
       @apply w-full flex items-center justify-between px-4 py-3 text-left font-semibold rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all duration-200 select-none shadow-sm hover:bg-slate-50;
     }
-    .sidebar-pill-active {
-      @apply bg-slate-900 text-white border-slate-900 shadow-md translate-x-1;
+    
+    /* Year Specific Highlight Variants without translate-x shifting */
+    .sidebar-pill-y7-active {
+      background-color: var(--y7) !important;
+      border-color: var(--y7) !important;
+      @apply text-white shadow-md;
+    }
+    .sidebar-pill-y8-active {
+      background-color: var(--y8) !important;
+      border-color: var(--y8) !important;
+      @apply text-white shadow-md;
+    }
+    .sidebar-pill-y9-active {
+      background-color: var(--y9) !important;
+      border-color: var(--y9) !important;
+      @apply text-white shadow-md;
     }
   </style>
 </head>
@@ -153,7 +167,6 @@
            </p>
 
            <div class="flex flex-wrap gap-4">
-
              <a href="ks3_hub.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-slate-300 font-semibold text-sm hover:text-white transition-colors border border-slate-700 bg-slate-900/50 backdrop-blur-sm">
                <span class="material-icons text-sm">arrow_back</span>
                <span>Back to KS3</span>
@@ -171,7 +184,7 @@
           
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1 mb-2">Select Year Group</h3>
-            <button type="button" class="sidebar-pill sidebar-pill-active" data-year="y7">
+            <button type="button" class="sidebar-pill" data-year="y7">
               <span>Year 7</span>
               <span class="material-icons text-lg opacity-70">chevron_right</span>
             </button>
@@ -204,7 +217,7 @@
                 </li>
                 <li class="flex items-start gap-1.5">
                   <span class="text-emerald-500 font-bold">•</span>
-                  <span><strong>Equipment:</strong> ENsure you have your ruler, pen, pencil and scientific calculator.</span>
+                  <span><strong>Equipment:</strong> Ensure you have your ruler, pen, pencil and scientific calculator.</span>
                 </li>
               </ul>
             </div>
@@ -376,7 +389,8 @@
       }
 
       function updateEmptyStateDisplay(){
-        const activeBtn = document.querySelector(".sidebar-pill-active");
+        // Check active condition using color helper class selectors instead
+        const activeBtn = document.querySelector("[class*='sidebar-pill-'][class*='-active']");
         if (!activeBtn) return;
         const currentYear = activeBtn.getAttribute("data-year");
         const currentGrid = GRID[currentYear];
@@ -402,10 +416,16 @@
             grid.classList.toggle("hidden", k !== year);
           });
 
-          // Toggle styling on sidebar navigation metrics
-          buttons.forEach(btn=>{
+          // Toggle custom distinct highlight classes on sidebar navigation items
+          buttons.forEach(btn => {
             const y = btn.getAttribute("data-year");
-            btn.classList.toggle("sidebar-pill-active", y === year);
+            const activeClassName = `sidebar-pill-${y}-active`;
+            
+            if (y === year) {
+              btn.classList.add(activeClassName);
+            } else {
+              btn.classList.remove(`sidebar-pill-y7-active`, `sidebar-pill-y8-active`, `sidebar-pill-y9-active`);
+            }
           });
 
           // Realign title node copy texts strings
