@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -49,33 +49,31 @@
     .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
     .btn-link { @apply inline-flex items-center gap-2 text-sm font-extrabold text-gray-900 hover:underline; }
 
-    /* Divider list rows (Approved tools) */
-    .row { @apply grid md:grid-cols-[1fr,auto] gap-6 py-6; }
-    .row + .row { @apply border-t border-gray-200; }
-    .row-title { @apply flex items-center gap-3; }
-    .row-title h3 { @apply font-black text-lg; }
-    .row-desc { @apply text-sm text-gray-600 mt-1 max-w-2xl; }
-    .tags { @apply mt-3 flex flex-wrap gap-2; }
-    .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
+    /* Custom New Mesh Hero Style */
+    .hero-mesh {
+      background-color: hsla(0, 0%, 100%, 1);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 759 759' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"), radial-gradient(circle at 16% 6%, hsla(0, 90%, 65%, 1) 0%, transparent 50%), radial-gradient(circle at 87% 20%, hsla(210, 100%, 78%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 68% 47%, hsla(346, 100%, 83%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 19% 87%, hsla(216, 77%, 36%, 1) 0%, transparent 50%), radial-gradient(circle at 88% 97%, hsla(346, 100%, 83%, 1) 0%, transparent 50%);
+      background-blend-mode: overlay, normal, normal, normal, normal, normal;
+    }
 
     /* Approved tools mesh aura (CSS-only, Option A) */
     .mesh {
-    position: relative;
-    overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
 
     .mesh::before{
-    content:"";
-    position:absolute;
-    inset:-200px;
-    pointer-events:none;
-    background:
-      radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
-      radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
-      radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
-    filter: blur(60px);
-    opacity:.8;
-    z-index:0;
+      content:"";
+      position:absolute;
+      inset:-200px;
+      pointer-events:none;
+      background:
+        radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
+        radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
+        radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
+      filter: blur(60px);
+      opacity:.8;
+      z-index:0;
     }
 
     /* Do / Don't layout (no cards) */
@@ -86,25 +84,6 @@
     .li .material-icons { @apply text-[18px]; }
     .divider-v { @apply hidden md:block w-px bg-gray-200; }
 
-    /* Prompt Builder: tool area with internal dividers, not cards */
-    .tool { @apply border-y border-gray-200; }
-    .tool-grid { @apply grid lg:grid-cols-[1fr,420px] gap-10; }
-    .tool-col { @apply py-10; }
-    .tool-col + .tool-col { @apply lg:border-l lg:border-gray-200 lg:pl-10; }
-
-    .opt-grid { @apply grid sm:grid-cols-2 gap-3; }
-    .opt { @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition flex items-center justify-between text-left; }
-    .chipbar { @apply flex flex-wrap gap-2 mt-3; }
-    .chip { @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-extrabold text-gray-700 hover:bg-gray-50 cursor-pointer select-none; }
-    .chip.on { @apply bg-gray-900 text-white border-gray-900; }
-
-    .prompt-box {
-      @apply font-mono bg-[#0b0f17] text-gray-100 rounded-2xl p-5 text-sm leading-relaxed border border-gray-800;
-      white-space: pre-wrap;
-    }
-
-    .hint { @apply text-[12px] text-gray-500; }
-
     /* Callouts (Hallucinations + Privacy) */
     .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
     .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
@@ -113,7 +92,6 @@
 
 <body>
 
-  <!-- KEEP: Top Nav (unchanged) -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -131,50 +109,39 @@
   </header>
 
   <main class="relative pt-14 pb-20">
-
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-      <span class="material-icons text-base mr-2">construction</span>
-      Year 7, 8 and GCSE Still Under Construction
-    </div>
     
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+    <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-16 border-b border-gray-200">
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl">
       
-      <div class="absolute inset-0 z-0">
-        <img src="assets/home-hero5.jpg" alt="GCSE Maths" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-slate-900/10 border border-slate-900/10 backdrop-blur-sm">
+        <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-slate-900"></span>
+        <span class="text-[10px] font-bold text-slate-900 uppercase tracking-widest">School Approved</span>
       </div>
-
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-            <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">School Approved</span>
-          </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            AI Usage<br>
-            <span class="text-blue-400">
-              In Mathematics
-            </span>
-          </h1>
-          
-          <p class="text-slate-300 text-lg font-medium drop-shadow-md">
-            Use AI to learn methods, practise, and check your reasoning. Never to replace your own working.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-  <a href="#builder" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-    <span>OPEN Prompt Builder</span>
-    <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
-  </a>
-</div>
-        </div>
+      
+      <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-4 leading-tight tracking-tight">
+        AI Usage<br>
+        <span>In Mathematics</span>
+      </h1>
+      
+      <p class="text-slate-800 text-lg font-medium max-w-lg leading-relaxed">
+        Use AI to learn methods, practise, and check your reasoning. Never to replace your own working.
+      </p>
+      
+      <div class="mt-8">
+        <a href="#overview" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-sm">
+          <span>View Guidelines</span>
+          <span class="material-icons text-sm">arrow_downward</span>
+        </a>
       </div>
-    </section>
+      
+    </div>
+  </div>
+</section>
 
     <div class="wrap pt-8">
       <div class="grid-docs">
 
-        <!-- Sidebar (no box) -->
         <aside class="side pt-6">
           <div class="px-2">
             <div class="side-title">AI Usage</div>
@@ -185,7 +152,6 @@
             <a class="side-link active" href="#overview"><span class="material-icons">space_dashboard</span>Overview</a>
             <a class="side-link" href="#approved"><span class="material-icons">verified</span>Approved tools</a>
             <a class="side-link" href="#dos"><span class="material-icons">checklist</span>Do’s & Don’ts</a>
-            <a class="side-link" href="#builder"><span class="material-icons">architecture</span>Prompt Builder</a>
             <a class="side-link" href="#hallucinations"><span class="material-icons">warning_amber</span>Hallucinations</a>
             <a class="side-link" href="#ai-on-site"><span class="material-icons">info</span>AI on this website</a>
           </nav>
@@ -197,10 +163,8 @@
           </div>
         </aside>
 
-        <!-- Main -->
         <div>
 
-          <!-- OVERVIEW -->
           <section id="overview" class="anchor section">
             <div class="eyebrow">Overview</div>
             <h2 class="h2 mt-2">What “good AI use” looks like</h2>
@@ -228,7 +192,6 @@
             </div>
           </section>
 
-          <!-- APPROVED TOOLS (mesh aura header + divider rows) -->
           <section id="approved" class="anchor section mesh">
             <div class="flex items-start justify-between gap-6 flex-wrap relative">
               <div>
@@ -245,74 +208,56 @@
             </div>
 
             <div class="relative z-10 mt-14 grid md:grid-cols-3 gap-8">
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-blue-600 text-2xl">auto_awesome</span>
+                  <h3 class="font-black text-lg tracking-tight">Google Gemini</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
+                </p>
+                <div class="mt-8">
+                  <a href="https://gemini.google.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Launch Gemini
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
 
-  <!-- Card -->
-  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
-    
-    <div class="flex items-center gap-3">
-      <span class="material-icons text-blue-600 text-2xl">auto_awesome</span>
-      <h3 class="font-black text-lg tracking-tight">Google Gemini</h3>
-    </div>
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-purple-600 text-2xl">menu_book</span>
+                  <h3 class="font-black text-lg tracking-tight">NotebookLM</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
+                </p>
+                <div class="mt-8">
+                  <a href="https://notebooklm.google.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Open NotebookLM
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
 
-    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
-      Step-by-step explanations, checking methods, and targeted practice for mathematics learning.
-    </p>
-
-    <div class="mt-8">
-      <a href="https://gemini.google.com" target="_blank"
-         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
-        Launch Gemini
-        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Card -->
-  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
-    
-    <div class="flex items-center gap-3">
-      <span class="material-icons text-purple-600 text-2xl">menu_book</span>
-      <h3 class="font-black text-lg tracking-tight">NotebookLM</h3>
-    </div>
-
-    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
-      Upload revision packs and talk directly to your own notes. Ideal for summaries and self-quizzing.
-    </p>
-
-    <div class="mt-8">
-      <a href="https://notebooklm.google.com" target="_blank"
-         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
-        Open NotebookLM
-        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Card -->
-  <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
-    
-    <div class="flex items-center gap-3">
-      <span class="material-icons text-pink-600 text-2xl">brush</span>
-      <h3 class="font-black text-lg tracking-tight">Canva AI</h3>
-    </div>
-
-    <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
-      Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
-    </p>
-
-    <div class="mt-8">
-      <a href="https://www.canva.com" target="_blank"
-         class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-black transition">
-        Open Canva
-        <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
-      </a>
-    </div>
-  </div>
-
-</div>
+              <div class="group relative rounded-2xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/40">
+                <div class="flex items-center gap-3">
+                  <span class="material-icons text-pink-600 text-2xl">brush</span>
+                  <h3 class="font-black text-lg tracking-tight">Canva AI</h3>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 leading-relaxed flex-grow">
+                  Create clean revision posters, diagrams, and slides. Not for inventing mathematical content.
+                </p>
+                <div class="mt-8">
+                  <a href="https://www.canva.com" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 transition">
+                    Open Canva
+                    <span class="material-icons text-[18px] transition-transform group-hover:translate-x-1">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <!-- DO / DON'T (no cards) -->
           <section id="dos" class="anchor section">
             <div class="eyebrow">Guidance</div>
             <h2 class="h2 mt-2">Do’s & Don’ts</h2>
@@ -349,8 +294,8 @@
             </div>
 
             <div class="mt-10 callout">
-              <div class="eyebrow">Gold standard prompt</div>
-              <p class="mt-2 text-sm text-gray-700">
+              <div class="eyebrow">Gold standard prompt example</div>
+              <p class="mt-2 text-sm text-gray-700 font-medium">
                 “I’m in <b>Year 9</b>. I tried this question and my working is below.
                 Please <b>identify the first mistake</b>, explain why, then give me <b>one hint</b> to fix it.
                 Don’t give the final answer until I ask.”
@@ -358,148 +303,6 @@
             </div>
           </section>
 
-          <!-- PROMPT BUILDER (single tool area, dividers not boxes) -->
-          <section id="builder" class="anchor section">
-            <div class="flex items-start justify-between gap-6 flex-wrap">
-              <div>
-                <div class="eyebrow">Interactive</div>
-                <h2 class="h2 mt-2">Prompt Builder</h2>
-                <p class="p mt-4 max-w-3xl">
-                  Choose options to build a strong prompt, then type your <b>topic</b>.
-                  If you’re stuck, paste the question (and your working) so the AI can help properly.
-                </p>
-              </div>
-
-              <div class="flex gap-2 flex-wrap">
-                <button class="btn" onclick="resetBuilder()">
-                  <span class="material-icons text-[18px]">refresh</span> Reset
-                </button>
-                <a class="btn btn-primary" href="https://gemini.google.com" target="_blank">
-                  <span class="material-icons text-[18px]">rocket_launch</span> Open Gemini
-                </a>
-              </div>
-            </div>
-
-            <!-- Tool area -->
-            <div class="tool mt-10">
-              <div class="tool-grid">
-                <!-- Left: controls -->
-                <div class="tool-col">
-                  <div class="eyebrow">1) Choose what you need</div>
-                  <div class="opt-grid mt-4">
-                    <button class="opt" onclick="setGoal('Explain','Explain a concept','explain it to me step-by-step')">
-                      Explain a concept <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Practice','Practice questions','give me 5 practice questions on')">
-                      Practice questions <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Check','Check my working','check my working and identify the first mistake for')">
-                      Check my working <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Pitfalls','Common mistakes','show me the common mistakes students make in')">
-                      Common mistakes <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-
-                    <button class="opt" onclick="setGoal('Stuck','I’m stuck (hint me)','I am stuck on this problem. Please help me without giving the final answer first. Ask me a question or give a single hint to move me forward.')">
-                      I’m stuck (hint me) <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Revise','Revision summary','create a short revision summary with key steps and 3 quick check questions for')">
-                      Revision summary <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Exam','Exam technique','teach me the exam technique and structure for answering questions on')">
-                      Exam technique <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                    <button class="opt" onclick="setGoal('Flash','Flashcards','make 8 flashcards (Q/A) for')">
-                      Flashcards <span class="material-icons text-gray-300">arrow_forward</span>
-                    </button>
-                  </div>
-
-                  <div class="mt-10">
-                    <div class="eyebrow">2) Your year group</div>
-                    <div class="chipbar">
-                      <div class="chip" onclick="setYear('Year 7','I am a Year 7 student.')">Year 7</div>
-                      <div class="chip" onclick="setYear('Year 8','I am a Year 8 student.')">Year 8</div>
-                      <div class="chip" onclick="setYear('Year 9','I am a Year 9 student.')">Year 9</div>
-                      <div class="chip" onclick="setYear('GCSE','I am a GCSE Maths student.')">GCSE</div>
-                      <div class="chip" onclick="setYear('A-Level','I am an A-Level Maths student.')">A-Level</div>
-                    </div>
-                  </div>
-
-                  <div class="mt-10">
-                    <div class="eyebrow">3) Response style</div>
-                    <div class="chipbar">
-                      <div class="chip" onclick="setStyle('Socratic','Do not give the final answer immediately. Guide me with hints and questions first, then a full solution only if I ask.')">Socratic</div>
-                      <div class="chip" onclick="setStyle('Simple','Use simple language, short steps, and helpful visual analogies if possible.')">Simple & visual</div>
-                      <div class="chip" onclick="setStyle('Markscheme','Format your answer like an exam mark scheme with clear method marks and final answer.')">Mark scheme</div>
-                    </div>
-                  </div>
-
-                  <div class="mt-10">
-                    <div class="eyebrow">4) Extras (optional)</div>
-                    <div class="chipbar">
-                      <div class="chip" id="chip-showSteps" onclick="toggleExtra('showSteps')">Show every step</div>
-                      <div class="chip" id="chip-checkAnswer" onclick="toggleExtra('checkAnswer')">Verify answer</div>
-                      <div class="chip" id="chip-noBigJumps" onclick="toggleExtra('noBigJumps')">No big jumps</div>
-                      <div class="chip" id="chip-miniQuiz" onclick="toggleExtra('miniQuiz')">Mini quiz after</div>
-                    </div>
-                    <div class="hint mt-3">Tip: fewer extras = clearer responses. Add only what you need.</div>
-                  </div>
-                </div>
-
-                <!-- Right: preview + inputs -->
-                <div class="tool-col">
-                  <div class="eyebrow">Your prompt</div>
-
-                  <div class="mt-4">
-                    <label class="eyebrow">Topic</label>
-                    <input id="topicInput" type="text"
-                      placeholder="e.g. solving linear equations, circle theorems, differentiation..."
-                      class="mt-2 w-full rounded-xl border-gray-200 focus:border-black focus:ring-black"/>
-                    <div class="hint mt-2">This is the most important part. Be specific.</div>
-                  </div>
-
-                  <div class="mt-6" id="problemWrap" style="display:none;">
-                    <label class="eyebrow">My question / working (recommended when stuck)</label>
-                    <textarea id="problemInput" rows="7"
-                      placeholder="Paste the question here. If you have working, paste it too."
-                      class="mt-2 w-full rounded-xl border-gray-200 focus:border-black focus:ring-black"></textarea>
-                    <div class="hint mt-2">Include your attempt — AI can find the first mistake and give a better hint.</div>
-                  </div>
-
-                  <div class="mt-6 flex flex-wrap gap-3 items-center">
-                    <button class="btn" onclick="toggleProblemBox()">
-                      <span class="material-icons text-[18px]">edit_note</span>
-                      <span id="problemToggleText">Add my question/working</span>
-                    </button>
-
-                    <button class="btn btn-primary" onclick="copyPrompt()">
-                      <span class="material-icons text-[18px]" id="copyIcon">content_copy</span>
-                      <span id="copyText">Copy</span>
-                    </button>
-                  </div>
-
-                  <div class="mt-6 prompt-box" id="promptPreview">
-                    Choose options on the left, then type your topic.
-                  </div>
-
-                  <div class="mt-6 grid grid-cols-2 gap-3">
-                    <a href="https://gemini.google.com" target="_blank" class="btn btn-primary">
-                      <span class="material-icons text-[18px]">rocket_launch</span> Gemini
-                    </a>
-                    <a href="https://notebooklm.google.com" target="_blank" class="btn">
-                      <span class="material-icons text-[18px]">menu_book</span> NotebookLM
-                    </a>
-                  </div>
-
-                  <div class="mt-6 tiny text-gray-500">
-                    Always check steps and final answers. If anything looks off, verify with notes or ask a teacher.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- HALLUCINATIONS (callout style) -->
           <section id="hallucinations" class="anchor section">
             <div class="eyebrow">Reliability</div>
             <h2 class="h2 mt-2">Hallucinations: confident answers that can be wrong</h2>
@@ -527,13 +330,12 @@
 
             <div class="mt-10 callout-warn">
               <div class="eyebrow">A question that prevents nonsense</div>
-              <p class="mt-2 text-sm text-gray-700">
+              <p class="mt-2 text-sm text-gray-700 font-medium">
                 “Before you answer, list your assumptions. If you’re not sure, say so. Show the method used at school.”
               </p>
             </div>
           </section>
 
-          <!-- AI ON THIS WEBSITE (transparent disclosure, no cards) -->
           <section id="ai-on-site" class="anchor section">
             <div class="eyebrow">Transparency</div>
             <h2 class="h2 mt-2">AI on this website</h2>
@@ -600,181 +402,6 @@
 
       targets.forEach(t => obs.observe(t));
     })();
-
-    // ===== Prompt Builder: state =====
-    let promptData = {
-      goalKey: "",
-      goalLabel: "",
-      goalText: "",
-      yearLabel: "",
-      yearText: "",
-      styleLabel: "",
-      styleText: "",
-      extras: {
-        showSteps: false,
-        checkAnswer: false,
-        noBigJumps: false,
-        miniQuiz: false
-      }
-    };
-
-    const extrasText = {
-      showSteps: "Show every step and explain why each step is valid.",
-      checkAnswer: "At the end, verify the answer using a different method or a quick check.",
-      noBigJumps: "Do not skip steps or make big jumps in reasoning.",
-      miniQuiz: "After explaining, quiz me with 2 short questions and mark my answers."
-    };
-
-    const topicEl = () => document.getElementById('topicInput');
-    const probEl  = () => document.getElementById('problemInput');
-
-    document.addEventListener('input', (e) => {
-      if(e.target && (e.target.id === 'topicInput' || e.target.id === 'problemInput')) updatePreview();
-    });
-
-    function setGoal(key, label, text){
-      promptData.goalKey = key;
-      promptData.goalLabel = label;
-      promptData.goalText = text;
-
-      // auto-open problem box when "stuck"
-      if(key === "Stuck") toggleProblemBox(true);
-
-      updatePreview();
-    }
-
-    function setYear(label, text){
-      promptData.yearLabel = label;
-      promptData.yearText = text;
-      markChipGroup('year', label);
-      updatePreview();
-    }
-
-    function setStyle(label, text){
-      promptData.styleLabel = label;
-      promptData.styleText = text;
-      markChipGroup('style', label);
-      updatePreview();
-    }
-
-    function toggleExtra(key){
-      promptData.extras[key] = !promptData.extras[key];
-      const chip = document.getElementById(`chip-${key}`);
-      if(chip) chip.classList.toggle('on', promptData.extras[key]);
-      updatePreview();
-    }
-
-    function markChipGroup(group, label){
-      // Simple: visually "on" by toggling class based on innerText match
-      // Year chips are in one bar; Style chips in another.
-      const bars = document.querySelectorAll('.chipbar');
-      bars.forEach(bar => {
-        // identify year/style by presence of known items
-        const text = bar.innerText || "";
-        const isYear = text.includes("Year 7") && text.includes("GCSE");
-        const isStyle = text.includes("Socratic") && text.includes("Mark scheme");
-        if((group === 'year' && !isYear) || (group === 'style' && !isStyle)) return;
-
-        Array.from(bar.querySelectorAll('.chip')).forEach(chip => {
-          chip.classList.toggle('on', chip.innerText.trim() === label);
-        });
-      });
-    }
-
-    function toggleProblemBox(forceOpen){
-      const wrap = document.getElementById('problemWrap');
-      const toggleText = document.getElementById('problemToggleText');
-      const open = (typeof forceOpen === "boolean") ? forceOpen : (wrap.style.display === "none");
-
-      wrap.style.display = open ? "block" : "none";
-      toggleText.innerText = open ? "Hide my question/working" : "Add my question/working";
-      updatePreview();
-    }
-
-    function updatePreview(){
-      const t = (topicEl()?.value || "").trim();
-      const p = (probEl()?.value || "").trim();
-
-      const lines = [];
-
-      if(promptData.yearText) lines.push(promptData.yearText);
-
-      if(promptData.goalText){
-        if(t) lines.push(`Please ${promptData.goalText} ${t}.`);
-        else lines.push(`Please ${promptData.goalText} [INSERT TOPIC HERE].`);
-      } else {
-        // no goal chosen yet
-        if(t) lines.push(`Topic: ${t}`);
-      }
-
-      if(promptData.styleText) lines.push(promptData.styleText);
-
-      const stuckMode = (promptData.goalKey === "Stuck");
-      const includeProblem = stuckMode || p.length > 0;
-
-      if(includeProblem){
-        lines.push("");
-        lines.push("Here is the problem (and my working if included):");
-        lines.push(p ? p : "[PASTE QUESTION / WORKING HERE]");
-        lines.push("");
-        lines.push("Rules:");
-        lines.push("- Give me ONE hint first (or ask me one question).");
-        lines.push("- Do not give the full solution unless I ask.");
-        lines.push("- If you spot a mistake in my working, tell me the first incorrect step and why.");
-      }
-
-      const enabledExtras = Object.keys(promptData.extras).filter(k => promptData.extras[k]);
-      if(enabledExtras.length){
-        lines.push("");
-        lines.push("Extra requirements:");
-        enabledExtras.forEach(k => lines.push(`- ${extrasText[k]}`));
-      }
-
-      lines.push("");
-      lines.push("If you are unsure at any point, say so. Keep the method consistent with what is taught at school.");
-
-      const prompt = lines.join("\n").trim();
-      document.getElementById('promptPreview').innerText = prompt || "Choose options on the left, then type your topic.";
-    }
-
-    function copyPrompt(){
-      const text = document.getElementById('promptPreview').innerText;
-      if(!text || text.includes("Choose options")) return;
-
-      navigator.clipboard.writeText(text).then(() => {
-        const btnText = document.getElementById('copyText');
-        const btnIcon = document.getElementById('copyIcon');
-        btnText.innerText = "Copied!";
-        btnIcon.innerText = "done";
-
-        setTimeout(() => {
-          btnText.innerText = "Copy";
-          btnIcon.innerText = "content_copy";
-        }, 1400);
-      });
-    }
-
-    function resetBuilder(){
-      promptData = {
-        goalKey: "", goalLabel: "", goalText: "",
-        yearLabel: "", yearText: "",
-        styleLabel: "", styleText: "",
-        extras: { showSteps:false, checkAnswer:false, noBigJumps:false, miniQuiz:false }
-      };
-
-      // reset chips
-      document.querySelectorAll('.chip').forEach(ch => ch.classList.remove('on'));
-
-      // hide problem box (but keep typed text)
-      const wrap = document.getElementById('problemWrap');
-      wrap.style.display = "none";
-      document.getElementById('problemToggleText').innerText = "Add my question/working";
-
-      updatePreview();
-    }
-
-    // init
-    updatePreview();
   </script>
 
   <script src="assets/footer-loader.js" defer></script>
