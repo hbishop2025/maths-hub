@@ -568,7 +568,7 @@ collections:
         format: json
         fields: *gcse_fields
 
-       - name: "gcse_further_unit03"
+      - name: "gcse_further_unit03"
         label: "GCSE Further — Unit 03"
         file: "Revision Hub V3/assets/data/gcse_further_unit03.json"
         format: json
