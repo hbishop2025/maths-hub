@@ -56,6 +56,18 @@
       mask-image: linear-gradient(to bottom, white 75%, transparent 100%);
     }
 
+    /* Hero Mesh Layer */
+    .hero-mesh {
+      background-color: hsla(197, 100%, 11%, 1);
+      background-image: 
+        radial-gradient(circle at 5% 6%, hsla(197, 66%, 26%, 0.44) 20.685703949140766%, transparent 83.7756762680543%), 
+        radial-gradient(circle at 50% 100%, hsla(197, 100%, 11%, 1) 20%, transparent 72.96864907091052%), 
+        radial-gradient(circle at 10% 90%, hsla(197, 100%, 11%, 1) 20%, transparent 75%), 
+        radial-gradient(circle at 87% 35%, hsla(178, 100%, 32%, 0.47) 9.824340451073803%, transparent 81.83421367222947%), 
+        radial-gradient(circle at 100% 0%, hsla(179, 100%, 40%, 0.64) 13%, transparent 82%);
+      background-blend-mode: normal, darken, normal, normal, normal;
+    }
+
     /* Resource stripe backgrounds */
     .stripe-y7 {
       background: repeating-linear-gradient(45deg, var(--y7-soft) 0 10px, #FFFFFF 10px 20px);
@@ -141,12 +153,8 @@
       Year 7, 8 and GCSE Still Under Construction
     </div>
 
-    <section class="relative w-full h-[440px] flex items-center overflow-hidden bg-slate-950 mb-12">
-      <div class="absolute inset-0 opacity-40 mix-blend-screen pointer-events-none overflow-hidden">
-        <div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-violet-600 via-purple-500 to-transparent blur-[120px] animate-pulse"></div>
-        <div class="absolute bottom-[-30%] right-[5%] w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-blue-600 via-cyan-400 to-transparent blur-[140px]"></div>
-      </div>
-      <div class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px]"></div>
+    <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-12">
+      <div class="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px]"></div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
@@ -389,7 +397,6 @@
       }
 
       function updateEmptyStateDisplay(){
-        // Check active condition using color helper class selectors instead
         const activeBtn = document.querySelector("[class*='sidebar-pill-'][class*='-active']");
         if (!activeBtn) return;
         const currentYear = activeBtn.getAttribute("data-year");
