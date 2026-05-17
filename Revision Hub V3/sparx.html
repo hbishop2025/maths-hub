@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
+<head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SPARX | Usage & Policy</title>
@@ -58,24 +58,31 @@
     .tags { @apply mt-3 flex flex-wrap gap-2; }
     .tag { @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] font-extrabold text-gray-700; }
 
+    /* Custom New Mesh Hero Style */
+    .hero-mesh {
+      background-color: hsla(0, 0%, 100%, 1);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 759 759' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"), radial-gradient(circle at 16% 6%, hsla(0, 90%, 65%, 1) 0%, transparent 50%), radial-gradient(circle at 87% 20%, hsla(210, 100%, 78%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 68% 47%, hsla(346, 100%, 83%, 1) 2.400384061449832%, transparent 50%), radial-gradient(circle at 19% 87%, hsla(216, 77%, 36%, 1) 0%, transparent 50%), radial-gradient(circle at 88% 97%, hsla(346, 100%, 83%, 1) 0%, transparent 50%);
+      background-blend-mode: overlay, normal, normal, normal, normal, normal;
+    }
+
     /* Approved tools mesh aura (CSS-only, Option A) */
     .mesh {
-    position: relative;
-    overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
 
     .mesh::before{
-    content:"";
-    position:absolute;
-    inset:-200px;
-    pointer-events:none;
-    background:
-      radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
-      radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
-      radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
-    filter: blur(60px);
-    opacity:.8;
-    z-index:0;
+      content:"";
+      position:absolute;
+      inset:-200px;
+      pointer-events:none;
+      background:
+        radial-gradient(600px 320px at 15% 20%, rgba(59,130,246,.12), transparent 60%),
+        radial-gradient(700px 380px at 60% 10%, rgba(99,102,241,.10), transparent 65%),
+        radial-gradient(600px 340px at 90% 60%, rgba(236,72,153,.08), transparent 60%);
+      filter: blur(60px);
+      opacity:.8;
+      z-index:0;
     }
 
     /* Do / Don't layout (no cards) */
@@ -113,7 +120,6 @@
 
 <body>
 
-  <!-- KEEP: Top Nav (unchanged) -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -132,31 +138,25 @@
 
   <main class="relative pt-14 pb-20">
 
-  <!-- HERO -->
-  <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
-    <div class="absolute inset-0 z-0">
-      <img src="assets/home-hero5.jpg" alt="Sparx Setup" class="w-full h-full object-cover object-center" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-    </div>
-
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+  <section class="relative w-full h-[440px] flex items-center overflow-hidden hero-mesh mb-16 border-b border-gray-200">
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-          <span class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Online Homework</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-gray-900/10 border border-blue-500/20 backdrop-blur-sm">
+          <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-gray-900"></span>
+          <span class="text-[10px] font-bold text-white uppercase tracking-widest">Online Homework</span>
         </div>
 
-        <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+        <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-4 leading-tight">
           Sparx Homework<br>
-          <span class="text-blue-400">Setup & Guidance</span>
+          <span class="text-white">Setup & Guidance</span>
         </h1>
 
-        <p class="text-slate-300 text-lg font-medium drop-shadow-md">
+        <p class="text-gray-700 text-lg font-medium">
           How to log in, complete homework properly, and avoid common mistakes.
         </p>
 
         <div class="mt-8">
-          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold hover:bg-white/20 transition">
+          <a href="#launch" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-gray-800 transition shadow-sm">
             Launch Sparx
             <span class="material-icons text-sm">open_in_new</span>
           </a>
@@ -168,7 +168,6 @@
   <div class="wrap pt-8">
     <div class="grid-docs">
 
-      <!-- SIDEBAR -->
       <aside class="side pt-6">
         <div class="px-2">
           <div class="side-title">Sparx</div>
@@ -185,10 +184,8 @@
         </nav>
       </aside>
 
-      <!-- MAIN CONTENT -->
       <div>
 
-        <!-- OVERVIEW -->
         <section id="overview" class="anchor section">
           <div class="eyebrow">Overview</div>
           <h2 class="h2 mt-2">What Sparx is for</h2>
@@ -198,7 +195,6 @@
           </p>
         </section>
 
-        <!-- HOMEWORK CYCLE -->
         <section id="cycle" class="anchor section">
           <div class="eyebrow">Schedule</div>
           <h2 class="h2 mt-2">Homework Cycle</h2>
@@ -207,7 +203,6 @@
           </p>
         </section>
 
-        <!-- ORANGE BOOK -->
         <section id="orange" class="anchor section">
           <div class="eyebrow">Protocol</div>
           <h2 class="h2 mt-2">Orange Book Requirements</h2>
@@ -222,7 +217,6 @@
           </ul>
         </section>
 
-        <!-- VIDEO GUIDES -->
         <section id="videos" class="anchor section">
           <div class="eyebrow">Support</div>
           <h2 class="h2 mt-2">Video Guides</h2>
@@ -241,7 +235,6 @@
           </div>
         </section>
 
-        <!-- ANTI CHEAT -->
         <section id="anti-cheat" class="anchor section">
           <div class="eyebrow">Important</div>
           <h2 class="h2 mt-2">AI & Homework</h2>
@@ -266,7 +259,6 @@
           </div>
         </section>
 
-        <!-- LAUNCH -->
         <section id="launch" class="anchor section">
           <div class="eyebrow">Access</div>
           <h2 class="h2 mt-2">Launch Sparx</h2>
