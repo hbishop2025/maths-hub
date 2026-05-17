@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/main.css"/>
 
   <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
+    :root { --accent1:#ef4444; --accent2:#f97316; }
 
     body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
@@ -44,27 +44,38 @@
       mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
     }
 
-    .section-heading { @apply text-2xl font-bold text-gray-800; }
+    /* New Vibrant Red Mesh Hero */
+    .mesh-alevel {
+      background-color: hsla(0,100%,50%,1);
+      background-image:
+        radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
+    }
 
-    /* Track pills */
-    .track-wrap { @apply flex flex-wrap justify-center gap-3 mb-10; }
+    .section-heading { @apply text-2xl font-bold text-gray-800 tracking-tight; }
+
+    /* Sidebar Navigation Pills */
     .track-pill {
-      @apply px-5 py-2.5 rounded-full text-sm font-bold border bg-white text-gray-600 border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:bg-gray-50 hover:border-gray-300;
+      @apply w-full px-4 py-3 rounded-xl text-sm font-bold text-left bg-transparent text-gray-600 transition-all duration-200 hover:bg-gray-100 flex items-center justify-between;
     }
     .track-pill-active {
-      @apply bg-[#111827] text-white border-[#111827] shadow-md;
+      @apply bg-[#111827] text-white shadow-md hover:bg-black;
     }
-    .track-pill-active:hover {
-      @apply bg-[#000000] border-[#000000] text-white;
+    .track-pill-active .material-icons {
+      @apply text-white;
     }
 
-    /* Cards */
+    /* Clean Minimal Cards */
     .icon-card {
-      @apply flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300;
+      @apply flex items-center p-4 bg-white border border-gray-200 rounded-2xl shadow-sm transition-all duration-300;
     }
-    /* UPDATED: Border color changed to purple-400 */
     .icon-card:hover {
-      @apply shadow-lg -translate-y-1 border-purple-400;
+      @apply shadow-md -translate-y-1 border-red-400;
     }
   </style>
 </head>
@@ -110,39 +121,36 @@
       Year 7, 8 and GCSE Still Under Construction
     </div>
 
-    <section class="relative w-full h-[500px] flex items-center overflow-hidden bg-[#020617] mb-16">
+    <section class="relative w-full h-[400px] flex items-center overflow-hidden mesh-alevel mb-12 shadow-md">
       
-      <div class="absolute inset-0 z-0">
-        <img src="assets/alevel-hero.jpg" alt="A-Level Hero" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-      </div>
+      <div class="absolute inset-0 z-0 bg-black/10 backdrop-blur-[1px]"></div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
-           
-           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-purple-500/20 border border-purple-400/30 backdrop-blur-sm">
-             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-purple-400"></span>
-             <span class="text-[10px] font-bold text-purple-200 uppercase tracking-widest">KS5 • Years 12 & 13</span>
+            
+           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/20 border border-white/30 backdrop-blur-sm">
+             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-white"></span>
+             <span class="text-[10px] font-bold text-white uppercase tracking-widest">KS5 • Years 12 & 13</span>
            </div>
            
-           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+           <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-sm">
              A-Level<br>
-             <span class="text-purple-400">Mathematics</span>
+             <span class="text-red-100">Mathematics</span>
            </h1>
            
-           <p class="text-slate-300 text-lg font-medium drop-shadow-md mb-8 leading-relaxed">
-             Your home for all A-level revision, please note that all links take you to an external site moderated by our head of KS5 maths.
+           <p class="text-white/90 text-lg font-medium mb-8 leading-relaxed max-w-xl drop-shadow-sm">
+             Your home for all A-level revision. Please note that all links take you to an external site moderated by our head of KS5 maths.
            </p>
 
            <div class="flex flex-wrap gap-4">
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/exam-revision" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-red-600 font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg">
                <span>Exam Revision</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">menu_book</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
              </a>
 
-             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+             <a href="https://sites.google.com/sjwms.org.uk/mathsatthemath/papers/a-questions" target="_blank" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/20 border border-white/40 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-black/30 hover:scale-105">
                <span>A* Questions</span>
-               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">edit_note</span>
+               <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">star</span>
              </a>
            </div>
 
@@ -151,21 +159,46 @@
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <div class="lg:col-span-1 space-y-6">
+          
+          <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
+            <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-2">Select Course</h3>
+            <div class="flex flex-col gap-1" id="track-pill-wrap">
+              </div>
+          </div>
 
-      <div class="track-wrap" id="track-pill-wrap">
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-md relative overflow-hidden group border border-slate-700">
+            <div class="absolute -right-4 -top-4 opacity-10 transform group-hover:scale-110 transition-transform duration-500">
+              <span class="material-icons text-8xl">workspace_premium</span>
+            </div>
+            <div class="relative z-10">
+              <h3 class="font-bold text-lg mb-2">Senior Maths Challenge</h3>
+              <p class="text-slate-300 text-sm mb-5 leading-relaxed">Prepare for the UKMT Senior Challenge. Access past papers and fully worked solutions.</p>
+              <a href="https://ukmt.org.uk" target="_blank" class="inline-flex items-center gap-1 text-sm font-semibold bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2.5 rounded-xl transition-all hover:scale-105">
+                Practice Now <span class="material-icons text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
         </div>
 
-      <section id="track-panels" class="space-y-12">
-        <div class="animate-pulse space-y-4">
-           <div class="h-8 bg-gray-200 rounded w-1/4"></div>
-           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-             <div class="h-48 bg-gray-200 rounded-2xl"></div>
-           </div>
+        <div class="lg:col-span-3">
+          <section id="track-panels" class="space-y-10">
+            <div class="animate-pulse space-y-4">
+               <div class="h-8 bg-gray-200 rounded w-1/4"></div>
+               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                 <div class="h-20 bg-gray-200 rounded-2xl"></div>
+                 <div class="h-20 bg-gray-200 rounded-2xl"></div>
+                 <div class="h-20 bg-gray-200 rounded-2xl"></div>
+               </div>
+            </div>
+          </section>
         </div>
-      </section>
 
+      </div>
     </div>
   </main>
 
@@ -199,7 +232,13 @@
           const btn = document.createElement('button');
           btn.className = 'track-pill' + (index === 0 ? ' track-pill-active' : '');
           btn.dataset.trackId = track.id;
-          btn.textContent = track.label;
+          
+          // Added an icon indicator for the active/inactive state in the sidebar
+          btn.innerHTML = `
+            <span>${track.label}</span>
+            <span class="material-icons text-gray-400 text-sm transition-colors">chevron_right</span>
+          `;
+          
           btn.addEventListener('click', () => {
             if (activeTrackId === track.id) return;
             setActiveTrack(track.id);
@@ -210,15 +249,11 @@
 
       function setActiveTrack(id){
         activeTrackId = id;
-
-        // Update pills
         const pills = PILL_WRAP.querySelectorAll('.track-pill');
         pills.forEach(pill => {
           const isActive = pill.dataset.trackId === id;
           pill.classList.toggle('track-pill-active', isActive);
         });
-
-        // Render content
         renderTrack(id);
       }
 
@@ -239,28 +274,25 @@
         const html = sections.map(section => {
           const cards = Array.isArray(section.cards) ? section.cards : [];
 
-          const cardsHtml = cards.map(card => {
+          const cardsHtml = cards.map((card, index) => {
             const icon = card.icon || 'auto_awesome';
-            const title = card.title || 'Untitled card';
-            const desc = card.description || '';
-            const url  = card.url || '';
-            const isLink = !!url;
+            const title = card.title || 'Untitled';
+            const url  = card.url || '#';
+            const isLink = !!card.url;
+            
+            const unitNumber = String(index + 1).padStart(2, '0');
 
-            // Generate tags if they exist
-            const tagHtml = Array.isArray(card.tags) && card.tags.length
-              ? '<div class="mt-3 flex flex-wrap justify-center gap-1">' +
-                card.tags.map(t => 
-                  `<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 text-[10px] font-semibold text-slate-500 border border-slate-100">${t}</span>`
-                ).join('') +
-              '</div>'
-              : '';
-
-            // UPDATED: Hover text color is now purple-500 to match the border
+            // Clean, minimal layout replacing the heavily colored blocks
             const inner = `
-              <span class="material-symbols-outlined text-4xl text-slate-500 group-hover:text-purple-500 transition-colors">${icon}</span>
-              <p class="mt-3 text-sm text-slate-800 font-bold text-center">${title}</p>
-              <p class="mt-1 text-xs text-slate-500 text-center leading-relaxed">${desc}</p>
-              ${tagHtml}
+              <div class="h-12 w-12 rounded-xl bg-red-50 flex items-center justify-center mr-4 group-hover:bg-red-500 transition-colors duration-300 shrink-0">
+                <span class="font-black text-red-400 group-hover:text-white">${unitNumber}</span>
+              </div>
+              <div class="flex-grow pr-2">
+                <h3 class="font-bold text-gray-800 text-sm sm:text-base leading-tight">${title}</h3>
+              </div>
+              <div class="h-8 w-8 rounded-full flex items-center justify-center bg-gray-50 group-hover:bg-red-50 transition-colors shrink-0">
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-red-500 text-lg">${isLink ? 'north_east' : icon}</span>
+              </div>
             `;
 
             if (isLink){
@@ -275,15 +307,15 @@
           }).join('');
 
           return `
-            <section>
+            <section class="mb-10">
               <div class="flex items-center gap-4 mb-6">
                 <h2 class="section-heading">${section.heading || ''}</h2>
                 <div class="h-px bg-gray-200 flex-grow"></div>
               </div>
               
-              ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4">${section.subheading}</p>` : ''}
+              ${section.subheading ? `<p class="text-sm text-gray-500 mb-6 -mt-4 font-medium">${section.subheading}</p>` : ''}
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 ${cardsHtml}
               </div>
             </section>
@@ -293,7 +325,6 @@
         PANEL_ROOT.innerHTML = html;
       }
 
-      // Load JSON + initialise
       fetch(JSON_URL, { cache: 'no-store' })
         .then(r => r.json())
         .then(data => {
@@ -303,7 +334,7 @@
             return;
           }
           createPills(TRACKS);
-          setActiveTrack(TRACKS[0].id); // default to first track
+          setActiveTrack(TRACKS[0].id);
         })
         .catch(err => {
           console.error('Error loading A-level tracks JSON', err);
