@@ -15,27 +15,7 @@
 
   <link rel="stylesheet" href="assets/main.css"/>
 
-  <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
-
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    /* Header + mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    #mobileMenu a { @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center; }
-
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
+  <style>
     /* Background dots */
     .math-grid {
       background-image:
@@ -79,25 +59,16 @@
         radial-gradient(at 0% 100%, #06b6d4 0px, transparent 50%);
     }
 
-    .section-heading { @apply text-2xl font-bold text-gray-800 tracking-tight; }
-    
-    /* "Fake Advert" Micro-Tag */
-    .ad-tag {
-      @apply absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-white/50 z-20 mix-blend-overlay;
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
-    .ad-tag-dark {
-      @apply absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-black/30 z-20;
-    }
-
-    /* Right Sidebar (Links) */
-    .link-list-card { @apply bg-white rounded-3xl p-6 border border-gray-100 shadow-sm; }
-    .link-item { @apply flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group; }
-
   </style>
 </head>
 
-<body>
-  <header class="header">
+<body class="bg-[#f6f6f8] text-[#212121] overflow-x-hidden" style="font-family: 'Lexend', sans-serif;">
+
+  <header class="fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
       <div class="flex items-center gap-3">
         <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
@@ -118,12 +89,12 @@
         <span class="material-icons">menu</span>
       </button>
 
-      <div id="mobileMenu" class="hidden">
-        <a href="index.html">Home</a>
-        <a href="ks3_hub.html">KS3</a>
-        <a href="gcse_hub.html">GCSE</a>
-        <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">AI Usage</a>
+      <div id="mobileMenu" class="absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40 w-[180px] hidden" style="transform-origin: top right; animation: menuIn .22s ease-out;">
+        <a href="index.html" class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center">Home</a>
+        <a href="ks3_hub.html" class="block text-sm font-medium text-[#135bec] py-1 text-center">KS3</a>
+        <a href="gcse_hub.html" class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center">GCSE</a>
+        <a href="alevel_hub.html" class="block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center">A-Level</a>
+        <a class="rounded-full bg-[#111827] text-white text-sm font-semibold mt-2 py-1.5 px-3 block text-center" href="ai_usage.html">AI Usage</a>
       </div>
     </div>
   </header>
@@ -137,7 +108,6 @@
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div class="max-w-2xl">
-
           <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-white/20 border border-white/30 backdrop-blur-sm">
             <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-white"></span>
             <span class="text-[10px] font-bold text-white uppercase tracking-widest">KS3 • Dashboard</span>
@@ -156,13 +126,11 @@
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
-        <div class="md:col-span-12 lg:col-span-3 space-y-6 lg:sticky lg:top-24 lg:self-start">
+        <div class="col-span-12 lg:col-span-3 space-y-6 lg:sticky lg:top-24 lg:self-start">
           
           <div class="relative rounded-3xl p-6 overflow-hidden border border-gray-200 shadow-sm">
-            
             <div class="absolute inset-0 z-0 bg-[#073347]">
               <img src="assets/home-hero1.jpg" alt="Cityscape" class="w-full h-full object-cover opacity-60 mix-blend-screen filter hue-rotate-[180deg] saturate-150" />
               <div class="absolute inset-0 bg-gradient-to-t from-[#073347] via-cyan-950/70 to-transparent"></div>
@@ -201,7 +169,7 @@
           </div>
 
           <div class="mesh-jmc rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onclick="window.location.href='#UKMT'">
-            <span class="ad-tag">Promoted</span>
+            <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-white/50 z-20 mix-blend-overlay">Promoted</span>
             <div class="absolute -right-4 -bottom-4 opacity-20 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
               <span class="material-icons text-9xl">emoji_events</span>
             </div>
@@ -219,22 +187,21 @@
 
         </div>
 
-        <div class="md:col-span-12 lg:col-span-9">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="col-span-12 lg:col-span-9">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
 
-            <div class="lg:col-span-8 flex flex-col gap-10">
+            <div class="md:col-span-7 flex flex-col gap-10">
               
               <div class="flex items-center gap-4 mb-2">
-                <h2 class="section-heading">Featured internal sites</h2>
+                <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Featured internal sites</h2>
                 <div class="h-px bg-gray-200 flex-grow"></div>
               </div>
 
               <article class="relative rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl group border border-gray-800/20 min-h-[300px] flex flex-col transition-all duration-300 cursor-pointer" onclick="window.location.href='ks3_eoy.html'">
-                <span class="ad-tag">Advertisement</span>
+                <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-white/50 z-20 mix-blend-overlay">Advertisement</span>
                 <div class="absolute inset-0 z-0">
                   <img src="assets/ks3-hero.jpg" alt="EOY Revision" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.80]" />
                   <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/60 to-transparent"></div>
-                  <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/30 to-transparent mix-blend-overlay"></div>
                 </div>
                 <div class="relative z-10 p-6 sm:p-8 flex flex-col h-full justify-end">
                   <div class="flex justify-start items-start mb-4">
@@ -260,11 +227,13 @@
               </article>
 
               <article class="relative rounded-[2rem] p-1 shadow-md flex flex-col min-h-[300px] overflow-hidden group transition-all duration-300 hover:shadow-xl hover:shadow-[#ec4899]/30" style="background-color: #ffe4e6;">
-                <span class="ad-tag-dark">Sponsored</span>
+                <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-black/30 z-20">Sponsored</span>
                 <div class="absolute inset-0 rounded-[2rem] border-2 border-[#ec4899]/30 transition-opacity duration-300 group-hover:border-[#ec4899] z-0"></div>
+                
                 <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/60 rounded-full blur-3xl z-0"></div>
+                
                 <div class="absolute right-[5%] top-[10%] bottom-[10%] w-[35%] opacity-90 group-hover:scale-105 transition-transform duration-500 origin-center z-0 flex items-center justify-center pointer-events-none">
-                   <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Hero" class="h-full w-auto object-contain drop-shadow-2xl" />
+                   <img src="bishop_shakes/shakes_hero.svg" alt="Shakes Logo" class="h-full w-auto object-contain drop-shadow-2xl" />
                 </div>
 
                 <div class="relative z-10 flex flex-col h-full grow p-6 sm:p-8">
@@ -289,8 +258,8 @@
                 </div>
               </article>
 
-              <article class="relative rounded-[2rem] overflow-hidden shadow-md group border-b-4 border-b-[#fb923c] mesh-airways min-h-[220px] flex items-center justify-between p-8 transition-all duration-300 transform group">
-                <span class="ad-tag">Promoted</span>
+              <article class="relative rounded-[2rem] overflow-hidden shadow-md group border-b-4 border-b-[#fb923c] mesh-airways min-h-[220px] flex items-center justify-between p-8 transition-all duration-300 transform">
+                <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-white/50 z-20 mix-blend-overlay">Promoted</span>
                 
                 <div class="relative z-10 max-w-xl">
                   <div class="inline-flex items-center px-2 py-0.5 rounded-md bg-white/20 border border-white/30 backdrop-blur-sm text-[10px] font-bold text-white mb-2.5 uppercase tracking-wide">
@@ -306,8 +275,8 @@
                 </div>
               </article>
 
-              <article class="relative rounded-[2rem] overflow-hidden shadow-md group border-t-4 border-t-[#facc15] bg-white p-8 transition-all duration-300 group">
-                <span class="ad-tag-dark">System Alert</span>
+              <article class="relative rounded-[2rem] overflow-hidden shadow-md group border-t-4 border-t-[#facc15] bg-white p-8 transition-all duration-300">
+                <span class="absolute top-3 right-4 text-[9px] font-black uppercase tracking-widest text-black/30 z-20">System Alert</span>
                 
                 <div class="flex items-center gap-6">
                   <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-yellow-100 to-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shadow-sm shrink-0">
@@ -327,47 +296,47 @@
 
             </div>
 
-            <div class="lg:col-span-4 lg:sticky lg:top-24 self-start space-y-6 pt-[60px]">
+            <div class="md:col-span-5 space-y-6 pt-[60px]">
               
               <div class="flex items-center gap-4 mb-2">
-                <h2 class="section-heading text-xl">Quick links</h2>
+                <h2 class="text-xl font-bold text-gray-800 tracking-tight">Quick links</h2>
                 <div class="h-px bg-gray-200 flex-grow"></div>
               </div>
 
-              <div class="link-list-card">
+              <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
                 <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-1">Internal Sites</h4>
                 <div class="space-y-1.5">
-                  <a href="https://www.sjwmsmaths.co.uk/sparx" target="_blank" rel="noopener" class="link-item">
+                  <a href="https://www.sjwmsmaths.co.uk/sparx" target="_blank" rel="noopener" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>Help setting up SPARX</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">launch</span>
                   </a>
-                  <a href="ai_usage.html" class="link-item">
+                  <a href="ai_usage.html" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>AI Usage Guidance</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">arrow_forward</span>
                   </a>
-                  <a href="ks3_hub.html#Years" class="link-item">
+                  <a href="ks3_hub.html#Years" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>Change Year Group Dashboard</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">arrow_downward</span>
                   </a>
                 </div>
               </div>
 
-              <div class="link-list-card border-l-4 border-l-blue-500">
+              <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm border-l-4 border-l-blue-500">
                 <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 px-1">Core Resources</h4>
                 <div class="space-y-1.5">
-                  <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener" class="link-item">
+                  <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>Sparx Learning (Homework)</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">launch</span>
                   </a>
-                  <a href="https://www.drfrost.org/" target="_blank" rel="noopener" class="link-item">
+                  <a href="https://www.drfrost.org/" target="_blank" rel="noopener" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>Dr Frost Maths (DFM)</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">launch</span>
                   </a>
-                  <a href="http://www.mrgalesmaths.com" target="_blank" rel="noopener" class="link-item">
+                  <a href="http://www.mrgalesmaths.com" target="_blank" rel="noopener" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>Mr Gales Maths (Resources)</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">launch</span>
                   </a>
-                  <a href="https://www.interactive-maths.com/ukmt-random-question-generator.html/" target="_blank" rel="noopener" class="link-item">
+                  <a id="UKMT" href="https://www.interactive-maths.com/ukmt-random-question-generator.html/" target="_blank" rel="noopener" class="flex items-center justify-between gap-3 text-sm font-semibold text-gray-700 p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 group">
                     <span>JMC Random Question Gen.</span>
                     <span class="material-symbols-outlined text-gray-300 group-hover:text-blue-500 transition-colors">launch</span>
                   </a>
