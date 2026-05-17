@@ -558,37 +558,37 @@ collections:
 
       - name: "gcse_further_unit01"
         label: "GCSE Further — Unit 01"
-        file: "Revision Hub V3/assets/data/further_gcse_unit01.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit01.json"
         format: json
         fields: *gcse_fields
 
       - name: "gcse_further_unit02"
         label: "GCSE Further — Unit 02"
-        file: "Revision Hub V3/assets/data/further_gcse_unit02.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit02.json"
         format: json
         fields: *gcse_fields
 
        - name: "gcse_further_unit03"
         label: "GCSE Further — Unit 03"
-        file: "Revision Hub V3/assets/data/further_gcse_unit03.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit03.json"
         format: json
         fields: *gcse_fields
 
       - name: "gcse_further_unit04"
         label: "GCSE Further — Unit 04"
-        file: "Revision Hub V3/assets/data/further_gcse_unit04.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit04.json"
         format: json
         fields: *gcse_fields
 
       - name: "gcse_further_unit05"
         label: "GCSE Further — Unit 05"
-        file: "Revision Hub V3/assets/data/further_gcse_unit05.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit05.json"
         format: json
         fields: *gcse_fields
 
       - name: "gcse_further_unit06"
         label: "GCSE Further — Unit 06"
-        file: "Revision Hub V3/assets/data/further_gcse_unit06.json"
+        file: "Revision Hub V3/assets/data/gcse_further_unit06.json"
         format: json
         fields: *gcse_fields
         
