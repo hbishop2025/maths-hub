@@ -109,12 +109,12 @@
     list.forEach((item) => {
       const chip = document.createElement("span");
       chip.className =
-        "inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-100 text-gray-800 text-sm font-medium border border-gray-200";
+  "inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/40 border border-white/50 backdrop-blur-md text-gray-900 text-sm font-medium shadow-sm transition-all hover:bg-white/60";
 
-      chip.innerHTML = `
-        <span class="font-mono text-purple-600 font-semibold">${item.code}</span>
-        <span class="text-gray-600 text-sm whitespace-nowrap">${item.note || ""}</span>
-      `;
+chip.innerHTML = `
+  <span class="font-mono text-purple-800 font-bold">${item.code}</span>
+  <span class="text-gray-800 text-sm font-medium whitespace-nowrap">${item.note || ""}</span>
+`;
 
       container.appendChild(chip);
     });
