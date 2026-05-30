@@ -2,37 +2,89 @@
   "items": [
     {
       "active": true,
-      "title": "Google",
-      "url": "www.google.com",
+      "title": "Grade 4 | Indices Qs",
+      "url": "https://www.old.mathsgenie.co.uk/resources/4-indices-ws.pdf",
       "blockkey": "worksheets",
-      "addediso": "2026-05-16T17:10:00.000+01:00"
+      "addediso": "2026-05-30T17:48:00.000+01:00"
     },
     {
       "active": true,
-      "title": "Google ",
-      "url": "www.google.com",
-      "blockkey": "other",
-      "addediso": "2026-05-16T17:10:00.000+01:00"
+      "title": "Grade 4 | Indices Ans",
+      "url": "https://www.old.mathsgenie.co.uk/resources/4-indicesans.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-05-30T17:49:00.000+01:00"
     },
     {
       "active": true,
-      "title": "Test ",
-      "url": "https://www.youtube.com/watch?v=JSvoP-JuYDI",
+      "title": "Grade 6 | Indices Qs",
+      "url": "https://www.old.mathsgenie.co.uk/resources/6-fractional-and-negative-indices-ws.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-05-30T18:01:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Grade 6 | Indices Ans",
+      "url": "https://www.old.mathsgenie.co.uk/resources/6-fractional-and-negative-indicesans.pdf",
+      "blockkey": "worksheets",
+      "addediso": "2026-05-30T17:50:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Fractional Indices",
+      "url": "https://www.youtube.com/watch?v=s7meFR3BKxs",
       "blockkey": "videos",
-      "addediso": "2026-05-16T17:11:00.000+01:00"
+      "addediso": "2026-05-30T17:52:00.000+01:00"
     },
     {
       "active": true,
-      "title": "This take you to google",
-      "url": "www.google.com",
-      "blockkey": "worksheets",
-      "addediso": "2026-05-17T22:35:00.000+01:00"
+      "title": "How to Simplify Surds",
+      "url": "https://www.youtube.com/watch?v=wzAotwNPhm8",
+      "blockkey": "videos",
+      "addediso": "2026-05-30T17:54:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Simplifying Expressions with Surds",
+      "url": "https://www.youtube.com/watch?v=ApPCgZWxzro",
+      "blockkey": "videos",
+      "addediso": "2026-05-30T17:55:00.000+01:00"
+    },
+    {
+      "active": true,
+      "title": "Rationalising the Denominator",
+      "url": "https://www.youtube.com/watch?v=-5Z0xfYr0yE",
+      "blockkey": "videos",
+      "addediso": "2026-05-30T17:55:00.000+01:00"
     }
   ],
   "sparx_codes": [
     {
-      "code": "U222",
-      "note": "Who knows"
+      "code": "U235",
+      "note": "Positive Indices"
+    },
+    {
+      "code": "U694",
+      "note": "Negative Indices"
+    },
+    {
+      "code": "U338",
+      "note": "Simplifying Surds"
+    },
+    {
+      "code": "U633",
+      "note": "Multiplying and Dividing Surds"
+    },
+    {
+      "code": "U872",
+      "note": "Adding and Subtracting Surds"
+    },
+    {
+      "code": "U499",
+      "note": "Expanding Brackets with Surds"
+    },
+    {
+      "code": "U707",
+      "note": "Rationalising the denominator"
     }
   ]
 }
