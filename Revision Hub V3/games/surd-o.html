@@ -134,6 +134,7 @@
         const SortAsc = ({ size = 24, className }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M3 12h12"/><path d="M3 18h6"/></svg>;
         const Ban = ({ size = 24, className, strokeWidth }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>;
         const BotIcon = ({ size = 24, className }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>;
+        const Zap = ({ size = 24, className }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
 
         // --- Game Constants & Logic ---
         const COLORS = ['red', 'blue', 'green', 'yellow'];
@@ -146,29 +147,32 @@
             return `card-${Date.now()}-${idCounter}-${Math.random().toString(36).substr(2, 9)}`;
         };
 
-        const createSurdCard = (color, base, coeff, isSimplified) => {
-            let display;
+        const getDisplayForForm = (base, coeff, form) => {
             const valueInside = (coeff * coeff) * base;
-
+            if (coeff === 1) return `√${base}`;
             if (base === 1) {
-                display = isSimplified ? `${coeff}` : `√${valueInside}`;
-            } else {
-                if (coeff === 1) display = `√${base}`;
-                else if (isSimplified) display = `${coeff}√${base}`;
-                else display = `√${valueInside}`;
+                if (form === 0) return `√${valueInside}`;
+                if (form === 1) return `√(${coeff} × ${coeff})`;
+                return `${coeff}`;
             }
+            if (form === 0) return `√${valueInside}`;
+            if (form === 1) return `√(${coeff * coeff} × ${base})`;
+            return `${coeff}√${base}`;
+        };
 
+        const createSurdCard = (color, base, coeff, form) => {
             return {
-                id: generateId(), type: 'number', color, base, coeff, display,
+                id: generateId(), type: 'number', color, base, coeff, form,
+                display: getDisplayForForm(base, coeff, form),
                 simplified: base === 1 ? `${coeff}` : (coeff === 1 ? `√${base}` : `${coeff}√${base}`),
-                valueInside
+                valueInside: (coeff * coeff) * base
             };
         };
 
         const createActionCard = (type, color) => ({
             id: generateId(), type: 'action', actionType: type,
-            color: type === 'wild' ? 'multi' : color,
-            display: type === 'wild' ? 'WILD' : type.toUpperCase(),
+            color: (type === 'wild' || type === 'chaos') ? 'multi' : color,
+            display: type === 'wild' ? 'WILD' : type === 'chaos' ? 'CHAOS' : type.toUpperCase(),
             base: null, coeff: null
         });
 
@@ -177,8 +181,14 @@
             COLORS.forEach(color => {
                 BASES.forEach(base => {
                     COEFFS.forEach(coeff => {
-                        deck.push(createSurdCard(color, base, coeff, true));  // simplified form
-                        deck.push(createSurdCard(color, base, coeff, false)); // unsimplified form
+                        if (coeff === 1) {
+                            deck.push(createSurdCard(color, base, coeff, 2));
+                            deck.push(createSurdCard(color, base, coeff, 2));
+                        } else {
+                            deck.push(createSurdCard(color, base, coeff, 0)); // Unsimplified: √27
+                            deck.push(createSurdCard(color, base, coeff, 1)); // Intermediate: √(9 × 3)
+                            deck.push(createSurdCard(color, base, coeff, 2)); // Simplified: 3√3
+                        }
                     });
                 });
                 ['skip', 'reverse', 'draw2'].forEach(action => {
@@ -186,7 +196,10 @@
                     deck.push(createActionCard(action, color));
                 });
             });
-            for (let i = 0; i < 4; i++) deck.push(createActionCard('wild', null));
+            for (let i = 0; i < 4; i++) {
+                deck.push(createActionCard('wild', null));
+                deck.push(createActionCard('chaos', null));
+            }
             return shuffle(deck);
         };
 
@@ -232,10 +245,12 @@
                     {/* Corner Indices */}
                     <div className="absolute top-2 left-2 text-white font-bold text-xs md:text-sm drop-shadow-md">
                         {card.type === 'action' && card.actionType === 'wild' ? 'W' : ''}
+                        {card.type === 'action' && card.actionType === 'chaos' ? 'C' : ''}
                         {card.type === 'number' && card.coeff}
                     </div>
                     <div className="absolute bottom-2 right-2 text-white font-bold text-xs md:text-sm drop-shadow-md transform rotate-180">
                         {card.type === 'action' && card.actionType === 'wild' ? 'W' : ''}
+                        {card.type === 'action' && card.actionType === 'chaos' ? 'C' : ''}
                         {card.type === 'number' && card.coeff}
                     </div>
 
@@ -248,6 +263,13 @@
                             <div className="text-xl md:text-2xl font-poppins font-black bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text z-10 tracking-tighter transform -rotate-12">
                                 WILD
                             </div>
+                        ) : card.type === 'action' && card.actionType === 'chaos' ? (
+                            <div className="flex flex-col items-center justify-center z-10 transform -rotate-6">
+                                <Zap size={32} className="text-purple-600 drop-shadow-md mb-1"/>
+                                <div className="text-xl md:text-xl font-poppins font-black bg-gradient-to-r from-purple-600 to-fuchsia-600 text-transparent bg-clip-text tracking-tighter">
+                                    CHAOS
+                                </div>
+                            </div>
                         ) : (
                             <div className={`text-2xl md:text-3xl font-bold flex flex-col items-center z-10 ${card.color === 'yellow' ? 'text-amber-500' : `text-${card.color}-600`}`}>
                                 {card.type === 'action' ? (
@@ -255,7 +277,7 @@
                                     card.actionType === 'reverse' ? <RefreshCw size={28}/> : 
                                     card.actionType === 'skip' ? <Ban size={28} strokeWidth={3}/> : card.display
                                 ) : (
-                                    <span className="tracking-tighter font-poppins">{card.display}</span>
+                                    <span className={`tracking-tighter font-poppins ${card.display.length > 5 ? 'text-lg md:text-xl' : ''}`}>{card.display}</span>
                                 )}
                             </div>
                         )}
@@ -276,6 +298,8 @@
             const [statusMsg, setStatusMsg] = useState('');
             const [winner, setWinner] = useState(null);
             const [hintsEnabled, setHintsEnabled] = useState(true);
+            const [enableStacking, setEnableStacking] = useState(false);
+            const [drawStack, setDrawStack] = useState(0);
 
             // Turn Execution Flags
             const [isBotThinking, setIsBotThinking] = useState(false);
@@ -289,6 +313,16 @@
             const announce = (msg) => {
                 setStatusMsg(msg);
                 setTimeout(() => setStatusMsg(''), 3000);
+            };
+
+            const flipSurd = (card) => {
+                if (card.type !== 'number' || card.coeff === 1) return card;
+                const nextForm = (card.form + 1) % 3;
+                return { 
+                    ...card, 
+                    form: nextForm,
+                    display: getDisplayForForm(card.base, card.coeff, nextForm)
+                };
             };
 
             const sortHand = () => {
@@ -309,7 +343,7 @@
             const startGame = (count) => {
                 const newDeck = generateDeck();
                 let startingCard = newDeck.pop();
-                while (startingCard.type === 'action' && startingCard.actionType === 'wild') {
+                while (startingCard.type === 'action' && (startingCard.actionType === 'wild' || startingCard.actionType === 'chaos')) {
                     newDeck.unshift(startingCard);
                     startingCard = newDeck.pop();
                 }
@@ -327,12 +361,14 @@
                 setTurnIndex(0);
                 setDirection(1);
                 setWinner(null);
+                setDrawStack(0);
                 setGameState('playing');
                 announce("Game started! Your turn.");
             };
 
-            const isValidMove = (card, topCard) => {
-                if (card.type === 'action' && card.actionType === 'wild') return true;
+            const isValidMove = (card, topCard, currentDrawStack = 0) => {
+                if (currentDrawStack > 0) return card.type === 'action' && card.actionType === 'draw2';
+                if (card.type === 'action' && (card.actionType === 'wild' || card.actionType === 'chaos')) return true;
                 if (card.color === topCard.color) return true;
                 if (card.type === 'action' && topCard.type === 'action' && card.actionType === topCard.actionType) return true;
                 if (card.type === 'number' && topCard.type === 'number') {
@@ -350,7 +386,12 @@
             const handleDraw = () => {
                 if (turnIndex !== 0 || isProcessingRef.current || gameState !== 'playing') return;
                 isProcessingRef.current = true;
-                executeDraw(0, 1, () => {
+                const drawAmount = drawStack > 0 ? drawStack : 1;
+                executeDraw(0, drawAmount, () => {
+                    if (drawStack > 0) {
+                        setDrawStack(0);
+                        announce(`You drew ${drawAmount} cards!`);
+                    }
                     setTurnIndex(getNextPlayer(0, direction));
                     isProcessingRef.current = false;
                 });
@@ -412,7 +453,12 @@
 
                 // 2. Handle Effects
                 if (card.type === 'action') {
-                    if (card.actionType === 'wild') {
+                    if (card.actionType === 'wild' || card.actionType === 'chaos') {
+                        if (card.actionType === 'chaos') {
+                            setHands(prev => prev.map(hand => hand.map(c => flipSurd(c))));
+                            announce("CHAOS! All surds swapped!");
+                        }
+
                         if (pIndex === 0) {
                             setGameState('color-pick');
                             setPendingWildPlayer(pIndex);
@@ -436,18 +482,25 @@
                             setTurnIndex(getNextPlayer(pIndex, newDir));
                         }
                     } else if (card.actionType === 'draw2') {
-                        const victim = getNextPlayer(pIndex, direction);
-                        announce(pIndex === 0 ? `You hit Bot ${victim} with +2!` : `Bot ${pIndex} hit player ${victim} with +2!`);
-                        executeDraw(victim, 2, () => {
-                            setTurnIndex(getNextPlayer(victim, direction)); // Skip victim's turn
-                        });
+                        if (enableStacking) {
+                            const newStack = drawStack + 2;
+                            setDrawStack(newStack);
+                            announce(`+${newStack} Stacked!`);
+                            setTurnIndex(getNextPlayer(pIndex, direction));
+                        } else {
+                            const victim = getNextPlayer(pIndex, direction);
+                            announce(pIndex === 0 ? `You hit Bot ${victim} with +2!` : `Bot ${pIndex} hit player ${victim} with +2!`);
+                            executeDraw(victim, 2, () => {
+                                setTurnIndex(getNextPlayer(victim, direction)); // Skip victim's turn
+                            });
+                        }
                     }
                 } else {
                     // Normal Number Card
                     if (pIndex === 0 && discardPile.length > 0) {
                         const topCard = discardPile[discardPile.length - 1];
                         if (card.color !== topCard.color && card.display !== topCard.display) {
-                            announce(`Math Match: ${card.display} = ${card.simplified}`);
+                            announce(`Math Match: ${card.display} ⇔ ${topCard.display}`);
                         }
                     }
                     setTurnIndex(getNextPlayer(pIndex, direction));
@@ -457,7 +510,7 @@
             const handlePlayerCardClick = (card) => {
                 if (turnIndex !== 0 || isProcessingRef.current || gameState !== 'playing') return;
                 const topCard = discardPile[discardPile.length - 1];
-                if (!isValidMove(card, topCard)) return;
+                if (!isValidMove(card, topCard, drawStack)) return;
 
                 isProcessingRef.current = true;
                 playCardFlow(card, 0);
@@ -487,7 +540,7 @@
                     const timer = setTimeout(() => {
                         const topCard = discardPile[discardPile.length - 1];
                         const botHand = hands[turnIndex];
-                        const validMoves = botHand.filter(c => isValidMove(c, topCard));
+                        const validMoves = botHand.filter(c => isValidMove(c, topCard, drawStack));
 
                         if (validMoves.length > 0) {
                             // Smart bot prefers math matches over simple color matches
@@ -495,8 +548,10 @@
                             const cardToPlay = mathMatch || validMoves[Math.floor(Math.random() * validMoves.length)];
                             playCardFlow(cardToPlay, turnIndex);
                         } else {
-                            announce(`Bot ${turnIndex} drew a card.`);
-                            executeDraw(turnIndex, 1, () => {
+                            const drawAmount = drawStack > 0 ? drawStack : 1;
+                            announce(`Bot ${turnIndex} drew ${drawAmount} card${drawAmount > 1 ? 's' : ''}.`);
+                            if (drawStack > 0) setDrawStack(0);
+                            executeDraw(turnIndex, drawAmount, () => {
                                 setTurnIndex(getNextPlayer(turnIndex, direction));
                             });
                         }
@@ -504,7 +559,7 @@
                     }, 1500 + Math.random() * 1000); // 1.5 - 2.5s delay
                     return () => clearTimeout(timer);
                 }
-            }, [turnIndex, gameState, winner]);
+            }, [turnIndex, gameState, winner, drawStack]);
 
             // Hint Timer
             useEffect(() => {
@@ -549,6 +604,16 @@
                                         className={`w-12 h-6 rounded-full transition-colors relative ${hintsEnabled ? 'bg-indigo-500' : 'bg-slate-700'}`}
                                     >
                                         <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform shadow-sm ${hintsEnabled ? 'translate-x-7' : 'translate-x-1'}`}></div>
+                                    </button>
+                                </div>
+
+                                <div className="flex items-center justify-between bg-slate-800/50 p-4 rounded-xl border border-slate-700 mt-4">
+                                    <span className="text-sm font-semibold text-slate-300">Enable +2 Stacking</span>
+                                    <button 
+                                        onClick={() => setEnableStacking(!enableStacking)}
+                                        className={`w-12 h-6 rounded-full transition-colors relative ${enableStacking ? 'bg-indigo-500' : 'bg-slate-700'}`}
+                                    >
+                                        <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform shadow-sm ${enableStacking ? 'translate-x-7' : 'translate-x-1'}`}></div>
                                     </button>
                                 </div>
 
@@ -632,7 +697,12 @@
 
                         <div className="flex items-center gap-8 md:gap-16 relative z-10">
                             {/* Draw Pile */}
-                            <div className="flex flex-col items-center gap-4">
+                            <div className="flex flex-col items-center gap-4 relative">
+                                {drawStack > 0 && (
+                                    <div className="absolute -top-6 bg-red-500 text-white font-black px-4 py-1 rounded-full animate-bounce shadow-[0_0_15px_rgba(239,68,68,0.8)] z-20 whitespace-nowrap text-sm">
+                                        +{drawStack} STACK!
+                                    </div>
+                                )}
                                 <div onClick={handleDraw} className={`cursor-pointer transform transition-transform hover:scale-105 active:scale-95 ${turnIndex === 0 ? 'ring-4 ring-emerald-400 ring-opacity-50 rounded-xl' : ''}`}>
                                     <Card isFaceDown={true} />
                                 </div>
@@ -693,7 +763,7 @@
                         <div className="glass-panel p-4 md:p-6 rounded-3xl overflow-x-auto hide-scrollbar">
                             <div className="flex items-center gap-2 md:-space-x-4 px-2 min-w-max pb-4">
                                 {hands[0]?.map((card, idx) => {
-                                    const playable = turnIndex === 0 && isValidMove(card, topCard);
+                                    const playable = turnIndex === 0 && isValidMove(card, topCard, drawStack);
                                     return (
                                         <div key={card.id} style={{ zIndex: idx }} className="hover:!z-50 transition-all">
                                             <Card 
