@@ -9,23 +9,19 @@
             --primary: #4f46e5;
             --primary-hover: #4338ca;
             --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --background: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.9);
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
 
         body {
             background-color: var(--background);
-            /* Modern Light Mesh Gradient */
             background-image: 
                 radial-gradient(at 15% 20%, rgba(99, 102, 241, 0.15) 0px, transparent 40%),
                 radial-gradient(at 85% 15%, rgba(232, 121, 249, 0.15) 0px, transparent 40%),
@@ -37,225 +33,107 @@
             align-items: center;
             color: var(--text-main);
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .game-container {
             width: 100%;
-            max-width: 650px;
+            max-width: 700px;
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 32px;
+            position: relative;
             transition: all 0.3s ease;
+            z-index: 1;
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
+        /* Header & Navigation */
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; position: relative; }
+        
+        h1 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(to right, #4f46e5, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .controls-top { display: flex; gap: 10px; align-items: center; }
+
+        .level-selector {
+            background: white; border: 1px solid var(--border); padding: 8px 16px; border-radius: 12px;
+            font-weight: 600; cursor: pointer; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative; user-select: none;
+        }
+        
+        .level-dropdown {
+            position: absolute; top: 110%; right: 0; background: white; width: 260px;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid var(--border);
+            display: none; flex-direction: column; z-index: 100; overflow: hidden;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #4f46e5, #9333ea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .level-option { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid var(--border); }
+        .level-option:hover { background: #f8fafc; }
+        .level-option.locked { color: var(--text-muted); cursor: not-allowed; background: #f1f5f9; }
+        .level-option.locked:hover { background: #f1f5f9; }
+        
+        .advance-btn {
+            background: linear-gradient(135deg, var(--success), #059669); color: white; border: none; padding: 8px 16px;
+            border-radius: 12px; font-weight: 600; cursor: pointer; display: none; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
         }
 
-        .level-badge {
-            background: linear-gradient(135deg, #e0e7ff, #f5f3ff);
-            color: var(--primary);
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            border: 1px solid rgba(79, 70, 229, 0.1);
-        }
-
-        .level-title {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
+        .level-title { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 16px; font-weight: 500; }
 
         /* Progress Bar */
-        .progress-container {
-            background-color: var(--border);
-            border-radius: 9999px;
-            height: 10px;
-            width: 100%;
-            margin-bottom: 32px;
-            overflow: hidden;
+        .progress-container { background-color: var(--border); border-radius: 9999px; height: 10px; width: 100%; margin-bottom: 24px; overflow: hidden; }
+        .progress-bar { background: linear-gradient(to right, var(--primary), #8b5cf6); height: 100%; width: 0%; border-radius: 9999px; transition: width 0.4s ease; }
+
+        /* Helpers: Hint & Learn */
+        .helpers { display: flex; justify-content: flex-end; gap: 12px; margin-bottom: 16px; }
+        .icon-btn { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .icon-btn:hover { background: #f1f5f9; color: var(--text-main); }
+        .hint-btn:hover { border-color: var(--warning); color: var(--warning); }
+
+        /* Standard Question Box */
+        .question-box { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 32px 20px; text-align: center; font-size: 2.2rem; font-weight: 700; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
+
+        /* Options Grid (Quiz) */
+        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+        .option-btn { background: white; border: 2px solid var(--border); border-radius: 14px; padding: 18px; font-size: 1.25rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; color: var(--text-main); }
+        .option-btn:hover { border-color: var(--primary); background-color: #fcfcff; transform: translateY(-2px); }
+        .option-btn.correct { background-color: #d1fae5 !important; border-color: var(--success) !important; color: #065f46 !important; }
+        .option-btn.wrong { background-color: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b !important; }
+
+        /* Match Grid (Level 2) */
+        .match-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+        .match-card { background: white; border: 2px solid var(--border); border-radius: 12px; height: 80px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .match-card:hover { border-color: var(--primary); }
+        .match-card.selected { border-color: var(--primary); background: #e0e7ff; }
+        .match-card.matched { visibility: hidden; opacity: 0; }
+
+        /* Gaps Inputs (Level 1) */
+        .gaps-container { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.5rem; font-weight: 600; flex-wrap: wrap; margin-bottom: 24px;}
+        .gap-input { width: 50px; height: 50px; text-align: center; font-size: 1.2rem; font-weight: bold; border: 2px solid var(--border); border-radius: 10px; }
+        .gap-input:focus { border-color: var(--primary); outline: none; }
+        .submit-btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; width: 100%; }
+
+        /* Feedback & Bottom Stats */
+        .feedback { text-align: center; font-size: 1.1rem; font-weight: 600; height: 24px; margin-bottom: 16px; }
+        .score-board { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 16px; }
+
+        /* Learn Panel Side Drawer */
+        .learn-panel {
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100vh;
+            background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 50; padding: 32px; overflow-y: auto;
         }
+        .learn-panel.open { right: 0; }
+        .close-learn { background: none; border: none; font-size: 1.5rem; cursor: pointer; position: absolute; top: 24px; right: 24px; color: var(--text-muted); }
+        .learn-content h2 { margin-bottom: 16px; color: var(--primary); }
+        .learn-content p { margin-bottom: 12px; line-height: 1.6; color: var(--text-main); }
+        .learn-example { background: #f8fafc; padding: 16px; border-radius: 12px; border-left: 4px solid var(--primary); font-family: monospace; font-size: 1.1rem; margin-bottom: 16px; }
 
-        .progress-bar {
-            background: linear-gradient(to right, var(--primary), var(--success));
-            height: 100%;
-            width: 0%;
-            border-radius: 9999px;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Question Box */
-        .question-box {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 28px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-            letter-spacing: 0.5px;
-        }
-
-        /* Options Grid */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .option-btn {
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            padding: 18px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-            color: var(--text-main);
-        }
-
-        .option-btn:hover {
-            border-color: var(--primary);
-            background-color: #fcfcff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.08);
-        }
-
-        .option-btn.correct {
-            background-color: #d1fae5 !important;
-            border-color: var(--success) !important;
-            color: #065f46 !important;
-        }
-
-        .option-btn.wrong {
-            background-color: #fee2e2 !important;
-            border-color: #f87171 !important;
-            color: #991b1b !important;
-        }
-
-        /* Controls & Stats */
-        .feedback {
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            height: 24px;
-            margin-bottom: 16px;
-        }
-
-        .score-board {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-
-        .reset-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 0.85rem;
-        }
-
-        .reset-btn:hover {
-            color: #ef4444;
-        }
-
-        /* Modal Overlay */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 32px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-
-        .modal h2 {
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
-
-        .modal p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover { background: var(--primary-hover); }
-
-        .btn-secondary {
-            background: var(--border);
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover { background: #cbd5e1; }
-
-        @media (max-width: 500px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            .game-container {
-                padding: 20px;
-            }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .match-grid { grid-template-columns: repeat(2, 1fr); }
+            .learn-panel { width: 100%; right: -100%; }
         }
     </style>
 </head>
@@ -264,307 +142,407 @@
     <div class="game-container">
         <header>
             <h1>Surd Conquest</h1>
-            <div class="level-badge" id="levelBadge">Level 1</div>
+            <div class="controls-top">
+                <button class="advance-btn" id="advanceBtn" onclick="forceAdvance()">Next Level &rarr;</button>
+                <div class="level-selector" onclick="toggleMenu()">
+                    <span id="currentLevelText">Level 1</span> &#9662;
+                    <div class="level-dropdown" id="levelMenu">
+                        </div>
+                </div>
+            </div>
         </header>
 
-        <div class="level-title" id="levelTitle">Simplifying Surds</div>
+        <div class="level-title" id="levelTitle">Loading...</div>
+        
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+        <div class="helpers">
+            <button class="icon-btn hint-btn" onclick="showHint()">💡 Hint</button>
+            <button class="icon-btn" onclick="toggleLearnPanel()">📖 Learn</button>
         </div>
 
-        <div class="question-box" id="questionBox">
-            &radic;12
-        </div>
-
-        <div class="options-grid" id="optionsGrid">
-            </div>
-
+        <div id="gameArea"></div>
+        
         <div class="feedback" id="feedbackBox"></div>
 
         <div class="score-board">
             <div>Streak: <span id="streakVal" style="font-weight:600; color:var(--text-main);">0</span></div>
             <div>Total Answered: <span id="totalVal">0</span></div>
-            <button class="reset-btn" onclick="resetGameHistory()">Reset Progress</button>
+            <button class="icon-btn" style="border:none; padding:0; background:none; text-decoration:underline;" onclick="resetGameHistory()">Reset Progress</button>
         </div>
     </div>
 
-    <div class="modal" id="levelModal">
-        <div class="modal-content">
-            <h2>Level Complete! 🎉</h2>
-            <p id="modalText">Excellent work! You have mastered this stage.</p>
-            <div class="modal-buttons">
-                <button class="btn btn-secondary" onclick="closeModal()">Stay Here</button>
-                <button class="btn btn-primary" id="modalNextBtn" onclick="advanceLevel()">Next Level</button>
-            </div>
-        </div>
+    <div class="learn-panel" id="learnPanel">
+        <button class="close-learn" onclick="toggleLearnPanel()">&times;</button>
+        <div class="learn-content" id="learnContent"></div>
     </div>
 
     <script>
-        // Game State
-        let currentState = {
-            level: 1,
-            progress: 0, // Steps out of 5 required to pass
-            streak: 0,
-            totalAnswered: 0
-        };
-
+        // Data & State
         const QUESTIONS_TO_PASS = 5;
+        let state = {
+            level: 1, maxUnlocked: 1, progress: 0, streak: 0, totalAnswered: 0
+        };
+        let currentQuestion = null;
+        let currentHint = "";
+        let lockGame = false;
+        let consecutiveFails = 0; // DDA Tracker
+        
+        // Match Game Specifics
+        let matchCards = [];
+        let firstCard = null;
 
-        // Level Profiles
-        const levelConfig = {
-            1: { title: "Simplifying Surds" },
-            2: { title: "Adding & Subtracting Surds" },
-            3: { title: "Multiplying Surds" },
-            4: { title: "Expanding Brackets" }
+        const levels = {
+            1: { type: 'gaps', title: "Fill in the Gaps (Breakdown)", learn: "<h2>Breaking Down Surds</h2><p>To simplify a surd, find the <b>highest perfect square</b> (4, 9, 16, 25, 36...) that divides the number inside the root.</p><div class='learn-example'>&radic;50 = &radic;25 &times; &radic;2<br>= 5&radic;2</div>" },
+            2: { type: 'match', title: "Matching Pairs", learn: "<h2>Visual Recognition</h2><p>Match the unsimplified surd with its simplified form. Simplify the larger number in your head.</p><div class='learn-example'>Match &radic;12 with 2&radic;3</div>" },
+            3: { type: 'quiz', title: "Direct Simplification", learn: "<h2>Simplifying</h2><p>Apply the breakdown method directly to find the final answer.</p><div class='learn-example'>&radic;20<br>= &radic;4 &times; &radic;5<br>= 2&radic;5</div>" },
+            4: { type: 'quiz', title: "Adding & Subtracting Common Surds", learn: "<h2>Like Terms</h2><p>Treat surds like algebra (like 'x'). You can only add or subtract them if the number inside the root is the SAME.</p><div class='learn-example'>5&radic;3 + 2&radic;3 = 7&radic;3</div>" },
+            5: { type: 'quiz', title: "Simplify Before Adding", learn: "<h2>Hidden Matches</h2><p>If the surds don't match, simplify them first! They often reveal matching roots.</p><div class='learn-example'>&radic;12 + &radic;27<br>= 2&radic;3 + 3&radic;3<br>= 5&radic;3</div>" },
+            6: { type: 'quiz', title: "Multiplying Surds", learn: "<h2>Multiplying</h2><p>Multiply the outside numbers together, and the inside numbers together. Then simplify if needed.</p><div class='learn-example'>2&radic;3 &times; 4&radic;5<br>= (2&times;4)&radic;(3&times;5)<br>= 8&radic;15</div>" },
+            7: { type: 'quiz', title: "Expanding Single Brackets", learn: "<h2>Expanding Brackets</h2><p>Multiply the term outside the bracket by EVERYTHING inside.</p><div class='learn-example'>&radic;2(3 + &radic;2)<br>= 3&radic;2 + &radic;4<br>= 3&radic;2 + 2</div>" },
+            8: { type: 'boss', title: "Boss Mode: Double Brackets & Mastery", learn: "<h2>Double Brackets (FOIL)</h2><p>First, Outer, Inner, Last. Combine like terms at the end.</p><div class='learn-example'>(2 + &radic;3)(2 - &radic;3)<br>= 4 - 2&radic;3 + 2&radic;3 - 3<br>= 1</div>" }
         };
 
-        // Helper Math Functions
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        const squares = [4, 9, 16, 25, 36];
+        const primes = [2, 3, 5, 7];
+        const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // Core Game Logic Loop
+        function init() {
+            loadProgress();
+            renderHeader();
+            renderLevel();
         }
 
-        // Get a random element from an array
-        function choice(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        // Generate dynamic questions per level
-        function generateQuestion() {
-            let questionText = "";
-            let correctAnswer = "";
-            let distractors = [];
-
-            switch(currentState.level) {
-                case 1: // Simplifying Surds (e.g. √12 -> 2√3)
-                    const squareFactors = [2, 3, 4, 5];
-                    const basePrimes = [2, 3, 5, 7];
-                    let k = choice(squareFactors);
-                    let m = choice(basePrimes);
-                    let outside = k;
-                    let inside = m;
-                    let originalNum = (k * k) * m;
-
-                    questionText = `&radic;${originalNum}`;
-                    correctAnswer = `${outside}&radic;${inside}`;
-                    
-                    distractors = [
-                        `${inside}&radic;${outside}`,
-                        `${outside * inside}`,
-                        `${outside * outside}&radic;${inside}`
-                    ];
-                    break;
-
-                case 2: // Adding & Subtracting Surds (e.g. 5√3 - 2√3)
-                    let rad2 = choice([2, 3, 5, 7]);
-                    let coef1 = getRandomInt(4, 10);
-                    let coef2 = getRandomInt(1, 3);
-                    let isAddition = Math.random() > 0.5;
-                    
-                    if (isAddition) {
-                        questionText = `${coef1}&radic;${rad2} + ${coef2}&radic;${rad2}`;
-                        correctAnswer = `${coef1 + coef2}&radic;${rad2}`;
-                        distractors = [
-                            `${coef1 + coef2}&radic;${rad2 * 2}`,
-                            `${coef1 * coef2}&radic;${rad2}`,
-                            `${coef1 + coef2}`
-                        ];
-                    } else {
-                        questionText = `${coef1}&radic;${rad2} - ${coef2}&radic;${rad2}`;
-                        correctAnswer = `${coef1 - coef2}&radic;${rad2}`;
-                        distractors = [
-                            `${coef1 - coef2}`,
-                            `${coef1 - coef2}&radic;0`,
-                            `${coef1 + coef2}&radic;${rad2}`
-                        ];
-                    }
-                    break;
-
-                case 3: // Multiplying Surds
-                    // Pool of clean simplifying pairs to avoid unpredictable math properties
-                    let multPairs = [
-                        {a: 2, b: 6, ans: "2&radic;3"},
-                        {a: 3, b: 6, ans: "3&radic;2"},
-                        {a: 5, b: 10, ans: "5&radic;2"},
-                        {a: 2, b: 8, ans: "4"},
-                        {a: 3, b: 12, ans: "6"},
-                        {a: 2, b: 10, ans: "2&radic;5"},
-                        {a: 3, b: 15, ans: "3&radic;5"}
-                    ];
-                    let pair = choice(multPairs);
-                    questionText = `&radic;${pair.a} &times; &radic;${pair.b}`;
-                    correctAnswer = pair.ans;
-                    distractors = [
-                        `&radic;${pair.a + pair.b}`,
-                        `${pair.a * pair.b}`,
-                        `&radic;${Math.abs(pair.a - pair.b)}`
-                    ];
-                    break;
-
-                case 4: // Expanding Brackets (e.g. √3(5 + √3) = 5√3 + 3)
-                    let rad4 = choice([2, 3, 5]);
-                    let integerPart = getRandomInt(2, 6);
-                    
-                    questionText = `&radic;${rad4}(${integerPart} + &radic;${rad4})`;
-                    correctAnswer = `${integerPart}&radic;${rad4} + ${rad4}`;
-                    distractors = [
-                        `${integerPart} + ${rad4}`,
-                        `${integerPart}&radic;${rad4} + &radic;${rad4}`,
-                        `&radic;${integerPart * rad4} + ${rad4}`
-                    ];
-                    break;
+        function renderHeader() {
+            document.getElementById("currentLevelText").innerText = `Level ${state.level}`;
+            document.getElementById("levelTitle").innerText = levels[state.level].title;
+            document.getElementById("streakVal").innerText = state.streak;
+            document.getElementById("totalVal").innerText = state.totalAnswered;
+            
+            const advanceBtn = document.getElementById("advanceBtn");
+            if (state.progress >= QUESTIONS_TO_PASS || state.maxUnlocked > state.level) {
+                advanceBtn.style.display = "block";
+            } else {
+                advanceBtn.style.display = "none";
             }
 
-            // Shuffle choices safely
-            let allChoices = [correctAnswer, ...distractors];
-            allChoices = allChoices.filter((v, i, a) => a.indexOf(v) === i); // Remove duplicates if any
-            while (allChoices.length < 4) { 
-                allChoices.push(getRandomInt(2, 20).toString()); // Fallback filler safely
+            // Populate Menu
+            const menu = document.getElementById("levelMenu");
+            menu.innerHTML = "";
+            for (let i = 1; i <= 8; i++) {
+                const opt = document.createElement("div");
+                const isLocked = i > state.maxUnlocked;
+                opt.className = `level-option ${isLocked ? 'locked' : ''}`;
+                opt.innerHTML = `<span>Level ${i}</span> <span>${isLocked ? '🔒' : (i < state.maxUnlocked ? '✅' : '▶️')}</span>`;
+                if (!isLocked) {
+                    opt.onclick = () => { state.level = i; state.progress = 0; saveProgress(); init(); };
+                }
+                menu.appendChild(opt);
             }
-            allChoices.sort(() => Math.random() - 0.5);
-
-            return {
-                questionText,
-                correctAnswer,
-                choices: allChoices
-            };
+            
+            // Update Learn Panel Content
+            document.getElementById("learnContent").innerHTML = levels[state.level].learn;
+            updateProgressBar();
         }
 
-        let currentQuestionObj = null;
-        let lockAnswers = false;
+        function updateProgressBar() {
+            let p = Math.min((state.progress / QUESTIONS_TO_PASS) * 100, 100);
+            document.getElementById("progressBar").style.width = p + "%";
+        }
 
-        function renderQuestion() {
-            lockAnswers = false;
+        function renderLevel() {
+            lockGame = false;
             document.getElementById("feedbackBox").innerText = "";
-            currentQuestionObj = generateQuestion();
+            const area = document.getElementById("gameArea");
+            area.innerHTML = "";
             
-            document.getElementById("questionBox").innerHTML = currentQuestionObj.questionText;
-            
-            const grid = document.getElementById("optionsGrid");
-            grid.innerHTML = "";
-            
-            currentQuestionObj.choices.forEach(choiceText => {
-                const btn = document.createElement("button");
-                btn.className = "option-btn";
-                btn.innerHTML = choiceText;
-                btn.onclick = () => handleAnswerSelection(btn, choiceText);
-                grid.appendChild(btn);
-            });
+            let type = levels[state.level].type;
+            if (type === 'boss') type = rand(['quiz', 'boss_quiz']); // Boss mode mixes up
 
-            // Handle progress UI updates
-            document.getElementById("levelBadge").innerText = `Level ${currentState.level}`;
-            document.getElementById("levelTitle").innerText = levelConfig[currentState.level].title;
-            
-            let percent = (currentState.progress / QUESTIONS_TO_PASS) * 100;
-            document.getElementById("progressBar").style.width = `${percent}%`;
-            
-            document.getElementById("streakVal").innerText = currentState.streak;
-            document.getElementById("totalVal").innerText = currentState.totalAnswered;
+            if (type === 'gaps') renderGaps(area);
+            else if (type === 'match') renderMatch(area);
+            else renderQuiz(area, type);
         }
 
-        function handleAnswerSelection(selectedBtn, chosenValue) {
-            if (lockAnswers) return;
-            lockAnswers = true;
-
-            currentState.totalAnswered++;
-            const isCorrect = (chosenValue === currentQuestionObj.correctAnswer);
+        // --- LEVEL 1: GAPS ---
+        function renderGaps(area) {
+            let k = Math.sqrt(rand(squares));
+            let m = rand(primes);
+            let N = (k*k) * m;
             
-            // Highlight options feedback layout
-            const buttons = document.querySelectorAll(".option-btn");
-            buttons.forEach(btn => {
-                if (btn.innerHTML === currentQuestionObj.correctAnswer) {
-                    btn.classList.add("correct");
+            currentQuestion = { k2: k*k, m: m, k: k };
+            currentHint = `Look for the biggest square number (4, 9, 16...) that divides into ${N}.`;
+
+            area.innerHTML = `
+                <div class="question-box">&radic;${N}</div>
+                <div class="gaps-container">
+                    &radic;<input type="number" id="g1" class="gap-input"> &times; 
+                    &radic;<input type="number" id="g2" class="gap-input"> = 
+                    <input type="number" id="g3" class="gap-input">&radic;<input type="number" id="g4" class="gap-input">
+                </div>
+                <button class="submit-btn" onclick="checkGaps()">Submit</button>
+            `;
+        }
+
+        function checkGaps() {
+            if (lockGame) return;
+            let g1 = parseInt(document.getElementById("g1").value);
+            let g2 = parseInt(document.getElementById("g2").value);
+            let g3 = parseInt(document.getElementById("g3").value);
+            let g4 = parseInt(document.getElementById("g4").value);
+            
+            let q = currentQuestion;
+            // Allow reverse order for the multiplication part
+            let part1Correct = (g1 === q.k2 && g2 === q.m) || (g1 === q.m && g2 === q.k2);
+            let part2Correct = (g3 === q.k && g4 === q.m);
+
+            handleResult(part1Correct && part2Correct);
+        }
+
+        // --- LEVEL 2: MATCH ---
+        function renderMatch(area) {
+            matchCards = [];
+            let pairs = [];
+            while(pairs.length < 4) {
+                let k = Math.sqrt(rand(squares));
+                let m = rand(primes);
+                let N = (k*k) * m;
+                let pairId = `p${N}`;
+                if (!pairs.find(p => p.id === pairId)) {
+                    pairs.push({ id: pairId, a: `&radic;${N}`, b: `${k}&radic;${m}` });
                 }
+            }
+
+            pairs.forEach(p => {
+                matchCards.push({ id: p.id, text: p.a });
+                matchCards.push({ id: p.id, text: p.b });
             });
+            matchCards.sort(() => Math.random() - 0.5);
 
-            const feedback = document.getElementById("feedbackBox");
+            currentHint = "Pick an unsimplified root (like &radic;12) and find its matching pair (like 2&radic;3).";
+            
+            let html = `<div class="match-grid">`;
+            matchCards.forEach((c, i) => {
+                html += `<div class="match-card" id="card${i}" onclick="flipCard(${i}, '${c.id}')">${c.text}</div>`;
+            });
+            html += `</div>`;
+            area.innerHTML = html;
+        }
 
-            if (isCorrect) {
-                selectedBtn.classList.add("correct");
-                feedback.innerText = "Correct! Well done.";
-                feedback.style.color = "var(--success)";
-                currentState.progress++;
-                currentState.streak++;
-                
-                if (currentState.progress >= QUESTIONS_TO_PASS) {
-                    setTimeout(showLevelCompleteModal, 600);
+        let matchedPairsCount = 0;
+        function flipCard(idx, pairId) {
+            if (lockGame) return;
+            let el = document.getElementById(`card${idx}`);
+            if (el.classList.contains("matched") || el.classList.contains("selected")) return;
+
+            el.classList.add("selected");
+
+            if (!firstCard) {
+                firstCard = { idx, pairId, el };
+            } else {
+                lockGame = true;
+                if (firstCard.pairId === pairId) {
+                    // Match
+                    setTimeout(() => {
+                        el.classList.replace("selected", "matched");
+                        firstCard.el.classList.replace("selected", "matched");
+                        firstCard = null;
+                        matchedPairsCount++;
+                        lockGame = false;
+                        if (matchedPairsCount >= 4) {
+                            matchedPairsCount = 0;
+                            handleResult(true);
+                        }
+                    }, 500);
                 } else {
-                    setTimeout(renderQuestion, 1200);
+                    // Fail
+                    setTimeout(() => {
+                        el.classList.remove("selected");
+                        firstCard.el.classList.remove("selected");
+                        firstCard = null;
+                        lockGame = false;
+                        // Minor penalty on fails but don't reset whole board
+                        state.streak = 0;
+                        updateStats();
+                        showFeedback(false, "Not quite! Try another pair.");
+                    }, 800);
                 }
-            } else {
-                selectedBtn.classList.add("wrong");
-                feedback.innerText = "Incorrect, try the next one!";
-                feedback.style.color = "#ef4444";
-                currentState.streak = 0;
-                if (currentState.progress > 0) currentState.progress--; // Gentle penalty
-                setTimeout(renderQuestion, 1600);
             }
-
-            saveProgress();
         }
 
-        // Modal Management
-        function showLevelCompleteModal() {
-            const modal = document.getElementById("levelModal");
-            const nextBtn = document.getElementById("modalNextBtn");
+        // --- QUIZ (Levels 3-8) ---
+        function renderQuiz(area, type) {
+            let qText = "", ans = "", dist = [];
             
-            if (currentState.level >= 4) {
-                document.getElementById("modalText").innerText = "Incredible! You have conquered all surd training levels safely.";
-                nextBtn.style.display = "none";
-            } else {
-                document.getElementById("modalText").innerText = `You completed Level ${currentState.level}! Ready to advance?`;
-                nextBtn.style.display = "inline-block";
+            if (state.level === 3) {
+                let k = Math.sqrt(rand(squares)); let m = rand(primes);
+                qText = `&radic;${(k*k)*m}`; ans = `${k}&radic;${m}`;
+                dist = [`${m}&radic;${k}`, `${k*m}`, `${k*k}&radic;${m}`];
+                currentHint = `What is the biggest square number inside ${(k*k)*m}?`;
+            } 
+            else if (state.level === 4) {
+                let m = rand(primes); let c1 = randInt(4, 9); let c2 = randInt(1, 3);
+                qText = `${c1}&radic;${m} ${Math.random()>0.5?'+':'-'} ${c2}&radic;${m}`;
+                let isAdd = qText.includes('+');
+                ans = `${isAdd ? c1+c2 : c1-c2}&radic;${m}`;
+                dist = [`${isAdd ? c1+c2 : c1-c2}`, `${c1+c2}&radic;${m*2}`, `${c1*c2}&radic;${m}`];
+                currentHint = `Just treat &radic;${m} like an 'x'. Combine the outside numbers.`;
             }
-            modal.style.display = "flex";
-        }
-
-        function closeModal() {
-            document.getElementById("levelModal").style.display = "none";
-            currentState.progress = 0; // Reset level progression metric loop safely
-            saveProgress();
-            renderQuestion();
-        }
-
-        function advanceLevel() {
-            if (currentState.level < 4) {
-                currentState.level++;
-                currentState.progress = 0;
-                document.getElementById("levelModal").style.display = "none";
-                saveProgress();
-                renderQuestion();
+            else if (state.level === 5) { // Simplify before add
+                let m = rand([2,3]); let k1 = Math.sqrt(rand([4,9,16])); let k2 = Math.sqrt(rand([4,9,25]));
+                qText = `&radic;${(k1*k1)*m} + &radic;${(k2*k2)*m}`;
+                ans = `${k1+k2}&radic;${m}`;
+                dist = [`&radic;${(k1*k1*m) + (k2*k2*m)}`, `${k1+k2}`, `${k1*k2}&radic;${m}`];
+                currentHint = `Simplify both roots first! They will both have &radic;${m} in them.`;
             }
+            else if (state.level === 6) {
+                let p = rand([{a:2,b:6,ans:"2&radic;3"}, {a:3,b:6,ans:"3&radic;2"}, {a:2,b:10,ans:"2&radic;5"}]);
+                qText = `&radic;${p.a} &times; &radic;${p.b}`; ans = p.ans;
+                dist = [`&radic;${p.a+p.b}`, `${p.a*p.b}`, `${p.a}&radic;${p.b}`];
+                currentHint = `Multiply the inside numbers to get &radic;${p.a*p.b}, then simplify!`;
+            }
+            else if (state.level === 7) {
+                let m = rand([2,3,5]); let c = randInt(2, 5);
+                qText = `&radic;${m}(${c} + &radic;${m})`;
+                ans = `${c}&radic;${m} + ${m}`;
+                dist = [`${c} + ${m}`, `&radic;${m*c} + ${m}`, `${c}&radic;${m} + &radic;${m}`];
+                currentHint = `Multiply &radic;${m} by ${c}, and then multiply &radic;${m} by &radic;${m}.`;
+            }
+            else if (type === 'boss_quiz') {
+                // Double Brackets (Difference of Squares)
+                let c = randInt(3, 6); let m = rand([2,3,5]);
+                qText = `(${c} + &radic;${m})(${c} - &radic;${m})`;
+                ans = `${c*c - m}`;
+                dist = [`${c*c + m}`, `${c*c} - &radic;${m}`, `${c*c - m}&radic;${m}`];
+                currentHint = "Use FOIL! The middle terms will cancel each other out.";
+            }
+
+            let choices = [ans, ...dist].sort(() => Math.random() - 0.5);
+            currentQuestion = { ans };
+
+            let html = `<div class="question-box">${qText}</div><div class="options-grid">`;
+            choices.forEach((c, i) => {
+                html += `<button class="option-btn" id="btn${i}" onclick="checkQuiz('${c}', 'btn${i}')">${c}</button>`;
+            });
+            html += `</div>`;
+            area.innerHTML = html;
         }
 
-        // Storage Operations
-        function saveProgress() {
-            localStorage.setItem("surd_game_state", JSON.stringify(currentState));
+        function checkQuiz(selected, btnId) {
+            if (lockGame) return;
+            lockGame = true;
+            let correct = selected === currentQuestion.ans;
+            
+            // Highlight correct visually
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                if (btn.innerHTML === currentQuestion.ans) btn.classList.add('correct');
+            });
+
+            if (!correct) document.getElementById(btnId).classList.add('wrong');
+            handleResult(correct);
         }
 
-        function loadProgress() {
-            const saved = localStorage.getItem("surd_game_state");
-            if (saved) {
-                try {
-                    currentState = JSON.parse(saved);
-                    // Security fallback handling
-                    if(!currentState.level || currentState.level > 4) currentState.level = 1;
-                    if(currentState.progress === undefined) currentState.progress = 0;
-                } catch(e) {
-                    console.error("Error reading saved data", e);
+        // --- GLOBAL HANDLERS ---
+        function handleResult(isCorrect) {
+            state.totalAnswered++;
+            if (isCorrect) {
+                state.progress++;
+                state.streak++;
+                consecutiveFails = 0;
+                showFeedback(true, "Correct! Well done.");
+                
+                if (state.progress === QUESTIONS_TO_PASS && state.level === state.maxUnlocked) {
+                    state.maxUnlocked = Math.min(8, state.maxUnlocked + 1);
+                    document.getElementById("advanceBtn").style.display = "block";
                 }
+                saveProgress();
+                setTimeout(() => { init(); }, 1200);
+            } else {
+                state.streak = 0;
+                if (state.progress > 0) state.progress--;
+                consecutiveFails++;
+                showFeedback(false, "Incorrect, try again.");
+                
+                // DDA Check
+                if (consecutiveFails >= 3) {
+                    setTimeout(() => {
+                        toggleLearnPanel(true);
+                        consecutiveFails = 0;
+                    }, 500);
+                }
+                saveProgress();
+                setTimeout(() => { init(); }, 1500);
             }
         }
 
+        function showFeedback(isCorrect, msg) {
+            const fb = document.getElementById("feedbackBox");
+            fb.innerText = msg;
+            fb.style.color = isCorrect ? "var(--success)" : "var(--danger)";
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("streakVal").innerText = state.streak;
+            document.getElementById("totalVal").innerText = state.totalAnswered;
+            updateProgressBar();
+        }
+
+        function forceAdvance() {
+            if (state.level < 8) {
+                state.level++;
+                state.progress = 0;
+                saveProgress();
+                init();
+            } else {
+                alert("You've mastered Boss Mode! Great job!");
+            }
+        }
+
+        function showHint() {
+            const fb = document.getElementById("feedbackBox");
+            fb.innerText = "Hint: " + currentHint;
+            fb.style.color = "var(--warning)";
+        }
+
+        // UI Toggles
+        function toggleMenu() {
+            let m = document.getElementById("levelMenu");
+            m.style.display = m.style.display === "flex" ? "none" : "flex";
+        }
+
+        function toggleLearnPanel(forceOpen = false) {
+            let panel = document.getElementById("learnPanel");
+            if (forceOpen) panel.classList.add("open");
+            else panel.classList.toggle("open");
+        }
+
+        // Storage
+        function saveProgress() { localStorage.setItem("surd_game_v2", JSON.stringify(state)); }
+        function loadProgress() {
+            let saved = localStorage.getItem("surd_game_v2");
+            if (saved) {
+                try { state = JSON.parse(saved); } catch(e) {}
+            }
+        }
         function resetGameHistory() {
-            if (confirm("Are you sure you want to completely clear your highscore and structural history?")) {
-                localStorage.removeItem("surd_game_state");
-                currentState = { level: 1, progress: 0, streak: 0, totalAnswered: 0 };
-                renderQuestion();
+            if(confirm("Erase all progress and start from Level 1?")) {
+                localStorage.removeItem("surd_game_v2");
+                state = { level: 1, maxUnlocked: 1, progress: 0, streak: 0, totalAnswered: 0 };
+                init();
             }
         }
 
-        // Init Game Entry Loop
-        loadProgress();
-        renderQuestion();
+        // Click outside menu to close
+        document.addEventListener('click', function(event) {
+            const isClickInside = document.querySelector('.level-selector').contains(event.target);
+            if (!isClickInside) document.getElementById('levelMenu').style.display = 'none';
+        });
+
+        // Start
+        init();
     </script>
 </body>
 </html>
