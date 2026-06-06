@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJWMS Maths | Indices Overview</title>
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-hover: #0284c7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --background: #f0f9ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--background);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(14, 165, 233, 0.15) 0px, transparent 40%),
+                radial-gradient(at 90% 15%, rgba(139, 92, 246, 0.15) 0px, transparent 40%),
+                radial-gradient(at 50% 85%, rgba(16, 185, 129, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-main);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; position: relative; }
+        h1 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(to right, #0ea5e9, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .controls-top { display: flex; gap: 10px; align-items: center; }
+
+        .topic-selector {
+            background: white; border: 1px solid var(--border); padding: 8px 16px; border-radius: 12px;
+            font-weight: 600; cursor: pointer; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative; user-select: none;
+        }
+        
+        .topic-dropdown {
+            position: absolute; top: 110%; right: 0; background: white; width: 340px;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid var(--border);
+            display: none; flex-direction: column; z-index: 100; overflow: hidden;
+        }
+
+        .topic-option { 
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px; 
+            cursor: pointer; border-bottom: 1px solid var(--border);
+            color: var(--text-main); font-weight: 500; font-size: 0.95rem;
+        }
+        .topic-option:hover { background: #f8fafc; color: var(--primary); }
+        .topic-option:last-child { border-bottom: none; }
+        
+        .advance-btn {
+            background: linear-gradient(135deg, var(--success), #059669); color: white; border: none; padding: 8px 16px;
+            border-radius: 12px; font-weight: 600; cursor: pointer; display: none; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .topic-title { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 24px; font-weight: 600; border-bottom: 2px solid var(--border); padding-bottom: 12px;}
+
+        .lesson-container { animation: fadeIn 0.4s ease; }
+        .intro-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; color: var(--text-muted); }
+        
+        .key-rule { 
+            background: linear-gradient(135deg, #e0f2fe, #f3e8ff); border-left: 5px solid var(--primary); 
+            padding: 24px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+        }
+        .key-rule h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .key-rule p { font-size: 1.1rem; font-weight: 500; margin-bottom: 16px; line-height: 1.5; }
+        .formula { background: white; padding: 16px 20px; border-radius: 8px; font-size: 1.6rem; font-weight: 700; text-align: center; color: var(--text-main); border: 1px dashed var(--primary); letter-spacing: 1px;}
+        
+        .examples-section { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+        .example-box { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .example-box h4 { margin-bottom: 16px; color: var(--text-main); border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; font-size: 1.1rem; }
+        .step-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px;}
+        .step-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 1.05rem; line-height: 1.5;}
+        .step-number { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; font-size: 0.85rem; font-weight: bold; flex-shrink: 0; margin-top: 2px;}
+        
+        .start-practice-btn { background: var(--primary); color: white; border: none; padding: 16px 32px; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3); }
+        .start-practice-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4); }
+
+        .practice-container { animation: fadeIn 0.4s ease; }
+        .practice-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .back-btn { background: #f1f5f9; border: none; color: var(--text-muted); font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; transition: 0.2s; display: flex; align-items: center; gap: 6px;}
+        .back-btn:hover { background: #e2e8f0; color: var(--text-main); }
+
+        .progress-wrapper { flex-grow: 1; margin: 0 20px; }
+        .progress-container { background-color: var(--border); border-radius: 9999px; height: 10px; width: 100%; overflow: hidden; }
+        .progress-bar { background: linear-gradient(to right, var(--primary), #8b5cf6); height: 100%; width: 0%; border-radius: 9999px; transition: width 0.4s ease; }
+
+        .helpers { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+        .icon-btn { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .icon-btn:hover { background: #f1f5f9; color: var(--text-main); border-color: var(--warning); color: var(--warning); }
+
+        .question-box { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 32px 20px; text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+
+        sup { font-size: 0.6em; margin-left: 2px; }
+        .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 0.7em; margin: 0 4px; line-height: 1.2;}
+        .frac span:first-child { border-bottom: 2px solid var(--text-main); padding-bottom: 2px;}
+        .frac span:last-child { padding-top: 2px;}
+
+        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+        .option-btn { background: white; border: 2px solid var(--border); border-radius: 14px; padding: 18px; font-size: 1.4rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; color: var(--text-main); display: flex; justify-content: center; align-items: center;}
+        .option-btn:hover { border-color: var(--primary); background-color: #f0f9ff; transform: translateY(-2px); }
+        .option-btn.correct { background-color: #d1fae5 !important; border-color: var(--success) !important; color: #065f46 !important; }
+        .option-btn.wrong { background-color: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b !important; }
+
+        .match-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+        .match-card { background: white; border: 2px solid var(--border); border-radius: 12px; height: 90px; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .match-card:hover { border-color: var(--primary); }
+        .match-card.selected { border-color: var(--primary); background: #e0f2fe; }
+        .match-card.matched { visibility: hidden; opacity: 0; }
+
+        .gaps-container { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1.6rem; font-weight: 600; flex-wrap: wrap; margin-bottom: 24px;}
+        .gap-input { width: 60px; height: 50px; text-align: center; font-size: 1.2rem; font-weight: bold; border: 2px solid var(--border); border-radius: 10px; color: var(--primary); }
+        .gap-input:focus { border-color: var(--primary); outline: none; }
+        .submit-btn { background: var(--primary); color: white; border: none; padding: 14px 24px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; }
+        .submit-btn:hover { background: var(--primary-hover); }
+
+        .feedback { text-align: center; font-size: 1.1rem; font-weight: 600; height: 24px; margin-bottom: 16px; }
+        .score-board { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .match-grid { grid-template-columns: repeat(2, 1fr); }
+            .topic-dropdown { width: 280px; }
+            .question-box { font-size: 2rem; }
+            .practice-header { flex-direction: column; gap: 16px; align-items: stretch; }
+            .progress-wrapper { margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>Index Integrator</h1>
+            <div class="controls-top">
+                <button class="advance-btn" id="advanceBtn" onclick="forceAdvance()">Next Topic &rarr;</button>
+                <div class="topic-selector" onclick="toggleMenu()">
+                    <span id="currentTopicText">Topic 1</span> &#9662;
+                    <div class="topic-dropdown" id="topicMenu">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="topic-title" id="topicTitle">Loading...</div>
+        
+        <!-- Main Area: Toggles between Lesson and Practice -->
+        <div id="mainContentArea"></div>
+        
+        <div class="score-board">
+            <div>Streak: <span id="streakVal" style="font-weight:600; color:var(--text-main);">0</span></div>
+            <div>Questions Passed: <span id="totalVal">0</span></div>
+            <button class="icon-btn" style="border:none; padding:0; background:none; text-decoration:underline;" onclick="resetGameHistory()">Reset Progress</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Data & State ---
+        const QUESTIONS_TO_PASS = 5;
+        let state = { topic: 1, progress: 0, streak: 0, totalAnswered: 0, mode: 'lesson' };
+        let currentQuestion = null;
+        let currentHint = "";
+        let lockGame = false;
+        
+        // Match Game Specifics
+        let matchCards = [];
+        let firstCard = null;
+        let matchedPairsCount = 0;
+
+        // Structured Lesson Content
+        const topics = {
+            1: { 
+                type: 'quiz', title: "Topic 1: The Multiplication Law", 
+                lesson: {
+                    intro: "Indices (or powers) tell us how many times a base number is multiplied by itself. But what happens when we multiply two terms that already have powers?",
+                    ruleText: "When multiplying terms with the <b>same base</b>, you <b>ADD</b> the powers together.",
+                    formula: "a<sup>m</sup> &times; a<sup>n</sup> = a<sup>m+n</sup>",
+                    examples: [
+                        {
+                            title: "Example: Algebraic Terms",
+                            steps: [
+                                "Simplify <i>y</i><sup>3</sup> &times; <i>y</i><sup>4</sup>",
+                                "Check if bases match. They are both <i>y</i>, so we can combine them.",
+                                "Add the powers: 3 + 4 = 7",
+                                "Result: <b><i>y</i><sup>7</sup></b>"
+                            ]
+                        },
+                        {
+                            title: "Example: With Numbers",
+                            steps: [
+                                "Simplify 2<sup>5</sup> &times; 2<sup>3</sup>",
+                                "The base is 2. We keep the base exactly the same.",
+                                "Add the powers: 5 + 3 = 8",
+                                "Result: <b>2<sup>8</sup></b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            2: { 
+                type: 'quiz', title: "Topic 2: The Division Law", 
+                lesson: {
+                    intro: "Division is the mathematical opposite of multiplication. Therefore, the rule for indices when dividing is the exact opposite too.",
+                    ruleText: "When dividing terms with the <b>same base</b>, you <b>SUBTRACT</b> the powers.",
+                    formula: "a<sup>m</sup> &divide; a<sup>n</sup> = a<sup>m-n</sup>",
+                    examples: [
+                        {
+                            title: "Example: Simple Division",
+                            steps: [
+                                "Simplify <i>p</i><sup>8</sup> &divide; <i>p</i><sup>2</sup>",
+                                "The bases are the same (<i>p</i>).",
+                                "Subtract the powers: 8 - 2 = 6",
+                                "Result: <b><i>p</i><sup>6</sup></b>"
+                            ]
+                        },
+                        {
+                            title: "Example: Fraction Format",
+                            steps: [
+                                "Simplify <div class='frac'><span>x<sup>10</sup></span><span>x<sup>4</sup></span></div>",
+                                "A fraction is just division. The bases match.",
+                                "Subtract the bottom power from the top power: 10 - 4 = 6",
+                                "Result: <b><i>x</i><sup>6</sup></b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            3: { 
+                type: 'match', title: "Topic 3: Power of a Power", 
+                lesson: {
+                    intro: "Sometimes, a term that already has a power is raised to another power. This is usually indicated by brackets separating the two powers.",
+                    ruleText: "When a power is raised to another power, you <b>MULTIPLY</b> the powers.",
+                    formula: "(a<sup>m</sup>)<sup>n</sup> = a<sup>m &times; n</sup>",
+                    examples: [
+                        {
+                            title: "Example: Working with brackets",
+                            steps: [
+                                "Simplify (<i>x</i><sup>4</sup>)<sup>3</sup>",
+                                "This literally means: <i>x</i><sup>4</sup> &times; <i>x</i><sup>4</sup> &times; <i>x</i><sup>4</sup>",
+                                "Multiply the inside power by the outside power: 4 &times; 3 = 12",
+                                "Result: <b><i>x</i><sup>12</sup></b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            4: { 
+                type: 'quiz', title: "Topic 4: The Zero Index", 
+                lesson: {
+                    intro: "What happens if you divide a term by itself? (e.g., <i>x</i><sup>3</sup> &divide; <i>x</i><sup>3</sup>). Using the division rule, 3 - 3 = 0, giving us <i>x</i><sup>0</sup>. But we also know any number divided by itself is 1.",
+                    ruleText: "Anything (except zero) raised to the power of 0 is exactly <b>1</b>.",
+                    formula: "a<sup>0</sup> = 1",
+                    examples: [
+                        {
+                            title: "Example: Evaluating Zero Index",
+                            steps: [
+                                "Evaluate 5<sup>0</sup> &rarr; <b>1</b>",
+                                "Evaluate <i>y</i><sup>0</sup> &rarr; <b>1</b>",
+                                "Evaluate (100<i>xyz</i>)<sup>0</sup> &rarr; <b>1</b> (Because everything is inside the bracket, the whole thing becomes 1)"
+                            ]
+                        }
+                    ]
+                }
+            },
+            5: { 
+                type: 'match', title: "Topic 5: Negative Indices", 
+                lesson: {
+                    intro: "A negative index does NOT make the final number negative. Instead, it deals with fractions and division.",
+                    ruleText: "A negative power creates a <b>reciprocal</b>. You flip it into a fraction (1 over the term).",
+                    formula: "a<sup>-m</sup> = <div class='frac'><span>1</span><span>a<sup>m</sup></span></div>",
+                    examples: [
+                        {
+                            title: "Example: Evaluating a Negative Power",
+                            steps: [
+                                "Evaluate 3<sup>-2</sup>",
+                                "The negative sign means '1 over...'",
+                                "Drop the negative sign once it's in the fraction: <div class='frac'><span>1</span><span>3<sup>2</sup></span></div>",
+                                "Calculate the remaining power: 3 &times; 3 = 9",
+                                "Final Result: <b><div class='frac'><span>1</span><span>9</span></div></b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            6: { 
+                type: 'quiz', title: "Topic 6: Fractional Indices (Unit)", 
+                lesson: {
+                    intro: "Fractions in the power position represent roots. A denominator of 2 means a square root, a denominator of 3 means a cube root.",
+                    ruleText: "A power of 1/<i>n</i> means the <b><i>n</i>-th root</b> of the base.",
+                    formula: "a<sup>1/n</sup> = <sup>n</sup>&radic;a",
+                    examples: [
+                        {
+                            title: "Example: Power of 1/2 (Square Root)",
+                            steps: [
+                                "Evaluate 25<sup>1/2</sup>",
+                                "This means the Square Root of 25 (&radic;25).",
+                                "What number multiplied by itself equals 25?",
+                                "Result: <b>5</b>"
+                            ]
+                        },
+                        {
+                            title: "Example: Power of 1/3 (Cube Root)",
+                            steps: [
+                                "Evaluate 8<sup>1/3</sup>",
+                                "This means the Cube Root of 8 (<sup>3</sup>&radic;8).",
+                                "What number multiplied by itself 3 times equals 8? (2 &times; 2 &times; 2 = 8)",
+                                "Result: <b>2</b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            7: { 
+                type: 'gaps', title: "Topic 7: Non-Unit Fractional Indices", 
+                lesson: {
+                    intro: "What if the fraction has a number greater than 1 on top? (e.g., 2/3). We combine roots and standard powers.",
+                    ruleText: "For a power of <i>m/n</i>:<br>The bottom number (<i>n</i>) is the <b>root</b>.<br>The top number (<i>m</i>) is the <b>power</b>.<br><i>Tip: Always do the root first to make the number smaller!</i>",
+                    formula: "a<sup>m/n</sup> = (&nbsp;<sup>n</sup>&radic;a&nbsp;)<sup>m</sup>",
+                    examples: [
+                        {
+                            title: "Example: The Two-Step Process",
+                            steps: [
+                                "Evaluate 27<sup>2/3</sup>",
+                                "<b>Step 1: Root.</b> The bottom number is 3, so find the Cube Root of 27. (<sup>3</sup>&radic;27 = 3)",
+                                "<b>Step 2: Power.</b> The top number is 2, so square your answer. (3<sup>2</sup> = 9)",
+                                "Result: <b>9</b>"
+                            ]
+                        }
+                    ]
+                }
+            },
+            8: { 
+                type: 'boss', title: "Topic 8: The Ultimate Combo", 
+                lesson: {
+                    intro: "Now we combine everything: Fractions, Negative powers, and Fractional powers all at once. Take it step by step.",
+                    ruleText: "1. Flip fraction to remove the minus.<br>2. Root both numbers.<br>3. Power both numbers.",
+                    formula: "(<div class='frac'><span>a</span><span>b</span></div>)<sup>-m/n</sup> &rarr; Flip &rarr; (<div class='frac'><span>b</span><span>a</span></div>)<sup>m/n</sup>",
+                    examples: [
+                        {
+                            title: "Example: Boss Problem",
+                            steps: [
+                                "Evaluate (<div class='frac'><span>8</span><span>27</span></div>)<sup>-2/3</sup>",
+                                "<b>Step 1:</b> Flip fraction to remove the negative: (<div class='frac'><span>27</span><span>8</span></div>)<sup>2/3</sup>",
+                                "<b>Step 2:</b> Cube root both numbers (bottom power): (<div class='frac'><span>3</span><span>2</span></div>)<sup>2</sup>",
+                                "<b>Step 3:</b> Square both numbers (top power): <b><div class='frac'><span>9</span><span>4</span></div></b>"
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+
+        // Helper Math Functions
+        const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+        
+        const bases = ['x', 'y', 'a', 'p', 'n'];
+        const squares = {4:2, 9:3, 16:4, 25:5, 36:6, 49:7, 64:8, 81:9, 100:10};
+        const cubes = {8:2, 27:3, 64:4, 125:5};
+
+        function init() {
+            loadProgress();
+            renderHeader();
+            renderMainContent();
+        }
+
+        function renderHeader() {
+            document.getElementById("currentTopicText").innerText = `Topic ${state.topic}`;
+            document.getElementById("topicTitle").innerText = topics[state.topic].title;
+            document.getElementById("streakVal").innerText = state.streak;
+            document.getElementById("totalVal").innerText = state.totalAnswered;
+            
+            const advanceBtn = document.getElementById("advanceBtn");
+            if (state.progress >= QUESTIONS_TO_PASS && state.topic < 8) {
+                advanceBtn.style.display = "block";
+            } else {
+                advanceBtn.style.display = "none";
+            }
+
+            // Populate Dropdown Menu
+            const menu = document.getElementById("topicMenu");
+            menu.innerHTML = "";
+            for (let i = 1; i <= Object.keys(topics).length; i++) {
+                const opt = document.createElement("div");
+                opt.className = `topic-option`;
+                opt.innerHTML = `<span><b>Topic ${i}:</b> ${topics[i].title.split(':')[1] || topics[i].title}</span>`;
+                opt.onclick = () => { 
+                    state.topic = i; 
+                    state.progress = 0; 
+                    state.mode = 'lesson'; // Reset to lesson view on topic change
+                    saveProgress(); 
+                    init(); 
+                };
+                menu.appendChild(opt);
+            }
+        }
+
+        function renderMainContent() {
+            const area = document.getElementById("mainContentArea");
+            area.innerHTML = "";
+            
+            if (state.mode === 'lesson') {
+                renderLesson(area);
+            } else {
+                renderPracticeArea(area);
+            }
+        }
+
+        function renderLesson(container) {
+            const data = topics[state.topic].lesson;
+            
+            let html = `
+                <div class="lesson-container">
+                    <p class="intro-text">${data.intro}</p>
+                    
+                    <div class="key-rule">
+                        <h3>🔑 Key Rule</h3>
+                        <p>${data.ruleText}</p>
+                        <div class="formula">${data.formula}</div>
+                    </div>
+                    
+                    <div class="examples-section">
+            `;
+            
+            data.examples.forEach(ex => {
+                html += `
+                    <div class="example-box">
+                        <h4>${ex.title}</h4>
+                        <ul class="step-list">
+                `;
+                ex.steps.forEach((step, idx) => {
+                    html += `<li><span class="step-number">${idx + 1}</span> <span>${step}</span></li>`;
+                });
+                html += `</ul></div>`;
+            });
+            
+            html += `
+                    </div>
+                    <button class="start-practice-btn" onclick="startPractice()">Got it! Let's Practice</button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function startPractice() {
+            state.mode = 'practice';
+            saveProgress();
+            renderMainContent();
+        }
+
+        function returnToLesson() {
+            state.mode = 'lesson';
+            saveProgress();
+            renderMainContent();
+        }
+
+        function renderPracticeArea(container) {
+            container.innerHTML = `
+                <div class="practice-container">
+                    <div class="practice-header">
+                        <button class="back-btn" onclick="returnToLesson()">
+                            <span>&larr;</span> Review Lesson
+                        </button>
+                        <div class="progress-wrapper">
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="helpers">
+                        <button class="icon-btn" onclick="showHint()">💡 Hint</button>
+                    </div>
+                    
+                    <div id="gameArea"></div>
+                    <div class="feedback" id="feedbackBox"></div>
+                </div>
+            `;
+            
+            updateProgressBar();
+            renderExercise();
+        }
+
+        function updateProgressBar() {
+            let pBar = document.getElementById("progressBar");
+            if(pBar) {
+                let p = Math.min((state.progress / QUESTIONS_TO_PASS) * 100, 100);
+                pBar.style.width = p + "%";
+            }
+        }
+
+        function renderExercise() {
+            lockGame = false;
+            let fb = document.getElementById("feedbackBox");
+            if(fb) fb.innerText = "";
+            
+            const area = document.getElementById("gameArea");
+            if(!area) return;
+            area.innerHTML = "";
+            
+            let type = topics[state.topic].type;
+
+            if (type === 'gaps') renderGaps(area);
+            else if (type === 'match') renderMatch(area);
+            else renderQuiz(area, type);
+        }
+
+        // --- MATCH GENERATORS (Topics 3 & 5) ---
+        function renderMatch(area) {
+            matchCards = [];
+            let pairs = [];
+            
+            if (state.topic === 3) {
+                // Power of a Power
+                let base = rand(bases);
+                while(pairs.length < 4) {
+                    let p1 = randInt(2, 5); let p2 = randInt(2, 5);
+                    let pairId = `p${p1}${p2}`;
+                    if (!pairs.find(p => p.id === pairId)) {
+                        pairs.push({ id: pairId, a: `(${base}<sup>${p1}</sup>)<sup>${p2}</sup>`, b: `${base}<sup>${p1*p2}</sup>` });
+                    }
+                }
+                currentHint = "Multiply the inside power by the outside power.";
+            } else if (state.topic === 5) {
+                // Negative Indices
+                while(pairs.length < 4) {
+                    let num = randInt(2, 6); let pow = randInt(1, 3);
+                    let pairId = `n${num}${pow}`;
+                    if (!pairs.find(p => p.id === pairId)) {
+                        let ans = Math.pow(num, pow);
+                        pairs.push({ 
+                            id: pairId, 
+                            a: `${num}<sup>-${pow}</sup>`, 
+                            b: pow===1 ? `<div class="frac"><span>1</span><span>${num}</span></div>` : `<div class="frac"><span>1</span><span>${ans}</span></div>` 
+                        });
+                    }
+                }
+                currentHint = "A negative power flips it to 1 over the positive power.";
+            }
+
+            pairs.forEach(p => {
+                matchCards.push({ id: p.id, text: p.a });
+                matchCards.push({ id: p.id, text: p.b });
+            });
+            matchCards.sort(() => Math.random() - 0.5);
+            
+            let html = `<div class="match-grid">`;
+            matchCards.forEach((c, i) => {
+                html += `<div class="match-card" id="card${i}" onclick="flipCard(${i}, '${c.id}')">${c.text}</div>`;
+            });
+            html += `</div>`;
+            area.innerHTML = html;
+        }
+
+        function flipCard(idx, pairId) {
+            if (lockGame) return;
+            let el = document.getElementById(`card${idx}`);
+            if (el.classList.contains("matched") || el.classList.contains("selected")) return;
+
+            el.classList.add("selected");
+
+            if (!firstCard) {
+                firstCard = { idx, pairId, el };
+            } else {
+                lockGame = true;
+                if (firstCard.pairId === pairId) {
+                    setTimeout(() => {
+                        el.classList.replace("selected", "matched");
+                        firstCard.el.classList.replace("selected", "matched");
+                        firstCard = null;
+                        matchedPairsCount++;
+                        lockGame = false;
+                        if (matchedPairsCount >= 4) {
+                            matchedPairsCount = 0;
+                            handleResult(true);
+                        }
+                    }, 500);
+                } else {
+                    setTimeout(() => {
+                        el.classList.remove("selected");
+                        firstCard.el.classList.remove("selected");
+                        firstCard = null;
+                        lockGame = false;
+                        state.streak = 0;
+                        updateStats();
+                        showFeedback(false, "Not quite! Try another pair.");
+                    }, 800);
+                }
+            }
+        }
+
+        // --- GAPS GENERATOR (Topic 7) ---
+        function renderGaps(area) {
+            let baseKeys = Object.keys(cubes);
+            let n = rand(baseKeys); 
+            let root = cubes[n]; 
+            let topPow = rand([2, 4]); 
+            
+            currentQuestion = { n: n, topPow: topPow, root: root, finalAns: Math.pow(root, topPow) };
+            currentHint = `Step 1: Find the cube root of ${n}. Step 2: Raise that to the power of ${topPow}.`;
+
+            area.innerHTML = `
+                <div class="question-box">${n}<sup>${topPow}/3</sup></div>
+                <div class="gaps-container">
+                    (&nbsp;<sup>3</sup>&radic;${n}&nbsp;)<sup>${topPow}</sup> = 
+                    ( <input type="number" id="g1" class="gap-input"> )<sup>${topPow}</sup> = 
+                    <input type="number" id="g2" class="gap-input">
+                </div>
+                <button class="submit-btn" onclick="checkGaps()">Submit Stages</button>
+            `;
+        }
+
+        function checkGaps() {
+            if (lockGame) return;
+            let g1 = parseInt(document.getElementById("g1").value);
+            let g2 = parseInt(document.getElementById("g2").value);
+            
+            let q = currentQuestion;
+            let correct = (g1 === q.root && g2 === q.finalAns);
+            handleResult(correct);
+        }
+
+        // --- QUIZ GENERATORS (Topics 1, 2, 4, 6, 8) ---
+        function renderQuiz(area, type) {
+            let qText = "", ans = "", dist = [];
+            
+            if (state.topic === 1) {
+                let b = rand(bases); let p1 = randInt(2, 7); let p2 = randInt(2, 7);
+                qText = `${b}<sup>${p1}</sup> &times; ${b}<sup>${p2}</sup>`;
+                ans = `${b}<sup>${p1+p2}</sup>`;
+                dist = [`${b}<sup>${p1*p2}</sup>`, `${b}<sup>${Math.abs(p1-p2)}</sup>`, `2${b}<sup>${p1+p2}</sup>`];
+                currentHint = `When multiplying the terms, you ADD the powers.`;
+            } 
+            else if (state.topic === 2) {
+                let b = rand(bases); let p1 = randInt(5, 12); let p2 = randInt(2, 4);
+                qText = `${b}<sup>${p1}</sup> &divide; ${b}<sup>${p2}</sup>`;
+                ans = `${b}<sup>${p1-p2}</sup>`;
+                dist = [`${b}<sup>${p1+p2}</sup>`, `${b}<sup>${Math.round(p1/p2)}</sup>`, `1/${b}<sup>${p1-p2}</sup>`];
+                currentHint = `When dividing the terms, you SUBTRACT the powers.`;
+            }
+            else if (state.topic === 4) {
+                let num = randInt(5, 99);
+                if(Math.random() > 0.5) num = `${num}x`;
+                qText = `Evaluate (${num})<sup>0</sup>`;
+                ans = `1`;
+                dist = [`0`, `${num}`, `1/${num}`];
+                currentHint = `Any term raised to the power of 0 has a very specific, simple value.`;
+            }
+            else if (state.topic === 6) {
+                let isCube = Math.random() > 0.5;
+                if(isCube) {
+                    let b = rand(Object.keys(cubes));
+                    qText = `Evaluate ${b}<sup>1/3</sup>`;
+                    ans = `${cubes[b]}`;
+                    dist = [`${b/3}`, `${b*3}`, `1/${cubes[b]}`];
+                    currentHint = `A power of 1/3 means 'Cube Root'. What number multiplied by itself 3 times equals ${b}?`;
+                } else {
+                    let b = rand(Object.keys(squares));
+                    qText = `Evaluate ${b}<sup>1/2</sup>`;
+                    ans = `${squares[b]}`;
+                    dist = [`${b/2}`, `${b*2}`, `1/${squares[b]}`];
+                    currentHint = `A power of 1/2 means 'Square Root'. What number squared equals ${b}?`;
+                }
+            }
+            else if (type === 'boss') {
+                let bKeys = Object.keys(cubes);
+                let numBaseStr = rand(bKeys);
+                let denBaseStr = rand(bKeys.filter(k => k !== numBaseStr));
+                
+                let n = parseInt(numBaseStr); let d = parseInt(denBaseStr);
+                let rootN = cubes[n]; let rootD = cubes[d];
+                
+                let topPow = 2; 
+                
+                qText = `(<div class="frac"><span>${n}</span><span>${d}</span></div>)<sup>-2/3</sup>`;
+                
+                let finalNum = Math.pow(rootD, topPow);
+                let finalDen = Math.pow(rootN, topPow);
+                ans = `<div class="frac"><span>${finalNum}</span><span>${finalDen}</span></div>`;
+                
+                let dist1Num = Math.pow(rootN, topPow); let dist1Den = Math.pow(rootD, topPow);
+                dist = [
+                    `<div class="frac"><span>${dist1Num}</span><span>${dist1Den}</span></div>`, 
+                    `-<div class="frac"><span>${finalNum}</span><span>${finalDen}</span></div>`, 
+                    `<div class="frac"><span>${rootD}</span><span>${rootN}</span></div>` 
+                ];
+                currentHint = "1. Flip the fraction. 2. Cube root both numbers. 3. Square both numbers.";
+            }
+
+            dist = dist.filter(d => d !== ans);
+            while(dist.length < 3) dist.push(`${randInt(1, 10)}`);
+            dist = dist.slice(0, 3);
+            
+            let choices = [ans, ...dist].sort(() => Math.random() - 0.5);
+            currentQuestion = { ans, choices };
+
+            let html = `<div class="question-box">${qText}</div><div class="options-grid">`;
+            choices.forEach((c, i) => {
+                html += `<button class="option-btn" id="btn${i}" onclick="checkQuiz(${i}, 'btn${i}')">${c}</button>`;
+            });
+            html += `</div>`;
+            area.innerHTML = html;
+        }
+
+        function checkQuiz(choiceIndex, btnId) {
+            if (lockGame) return;
+            lockGame = true;
+            
+            let selected = currentQuestion.choices[choiceIndex];
+            let correct = selected === currentQuestion.ans;
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                let bHTML = btn.innerHTML.replace(/\s+/g, '');
+                let ansHTML = currentQuestion.ans.replace(/\s+/g, '');
+                if (bHTML === ansHTML) btn.classList.add('correct');
+            });
+
+            if (!correct) document.getElementById(btnId).classList.add('wrong');
+            handleResult(correct);
+        }
+
+        // --- GLOBAL HANDLERS ---
+        function handleResult(isCorrect) {
+            state.totalAnswered++;
+            if (isCorrect) {
+                state.progress++;
+                state.streak++;
+                showFeedback(true, "Correct! Well done.");
+                
+                if (state.progress >= QUESTIONS_TO_PASS && state.topic < 8) {
+                    document.getElementById("advanceBtn").style.display = "block";
+                }
+                saveProgress();
+                setTimeout(() => { 
+                    if(state.mode === 'practice') renderExercise(); 
+                }, 1200);
+            } else {
+                state.streak = 0;
+                if (state.progress > 0) state.progress--;
+                showFeedback(false, "Incorrect, try again.");
+                saveProgress();
+                setTimeout(() => { 
+                    if(state.mode === 'practice') renderExercise(); 
+                }, 1500);
+            }
+            updateStats();
+            updateProgressBar();
+        }
+
+        function showFeedback(isCorrect, msg) {
+            const fb = document.getElementById("feedbackBox");
+            if(fb) {
+                fb.innerText = msg;
+                fb.style.color = isCorrect ? "var(--success)" : "var(--danger)";
+            }
+        }
+
+        function updateStats() {
+            document.getElementById("streakVal").innerText = state.streak;
+            document.getElementById("totalVal").innerText = state.totalAnswered;
+        }
+
+        function forceAdvance() {
+            if (state.topic < 8) {
+                state.topic++;
+                state.progress = 0;
+                state.mode = 'lesson'; // Reset to lesson view for the next topic
+                saveProgress();
+                init();
+            }
+        }
+
+        function showHint() {
+            const fb = document.getElementById("feedbackBox");
+            if(fb) {
+                fb.innerText = "Hint: " + currentHint;
+                fb.style.color = "var(--warning)";
+            }
+        }
+
+        function toggleMenu() {
+            let m = document.getElementById("topicMenu");
+            m.style.display = m.style.display === "flex" ? "none" : "flex";
+        }
+
+        function saveProgress() { localStorage.setItem("indices_lesson_v2", JSON.stringify(state)); }
+        function loadProgress() {
+            let saved = localStorage.getItem("indices_lesson_v2");
+            if (saved) {
+                try { state = JSON.parse(saved); } catch(e) {}
+                
+                // Safety fallback for old state version missing properties
+                if (!state.mode) state.mode = 'lesson'; 
+                if (state.level && !state.topic) {
+                    state.topic = state.level; // migrate old level key to topic
+                    delete state.level;
+                }
+            }
+        }
+        function resetGameHistory() {
+            if(confirm("Erase all progress and restart?")) {
+                localStorage.removeItem("indices_lesson_v2");
+                state = { topic: 1, progress: 0, streak: 0, totalAnswered: 0, mode: 'lesson' };
+                init();
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const isClickInside = document.querySelector('.topic-selector').contains(event.target);
+            if (!isClickInside) {
+                let menu = document.getElementById('topicMenu');
+                if(menu) menu.style.display = 'none';
+            }
+        });
+
+        // Start App
+        init();
+    </script>
+</body>
+</html>
