@@ -64,15 +64,18 @@
         }
         
         .level-dropdown {
-            position: absolute; top: 110%; right: 0; background: white; width: 260px;
+            position: absolute; top: 110%; right: 0; background: white; width: 340px;
             border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid var(--border);
             display: none; flex-direction: column; z-index: 100; overflow: hidden;
         }
 
-        .level-option { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid var(--border); }
-        .level-option:hover { background: #f8fafc; }
-        .level-option.locked { color: var(--text-muted); cursor: not-allowed; background: #f1f5f9; }
-        .level-option.locked:hover { background: #f1f5f9; }
+        .level-option { 
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px; 
+            cursor: pointer; border-bottom: 1px solid var(--border);
+            color: var(--text-main); font-weight: 500; font-size: 0.95rem;
+        }
+        .level-option:hover { background: #f8fafc; color: var(--primary); }
+        .level-option:last-child { border-bottom: none; }
         
         .advance-btn {
             background: linear-gradient(135deg, var(--success), #059669); color: white; border: none; padding: 8px 16px;
@@ -134,6 +137,7 @@
             .options-grid { grid-template-columns: 1fr; }
             .match-grid { grid-template-columns: repeat(2, 1fr); }
             .learn-panel { width: 100%; right: -100%; }
+            .level-dropdown { width: 280px; }
         }
     </style>
 </head>
@@ -181,26 +185,26 @@
         // Data & State
         const QUESTIONS_TO_PASS = 5;
         let state = {
-            level: 1, maxUnlocked: 1, progress: 0, streak: 0, totalAnswered: 0
+            level: 1, progress: 0, streak: 0, totalAnswered: 0
         };
         let currentQuestion = null;
         let currentHint = "";
         let lockGame = false;
-        let consecutiveFails = 0; // DDA Tracker
+        let consecutiveFails = 0;
         
         // Match Game Specifics
         let matchCards = [];
         let firstCard = null;
 
         const levels = {
-            1: { type: 'gaps', title: "Fill in the Gaps (Breakdown)", learn: "<h2>Breaking Down Surds</h2><p>To simplify a surd, find the <b>highest perfect square</b> (4, 9, 16, 25, 36...) that divides the number inside the root.</p><div class='learn-example'>&radic;50 = &radic;25 &times; &radic;2<br>= 5&radic;2</div>" },
-            2: { type: 'match', title: "Matching Pairs", learn: "<h2>Visual Recognition</h2><p>Match the unsimplified surd with its simplified form. Simplify the larger number in your head.</p><div class='learn-example'>Match &radic;12 with 2&radic;3</div>" },
-            3: { type: 'quiz', title: "Direct Simplification", learn: "<h2>Simplifying</h2><p>Apply the breakdown method directly to find the final answer.</p><div class='learn-example'>&radic;20<br>= &radic;4 &times; &radic;5<br>= 2&radic;5</div>" },
-            4: { type: 'quiz', title: "Adding & Subtracting Common Surds", learn: "<h2>Like Terms</h2><p>Treat surds like algebra (like 'x'). You can only add or subtract them if the number inside the root is the SAME.</p><div class='learn-example'>5&radic;3 + 2&radic;3 = 7&radic;3</div>" },
-            5: { type: 'quiz', title: "Simplify Before Adding", learn: "<h2>Hidden Matches</h2><p>If the surds don't match, simplify them first! They often reveal matching roots.</p><div class='learn-example'>&radic;12 + &radic;27<br>= 2&radic;3 + 3&radic;3<br>= 5&radic;3</div>" },
-            6: { type: 'quiz', title: "Multiplying Surds", learn: "<h2>Multiplying</h2><p>Multiply the outside numbers together, and the inside numbers together. Then simplify if needed.</p><div class='learn-example'>2&radic;3 &times; 4&radic;5<br>= (2&times;4)&radic;(3&times;5)<br>= 8&radic;15</div>" },
-            7: { type: 'quiz', title: "Expanding Single Brackets", learn: "<h2>Expanding Brackets</h2><p>Multiply the term outside the bracket by EVERYTHING inside.</p><div class='learn-example'>&radic;2(3 + &radic;2)<br>= 3&radic;2 + &radic;4<br>= 3&radic;2 + 2</div>" },
-            8: { type: 'boss', title: "Boss Mode: Double Brackets & Mastery", learn: "<h2>Double Brackets (FOIL)</h2><p>First, Outer, Inner, Last. Combine like terms at the end.</p><div class='learn-example'>(2 + &radic;3)(2 - &radic;3)<br>= 4 - 2&radic;3 + 2&radic;3 - 3<br>= 1</div>" }
+            1: { type: 'gaps', title: "Fill in the Gaps (Breakdown)", learn: "<h2>Breaking Down Surds</h2><p>To simplify a surd, find the <b>highest perfect square</b> (4, 9, 16, 25, 36...) that divides the number inside the root.</p><div class='learn-example'>√50 = √25 &times; √2<br>= 5√2</div>" },
+            2: { type: 'match', title: "Matching Pairs", learn: "<h2>Visual Recognition</h2><p>Match the unsimplified surd with its simplified form. Simplify the larger number in your head.</p><div class='learn-example'>Match √12 with 2√3</div>" },
+            3: { type: 'quiz', title: "Direct Simplification", learn: "<h2>Simplifying</h2><p>Apply the breakdown method directly to find the final answer.</p><div class='learn-example'>√20<br>= √4 &times; √5<br>= 2√5</div>" },
+            4: { type: 'quiz', title: "Adding & Subtracting Common Surds", learn: "<h2>Like Terms</h2><p>Treat surds like algebra (like 'x'). You can only add or subtract them if the number inside the root is the SAME.</p><div class='learn-example'>5√3 + 2√3 = 7√3</div>" },
+            5: { type: 'quiz', title: "Simplify Before Adding", learn: "<h2>Hidden Matches</h2><p>If the surds don't match, simplify them first! They often reveal matching roots.</p><div class='learn-example'>√12 + √27<br>= 2√3 + 3√3<br>= 5√3</div>" },
+            6: { type: 'quiz', title: "Multiplying Surds", learn: "<h2>Multiplying</h2><p>Multiply the outside numbers together, and the inside numbers together. Then simplify if needed.</p><div class='learn-example'>2√3 &times; 4√5<br>= (2&times;4)√(3&times;5)<br>= 8√15</div>" },
+            7: { type: 'quiz', title: "Expanding Single Brackets", learn: "<h2>Expanding Brackets</h2><p>Multiply the term outside the bracket by EVERYTHING inside.</p><div class='learn-example'>√2(3 + √2)<br>= 3√2 + √4<br>= 3√2 + 2</div>" },
+            8: { type: 'boss', title: "Boss Mode: Double Brackets & Mastery", learn: "<h2>Double Brackets (FOIL)</h2><p>First, Outer, Inner, Last. Combine like terms at the end.</p><div class='learn-example'>(2 + √3)(2 - √3)<br>= 4 - 2√3 + 2√3 - 3<br>= 1</div>" }
         };
 
         const squares = [4, 9, 16, 25, 36];
@@ -208,7 +212,6 @@
         const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
         const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-        // Core Game Logic Loop
         function init() {
             loadProgress();
             renderHeader();
@@ -222,27 +225,23 @@
             document.getElementById("totalVal").innerText = state.totalAnswered;
             
             const advanceBtn = document.getElementById("advanceBtn");
-            if (state.progress >= QUESTIONS_TO_PASS || state.maxUnlocked > state.level) {
+            if (state.progress >= QUESTIONS_TO_PASS && state.level < 8) {
                 advanceBtn.style.display = "block";
             } else {
                 advanceBtn.style.display = "none";
             }
 
-            // Populate Menu
+            // Populate Dropdown Menu (All Unlocked)
             const menu = document.getElementById("levelMenu");
             menu.innerHTML = "";
-            for (let i = 1; i <= 8; i++) {
+            for (let i = 1; i <= Object.keys(levels).length; i++) {
                 const opt = document.createElement("div");
-                const isLocked = i > state.maxUnlocked;
-                opt.className = `level-option ${isLocked ? 'locked' : ''}`;
-                opt.innerHTML = `<span>Level ${i}</span> <span>${isLocked ? '🔒' : (i < state.maxUnlocked ? '✅' : '▶️')}</span>`;
-                if (!isLocked) {
-                    opt.onclick = () => { state.level = i; state.progress = 0; saveProgress(); init(); };
-                }
+                opt.className = `level-option`;
+                opt.innerHTML = `<span><b>Level ${i}:</b> ${levels[i].title}</span>`;
+                opt.onclick = () => { state.level = i; state.progress = 0; saveProgress(); init(); };
                 menu.appendChild(opt);
             }
             
-            // Update Learn Panel Content
             document.getElementById("learnContent").innerHTML = levels[state.level].learn;
             updateProgressBar();
         }
@@ -259,7 +258,7 @@
             area.innerHTML = "";
             
             let type = levels[state.level].type;
-            if (type === 'boss') type = rand(['quiz', 'boss_quiz']); // Boss mode mixes up
+            if (type === 'boss') type = rand(['quiz', 'boss_quiz']); 
 
             if (type === 'gaps') renderGaps(area);
             else if (type === 'match') renderMatch(area);
@@ -276,11 +275,11 @@
             currentHint = `Look for the biggest square number (4, 9, 16...) that divides into ${N}.`;
 
             area.innerHTML = `
-                <div class="question-box">&radic;${N}</div>
+                <div class="question-box">√${N}</div>
                 <div class="gaps-container">
-                    &radic;<input type="number" id="g1" class="gap-input"> &times; 
-                    &radic;<input type="number" id="g2" class="gap-input"> = 
-                    <input type="number" id="g3" class="gap-input">&radic;<input type="number" id="g4" class="gap-input">
+                    √<input type="number" id="g1" class="gap-input"> &times; 
+                    √<input type="number" id="g2" class="gap-input"> = 
+                    <input type="number" id="g3" class="gap-input">√<input type="number" id="g4" class="gap-input">
                 </div>
                 <button class="submit-btn" onclick="checkGaps()">Submit</button>
             `;
@@ -294,7 +293,6 @@
             let g4 = parseInt(document.getElementById("g4").value);
             
             let q = currentQuestion;
-            // Allow reverse order for the multiplication part
             let part1Correct = (g1 === q.k2 && g2 === q.m) || (g1 === q.m && g2 === q.k2);
             let part2Correct = (g3 === q.k && g4 === q.m);
 
@@ -311,7 +309,7 @@
                 let N = (k*k) * m;
                 let pairId = `p${N}`;
                 if (!pairs.find(p => p.id === pairId)) {
-                    pairs.push({ id: pairId, a: `&radic;${N}`, b: `${k}&radic;${m}` });
+                    pairs.push({ id: pairId, a: `√${N}`, b: `${k}√${m}` });
                 }
             }
 
@@ -321,7 +319,7 @@
             });
             matchCards.sort(() => Math.random() - 0.5);
 
-            currentHint = "Pick an unsimplified root (like &radic;12) and find its matching pair (like 2&radic;3).";
+            currentHint = "Pick an unsimplified root (like √12) and find its matching pair (like 2√3).";
             
             let html = `<div class="match-grid">`;
             matchCards.forEach((c, i) => {
@@ -344,7 +342,6 @@
             } else {
                 lockGame = true;
                 if (firstCard.pairId === pairId) {
-                    // Match
                     setTimeout(() => {
                         el.classList.replace("selected", "matched");
                         firstCard.el.classList.replace("selected", "matched");
@@ -357,13 +354,11 @@
                         }
                     }, 500);
                 } else {
-                    // Fail
                     setTimeout(() => {
                         el.classList.remove("selected");
                         firstCard.el.classList.remove("selected");
                         firstCard = null;
                         lockGame = false;
-                        // Minor penalty on fails but don't reset whole board
                         state.streak = 0;
                         updateStats();
                         showFeedback(false, "Not quite! Try another pair.");
@@ -378,47 +373,48 @@
             
             if (state.level === 3) {
                 let k = Math.sqrt(rand(squares)); let m = rand(primes);
-                qText = `&radic;${(k*k)*m}`; ans = `${k}&radic;${m}`;
-                dist = [`${m}&radic;${k}`, `${k*m}`, `${k*k}&radic;${m}`];
+                qText = `√${(k*k)*m}`; ans = `${k}√${m}`;
+                dist = [`${m}√${k}`, `${k*m}`, `${k*k}√${m}`];
                 currentHint = `What is the biggest square number inside ${(k*k)*m}?`;
             } 
             else if (state.level === 4) {
                 let m = rand(primes); let c1 = randInt(4, 9); let c2 = randInt(1, 3);
-                qText = `${c1}&radic;${m} ${Math.random()>0.5?'+':'-'} ${c2}&radic;${m}`;
+                qText = `${c1}√${m} ${Math.random()>0.5?'+':'-'} ${c2}√${m}`;
                 let isAdd = qText.includes('+');
-                ans = `${isAdd ? c1+c2 : c1-c2}&radic;${m}`;
-                dist = [`${isAdd ? c1+c2 : c1-c2}`, `${c1+c2}&radic;${m*2}`, `${c1*c2}&radic;${m}`];
-                currentHint = `Just treat &radic;${m} like an 'x'. Combine the outside numbers.`;
+                ans = `${isAdd ? c1+c2 : c1-c2}√${m}`;
+                dist = [`${isAdd ? c1+c2 : c1-c2}`, `${c1+c2}√${m*2}`, `${c1*c2}√${m}`];
+                currentHint = `Just treat √${m} like an 'x'. Combine the outside numbers.`;
             }
-            else if (state.level === 5) { // Simplify before add
+            else if (state.level === 5) { 
                 let m = rand([2,3]); let k1 = Math.sqrt(rand([4,9,16])); let k2 = Math.sqrt(rand([4,9,25]));
-                qText = `&radic;${(k1*k1)*m} + &radic;${(k2*k2)*m}`;
-                ans = `${k1+k2}&radic;${m}`;
-                dist = [`&radic;${(k1*k1*m) + (k2*k2*m)}`, `${k1+k2}`, `${k1*k2}&radic;${m}`];
-                currentHint = `Simplify both roots first! They will both have &radic;${m} in them.`;
+                qText = `√${(k1*k1)*m} + √${(k2*k2)*m}`;
+                ans = `${k1+k2}√${m}`;
+                dist = [`√${(k1*k1*m) + (k2*k2*m)}`, `${k1+k2}`, `${k1*k2}√${m}`];
+                currentHint = `Simplify both roots first! They will both have √${m} in them.`;
             }
             else if (state.level === 6) {
-                let p = rand([{a:2,b:6,ans:"2&radic;3"}, {a:3,b:6,ans:"3&radic;2"}, {a:2,b:10,ans:"2&radic;5"}]);
-                qText = `&radic;${p.a} &times; &radic;${p.b}`; ans = p.ans;
-                dist = [`&radic;${p.a+p.b}`, `${p.a*p.b}`, `${p.a}&radic;${p.b}`];
-                currentHint = `Multiply the inside numbers to get &radic;${p.a*p.b}, then simplify!`;
+                let p = rand([{a:2,b:6,ans:"2√3"}, {a:3,b:6,ans:"3√2"}, {a:2,b:10,ans:"2√5"}]);
+                qText = `√${p.a} &times; √${p.b}`; ans = p.ans;
+                dist = [`√${p.a+p.b}`, `${p.a*p.b}`, `${p.a}√${p.b}`];
+                currentHint = `Multiply the inside numbers to get √${p.a*p.b}, then simplify!`;
             }
             else if (state.level === 7) {
                 let m = rand([2,3,5]); let c = randInt(2, 5);
-                qText = `&radic;${m}(${c} + &radic;${m})`;
-                ans = `${c}&radic;${m} + ${m}`;
-                dist = [`${c} + ${m}`, `&radic;${m*c} + ${m}`, `${c}&radic;${m} + &radic;${m}`];
-                currentHint = `Multiply &radic;${m} by ${c}, and then multiply &radic;${m} by &radic;${m}.`;
+                qText = `√${m}(${c} + √${m})`;
+                ans = `${c}√${m} + ${m}`;
+                dist = [`${c} + ${m}`, `√${m*c} + ${m}`, `${c}√${m} + √${m}`];
+                currentHint = `Multiply √${m} by ${c}, and then multiply √${m} by √${m}.`;
             }
             else if (type === 'boss_quiz') {
-                // Double Brackets (Difference of Squares)
                 let c = randInt(3, 6); let m = rand([2,3,5]);
-                qText = `(${c} + &radic;${m})(${c} - &radic;${m})`;
+                qText = `(${c} + √${m})(${c} - √${m})`;
                 ans = `${c*c - m}`;
-                dist = [`${c*c + m}`, `${c*c} - &radic;${m}`, `${c*c - m}&radic;${m}`];
+                dist = [`${c*c + m}`, `${c*c} - √${m}`, `${c*c - m}√${m}`];
                 currentHint = "Use FOIL! The middle terms will cancel each other out.";
             }
 
+            // Remove potential duplicate distractors (fallback safety)
+            dist = dist.filter(d => d !== ans);
             let choices = [ans, ...dist].sort(() => Math.random() - 0.5);
             currentQuestion = { ans };
 
@@ -435,7 +431,6 @@
             lockGame = true;
             let correct = selected === currentQuestion.ans;
             
-            // Highlight correct visually
             document.querySelectorAll('.option-btn').forEach(btn => {
                 if (btn.innerHTML === currentQuestion.ans) btn.classList.add('correct');
             });
@@ -453,8 +448,7 @@
                 consecutiveFails = 0;
                 showFeedback(true, "Correct! Well done.");
                 
-                if (state.progress === QUESTIONS_TO_PASS && state.level === state.maxUnlocked) {
-                    state.maxUnlocked = Math.min(8, state.maxUnlocked + 1);
+                if (state.progress >= QUESTIONS_TO_PASS && state.level < 8) {
                     document.getElementById("advanceBtn").style.display = "block";
                 }
                 saveProgress();
@@ -465,7 +459,6 @@
                 consecutiveFails++;
                 showFeedback(false, "Incorrect, try again.");
                 
-                // DDA Check
                 if (consecutiveFails >= 3) {
                     setTimeout(() => {
                         toggleLearnPanel(true);
@@ -496,8 +489,6 @@
                 state.progress = 0;
                 saveProgress();
                 init();
-            } else {
-                alert("You've mastered Boss Mode! Great job!");
             }
         }
 
@@ -507,7 +498,6 @@
             fb.style.color = "var(--warning)";
         }
 
-        // UI Toggles
         function toggleMenu() {
             let m = document.getElementById("levelMenu");
             m.style.display = m.style.display === "flex" ? "none" : "flex";
@@ -519,29 +509,26 @@
             else panel.classList.toggle("open");
         }
 
-        // Storage
-        function saveProgress() { localStorage.setItem("surd_game_v2", JSON.stringify(state)); }
+        function saveProgress() { localStorage.setItem("surd_game_v3", JSON.stringify(state)); }
         function loadProgress() {
-            let saved = localStorage.getItem("surd_game_v2");
+            let saved = localStorage.getItem("surd_game_v3");
             if (saved) {
                 try { state = JSON.parse(saved); } catch(e) {}
             }
         }
         function resetGameHistory() {
-            if(confirm("Erase all progress and start from Level 1?")) {
-                localStorage.removeItem("surd_game_v2");
-                state = { level: 1, maxUnlocked: 1, progress: 0, streak: 0, totalAnswered: 0 };
+            if(confirm("Erase all progress and restart?")) {
+                localStorage.removeItem("surd_game_v3");
+                state = { level: 1, progress: 0, streak: 0, totalAnswered: 0 };
                 init();
             }
         }
 
-        // Click outside menu to close
         document.addEventListener('click', function(event) {
             const isClickInside = document.querySelector('.level-selector').contains(event.target);
             if (!isClickInside) document.getElementById('levelMenu').style.display = 'none';
         });
 
-        // Start
         init();
     </script>
 </body>
