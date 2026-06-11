@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-slate-50 text-slate-800 font-[Lexend] overflow-x-hidden min-h-screen; }
+    body { @apply bg-white text-slate-800 font-[Lexend] overflow-x-hidden min-h-screen; }
 
     /* --- ENTRANCE ANIMATIONS --- */
     @keyframes fadeInUp {
@@ -26,28 +26,31 @@
     .delay-100 { animation-delay: 100ms; }
     .delay-200 { animation-delay: 200ms; }
     .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
   </style>
 </head>
 <body class="relative">
 
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-    <div class="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-blue-200/40 to-transparent blur-[100px]"></div>
-    <div class="absolute top-[15%] left-[25%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tr from-purple-100/50 via-indigo-100/30 to-transparent blur-[120px]"></div>
-    <div class="absolute -bottom-[10%] -right-[5%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tl from-cyan-100/50 to-transparent blur-[110px]"></div>
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-white">
+    <div class="absolute -top-[10%] left-[-5%] w-[70vw] h-[35vw] rotate-[[-15deg]] rounded-full bg-gradient-to-r from-purple-300/30 via-indigo-200/20 to-transparent blur-[120px]"></div>
+    
+    <div class="absolute top-[20%] left-[15%] w-[80vw] h-[25vw] rotate-[[-25deg]] rounded-full bg-gradient-to-r from-orange-400/20 via-amber-300/20 to-transparent blur-[100px]"></div>
+    
+    <div class="absolute top-[45%] right-[-10%] w-[50vw] h-[30vw] rotate-[[15deg]] rounded-full bg-purple-400/15 blur-[130px]"></div>
+    
+    <div class="absolute -bottom-[10%] left-[5%] w-[60vw] h-[30vw] rotate-[[-10deg]] rounded-full bg-gradient-to-r from-orange-300/15 to-transparent blur-[110px]"></div>
   </div>
 
-  <header class="relative z-10 w-full border-b border-slate-200/60 bg-white/40 backdrop-blur-md">
+  <header class="relative z-10 w-full border-b border-slate-200/40 bg-white/40 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
       
       <div class="flex items-center gap-2.5">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-6 md:h-8 w-auto brightness-95 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.1)]"/>
+        <img src="assets/hub_logo.png" alt="SJWMS" class="h-6 md:h-8 w-auto filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]"/>
         <span class="font-extrabold tracking-tight text-slate-900 text-sm md:text-lg">SJWMS Maths</span>
       </div>
 
       <div class="flex items-center gap-4">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-200/50 border border-slate-300/40 text-xs font-medium text-slate-700">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 border border-slate-200/60 text-xs font-medium text-slate-700 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-sm"></span>
           KS3 Student Profile
         </div>
         <a href="login.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/80 border border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all shadow-sm">
@@ -63,7 +66,7 @@
     
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 animate-fade-in delay-100">
       <div>
-        <div class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1.5">Student Dashboard</div>
+        <div class="text-xs font-bold text-purple-600 uppercase tracking-widest mb-1.5">Student Dashboard</div>
         <h1 class="text-3xl md:text-4xl min-[1400px]:text-5xl font-black tracking-tight text-slate-900 leading-tight">
           Welcome back. What are we <br class="hidden sm:inline">
           <span class="text-slate-800 font-extrabold">learning today?</span>
@@ -71,43 +74,43 @@
       </div>
 
       <div class="flex items-center gap-3 self-start md:self-auto">
-        <a href="revision_hub.html" class="group inline-flex items-center gap-2 px-4 py-2.5 min-[1400px]:px-5 min-[1400px]:py-3 rounded bg-blue-50 border border-blue-200/60 backdrop-blur-sm shadow-sm hover:bg-blue-100 hover:border-blue-300 hover:-translate-y-0.5 transition-all duration-300">
-          <span class="material-icons text-blue-600 text-sm md:text-base">auto_stories</span>
-          <span class="text-[11px] md:text-xs font-bold text-blue-700 uppercase tracking-widest">Revision</span>
+        <a href="revision_hub.html" class="group inline-flex items-center gap-2 px-4 py-2.5 min-[1400px]:px-5 min-[1400px]:py-3 rounded bg-white/60 border border-slate-200/80 backdrop-blur-xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:bg-white hover:border-orange-300 hover:-translate-y-0.5 transition-all duration-300">
+          <span class="material-icons text-orange-500 text-sm md:text-base">auto_stories</span>
+          <span class="text-[11px] md:text-xs font-bold text-slate-700 uppercase tracking-widest group-hover:text-orange-600 transition-colors">Revision</span>
         </a>
 
-        <a href="eoy_revision.html" class="group inline-flex items-center gap-2 px-4 py-2.5 min-[1400px]:px-5 min-[1400px]:py-3 rounded bg-purple-50 border border-purple-200/60 backdrop-blur-sm shadow-sm hover:bg-purple-100 hover:border-purple-300 hover:-translate-y-0.5 transition-all duration-300">
-          <span class="material-icons text-purple-600 text-sm md:text-base">workspace_premium</span>
-          <span class="text-[11px] md:text-xs font-bold text-purple-700 uppercase tracking-widest">EOY Revision</span>
+        <a href="eoy_revision.html" class="group inline-flex items-center gap-2 px-4 py-2.5 min-[1400px]:px-5 min-[1400px]:py-3 rounded bg-white/60 border border-slate-200/80 backdrop-blur-xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:bg-white hover:border-purple-300 hover:-translate-y-0.5 transition-all duration-300">
+          <span class="material-icons text-purple-500 text-sm md:text-base">workspace_premium</span>
+          <span class="text-[11px] md:text-xs font-bold text-slate-700 uppercase tracking-widest group-hover:text-purple-600 transition-colors">EOY Revision</span>
         </a>
       </div>
     </div>
 
     <div class="flex flex-col gap-6 animate-fade-in delay-200">
       <div class="flex items-center gap-2 border-b border-slate-200 pb-3">
-        <span class="material-icons text-slate-500 text-lg">menu_book</span>
-        <h2 class="text-xs md:text-sm font-bold tracking-wider uppercase text-slate-500">Interactive Digital Textbooks</h2>
+        <span class="material-icons text-slate-400 text-lg">menu_book</span>
+        <h2 class="text-xs md:text-sm font-bold tracking-wider uppercase text-slate-400">Interactive Digital Textbooks</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur-md shadow-md hover:bg-white/90 hover:border-slate-300 transition-all duration-300 hover:-translate-y-1">
+        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-white/50 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.04)] hover:bg-white/60 hover:border-orange-300/60 transition-all duration-300 hover:-translate-y-1">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 shadow-sm">
-              <span class="text-sm font-black text-blue-600">Y7</span>
+            <div class="w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-6 shadow-sm">
+              <span class="text-sm font-black text-orange-600">Y7</span>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">Year 7 Mathematics</h3>
+            <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-orange-600 transition-colors">Year 7 Mathematics</h3>
             <p class="text-slate-600 text-xs min-[1400px]:text-sm leading-relaxed mb-6">
               Master fundamentals in algebraic structures, proportional reasoning, fractional operations, and introductory geometry.
             </p>
           </div>
-          <a href="textbooks/year7.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm">
+          <a href="textbooks/year7.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-white/80 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all shadow-sm">
             Open Book
             <span class="material-icons text-xs group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
           </a>
         </div>
 
-        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur-md shadow-md hover:bg-white/90 hover:border-slate-300 transition-all duration-300 hover:-translate-y-1">
+        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-white/50 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.04)] hover:bg-white/60 hover:border-purple-300/60 transition-all duration-300 hover:-translate-y-1">
           <div>
             <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center mb-6 shadow-sm">
               <span class="text-sm font-black text-purple-600">Y8</span>
@@ -117,23 +120,23 @@
               Advance into multi-step equations, linear graphs, data analysis, rate problems, and spatial reasoning tasks.
             </p>
           </div>
-          <a href="textbooks/year8.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 transition-all shadow-sm">
+          <a href="textbooks/year8.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-white/80 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-purple-500 group-hover:text-white group-hover:border-purple-500 transition-all shadow-sm">
             Open Book
             <span class="material-icons text-xs group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
           </a>
         </div>
 
-        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur-md shadow-md hover:bg-white/90 hover:border-slate-300 transition-all duration-300 hover:-translate-y-1">
+        <div class="group relative flex flex-col justify-between p-6 min-[1400px]:p-8 rounded-2xl border border-white/50 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.04)] hover:bg-white/60 hover:border-indigo-300/60 transition-all duration-300 hover:-translate-y-1">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-6 shadow-sm">
-              <span class="text-sm font-black text-indigo-600">Y9</span>
+            <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center mb-6 shadow-sm">
+              <span class="text-sm font-black text-slate-700">Y9</span>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">Year 9 Mathematics</h3>
+            <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-slate-900 transition-colors">Year 9 Mathematics</h3>
             <p class="text-slate-600 text-xs min-[1400px]:text-sm leading-relaxed mb-6">
               Bridge the path to GCSE with quadratics, advanced trigonometry, probability theory, and complex problem-solving.
             </p>
           </div>
-          <a href="textbooks/year9.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all shadow-sm">
+          <a href="textbooks/year9.html" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded bg-white/80 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-widest group-hover:bg-slate-800 group-hover:text-white group-hover:border-slate-800 transition-all shadow-sm">
             Open Book
             <span class="material-icons text-xs group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
           </a>
@@ -142,7 +145,7 @@
       </div>
     </div>
 
-    <footer class="mt-auto pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-medium tracking-wide animate-fade-in delay-300">
+    <footer class="mt-auto pt-6 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-medium tracking-wide">
       <p>&copy; 2026 Sir Joseph Williamson's Mathematical School</p>
       <div class="flex gap-4">
         <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
