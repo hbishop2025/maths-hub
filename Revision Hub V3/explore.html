@@ -149,12 +149,25 @@
       if(typeof makeSiteCard === "function"){
         grid.appendChild(makeSiteCard(site));
       }else{
-        // very simple fallback
         const div = document.createElement("div");
         div.className="bg-white p-4 rounded-xl shadow-sm";
-        div.innerHTML = `<h3 class="font-semibold">${site.name||"Untitled"}</h3>
-                         <p class="text-sm text-gray-600">${site.desc||""}</p>
-                         ${site.url ? `<a class="text-blue-600 underline" href="${site.url}" target="_blank" rel="noopener">Open</a>` : ""}`;
+        const heading = document.createElement("h3");
+        heading.className = "font-semibold";
+        heading.textContent = site.name || "Untitled";
+        const description = document.createElement("p");
+        description.className = "text-sm text-gray-600";
+        description.textContent = site.desc || "";
+        div.append(heading, description);
+        const url = typeof safeResourceUrl === "function" ? safeResourceUrl(site.url) : null;
+        if (url) {
+          const link = document.createElement("a");
+          link.className = "text-blue-600 underline";
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = "Open";
+          div.appendChild(link);
+        }
         grid.appendChild(div);
       }
     });
@@ -193,15 +206,31 @@
         if(typeof makeInfoCard === "function"){
           container.appendChild(makeInfoCard(r));
         }else{
-          // Simple fallback if cards.js didn't load
           const div = document.createElement("div");
           div.className = "bg-white p-4 rounded-xl shadow-sm";
-          div.innerHTML = `
-            <p class="text-sm text-gray-500">${r.type||""}</p>
-            <p class="font-semibold text-gray-800">${r.text||""}</p>
-            ${r.date ? `<p class="text-sm text-gray-500">${r.date}</p>` : ""}
-            ${r.url ? `<a class="inline-flex items-center mt-2 text-blue-600 underline" href="${r.url}" target="_blank" rel="noopener">More info</a>` : ""}
-          `;
+          const type = document.createElement("p");
+          type.className = "text-sm text-gray-500";
+          type.textContent = r.type || "";
+          const copy = document.createElement("p");
+          copy.className = "font-semibold text-gray-800";
+          copy.textContent = r.text || "";
+          div.append(type, copy);
+          if (r.date) {
+            const date = document.createElement("p");
+            date.className = "text-sm text-gray-500";
+            date.textContent = r.date;
+            div.appendChild(date);
+          }
+          const url = typeof safeResourceUrl === "function" ? safeResourceUrl(r.url) : null;
+          if (url) {
+            const link = document.createElement("a");
+            link.className = "inline-flex items-center mt-2 text-blue-600 underline";
+            link.href = url;
+            link.target = "_blank";
+            link.rel = "noopener";
+            link.textContent = "More info";
+            div.appendChild(link);
+          }
           container.appendChild(div);
         }
       });

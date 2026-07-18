@@ -33,7 +33,7 @@
     <!-- Top: back + title -->
     <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
       <div class="flex items-center gap-3">
-        <a href="year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+        <a href="../year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
           <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
         </a>
       </div>
@@ -128,7 +128,7 @@
   </main>
 </div>
 <script>
-  fetch("sidebar.html")
+  fetch("/assets/sidebar.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("sidebar").innerHTML = html;
@@ -137,7 +137,7 @@
       const path = window.location.pathname;
 
       if (path.includes("year9")) {
-        const link = document.querySelector('#sidebar a[href="year9_hub.html"]');
+        const link = document.querySelector('#sidebar a[href="../year9_hub.html"]');
         if (link) {
           link.classList.add("text-white");
           link.style.background = "var(--accent)";

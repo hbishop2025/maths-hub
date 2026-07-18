@@ -22,32 +22,24 @@
     return { icon: "description", cta: "View" };
   }
 
-  function ensureHttps(u) {
-    return /^https?:\/\//i.test(u) ? u : "https://" + u;
+  function safeResourceUrl(value) {
+    if (!value) return null;
+    try {
+      const url = new URL(value, window.location.origin);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+    } catch {
+      return null;
+    }
   }
 
   function makeResCard({ title, url }) {
-    const safeUrl = ensureHttps(url);
+    const safeUrl = safeResourceUrl(url);
+    if (!safeUrl) return null;
     const { icon, cta } = iconFor(url);
 
     const yt = (url || "").match(
       /(?:youtube\.com.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]+)/
     );
-
-    const media = yt
-      ? (() => {
-          const id = yt[1];
-          const img = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-          return `
-            <div class="w-full h-32 rounded-lg mb-4 overflow-hidden relative">
-              <img src="${img}" alt="Video thumbnail" class="w-full h-full object-cover">
-              <span class="material-icons absolute inset-0 m-auto w-12 h-12 flex items-center justify-center rounded-full bg-white/80 text-gray-800">play_arrow</span>
-            </div>`;
-        })()
-      : `
-        <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-stripes relative">
-          <span class="material-icons text-4xl text-gray-600">${icon}</span>
-        </div>`;
 
     const card = document.createElement("a");
     card.href = safeUrl;
@@ -55,20 +47,36 @@
     card.rel = "noopener";
     card.className =
       "block bg-white p-4 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300";
-    card.innerHTML = `
-      ${media}
-      <h3 class="font-semibold text-gray-800 mb-2">${title || "Untitled"}</h3>
-      <div class="flex items-center text-sm font-semibold" style="color:var(--accent);">
-        ${cta}
-        <span class="material-icons ml-1">${
-          cta === "Watch Now"
-            ? "play_arrow"
-            : cta === "Take Quiz"
-            ? "arrow_forward"
-            : "open_in_new"
-        }</span>
-      </div>
-    `;
+
+    const media = document.createElement("div");
+    media.className = "w-full h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden bg-stripes relative";
+    if (yt) {
+      const thumbnail = document.createElement("img");
+      thumbnail.src = `https://img.youtube.com/vi/${yt[1]}/hqdefault.jpg`;
+      thumbnail.alt = "Video thumbnail";
+      thumbnail.className = "w-full h-full object-cover";
+      media.appendChild(thumbnail);
+    } else {
+      const mediaIcon = document.createElement("span");
+      mediaIcon.className = "material-icons text-4xl text-gray-600";
+      mediaIcon.textContent = icon;
+      media.appendChild(mediaIcon);
+    }
+
+    const heading = document.createElement("h3");
+    heading.className = "font-semibold text-gray-800 mb-2";
+    heading.textContent = title || "Untitled";
+
+    const action = document.createElement("div");
+    action.className = "flex items-center text-sm font-semibold";
+    action.style.color = "var(--accent)";
+    action.append(document.createTextNode(`${cta} `));
+    const actionIcon = document.createElement("span");
+    actionIcon.className = "material-icons ml-1";
+    actionIcon.textContent = cta === "Watch Now" ? "play_arrow" : cta === "Take Quiz" ? "arrow_forward" : "open_in_new";
+    action.appendChild(actionIcon);
+
+    card.append(media, heading, action);
     return card;
   }
 
@@ -111,10 +119,13 @@
       chip.className =
   "inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/40 border border-white/50 backdrop-blur-md text-gray-900 text-sm font-medium shadow-sm transition-all hover:bg-white/60";
 
-chip.innerHTML = `
-  <span class="font-mono text-purple-800 font-bold">${item.code}</span>
-  <span class="text-gray-800 text-sm font-medium whitespace-nowrap">${item.note || ""}</span>
-`;
+      const code = document.createElement("span");
+      code.className = "font-mono text-purple-800 font-bold";
+      code.textContent = item.code || "";
+      const note = document.createElement("span");
+      note.className = "text-gray-800 text-sm font-medium whitespace-nowrap";
+      note.textContent = item.note || "";
+      chip.append(code, note);
 
       container.appendChild(chip);
     });
@@ -147,7 +158,8 @@ chip.innerHTML = `
       items.forEach((r) => {
         const key = (r.blockkey || "").toLowerCase();
         const grid = GRID_FOR[key];
-        if (grid) grid.appendChild(makeResCard({ title: r.title, url: r.url }));
+        const card = makeResCard({ title: r.title, url: r.url });
+        if (grid && card) grid.appendChild(card);
       });
 
       hideEmptyBlocks();

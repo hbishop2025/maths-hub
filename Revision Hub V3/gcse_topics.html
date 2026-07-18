@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="../assets/favicon.svg" />
+  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
   <title>GCSE | Topics</title>
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -12,16 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="../assets/main.css"/>
+  <link rel="stylesheet" href="assets/main.css"/>
 
   <style>
     /* THEME OVERRIDES */
     :root {
-      --accent: #3B82F6; 
+      --accent: #3B82F6;
     }
 
-    body { 
-        font-family: 'Lexend', sans-serif; 
+    body {
+        font-family: 'Lexend', sans-serif;
         background-color: #f8fafc; /* Slate-50 */
     }
 
@@ -32,12 +32,12 @@
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
-    
+
     /* ===== Topic Tile Styles ===== */
     .topic-tile {
         position: relative;
         background-color: #ffffff;
-        
+
         /* UPDATED: Diagonal Stripe Pattern */
         background-image: repeating-linear-gradient(
             135deg,
@@ -48,8 +48,8 @@
         );
 
         /* UPDATED: Slightly stronger border for contrast */
-        border: 1px solid #cbd5e1; 
-        
+        border: 1px solid #cbd5e1;
+
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
@@ -68,7 +68,7 @@
         left: 0; top: 0; bottom: 0;
         width: 4px;
         background-color: var(--theme-color);
-        opacity: 0.8; 
+        opacity: 0.8;
         transition: opacity 0.3s;
         z-index: 2;
     }
@@ -100,14 +100,14 @@
 <body class="text-slate-900">
 
   <div class="layout flex h-screen overflow-hidden">
-    
+
     <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
 
     <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
-      
+
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <a href="../gcse_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
+          <a href="gcse_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
             <span class="material-icons mr-1">arrow_back</span> Back to Hub
           </a>
         </div>
@@ -115,7 +115,7 @@
 
       <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-10 group bg-slate-900">
         <div class="absolute inset-0 z-0">
-            <img src="../assets/home-hero1.jpg" alt="Space Horizon" 
+            <img src="assets/home-hero1.jpg" alt="Space Horizon"
                  class="w-full h-full object-cover object-center opacity-80" />
             <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
         </div>
@@ -131,7 +131,7 @@
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
                   GCSE <span class="text-blue-400">Topics</span>
                 </h1>
-                
+
                 <p class="text-slate-300 text-lg font-medium leading-relaxed drop-shadow-md">
                    Pick a topic to begin your journey to complete mastery of the topic.
                 </p>
@@ -154,7 +154,7 @@
             <h2 class="text-2xl font-bold text-gray-800">Topic Units</h2>
             <div class="h-px bg-gray-200 w-12 hidden md:block"></div>
           </div>
-          
+
           <div class="flex flex-wrap gap-2" id="filter-container">
             <button onclick="filterTopics('all')" class="filter-btn active px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition" style="--btn-color: #475569;">All</button>
             <button onclick="filterTopics('number')" class="filter-btn px-4 py-1.5 rounded-full text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-amber-50 transition" style="--btn-color: #d97706;">Number</button>
@@ -166,7 +166,7 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="topics-grid">
 
-          <a href="year_gcse/gcse_unit01.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit01.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="number"
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
@@ -178,7 +178,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit02.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit02.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -190,7 +190,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit03.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit03.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
@@ -202,7 +202,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit04.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit04.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="number"
              style="--theme-color: #f59e0b; --theme-light: #fffbeb;">
             <div class="tile-content flex justify-between items-start">
@@ -214,7 +214,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit05.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit05.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -226,7 +226,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit06.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit06.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -238,7 +238,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit07.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit07.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -250,7 +250,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit08.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit08.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -262,7 +262,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit09.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit09.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -274,7 +274,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit10.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/gcse_unit10.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
@@ -286,7 +286,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit11.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=11" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -298,7 +298,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit12.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=12" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -310,7 +310,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit13.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=13" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -322,7 +322,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit14.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=14" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="data"
              style="--theme-color: #ec4899; --theme-light: #fdf2f8;">
             <div class="tile-content flex justify-between items-start">
@@ -334,7 +334,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit15.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=15" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -346,7 +346,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit16.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=16" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -358,7 +358,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit17.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=17" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -370,7 +370,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit18.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=18" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="shape"
              style="--theme-color: #10b981; --theme-light: #ecfdf5;">
             <div class="tile-content flex justify-between items-start">
@@ -382,7 +382,7 @@
             </div>
           </a>
 
-          <a href="year_gcse/gcse_unit19.html" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between" 
+          <a href="gcse/unit.html?unit=19" class="topic-tile rounded-xl p-5 flex flex-col h-32 justify-between"
              data-category="algebra"
              style="--theme-color: #3b82f6; --theme-light: #eff6ff;">
             <div class="tile-content flex justify-between items-start">
@@ -404,14 +404,14 @@
 
   <div id="footer-slot"></div>
 
-  <script src="../assets/sidebar-loader.js"></script>
+  <script src="assets/sidebar-loader.js"></script>
   <script src="assets/footer-loader.js" defer></script>
-  
+
   <script>
     function filterTopics(category) {
         // 1. Get all cards
         const cards = document.querySelectorAll('.topic-tile');
-        
+
         // 2. Loop through and Toggle Visibility
         cards.forEach(card => {
             if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -429,10 +429,10 @@
             // Check if this button was the one clicked
             // (We check the onclick attribute content or pass 'this' - simpler to match text content or logic)
             // Simpler approach: check if the function arg matches the intended button type
-            
+
             // Reset all to inactive look
             btn.classList.remove('active');
-            
+
             // If this button corresponds to the category clicked, make active
             if(btn.getAttribute('onclick').includes(`'${category}'`)) {
                 btn.classList.add('active');

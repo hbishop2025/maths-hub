@@ -1,6 +1,6 @@
 [build]
   publish = "Revision Hub V3"
-  command = ""
+  command = "node scripts/validate-site.mjs"
 
 [build.environment]
   NODE_VERSION = "20"

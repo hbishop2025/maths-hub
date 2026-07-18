@@ -99,6 +99,18 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      })[character]);
+      const safeHref = (value) => {
+        try {
+          const url = new URL(value, window.location.origin);
+          return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+        } catch {
+          return null;
+        }
+      };
+
       try {
         const response = await fetch('assets/data/home_updates.json');
         
@@ -114,29 +126,30 @@
           updatesColumn.classList.add('flex'); 
 
           siteUpdates.forEach((update, index) => {
-            
-            const isLong = update.text.length > 120;
+            const updateText = String(update.text ?? '');
+            const isLong = updateText.length > 120;
             let textHTML = '';
             
             if (isLong) {
               textHTML = `
                 <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
-                  <p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${update.text}</p>
+                  <p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${escapeHTML(updateText)}</p>
                 </div>
                 <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-[10px] min-[1400px]:text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
                   Show More
                 </button>
               `;
             } else {
-              textHTML = `<p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${update.text}</p>`;
+              textHTML = `<p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${escapeHTML(updateText)}</p>`;
             }
 
             let buttonHTML = '';
-            if (update.btnText && update.btnLink) {
+            const buttonHref = safeHref(update.btnLink);
+            if (update.btnText && buttonHref) {
               buttonHTML = `
                 <div class="mt-3 min-[1400px]:mt-4">
-                  <a href="${update.btnLink}" class="inline-flex items-center px-3 py-1.5 min-[1400px]:px-4 min-[1400px]:py-2 rounded bg-blue-500/20 border border-blue-400/30 text-[10px] min-[1400px]:text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
-                    ${update.btnText}
+                  <a href="${escapeHTML(buttonHref)}" class="inline-flex items-center px-3 py-1.5 min-[1400px]:px-4 min-[1400px]:py-2 rounded bg-blue-500/20 border border-blue-400/30 text-[10px] min-[1400px]:text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
+                    ${escapeHTML(update.btnText)}
                   </a>
                 </div>
               `;
@@ -146,8 +159,8 @@
             updateCard.className = "p-4 min-[1400px]:p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
             updateCard.innerHTML = `
               <div class="flex items-center gap-2 mb-1.5 min-[1400px]:mb-2">
-                <span class="material-icons text-blue-400 text-[16px] min-[1400px]:text-[18px]">${update.icon || 'info'}</span>
-                <h3 class="text-white font-bold text-xs min-[1400px]:text-sm tracking-wide uppercase">${update.title}</h3>
+                <span class="material-icons text-blue-400 text-[16px] min-[1400px]:text-[18px]">${escapeHTML(update.icon || 'info')}</span>
+                <h3 class="text-white font-bold text-xs min-[1400px]:text-sm tracking-wide uppercase">${escapeHTML(update.title)}</h3>
               </div>
               ${textHTML}
               ${buttonHTML}

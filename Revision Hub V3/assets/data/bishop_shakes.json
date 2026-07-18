@@ -1,3 +1,4 @@
+[
     {
       "id": "classic-shake",
       "type": "milkshake",
@@ -32,7 +33,6 @@
       "allergy_note": "Contains dairy."
     },
 
-    // --- FRUIT & BERRY ---
     {
       "id": "pi-neapple",
       "type": "milkshake",
@@ -78,7 +78,6 @@
       "allergy_note": "Vegan friendly."
     },
 
-    // --- CHOCOLATE & COFFEE ---
     {
       "id": "soh-cah-cocoa",
       "type": "milkshake",
@@ -124,7 +123,6 @@
       "allergy_note": "Contains dairy, gluten."
     },
 
-    // --- MINT, NUTS & CARAMEL ---
     {
       "id": "circumfer-mint",
       "type": "milkshake",
@@ -159,7 +157,6 @@
       "allergy_note": "Contains dairy."
     },
 
-    // --- SMOOTHIE SPECIALS ---
     {
       "id": "sqrt-berry",
       "type": "smoothie",
@@ -183,7 +180,6 @@
       "allergy_note": "May contain dairy (yogurt)."
     },
 
-    // --- EXTRAS ---
     {
       "id": "extra-whip",
       "type": "extras",
@@ -206,5 +202,4 @@
       "ingredients": ["One 20ml syrup shot (choice of flavour)"],
       "allergy_note": "Check ingredients for specific syrup allergies."
     }
-  ]
-};
+]
