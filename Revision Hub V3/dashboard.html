@@ -65,7 +65,7 @@
           Choose Year 7, 8 or 9, then select one of the ten textbook units. PDF links will be added as each textbook becomes available.
         </p>
 
-        <div class="animate-fade-in delay-300 mt-5 flex max-w-lg items-start gap-3 rounded-xl border border-blue-300/25 bg-blue-950/40 px-4 py-3 text-sm text-blue-100 shadow-lg backdrop-blur-md">
+        <div class="animate-fade-in delay-300 mt-5 flex max-w-lg items-start gap-3 rounded-xl border border-blue-300/25 bg-white/5 px-4 py-3 text-sm text-blue-100 shadow-lg backdrop-blur-md">
           <span class="material-icons mt-0.5 text-lg text-blue-300">verified_user</span>
           <p class="leading-relaxed"><strong class="font-bold text-white">School login required.</strong> Textbook links can only be accessed while signed in with a valid school account.</p>
         </div>
@@ -82,7 +82,7 @@
         </div>
       </section>
 
-      <section class="animate-fade-in delay-300 relative flex min-h-[560px] w-full max-w-xl shrink-0 flex-col overflow-hidden rounded-2xl border border-white/25 bg-slate-950/40 p-5 shadow-2xl backdrop-blur-xl md:p-7 lg:w-[480px] min-[1400px]:w-[540px]" aria-live="polite">
+      <section class="animate-fade-in delay-300 relative flex min-h-[560px] w-full max-w-xl shrink-0 flex-col overflow-hidden rounded-xl border border-white/20 bg-white/5 p-5 shadow-2xl backdrop-blur-md md:p-7 lg:w-[480px] min-[1400px]:w-[540px]" aria-live="polite">
         <div id="year-view" class="flex h-full flex-col transition duration-300">
           <div class="mb-6">
             <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Step 1 of 2</p>
@@ -102,26 +102,26 @@
               <span class="material-icons text-orange-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
             </button>
 
-            <button type="button" data-year="8" class="year-option group flex w-full items-center justify-between rounded-xl border border-violet-300/20 bg-violet-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-violet-300/50 hover:bg-violet-400/20 focus:outline-none focus:ring-2 focus:ring-violet-300/60">
+            <button type="button" data-year="8" class="year-option group flex w-full items-center justify-between rounded-xl border border-emerald-300/20 bg-emerald-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-emerald-300/50 hover:bg-emerald-400/20 focus:outline-none focus:ring-2 focus:ring-emerald-300/60">
               <span class="flex items-center gap-4">
-                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-violet-300/25 bg-violet-300/15 text-lg font-black text-violet-200">Y8</span>
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-300/25 bg-emerald-300/15 text-lg font-black text-emerald-200">Y8</span>
                 <span>
                   <span class="block text-sm font-bold text-white">Year 8 Mathematics</span>
                   <span class="mt-1 block text-xs text-slate-400">Powers, transformations and proportional reasoning</span>
                 </span>
               </span>
-              <span class="material-icons text-violet-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
+              <span class="material-icons text-emerald-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
             </button>
 
-            <button type="button" data-year="9" class="year-option group flex w-full items-center justify-between rounded-xl border border-blue-300/20 bg-blue-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-300/50 hover:bg-blue-400/20 focus:outline-none focus:ring-2 focus:ring-blue-300/60">
+            <button type="button" data-year="9" class="year-option group flex w-full items-center justify-between rounded-xl border border-purple-300/20 bg-purple-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-purple-300/50 hover:bg-purple-400/20 focus:outline-none focus:ring-2 focus:ring-purple-300/60">
               <span class="flex items-center gap-4">
-                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-blue-300/25 bg-blue-300/15 text-lg font-black text-blue-200">Y9</span>
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-purple-300/25 bg-purple-300/15 text-lg font-black text-purple-200">Y9</span>
                 <span>
                   <span class="block text-sm font-bold text-white">Year 9 Mathematics</span>
                   <span class="mt-1 block text-xs text-slate-400">GCSE preparation, graphs and proof</span>
                 </span>
               </span>
-              <span class="material-icons text-blue-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
+              <span class="material-icons text-purple-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
             </button>
           </div>
 
@@ -172,8 +172,8 @@
 
     const yearStyles = {
       7: { badge: 'border-orange-300/30 bg-orange-300/15 text-orange-200', number: 'text-orange-200' },
-      8: { badge: 'border-violet-300/30 bg-violet-300/15 text-violet-200', number: 'text-violet-200' },
-      9: { badge: 'border-blue-300/30 bg-blue-300/15 text-blue-200', number: 'text-blue-200' }
+      8: { badge: 'border-emerald-300/30 bg-emerald-300/15 text-emerald-200', number: 'text-emerald-200' },
+      9: { badge: 'border-purple-300/30 bg-purple-300/15 text-purple-200', number: 'text-purple-200' }
     };
 
     const yearView = document.getElementById('year-view');
