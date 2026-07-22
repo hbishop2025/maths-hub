@@ -1,142 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
-  <title>Year 9 | Unit 04</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <!-- Shared CSS (has layout, sidebar spacing, bg-stripes, etc.) -->
-  <link rel="stylesheet" href="/assets/main.css"/>
-
-  <style>
-    :root{
-      --accent:#7C4DFF;      /* main */
-      --accent-600:#6A3FE6;  /* hover */
-      --accent-700:#5A35C8;  /* active */
-    }
-    body { font-family: 'Inter', sans-serif; }
-    .material-icons { font-size: 24px; }
-    html { scroll-behavior: smooth; }
-
-    /* MathJax inline rendering */
-    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Year 9 Collecting &amp; Analysing Data revision resources, videos, worksheets and SPARX codes.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <title>Collecting &amp; Analysing Data | Year 9 Mathematics</title>
 </head>
-<body class="bg-gray-100" data-page="year9"
-      data-json="../assets/data/year9_unit04.json">
-  <div class="layout">
-    <!-- Sidebar container (space reserved by CSS) -->
-    <div id="sidebar" aria-label="Sidebar"></div>
-
-    <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
-      <!-- Top: back + title -->
-      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div class="flex items-center gap-3">
-          <a href="../year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-            <span class="material-icons mr-1">arrow_back</span> Back
-          </a>
+<body data-root=".." data-section="ks3" data-year="9" data-json="../assets/data/year9_unit04.json">
+  <div id="site-header"></div>
+  <main class="page" id="main-content">
+    <section class="section--tight"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../ks3_hub.html">KS3</a><span aria-hidden="true">/</span><a href="../year9_hub.html">Year 9</a><span aria-hidden="true">/</span><span>Unit 4</span></nav></div></section>
+    <section class="section--tight section--flush-top">
+      <div class="container">
+        <div class="stage-band">
+          <p class="eyebrow">Year 9 · Unit 04</p>
+          <h1>Collecting &amp; Analysing Data</h1>
+          <p class="lead">Use this page to find worksheets, videos and focused practice links for the unit as they are added.</p>
+          <nav class="anchor-nav" aria-label="Jump to resources"><a href="#worksheets" data-resource-anchor="worksheets">Worksheets</a><a href="#videos" data-resource-anchor="videos">Videos</a><a href="#other" data-resource-anchor="other">Other resources</a><a href="#sparx-section" data-resource-anchor="sparx">SPARX codes</a></nav>
+          <div class="topic-list" aria-label="Unit topics"><span class="topic-chip">4.1 STEM: Collecting data</span><span class="topic-chip">4.2 Presenting and comparing data</span><span class="topic-chip">4.3 Estimating statistics</span><span class="topic-chip">4.4 Box Plots</span><span class="topic-chip">4.5 Cumulative frequency graphs</span><span class="topic-chip">4.6 Histograms</span></div>
         </div>
-      </header>
-
-      <!-- Hero / Unit header -->
-      <section class="bg-white p-6 rounded-xl shadow-sm mb-6">
-        <div class="flex items-start justify-between flex-wrap gap-4">
-          <div>
-            <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 9 • Unit 04</p>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Collecting and Analysing data</h1>
-            <p class="text-gray-600 mt-2 max-w-2xl">
-              Revise this unit. Work through topic worksheets first, then consolidate with videos.
-            </p>
+      </div>
+    </section>
+    <section class="section deferred-section" aria-labelledby="unit-resources">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow text-stage">Revise in your own order</p><h2 id="unit-resources">Unit resources</h2></div><p>Start with a worksheet, use a video when you need an explanation, then practise independently.</p></div>
+        <div class="resource-layout">
+          <div class="resource-stack">
+            <section class="resource-group" id="worksheets" data-resource-group="worksheets"><div class="resource-group__heading"><h2>Worksheets</h2></div><div class="resource-grid" id="grid-worksheets"></div></section>
+            <section class="resource-group" id="other" data-resource-group="other"><div class="resource-group__heading"><h2>Other resources</h2></div><div class="resource-grid" id="grid-other"></div></section>
           </div>
-          <div class="flex items-center gap-3">
-            <a href="#videos" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-              Jump to Videos <span class="material-icons ml-2">arrow_downward</span>
-            </a>
-            <a href="#sparx-section"
-               class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-              Jump to SPARX
-              <span class="material-icons ml-2">arrow_downward</span>
-            </a>
-          </div>
+          <aside class="resource-stack">
+            <section class="resource-group" id="videos" data-resource-group="videos"><div class="resource-group__heading"><h2>Videos</h2></div><div class="resource-grid resource-grid--single" id="grid-videos"></div></section>
+            <section class="sparx-panel" id="sparx-section"><div class="sparx-panel__top"><div><h2>SPARX quick revision</h2><p>Use these codes for focused independent practice.</p></div><a class="button button--dark" href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener">Open SPARX ↗</a></div><div class="sparx-codes" id="sparx-code-list"></div></section>
+          </aside>
         </div>
-
-        <!-- Subtopics chips -->
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.1 STEM: Collecting data</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.2 Presenting and comparing data</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.3 Estimating statistics</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.4 Box Plots</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.5 Cumulative frequency graphs</span>
-          <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700">4.6 Histograms</span>
+        <p class="notice" id="resource-empty" hidden><strong>No resources are available yet.</strong> Return to the Year 9 hub or try this unit again later.</p>
+      </div>
+    </section>
+    <section class="section deferred-section" aria-labelledby="keep-going">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Keep moving</p><h2 id="keep-going">Choose your next step</h2></div></div>
+        <div class="card-grid card-grid--two">
+          <a class="card" href="year9_unit03.html"><span class="card__meta">Previous unit</span><h3>03 · Inequalities &amp; Formulae</h3><p>Move back and review an earlier part of the course.</p><span class="card__action">Open</span></a>
+          <a class="card" href="year9_unit05.html"><span class="card__meta">Next unit</span><h3>05 · Multiplicative Reasoning</h3><p>Continue through the course when you are ready.</p><span class="card__action">Open</span></a>
         </div>
-      </section>
-
-      <!-- Unit Resources -->
-      <section class="mt-10" id="unit-resources">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Unit 4 — Resources</h2>
-
-        <!-- Worksheets -->
-        <section class="mb-10">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4">Worksheets</h3>
-          <div id="grid-worksheets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <!-- Videos -->
-        <section class="mb-10" id="videos">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4">Videos</h3>
-          <div id="grid-videos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <!-- Other -->
-        <section class="mb-10">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4">Other</h3>
-          <div id="grid-other" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <p id="unit-empty" class="text-gray-500" hidden>No resources available yet.</p>
-      </section>
-
-      <!-- SPARX Quick Revision -->
-      <section id="sparx-section" class="mt-12 mb-10 hidden">
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-            <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-              <span class="material-icons text-purple-500">bolt</span>
-              SPARX Quick Revision
-            </h2>
-            <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
-               class="inline-flex items-center px-5 py-2.5 rounded-xl font-semibold text-white
-                      bg-gradient-to-r from-purple-600 to-blue-500 shadow
-                      hover:from-purple-700 hover:to-blue-600 transition transform hover:-translate-y-0.5">
-              <span class="material-icons mr-2">open_in_new</span>
-              Go to SPARX
-            </a>
-          </div>
-          <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
-        </div>
-      </section>
-
-      <!-- Spacer -->
-      <div class="h-8"></div>
-    </main>
-  </div>
-
-  <!-- Shared scripts -->
-  <script src="/assets/sidebar-loader.js"></script>
-  <script src="/assets/cards.js"></script>
-  <script src="/assets/unit-common.js"></script>
-
-  <!-- MathJax (optional; for any LaTeX you might add) -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
+  <script src="../assets/prototype-unit.js" defer></script>
 </body>
 </html>

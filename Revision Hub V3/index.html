@@ -1,198 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SJWMS Maths | Home</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
-
-    /* --- ENTRANCE ANIMATIONS --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SJWMS mathematics revision, practice and learning resources for KS3, GCSE and A-level students.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/hub_logo.png" type="image/png" fetchpriority="high">
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <title>SJWMS Maths | Find it. Practise it. Master it.</title>
 </head>
-<body>
+<body data-root="." data-section="home">
+  <div id="site-header"></div>
 
-  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 md:py-16 min-[1400px]:py-20">
-    
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/chuttersnap-9G1kXjqOq4U-unsplash.jpg" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/80 via-[#0f172a]/50 to-transparent"></div>
-    </div>
+  <main class="page" id="main-content">
+    <section class="home-welcome">
+      <div class="container home-welcome__layout">
+          <div class="home-welcome__copy">
+            <p class="eyebrow">SJWMS Maths</p>
+            <h1>Maths revision, made clear.</h1>
+            <p class="lead">Choose your stage and open the resources you need.</p>
+            <div class="button-row">
+              <a class="button button--primary" href="ks3_hub.html">Start learning <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 min-[1400px]:px-16 flex flex-col lg:flex-row items-center justify-center gap-10 min-[1400px]:gap-20 text-left">
-      
-      <div class="w-full max-w-xl min-[1400px]:max-w-2xl">
-         
-         <div class="flex items-center gap-2 min-[1400px]:gap-3 mb-4 min-[1400px]:mb-6 animate-fade-in delay-100">
-           <img src="assets/hub_logo.png" alt="SJWMS" class="h-6 md:h-8 min-[1400px]:h-10 w-auto filter drop-shadow-lg"/>
-           <span class="font-extrabold tracking-tight text-white text-base md:text-lg min-[1400px]:text-2xl drop-shadow-md">SJWMS Maths</span>
-         </div>
-         
-         <h1 class="text-4xl lg:text-5xl min-[1400px]:text-7xl font-black text-white mb-4 min-[1400px]:mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
-           What will you<br>
-           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-             revise today
-           </span><br>
-           and master?
-         </h1>
-         
-         <p class="text-slate-300 text-sm md:text-base min-[1400px]:text-xl font-medium drop-shadow-md mb-6 min-[1400px]:mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
-           Dive into structured worksheets, video tutorials, and practice quizzes designed specifically for your exams.
-         </p>
-
-         <div class="flex flex-wrap items-center gap-2 min-[1400px]:gap-4 animate-fade-in delay-400">
-           
-           <a href="ks3_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">KS3</span>
-           </a>
-
-           <a href="gcse_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">GCSE</span>
-           </a>
-
-           <a href="alevel_hub.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">A-Level</span>
-           </a>
-
-           <div class="w-px h-5 min-[1400px]:h-8 bg-blue-400/30 mx-1 hidden sm:block"></div>
-
-           <a href="ai_usage.html" class="group inline-flex items-center px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">AI Usage</span>
-           </a>
-
-           <a href="dashboard.html" class="group inline-flex items-center gap-2 px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="material-icons text-blue-200 text-sm min-[1400px]:text-base group-hover:text-white transition-colors">menu_book</span>
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">Textbooks</span>
-           </a>
-
-         </div>
-
-        <div class="mt-6 min-[1400px]:mt-8 flex items-center gap-1.5 min-[1400px]:gap-2 text-slate-400/80 animate-fade-in delay-400">
-           <span class="material-icons text-[12px] min-[1400px]:text-[16px] text-white">camera</span>
-          <!--p class="text-[10px] md:text-xs min-[1400px]:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@paulpastourmatzis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">Paul Pastourmatzis</a></p-->
-          <p class="text-[10px] md:text-xs min-[1400px]:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@chuttersnap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">CHUTTERSNAP</a></p>
-      
-         </div>
-
+          <div class="school-mark">
+            <span class="math-symbol math-symbol--one" aria-hidden="true">π</span>
+            <span class="math-symbol math-symbol--two" aria-hidden="true">√</span>
+            <span class="math-symbol math-symbol--three" aria-hidden="true">x²</span>
+            <span class="math-symbol math-symbol--four" aria-hidden="true">Σ</span>
+            <img src="assets/hub_logo.png" alt="SJWMS school crest" width="372" height="400" fetchpriority="high" decoding="async">
+          </div>
       </div>
+    </section>
 
-      <div id="updates-column" class="hidden w-full max-w-md lg:w-[380px] min-[1400px]:w-[440px] shrink-0 flex-col gap-3 min-[1400px]:gap-4 animate-fade-in delay-500 z-20">
+    <section class="section section--routes deferred-section" aria-labelledby="choose-stage">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">Choose your route</p><h2 id="choose-stage">Where are you learning?</h2></div>
+          <p>Start with your current stage. Every area follows the same clear path from course to unit to resource.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card stage-card stage-card--ks3" href="ks3_hub.html">
+            <span class="card__meta">Years 7–9</span><span class="stage-card__number">KS3</span>
+            <h3>Build strong foundations</h3><p>Choose your year, open a unit and practise the skills you are learning now.</p>
+            <span class="card__action">Open KS3</span>
+          </a>
+          <a class="card stage-card stage-card--gcse" href="gcse_hub.html">
+            <span class="card__meta">Exam preparation</span><span class="stage-card__number">GCSE</span>
+            <h3>Revise by topic</h3><p>Move through the Edexcel course with worksheets, videos and exam practice.</p>
+            <span class="card__action">Open GCSE</span>
+          </a>
+          <a class="card stage-card stage-card--alevel" href="alevel_hub.html">
+            <span class="card__meta">Sixth form</span><span class="stage-card__number">A-level</span>
+            <h3>Go deeper</h3><p>Access pure mathematics, statistics and mechanics revision materials.</p>
+            <span class="card__action">Open A-level</span>
+          </a>
+        </div>
       </div>
+    </section>
 
-    </div>
+    <section class="section section--tools deferred-section" aria-labelledby="learning-tools">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">Useful links</p><h2 id="learning-tools">Choose a tool</h2></div>
+          <p>Jump directly to the resource you need.</p>
+        </div>
+        <div class="tool-list">
+          <a class="tool-link tool-link--purple" href="sparx.html" style="--tool-icon: url('assets/square-root-of-x-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>SPARX</strong><small>Homework setup and revision codes</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-link tool-link--blue" href="dashboard.html" style="--tool-icon: url('assets/paperclip-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Textbooks</strong><small>Digital textbooks by year and unit</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-link tool-link--orange" href="ks3_eoy.html" style="--tool-icon: url('assets/pen-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Assessments</strong><small>Checklists, guidance and practice papers</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-link tool-link--green" href="ai_usage.html" style="--tool-icon: url('assets/cube-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>AI guidance</strong><small>Use artificial intelligence responsibly</small></span><b aria-hidden="true">→</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section deferred-section" aria-labelledby="maths-labs">
+      <div class="container">
+        <div class="feature-panel">
+          <div class="feature-panel__copy">
+            <p class="eyebrow">Maths Labs</p><h2 id="maths-labs">Mathematics in unexpected places</h2>
+            <p>Explore themed activities where mathematical questions are built into imaginative real-world settings.</p>
+            <div class="button-row"><a class="button button--secondary" href="bishop_shakes.html">Visit Bishop Shakes</a></div>
+          </div>
+          <div class="feature-panel__image"><img src="bishop_shakes/shakes_hero.svg" alt="Bishop Shakes" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-      })[character]);
-      const safeHref = (value) => {
-        try {
-          const url = new URL(value, window.location.origin);
-          return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
-        } catch {
-          return null;
-        }
-      };
-
-      try {
-        const response = await fetch('assets/data/home_updates.json');
-        
-        if (!response.ok) return; 
-
-        const data = await response.json();
-        const siteUpdates = data.items || []; 
-
-        const updatesColumn = document.getElementById('updates-column');
-
-        if (siteUpdates.length > 0) {
-          updatesColumn.classList.remove('hidden');
-          updatesColumn.classList.add('flex'); 
-
-          siteUpdates.forEach((update, index) => {
-            const updateText = String(update.text ?? '');
-            const isLong = updateText.length > 120;
-            let textHTML = '';
-            
-            if (isLong) {
-              textHTML = `
-                <div id="text-wrapper-${index}" class="relative overflow-hidden transition-all duration-500 max-h-[4.5rem] ease-in-out">
-                  <p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${escapeHTML(updateText)}</p>
-                </div>
-                <button onclick="toggleUpdateText(${index})" id="toggle-btn-${index}" class="text-blue-400 hover:text-blue-300 text-[10px] min-[1400px]:text-xs font-bold mt-2 uppercase tracking-wide transition-colors">
-                  Show More
-                </button>
-              `;
-            } else {
-              textHTML = `<p class="text-slate-300 text-xs min-[1400px]:text-sm leading-relaxed">${escapeHTML(updateText)}</p>`;
-            }
-
-            let buttonHTML = '';
-            const buttonHref = safeHref(update.btnLink);
-            if (update.btnText && buttonHref) {
-              buttonHTML = `
-                <div class="mt-3 min-[1400px]:mt-4">
-                  <a href="${escapeHTML(buttonHref)}" class="inline-flex items-center px-3 py-1.5 min-[1400px]:px-4 min-[1400px]:py-2 rounded bg-blue-500/20 border border-blue-400/30 text-[10px] min-[1400px]:text-xs font-bold text-blue-200 uppercase tracking-widest hover:bg-blue-500/40 hover:text-white transition-all">
-                    ${escapeHTML(update.btnText)}
-                  </a>
-                </div>
-              `;
-            }
-
-            const updateCard = document.createElement('div');
-            updateCard.className = "p-4 min-[1400px]:p-5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-lg";
-            updateCard.innerHTML = `
-              <div class="flex items-center gap-2 mb-1.5 min-[1400px]:mb-2">
-                <span class="material-icons text-blue-400 text-[16px] min-[1400px]:text-[18px]">${escapeHTML(update.icon || 'info')}</span>
-                <h3 class="text-white font-bold text-xs min-[1400px]:text-sm tracking-wide uppercase">${escapeHTML(update.title)}</h3>
-              </div>
-              ${textHTML}
-              ${buttonHTML}
-            `;
-            
-            updatesColumn.appendChild(updateCard);
-          });
-        }
-      } catch (error) {
-        console.error("Error loading updates:", error);
-      }
-    });
-
-    window.toggleUpdateText = function(index) {
-      const wrapper = document.getElementById(`text-wrapper-${index}`);
-      const btn = document.getElementById(`toggle-btn-${index}`);
-      
-      if (wrapper.classList.contains('max-h-[4.5rem]')) {
-        wrapper.classList.remove('max-h-[4.5rem]');
-        wrapper.classList.add('max-h-[800px]'); 
-        btn.innerText = 'Show Less';
-      } else {
-        wrapper.classList.add('max-h-[4.5rem]');
-        wrapper.classList.remove('max-h-[800px]');
-        btn.innerText = 'Show More';
-      }
-    };
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

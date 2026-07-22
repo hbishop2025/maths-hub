@@ -1,185 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="../assets/favicon.svg" />
-  <title>Year 9 | GCSE Prep</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="../assets/main.css"/>
-
-  <style>
-    /* THEME OVERRIDES FOR SPACE LOOK */
-    :root {
-      --accent: #3B82F6; 
-      --accent-600: #2563EB;
-      --accent-700: #1D4ED8;
-    }
-
-    body { 
-        font-family: 'Lexend', sans-serif; 
-        background-color: #f8fafc; /* Slate-50 */
-    }
-
-    .material-icons { font-size: 24px; }
-    html { scroll-behavior: smooth; }
-
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
-    
-    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A clear route from Year 9 mathematics into the GCSE course and its revision resources.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <title>Year 9 to GCSE Transition | SJWMS Maths</title>
 </head>
-
-<body class="text-slate-900" data-page="year9"
-      data-json="../assets/data/year9_gcse_prep.json">
-
-  <div class="layout flex h-screen overflow-hidden">
-    
-    <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
-
-    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
-      
-      <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div class="flex items-center gap-3">
-          <a href="../year9_hub.html" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition font-medium">
-            <span class="material-icons mr-1">arrow_back</span> Back
-          </a>
-        </div>
-      </header>
-
-      <section class="relative w-full rounded-3xl overflow-hidden shadow-2xl mb-8 group bg-slate-900">
-        <div class="absolute inset-0 z-0">
-            <img src="../assets/home-hero1.jpg" alt="Space Horizon" 
-                 class="w-full h-full object-cover object-center opacity-80" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#0f172a]/80 to-transparent"></div>
-        </div>
-
-        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-start justify-between gap-6">
-            <div class="max-w-2xl">
-                <div class="inline-flex items-center gap-2 mb-3">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-200 border border-blue-400/30 uppercase tracking-wider backdrop-blur-sm">
-                      Transition Module
-                    </span>
-                </div>
-
-                <h1 class="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg">
-                  GCSE <span class="text-blue-400">PREP</span>
-                </h1>
-                
-                <p class="text-slate-300 text-lg font-medium leading-relaxed drop-shadow-md">
-                   Master the transition before Year 10 starts. This module bridges the gap between KS3 mastery and GCSE application.
-                </p>
-
-                <div class="mt-6 flex flex-wrap gap-3">
-                    <a href="#section-factorising" class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition backdrop-blur-md">
-                        <span class="material-icons text-sm mr-2">play_circle</span> Watch Videos
-                    </a>
-                    <a href="#section-algebra" class="inline-flex items-center px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition">
-                        <span class="material-icons text-sm mr-2">description</span> Get Worksheets
-                    </a>
-                </div>
-            </div>
-        </div>
-      </section>
-
-      <section class="mt-8" id="unit-resources">
-        
-        <div class="flex items-center gap-3 mb-6">
-            <div class="h-8 w-1 bg-blue-500 rounded-full"></div>
-            <h2 class="text-2xl font-bold text-slate-800">GCSE PREP Resources</h2>
-        </div>
-
-        <section class="mb-10" id="section-algebra">
-          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-            <span class="material-icons text-slate-400">assignment</span> Algebra Revision
-          </h3>
-          <div id="grid-algebra" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section class="mb-10" id="section-factorising">
-          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-            <span class="material-icons text-slate-400">assignment</span> Solving quadratics by factorising
-          </h3>
-          <div id="grid-factorising" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section class="mb-10">
-          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-            <span class="material-icons text-slate-400">assignment</span> Solving quadratics by using the formula</h3>
-          <div id="grid-formula" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section class="mb-10">
-          <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center gap-2">
-            <span class="material-icons text-slate-400">assignment</span> Solving quadratics by completing the square</h3>
-          <div id="grid-completing-square" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <p id="unit-empty" class="text-slate-500 italic" hidden>No resources available yet.</p>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="../assets/sidebar-loader.js"></script>
-  <script>
-    // Custom Loader for GCSE Prep Page
-    document.addEventListener('DOMContentLoaded', async () => {
-        const jsonPath = document.body.getAttribute('data-json');
-        if(!jsonPath) return;
-
-        try {
-            const response = await fetch(jsonPath);
-            const data = await response.json();
-            
-            if(!data.resources) return;
-
-            data.resources.forEach(res => {
-                // Determine which grid this resource belongs to based on its 'category' in JSON
-                // e.g., category: 'algebra' -> finds element id 'grid-algebra'
-                const gridId = 'grid-' + res.category;
-                const container = document.getElementById(gridId);
-
-                if (container) {
-                    const card = createCardHTML(res); // Assuming createCardHTML is available or we define it
-                    container.insertAdjacentHTML('beforeend', card);
-                }
-            });
-            
-            // Helper to build the card (similar to your existing logic)
-            function createCardHTML(res) {
-                const isVideo = res.type === 'video';
-                const icon = isVideo ? 'play_circle' : 'description';
-                const colorClass = isVideo ? 'text-red-500' : 'text-blue-500';
-                
-                // Simple card template
-                return `
-                <a href="${res.url}" target="_blank" class="block bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md hover:-translate-y-1 transition group">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-icons ${colorClass}">${icon}</span>
-                            <span class="font-semibold text-slate-800 group-hover:text-blue-600 transition">${res.title}</span>
-                        </div>
-                    </div>
-                </a>
-                `;
-            }
-
-        } catch (err) {
-            console.error('Failed to load resources:', err);
-        }
-    });
-  </script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
-</body>
-</html>
+<body data-root=".." data-section="ks3" data-year="9">
+  <div id="site-header"></div>
+  <main class="page" id="main-content">
+    <section class="intro-panel intro-panel--year"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../year9_hub.html">Year 9</a><span aria-hidden="true">/</span><span>GCSE transition</span></nav><div class="intro-panel__grid"><div><p class="eyebrow text-stage">Transition module</p><h1>Move from Year 9 into GCSE with confidence.</h1><p class="lead">Use the finished Year 9 units to secure your foundations, then preview how the GCSE course is organised.</p></div><a class="button button--primary" href="../gcse_hub.html">Explore GCSE units</a></div></div></section>
+    <section class="section"><div class="container"><div class="feature-panel"><div class="feature-panel__copy"><p class="eyebrow">Before Year 10</p><h2>Focus on algebraic fluency</h2><p>Quadratics, rearranging formulae, graphing and proportional reasoning form an important bridge into GCSE mathematics.</p><div class="button-row"><a class="button button--secondary" href="year9_unit02.html">Review quadratics</a><a class="button button--secondary" href="year9_unit03.html">Review formulae</a></div></div><div class="feature-panel__copy"><p class="eyebrow">Dedicated resources</p><h3>Transition materials are being prepared</h3><p>The previous draft links did not point to available files, so they have been removed until verified worksheets and videos are ready.</p><div class="button-row"><a class="button button--secondary" href="../gcse_hub.html">Use the GCSE hub</a></div></div></div></div></section>
+  </main>
+  <div id="site-footer"></div><script src="../assets/site-shell.js" defer></script>
+</body></html>

@@ -1,16 +1,28 @@
 {
   "items": [
     {
-      "icon": "info",
-      "title": "Under construction",
-      "text": "Year 7, 8 & GCSE modules are currently under construction. \nMore details will be shared in the future."
+      "icon": "sparkles",
+      "title": "A clearer SJWMS Maths",
+      "date": "22 July 2026",
+      "text": "The clearer visual identity now runs across KS3, GCSE, unit pages and the main learning tools.",
+      "btnText": "Explore KS3",
+      "btnLink": "ks3_hub.html"
+    },
+    {
+      "icon": "books",
+      "title": "More unit pages available",
+      "date": "22 July 2026",
+      "text": "Year 7 now includes all ten units and the GCSE course includes units 1 to 19.",
+      "btnText": "Browse Year 7",
+      "btnLink": "year7_hub.html"
     },
     {
       "icon": "info",
       "title": "Accessing SPARX",
-      "text": "New to SJWMS? The following link will help you set up SPARX so you are ready for your homework assignments (Years 7 to 11 only). ",
-      "btnLink": "https://www.sjwmsmaths.co.uk/sparx",
-      "btnText": "SPARX Help"
+      "date": "22 July 2026",
+      "text": "New to SJWMS? Use the setup guide to get SPARX ready for homework assignments in Years 7 to 11.",
+      "btnText": "SPARX help",
+      "btnLink": "sparx.html"
     }
   ]
 }

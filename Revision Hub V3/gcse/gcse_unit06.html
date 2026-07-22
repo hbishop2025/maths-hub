@@ -1,226 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="../assets/favicon.svg" />
-  <title>GCSE | Unit 06</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="../assets/main.css"/>
-
-  <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
-
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    /* Header + mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    #mobileMenu a {
-      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
-    }
-
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
-    /* Background dots */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
-
-    /* Custom CSS Mesh Gradients */
-    .mesh-1 {
-      background-color: #1e1b4b;
-      background-image: 
-        radial-gradient(at 0% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #3b82f6 0px, transparent 50%);
-    }
-    .mesh-4 {
-      background-color: #312e81;
-      background-image: 
-        radial-gradient(at 0% 0%, #6366f1 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #a855f7 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #6366f1 0px, transparent 50%);
-    }
-
-    /* MathJax inline rendering */
-    mjx-container[display="false"]{ display:inline !important; vertical-align:-0.1em; margin:0 .05em; }
-    mjx-container[display="true"] { display:block !important; text-align:center; margin:.5rem 0; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GCSE Graphs revision resources, videos, worksheets and SPARX codes.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <title>Graphs | GCSE Mathematics</title>
 </head>
-<body data-page="gcse" data-json="../assets/data/gcse_unit06.json">
-
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
-      <div class="flex items-center gap-3">
-        <img src="../assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
-      </div>
-
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="/index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="/ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-[#135bec]" href="/gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="/alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="/ai_usage.html">
-          AI Usage
-        </a>
-      </nav>
-
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
-        <span class="material-icons">menu</span>
-      </button>
-
-      <div id="mobileMenu" class="hidden">
-        <a href="/index.html">Home</a>
-        <a href="/ks3_hub.html">KS3</a>
-        <a href="/gcse_hub.html">GCSE</a>
-        <a href="/alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="/ai_usage.html">
-          AI Usage
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <div class="absolute inset-0 math-grid pointer-events-none z-0"></div>
-
-  <main class="relative z-10 pt-20 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <div class="mb-6">
-      <a href="../gcse_hub.html" class="inline-flex items-center text-gray-500 hover:text-[#135bec] font-semibold transition-colors">
-        <span class="material-icons mr-1 text-xl">arrow_back</span> Back to GCSE Hub
-      </a>
-    </div>
-
-    <div class="mb-10 grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
-      
-      <section class="relative rounded-2xl shadow-md overflow-hidden mesh-4 p-6 md:p-8 md:col-span-4 flex flex-col justify-center">
-        <div class="relative z-10 max-w-3xl">
-          
-          <h1 class="text-3xl md:text-4xl font-black text-white mb-3 drop-shadow-md">
-            Graphs
-          </h1>
-
-          <div class="flex flex-wrap gap-2 mt-2">
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.1 Linear graphs</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.2 More linear graphs</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.3 Graphing rates of change</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.4 Real-life graphs</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.5 Line segments</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.6 Quadratic graphs</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.7 Cubic and reciprocal graphs</span>
-            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-sm shadow-sm">6.8 More graphs</span>
-          </div>
+<body data-root=".." data-section="gcse" data-stage="gcse" data-json="../assets/data/gcse_unit06.json">
+  <div id="site-header"></div>
+  <main class="page" id="main-content">
+    <section class="section--tight"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../gcse_hub.html">GCSE</a><span aria-hidden="true">/</span><span>Unit 6</span></nav></div></section>
+    <section class="section--tight section--flush-top">
+      <div class="container">
+        <div class="stage-band">
+          <p class="eyebrow">GCSE · Unit 06</p>
+          <h1>Graphs</h1>
+          <p class="lead">Use this page to find worksheets, videos and focused practice links for the unit as they are added.</p>
+          <nav class="anchor-nav" aria-label="Jump to resources"><a href="#worksheets" data-resource-anchor="worksheets">Worksheets</a><a href="#videos" data-resource-anchor="videos">Videos</a><a href="#other" data-resource-anchor="other">Other resources</a><a href="#sparx-section" data-resource-anchor="sparx">SPARX codes</a></nav>
+          <div class="topic-list" aria-label="Unit topics"><span class="topic-chip">6.1 Linear graphs</span><span class="topic-chip">6.2 More linear graphs</span><span class="topic-chip">6.3 Graphing rates of change</span><span class="topic-chip">6.4 Real-life graphs</span><span class="topic-chip">6.5 Line segments</span><span class="topic-chip">6.6 Quadratic graphs</span><span class="topic-chip">6.7 Cubic and reciprocal graphs</span><span class="topic-chip">6.8 More graphs</span></div>
         </div>
-      </section>
-
-      <div class="hidden md:flex md:col-span-1 items-stretch p-1 relative rounded-2xl overflow-hidden shadow-sm">
-        <div class="absolute inset-0 mesh-1 opacity-90 z-0"></div>
-        
-        <div class="relative z-10 w-full bg-white/95 backdrop-blur-md rounded-xl flex items-center justify-center p-4">
-          <div class="font-black text-5xl lg:text-6xl text-[#111827] tracking-normal select-none text-center whitespace-nowrap">
-            06
-          </div>
-        </div>
-      </div>
-      
-    </div>
-
-    <section id="sparx-section" class="mb-12 hidden relative rounded-2xl p-1 overflow-hidden">
-      <div class="absolute inset-0 mesh-1 opacity-90 z-0"></div>
-      
-      <div class="relative z-10 bg-white/95 backdrop-blur-md p-6 md:p-8 rounded-xl shadow-sm h-full">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-          <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-            <span class="material-icons text-purple-600 bg-purple-100 p-1.5 rounded-lg">bolt</span>
-            SPARX Quick Revision
-          </h2>
-          <a href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener"
-             class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-white
-                    bg-gray-900 shadow hover:bg-black transition-colors">
-            <span class="material-icons text-sm mr-2">open_in_new</span> Go to SPARX
-          </a>
-        </div>
-        
-        <div id="sparx-code-list" class="flex flex-wrap gap-2"></div>
       </div>
     </section>
-
-    <section id="unit-resources">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14">
-        
-        <div class="lg:col-span-8 flex flex-col gap-12">
-          
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <h3 class="text-2xl font-bold text-gray-800">Worksheets</h3>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            <div id="grid-worksheets" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
+    <section class="section deferred-section" aria-labelledby="unit-resources">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow text-stage">Revise in your own order</p><h2 id="unit-resources">Unit resources</h2></div><p>Start with a worksheet, use a video when you need an explanation, then practise independently.</p></div>
+        <div class="resource-layout">
+          <div class="resource-stack">
+            <section class="resource-group" id="worksheets" data-resource-group="worksheets"><div class="resource-group__heading"><h2>Worksheets</h2></div><div class="resource-grid" id="grid-worksheets"></div></section>
+            <section class="resource-group" id="other" data-resource-group="other"><div class="resource-group__heading"><h2>Other resources</h2></div><div class="resource-grid" id="grid-other"></div></section>
           </div>
-
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <h3 class="text-2xl font-bold text-gray-800">Other</h3>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            <div id="grid-other" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
-          </div>
-
+          <aside class="resource-stack">
+            <section class="resource-group" id="videos" data-resource-group="videos"><div class="resource-group__heading"><h2>Videos</h2></div><div class="resource-grid resource-grid--single" id="grid-videos"></div></section>
+            <section class="sparx-panel" id="sparx-section"><div class="sparx-panel__top"><div><h2>SPARX quick revision</h2><p>Use these codes for focused independent practice.</p></div><a class="button button--dark" href="https://selectschool.sparx-learning.com/" target="_blank" rel="noopener">Open SPARX ↗</a></div><div class="sparx-codes" id="sparx-code-list"></div></section>
+          </aside>
         </div>
-
-        <div class="lg:col-span-4 lg:sticky lg:top-24 self-start" id="videos">
-          <div class="flex items-center gap-3 mb-6">
-            <h3 class="text-2xl font-bold text-gray-800">Videos</h3>
-            <div class="h-px bg-gray-200 flex-grow"></div>
-          </div>
-          
-          <div id="grid-videos" class="grid grid-cols-1 gap-5"></div>
-        </div>
-
+        <p class="notice" id="resource-empty" hidden><strong>No resources are available yet.</strong> Return to the GCSE hub or try this unit again later.</p>
       </div>
-
-      <p id="unit-empty" class="text-gray-500 text-center py-10 italic mt-8" hidden>No resources available yet.</p>
     </section>
-
+    <section class="section deferred-section" aria-labelledby="keep-going">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Keep moving</p><h2 id="keep-going">Choose your next step</h2></div></div>
+        <div class="card-grid card-grid--two">
+          <a class="card" href="gcse_unit05.html"><span class="card__meta">Previous unit</span><h3>05 · Angles &amp; Trigonometry</h3><p>Move back and review an earlier part of the course.</p><span class="card__action">Open</span></a>
+          <a class="card" href="gcse_unit07.html"><span class="card__meta">Next unit</span><h3>07 · Area &amp; Volume</h3><p>Continue through the course when you are ready.</p><span class="card__action">Open</span></a>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <div id="footer-slot"></div>
-  <script src="../assets/footer-loader.js" defer></script>
-
-  <script src="../assets/cards.js"></script>
-  <script src="../assets/unit-common.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
-
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
-
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
+  <script src="../assets/prototype-unit.js" defer></script>
 </body>
 </html>

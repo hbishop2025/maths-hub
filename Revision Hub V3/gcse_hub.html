@@ -1,393 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="icon" type="image/svg" href="assets/favicon.svg" />
-  <title>GCSE | Home</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="assets/main.css"/>
-
-  <style type="text/tailwindcss">
-    :root { --accent1:#7C3AED; --accent2:#3B82F6; }
-
-    body { @apply bg-[#f6f6f8] text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    /* Header + mobile menu */
-    .header { @apply fixed top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur border-b border-gray-200; }
-    #mobileMenu {
-      @apply absolute right-4 top-[3.25rem] bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl px-4 py-3 z-40;
-      width: 180px;
-      transform-origin: top right;
-      animation: menuIn .22s ease-out;
-    }
-    #mobileMenu a {
-      @apply block text-sm font-medium text-gray-700 hover:text-[#135bec] py-1 text-center;
-    }
-
-    @keyframes menuIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1); }
-    }
-
-    /* Background dots */
-    .math-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0),
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      mask-image: linear-gradient(to bottom, white 65%, transparent 100%);
-    }
-
-    /* Custom CSS Mesh Gradients */
-    .mesh-gcse {
-      background-color: #0f172a;
-      background-image: 
-        radial-gradient(at 20% 30%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 80% 20%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 90% 80%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 10% 90%, #06b6d4 0px, transparent 50%);
-    }
-    .mesh-1 {
-      background-color: #1e1b4b;
-      background-image: 
-        radial-gradient(at 0% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #8b5cf6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #3b82f6 0px, transparent 50%);
-    }
-    .mesh-2 {
-      background-color: #064e3b;
-      background-image: 
-        radial-gradient(at 0% 0%, #10b981 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #3b82f6 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #06b6d4 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #10b981 0px, transparent 50%);
-    }
-    .mesh-3 {
-      background-color: #7c2d12;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #ef4444 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #f59e0b 0px, transparent 50%);
-    }
-    .mesh-4 {
-      background-color: #312e81;
-      background-image: 
-        radial-gradient(at 0% 0%, #6366f1 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #a855f7 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #ec4899 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #6366f1 0px, transparent 50%);
-    }
-    .mesh-5 {
-      background-color: #78350f;
-      background-image: 
-        radial-gradient(at 0% 0%, #f59e0b 0px, transparent 50%), 
-        radial-gradient(at 100% 0%, #d97706 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, #fbbf24 0px, transparent 50%), 
-        radial-gradient(at 0% 100%, #ea580c 0px, transparent 50%);
-    }
-  </style>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GCSE mathematics units, revision resources, past papers and extension opportunities.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <title>GCSE Mathematics | SJWMS Maths</title>
 </head>
-<body>
-
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
-      <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
+<body data-root="." data-section="gcse" data-stage="gcse">
+  <div id="site-header"></div>
+  <main class="page" id="main-content">
+    <section class="intro-panel intro-panel--year">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>GCSE</span></nav>
+        <div class="intro-panel__grid"><div><p class="eyebrow text-stage">KS4 · Years 10 and 11</p><h1>GCSE mathematics, organised by unit.</h1><p class="lead">Build topic knowledge, revisit methods and prepare for assessments with one clear route through the course.</p></div><a class="button button--secondary" href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener">Open past papers ↗</a></div>
       </div>
-
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-[#135bec]" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-[#135bec] transition" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-[#111827] text-white text-sm font-semibold" href="ai_usage.html">
-          AI Usage
-        </a>
-      </nav>
-
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-200/60">
-        <span class="material-icons">menu</span>
-      </button>
-
-      <div id="mobileMenu" class="hidden">
-        <a href="index.html">Home</a>
-        <a href="ks3_hub.html">KS3</a>
-        <a href="gcse_hub.html">GCSE</a>
-        <a href="alevel_hub.html">A-Level</a>
-        <a class="rounded-full bg-[#111827] text-white font-semibold mt-2 py-1.5 px-3 block" href="ai_usage.html">
-          AI Usage
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <div class="absolute inset-0 math-grid pointer-events-none"></div>
-
-  <main class="relative pt-14 pb-20">
-
-    <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
-      <span class="material-icons text-base mr-2">construction</span>
-      Year 7, 8 and GCSE Still Under Construction
-    </div>
-    
-    <section class="relative w-full h-[400px] flex items-center overflow-hidden mesh-gcse mb-12 shadow-md">
-      
-      <div class="absolute inset-0 z-0 bg-slate-900/30"></div> <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm">
-            <span class="animate-pulse inline-flex h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-            <span class="text-[10px] font-bold text-blue-100 uppercase tracking-widest">KS4 • Years 10 & 11</span>
-          </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-xl">
-            GCSE<br>
-            <span class="text-blue-300">
-              Mathematics
-            </span>
-          </h1>
-          
-          <p class="text-slate-100 text-lg font-medium drop-shadow-md">
-            Your home for topic learning, exam revision, and past paper practice.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#ukmt" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              <span>UKMT Challenge</span>
-              <span class="material-icons text-sm group-hover:translate-y-1 transition-transform">arrow_downward</span>
-            </a>
-          </div>
+    </section>
+    <section class="section section--stage-units" aria-labelledby="gcse-units">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow text-stage">Edexcel Mathematics</p><h2 id="gcse-units">Choose a unit</h2></div><p>Nineteen units covering the full course, from number and algebra to proof and proportional reasoning.</p></div>
+        <div class="unit-grid">
+          <a class="unit-card" href="gcse/gcse_unit01.html"><span class="unit-card__number">01</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Number</h3><ul><li>Number problems</li><li>Indices</li><li>Standard form</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit02.html"><span class="unit-card__number">02</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Algebra</h3><ul><li>Expressions</li><li>Equations</li><li>Sequences</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit03.html"><span class="unit-card__number">03</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Interpreting &amp; Representing Data</h3><ul><li>Statistical diagrams</li><li>Scatter graphs</li><li>Averages</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit04.html"><span class="unit-card__number">04</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Fractions, Ratio &amp; Percentages</h3><ul><li>Fractions</li><li>Ratio</li><li>Percentages</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit05.html"><span class="unit-card__number">05</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Angles &amp; Trigonometry</h3><ul><li>Angle properties</li><li>Pythagoras</li><li>Trigonometry</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit06.html"><span class="unit-card__number">06</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Graphs</h3><ul><li>Linear graphs</li><li>Rates of change</li><li>Non-linear graphs</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit07.html"><span class="unit-card__number">07</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Area &amp; Volume</h3><ul><li>Perimeter and area</li><li>Prisms</li><li>Circles</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit08.html"><span class="unit-card__number">08</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Transformations &amp; Constructions</h3><ul><li>Transformations</li><li>Constructions</li><li>Loci</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit09.html"><span class="unit-card__number">09</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Equations &amp; Inequalities</h3><ul><li>Inequalities</li><li>Quadratics</li><li>Simultaneous equations</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit10.html"><span class="unit-card__number">10</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Probability</h3><ul><li>Combined events</li><li>Tree diagrams</li><li>Venn diagrams</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit11.html"><span class="unit-card__number">11</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Compound Measures</h3><ul><li>Rates</li><li>Density</li><li>Pressure</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit12.html"><span class="unit-card__number">12</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Congruence &amp; Similarity</h3><ul><li>Congruence</li><li>Similarity</li><li>Scale factors</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit13.html"><span class="unit-card__number">13</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>More Trigonometry</h3><ul><li>Sine rule</li><li>Cosine rule</li><li>Trigonometric graphs</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit14.html"><span class="unit-card__number">14</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Further Statistics</h3><ul><li>Sampling</li><li>Histograms</li><li>Cumulative frequency</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit15.html"><span class="unit-card__number">15</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Equations &amp; Graphs</h3><ul><li>Functions</li><li>Iterations</li><li>Graphical solutions</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit16.html"><span class="unit-card__number">16</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Circle Theorems</h3><ul><li>Circle properties</li><li>Tangents</li><li>Proof</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit17.html"><span class="unit-card__number">17</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>More Algebra</h3><ul><li>Algebraic fractions</li><li>Surds</li><li>Proof</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit18.html"><span class="unit-card__number">18</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Vectors &amp; Geometric Proofs</h3><ul><li>Vectors</li><li>Geometric proof</li><li>Ratio</li></ul><span class="unit-card__action">Open unit →</span></span></a>
+          <a class="unit-card" href="gcse/gcse_unit19.html"><span class="unit-card__number">19</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>Proportion &amp; Graphs</h3><ul><li>Proportion</li><li>Growth and decay</li><li>Graphs</li></ul><span class="unit-card__action">Open unit →</span></span></a>
         </div>
       </div>
     </section>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16">
-        
-        <div class="lg:col-span-4 flex flex-col gap-6">
-          <div class="flex items-center gap-3 mb-2">
-            <h2 class="text-2xl font-bold text-gray-800">Resources</h2>
-            <div class="h-px bg-gray-200 flex-grow"></div>
-          </div>
-
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-1 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">psychology</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Exam Revision</h3>
-                <p class="text-white/70 text-sm">Checklists and cram sheets.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-3 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <div class="flex justify-between items-start">
-                <span class="material-icons text-white/80 text-3xl">history_edu</span>
-                <span class="material-icons text-white/50 text-sm">open_in_new</span>
-              </div>
-              <div>
-                <h3 class="text-white font-bold text-lg">Past Papers</h3>
-                <p class="text-white/70 text-sm">MathsGenie exam archive.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-2 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">calculate</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Formula Sheet</h3>
-                <p class="text-white/70 text-sm">Download the official PDF.</p>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-36">
-            <div class="absolute inset-0 mesh-4 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-              <span class="material-icons text-white/80 text-3xl">lightbulb</span>
-              <div>
-                <h3 class="text-white font-bold text-lg">Calculator Hacks</h3>
-                <p class="text-white/70 text-sm">Master your ClassWiz.</p>
-              </div>
-            </div>
-          </a>
-
-          <div id="ukmt" class="relative rounded-2xl overflow-hidden shadow-sm scroll-mt-24 flex flex-col border border-amber-900/10">
-            <div class="absolute inset-0 mesh-5 opacity-90"></div>
-            <div class="relative z-10 p-5 flex flex-col gap-3">
-              <div class="flex items-center gap-3">
-                <span class="material-icons text-white/90 text-3xl">emoji_events</span>
-                <div>
-                  <h3 class="text-white font-bold text-lg leading-tight">UKMT Challenge</h3>
-                  <p class="text-white/70 text-xs">Intermediate prep & practice.</p>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 mt-2">
-                <a href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>UKMT Past Papers</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-                <a href="https://www.drfrost.org/" target="_blank" rel="noopener" class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/25 border border-white/20 transition-all text-white text-sm font-semibold group">
-                  <span>Dr Frost Revision</span>
-                  <span class="material-icons text-[16px] opacity-60 group-hover:opacity-100 transition-opacity">open_in_new</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
+    <section class="section section--tools deferred-section" aria-labelledby="gcse-tools">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Exam preparation</p><h2 id="gcse-tools">Useful GCSE tools</h2></div><p>Trusted sources for papers, formulae and additional practice.</p></div>
+        <div class="tool-list">
+          <a class="tool-link tool-link--blue" href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" style="--tool-icon: url('assets/pen-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Past papers</strong><small>MathsGenie examination archive</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-link tool-link--orange" href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" style="--tool-icon: url('assets/paperclip-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Formula sheet</strong><small>Open the official reference PDF</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-link tool-link--green" href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" style="--tool-icon: url('assets/compass-math-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>UKMT challenge</strong><small>Intermediate papers and problem solving</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-link tool-link--purple" href="https://www.drfrost.org/" target="_blank" rel="noopener" style="--tool-icon: url('assets/square-root-of-x-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Dr Frost Maths</strong><small>Independent practice and revision</small></span><b aria-hidden="true">↗</b></a>
         </div>
-
-        <div class="lg:col-span-8">
-          
-          <div class="mb-12">
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">Edexcel Mathematics</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="gcse/gcse_unit01.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Number</span>
-              </a>
-              <a href="gcse/gcse_unit02.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Algebra</span>
-              </a>
-              <a href="gcse/gcse_unit03.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Interpreting & Representing Data</span>
-              </a>
-              <a href="gcse/gcse_unit04.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Fractions, Decimals & Percentages</span>
-              </a>
-              <a href="gcse/gcse_unit05.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Angles & Trigonometry</span>
-              </a>
-              <a href="gcse/gcse_unit06.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Graphs</span>
-              </a>
-              <a href="gcse/gcse_unit07.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">7</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Area & Volume</span>
-              </a>
-              <a href="gcse/gcse_unit08.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">8</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Transformations & Constructions</span>
-              </a>
-              <a href="gcse/gcse_unit09.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">9</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Inequalities</span>
-              </a>
-              <a href="gcse/gcse_unit10.html" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">10</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Probability</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">11</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Compound Measures</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">12</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Congruence & Similarity</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">13</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Trigonometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">14</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Further Statistics</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">15</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Equations & Graphs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">16</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Circle Theorems</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">17</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">More Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">18</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Vectors & Geometric Proofs</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-gray-100 text-gray-500 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-[#135bec]/10 group-hover:text-[#135bec] transition-colors">19</div>
-                <span class="font-semibold text-gray-700 group-hover:text-[#135bec] transition-colors">Proportion & Graphs</span>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center gap-3 mb-6">
-              <h2 class="text-2xl font-bold text-gray-800">AQA Further Maths</h2>
-              <div class="h-px bg-gray-200 flex-grow"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">1</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Number</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">2</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Algebra</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Coordinate Geometry</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">4</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Calculus</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">5</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Matrix Transformations</span>
-              </a>
-              <a href="#" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-[#135bec] hover:shadow-md transition-all group">
-                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-sm mr-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">6</div>
-                <span class="font-semibold text-gray-700 group-hover:text-purple-700 transition-colors">Geometry</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
+        <p class="notice" style="margin-top:1rem"><strong>AQA Further Maths:</strong> dedicated unit links will appear here when the resources are ready.</p>
       </div>
-      
-    </div>
+    </section>
   </main>
-
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
-  
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

@@ -1,151 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Year 9 — Interactive</title>
-
-  <!-- Tailwind (CDN while prototyping) -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-  <style>
-    :root{
-      /* Year 9 accent (purple / lilac) */
-      --accent:#7C4DFF;
-      --accent-600:#6A3FE6;
-      --accent-700:#5A35C8;
-    }
-    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    html { scroll-behavior: smooth; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Year 9 mathematics games and interactive tools for indices and three-dimensional geometry.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <title>Year 9 Interactive Activities | SJWMS Maths</title>
 </head>
-<body class="bg-gray-100">
-<div class="flex min-h-screen">
-  <!-- Sidebar (same as other pages) -->
-  <div id="sidebar"></div>
-
-  <!-- Main -->
-  <main class="flex-1 p-8 overflow-y-auto ml-64">
-    <!-- Top: back + title -->
-    <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
-      <div class="flex items-center gap-3">
-        <a href="../year9_hub.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
-          <span class="material-icons mr-1">arrow_back</span> Back to Year 9 Hub
-        </a>
-      </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="bg-white p-6 rounded-xl shadow-sm mb-8">
-      <div class="flex items-start justify-between flex-wrap gap-4">
-        <div>
-          <p class="uppercase tracking-wide text-xs text-gray-500 mb-1">Year 9 • Interactive</p>
-          <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Interactive — Games & Activities</h1>
-          <p class="text-gray-600 mt-2 max-w-2xl">
-            Practice key skills with quick games and interactive challenges. Click a card to start playing.
-          </p>
-        </div>
-        <div class="flex items-center gap-3">
-          <a href="#games" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
-            Jump to Games <span class="material-icons ml-2">arrow_downward</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Games (manual links) -->
-    <section id="games" class="mt-8">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Games</h2>
-
-      <!-- Group 1: Key Skills -->
-      <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-semibold text-gray-800">Key Skills</h3>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <!-- Card -->
-          <a href="/games/year9_indices_quiz.html" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
-            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
-              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
-            </div>
-            <p class="text-sm text-gray-500">Indices</p>
-            <h4 class="font-semibold text-gray-800 mb-2">Indices beat the clock</h4>
-            <p class="text-sm text-gray-600 mb-3">Select the correct indices to gain a second to your time. One wrong move and the game is over!</p>
-            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
-              Play <span class="material-icons ml-1">play_arrow</span>
-            </span>
-          </a>
-
-          <!-- Card -->
-          <a href="#" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
-            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
-              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
-            </div>
-            <p class="text-sm text-gray-500">Coming soon</p>
-            <h4 class="font-semibold text-gray-800 mb-2">Coming soon</h4>
-            <p class="text-sm text-gray-600 mb-3">???</p>
-            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
-              Play <span class="material-icons ml-1">play_arrow</span>
-            </span>
-          </a>
-
-
-        </div>
-      </div>
-
-      <!-- Group 2: Interactive Tools -->
-      <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-semibold text-gray-800">Interactive Tools</h3>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <a href="/games/Cube_Manipulation.html" class="block bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition">
-            <div class="w-full h-32 rounded-lg mb-4 flex items-center justify-center bg-gray-100">
-              <span class="material-icons text-5xl text-gray-400">sports_esports</span>
-            </div>
-            <p class="text-sm text-gray-500">Geometry</p>
-            <h4 class="font-semibold text-gray-800 mb-2">Cube manipulation</h4>
-            <p class="text-sm text-gray-600 mb-3">Add and subtract cubes to view plans and side elevations.</p>
-            <span class="inline-flex items-center font-semibold" style="color:var(--accent);">
-              Start <span class="material-icons ml-1">play_arrow</span>
-            </span>
-          </a>
-
-        </div>
-      </div>
-
-      
-
-    </section>
+<body data-root=".." data-section="ks3" data-year="9">
+  <div id="site-header"></div>
+  <main class="page" id="main-content">
+    <section class="intro-panel intro-panel--year"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../year9_hub.html">Year 9</a><span aria-hidden="true">/</span><span>Interactive activities</span></nav><div class="intro-panel__grid"><div><p class="eyebrow text-stage">Year 9 interactive</p><h1>Practise by playing and exploring.</h1><p class="lead">Use short challenges to rehearse key skills or manipulate mathematical objects directly.</p></div><a class="button button--secondary" href="../year9_hub.html">Back to Year 9</a></div></div></section>
+    <section class="section"><div class="container"><div class="section-heading"><div><p class="eyebrow text-stage">Available now</p><h2>Choose an activity</h2></div><p>These activities have their own focused game interface but link back into the Year 9 course.</p></div><div class="card-grid card-grid--two"><a class="card stage-card--year9" href="../games/year9_indices_quiz.html"><span class="card__meta">Indices · timed challenge</span><h3>Indices beat the clock</h3><p>Select the correct index form to gain time. One wrong move ends the round.</p><span class="card__action">Play now</span></a><a class="card stage-card--year9" href="../games/Cube_Manipulation.html"><span class="card__meta">Geometry · interactive tool</span><h3>Cube manipulation</h3><p>Add and remove cubes, then compare the plan and side elevations.</p><span class="card__action">Open activity</span></a></div><p class="notice" style="margin-top:1rem"><strong>More activities are coming.</strong> New games will appear here once they are ready for students.</p></div></section>
   </main>
-</div>
-<script>
-  fetch("/assets/sidebar.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-
-      // === Highlight active year ===
-      const path = window.location.pathname;
-
-      if (path.includes("year9")) {
-        const link = document.querySelector('#sidebar a[href="../year9_hub.html"]');
-        if (link) {
-          link.classList.add("text-white");
-          link.style.background = "var(--accent)";
-          link.querySelector(".material-icons").classList.add("text-white");
-        }
-      }
-      // Later you can add rules here for year7, year8, gcse...
-    });
-</script>
-</body>
-</html>
+  <div id="site-footer"></div><script src="../assets/site-shell.js" defer></script>
+</body></html>
