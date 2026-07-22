@@ -6,11 +6,11 @@
       "text": "Year 7, 8 & GCSE modules are currently under construction. \nMore details will be shared in the future."
     },
     {
-      "icon": "campaign",
-      "title": "A-level Induction",
-      "text": "Access to all A-level Induction Materials can be found here.",
-      "btnText": "A - Level Induction",
-      "btnLink": "https://sites.google.com/sjwms.org.uk/mathsthemathinduction/home"
+      "icon": "info",
+      "title": "Accessing SPARX",
+      "text": "New to SJWMS? The following link will help you set up SPARX so you are ready for your homework assignments (Years 7 to 11 only). ",
+      "btnLink": "https://www.sjwmsmaths.co.uk/sparx",
+      "btnText": "SPARX Help"
     }
   ]
 }
