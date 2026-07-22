@@ -54,6 +54,9 @@
       const thumbnail = document.createElement("img");
       thumbnail.src = `https://img.youtube.com/vi/${yt[1]}/hqdefault.jpg`;
       thumbnail.alt = "Video thumbnail";
+      thumbnail.loading = "lazy";
+      thumbnail.decoding = "async";
+      thumbnail.referrerPolicy = "no-referrer";
       thumbnail.className = "w-full h-full object-cover";
       media.appendChild(thumbnail);
     } else {
@@ -135,7 +138,7 @@
 
   async function loadUnit() {
     try {
-      const data = await fetch(DATA_URL, { cache: "no-store" })
+      const data = await fetch(DATA_URL)
         .then((r) => r.json())
         .catch(() => ({ items: [] }));
 

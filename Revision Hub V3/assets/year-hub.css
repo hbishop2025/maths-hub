@@ -1,0 +1,131 @@
+/* Shared, high-readability unit selector for the Year 7, 8 and 9 hubs. */
+body[data-page="year7"] {
+  --year-accent: #c2410c;
+  --year-accent-rgb: 194, 65, 12;
+  --year-soft: #fff7ed;
+  --year-border: #fed7aa;
+}
+
+body[data-page="year8"] {
+  --year-accent: #047857;
+  --year-accent-rgb: 4, 120, 87;
+  --year-soft: #ecfdf5;
+  --year-border: #a7f3d0;
+}
+
+body[data-page="year9"] {
+  --year-accent: #7e22ce;
+  --year-accent-rgb: 126, 34, 206;
+  --year-soft: #faf5ff;
+  --year-border: #e9d5ff;
+}
+
+.year-hub-hero {
+  margin-bottom: 3rem !important;
+}
+
+.unit-grid {
+  align-items: stretch;
+}
+
+.module-card {
+  position: relative;
+  display: flex;
+  min-height: 17rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 1.25rem !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.module-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.3rem;
+  background: var(--year-accent);
+  content: "";
+}
+
+.module-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--year-border) !important;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1) !important;
+}
+
+.module-card:focus-visible {
+  outline: 3px solid rgba(var(--year-accent-rgb), 0.3) !important;
+  outline-offset: 3px;
+}
+
+.module-card > .flex:first-child > div:first-child {
+  border-radius: 999px;
+  background: var(--year-accent);
+  color: #fff !important;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.module-card > .flex:first-child > .material-icons {
+  display: none;
+}
+
+.module-card > h3 {
+  margin-top: 1rem !important;
+  color: #0f172a;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+  line-height: 1.3;
+}
+
+.module-card > h3 + p {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 0.55rem !important;
+  border: 1px solid var(--year-border);
+  border-radius: 999px;
+  background: var(--year-soft);
+  color: var(--year-accent) !important;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem !important;
+  font-weight: 700;
+}
+
+.module-card > .space-y-1 {
+  margin-top: 1rem !important;
+  color: #475569 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.55;
+}
+
+.module-card > .inline-flex:last-child {
+  width: 100%;
+  margin-top: auto !important;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+  color: var(--year-accent) !important;
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
+}
+
+@media (max-width: 639px) {
+  .module-card {
+    min-height: 0;
+    padding: 1.25rem !important;
+  }
+
+  .year-hub-hero {
+    margin-bottom: 2.25rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module-card,
+  .card-arrow {
+    transition: none !important;
+  }
+}

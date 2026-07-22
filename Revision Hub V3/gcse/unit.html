@@ -50,10 +50,10 @@
     (() => {
       const topics = {
         11: "Compound Measures",
-        12: "Similarity & Proportion",
-        13: "Multiplicative Reasoning",
-        14: "Quadratic Equations",
-        15: "More Graphs",
+        12: "Congruence & Similarity",
+        13: "More Trigonometry",
+        14: "Further Statistics",
+        15: "Equations & Graphs",
         16: "Circle Theorems",
         17: "More Algebra",
         18: "Vectors & Geometric Proofs",
@@ -78,7 +78,7 @@
         }
       };
 
-      fetch(`/assets/data/gcse_unit${unitId}.json`, { cache: "no-store" })
+      fetch(`/assets/data/gcse_unit${unitId}.json`)
         .then((response) => response.ok ? response.json() : { items: [] })
         .then((data) => {
           const rows = Array.isArray(data) ? data : data.items || [];

@@ -52,6 +52,8 @@ function makeSiteCard(site) {
     const logo = document.createElement("img");
     logo.src = logoUrl;
     logo.alt = `${name} logo`;
+    logo.loading = "lazy";
+    logo.decoding = "async";
     logo.className = "relative max-h-14 w-auto object-contain";
     media.appendChild(logo);
   } else {

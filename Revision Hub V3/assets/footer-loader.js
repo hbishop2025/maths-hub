@@ -7,7 +7,7 @@
     // The footer is published at the site root. Using a root-relative URL keeps
     // this request valid on both top-level pages and nested routes such as
     // /gcse/gcse_unit01.html.
-    fetch("/footer.html", { cache: "no-store" })
+    fetch("/footer.html")
       .then((res) => {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.text();

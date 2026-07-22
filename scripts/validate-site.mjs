@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { dirname, extname, join, resolve } from "node:path";
+import { basename, dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -31,6 +31,25 @@ for (const match of cmsConfig.matchAll(/^\s*file:\s*"([^"]+)"/gm)) {
 const ignoredPrefixes = ["#", "http:", "https:", "data:", "mailto:", "tel:", "javascript:", "//", "{", "$" ];
 for (const file of walk(publishRoot).filter((path) => path.endsWith(".html"))) {
   const html = readFileSync(file, "utf8").replace(/<!--[\s\S]*?-->/g, "");
+  if (html.includes("year7_hub_soon")) {
+    errors.push(`${file}: references the retired Year 7 coming-soon route`);
+  }
+
+  const dataMatch = html.match(/\bdata-json\s*=\s*["']([^"']+)["']/i);
+  if (dataMatch) {
+    const dataReference = dataMatch[1];
+    const dataPath = dataReference.startsWith("/")
+      ? join(publishRoot, dataReference.slice(1))
+      : resolve(dirname(file), dataReference);
+    if (!existsSync(dataPath)) errors.push(`${file}: missing unit data source ${dataReference}`);
+
+    const pageUnit = basename(file).match(/^((?:year[789])|gcse)_unit(\d{2})\.html$/);
+    const dataUnit = basename(dataPath).match(/^((?:year[789])|gcse)_unit(\d{2})\.json$/);
+    if (pageUnit && (!dataUnit || pageUnit[1] !== dataUnit[1] || pageUnit[2] !== dataUnit[2])) {
+      errors.push(`${file}: unit page and data source do not match (${dataReference})`);
+    }
+  }
+
   const attributePattern = /\b(?:href|src)\s*=\s*["']([^"']+)["']/gi;
   for (const match of html.matchAll(attributePattern)) {
     const reference = match[1].trim();
