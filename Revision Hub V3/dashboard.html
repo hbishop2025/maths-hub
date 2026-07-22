@@ -8,101 +8,235 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <style type="text/tailwindcss">
-    body { @apply bg-[#020617] text-[#212121] font-[Lexend] overflow-x-hidden; }
+    body { @apply bg-[#020617] text-white font-[Lexend] overflow-x-hidden; }
 
-    /* --- ENTRANCE ANIMATIONS --- */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(22px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
     }
     .delay-100 { animation-delay: 100ms; }
     .delay-200 { animation-delay: 200ms; }
     .delay-300 { animation-delay: 300ms; }
     .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
+
+    .unit-scroll::-webkit-scrollbar { width: 5px; }
+    .unit-scroll::-webkit-scrollbar-track { background: transparent; }
+    .unit-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 999px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-fade-in { animation: none; opacity: 1; }
+      * { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
-
-  <main class="relative w-full min-h-screen flex flex-col justify-center bg-[#020617] py-12 md:py-16 min-[1400px]:py-20">
-    
+  <main class="relative flex min-h-screen w-full flex-col justify-center bg-[#020617] py-10 md:py-16">
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="assets/chuttersnap-9G1kXjqOq4U-unsplash.jpg" alt="Maths Revision" class="w-full h-full object-cover object-center filter brightness-[0.60]" />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/80 via-[#0f172a]/50 to-transparent"></div>
+      <img src="assets/chuttersnap-9G1kXjqOq4U-unsplash.jpg" alt="" class="h-full w-full object-cover object-center brightness-[0.48]"/>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/95 via-[#0f172a]/80 to-[#020617]/55"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_25%,rgba(99,102,241,0.18),transparent_42%)]"></div>
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 min-[1400px]:px-16 flex flex-col lg:flex-row items-center justify-center gap-10 min-[1400px]:gap-20 text-left">
-      
-      <div class="w-full max-w-xl min-[1400px]:max-w-2xl">
-         
-         <div class="flex items-center gap-2 min-[1400px]:gap-3 mb-4 min-[1400px]:mb-6 animate-fade-in delay-100">
-           <img src="assets/hub_logo.png" alt="SJWMS" class="h-6 md:h-8 min-[1400px]:h-10 w-auto filter drop-shadow-lg"/>
-           <span class="font-extrabold tracking-tight text-white text-base md:text-lg min-[1400px]:text-2xl drop-shadow-md">SJWMS Maths</span>
-         </div>
-         
-         <h1 class="text-4xl lg:text-5xl min-[1400px]:text-7xl font-black text-white mb-4 min-[1400px]:mb-6 leading-tight drop-shadow-xl animate-fade-in delay-200">
-           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-             SJWMS KS3
-           </span><br>
-           Textbook
-         </h1>
-         
-         <p class="text-slate-300 text-sm md:text-base min-[1400px]:text-xl font-medium drop-shadow-md mb-6 min-[1400px]:mb-10 leading-relaxed max-w-lg animate-fade-in delay-300">
-           Access your digital textbook resources, custom dashboards, and performance tracking profiles.
-         </p>
-
-         <div class="flex flex-wrap items-center gap-2 min-[1400px]:gap-4 animate-fade-in delay-400">
-           <a href="index.html" class="group inline-flex items-center gap-2 px-4 py-2 min-[1400px]:px-6 min-[1400px]:py-3 rounded bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm shadow-lg hover:bg-blue-500/40 hover:border-blue-400/50 hover:-translate-y-0.5 transition-all duration-300">
-             <span class="material-icons text-blue-200 text-sm md:text-base group-hover:text-white transition-colors">arrow_back</span>
-             <span class="text-[10px] md:text-xs min-[1400px]:text-sm font-bold text-blue-200 uppercase tracking-widest group-hover:text-white transition-colors">Back to Home</span>
-           </a>
-         </div>
-
-         <div class="mt-12 min-[1400px]:mt-16 flex items-center gap-1.5 min-[1400px]:gap-2 text-slate-400/80 animate-fade-in delay-500">
-           <span class="material-icons text-[12px] min-[1400px]:text-[16px] text-white">camera</span>
-           <p class="text-[10px] md:text-xs min-[1400px]:text-sm font-medium tracking-wide">Background by <a href="https://unsplash.com/@chuttersnap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="hover:text-white transition-colors">CHUTTERSNAP</a></p>
-         </div>
-
-      </div>
-
-      <div class="w-full max-w-md lg:w-[380px] min-[1400px]:w-[440px] shrink-0 flex flex-col gap-4 p-6 min-[1400px]:p-8 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md shadow-2xl animate-fade-in delay-400 z-20">
-        
-        <div class="flex flex-col mb-2">
-          <h2 class="text-xl min-[1400px]:text-2xl font-bold text-white tracking-wide">Textbook Portal</h2>
-          <p class="text-xs text-slate-400 mt-1">No account or school credentials are required.</p>
-        </div>
-
-        <div class="rounded-lg border border-blue-400/20 bg-blue-500/10 p-4 text-sm leading-relaxed text-slate-300">
-          Choose the textbook dashboard to browse year-group chapters, or return to the main KS3 resource hub.
-        </div>
-
-        <a href="dashboard.html" class="w-full py-2.5 min-[1400px]:py-3 rounded bg-blue-500/30 border border-blue-400/40 text-center text-blue-200 text-xs min-[1400px]:text-sm font-bold uppercase tracking-widest shadow-lg hover:bg-blue-500/50 hover:text-white transition-all duration-300">
-          Open Textbook Dashboard
+    <div class="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 md:px-10 lg:flex-row lg:items-stretch lg:gap-16 min-[1400px]:gap-20 min-[1400px]:px-16">
+      <section class="flex w-full max-w-xl flex-col justify-center py-2 min-[1400px]:max-w-2xl">
+        <a href="index.html" class="animate-fade-in delay-100 mb-7 inline-flex w-fit items-center gap-3">
+          <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto drop-shadow-lg md:h-9"/>
+          <span class="text-base font-extrabold tracking-tight text-white md:text-xl">SJWMS Maths</span>
         </a>
 
-        <div class="relative flex py-2 items-center">
-          <div class="flex-grow border-t border-white/10"></div>
-          <span class="flex-shrink mx-3 text-slate-400 text-[10px] font-bold uppercase tracking-widest">or</span>
-          <div class="flex-grow border-t border-white/10"></div>
+        <div class="animate-fade-in delay-200 mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/15 px-3 py-1.5 backdrop-blur-sm">
+          <span class="material-icons text-sm text-blue-300">menu_book</span>
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-200">KS3 digital textbooks</span>
         </div>
 
-        <a href="ks3_hub.html" class="group w-full inline-flex items-center justify-center gap-2 py-2.5 min-[1400px]:py-3 rounded bg-white/5 border border-white/10 text-slate-300 text-xs min-[1400px]:text-sm font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300">
-          <span class="material-icons text-base">grid_view</span>
-          Browse KS3 Resources
-        </a>
+        <h1 class="animate-fade-in delay-200 text-4xl font-black leading-[1.08] tracking-tight text-white md:text-5xl min-[1400px]:text-7xl">
+          Pick a year.<br/>
+          <span class="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">Open a unit.</span>
+        </h1>
 
-      </div>
+        <p class="animate-fade-in delay-300 mt-5 max-w-lg text-sm font-medium leading-relaxed text-slate-300 md:text-base min-[1400px]:text-xl">
+          Choose Year 7, 8 or 9, then select one of the ten textbook units. PDF links will be added as each textbook becomes available.
+        </p>
 
+        <div class="animate-fade-in delay-400 mt-7 flex flex-wrap gap-3">
+          <a href="index.html" class="group inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 backdrop-blur-sm transition hover:border-white/30 hover:bg-white/10 hover:text-white">
+            <span class="material-icons text-base">arrow_back</span>
+            Home
+          </a>
+          <a href="ks3_hub.html" class="group inline-flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/15 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-blue-200 backdrop-blur-sm transition hover:bg-blue-500/30 hover:text-white">
+            <span class="material-icons text-base">grid_view</span>
+            KS3 revision
+          </a>
+        </div>
+      </section>
+
+      <section class="animate-fade-in delay-300 relative flex min-h-[560px] w-full max-w-xl shrink-0 flex-col overflow-hidden rounded-2xl border border-white/20 bg-slate-950/45 p-5 shadow-2xl backdrop-blur-xl md:p-7 lg:w-[480px] min-[1400px]:w-[540px]" aria-live="polite">
+        <div id="year-view" class="flex h-full flex-col transition duration-300">
+          <div class="mb-6">
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Step 1 of 2</p>
+            <h2 class="mt-2 text-2xl font-bold tracking-tight text-white">Choose your year group</h2>
+            <p class="mt-1 text-sm text-slate-400">Your ten textbook units will appear next.</p>
+          </div>
+
+          <div class="flex flex-1 flex-col justify-center gap-3">
+            <button type="button" data-year="7" class="year-option group flex w-full items-center justify-between rounded-xl border border-orange-300/20 bg-orange-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-orange-300/50 hover:bg-orange-400/20 focus:outline-none focus:ring-2 focus:ring-orange-300/60">
+              <span class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-orange-300/25 bg-orange-300/15 text-lg font-black text-orange-200">Y7</span>
+                <span>
+                  <span class="block text-sm font-bold text-white">Year 7 Mathematics</span>
+                  <span class="mt-1 block text-xs text-slate-400">Foundations in number, algebra and geometry</span>
+                </span>
+              </span>
+              <span class="material-icons text-orange-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </button>
+
+            <button type="button" data-year="8" class="year-option group flex w-full items-center justify-between rounded-xl border border-violet-300/20 bg-violet-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-violet-300/50 hover:bg-violet-400/20 focus:outline-none focus:ring-2 focus:ring-violet-300/60">
+              <span class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-violet-300/25 bg-violet-300/15 text-lg font-black text-violet-200">Y8</span>
+                <span>
+                  <span class="block text-sm font-bold text-white">Year 8 Mathematics</span>
+                  <span class="mt-1 block text-xs text-slate-400">Powers, transformations and proportional reasoning</span>
+                </span>
+              </span>
+              <span class="material-icons text-violet-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </button>
+
+            <button type="button" data-year="9" class="year-option group flex w-full items-center justify-between rounded-xl border border-blue-300/20 bg-blue-400/10 p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-300/50 hover:bg-blue-400/20 focus:outline-none focus:ring-2 focus:ring-blue-300/60">
+              <span class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl border border-blue-300/25 bg-blue-300/15 text-lg font-black text-blue-200">Y9</span>
+                <span>
+                  <span class="block text-sm font-bold text-white">Year 9 Mathematics</span>
+                  <span class="mt-1 block text-xs text-slate-400">GCSE preparation, graphs and proof</span>
+                </span>
+              </span>
+              <span class="material-icons text-blue-200 transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </button>
+          </div>
+
+          <div class="mt-6 flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-slate-400">
+            <span class="material-icons text-base text-amber-300">schedule</span>
+            PDF textbook links are being prepared.
+          </div>
+        </div>
+
+        <div id="unit-view" class="hidden h-full flex-col opacity-0 transition duration-300">
+          <div class="mb-5 flex items-start justify-between gap-4">
+            <div>
+              <button id="back-to-years" type="button" class="mb-2 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-300/60">
+                <span class="material-icons text-sm">arrow_back</span>
+                Change year
+              </button>
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Step 2 of 2</p>
+              <h2 id="unit-heading" class="mt-1 text-2xl font-bold tracking-tight text-white"></h2>
+            </div>
+            <span id="year-badge" class="rounded-xl border px-3 py-2 text-sm font-black"></span>
+          </div>
+
+          <p class="mb-4 text-sm text-slate-400">Select a unit. Downloads will activate when the PDFs are ready.</p>
+          <div id="unit-list" class="unit-scroll grid max-h-[405px] grid-cols-1 gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2"></div>
+        </div>
+      </section>
     </div>
   </main>
 
+  <script>
+    const textbookUnits = {
+      7: [
+        'Analysing & Displaying Data', 'Number Skills', 'Equations, Functions & Formulae', 'Fractions',
+        'Angles & Shapes', 'Decimals', 'Equations', 'Multiplicative Reasoning',
+        'Perimeter, Area & Volume', 'Sequences & Graphs'
+      ],
+      8: [
+        'Factors & Powers', 'Working with Powers', '2D Shapes & 3D Solids', 'Real Life Graphs',
+        'Transformation', 'Fractions, Decimals & Percentages', 'Construction & Loci', 'Probability',
+        'Scale Drawings & Measures', 'Graphs'
+      ],
+      9: [
+        'Powers & Roots', 'Quadratics', 'Inequalities & Formulae', 'Collecting & Analysing Data',
+        'Multiplicative Reasoning', 'Non-linear Graphs', 'Accuracy & Measures', 'Graphical Solutions',
+        'Trigonometry', 'Proof'
+      ]
+    };
+
+    const yearStyles = {
+      7: { badge: 'border-orange-300/30 bg-orange-300/15 text-orange-200', number: 'text-orange-200' },
+      8: { badge: 'border-violet-300/30 bg-violet-300/15 text-violet-200', number: 'text-violet-200' },
+      9: { badge: 'border-blue-300/30 bg-blue-300/15 text-blue-200', number: 'text-blue-200' }
+    };
+
+    const yearView = document.getElementById('year-view');
+    const unitView = document.getElementById('unit-view');
+    const unitList = document.getElementById('unit-list');
+    const unitHeading = document.getElementById('unit-heading');
+    const yearBadge = document.getElementById('year-badge');
+
+    function showUnits(year) {
+      const units = textbookUnits[year];
+      const styles = yearStyles[year];
+      unitHeading.textContent = `Year ${year} textbook units`;
+      yearBadge.className = `rounded-xl border px-3 py-2 text-sm font-black ${styles.badge}`;
+      yearBadge.textContent = `Y${year}`;
+      unitList.replaceChildren();
+
+      units.forEach((title, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.disabled = true;
+        button.setAttribute('aria-label', `Unit ${String(index + 1).padStart(2, '0')}: ${title}. PDF coming soon.`);
+        button.className = 'flex min-h-[76px] cursor-not-allowed items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 text-left opacity-90';
+
+        const number = document.createElement('span');
+        number.className = `text-xs font-black ${styles.number}`;
+        number.textContent = String(index + 1).padStart(2, '0');
+
+        const copy = document.createElement('span');
+        copy.className = 'min-w-0 flex-1';
+        const name = document.createElement('span');
+        name.className = 'block text-xs font-bold leading-snug text-slate-100';
+        name.textContent = title;
+        const status = document.createElement('span');
+        status.className = 'mt-1 flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-slate-500';
+        status.textContent = 'PDF coming soon';
+        copy.append(name, status);
+
+        const icon = document.createElement('span');
+        icon.className = 'material-icons text-base text-slate-600';
+        icon.textContent = 'picture_as_pdf';
+        button.append(number, copy, icon);
+        unitList.appendChild(button);
+      });
+
+      yearView.classList.add('opacity-0');
+      setTimeout(() => {
+        yearView.classList.add('hidden');
+        unitView.classList.remove('hidden');
+        unitView.classList.add('flex');
+        requestAnimationFrame(() => unitView.classList.remove('opacity-0'));
+      }, 180);
+    }
+
+    function showYears() {
+      unitView.classList.add('opacity-0');
+      setTimeout(() => {
+        unitView.classList.add('hidden');
+        unitView.classList.remove('flex');
+        yearView.classList.remove('hidden');
+        requestAnimationFrame(() => yearView.classList.remove('opacity-0'));
+      }, 180);
+    }
+
+    document.querySelectorAll('.year-option').forEach((button) => {
+      button.addEventListener('click', () => showUnits(Number(button.dataset.year)));
+    });
+    document.getElementById('back-to-years').addEventListener('click', showYears);
+  </script>
 </body>
 </html>
