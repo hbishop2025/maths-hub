@@ -8,14 +8,12 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lexend:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/microsite-shell.css"/>
 
   <style type="text/tailwindcss">
     body { @apply bg-slate-50 text-[#212121] font-[Lexend]; overflow-x:hidden; }
-
-    /* Header */
-    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
 
     /* Loading Overlay */
     #loadingScreen {
@@ -55,23 +53,9 @@
     .back-btn { @apply inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black transition-colors mb-6; }
   </style>
 </head>
-<body>
+<body data-root="." data-theme-control="false">
 
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold" href="ai_usage.html">AI Usage</a>
-      </nav>
-    </div>
-  </header>
+  <div id="site-header"></div>
 
   <div id="loadingScreen">
     <img src="assets/Bishop Airways.png" class="h-12 w-auto mb-8 invert opacity-80" alt="Logo"/>
@@ -80,7 +64,7 @@
     <p class="text-xs text-slate-500 mt-2 font-mono" id="loadText">Establishing handshake...</p>
   </div>
 
-  <main class="pt-24 max-w-6xl mx-auto px-4 pb-20 opacity-0 transition-opacity duration-1000" id="mainContent">
+  <main class="pt-8 max-w-6xl mx-auto px-4 pb-20 opacity-0 transition-opacity duration-1000" id="main-content">
     
     <a href="bishop_airways.html" class="back-btn">
       <span class="material-icons text-sm">arrow_back</span> Return to Search
@@ -261,7 +245,7 @@
       const loader = document.getElementById('loadingScreen');
       const bar = document.getElementById('loadBar');
       const text = document.getElementById('loadText');
-      const main = document.getElementById('mainContent');
+      const main = document.getElementById('main-content');
 
       // Start Bar Animation
       setTimeout(() => { bar.style.width = '70%'; }, 100);
@@ -329,5 +313,6 @@
     }
   </script>
   <script src="assets/footer-loader.js" defer></script>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

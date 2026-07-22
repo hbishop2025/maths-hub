@@ -2,6 +2,7 @@
   const body = document.body;
   const root = body.dataset.root || ".";
   const active = body.dataset.section || "";
+  const themeControlEnabled = body.dataset.themeControl !== "false";
   const path = (value) => `${root}/${value}`.replace(/^\.\/\.\//, "./");
 
   const mainLinks = [
@@ -12,10 +13,11 @@
   ];
 
   const tools = [
-    ["Policy", "Privacy, acceptable use and guidance", "policy.html", false],
-    ["SPARX setup", "Homework expectations and access", "sparx.html", false],
-    ["Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true],
-    ["Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true]
+    ["AI usage", "Guidance for using AI safely and effectively", "ai_usage.html", false, "cube-svgrepo-com.svg"],
+    ["Policy", "Privacy, acceptable use and guidance", "policy.html", false, "paperclip-svgrepo-com.svg"],
+    ["SPARX setup", "Homework expectations and access", "sparx.html", false, "square-root-of-x-svgrepo-com.svg"],
+    ["Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true, "pen-svgrepo-com.svg"],
+    ["Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true, "compass-math-svgrepo-com.svg"]
   ];
 
   const headerSlot = document.getElementById("site-header");
@@ -23,8 +25,8 @@
     const nav = mainLinks.map(([key, label, href]) =>
       `<a href="${path(href)}"${active === key ? ' aria-current="page"' : ""}>${label}</a>`
     ).join("");
-    const toolLinks = tools.map(([label, description, href, external]) =>
-      `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><strong>${label}${external ? " ↗" : ""}</strong><span>${description}</span></a>`
+    const toolLinks = tools.map(([label, description, href, external, icon]) =>
+      `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><span class="tools-panel__icon" aria-hidden="true" style="--tool-menu-icon: url('${path(`assets/${icon}`)}')"></span><span class="tools-panel__copy"><strong>${label}${external ? " ↗" : ""}</strong><span>${description}</span></span></a>`
     ).join("");
 
     headerSlot.innerHTML = `
@@ -44,7 +46,7 @@
             <a class="site-nav__tool" href="${path("dashboard.html")}">Textbooks</a>
           </nav>
           <div class="site-header__actions">
-            <button class="header-icon-button" id="theme-button" type="button" aria-label="Switch to dark mode"><span aria-hidden="true">◐</span></button>
+            ${themeControlEnabled ? '<button class="header-icon-button" id="theme-button" type="button" aria-label="Switch to dark mode"><span aria-hidden="true">◐</span></button>' : ""}
             <button class="header-icon-button" id="updates-button" type="button" aria-label="Open updates" aria-expanded="false" aria-controls="updates-popover">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
               <span class="notification-badge" id="notification-badge"></span>
@@ -82,6 +84,7 @@
       updatesButton.setAttribute("aria-label", open ? "Close updates" : "Open updates");
     };
     const setThemeLabel = () => {
+      if (!themeButton) return;
       const dark = document.documentElement.dataset.theme === "dark";
       themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
       themeButton.querySelector("span").textContent = dark ? "☀" : "◐";
@@ -103,12 +106,14 @@
       setMenu(false);
       setUpdates(!updatesPanel.classList.contains("is-open"));
     });
-    themeButton.addEventListener("click", () => {
-      const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = theme;
-      try { localStorage.setItem("sjwms-theme", theme); } catch {}
-      setThemeLabel();
-    });
+    if (themeButton) {
+      themeButton.addEventListener("click", () => {
+        const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem("sjwms-theme", theme); } catch {}
+        setThemeLabel();
+      });
+    }
     menu.addEventListener("click", (event) => {
       if (event.target.closest("a")) setMenu(false);
     });
@@ -200,19 +205,27 @@
   if (headerUpdates || homeUpdates) {
     const renderUpdates = (items) => {
       [headerUpdates, homeUpdates].filter(Boolean).forEach((container) => {
-        container.replaceChildren(...items.map(makeUpdate));
+        if (items.length) {
+          container.replaceChildren(...items.map(makeUpdate));
+        } else {
+          const empty = document.createElement("p");
+          empty.className = "notice";
+          empty.textContent = "No new updates right now.";
+          container.replaceChildren(empty);
+        }
       });
       const badge = document.getElementById("notification-badge");
-      if (badge && items.length) {
+      if (badge) {
         badge.textContent = items.length > 9 ? "9+" : String(items.length);
-        badge.classList.add("is-visible");
+        badge.classList.toggle("is-visible", Boolean(items.length));
       }
     };
 
-    fetch(path("assets/data/home_updates.json"))
+    fetch(path("assets/data/home_updates.json"), { cache: "no-store" })
       .then((response) => response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`)))
       .then((data) => {
-        const items = Array.isArray(data) ? data : data.items || [];
+        const items = (Array.isArray(data) ? data : data.items || [])
+          .filter((item) => item && item.active !== false && (item.title || item.text));
         renderUpdates(items);
       })
       .catch(() => {

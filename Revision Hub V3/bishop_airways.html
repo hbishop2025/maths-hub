@@ -8,15 +8,13 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/microsite-shell.css"/>
 
   <style type="text/tailwindcss">
     body { @apply bg-white text-[#212121] font-[Lexend]; overflow-x:hidden; }
 
-    /* Nav Bar (Matches SJWMS) */
-    .header { @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200; }
-    
     /* Hero & Widget */
     .hero-container { @apply relative h-[80vh] min-h-[650px] flex items-center justify-center; }
     .booking-card { @apply bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-6xl mx-4 relative z-10 border border-gray-100; }
@@ -44,25 +42,11 @@
     .toggle-inactive { @apply bg-white text-gray-400 border-gray-200; }
   </style>
 </head>
-<body>
+<body data-root="." data-theme-control="false">
 
-  <header class="header">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="assets/hub_logo.png" alt="SJWMS" class="h-7 w-auto"/>
-        <span class="font-extrabold tracking-tight">SJWMS Maths</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="index.html">Home</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="ks3_hub.html">KS3</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="gcse_hub.html">GCSE</a>
-        <a class="text-sm font-medium text-gray-700 hover:text-blue-600" href="alevel_hub.html">A-Level</a>
-        <a class="px-4 py-2 rounded-full bg-black text-white text-sm font-semibold hover:text-yellow-400" href="ai_usage.html">AI Usage</a>
-      </nav>
-    </div>
-  </header>
+  <div id="site-header"></div>
 
-  <main class="pt-14">
+  <main id="main-content">
     <section class="hero-container">
       <div class="absolute inset-0 z-0">
         <img src="assets/Airways-hero.jpg" alt="Hero" class="w-full h-full object-cover" />
@@ -216,5 +200,6 @@
   </script>
   
   <script src="assets/footer-loader.js" defer></script>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

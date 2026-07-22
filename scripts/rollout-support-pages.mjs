@@ -33,7 +33,22 @@ const gcseTopics = [
   ["Sine rule", "Cosine rule", "Trigonometric graphs"], ["Sampling", "Histograms", "Cumulative frequency"], ["Functions", "Iterations", "Graphical solutions"],
   ["Circle properties", "Tangents", "Proof"], ["Algebraic fractions", "Surds", "Proof"], ["Vectors", "Geometric proof", "Ratio"], ["Proportion", "Growth and decay", "Graphs"]
 ];
-const gcseCards = gcseTitles.map((title, index) => `          <a class="unit-card" href="gcse/gcse_unit${String(index + 1).padStart(2, "0")}.html"><span class="unit-card__number">${String(index + 1).padStart(2, "0")}</span><span class="unit-card__content"><span class="unit-card__category">Edexcel Mathematics</span><h3>${title}</h3><ul>${gcseTopics[index].map((topic) => `<li>${topic}</li>`).join("")}</ul><span class="unit-card__action">Open unit →</span></span></a>`).join("\n");
+const gcseGroups = [
+  ["Number &amp; proportional reasoning", "Core number skills, ratio and measures", [1, 4, 11, 19]],
+  ["Algebra &amp; graphs", "Expressions, equations, sequences and graphical methods", [2, 6, 9, 15, 17]],
+  ["Geometry &amp; trigonometry", "Shape, space, constructions, proof and vectors", [5, 7, 8, 12, 13, 16, 18]],
+  ["Statistics &amp; probability", "Representing data, chance and statistical reasoning", [3, 10, 14]]
+];
+const gcseGroupMarkup = gcseGroups.map(([title, description, units], groupIndex) => `          <details class="gcse-group"${groupIndex === 0 ? " open" : ""}>
+            <summary><span><strong>${title}</strong><small>${description}</small></span><span class="gcse-group__count">${units.length} units</span></summary>
+            <div class="gcse-unit-list">
+${units.map((unit) => {
+  const index = unit - 1;
+  const number = String(unit).padStart(2, "0");
+  return `              <a class="gcse-unit-link" href="gcse/gcse_unit${number}.html"><span class="gcse-unit-link__number">${number}</span><span><strong>${gcseTitles[index]}</strong><span class="gcse-unit-link__topics">${gcseTopics[index].join(" · ")}</span></span><b aria-hidden="true">→</b></a>`;
+}).join("\n")}
+            </div>
+          </details>`).join("\n");
 
 const gcseHub = `${head("GCSE Mathematics | SJWMS Maths", "GCSE mathematics units, revision resources, past papers and extension opportunities.")}
 <body data-root="." data-section="gcse" data-stage="gcse">
@@ -47,9 +62,9 @@ const gcseHub = `${head("GCSE Mathematics | SJWMS Maths", "GCSE mathematics unit
     </section>
     <section class="section section--stage-units" aria-labelledby="gcse-units">
       <div class="container">
-        <div class="section-heading"><div><p class="eyebrow text-stage">Edexcel Mathematics</p><h2 id="gcse-units">Choose a unit</h2></div><p>Nineteen units covering the full course, from number and algebra to proof and proportional reasoning.</p></div>
-        <div class="unit-grid">
-${gcseCards}
+        <div class="section-heading"><div><p class="eyebrow text-stage">Edexcel Mathematics</p><h2 id="gcse-units">Choose a topic group</h2></div><p>Open one of four groups to find the right unit without scanning the full course list.</p></div>
+        <div class="gcse-groups">
+${gcseGroupMarkup}
         </div>
       </div>
     </section>

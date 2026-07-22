@@ -389,25 +389,27 @@ collections:
               - { label: "URL", name: "url", widget: "string" }
               - { label: "Category", name: "category", widget: "select", options: ["algebra", "factorising", "formula", "completing-square"] }
 
-# Add this into your collections list
   - name: "home_page"
-    label: "Home Page Content"
+    label: "Notifications"
     files:
-      - file: "Revision Hub V3/assets/data/home_updates.json" # Make sure this folder path matches your setup
-        label: "Site Updates (Right Column)"
+      - file: "Revision Hub V3/assets/data/home_updates.json"
+        label: "Notification Centre"
         name: "home_updates"
         format: json
         fields:
-          - label: "Updates"
+          - label: "Notifications"
             name: "items"
             widget: "list"
-            summary: "{{fields.title}}"
+            label_singular: "Notification"
+            summary: "{{fields.title}} — {{fields.date}}"
+            hint: "Add, reorder or hide messages shown under the bell in the main menu."
             fields:
-              - { label: "Icon Name", name: "icon", widget: "string", hint: "E.g., campaign, info, warning", default: "info" }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Text Content", name: "text", widget: "text" }
+              - { label: "Date", name: "date", widget: "datetime", format: "D MMMM YYYY", date_format: "D MMMM YYYY", time_format: false }
+              - { label: "Message", name: "text", widget: "text" }
               - { label: "Button Text", name: "btnText", widget: "string", required: false, hint: "Leave blank for no button" }
-              - { label: "Button Link URL", name: "btnLink", widget: "string", required: false, hint: "Leave blank for no button" }
+              - { label: "Button Link", name: "btnLink", widget: "string", required: false, hint: "Use a page filename or a full https:// URL" }
+              - { label: "Visible", name: "active", widget: "boolean", default: true, required: false }
 
   # Year 9
   - name: "GCSE"
