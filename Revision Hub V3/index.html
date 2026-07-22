@@ -93,7 +93,25 @@
     </section>
   </main>
 
+  <dialog class="summer-notice" id="summer-notice" aria-labelledby="summer-notice-title" aria-describedby="summer-notice-message">
+    <div class="summer-notice__icon" aria-hidden="true">☀</div>
+    <p class="eyebrow">Site notice</p>
+    <h2 id="summer-notice-title">Summer updates in progress</h2>
+    <p id="summer-notice-message">This website is being updated throughout the summer. Check back later for new resources and improvements.</p>
+    <form method="dialog">
+      <button class="button button--primary" type="submit" autofocus>Continue to the website</button>
+    </form>
+  </dialog>
+
   <div id="site-footer"></div>
   <script src="assets/site-shell.js" defer></script>
+  <script>
+    const summerNotice = document.getElementById("summer-notice");
+    if (typeof summerNotice.showModal === "function") {
+      summerNotice.showModal();
+    } else {
+      summerNotice.setAttribute("open", "");
+    }
+  </script>
 </body>
 </html>

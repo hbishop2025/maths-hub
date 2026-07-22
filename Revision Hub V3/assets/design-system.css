@@ -385,6 +385,23 @@ h3 { margin-bottom: 0.45rem; font-size: 1.1rem; line-height: 1.3; }
 .math-symbol--four { bottom: 0.8rem; left: 15%; color: #ea580c; animation-delay: -3.6s; }
 @keyframes symbol-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.35rem); } }
 
+.summer-notice {
+  width: min(31rem, calc(100% - 2rem));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--brand-800);
+  padding: clamp(1.5rem, 5vw, 2.25rem);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.24);
+}
+.summer-notice[open] { animation: summer-notice-in 220ms ease-out both; }
+.summer-notice::backdrop { background: rgba(15, 23, 42, 0.48); backdrop-filter: blur(5px); }
+.summer-notice__icon { display: grid; width: 3.2rem; height: 3.2rem; margin-bottom: 1.25rem; place-items: center; border: 1px solid #fde68a; border-radius: 1rem; background: #fef3c7; color: #b45309; font-size: 1.55rem; }
+.summer-notice h2 { max-width: 13ch; margin-bottom: 0.75rem; font-size: clamp(1.75rem, 5vw, 2.35rem); }
+.summer-notice > p:not(.eyebrow) { max-width: 38ch; margin-bottom: 1.4rem; color: var(--brand-500); }
+.summer-notice form { margin: 0; }
+@keyframes summer-notice-in { from { transform: translateY(0.75rem) scale(0.98); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+
 .intro-panel {
   padding-block: clamp(2.75rem, 6vw, 5rem);
   border-bottom: 1px solid var(--border);
@@ -662,6 +679,7 @@ html[data-theme="dark"] .section--tools::before { border-color: #854d0e; backgro
 html[data-theme="dark"] .section--year8-units { background: linear-gradient(180deg, rgba(13, 43, 35, 0.9), rgba(9, 15, 29, 0.94) 22rem); }
 html[data-theme="dark"] .section--stage-units { background: linear-gradient(180deg, var(--stage-bg), var(--canvas) 22rem); }
 html[data-theme="dark"] .home-welcome { border-bottom-color: #273449; background: linear-gradient(180deg, #0d1525, #090f1d); }
+html[data-theme="dark"] .summer-notice__icon { border-color: #854d0e; background: #422006; color: #fcd34d; }
 html[data-theme="dark"] .tool-link { border-color: #273449; background: rgba(17, 24, 39, 0.88); }
 html[data-theme="dark"] .tool-link:hover { border-color: var(--tool-accent); }
 html[data-theme="dark"] .tool-link strong { color: #f8fafc; }
