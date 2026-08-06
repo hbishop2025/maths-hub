@@ -95,15 +95,20 @@
     }
 
   </style>
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
+  <link rel="stylesheet" href="assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
 
-<body class="text-slate-900">
+<body class="text-slate-900 design-v3 legacy-v3" data-root="." data-section="gcse">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="index.html">Return to the hub →</a></div></div>
 
   <div class="layout flex h-screen overflow-hidden">
 
-    <div id="sidebar" aria-label="Sidebar" class="flex-shrink-0 hidden md:block w-64"></div>
-
-    <main class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
+    <main id="main-content" class="main flex-1 overflow-y-auto p-4 md:p-8 relative">
 
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
@@ -402,10 +407,7 @@
     </main>
   </div>
 
-  <div id="footer-slot"></div>
-
-  <script src="assets/sidebar-loader.js"></script>
-  <script src="assets/footer-loader.js" defer></script>
+  <div id="site-footer"></div>
 
   <script>
     function filterTopics(category) {
@@ -440,5 +442,6 @@
         });
     }
   </script>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

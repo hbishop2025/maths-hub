@@ -31,14 +31,20 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <link rel="stylesheet" href="../assets/foundation.css">
+  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100" data-page="year9">
+<body class="bg-gray-100 design-v3 experience-v3" data-page="year9" data-root=".." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Interactive mathematics</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
   <div class="layout">
     <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
+    <main id="main-content" class="main p-8 overflow-y-auto">
       <!-- Header -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
@@ -171,7 +177,6 @@
   </div>
 
   <!-- Sidebar / mobile modal loader -->
-  <script src="/assets/sidebar-loader.js" defer></script>
 
   <!-- Game logic -->
   <script>
@@ -196,7 +201,9 @@
     // State
     let currentN = 50;
     let expected = {a:5, b:2};
-    let score = 0, streak = 0, best = Number(localStorage.getItem('surds:best')||0);
+    // Scores are kept only while this page is open and are never stored.
+    let score = 0, streak = 0, best = 0;
+    try { localStorage.removeItem('surds:best'); } catch (e) {}
     bestEl.textContent = 'best ' + best;
 
     /* ---------- Utilities ---------- */
@@ -284,7 +291,6 @@
         scoreEl.textContent = score;
         streakEl.textContent = streak;
         bestEl.textContent = 'best ' + best;
-        try{ localStorage.setItem('surds:best', String(best)); }catch(e){}
         setTimeout(()=>generate(diffSel.value), 700);
       }else{
         streak = 0; streakEl.textContent = streak;
@@ -322,5 +328,7 @@
     generate('med');
   })();
   </script>
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>

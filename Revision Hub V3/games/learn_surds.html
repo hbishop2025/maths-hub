@@ -140,8 +140,16 @@
             .level-dropdown { width: 280px; }
         }
     </style>
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <link rel="stylesheet" href="../assets/foundation.css">
+  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="design-v3 experience-v3" data-root=".." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Interactive mathematics</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
+  <span id="main-content" tabindex="-1"></span>
 
     <div class="game-container">
         <header>
@@ -172,7 +180,7 @@
         <div class="score-board">
             <div>Streak: <span id="streakVal" style="font-weight:600; color:var(--text-main);">0</span></div>
             <div>Total Answered: <span id="totalVal">0</span></div>
-            <button class="icon-btn" style="border:none; padding:0; background:none; text-decoration:underline;" onclick="resetGameHistory()">Reset Progress</button>
+            <button class="icon-btn" style="border:none; padding:0; background:none; text-decoration:underline;" onclick="resetGameHistory()">Restart Session</button>
         </div>
     </div>
 
@@ -509,16 +517,14 @@
             else panel.classList.toggle("open");
         }
 
-        function saveProgress() { localStorage.setItem("surd_game_v3", JSON.stringify(state)); }
+        // Learning state exists only for the current page session. Student
+        // answers, scores and progress are never written to browser storage.
+        function saveProgress() {}
         function loadProgress() {
-            let saved = localStorage.getItem("surd_game_v3");
-            if (saved) {
-                try { state = JSON.parse(saved); } catch(e) {}
-            }
+            try { localStorage.removeItem("surd_game_v3"); } catch(e) {}
         }
         function resetGameHistory() {
-            if(confirm("Erase all progress and restart?")) {
-                localStorage.removeItem("surd_game_v3");
+            if(confirm("Restart this session?")) {
                 state = { level: 1, progress: 0, streak: 0, totalAnswered: 0 };
                 init();
             }
@@ -531,5 +537,7 @@
 
         init();
     </script>
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>

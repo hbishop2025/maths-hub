@@ -7,62 +7,75 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
   <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
   <title>KS3 Mathematics | SJWMS Maths</title>
 </head>
-<body data-root="." data-section="ks3">
+<body class="design-v3" data-root="." data-section="ks3">
   <div id="site-header"></div>
 
   <main class="page" id="main-content">
-    <section class="intro-panel">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>KS3</span></nav>
-        <div class="intro-panel__grid">
-          <div><p class="eyebrow">Key Stage 3</p><h1>Choose your year. Keep moving forward.</h1><p class="lead">Ten focused units for each year, supported by worksheets, videos, practice tools and assessment preparation.</p></div>
-          <a class="button button--secondary" href="ks3_eoy.html">Assessment preparation</a>
+    <section class="edu-page-hero edu-page-hero--ks3">
+      <div class="container edu-page-hero__inner">
+        <div class="edu-page-hero__copy">
+          <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>KS3</span></nav>
+          <p class="eyebrow">Years 7–9</p><h1>Build strong foundations.</h1><p class="lead">Choose your year, find the unit taught in school and open the exact support you need.</p>
+          <nav class="edu-quick-links" aria-label="KS3 quick links"><a href="year7_hub.html">Year 7</a><a href="year8_hub.html">Year 8</a><a href="year9_hub.html">Year 9</a><a href="ks3_eoy.html">Assessments</a><a href="dashboard.html">Textbooks</a></nav>
+        </div>
+        <div class="stage-collage" aria-hidden="true">
+          <div class="stage-collage__main"><span>KS3</span><strong>30 units</strong><small>Years 7–9</small></div>
+          <div class="stage-collage__tile stage-collage__tile--orange">7</div>
+          <div class="stage-collage__tile stage-collage__tile--green">8</div>
+          <div class="stage-collage__tile stage-collage__tile--purple">9</div>
+          <span class="stage-collage__formula">3x + 7 = 25</span><i></i>
         </div>
       </div>
     </section>
 
-    <section class="section section--years" aria-labelledby="choose-year">
+    <div class="container learning-steps" aria-label="How to use KS3 revision">
+      <div><span>01</span><strong>Choose a year</strong><small>Start with your current course.</small></div>
+      <div><span>02</span><strong>Find the unit</strong><small>Match your classroom topic.</small></div>
+      <div><span>03</span><strong>Pick a resource</strong><small>Learn, practise or check.</small></div>
+      <div><span>04</span><strong>Return anytime</strong><small>No account or progress tracking.</small></div>
+    </div>
+
+    <section class="section" aria-labelledby="choose-year">
       <div class="container">
-        <div class="section-heading"><div><p class="eyebrow">Your curriculum</p><h2 id="choose-year">Choose a year group</h2></div><p>The structure stays familiar while the pale colour accents make each year easy to recognise.</p></div>
-        <div class="card-grid">
-          <a class="card stage-card stage-card--year7" href="year7_hub.html">
-            <span class="card__meta">Orange pathway</span><span class="stage-card__number">Year 7</span>
-            <h3>Build the foundations</h3><p>Number, algebra, geometry and data skills across ten core units.</p><span class="card__action">Choose Year 7</span>
+        <div class="section-heading section-heading--centred"><div><p class="eyebrow">Your curriculum</p><h2 id="choose-year">Choose your year</h2></div><p>Every year uses the same simple unit structure, with a distinct colour to help students stay oriented.</p></div>
+        <div class="year-card-grid">
+          <a class="year-card year-card--7" href="year7_hub.html">
+            <span class="year-card__number">7</span><span class="year-card__meta">Ten curriculum units</span><h3>Year 7</h3><p>Establish number, algebra, geometry and data foundations.</p><span class="year-card__action">Choose Year 7 <b aria-hidden="true">→</b></span>
           </a>
-          <a class="card stage-card stage-card--year8" href="year8_hub.html">
-            <span class="card__meta">Green pathway</span><span class="stage-card__number">Year 8</span>
-            <h3>Grow confidence and fluency</h3><p>Powers, transformations, proportional reasoning and more.</p><span class="card__action">Choose Year 8</span>
+          <a class="year-card year-card--8" href="year8_hub.html">
+            <span class="year-card__number">8</span><span class="year-card__meta">Ten curriculum units</span><h3>Year 8</h3><p>Develop fluency in powers, transformations and proportion.</p><span class="year-card__action">Choose Year 8 <b aria-hidden="true">→</b></span>
           </a>
-          <a class="card stage-card stage-card--year9" href="year9_hub.html">
-            <span class="card__meta">Purple pathway</span><span class="stage-card__number">Year 9</span>
-            <h3>Prepare for GCSE</h3><p>Connect KS3 foundations with more advanced mathematical reasoning.</p><span class="card__action">Choose Year 9</span>
+          <a class="year-card year-card--9" href="year9_hub.html">
+            <span class="year-card__number">9</span><span class="year-card__meta">Ten curriculum units</span><h3>Year 9</h3><p>Connect secure foundations to more advanced reasoning.</p><span class="year-card__action">Choose Year 9 <b aria-hidden="true">→</b></span>
           </a>
         </div>
+        <p class="teacher-note"><span aria-hidden="true">✓</span><span><strong>Built around the SJWMS curriculum.</strong> Resources are selected by the Mathematics department and require no site account.</span></p>
       </div>
     </section>
 
-    <section class="section section--tools deferred-section" aria-labelledby="prepare-practise">
+    <section class="section section--soft deferred-section" aria-labelledby="prepare-practise">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow">Prepare and practise</p><h2 id="prepare-practise">Useful next steps</h2></div><p>Open the support you need without searching through unrelated links.</p></div>
-        <div class="tool-list">
-          <a class="tool-link tool-link--orange" href="ks3_eoy.html" style="--tool-icon: url('assets/pen-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>End-of-year preparation</strong><small>Checklists, guidance and practice papers</small></span><b aria-hidden="true">→</b></a>
-          <a class="tool-link tool-link--blue" href="dashboard.html" style="--tool-icon: url('assets/paperclip-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Digital textbooks</strong><small>Choose a year and textbook unit</small></span><b aria-hidden="true">→</b></a>
-          <a class="tool-link tool-link--purple" href="sparx.html" style="--tool-icon: url('assets/square-root-of-x-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>SPARX support</strong><small>Revision codes and independent practice</small></span><b aria-hidden="true">→</b></a>
-          <a class="tool-link tool-link--green" href="https://ukmt.org.uk/" target="_blank" rel="noopener" style="--tool-icon: url('assets/compass-math-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>UKMT challenge</strong><small>Stretch your problem-solving skills</small></span><b aria-hidden="true">↗</b></a>
+        <div class="tool-card-grid">
+          <a class="tool-card tool-card--yellow" href="ks3_eoy.html"><span class="tool-card__icon" data-symbol="✓" aria-hidden="true"></span><span><strong>End-of-year preparation</strong><small>Checklists and practice papers</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-card tool-card--mint" href="dashboard.html"><span class="tool-card__icon" data-symbol="▤" aria-hidden="true"></span><span><strong>KS3 textbooks</strong><small>Choose a year and textbook unit</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-card tool-card--violet" href="sparx.html"><span class="tool-card__icon" data-symbol="√x" aria-hidden="true"></span><span><strong>SPARX support</strong><small>Revision codes and independent practice</small></span><b aria-hidden="true">→</b></a>
+          <a class="tool-card tool-card--coral" href="https://ukmt.org.uk/" target="_blank" rel="noopener"><span class="tool-card__icon" data-symbol="✦" aria-hidden="true"></span><span><strong>UKMT challenge</strong><small>Stretch your problem-solving skills</small></span><b aria-hidden="true">↗</b></a>
         </div>
       </div>
     </section>
 
     <section class="section deferred-section" aria-labelledby="ks3-labs">
       <div class="container">
-        <div class="feature-panel">
-          <div class="feature-panel__copy"><p class="eyebrow">Maths Labs</p><h2 id="ks3-labs">Try mathematics in context</h2><p>Bishop Shakes uses drinks, ingredients and a playful brand to turn mathematics into thematic questions.</p><div class="button-row"><a class="button button--secondary" href="bishop_shakes.html">Explore Bishop Shakes</a></div></div>
-          <div class="feature-panel__image"><img src="bishop_shakes/shakes_hero.svg" alt="Bishop Shakes" loading="lazy" decoding="async"></div>
+        <div class="lab-banner">
+          <div class="lab-banner__copy"><p class="eyebrow">Maths Labs</p><h2 id="ks3-labs">Try mathematics in context</h2><p>Bishop Shakes uses drinks and ingredients to turn familiar mathematics into thematic questions.</p><div class="button-row"><a class="button button--light" href="bishop_shakes.html">Explore Bishop Shakes</a></div></div>
+          <div class="lab-banner__visual"><span class="lab-banner__shape"></span><img src="bishop_shakes/shakes_hero.svg" alt="Bishop Shakes" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>

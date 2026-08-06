@@ -1,5 +1,9 @@
 (function () {
   const body = document.body;
+  const unitSidebar = document.querySelector(".unit-sidebar");
+  if (unitSidebar && window.matchMedia("(max-width: 900px)").matches) {
+    unitSidebar.open = false;
+  }
   const dataUrl = body.dataset.json;
   if (!dataUrl) return;
 
@@ -103,7 +107,14 @@
       const empty = document.getElementById("resource-empty");
       if (empty) {
         empty.hidden = false;
-        empty.textContent = "Resources could not be loaded. Please refresh the page or try again later.";
+        const message = empty.querySelector("p");
+        if (message) {
+          message.textContent = location.protocol === "file:"
+            ? "Resource lists load on the published website. Return to the curriculum hub or use SPARX while working from this local preview."
+            : "Resources could not be loaded. Please refresh the page or try again later.";
+        } else {
+          empty.textContent = "Resources could not be loaded. Please refresh the page or try again later.";
+        }
       }
     });
 })();

@@ -7,18 +7,20 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
   <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
   <title>Digital Textbooks | SJWMS Maths</title>
 </head>
-<body data-root="." data-section="ks3" data-year="7">
+<body class="design-v3" data-root="." data-section="ks3" data-year="7">
   <div id="site-header"></div>
   <main class="page" id="main-content">
-    <section class="intro-panel intro-panel--year"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Textbooks</span></nav><div class="intro-panel__grid"><div><p class="eyebrow text-stage">KS3 digital textbooks</p><h1>Pick a year. Open a unit.</h1><p class="lead">Choose Year 7, 8 or 9, then select one of the ten textbook units. PDF links will be added as each textbook becomes available.</p></div><a class="button button--secondary" href="ks3_hub.html">Open KS3 revision</a></div><div class="status-line"><span aria-hidden="true">●</span><p><strong>School login required.</strong> Textbook links can only be accessed with a valid school account.</p></div></div></section>
-    <section class="section"><div class="container workspace-layout">
-      <aside class="selector-card"><p class="eyebrow">Step 1</p><h2>Choose your year</h2><div class="year-choices"><button class="year-choice year-choice--7" type="button" data-textbook-year="7" aria-pressed="true"><span><strong>Year 7 Mathematics</strong><small>Number, algebra and geometry foundations</small></span><b>Y7</b></button><button class="year-choice year-choice--8" type="button" data-textbook-year="8" aria-pressed="false"><span><strong>Year 8 Mathematics</strong><small>Powers, transformations and proportion</small></span><b>Y8</b></button><button class="year-choice year-choice--9" type="button" data-textbook-year="9" aria-pressed="false"><span><strong>Year 9 Mathematics</strong><small>Graphs, proof and GCSE preparation</small></span><b>Y9</b></button></div><p class="notice" style="margin-top:1rem">PDF textbook links are being prepared.</p></aside>
-      <div class="selector-card" aria-live="polite"><p class="eyebrow text-stage">Step 2</p><h2 id="textbook-unit-heading">Year 7 textbook units</h2><p>Select a unit. Downloads will activate when its PDF is ready.</p><div class="unit-option-grid" id="textbook-unit-list"></div></div>
+    <section class="edu-page-hero edu-page-hero--textbooks"><div class="container edu-page-hero__inner"><div class="edu-page-hero__copy"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Textbooks</span></nav><p class="eyebrow">KS3 digital textbooks</p><h1>Your textbook, without the searching.</h1><p class="lead">Choose Year 7, 8 or 9 and jump directly to the unit being taught.</p><div class="trust-list"><span>Three year groups</span><span>Ten units each</span><span>No site login</span></div></div><div class="textbook-collage" aria-hidden="true"><div class="textbook-collage__mascot"><img src="assets/dino-mascot-geometric.webp" alt="" width="512" height="512"></div><div class="textbook-collage__card"><span>KS3</span><strong>Textbook finder</strong></div><div class="textbook-collage__years"><i>7</i><i>8</i><i>9</i></div><b>√x</b></div></div></section>
+    <section class="section section--textbooks"><div class="container textbook-workspace">
+      <div class="textbook-toolbar"><div><p class="eyebrow">Textbook finder</p><h2>Choose your year</h2><p>The unit list updates straight away.</p></div><div class="textbook-year-tabs" role="group" aria-label="Choose a textbook year"><button class="textbook-year-tab textbook-year-tab--7" type="button" data-textbook-year="7" aria-pressed="true">Year 7</button><button class="textbook-year-tab textbook-year-tab--8" type="button" data-textbook-year="8" aria-pressed="false">Year 8</button><button class="textbook-year-tab textbook-year-tab--9" type="button" data-textbook-year="9" aria-pressed="false">Year 9</button></div></div>
+      <div class="textbook-access"><span aria-hidden="true">●</span><p><strong>External school access may be required.</strong> This website never asks for or stores login details. Textbook links will open the provider separately when the PDFs are ready.</p></div>
+      <div class="textbook-unit-panel" aria-live="polite"><div class="textbook-unit-panel__heading"><h2 id="textbook-unit-heading">Year 7 textbook units</h2><span>10 units</span></div><div class="unit-option-grid" id="textbook-unit-list"></div></div>
     </div></section>
   </main>
   <div id="site-footer"></div><script src="assets/site-shell.js" defer></script><script src="assets/support-pages.js" defer></script>

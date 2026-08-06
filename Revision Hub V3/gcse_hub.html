@@ -7,25 +7,27 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
   <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
   <title>GCSE Mathematics | SJWMS Maths</title>
 </head>
-<body data-root="." data-section="gcse" data-stage="gcse">
+<body class="design-v3" data-root="." data-section="gcse" data-stage="gcse">
   <div id="site-header"></div>
   <main class="page" id="main-content">
-    <section class="intro-panel intro-panel--year">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>GCSE</span></nav>
-        <div class="intro-panel__grid"><div><p class="eyebrow text-stage">KS4 · Years 10 and 11</p><h1>GCSE mathematics, organised by unit.</h1><p class="lead">Build topic knowledge, revisit methods and prepare for assessments with one clear route through the course.</p></div><a class="button button--secondary" href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener">Open past papers ↗</a></div>
+    <section class="edu-page-hero edu-page-hero--gcse">
+      <div class="container edu-page-hero__inner">
+        <div class="edu-page-hero__copy"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>GCSE</span></nav><p class="eyebrow">KS4 · Years 10 and 11</p><h1>Revise with purpose.</h1><p class="lead">Work through the Edexcel course by topic, then bring the ideas together with exam practice.</p><nav class="edu-quick-links" aria-label="GCSE quick links"><a href="#gcse-number" data-open-details="gcse-number">Number</a><a href="#gcse-algebra" data-open-details="gcse-algebra">Algebra</a><a href="#gcse-geometry" data-open-details="gcse-geometry">Geometry</a><a href="#gcse-statistics" data-open-details="gcse-statistics">Statistics</a><a href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener">Past papers ↗</a></nav></div>
+        <div class="stage-collage stage-collage--gcse" aria-hidden="true"><div class="stage-collage__main"><span>GCSE</span><strong>19 units</strong><small>Edexcel Mathematics</small></div><div class="stage-collage__chart"><small>Exam accuracy</small><div><i></i><i></i><i></i><i></i><i></i></div><strong>78%</strong></div><div class="stage-collage__exam">Exam practice<strong>✓</strong></div><span class="stage-collage__formula">y = mx + c</span><i></i></div>
       </div>
     </section>
+    <div class="container learning-steps" aria-label="A purposeful GCSE revision cycle"><div><span>01</span><strong>Learn</strong><small>Revisit a clear explanation.</small></div><div><span>02</span><strong>Practise</strong><small>Build accuracy with focused work.</small></div><div><span>03</span><strong>Check</strong><small>Mark and correct your errors.</small></div><div><span>04</span><strong>Extend</strong><small>Apply the topic in exam questions.</small></div></div>
     <section class="section section--stage-units" aria-labelledby="gcse-units">
       <div class="container">
-        <div class="section-heading"><div><p class="eyebrow text-stage">Edexcel Mathematics</p><h2 id="gcse-units">Choose a topic group</h2></div><p>Open one of four groups to find the right unit without scanning the full course list.</p></div>
+        <div class="section-heading"><div><p class="eyebrow">Edexcel Mathematics</p><h2 id="gcse-units">Choose a topic group</h2></div><p>Four expandable groups keep all 19 units available without presenting one long page of options.</p></div>
         <div class="gcse-groups">
-          <details class="gcse-group" open>
+          <details class="gcse-group" id="gcse-number" open>
             <summary><span><strong>Number &amp; proportional reasoning</strong><small>Core number skills, ratio and measures</small></span><span class="gcse-group__count">4 units</span></summary>
             <div class="gcse-unit-list">
               <a class="gcse-unit-link" href="gcse/gcse_unit01.html"><span class="gcse-unit-link__number">01</span><span><strong>Number</strong><span class="gcse-unit-link__topics">Number problems · Indices · Standard form</span></span><b aria-hidden="true">→</b></a>
@@ -34,7 +36,7 @@
               <a class="gcse-unit-link" href="gcse/gcse_unit19.html"><span class="gcse-unit-link__number">19</span><span><strong>Proportion &amp; Graphs</strong><span class="gcse-unit-link__topics">Proportion · Growth and decay · Graphs</span></span><b aria-hidden="true">→</b></a>
             </div>
           </details>
-          <details class="gcse-group">
+          <details class="gcse-group" id="gcse-algebra">
             <summary><span><strong>Algebra &amp; graphs</strong><small>Expressions, equations, sequences and graphical methods</small></span><span class="gcse-group__count">5 units</span></summary>
             <div class="gcse-unit-list">
               <a class="gcse-unit-link" href="gcse/gcse_unit02.html"><span class="gcse-unit-link__number">02</span><span><strong>Algebra</strong><span class="gcse-unit-link__topics">Expressions · Equations · Sequences</span></span><b aria-hidden="true">→</b></a>
@@ -44,7 +46,7 @@
               <a class="gcse-unit-link" href="gcse/gcse_unit17.html"><span class="gcse-unit-link__number">17</span><span><strong>More Algebra</strong><span class="gcse-unit-link__topics">Algebraic fractions · Surds · Proof</span></span><b aria-hidden="true">→</b></a>
             </div>
           </details>
-          <details class="gcse-group">
+          <details class="gcse-group" id="gcse-geometry">
             <summary><span><strong>Geometry &amp; trigonometry</strong><small>Shape, space, constructions, proof and vectors</small></span><span class="gcse-group__count">7 units</span></summary>
             <div class="gcse-unit-list">
               <a class="gcse-unit-link" href="gcse/gcse_unit05.html"><span class="gcse-unit-link__number">05</span><span><strong>Angles &amp; Trigonometry</strong><span class="gcse-unit-link__topics">Angle properties · Pythagoras · Trigonometry</span></span><b aria-hidden="true">→</b></a>
@@ -56,7 +58,7 @@
               <a class="gcse-unit-link" href="gcse/gcse_unit18.html"><span class="gcse-unit-link__number">18</span><span><strong>Vectors &amp; Geometric Proofs</strong><span class="gcse-unit-link__topics">Vectors · Geometric proof · Ratio</span></span><b aria-hidden="true">→</b></a>
             </div>
           </details>
-          <details class="gcse-group">
+          <details class="gcse-group" id="gcse-statistics">
             <summary><span><strong>Statistics &amp; probability</strong><small>Representing data, chance and statistical reasoning</small></span><span class="gcse-group__count">3 units</span></summary>
             <div class="gcse-unit-list">
               <a class="gcse-unit-link" href="gcse/gcse_unit03.html"><span class="gcse-unit-link__number">03</span><span><strong>Interpreting &amp; Representing Data</strong><span class="gcse-unit-link__topics">Statistical diagrams · Scatter graphs · Averages</span></span><b aria-hidden="true">→</b></a>
@@ -67,20 +69,19 @@
         </div>
       </div>
     </section>
-    <section class="section section--tools deferred-section" aria-labelledby="gcse-tools">
+    <section class="section section--soft deferred-section" aria-labelledby="gcse-tools">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow">Exam preparation</p><h2 id="gcse-tools">Useful GCSE tools</h2></div><p>Trusted sources for papers, formulae and additional practice.</p></div>
-        <div class="tool-list">
-          <a class="tool-link tool-link--blue" href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener" style="--tool-icon: url('assets/pen-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Past papers</strong><small>MathsGenie examination archive</small></span><b aria-hidden="true">↗</b></a>
-          <a class="tool-link tool-link--orange" href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener" style="--tool-icon: url('assets/paperclip-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Formula sheet</strong><small>Open the official reference PDF</small></span><b aria-hidden="true">↗</b></a>
-          <a class="tool-link tool-link--green" href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener" style="--tool-icon: url('assets/compass-math-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>UKMT challenge</strong><small>Intermediate papers and problem solving</small></span><b aria-hidden="true">↗</b></a>
-          <a class="tool-link tool-link--purple" href="https://www.drfrost.org/" target="_blank" rel="noopener" style="--tool-icon: url('assets/square-root-of-x-svgrepo-com.svg')"><span class="tool-link__icon" aria-hidden="true"></span><span><strong>Dr Frost Maths</strong><small>Independent practice and revision</small></span><b aria-hidden="true">↗</b></a>
+        <div class="tool-card-grid">
+          <a class="tool-card tool-card--violet" href="https://www.mathsgenie.co.uk/papers.php" target="_blank" rel="noopener"><span class="tool-card__icon" data-symbol="≡" aria-hidden="true"></span><span><strong>Past papers</strong><small>MathsGenie examination archive</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-card tool-card--yellow" href="https://drive.google.com/file/d/1oxMQu9HU_TeWDvT2laMWbfNKZt5_o_bw/view?usp=sharing" target="_blank" rel="noopener"><span class="tool-card__icon" data-symbol="ƒ" aria-hidden="true"></span><span><strong>Formula sheet</strong><small>Open the official reference PDF</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-card tool-card--mint" href="https://www.ukmt.org.uk/competitions/solo/intermediate-mathematical-challenge/archive" target="_blank" rel="noopener"><span class="tool-card__icon" data-symbol="✦" aria-hidden="true"></span><span><strong>UKMT challenge</strong><small>Intermediate problem solving</small></span><b aria-hidden="true">↗</b></a>
+          <a class="tool-card tool-card--coral" href="https://www.drfrost.org/" target="_blank" rel="noopener"><span class="tool-card__icon" data-symbol="√x" aria-hidden="true"></span><span><strong>Dr Frost Maths</strong><small>Independent practice and revision</small></span><b aria-hidden="true">↗</b></a>
         </div>
+        <p class="teacher-note"><span aria-hidden="true">◆</span><span><strong>Teacher-curated pathways.</strong> The hub points students towards trusted resources but does not ask for an account, record activity or store personal progress.</span></p>
         <p class="notice" style="margin-top:1rem"><strong>AQA Further Maths:</strong> dedicated unit links will appear here when the resources are ready.</p>
       </div>
     </section>
   </main>
-  <div id="site-footer"></div>
-  <script src="assets/site-shell.js" defer></script>
-</body>
-</html>
+  <div id="site-footer"></div><script src="assets/site-shell.js" defer></script><script src="assets/support-pages.js" defer></script>
+</body></html>

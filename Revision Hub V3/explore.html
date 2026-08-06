@@ -24,15 +24,21 @@
 
   <!-- Shared CSS -->
   <link rel="stylesheet" href="assets/main.css"/>
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
+  <link rel="stylesheet" href="assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100" data-page="explore">
+<body class="bg-gray-100 design-v3 legacy-v3" data-page="explore" data-root="." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="index.html">Return to the hub →</a></div></div>
   <div class="layout">  <!-- was: <div class="flex h-screen"> -->
 
     <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
-    <main class="main p-6 overflow-y-auto"> <!-- was: class="flex-1 p-8 overflow-y-auto" -->
+    <main id="main-content" class="main p-6 overflow-y-auto"> <!-- was: class="flex-1 p-8 overflow-y-auto" -->
     <!-- Header -->
     <header class="flex justify-between items-center mb-8">
       <div class="flex items-center">
@@ -82,7 +88,6 @@
 </div>
 
 <!-- Shared scripts -->
-<script src="assets/sidebar-loader.js"></script>
 <script src="assets/cards.js"></script>
 
 <script>
@@ -346,5 +351,7 @@
 </script>
 
   
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

@@ -31,7 +31,7 @@ const extractTopics = (source) => {
 const years = {
   7: {
     colour: "Orange pathway",
-    intro: "Ten structured units that establish strong foundations across number, algebra, geometry and data.",
+    intro: "Ten units building foundations across number, algebra, geometry and data.",
     units: [
       ["Analysing &amp; Displaying Data", "Data handling", ["Two-way tables &amp; bar charts", "Averages &amp; range", "Pie charts &amp; correlation"]],
       ["Number Skills", "Number", ["Factors, primes &amp; multiples", "Negative numbers", "Squares, roots &amp; calculations"]],
@@ -47,7 +47,7 @@ const years = {
   },
   8: {
     colour: "Green pathway",
-    intro: "Ten clear units that build confidence in number, algebra, geometry and data.",
+    intro: "Ten units developing confidence across number, algebra, geometry and data.",
     units: [
       ["Factors &amp; Powers", "Number", ["Prime factor decomposition", "Laws of indices", "Calculating and estimating"]],
       ["Working with Powers", "Algebra", ["Simplifying expressions", "Expanding and factorising", "Substituting and solving"]],
@@ -63,7 +63,7 @@ const years = {
   },
   9: {
     colour: "Purple pathway",
-    intro: "Ten focused units that consolidate KS3 knowledge and build a confident bridge into GCSE mathematics.",
+    intro: "Ten units consolidating KS3 knowledge and preparing you for GCSE.",
     units: [
       ["Powers &amp; Roots", "Algebra and number", ["Reciprocals &amp; indices", "Standard form", "Surds"]],
       ["Quadratics", "Algebra", ["Expanding &amp; factorising", "Solving equations", "Sequences"]],
@@ -87,6 +87,12 @@ const gcseTitles = [
   "More Algebra", "Vectors &amp; Geometric Proofs", "Proportion &amp; Graphs"
 ];
 
+const yearQuickLinks = {
+  7: [["Number", "year_7/year7_unit02.html"], ["Algebra", "year_7/year7_unit03.html"], ["Geometry", "year_7/year7_unit05.html"], ["Data", "year_7/year7_unit01.html"]],
+  8: [["Number", "year_8/year8_unit01.html"], ["Algebra", "year_8/year8_unit02.html"], ["Geometry", "year_8/year8_unit03.html"], ["Graphs", "year_8/year8_unit04.html"]],
+  9: [["Number", "year_9/year9_unit01.html"], ["Algebra", "year_9/year9_unit02.html"], ["Geometry", "year_9/year9_unit09.html"], ["Data", "year_9/year9_unit04.html"]]
+};
+
 const pageHead = ({ title, description, depth = 0 }) => {
   const prefix = depth ? "../" : "";
   return `<!DOCTYPE html>
@@ -98,9 +104,10 @@ const pageHead = ({ title, description, depth = 0 }) => {
   <link rel="icon" type="image/svg+xml" href="${prefix}assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="${prefix}assets/theme-init.js"></script>
   <link rel="stylesheet" href="${prefix}assets/design-system.css">
+  <link rel="stylesheet" href="${prefix}assets/foundation.css">
   <title>${escapeAttr(title)}</title>
 </head>`;
 };
@@ -114,6 +121,7 @@ const unitCard = ({ href, number, title, category, topics }) => `          <a cl
 
 const yearHub = (year) => {
   const config = years[year];
+  const quickLinks = [...yearQuickLinks[year], ["Assessments", "ks3_eoy.html"]].map(([label, href]) => `<a href="${href}">${label}</a>`).join("");
   const extras = year === 9 ? `
     <section class="section section--tools deferred-section" aria-labelledby="year9-extras">
       <div class="container">
@@ -132,18 +140,10 @@ const yearHub = (year) => {
     topics: unit[2]
   })).join("\n");
   return `${pageHead({ title: `Year ${year} Mathematics | SJWMS Maths`, description: `Year ${year} mathematics units, revision resources and assessment preparation.` })}
-<body data-root="." data-section="ks3" data-year="${year}">
+<body class="design-v3" data-root="." data-section="ks3" data-year="${year}">
   <div id="site-header"></div>
   <main class="page" id="main-content">
-    <section class="intro-panel intro-panel--year">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="ks3_hub.html">KS3</a><span aria-hidden="true">/</span><span>Year ${year}</span></nav>
-        <div class="intro-panel__grid">
-          <div><p class="eyebrow text-stage">Year ${year} · ${config.colour}</p><h1>Choose a unit and start practising.</h1><p class="lead">${config.intro}</p></div>
-          <a class="button button--secondary" href="ks3_eoy.html">Year ${year} assessment prep</a>
-        </div>
-      </div>
-    </section>
+    <section class="edu-page-hero edu-page-hero--year"><div class="container edu-page-hero__inner"><div class="edu-page-hero__copy"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="ks3_hub.html">KS3</a><span aria-hidden="true">/</span><span>Year ${year}</span></nav><p class="eyebrow">${config.colour}</p><h1>Year ${year} mathematics.</h1><p class="lead">${config.intro}</p><nav class="edu-quick-links" aria-label="Year ${year} quick links">${quickLinks}</nav></div><div class="stage-collage stage-collage--year" aria-hidden="true"><div class="stage-collage__main"><span>${year}</span><strong>Ten connected units</strong><small>Learn · practise · check</small></div><div class="stage-collage__chart"><small>Course progress</small><div><i></i><i></i><i></i><i></i><i></i></div><strong>KS3</strong></div><div class="stage-collage__exam">Your pathway<strong>→</strong></div><span class="stage-collage__formula">n → n + 1</span><i></i></div></div></section>
     <section class="section section--stage-units" aria-labelledby="year${year}-units">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow text-stage">Full-year curriculum</p><h2 id="year${year}-units">Choose a unit</h2></div><p>Each unit opens worksheets, videos, supporting resources and relevant SPARX codes.</p></div>
@@ -187,24 +187,41 @@ const unitPage = ({ stage, year, index, title, topics, count }) => {
   const crumbs = isGcse
     ? `<a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../gcse_hub.html">GCSE</a><span aria-hidden="true">/</span><span>Unit ${index}</span>`
     : `<a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../ks3_hub.html">KS3</a><span aria-hidden="true">/</span><a href="../${hub}">${hubLabel}</a><span aria-hidden="true">/</span><span>Unit ${index}</span>`;
+  const unitTitles = isGcse ? gcseTitles : years[year].units.map((unit) => unit[0]);
+  const unitCategories = isGcse ? Array(count).fill("GCSE Mathematics") : years[year].units.map((unit) => unit[1]);
+  const unitNavigation = unitTitles.map((unitTitle, unitIndex) => {
+    const number = String(unitIndex + 1).padStart(2, "0");
+    const current = unitIndex + 1 === index;
+    return `            <a${current ? ' class="is-current" aria-current="page"' : ""} href="${fileBase}${number}.html"><span>${number}</span><strong>${unitTitle}<small>${unitCategories[unitIndex]}</small></strong></a>`;
+  }).join("\n");
   return `${pageHead({ title: `${cleanText(title)} | ${hubLabel} Mathematics`, description: `${hubLabel} ${cleanText(title)} revision resources, videos, worksheets and SPARX codes.`, depth: 1 })}
-<body data-root=".." data-section="${section}" ${bodyTheme} data-json="../assets/data/${jsonBase}${padded}.json">
+<body class="design-v3" data-root=".." data-section="${section}" ${bodyTheme} data-json="../assets/data/${jsonBase}${padded}.json">
   <div id="site-header"></div>
   <main class="page" id="main-content">
     <section class="section--tight"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb">${crumbs}</nav></div></section>
     <section class="section--tight section--flush-top">
       <div class="container">
-        <div class="stage-band">
-          <p class="eyebrow">${hubLabel} · Unit ${padded}</p>
-          <h1>${title}</h1>
-          <p class="lead">Use this page to find worksheets, videos and focused practice links for the unit as they are added.</p>
-          <nav class="anchor-nav" aria-label="Jump to resources"><a href="#worksheets" data-resource-anchor="worksheets">Worksheets</a><a href="#videos" data-resource-anchor="videos">Videos</a><a href="#other" data-resource-anchor="other">Other resources</a><a href="#sparx-section" data-resource-anchor="sparx">SPARX codes</a></nav>
+        <div class="stage-band edu-unit-hero">
+          <div class="edu-unit-hero__copy"><p class="eyebrow">${hubLabel} · Unit ${padded}</p><h1>${title}</h1><p class="lead">Learn the method, practise each skill and check your understanding with teacher-selected support.</p><nav class="anchor-nav" aria-label="Jump to resources"><a href="#videos" data-resource-anchor="videos">Learn</a><a href="#worksheets" data-resource-anchor="worksheets">Practise</a><a href="#other" data-resource-anchor="other">Extend</a><a href="#sparx-section" data-resource-anchor="sparx">SPARX codes</a></nav></div>
+          <div class="edu-unit-hero__visual" aria-hidden="true"><span>${hubLabel}</span><strong>Learn · practise · check</strong><div><i></i><i></i><i></i><i></i><i></i></div></div>
 ${topicMarkup ? `          ${topicMarkup}` : ""}
         </div>
       </div>
     </section>
-    <section class="section deferred-section" aria-labelledby="unit-resources">
-      <div class="container">
+    <div class="container unit-page-layout">
+      <details class="unit-sidebar" open>
+        <summary><span><small>${hubLabel} curriculum</small><strong>Unit ${padded} of ${count}</strong></span><i aria-hidden="true"></i></summary>
+        <div class="unit-sidebar__panel">
+          <div class="unit-sidebar__heading"><span>${isGcse ? "G" : year}</span><div><strong>Choose another unit</strong><small>${hubLabel} Mathematics</small></div></div>
+          <nav class="unit-sidebar__nav" aria-label="${hubLabel} units">
+${unitNavigation}
+          </nav>
+          <a class="unit-sidebar__all" href="../${hub}">View the full ${hubLabel} curriculum <span aria-hidden="true">→</span></a>
+        </div>
+      </details>
+      <div class="unit-page-main">
+        <div class="learning-steps" aria-label="How to revise this unit"><div><span>01</span><strong>Learn</strong><small>Use an explanation when a method is unfamiliar.</small></div><div><span>02</span><strong>Practise</strong><small>Complete focused work carefully.</small></div><div><span>03</span><strong>Check</strong><small>Correct errors and explain the method.</small></div><div><span>04</span><strong>Extend</strong><small>Apply the skill in a less familiar problem.</small></div></div>
+        <section class="section deferred-section" aria-labelledby="unit-resources">
         <div class="section-heading"><div><p class="eyebrow text-stage">Revise in your own order</p><h2 id="unit-resources">Unit resources</h2></div><p>Start with a worksheet, use a video when you need an explanation, then practise independently.</p></div>
         <div class="resource-layout">
           <div class="resource-stack">
@@ -217,17 +234,16 @@ ${topicMarkup ? `          ${topicMarkup}` : ""}
           </aside>
         </div>
         <p class="notice" id="resource-empty" hidden><strong>No resources are available yet.</strong> Return to the ${hubLabel} hub or try this unit again later.</p>
-      </div>
-    </section>
-    <section class="section deferred-section" aria-labelledby="keep-going">
-      <div class="container">
+        </section>
+        <section class="section deferred-section" aria-labelledby="keep-going">
         <div class="section-heading"><div><p class="eyebrow">Keep moving</p><h2 id="keep-going">Choose your next step</h2></div></div>
         <div class="card-grid card-grid--two">
-          <a class="card" href="${previous[0]}"><span class="card__meta">${previous[1]}</span><h3>${previous[2]}</h3><p>Move back and review an earlier part of the course.</p><span class="card__action">Open</span></a>
-          <a class="card" href="${next[0]}"><span class="card__meta">${next[1]}</span><h3>${next[2]}</h3><p>Continue through the course when you are ready.</p><span class="card__action">Open</span></a>
+          <a class="card" href="${previous[0]}"><span class="card__icon" data-symbol="←" aria-hidden="true"></span><span class="card__meta">${previous[1]}</span><h3>${previous[2]}</h3><p>Move back and review an earlier part of the course.</p><span class="card__action">Open</span></a>
+          <a class="card" href="${next[0]}"><span class="card__icon" data-symbol="→" aria-hidden="true"></span><span class="card__meta">${next[1]}</span><h3>${next[2]}</h3><p>Continue through the course when you are ready.</p><span class="card__action">Open</span></a>
         </div>
+        </section>
       </div>
-    </section>
+    </div>
   </main>
   <div id="site-footer"></div>
   <script src="../assets/site-shell.js" defer></script>
@@ -249,7 +265,7 @@ const readUnitMetadata = async (stage, year, count) => {
   return metadata;
 };
 
-for (const year of [7, 9]) {
+for (const year of [7, 8, 9]) {
   await writeFile(path.join(root, `year${year}_hub.html`), yearHub(year));
 }
 

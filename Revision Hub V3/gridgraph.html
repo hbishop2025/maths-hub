@@ -23,8 +23,17 @@
         .toast { background: #374151; color: #fff; padding: 8px 16px; border-radius: 6px; margin-top: 8px; font-size: 14px; opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: translateY(10px); box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid #4b5563; }
         .toast.show { opacity: 1; transform: translateY(0); }
     </style>
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
+  <link rel="stylesheet" href="assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="flex h-screen antialiased selection:bg-blue-500/30">
+<body class="flex h-screen antialiased selection:bg-blue-500/30 design-v3 experience-v3" data-root="." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Interactive mathematics</strong> · Part of the shared learning library</span><a href="index.html">Return to the hub →</a></div></div>
+  <span id="main-content" tabindex="-1"></span>
+  <div class="gridgraph-app">
 
     <!-- LEFT SIDEBAR: Shape Tools -->
     <div class="w-64 bg-gray-900 border-r border-gray-700 flex flex-col shadow-xl z-20 flex-shrink-0">
@@ -1766,5 +1775,8 @@ onMouseMove: (e) => {
 
         window.onload = App.init;
     </script>
+  </div>
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

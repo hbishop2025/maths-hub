@@ -82,16 +82,22 @@
       to { transform: translateY(100vh) rotate(720deg); }
     }
   </style>
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <link rel="stylesheet" href="../assets/foundation.css">
+  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100"
-      data-page="game-template">
+<body class="bg-gray-100 design-v3 experience-v3"
+      data-page="game-template" data-root=".." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Interactive mathematics</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
   <div class="layout">
     <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main content -->
-    <main class="main p-8 overflow-y-auto">
+    <main id="main-content" class="main p-8 overflow-y-auto">
       <!-- Top: back + title -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
@@ -182,8 +188,6 @@
       <div class="h-10"></div>
     </main>
   </div>
-
-  <script src="/assets/sidebar-loader.js"></script>
 
   <!-- === GAME SCRIPT === -->
   <script>
@@ -648,5 +652,7 @@
 
     })();
   </script>
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>

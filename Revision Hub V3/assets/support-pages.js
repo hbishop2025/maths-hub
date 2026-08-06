@@ -1,4 +1,13 @@
 (function () {
+  const detailsLinks = Array.from(document.querySelectorAll("[data-open-details]"));
+  const openLinkedDetails = (link) => {
+    const target = document.getElementById(link.dataset.openDetails);
+    if (target?.tagName === "DETAILS") target.open = true;
+  };
+  detailsLinks.forEach((link) => link.addEventListener("click", () => openLinkedDetails(link)));
+  const initialDetailsLink = detailsLinks.find((link) => link.hash === window.location.hash);
+  if (initialDetailsLink) openLinkedDetails(initialDetailsLink);
+
   const sectionNav = document.querySelector("[data-section-nav]");
   if (sectionNav && "IntersectionObserver" in window) {
     const links = Array.from(sectionNav.querySelectorAll('a[href^="#"]'));
@@ -28,6 +37,7 @@
       unitList.replaceChildren(...textbookUnits[year].map((title, index) => {
         const button = document.createElement("button");
         button.className = "unit-option";
+        button.style.setProperty("--unit-delay", `${index * 28}ms`);
         button.type = "button";
         button.disabled = true;
         button.setAttribute("aria-label", `Unit ${index + 1}: ${title}. PDF coming soon.`);
@@ -113,6 +123,8 @@
   const alevelGrid = document.getElementById("alevel-track-grid");
   const alevelHeading = document.getElementById("alevel-track-heading");
   const alevelSummary = document.getElementById("alevel-track-summary");
+  const alevelWorkspace = document.getElementById("alevel-workspace");
+  const alevelQuickLinks = Array.from(document.querySelectorAll("[data-alevel-quick]"));
   if (alevelButtons && alevelGrid && alevelHeading && alevelSummary) {
     const safeExternalUrl = (value) => {
       try {
@@ -122,6 +134,11 @@
     };
     const renderTrack = (track) => {
       alevelButtons.querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.trackId === track.id)));
+      alevelQuickLinks.forEach((link) => {
+        const active = link.dataset.alevelQuick === track.id;
+        link.classList.toggle("is-active", active);
+        if (active) link.setAttribute("aria-current", "true"); else link.removeAttribute("aria-current");
+      });
       const sections = Array.isArray(track.sections) ? track.sections : [];
       alevelHeading.textContent = track.label || "A-level resources";
       alevelSummary.textContent = sections.map((section) => section.subheading).filter(Boolean).join(" ");
@@ -176,6 +193,15 @@
           return button;
         });
         alevelButtons.replaceChildren(...buttons);
+        alevelQuickLinks.forEach((link) => {
+          const track = tracks.find((item) => item.id === link.dataset.alevelQuick);
+          if (!track) return;
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            renderTrack(track);
+            alevelWorkspace?.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
         if (tracks[0]) renderTrack(tracks[0]);
       })
       .catch(() => {

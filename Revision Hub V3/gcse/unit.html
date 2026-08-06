@@ -11,8 +11,15 @@
   <style>
     body { font-family: "Lexend", sans-serif; }
   </style>
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <link rel="stylesheet" href="../assets/foundation.css">
+  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900">
+<body class="min-h-screen bg-slate-50 text-slate-900 design-v3 legacy-v3" data-root=".." data-section="gcse">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
   <header class="border-b border-slate-200 bg-white">
     <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
       <a href="/index.html" class="flex items-center gap-3 font-extrabold">
@@ -26,7 +33,7 @@
     </div>
   </header>
 
-  <main class="mx-auto min-h-[65vh] max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+  <main id="main-content" class="mx-auto min-h-[65vh] max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
     <a href="/gcse_topics.html" class="mb-6 inline-flex items-center text-sm font-semibold text-slate-600 hover:text-blue-600">
       <span class="material-icons mr-1 text-base">arrow_back</span>Back to GCSE topics
     </a>
@@ -45,7 +52,7 @@
     </section>
   </main>
 
-  <div id="footer-slot"></div>
+  <div id="site-footer"></div>
   <script>
     (() => {
       const topics = {
@@ -109,6 +116,6 @@
         .catch(() => {});
     })();
   </script>
-  <script src="/assets/footer-loader.js" defer></script>
+  <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>

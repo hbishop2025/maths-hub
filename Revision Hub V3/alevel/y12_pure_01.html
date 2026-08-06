@@ -39,15 +39,21 @@
       100% { background-position:0% 0%;   }
     }
   </style>
+  <script src="../assets/theme-init.js"></script>
+  <link rel="stylesheet" href="../assets/design-system.css">
+  <link rel="stylesheet" href="../assets/foundation.css">
+  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100" data-page="alevel"
-      data-json="/assets/data/alevel_y12_pure_unit01.json">
+<body class="bg-gray-100 design-v3 legacy-v3" data-page="alevel"
+      data-json="/assets/data/alevel_y12_pure_unit01.json" data-root=".." data-section="alevel">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
   <div class="layout">
     <!-- Sidebar -->
-    <div id="sidebar" aria-label="Sidebar"></div>
 
     <!-- Main -->
-    <main class="main p-8 overflow-y-auto">
+    <main id="main-content" class="main p-8 overflow-y-auto">
       <!-- Top: back -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div class="flex items-center gap-2">
@@ -159,7 +165,6 @@
   </div>
 
   <!-- Shared JS -->
-  <script src="/assets/sidebar-loader.js"></script>
   <script src="/assets/cards.js"></script>
 
   <!-- Page JS: load JSON + build cards -->
@@ -304,5 +309,7 @@
 
   <!-- MathJax (if needed) -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+  <div id="site-footer"></div>
+  <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>

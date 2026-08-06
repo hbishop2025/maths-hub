@@ -1,0 +1,101 @@
+/* Bridge older learning activities into the shared v3 visual identity. */
+
+.design-v3.legacy-v3 {
+  min-height: 100%;
+  background: var(--f-canvas) !important;
+  color: var(--f-ink);
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif !important;
+  overflow-x: clip;
+}
+
+.design-v3.legacy-v3 > .layout,
+.design-v3.legacy-v3 .layout {
+  display: block !important;
+  min-height: auto;
+}
+
+.design-v3.legacy-v3 .main {
+  width: min(calc(100% - 2rem), 75rem);
+  min-height: 45vh;
+  overflow: visible;
+  margin-inline: auto !important;
+  padding: clamp(2rem, 5vw, 4rem) 0 !important;
+}
+
+.design-v3.legacy-v3 .bg-white,
+.design-v3.legacy-v3 .card,
+.design-v3.legacy-v3 .panel,
+.design-v3.legacy-v3 .content-card,
+.design-v3.legacy-v3 .example-box {
+  border-color: var(--f-line) !important;
+  background-color: var(--f-card) !important;
+  box-shadow: 0 8px 30px rgba(22,10,66,0.055) !important;
+}
+
+.design-v3.legacy-v3 .rounded-xl,
+.design-v3.legacy-v3 .rounded-2xl,
+.design-v3.legacy-v3 .card,
+.design-v3.legacy-v3 .panel { border-radius: var(--f-radius-lg) !important; }
+
+.design-v3.legacy-v3 .text-gray-800,
+.design-v3.legacy-v3 .text-slate-900,
+.design-v3.legacy-v3 .text-slate-800 { color: var(--f-ink) !important; }
+
+.design-v3.legacy-v3 .text-gray-600,
+.design-v3.legacy-v3 .text-gray-500,
+.design-v3.legacy-v3 .text-slate-600,
+.design-v3.legacy-v3 .text-slate-500 { color: var(--f-text) !important; }
+
+.experience-ribbon {
+  position: relative;
+  z-index: 4;
+  border-bottom: 1px solid var(--f-line);
+  background: var(--f-violet-soft);
+  color: var(--f-ink);
+}
+
+.experience-ribbon__inner {
+  display: flex;
+  width: min(calc(100% - 2rem), 75rem);
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: auto;
+}
+
+.experience-ribbon strong { color: var(--f-ink); font-size: 0.78rem; }
+.experience-ribbon span { color: var(--f-text); font-size: 0.72rem; }
+.experience-ribbon a { color: var(--f-violet-dark); font-size: 0.74rem; font-weight: 800; }
+
+.design-v3.experience-v3 {
+  display: block !important;
+  min-height: 100%;
+  height: auto !important;
+  background: var(--f-canvas);
+  overflow-x: clip;
+  overflow-y: auto !important;
+}
+
+.design-v3.experience-v3 > .wrap { margin-block: clamp(2rem,5vw,4rem); }
+.design-v3.experience-v3 > .layout { min-height: auto; }
+.design-v3.experience-v3 > .layout .main { margin-left: 0 !important; }
+.design-v3.experience-v3 #terminal-window { margin: 2rem auto; }
+.design-v3.experience-v3 .scanlines { z-index: 20 !important; }
+.design-v3.experience-v3 .gridgraph-app { display: flex; height: calc(100vh - 7.95rem); min-height: 38rem; color: #f8fafc; }
+
+html[data-theme="dark"] .design-v3.legacy-v3 .bg-white,
+html[data-theme="dark"] .design-v3.legacy-v3 .card,
+html[data-theme="dark"] .design-v3.legacy-v3 .panel,
+html[data-theme="dark"] .design-v3.legacy-v3 .content-card,
+html[data-theme="dark"] .design-v3.legacy-v3 .example-box { background-color: var(--f-card) !important; }
+
+html[data-theme="dark"] .design-v3.legacy-v3 input,
+html[data-theme="dark"] .design-v3.legacy-v3 select,
+html[data-theme="dark"] .design-v3.legacy-v3 textarea { border-color: var(--f-line); background: var(--f-soft); color: var(--f-ink); }
+
+@media (max-width: 700px) {
+  .design-v3.legacy-v3 .main,
+  .experience-ribbon__inner { width: min(calc(100% - 1.25rem), 75rem); }
+  .experience-ribbon__inner { align-items: flex-start; flex-direction: column; justify-content: center; gap: 0.15rem; padding-block: 0.65rem; }
+}

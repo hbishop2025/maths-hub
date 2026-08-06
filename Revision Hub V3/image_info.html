@@ -157,8 +157,15 @@
       to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
   </style>
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
+  <link rel="stylesheet" href="assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="design-v3 legacy-v3" data-root="." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="index.html">Return to the hub →</a></div></div>
   <!-- HEADER -->
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between relative">
@@ -196,7 +203,7 @@
   <div class="absolute inset-0 math-grid pointer-events-none"></div>
 
   <!-- MAIN -->
-  <main class="relative pt-20 pb-16">
+  <main id="main-content" class="relative pt-20 pb-16">
     <div class="hero-shell">
 
       <!-- Intro -->
@@ -642,8 +649,7 @@
   </main>
 
   <!-- FOOTER -->
-  <div id="footer-slot"></div>
-  <script src="assets/footer-loader.js" defer></script>
+  <div id="site-footer"></div>
 
   <!-- Mobile menu JS -->
   <script>
@@ -674,5 +680,6 @@
       });
     })();
   </script>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

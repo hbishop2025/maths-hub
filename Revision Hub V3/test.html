@@ -88,9 +88,16 @@
     .callout { @apply border-l-4 border-gray-900 pl-4 py-2; }
     .callout-warn { @apply border-l-4 border-amber-500 pl-4 py-2; }
   </style>
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/design-system.css">
+  <link rel="stylesheet" href="assets/foundation.css">
+  <link rel="stylesheet" href="assets/legacy-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="design-v3 legacy-v3" data-root="." data-section="ks3">
+  <div id="site-header"></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>SJWMS Maths resource</strong> · Part of the shared learning library</span><a href="index.html">Return to the hub →</a></div></div>
 
   <header class="header">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
@@ -108,7 +115,7 @@
     </div>
   </header>
 
-  <main class="relative pt-14 pb-20">
+  <main id="main-content" class="relative pt-14 pb-20">
 
     <div class="w-full bg-amber-300 border-b border-amber-400/50 text-amber-900 px-4 py-2 flex items-center justify-center text-xs font-bold uppercase tracking-widest">
       <span class="material-icons text-base mr-2">construction</span>
@@ -388,7 +395,7 @@
     </div>
   </main>
 
-  <div id="footer-slot"></div>
+  <div id="site-footer"></div>
 
   <script>
     // ===== Sidebar active section =====
@@ -408,7 +415,6 @@
       targets.forEach(t => obs.observe(t));
     })();
   </script>
-
-  <script src="assets/footer-loader.js" defer></script>
+  <script src="assets/site-shell.js" defer></script>
 </body>
 </html>

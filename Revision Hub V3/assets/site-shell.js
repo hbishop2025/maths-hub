@@ -13,11 +13,11 @@
   ];
 
   const tools = [
-    ["AI usage", "Guidance for using AI safely and effectively", "ai_usage.html", false, "cube-svgrepo-com.svg"],
-    ["Policy", "Privacy, acceptable use and guidance", "policy.html", false, "paperclip-svgrepo-com.svg"],
-    ["SPARX setup", "Homework expectations and access", "sparx.html", false, "square-root-of-x-svgrepo-com.svg"],
-    ["Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true, "pen-svgrepo-com.svg"],
-    ["Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true, "compass-math-svgrepo-com.svg"]
+    ["AI usage", "Guidance for using AI safely and effectively", "ai_usage.html", false, "✦"],
+    ["Policy", "Privacy, acceptable use and guidance", "policy.html", false, "✓"],
+    ["SPARX setup", "Homework expectations and access", "sparx.html", false, "√x"],
+    ["Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true, "∑"],
+    ["Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true, "▤"]
   ];
 
   const headerSlot = document.getElementById("site-header");
@@ -26,7 +26,7 @@
       `<a href="${path(href)}"${active === key ? ' aria-current="page"' : ""}>${label}</a>`
     ).join("");
     const toolLinks = tools.map(([label, description, href, external, icon]) =>
-      `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><span class="tools-panel__icon" aria-hidden="true" style="--tool-menu-icon: url('${path(`assets/${icon}`)}')"></span><span class="tools-panel__copy"><strong>${label}${external ? " ↗" : ""}</strong><span>${description}</span></span></a>`
+      `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><span class="tools-panel__icon tools-panel__icon--glyph" aria-hidden="true">${icon}</span><span class="tools-panel__copy"><strong>${label}${external ? " ↗" : ""}</strong><span>${description}</span></span></a>`
     ).join("");
 
     headerSlot.innerHTML = `
@@ -35,7 +35,7 @@
         <div class="site-header__inner">
           <a class="site-brand" href="${path("index.html")}" aria-label="SJWMS Maths home">
             <img src="${path("assets/hub_logo.png")}" alt="" width="84" height="32">
-            <span>SJWMS Maths<small>Revision and learning</small></span>
+            <span>SJWMS Maths<small>Teacher-curated revision</small></span>
           </a>
           <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
             ${nav}
@@ -135,11 +135,24 @@
     footer.innerHTML = `
       <footer class="site-footer">
         <div class="site-footer__inner">
-          <div class="site-footer__brand">
-            <img src="${path("assets/sjwms-maths-logo.svg")}" alt="" width="104" height="40" loading="lazy" decoding="async">
-            <div><strong>SJWMS Maths</strong><p>Find it. Practise it. Master it.</p></div>
+          <div class="site-footer__top">
+            <div class="site-footer__intro">
+              <a class="site-footer__brand" href="${path("index.html")}" aria-label="SJWMS Maths home">
+                <img src="${path("assets/hub_logo.png")}" alt="" width="84" height="90" loading="lazy" decoding="async">
+                <span><strong>SJWMS Maths</strong><small>Find it. Practise it. Master it.</small></span>
+              </a>
+              <p>A clear, teacher-curated route to revision, practice and KS3 textbooks.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="Footer navigation">
+              <div><strong>Courses</strong><a href="${path("ks3_hub.html")}">KS3</a><a href="${path("gcse_hub.html")}">GCSE</a><a href="${path("alevel_hub.html")}">A-level</a></div>
+              <div><strong>Study tools</strong><a href="${path("dashboard.html")}">Textbooks</a><a href="${path("sparx.html")}">SPARX support</a><a href="${path("ai_usage.html")}">AI guidance</a></div>
+              <div><strong>About</strong><a href="${path("policy.html")}">Privacy and policy</a><a href="${path("index.html")}#choose-stage">Choose a course</a><a href="${path("bishop_shakes.html")}">Maths Labs</a></div>
+            </nav>
           </div>
-          <p>Revision Hub v3.5 · Built for SJWMS students</p>
+          <div class="site-footer__bottom">
+            <p>Revision Hub v3.6 · Built for SJWMS students</p>
+            <p class="site-footer__privacy"><span aria-hidden="true"></span>No accounts · No student data collected</p>
+          </div>
         </div>
       </footer>`;
   }
