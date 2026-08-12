@@ -21,9 +21,42 @@
   }
 
   const textbookUnits = {
-    7: ["Analysing & Displaying Data", "Number Skills", "Equations, Functions & Formulae", "Fractions", "Angles & Shapes", "Decimals", "Equations", "Multiplicative Reasoning", "Perimeter, Area & Volume", "Sequences & Graphs"],
-    8: ["Factors & Powers", "Working with Powers", "2D Shapes & 3D Solids", "Real-Life Graphs", "Transformations", "Fractions, Decimals & Percentages", "Construction & Loci", "Probability", "Scale Drawings & Measures", "Graphs"],
-    9: ["Powers & Roots", "Quadratics", "Inequalities & Formulae", "Collecting & Analysing Data", "Multiplicative Reasoning", "Non-linear Graphs", "Accuracy & Measures", "Graphical Solutions", "Trigonometry", "Proof"]
+    7: [
+      ["Analysing & Displaying Data", "https://drive.google.com/file/d/1G7L8o3RPjWFOjGIh2eCoGJvAGlXdjmyl/view?usp=drive_link"],
+      ["Number Skills", "https://drive.google.com/file/d/1Xc9yKEavJwFO0IMcdoMu6I13sN0dlvwP/view?usp=drive_link"],
+      ["Equations, Functions & Formulae", "https://drive.google.com/file/d/1UhOT77f1s_540E8kVsiV6G8FvD-TaH7I/view?usp=drive_link"],
+      ["Fractions", "https://drive.google.com/file/d/1D7tTSSJYXL_lkDSwUuGpQCLa08VG1Fdc/view?usp=drive_link"],
+      ["Angles & Shapes", "https://drive.google.com/file/d/1rjVaMjbb_yqlQOUQzMM-W3d3v1rK7-u3/view?usp=drive_link"],
+      ["Decimals", "https://drive.google.com/file/d/1cAy4Uir1fWBil9nNhrP8P3mrAH_YzUx4/view?usp=drive_link"],
+      ["Equations", "https://drive.google.com/file/d/1KXZB9_ZWayU1ZAo6KOzOirYotnw6cByF/view?usp=drive_link"],
+      ["Multiplicative Reasoning", "https://drive.google.com/file/d/1ADTRwNJAa6IJcr52bCpJgVOxeUJSJZQ-/view?usp=drive_link"],
+      ["Perimeter, Area & Volume", "https://drive.google.com/file/d/1hs_AC1tTtHhph2zu4UvMTB6Iqnf02LBe/view?usp=drive_link"],
+      ["Sequences & Graphs", "https://drive.google.com/file/d/1D1EnmR4Y0oPThUQT36b2pVsLaiH-98zP/view?usp=drive_link"]
+    ],
+    8: [
+      ["Factors & Powers", "https://drive.google.com/file/d/1EpoB6hKfse3KDTUEdMKBnlQftnfpV0rW/view?usp=drive_link"],
+      ["Working with Powers", "https://drive.google.com/file/d/1_ZJwwfmNKzwXfdKObJbxR71SFWd7ugGt/view?usp=drive_link"],
+      ["2D Shapes & 3D Solids", "https://drive.google.com/file/d/1BpqiUGujuTK57o7mK7Hv0X9CA8VIqQm-/view?usp=drive_link"],
+      ["Real-Life Graphs", "https://drive.google.com/file/d/1GQ9catkH-8ypqUjhJvu-r16lvaxkKhxl/view?usp=drive_link"],
+      ["Transformations", "https://drive.google.com/file/d/1XxRs7Cc6wJ_9kIRx7HRteektdANIangh/view?usp=drive_link"],
+      ["Fractions, Decimals & Percentages", "https://drive.google.com/file/d/1bTJ9Y2kvncHC0ZMFc_olexfWzGcHR-7_/view?usp=drive_link"],
+      ["Construction & Loci", "https://drive.google.com/file/d/1S-UJWODkNQUfhi_LcWWCMJegqqz6gw0w/view?usp=drive_link"],
+      ["Probability", "https://drive.google.com/file/d/1I0Ttc1_LqjnkBIKoFToQoZfdrtIfL1bk/view?usp=drive_link"],
+      ["Scale Drawings & Measures", "https://drive.google.com/file/d/1FHF-KoGyhuYOEK2rVmg85bHAR7iQKEA8/view?usp=drive_link"],
+      ["Graphs", "https://drive.google.com/file/d/1M7185sXmJr61okgwyO3nx7bR82nTBvHW/view?usp=drive_link"]
+    ],
+    9: [
+      ["Powers & Roots", "https://drive.google.com/file/d/1tflubYILk9MnqU2kvbCx7l61FCnZmCzM/view?usp=drive_link"],
+      ["Quadratics", "https://drive.google.com/file/d/1YRD6xZ8Ge4SJX6nY0T3YLoX26mcnuhfp/view?usp=drive_link"],
+      ["Inequalities & Formulae", "https://drive.google.com/file/d/1E1x4yOdiPXoWHv9CXLFUrwjJ3z5y9p_H/view?usp=drive_link"],
+      ["Collecting & Analysing Data", "https://drive.google.com/file/d/1ouXPkwre5NlPRZZfTb5zUm1MPZmo4a52/view?usp=drive_link"],
+      ["Multiplicative Reasoning", "https://drive.google.com/file/d/1U6k5eZEGdmGHAw1Ko1G0J9L5Cj1x8SCL/view?usp=drive_link"],
+      ["Non-linear Graphs", "https://drive.google.com/file/d/1HSw_YAfFfYl8Gb9rVxx2ceXH0HyDq7wy/view?usp=drive_link"],
+      ["Accuracy & Measures", "https://drive.google.com/file/d/1s02OPT7dx5lCO24oKw335bpYyvDsrviP/view?usp=drive_link"],
+      ["Graphical Solutions", "https://drive.google.com/file/d/1B1wIQEzfL0cz8AB9ZM3MkjyqDHGES6I1/view?usp=drive_link"],
+      ["Trigonometry", "https://drive.google.com/file/d/1VZLYIsY9rzqRpnZ02oTbds7D-1-QZ3hJ/view?usp=drive_link"],
+      ["Proof", "https://drive.google.com/file/d/1ubYgixXwYcLN3BS_2pYXoHJa67vlEEje/view?usp=drive_link"]
+    ]
   };
 
   const unitList = document.getElementById("textbook-unit-list");
@@ -34,13 +67,14 @@
       document.body.dataset.year = String(year);
       yearButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.textbookYear === String(year))));
       unitHeading.textContent = `Year ${year} textbook units`;
-      unitList.replaceChildren(...textbookUnits[year].map((title, index) => {
-        const button = document.createElement("button");
-        button.className = "unit-option";
-        button.style.setProperty("--unit-delay", `${index * 28}ms`);
-        button.type = "button";
-        button.disabled = true;
-        button.setAttribute("aria-label", `Unit ${index + 1}: ${title}. PDF coming soon.`);
+      unitList.replaceChildren(...textbookUnits[year].map(([title, href], index) => {
+        const link = document.createElement("a");
+        link.className = "unit-option";
+        link.style.setProperty("--unit-delay", `${index * 28}ms`);
+        link.href = href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `Open Year ${year} Unit ${index + 1}: ${title} textbook in a new tab`);
         const number = document.createElement("span");
         number.className = "unit-option__number";
         number.textContent = String(index + 1).padStart(2, "0");
@@ -48,10 +82,10 @@
         const name = document.createElement("strong");
         name.textContent = title;
         const status = document.createElement("small");
-        status.textContent = "PDF coming soon";
+        status.textContent = "Open textbook ↗";
         copy.append(name, status);
-        button.append(number, copy);
-        return button;
+        link.append(number, copy);
+        return link;
       }));
     };
     yearButtons.forEach((button) => button.addEventListener("click", () => selectYear(Number(button.dataset.textbookYear))));

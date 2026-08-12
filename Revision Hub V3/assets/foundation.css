@@ -750,6 +750,14 @@
 .design-v3 .textbook-workspace .unit-option { min-height: 4.4rem; clip-path: polygon(0 0, calc(100% - 1.2rem) 0, 100% 1.2rem, 100% 100%, 0 100%); border-color: var(--f-line); border-radius: 0; background: #fff; padding: 0.7rem; }
 .design-v3 .textbook-workspace .unit-option__number { border-radius: 50%; }
 .design-v3 .textbook-workspace .unit-option strong { color: var(--f-ink); }
+.design-v3 .textbook-workspace .unit-option[href]:hover,
+.design-v3 .textbook-workspace .unit-option[href]:focus-visible { border-color: var(--stage-border); background: var(--stage-bg); box-shadow: 0 12px 24px rgba(22, 10, 66, 0.12); transform: translateY(-3px); }
+.design-v3 .textbook-workspace .unit-option[href] .unit-option__number,
+.design-v3 .textbook-workspace .unit-option[href] small { transition: transform 150ms ease; }
+.design-v3 .textbook-workspace .unit-option[href]:hover .unit-option__number,
+.design-v3 .textbook-workspace .unit-option[href]:focus-visible .unit-option__number { transform: scale(1.08); }
+.design-v3 .textbook-workspace .unit-option[href]:hover small,
+.design-v3 .textbook-workspace .unit-option[href]:focus-visible small { transform: translateX(0.2rem); }
 
 /* Reading and course workspaces */
 
