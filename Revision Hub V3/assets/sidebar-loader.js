@@ -29,8 +29,8 @@
         { test: () => file === '' || file === 'index.html', href: '/' },
         { test: () => file === 'policy.html',              href: 'policy.html' },
         { test: () => file === 'ai_usage.html',            href: 'ai_usage.html' },
-        { test: () => isYear9Path || isYear9File,          href: 'year9_hub.html' },
-        { test: () => file === 'year9_hub.html',           href: 'year9_hub.html' },
+        { test: () => isYear9Path || isYear9File,          href: 'ks3_hub.html#year-9' },
+        { test: () => file === 'year9_hub.html',           href: 'ks3_hub.html#year-9' },
       ];
 
       const active = routes.find(r => r.test());

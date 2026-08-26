@@ -1,26 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Year 7, Year 8 and Year 9 assessment resources and exam preparation guidance.">
+  <meta name="description" content="Year 7, 8 and 9 assessment preparation, revision guides and practice resources.">
+  <meta name="theme-color" content="#f6faf8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
-  <link rel="stylesheet" href="assets/design-system.css">
-  <link rel="stylesheet" href="assets/foundation.css">
-  <title>KS3 End-of-Year Revision | SJWMS Maths</title>
+  <link rel="stylesheet" href="assets/official/official-site.css">
+  <title>KS3 Assessments | SJWMS Maths</title>
 </head>
-<body class="design-v3" data-root="." data-section="ks3" data-year="7">
+<body class="future-assessment-page" data-root="." data-section="ks3" data-year="7">
   <div id="site-header"></div>
-  <main class="page" id="main-content">
-    <section class="edu-page-hero edu-page-hero--assessment"><div class="container edu-page-hero__inner"><div class="edu-page-hero__copy"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="ks3_hub.html">KS3</a><span aria-hidden="true">/</span><span>Assessment revision</span></nav><p class="eyebrow">KS3 assessment preparation</p><h1>Prepare one topic at a time.</h1><p class="lead">Choose your year, open the revision resources and target the topics that need more practice.</p><div class="button-row"><a class="button button--ghost" href="ks3_hub.html">Back to KS3</a></div></div><div class="support-collage support-collage--assessment" aria-hidden="true"><div class="support-collage__main"><span>✓</span><strong>Plan · practise · check</strong><small>Years 7, 8 and 9</small></div><div class="support-collage__note"><b>3</b><span>Year groups</span></div><div class="support-collage__chip">Revision checklists</div><i>∑</i></div></div></section>
-    <section class="section"><div class="container workspace-layout" id="revision-workspace">
-      <aside class="workspace-sidebar"><div class="selector-card"><h2>Choose a year</h2><div class="year-choices"><button class="year-choice year-choice--7" type="button" data-revision-year="y7" aria-pressed="true"><span><strong>Year 7</strong><small>Foundation curriculum</small></span><b>→</b></button><button class="year-choice year-choice--8" type="button" data-revision-year="y8" aria-pressed="false"><span><strong>Year 8</strong><small>Developing curriculum</small></span><b>→</b></button><button class="year-choice year-choice--9" type="button" data-revision-year="y9" aria-pressed="false"><span><strong>Year 9</strong><small>GCSE preparation</small></span><b>→</b></button></div></div><div class="selector-card"><h3>Exam reminders</h3><ul class="guidance-list"><li>Show every stage of your method.</li><li>Read the whole question carefully.</li><li>Bring a ruler, pencil and scientific calculator.</li><li>Move on and return if you get stuck.</li><li>Attempt every question.</li></ul></div></aside>
-      <div><div class="section-heading"><div><p class="eyebrow text-stage">Your revision library</p><h2 id="revision-heading">Year 7 revision resources</h2></div><p>Start with mixed practice, then target individual knowledge gaps.</p></div><div class="resource-grid resource-grid--three" id="revision-grid"></div><p class="notice" id="revision-empty" hidden>No resources are listed for this year yet.</p></div>
+  <main id="main-content">
+    <section class="internal-page-hero" aria-labelledby="assessment-title"><div class="future-container internal-page-hero__inner"><div class="internal-page-hero__copy"><nav class="future-breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="ks3_hub.html">KS3</a><span aria-hidden="true">/</span><span>Assessments</span></nav><p class="section-label"><span aria-hidden="true"></span>KS3 preparation</p><h1 id="assessment-title">KS3 assessments</h1><p>Choose your year to find revision guides, topic practice and reminders for the assessment.</p></div><div class="internal-page-hero__actions"><a class="future-button future-button--primary" href="#assessment-resources">Choose your year <span aria-hidden="true">↓</span></a><a class="text-link" href="ks3_hub.html">Back to KS3 <span aria-hidden="true">↗</span></a></div></div></section>
+
+    <section class="future-section assessment-resource-section" id="assessment-resources" aria-labelledby="revision-heading"><div class="future-container">
+      <header class="future-heading"><div><p class="section-label"><span aria-hidden="true"></span>Revision resources</p><h2 id="revision-heading">Year 7 revision resources</h2></div><p>Choose your year. Each resource opens in a new tab so this page stays open.</p></header>
+      <div class="assessment-year-switch" aria-label="Choose assessment year"><button type="button" data-revision-year="y7" aria-pressed="true"><span>07</span><strong>Year 7</strong></button><button type="button" data-revision-year="y8" aria-pressed="false"><span>08</span><strong>Year 8</strong></button><button type="button" data-revision-year="y9" aria-pressed="false"><span>09</span><strong>Year 9</strong></button></div>
+      <div class="assessment-resource-grid" id="revision-grid" aria-live="polite"></div>
+      <p class="assessment-empty" id="revision-empty" hidden>More assessment resources are being prepared for this year.</p>
     </div></section>
+
+    <section class="future-section assessment-routine-section" aria-labelledby="routine-title"><div class="future-container assessment-routine-panel"><div><p class="section-label section-label--light"><span aria-hidden="true"></span>In the assessment</p><h2 id="routine-title">A simple routine helps.</h2><p>Good habits make it easier to show the mathematics you already know.</p></div><ol><li><span>01</span><strong>Read</strong><p>Read the whole question and underline the important information.</p></li><li><span>02</span><strong>Work</strong><p>Show each stage clearly, even when using a calculator.</p></li><li><span>03</span><strong>Check</strong><p>Attempt every question, then return to anything unfinished.</p></li></ol></div></section>
+
+    <section class="future-section assessment-kit-section" aria-labelledby="kit-title"><div class="future-container"><header class="future-heading"><div><p class="section-label"><span aria-hidden="true"></span>Before you begin</p><h2 id="kit-title">Bring the right equipment</h2></div><p>A ruler, pencil and scientific calculator should be ready before the assessment starts.</p></header><div class="assessment-kit"><article><span aria-hidden="true">∕</span><strong>Ruler</strong><small>For accurate diagrams and graphs</small></article><article><span aria-hidden="true">✎</span><strong>Pencil</strong><small>For constructions and clear working</small></article><article><span aria-hidden="true">123</span><strong>Calculator</strong><small>Check that it is in the correct mode</small></article></div></div></section>
   </main>
-  <div id="site-footer"></div><script src="assets/site-shell.js" defer></script><script src="assets/support-pages.js" defer></script>
-</body></html>
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
+  <script src="assets/support-pages.js" defer></script>
+
+</body>
+</html>

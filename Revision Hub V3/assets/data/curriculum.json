@@ -1,0 +1,577 @@
+{
+  "years": {
+    "7": [
+      {
+        "number": 1,
+        "title": "Analysing & Displaying Data",
+        "category": "Data handling",
+        "topics": [
+          "1.1 Two-way tables and bar charts",
+          "1.2 Averages and range",
+          "1.3 Grouped data",
+          "1.4 More graphs",
+          "1.5 Pie charts",
+          "1.6 STEM: Scatter graphs and correlation"
+        ],
+        "textbook": "https://drive.google.com/file/d/1G7L8o3RPjWFOjGIh2eCoGJvAGlXdjmyl/view?usp=drive_link"
+      },
+      {
+        "number": 2,
+        "title": "Number Skills",
+        "category": "Number",
+        "topics": [
+          "2.1 Factors, primes and multiples",
+          "2.2 Using negative numbers",
+          "2.3 Multiplying and dividing",
+          "2.4 Squares and square roots",
+          "2.5 More powers and roots",
+          "2.6 Calculations"
+        ],
+        "textbook": "https://drive.google.com/file/d/1Xc9yKEavJwFO0IMcdoMu6I13sN0dlvwP/view?usp=drive_link"
+      },
+      {
+        "number": 3,
+        "title": "Equations, Functions & Formulae",
+        "category": "Algebra",
+        "topics": [
+          "3.1 Simplifying algebraic expressions",
+          "3.2 Writing algebraic expressions",
+          "3.3 STEM: Writing formulae",
+          "3.4 Writing formulae",
+          "3.5 Brackets and powers",
+          "3.6 Factorising expressions"
+        ],
+        "textbook": "https://drive.google.com/file/d/1UhOT77f1s_540E8kVsiV6G8FvD-TaH7I/view?usp=drive_link"
+      },
+      {
+        "number": 4,
+        "title": "Fractions",
+        "category": "Number",
+        "topics": [
+          "4.1 Working with fractions",
+          "4.2 Adding & subtracting fractions",
+          "4.3 Fractions, decimals & percentages"
+        ],
+        "textbook": "https://drive.google.com/file/d/1D7tTSSJYXL_lkDSwUuGpQCLa08VG1Fdc/view?usp=drive_link"
+      },
+      {
+        "number": 5,
+        "title": "Angles & Shapes",
+        "category": "Geometry",
+        "topics": [
+          "5.1 Angles & parallel lines",
+          "5.2 Triangles & quadrilaterals",
+          "5.3 Polygons"
+        ],
+        "textbook": "https://drive.google.com/file/d/1rjVaMjbb_yqlQOUQzMM-W3d3v1rK7-u3/view?usp=drive_link"
+      },
+      {
+        "number": 6,
+        "title": "Decimals",
+        "category": "Number",
+        "topics": [
+          "6.1 Ordering & rounding decimals",
+          "6.2 Calculating with decimals",
+          "6.3 Decimals, fractions & percentages"
+        ],
+        "textbook": "https://drive.google.com/file/d/1cAy4Uir1fWBil9nNhrP8P3mrAH_YzUx4/view?usp=drive_link"
+      },
+      {
+        "number": 7,
+        "title": "Equations",
+        "category": "Algebra",
+        "topics": [
+          "7.1 Solving equations",
+          "7.2 Using formulae",
+          "7.3 Building algebraic fluency"
+        ],
+        "textbook": "https://drive.google.com/file/d/1KXZB9_ZWayU1ZAo6KOzOirYotnw6cByF/view?usp=drive_link"
+      },
+      {
+        "number": 8,
+        "title": "Multiplicative Reasoning",
+        "category": "Number",
+        "topics": [
+          "8.1 Ratio & proportion",
+          "8.2 Scale & unitary methods",
+          "8.3 Multiplicative problem solving"
+        ],
+        "textbook": "https://drive.google.com/file/d/1ADTRwNJAa6IJcr52bCpJgVOxeUJSJZQ-/view?usp=drive_link"
+      },
+      {
+        "number": 9,
+        "title": "Perimeter, Area & Volume",
+        "category": "Geometry",
+        "topics": [
+          "9.1 Perimeter & compound shapes",
+          "9.2 Area of 2D shapes",
+          "9.3 Volume of cuboids"
+        ],
+        "textbook": "https://drive.google.com/file/d/1hs_AC1tTtHhph2zu4UvMTB6Iqnf02LBe/view?usp=drive_link"
+      },
+      {
+        "number": 10,
+        "title": "Sequences & Graphs",
+        "category": "Algebra",
+        "topics": [
+          "10.1 Sequences & term-to-term rules",
+          "10.2 Coordinates",
+          "10.3 Interpreting graphs"
+        ],
+        "textbook": "https://drive.google.com/file/d/1D1EnmR4Y0oPThUQT36b2pVsLaiH-98zP/view?usp=drive_link"
+      }
+    ],
+    "8": [
+      {
+        "number": 1,
+        "title": "Factors & Powers",
+        "category": "Number",
+        "topics": [
+          "1.1 Prime factor decomposition",
+          "1.2 Laws of indices",
+          "1.3 STEM: Powers of 10",
+          "1.4 Calculating and estimating"
+        ],
+        "textbook": "https://drive.google.com/file/d/1EpoB6hKfse3KDTUEdMKBnlQftnfpV0rW/view?usp=drive_link"
+      },
+      {
+        "number": 2,
+        "title": "Working with Powers",
+        "category": "Algebra",
+        "topics": [
+          "2.1 Simplifying expressions",
+          "2.2 More simplifying",
+          "2.3 Expand and factorise expressions",
+          "2.4 Substituing and solving"
+        ],
+        "textbook": "https://drive.google.com/file/d/1_ZJwwfmNKzwXfdKObJbxR71SFWd7ugGt/view?usp=drive_link"
+      },
+      {
+        "number": 3,
+        "title": "2D Shapes & 3D Solids",
+        "category": "Geometry",
+        "topics": [
+          "3.1 Plans and elevations",
+          "3.2 Surface area of prisms",
+          "3.3 Volume of prisms",
+          "3.4 Circumference of a circle",
+          "3.5 Area of a circle",
+          "3.6 Working with cylinders",
+          "3.7 Pythagoras' Theorem"
+        ],
+        "textbook": "https://drive.google.com/file/d/1BpqiUGujuTK57o7mK7Hv0X9CA8VIqQm-/view?usp=drive_link"
+      },
+      {
+        "number": 4,
+        "title": "Real-Life Graphs",
+        "category": "Data",
+        "topics": [
+          "4.1 Direct proportion",
+          "4.2 FINANCE: Interpreting financial graphs",
+          "4.3 Distance-time graphs",
+          "4.4 Rates of change",
+          "4.5 Misleading graphs"
+        ],
+        "textbook": "https://drive.google.com/file/d/1GQ9catkH-8ypqUjhJvu-r16lvaxkKhxl/view?usp=drive_link"
+      },
+      {
+        "number": 5,
+        "title": "Transformations",
+        "category": "Geometry",
+        "topics": [
+          "Reflection and translation",
+          "Rotation",
+          "Enlargement",
+          "Combined transformations",
+          "2D and 3D shapes",
+          "Pythagoras’ theorem"
+        ],
+        "textbook": "https://drive.google.com/file/d/1XxRs7Cc6wJ_9kIRx7HRteektdANIangh/view?usp=drive_link"
+      },
+      {
+        "number": 6,
+        "title": "Fractions, Decimals & Percentages",
+        "category": "Number",
+        "topics": [
+          "6.1 Recurring decimals",
+          "6.2 Using percentages",
+          "6.3 Percentage change",
+          "6.4 FINANCE: Repeated percentage change"
+        ],
+        "textbook": "https://drive.google.com/file/d/1bTJ9Y2kvncHC0ZMFc_olexfWzGcHR-7_/view?usp=drive_link"
+      },
+      {
+        "number": 7,
+        "title": "Construction & Loci",
+        "category": "Geometry",
+        "topics": [
+          "7.1 Accurate drawings",
+          "7.2 Constructing shapes",
+          "7.3 Constructions 1",
+          "7.4 Constructions 2",
+          "7.5 Loci"
+        ],
+        "textbook": "https://drive.google.com/file/d/1S-UJWODkNQUfhi_LcWWCMJegqqz6gw0w/view?usp=drive_link"
+      },
+      {
+        "number": 8,
+        "title": "Probability",
+        "category": "Probability",
+        "topics": [
+          "8.1 Comparing probabilities",
+          "8.2 Mutually exclusive events",
+          "8.3 Estimating probability",
+          "8.4 Experimental probability",
+          "8.5 Probability diagrams",
+          "8.6 Tree diagrams"
+        ],
+        "textbook": "https://drive.google.com/file/d/1I0Ttc1_LqjnkBIKoFToQoZfdrtIfL1bk/view?usp=drive_link"
+      },
+      {
+        "number": 9,
+        "title": "Scale Drawings & Measures",
+        "category": "Geometry",
+        "topics": [
+          "9.1 Maps and scales",
+          "9.2 Bearings",
+          "9.3 Scales and ratio",
+          "9.4 Congruent and similar shapes",
+          "9.5 Solving geometry problems"
+        ],
+        "textbook": "https://drive.google.com/file/d/1FHF-KoGyhuYOEK2rVmg85bHAR7iQKEA8/view?usp=drive_link"
+      },
+      {
+        "number": 10,
+        "title": "Graphs",
+        "category": "Algebra",
+        "topics": [
+          "10.1 Plotting linear graphs",
+          "10.2 The gradient",
+          "10.3 y = mx + c",
+          "10.4 Parallel and perpendicular lines",
+          "10.5 Inverse functions",
+          "10.6 STEM: Non-linear graphs"
+        ],
+        "textbook": "https://drive.google.com/file/d/1M7185sXmJr61okgwyO3nx7bR82nTBvHW/view?usp=drive_link"
+      }
+    ],
+    "9": [
+      {
+        "number": 1,
+        "title": "Powers & Roots",
+        "category": "Algebra and number",
+        "topics": [
+          "1.1 Reciprocals",
+          "1.2 Indices",
+          "1.3 Standard form",
+          "1.4 Calc. with standard form",
+          "1.5 Fractional indices",
+          "1.6 Surds"
+        ],
+        "textbook": "https://drive.google.com/file/d/1tflubYILk9MnqU2kvbCx7l61FCnZmCzM/view?usp=drive_link"
+      },
+      {
+        "number": 2,
+        "title": "Quadratics",
+        "category": "Algebra",
+        "topics": [
+          "2.1 Sequences",
+          "2.2 Expanding",
+          "2.3 Factorising",
+          "2.4 Solving"
+        ],
+        "textbook": "https://drive.google.com/file/d/1YRD6xZ8Ge4SJX6nY0T3YLoX26mcnuhfp/view?usp=drive_link"
+      },
+      {
+        "number": 3,
+        "title": "Inequalities & Formulae",
+        "category": "Algebra",
+        "topics": [
+          "3.1 Inequalities",
+          "3.2 Index Laws",
+          "3.3 Solving equations",
+          "3.4 Changing the subject",
+          "3.5 Algebraic fractions"
+        ],
+        "textbook": "https://drive.google.com/file/d/1E1x4yOdiPXoWHv9CXLFUrwjJ3z5y9p_H/view?usp=drive_link"
+      },
+      {
+        "number": 4,
+        "title": "Collecting & Analysing Data",
+        "category": "Data handling",
+        "topics": [
+          "4.1 STEM: Collecting data",
+          "4.2 Presenting and comparing data",
+          "4.3 Estimating statistics",
+          "4.4 Box Plots",
+          "4.5 Cumulative frequency graphs",
+          "4.6 Histograms"
+        ],
+        "textbook": "https://drive.google.com/file/d/1ouXPkwre5NlPRZZfTb5zUm1MPZmo4a52/view?usp=drive_link"
+      },
+      {
+        "number": 5,
+        "title": "Multiplicative Reasoning",
+        "category": "Number",
+        "topics": [
+          "5.1 Direct proportion",
+          "5.2 Solving problems with direct proportion",
+          "5.3 Non-linear proportion",
+          "5.4 Arcs and Sectors of Circles"
+        ],
+        "textbook": "https://drive.google.com/file/d/1U6k5eZEGdmGHAw1Ko1G0J9L5Cj1x8SCL/view?usp=drive_link"
+      },
+      {
+        "number": 6,
+        "title": "Non-linear Graphs",
+        "category": "Algebra",
+        "topics": [
+          "6.1 Quadratic functions",
+          "6.2 Solving quadratic equations",
+          "6.3 Cubic functions",
+          "6.4 STEM: Reciprocal graphs"
+        ],
+        "textbook": "https://drive.google.com/file/d/1HSw_YAfFfYl8Gb9rVxx2ceXH0HyDq7wy/view?usp=drive_link"
+      },
+      {
+        "number": 7,
+        "title": "Accuracy & Measures",
+        "category": "Number",
+        "topics": [
+          "7.1 Rates of change",
+          "7.2 Density and pressure",
+          "7.3 Upper and lower bounds",
+          "7.4 Calculating with bounds",
+          "7.5 STEM: Accurate measures in real-life"
+        ],
+        "textbook": "https://drive.google.com/file/d/1s02OPT7dx5lCO24oKw335bpYyvDsrviP/view?usp=drive_link"
+      },
+      {
+        "number": 8,
+        "title": "Graphical Solutions",
+        "category": "Algebra",
+        "topics": [
+          "8.1 Simultaneous equations",
+          "8.2 Using y = mx + c",
+          "8.3 More simultaneous equations",
+          "8.4 Graphs of simultaneous equations",
+          "8.5 Solving inequalities"
+        ],
+        "textbook": "https://drive.google.com/file/d/1B1wIQEzfL0cz8AB9ZM3MkjyqDHGES6I1/view?usp=drive_link"
+      },
+      {
+        "number": 9,
+        "title": "Trigonometry",
+        "category": "Geometry",
+        "topics": [
+          "9.1/2/3 SOHCAHTOA",
+          "9.4 Finding angles",
+          "9.5 Solving problems using trigonometry",
+          "9.6 Trigonometric graphs"
+        ],
+        "textbook": "https://drive.google.com/file/d/1VZLYIsY9rzqRpnZ02oTbds7D-1-QZ3hJ/view?usp=drive_link"
+      },
+      {
+        "number": 10,
+        "title": "Proof",
+        "category": "Number",
+        "topics": [
+          "10.1 Explain, show and justify",
+          "10.2 Modelling: Real-life situtations",
+          "10.3 Proof",
+          "10.4 More proof"
+        ],
+        "textbook": "https://drive.google.com/file/d/1ubYgixXwYcLN3BS_2pYXoHJa67vlEEje/view?usp=drive_link"
+      }
+    ]
+  },
+  "gcse": [
+    {
+      "number": 1,
+      "title": "Number",
+      "category": "GCSE",
+      "topics": [
+        "1.1 Number problems & reasoning",
+        "1.2 Place value and estimating",
+        "1.3 HCF & LCM",
+        "1.4 Calculating with powers (indices)",
+        "1.5 Zero, negative & fractional indices",
+        "1.6 Powers of 10 & Standard form",
+        "1.7 Surds"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Algebra",
+      "category": "Algebra",
+      "topics": [
+        "2.1 Algebraic indices",
+        "2.2 Expanding and factorising",
+        "2.3 Equations",
+        "2.4 Formulae",
+        "2.5 Linear sequences",
+        "2.6 Non-linear sequences",
+        "2.7 More expanding & factorising"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Interpreting & Representing Data",
+      "category": "Data",
+      "topics": [
+        "3.1 Statistical diagrams 1",
+        "3.2 Time series",
+        "3.3 Scatter graphs",
+        "3.4 Line of best fit",
+        "3.5 Averages and range",
+        "3.6 Statistical diagrams 2"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Fractions, Ratio & Percentages",
+      "category": "GCSE",
+      "topics": [
+        "4.1 Fractions",
+        "4.2 Ratios",
+        "4.3 Ration and proportion",
+        "4.4 Percentages",
+        "4.5 Fractions, decimals and percentages"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Angles & Trigonometry",
+      "category": "Geometry",
+      "topics": [
+        "5.1 Angle properties of triangles and quadrilaterals",
+        "5.2 Interior angles of a polygon",
+        "5.3 Exterior angles of a polygon",
+        "5.4/5 Pythagoras' Theorem",
+        "5.6/7 Trigonometry"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Graphs",
+      "category": "Data",
+      "topics": [
+        "6.1 Linear graphs",
+        "6.2 More linear graphs",
+        "6.3 Graphing rates of change",
+        "6.4 Real-life graphs",
+        "6.5 Line segments",
+        "6.6 Quadratic graphs",
+        "6.7 Cubic and reciprocal graphs",
+        "6.8 More graphs"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Area & Volume",
+      "category": "Geometry",
+      "topics": [
+        "7.1 Perimeter and area",
+        "7.2 Units and accuracy",
+        "7.3 Prisms",
+        "7.4 Circles",
+        "7.5 Sectors of circles",
+        "7.6 Cylinders and spheres",
+        "7.7 Pyramids and cones"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Transformations & Constructions",
+      "category": "Geometry",
+      "topics": [
+        "8.1 3D solids",
+        "8.2 Reflection and rotation",
+        "8.3 Enlargement",
+        "8.4 Combination of transformations",
+        "8.5 Scale drawings and bearings",
+        "8.6/7 Constructions",
+        "8.8 Loci"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Equations & Inequalities",
+      "category": "Algebra",
+      "topics": [
+        "9.1 Solving linear inequalities",
+        "9.2/3 Solving quadratic equations",
+        "9.4 Completing the square",
+        "9.5/6 Solving simultaneous equations",
+        "9.7 Solving linear and quadratic sim. equations"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Probability",
+      "category": "Probability",
+      "topics": [
+        "10.1 Combined events",
+        "10.2 Mutually exclusive events",
+        "10.3 Experimental probability",
+        "10.4 Independent events & tree diagrams",
+        "10.5 Conditional probability",
+        "10.6 Venn diagrams & set notation"
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Compound Measures",
+      "category": "Geometry",
+      "topics": []
+    },
+    {
+      "number": 12,
+      "title": "Congruence & Similarity",
+      "category": "Geometry",
+      "topics": []
+    },
+    {
+      "number": 13,
+      "title": "More Trigonometry",
+      "category": "Geometry",
+      "topics": []
+    },
+    {
+      "number": 14,
+      "title": "Further Statistics",
+      "category": "Data",
+      "topics": []
+    },
+    {
+      "number": 15,
+      "title": "Equations & Graphs",
+      "category": "Data",
+      "topics": []
+    },
+    {
+      "number": 16,
+      "title": "Circle Theorems",
+      "category": "Geometry",
+      "topics": []
+    },
+    {
+      "number": 17,
+      "title": "More Algebra",
+      "category": "Algebra",
+      "topics": []
+    },
+    {
+      "number": 18,
+      "title": "Vectors & Geometric Proofs",
+      "category": "Geometry",
+      "topics": []
+    },
+    {
+      "number": 19,
+      "title": "Proportion & Graphs",
+      "category": "Data",
+      "topics": []
+    }
+  ]
+}

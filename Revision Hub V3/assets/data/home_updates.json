@@ -2,6 +2,15 @@
   "items": [
     {
       "icon": "sparkles",
+      "title": "The refreshed SJWMS Maths is live",
+      "date": "26 August 2026",
+      "text": "A clearer design now connects courses, unit revision, assessments and KS3 textbooks across the website.",
+      "btnText": "Choose a course",
+      "btnLink": "index.html#courses",
+      "active": true
+    },
+    {
+      "icon": "sparkles",
       "title": "A clearer SJWMS Maths",
       "date": "22 July 2026",
       "text": "The clearer visual identity now runs across KS3, GCSE, unit pages and the main learning tools.",
@@ -14,7 +23,7 @@
       "date": "22 July 2026",
       "text": "Year 7 now includes all ten units and the GCSE course includes units 1 to 19.",
       "btnText": "Browse Year 7",
-      "btnLink": "year7_hub.html"
+      "btnLink": "ks3_hub.html#year-7"
     },
     {
       "icon": "info",

@@ -62,9 +62,9 @@
   { "level": "Site", "label": "AI Usage",                 "keywords": ["ai", "guidance", "rules", "dos and donts"],                                                 "url": "/ai_usage.html" },
   { "level": "KS3",  "label": "End of Year Exams",        "keywords": ["eoy", "end of year", "revision", "dates", "resources"],                                     "url": "/ks3_eoy.html" },
   { "level": "SPARX", "label": "SPARX Homework Setup",    "keywords": ["sparx", "homework", "setup", "login",  "sparx learning"],                                   "url": "/sparx.html" }, 
-  { "level": "Y9", "label": "Year 9 Hub",    "keywords": ["year 9"],                                   "url": "/year9_hub.html" },
-  { "level": "Y8", "label": "Year 8 Hub",    "keywords": ["year 8"],                                   "url": "/year8_hub.html" },
-  { "level": "Y7", "label": "Year 7 Hub",    "keywords": ["year 7"],                                   "url": "/year7_hub.html" },
+  { "level": "Y9", "label": "Year 9 Units",  "keywords": ["year 9"],                                   "url": "/ks3_hub.html#year-9" },
+  { "level": "Y8", "label": "Year 8 Units",  "keywords": ["year 8"],                                   "url": "/ks3_hub.html#year-8" },
+  { "level": "Y7", "label": "Year 7 Units",  "keywords": ["year 7"],                                   "url": "/ks3_hub.html#year-7" },
   { "level": "GCSE", "label": "GCSE Hub",    "keywords": ["gcse"],                                   "url": "/gcse_hub.html" },
   { "level": "A-Level", "label": "A-Level Hub",    "keywords": ["A-level"],                                   "url": "/alevel_hub.html" },
   { "level": "Site", "label": "Bishop & Co. Shakes",    "keywords": ["milkshakes", "smoothie", "yummy"],                                   "url": "/bishop_shakes.html" }, 
@@ -352,4 +352,3 @@
     "url": "https://www.youtube.com/watch?v=_2_uvMAiQ_w"
   }
 ]
-

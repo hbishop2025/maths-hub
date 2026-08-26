@@ -90,16 +90,26 @@
       const panel = document.getElementById("sparx-section");
       const list = document.getElementById("sparx-code-list");
       const sparxAnchor = document.querySelector('[data-resource-anchor="sparx"]');
-      if (sparxAnchor) sparxAnchor.hidden = codes.length === 0;
-      if (panel && list && codes.length) {
-        codes.forEach((item) => {
-          const chip = document.createElement("span");
-          chip.className = "sparx-code";
-          const code = document.createElement("strong");
-          code.textContent = item.code || "";
-          chip.append(code, document.createTextNode(item.note || ""));
-          list.appendChild(chip);
-        });
+      const isDisclosure = panel?.classList.contains("sparx-disclosure");
+      if (sparxAnchor) sparxAnchor.hidden = codes.length === 0 && !isDisclosure;
+      if (panel && list && (codes.length || isDisclosure)) {
+        const fallback = list.querySelector("[data-sparx-fallback]");
+        if (codes.length) {
+          fallback?.remove();
+          codes.forEach((item) => {
+            const chip = document.createElement("span");
+            chip.className = "sparx-code";
+            const code = document.createElement("strong");
+            code.textContent = item.code || "";
+            chip.append(code, document.createTextNode(item.note || ""));
+            list.appendChild(chip);
+          });
+        } else if (!fallback) {
+          const empty = document.createElement("p");
+          empty.className = "sparx-empty";
+          empty.textContent = "No SPARX codes have been listed for this unit yet.";
+          list.appendChild(empty);
+        }
         panel.classList.add("is-visible");
       }
     })
@@ -110,7 +120,7 @@
         const message = empty.querySelector("p");
         if (message) {
           message.textContent = location.protocol === "file:"
-            ? "Resource lists load on the published website. Return to the curriculum hub or use SPARX while working from this local preview."
+            ? "Resource lists load on the published website. Return to the curriculum hub or use SPARX when this page is opened directly from your device."
             : "Resources could not be loaded. Please refresh the page or try again later.";
         } else {
           empty.textContent = "Resources could not be loaded. Please refresh the page or try again later.";

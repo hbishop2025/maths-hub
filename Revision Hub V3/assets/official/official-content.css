@@ -1,0 +1,243 @@
+/*
+ * Official SJWMS Maths content bridge.
+ *
+ * The newest curriculum pages use official-site.css directly. These scoped
+ * overrides bring the established guidance and course layouts into the same
+ * palette and surface system without disturbing the bespoke Maths Labs.
+ */
+
+.official-content-page {
+  --f-navy: #0e6973;
+  --f-navy-2: #084f57;
+  --f-violet: #118c8c;
+  --f-violet-dark: #0e6973;
+  --f-violet-soft: #d9edeb;
+  --f-mint: #bad9ce;
+  --f-mint-soft: #e9f4f0;
+  --f-yellow: #f2bb16;
+  --f-yellow-soft: #fff5cf;
+  --f-coral: #dc7a2e;
+  --f-coral-soft: #fff0e4;
+  --f-blue: #118c8c;
+  --f-blue-soft: #e1f1ef;
+  --f-ink: #102a2e;
+  --f-text: #52686a;
+  --f-muted: #627779;
+  --f-line: #dce8e4;
+  --f-canvas: #f6faf8;
+  --f-soft: #edf5f1;
+  --f-card: #ffffff;
+  --f-radius: 0.85rem;
+  --f-radius-lg: 1.35rem;
+  --f-shadow: 0 18px 50px rgba(14, 105, 115, 0.09);
+  background:
+    radial-gradient(circle at 3% 2%, rgba(186, 217, 206, 0.28), transparent 30rem),
+    var(--f-canvas);
+}
+
+.official-content-page .page {
+  min-height: 70vh;
+}
+
+.official-content-page .edu-page-hero {
+  border-bottom: 1px solid var(--f-line);
+  background:
+    radial-gradient(circle at 88% 16%, rgba(17, 140, 140, 0.13), transparent 22rem),
+    radial-gradient(circle at 7% 80%, rgba(242, 187, 22, 0.11), transparent 18rem),
+    var(--f-soft);
+}
+
+.official-content-page[data-year="9"] .edu-page-hero--year {
+  background:
+    radial-gradient(circle at 88% 16%, rgba(111, 75, 160, 0.15), transparent 22rem),
+    radial-gradient(circle at 7% 80%, rgba(242, 187, 22, 0.1), transparent 18rem),
+    #f5f0fd;
+}
+
+.official-content-page .edu-page-hero::after {
+  display: none;
+}
+
+.official-content-page .edu-page-hero__inner {
+  min-height: 13.5rem;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.official-content-page .edu-page-hero h1 {
+  max-width: 22ch;
+  margin-bottom: 0.55rem;
+  font-size: clamp(2.7rem, 5vw, 4.25rem);
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+}
+
+.official-content-page .edu-page-hero .breadcrumbs { margin-bottom: 0.9rem; }
+.official-content-page .edu-page-hero .lead { max-width: 50rem;line-height: 1.5; }
+.official-content-page .edu-page-hero .support-collage,
+.official-content-page .edu-page-hero .stage-collage { display: none; }
+
+.official-content-page .eyebrow,
+.official-content-page .text-stage {
+  color: var(--f-violet-dark);
+}
+
+.official-content-page .button--primary {
+  background: var(--f-navy);
+}
+
+.official-content-page .button--primary:hover {
+  background: var(--f-violet);
+}
+
+.official-content-page .button--ghost,
+.official-content-page .button--secondary {
+  border-color: var(--f-line);
+  background: color-mix(in srgb, var(--f-card) 82%, transparent);
+  color: var(--f-navy);
+}
+
+.official-content-page .edu-quick-links a {
+  border-color: color-mix(in srgb, var(--f-violet) 30%, var(--f-line));
+  background: color-mix(in srgb, var(--f-card) 78%, transparent);
+}
+
+.official-content-page .edu-quick-links a:hover,
+.official-content-page .edu-quick-links a.is-active {
+  border-color: var(--f-navy);
+  background: var(--f-navy);
+}
+
+.official-content-page .stage-collage--alevel .stage-collage__main,
+.official-content-page .support-collage__main,
+.official-content-page .support-collage--policy .support-collage__main {
+  background: #0e6973;
+}
+
+.official-content-page[data-year="9"] .support-collage__main {
+  background: #5f4387;
+}
+
+.official-content-page .stage-collage__chart {
+  background: var(--f-yellow);
+}
+
+.official-content-page .stage-collage__chart i {
+  background: var(--f-navy);
+}
+
+.official-content-page .support-collage__note b,
+.official-content-page .stage-collage__exam strong {
+  background: var(--f-violet-soft);
+  color: var(--f-navy);
+}
+
+.official-content-page .support-collage__chip,
+.official-content-page .stage-collage__exam,
+.official-content-page .support-collage__note {
+  border: 1px solid var(--f-line);
+  box-shadow: var(--f-shadow);
+}
+
+.official-content-page .section-nav,
+.official-content-page .content-section,
+.official-content-page .selector-card,
+.official-content-page .unit-card,
+.official-content-page .feature-panel,
+.official-content-page .card {
+  border-color: var(--f-line);
+  background: var(--f-card);
+  box-shadow: none;
+}
+
+.official-content-page .section-nav a:hover,
+.official-content-page .section-nav a.is-active,
+.official-content-page .year-choice:hover,
+.official-content-page .year-choice[aria-pressed="true"] {
+  border-color: var(--f-violet);
+  background: var(--f-violet-soft);
+  color: var(--f-navy);
+}
+
+.official-content-page .content-card,
+.official-content-page .tool-link,
+.official-content-page .year-choice,
+.official-content-page .card {
+  border-color: var(--f-line);
+  background: var(--f-soft);
+}
+
+.official-content-page .content-card,
+.official-content-page .unit-card,
+.official-content-page .tool-link,
+.official-content-page .card {
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.official-content-page a.content-card:hover,
+.official-content-page .unit-card:hover,
+.official-content-page .tool-link:hover,
+.official-content-page .card:hover {
+  border-color: var(--f-violet);
+  box-shadow: var(--f-shadow);
+  transform: translateY(-2px);
+}
+
+.official-content-page .callout {
+  border: 1px solid color-mix(in srgb, var(--f-violet) 20%, var(--f-line));
+  background: var(--f-violet-soft);
+}
+
+.official-content-page .callout--warning {
+  border-color: color-mix(in srgb, var(--f-yellow) 35%, var(--f-line));
+  background: var(--f-yellow-soft);
+}
+
+.official-content-page .tool-link__icon {
+  background-color: var(--f-card);
+}
+
+html[data-theme="dark"] .official-content-page {
+  --f-ink: #edf8f5;
+  --f-text: #b8cbc6;
+  --f-muted: #9bb5af;
+  --f-line: #2e5556;
+  --f-canvas: #0c2427;
+  --f-soft: #153b3f;
+  --f-card: #123337;
+  --f-violet: #78c9c2;
+  --f-violet-dark: #9ee1da;
+  --f-violet-soft: #174a4d;
+  --f-mint-soft: #173f3d;
+  --f-yellow-soft: #473d16;
+  --f-blue-soft: #174a4d;
+  --f-coral-soft: #49301f;
+  --f-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] .official-content-page .edu-page-hero,
+html[data-theme="dark"] .official-content-page[data-year="9"] .edu-page-hero--year {
+  border-color: var(--f-line);
+  background:
+    radial-gradient(circle at 88% 16%, rgba(120, 201, 194, 0.08), transparent 22rem),
+    radial-gradient(circle at 7% 80%, rgba(242, 187, 22, 0.06), transparent 18rem),
+    var(--f-soft);
+}
+
+html[data-theme="dark"] .official-content-page .button--ghost,
+html[data-theme="dark"] .official-content-page .button--secondary,
+html[data-theme="dark"] .official-content-page .edu-quick-links a {
+  color: var(--f-ink);
+}
+
+html[data-theme="dark"] .official-content-page .section-nav a:hover,
+html[data-theme="dark"] .official-content-page .section-nav a.is-active,
+html[data-theme="dark"] .official-content-page .year-choice:hover,
+html[data-theme="dark"] .official-content-page .year-choice[aria-pressed="true"] {
+  color:#d0f3ef;
+}
+
+@media (max-width: 700px) {
+  .official-content-page .edu-page-hero__inner { min-height:auto;padding-block:1.5rem 2rem; }
+}

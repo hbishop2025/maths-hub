@@ -1,27 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Choose a KS3 year and open the matching digital textbook using your school Google account.">
+  <meta name="description" content="Open the matching Year 7, 8 or 9 digital textbook chapter using a school account.">
+  <meta name="theme-color" content="#f6faf8">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
-  <link rel="stylesheet" href="assets/design-system.css">
-  <link rel="stylesheet" href="assets/foundation.css">
-  <title>Digital Textbooks | SJWMS Maths</title>
+  <link rel="stylesheet" href="assets/official/official-site.css">
+  <title>KS3 Textbooks | SJWMS Maths</title>
 </head>
-<body class="design-v3" data-root="." data-section="ks3" data-year="7">
+<body class="future-textbook-page" data-root="." data-section="ks3" data-year="7">
   <div id="site-header"></div>
-  <main class="page" id="main-content">
-    <section class="edu-page-hero edu-page-hero--textbooks"><div class="container edu-page-hero__inner"><div class="edu-page-hero__copy"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Textbooks</span></nav><p class="eyebrow">KS3 digital textbooks</p><h1>Your textbook, without the searching.</h1><p class="lead">Choose Year 7, 8 or 9 and jump directly to the unit being taught.</p><div class="trust-list"><span>Three year groups</span><span>Ten units each</span><span>School account required</span></div></div><div class="textbook-collage" aria-hidden="true"><div class="textbook-collage__mascot"><img src="assets/dino-mascot-geometric.webp" alt="" width="512" height="512"></div><div class="textbook-collage__card"><span>KS3</span><strong>Textbook finder</strong></div><div class="textbook-collage__years"><i>7</i><i>8</i><i>9</i></div><b>√x</b></div></div></section>
-    <section class="section section--textbooks"><div class="container textbook-workspace">
-      <div class="textbook-toolbar"><div><p class="eyebrow">Textbook finder</p><h2>Choose your year</h2><p>The unit list updates straight away.</p></div><div class="textbook-year-tabs" role="group" aria-label="Choose a textbook year"><button class="textbook-year-tab textbook-year-tab--7" type="button" data-textbook-year="7" aria-pressed="true">Year 7</button><button class="textbook-year-tab textbook-year-tab--8" type="button" data-textbook-year="8" aria-pressed="false">Year 8</button><button class="textbook-year-tab textbook-year-tab--9" type="button" data-textbook-year="9" aria-pressed="false">Year 9</button></div></div>
-      <div class="textbook-access"><span aria-hidden="true">●</span><p><strong>Internal school access is required.</strong> You must open each textbook link through your school Google account to access it. Links open in a new tab, and this website never asks for or stores your login details.</p></div>
-      <div class="textbook-unit-panel" aria-live="polite"><div class="textbook-unit-panel__heading"><h2 id="textbook-unit-heading">Year 7 textbook units</h2><span>10 units</span></div><div class="unit-option-grid" id="textbook-unit-list"></div></div>
-    </div></section>
+  <main id="main-content">
+    <section class="internal-page-hero internal-page-hero--textbook" aria-labelledby="textbook-preview-title">
+      <div class="future-container internal-page-hero__inner">
+        <div class="internal-page-hero__copy">
+          <nav class="future-breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Textbooks</span></nav>
+          <p class="section-label"><span aria-hidden="true"></span>KS3 digital textbooks</p>
+          <h1 id="textbook-preview-title">KS3 textbooks</h1>
+          <p>Every KS3 textbook is organised into ten units. Select your year and open the exact chapter being taught in school.</p>
+        </div>
+        <span class="internal-page-hero__book" aria-hidden="true"><i>▤</i><strong>Mathematics</strong><small>Years 7–9</small></span>
+      </div>
+    </section>
+
+    <section class="textbook-finder-section" aria-labelledby="textbook-finder-title">
+      <div class="future-container textbook-finder-shell">
+        <header class="textbook-finder-heading">
+          <div><p class="section-label"><span aria-hidden="true"></span>Choose a textbook</p><h2 id="textbook-finder-title">Start with your year</h2><p>Choose Year 7, 8 or 9 to see the ten units in that book.</p></div>
+          <div class="future-year-tabs" role="group" aria-label="Choose a textbook year">
+            <button class="future-year-tab future-year-tab--7" type="button" data-textbook-year="7" aria-pressed="true"><span>07</span><strong>Year 7</strong></button>
+            <button class="future-year-tab future-year-tab--8" type="button" data-textbook-year="8" aria-pressed="false"><span>08</span><strong>Year 8</strong></button>
+            <button class="future-year-tab future-year-tab--9" type="button" data-textbook-year="9" aria-pressed="false"><span>09</span><strong>Year 9</strong></button>
+          </div>
+        </header>
+
+        <aside class="future-access-note">
+          <span class="future-access-note__icon" aria-hidden="true">i</span>
+          <p><strong>Internal school access is required.</strong> Open textbook links using your school Google account. Links open in a new tab, and SJWMS Maths never asks for or stores your login details.</p>
+        </aside>
+
+        <div class="future-unit-panel" aria-live="polite">
+          <div class="future-unit-panel__heading"><div><span>Current textbook</span><h2 id="textbook-unit-heading">Year 7 textbook units</h2></div><strong>10 units</strong></div>
+          <div class="unit-option-grid" id="textbook-unit-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="textbook-help-section" aria-labelledby="textbook-help-title">
+      <div class="future-container textbook-help-panel">
+        <div><p class="section-label section-label--light"><span aria-hidden="true"></span>More KS3 help</p><h2 id="textbook-help-title">Revise the unit as well.</h2></div>
+        <div class="textbook-help-links"><a href="ks3_hub.html"><span>Browse KS3 revision</span><b aria-hidden="true">→</b></a><a href="sparx.html"><span>Open SPARX support</span><b aria-hidden="true">→</b></a></div>
+      </div>
+    </section>
   </main>
-  <div id="site-footer"></div><script src="assets/site-shell.js" defer></script><script src="assets/support-pages.js" defer></script>
-</body></html>
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
+  <script src="assets/support-pages.js" defer></script>
+
+</body>
+</html>
