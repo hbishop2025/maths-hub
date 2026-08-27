@@ -23,6 +23,7 @@
     ["▤", "KS3 textbooks", "Open a digital textbook by unit", "dashboard.html", false],
     ["√", "SPARX support", "Sign-in, bookwork and homework help", "sparx.html", false],
     ["✓", "Assessments", "Checklists and practice papers", "ks3_eoy.html", false],
+    ["◇", "UKMT challenges", "Dates, formats and preparation", "ukmt.html", false],
     ["✦", "AI guidance", "Use AI without sharing data or copying answers", "ai_usage.html", false],
     ["i", "Privacy and policy", "How the website handles access and data", "policy.html", false],
     ["∑", "Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true],
@@ -79,7 +80,7 @@
 
   const footerSlot = document.getElementById("site-footer");
   if (footerSlot) {
-    footerSlot.innerHTML = `<footer class="future-footer"><div class="future-container future-footer__top"><div class="future-footer__intro"><a href="${path("index.html")}"><img src="${path("assets/favicon.svg")}" alt="" width="44" height="44"><span><strong>SJWMS Maths</strong><small>Revision and textbooks</small></span></a><p>Find revision, practice and KS3 textbooks for the maths you are studying.</p></div><nav class="future-footer__nav" aria-label="Footer navigation"><div><strong>Courses</strong><a href="${path("ks3_hub.html")}">KS3</a><a href="${path("gcse_hub.html")}">GCSE</a><a href="${path("alevel_hub.html")}">A-level</a></div><div><strong>Study tools</strong><a href="${path("dashboard.html")}">Textbooks</a><a href="${path("sparx.html")}">SPARX support</a><a href="${path("ks3_eoy.html")}">Assessments</a></div><div><strong>About</strong><a href="${path("policy.html")}">Privacy and policy</a><a href="${path("ai_usage.html")}">AI guidance</a><a href="${path("bishop_shakes.html")}">Maths Labs</a></div></nav></div><div class="future-container future-footer__bottom"><p>SJWMS Maths · Built for students</p><p><span aria-hidden="true"></span>No accounts · No student data collected</p></div></footer>`;
+    footerSlot.innerHTML = `<footer class="future-footer"><div class="future-container future-footer__top"><div class="future-footer__intro"><a href="${path("index.html")}"><img src="${path("assets/favicon.svg")}" alt="" width="44" height="44"><span><strong>SJWMS Maths</strong><small>Revision and textbooks</small></span></a><p>Find revision, practice and KS3 textbooks for the maths you are studying.</p></div><nav class="future-footer__nav" aria-label="Footer navigation"><div><strong>Courses</strong><a href="${path("ks3_hub.html")}">KS3</a><a href="${path("gcse_hub.html")}">GCSE</a><a href="${path("alevel_hub.html")}">A-level</a></div><div><strong>Study tools</strong><a href="${path("dashboard.html")}">Textbooks</a><a href="${path("sparx.html")}">SPARX support</a><a href="${path("ukmt.html")}">UKMT challenges</a><a href="${path("ks3_eoy.html")}">Assessments</a></div><div><strong>About</strong><a href="${path("policy.html")}">Privacy and policy</a><a href="${path("ai_usage.html")}">AI guidance</a><a href="${path("bishop_shakes.html")}">Maths Labs</a></div></nav></div><div class="future-container future-footer__bottom"><p>SJWMS Maths · Built for students</p><p><span aria-hidden="true"></span>No accounts · No student data collected</p></div></footer>`;
   }
 
   const safeUpdateHref = (value) => {

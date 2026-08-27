@@ -11,6 +11,7 @@
 /* This page always uses the dark navigation treatment without changing the saved site theme. */
 .textbook-stage-page #site-header {
   color-scheme:dark;
+  color:#edf8f5;
   --ink:#edf8f5;
   --text:#b8cbc6;
   --surface:#123337;
@@ -21,6 +22,16 @@
 }
 .textbook-stage-page #site-header .future-header__pill,
 .textbook-stage-page #site-header .future-header.is-condensed .future-header__pill { border-color:transparent;background:color-mix(in srgb,#123337 82%,transparent);box-shadow:0 1px 0 rgba(169,230,223,.08),0 12px 34px rgba(0,0,0,.2); }
+.textbook-stage-page #site-header .future-brand strong { color:#edf8f5; }
+.textbook-stage-page #site-header .future-brand small,
+.textbook-stage-page #site-header .desktop-nav > a,
+.textbook-stage-page #site-header .nav-disclosure > summary { color:#b8cbc6; }
+.textbook-stage-page #site-header .icon-button,
+.textbook-stage-page #site-header .menu-button { background:#153b3f;color:#edf8f5; }
+.textbook-stage-page #site-header .icon-button:hover,
+.textbook-stage-page #site-header .icon-button:focus-visible,
+.textbook-stage-page #site-header .updates-disclosure[open] > .icon-button { background:#174a4d;color:#d0f3ef; }
+.textbook-stage-page #site-header .updates-badge { border-color:#123337; }
 .textbook-stage-page #site-header .desktop-nav > a:hover,
 .textbook-stage-page #site-header .desktop-nav > a[aria-current="page"],
 .textbook-stage-page #site-header .nav-disclosure > summary:hover,

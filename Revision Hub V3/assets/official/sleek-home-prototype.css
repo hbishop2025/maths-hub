@@ -125,7 +125,41 @@
 @keyframes entry-arrow { 0%,100% { transform:translateY(-.15rem); } 50% { transform:translateY(.3rem); } }
 
 .prototype-content { position:relative;background:var(--canvas); }
-.prototype-tools { padding-top:clamp(5rem,9vw,8rem); }
+.home-ukmt-feature { padding-top:clamp(5rem,9vw,8rem); }
+.home-ukmt-card {
+  position:relative;
+  display:grid;
+  min-height:15rem;
+  overflow:hidden;
+  align-items:center;
+  gap:clamp(1.25rem,4vw,2.5rem);
+  grid-template-columns:5.5rem minmax(0,1fr) minmax(14rem,.62fr);
+  border:1px solid rgba(186,217,206,.18);
+  border-radius:var(--radius-lg);
+  background:
+    radial-gradient(circle at 92% 12%,rgba(242,187,22,.15),transparent 16rem),
+    linear-gradient(125deg,#0d4f56,#071719 72%);
+  padding:clamp(1.5rem,4vw,2.5rem);
+  color:#f5fbf8;
+  box-shadow:0 24px 65px rgba(14,105,115,.14);
+  transition:border-color 220ms ease,box-shadow 220ms ease,transform 220ms ease;
+}
+.home-ukmt-card::after { position:absolute;right:-5rem;bottom:-9rem;width:19rem;height:19rem;border:1px solid rgba(242,187,22,.18);border-radius:50%;content:"";pointer-events:none;transition:transform 500ms cubic-bezier(.2,.8,.2,1); }
+.home-ukmt-card__mark { position:relative;z-index:1;display:grid;width:5.2rem;height:5.2rem;place-items:center;border:2px solid #f2bb16;border-radius:1.25rem;color:#f2bb16;font-size:1.2rem;font-weight:800;letter-spacing:-.04em;transform:rotate(-3deg); }
+.home-ukmt-card__copy { position:relative;z-index:1;display:grid; }
+.home-ukmt-card__copy > small { color:#bad9ce;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase; }
+.home-ukmt-card__copy > strong { margin:.25rem 0 .45rem;font-size:clamp(1.65rem,3.4vw,2.6rem);letter-spacing:-.05em;line-height:1; }
+.home-ukmt-card__copy > span { max-width:34rem;color:#aebfbc;font-size:.82rem; }
+.home-ukmt-card__date { position:relative;z-index:1;display:grid;border-left:1px solid rgba(186,217,206,.18);padding-left:clamp(1.2rem,3vw,2rem); }
+.home-ukmt-card__date > small { color:#f2bb16;font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase; }
+.home-ukmt-card__date > strong { margin:.25rem 0;color:#f5fbf8;font-size:clamp(1.05rem,2vw,1.35rem); }
+.home-ukmt-card__date > span { color:#aebfbc;font-size:.68rem; }
+.home-ukmt-card__action { position:absolute;z-index:2;right:clamp(1.5rem,4vw,2.5rem);bottom:1.2rem;color:#f2bb16;font-size:.68rem;font-weight:800; }
+.home-ukmt-card__action b { display:inline-block;margin-left:.25rem;transition:transform 180ms ease; }
+.home-ukmt-card:hover,.home-ukmt-card:focus-visible { border-color:#f2bb16;box-shadow:0 28px 75px rgba(14,105,115,.2);transform:translateY(-3px); }
+.home-ukmt-card:hover::after { transform:scale(1.15); }
+.home-ukmt-card:hover .home-ukmt-card__action b { transform:translateX(.25rem); }
+.prototype-tools { padding-top:clamp(4rem,7vw,6rem); }
 
 @media (max-width:700px) {
   .entry-scroll { height:140svh; }
@@ -142,6 +176,11 @@
   .entry-pathway small { display:none; }
   .entry-pathway b { top:.48rem;right:.5rem;width:1.7rem;height:1.7rem; }
   .entry-scroll-cue { margin-top:.15rem; }
+  .home-ukmt-card { min-height:0;grid-template-columns:4rem minmax(0,1fr);border-radius:var(--radius-md);padding:1.25rem; }
+  .home-ukmt-card__mark { width:3.8rem;height:3.8rem;border-radius:1rem;font-size:.9rem; }
+  .home-ukmt-card__copy > strong { font-size:1.5rem; }
+  .home-ukmt-card__date { grid-column:1 / -1;border-top:1px solid rgba(186,217,206,.18);border-left:0;padding:1rem 0 1.5rem; }
+  .home-ukmt-card__action { right:1.25rem;bottom:1rem; }
 }
 
 @media (max-height:680px) and (min-width:701px) {
