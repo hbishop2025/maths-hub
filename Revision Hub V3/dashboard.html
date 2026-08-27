@@ -3,64 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Open the matching Year 7, 8 or 9 digital textbook chapter using a school account.">
-  <meta name="theme-color" content="#f6faf8">
+  <meta name="description" content="Choose Year 7, 8 or 9 and open the matching SJWMS digital mathematics textbook chapter.">
+  <meta name="theme-color" content="#071719">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="assets/theme-init.js"></script>
   <link rel="stylesheet" href="assets/official/official-site.css">
+  <link rel="stylesheet" href="assets/official/textbook-stage.css">
   <title>KS3 Textbooks | SJWMS Maths</title>
 </head>
-<body class="future-textbook-page" data-root="." data-section="ks3" data-year="7">
+<body class="future-textbook-page textbook-stage-page" data-root="." data-section="ks3" data-theme-control="false" data-textbook-await-choice>
   <div id="site-header"></div>
   <main id="main-content">
-    <section class="internal-page-hero internal-page-hero--textbook" aria-labelledby="textbook-preview-title">
-      <div class="future-container internal-page-hero__inner">
-        <div class="internal-page-hero__copy">
-          <nav class="future-breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Textbooks</span></nav>
-          <p class="section-label"><span aria-hidden="true"></span>KS3 digital textbooks</p>
-          <h1 id="textbook-preview-title">KS3 textbooks</h1>
-          <p>Every KS3 textbook is organised into ten units. Select your year and open the exact chapter being taught in school.</p>
-        </div>
-        <span class="internal-page-hero__book" aria-hidden="true"><i>▤</i><strong>Mathematics</strong><small>Years 7–9</small></span>
-      </div>
-    </section>
-
-    <section class="textbook-finder-section" aria-labelledby="textbook-finder-title">
-      <div class="future-container textbook-finder-shell">
-        <header class="textbook-finder-heading">
-          <div><p class="section-label"><span aria-hidden="true"></span>Choose a textbook</p><h2 id="textbook-finder-title">Start with your year</h2><p>Choose Year 7, 8 or 9 to see the ten units in that book.</p></div>
-          <div class="future-year-tabs" role="group" aria-label="Choose a textbook year">
-            <button class="future-year-tab future-year-tab--7" type="button" data-textbook-year="7" aria-pressed="true"><span>07</span><strong>Year 7</strong></button>
-            <button class="future-year-tab future-year-tab--8" type="button" data-textbook-year="8" aria-pressed="false"><span>08</span><strong>Year 8</strong></button>
-            <button class="future-year-tab future-year-tab--9" type="button" data-textbook-year="9" aria-pressed="false"><span>09</span><strong>Year 9</strong></button>
-          </div>
+    <section class="textbook-stage" aria-labelledby="textbook-stage-title">
+      <div class="textbook-stage__glow textbook-stage__glow--one" aria-hidden="true"></div>
+      <div class="textbook-stage__glow textbook-stage__glow--two" aria-hidden="true"></div>
+      <div class="textbook-stage__inner">
+        <header class="textbook-stage__heading">
+          <a href="index.html" aria-label="Return to the SJWMS Maths homepage"><img src="assets/favicon.svg" alt="" width="64" height="64"></a>
+          <h1 id="textbook-stage-title"><span>SJWMS</span><strong>MATHS</strong></h1>
+          <p>Choose your year</p>
         </header>
 
-        <aside class="future-access-note">
-          <span class="future-access-note__icon" aria-hidden="true">i</span>
-          <p><strong>Internal school access is required.</strong> Open textbook links using your school Google account. Links open in a new tab, and SJWMS Maths never asks for or stores your login details.</p>
-        </aside>
-
-        <div class="future-unit-panel" aria-live="polite">
-          <div class="future-unit-panel__heading"><div><span>Current textbook</span><h2 id="textbook-unit-heading">Year 7 textbook units</h2></div><strong>10 units</strong></div>
-          <div class="unit-option-grid" id="textbook-unit-list"></div>
+        <div class="textbook-stage__years" role="group" aria-label="Choose your textbook year">
+          <button class="textbook-stage__year textbook-stage__year--7" type="button" data-textbook-year="7" aria-pressed="false" aria-expanded="false" aria-controls="textbook-unit-panel">
+            <span>07</span><strong>Year 7</strong><small>Open textbook</small><b aria-hidden="true">↓</b>
+          </button>
+          <button class="textbook-stage__year textbook-stage__year--8" type="button" data-textbook-year="8" aria-pressed="false" aria-expanded="false" aria-controls="textbook-unit-panel">
+            <span>08</span><strong>Year 8</strong><small>Open textbook</small><b aria-hidden="true">↓</b>
+          </button>
+          <button class="textbook-stage__year textbook-stage__year--9" type="button" data-textbook-year="9" aria-pressed="false" aria-expanded="false" aria-controls="textbook-unit-panel">
+            <span>09</span><strong>Year 9</strong><small>Open textbook</small><b aria-hidden="true">↓</b>
+          </button>
         </div>
-      </div>
-    </section>
 
-    <section class="textbook-help-section" aria-labelledby="textbook-help-title">
-      <div class="future-container textbook-help-panel">
-        <div><p class="section-label section-label--light"><span aria-hidden="true"></span>More KS3 help</p><h2 id="textbook-help-title">Revise the unit as well.</h2></div>
-        <div class="textbook-help-links"><a href="ks3_hub.html"><span>Browse KS3 revision</span><b aria-hidden="true">→</b></a><a href="sparx.html"><span>Open SPARX support</span><b aria-hidden="true">→</b></a></div>
+        <section class="textbook-stage__unit-panel" id="textbook-unit-panel" data-textbook-unit-panel data-state="closed" aria-live="polite" aria-hidden="true">
+          <header class="textbook-stage__unit-heading">
+            <div><span>Selected textbook</span><h2 id="textbook-unit-heading">Choose a year to see its units</h2></div>
+            <strong>10 units</strong>
+          </header>
+          <aside class="textbook-stage__access-note">
+            <span aria-hidden="true">i</span>
+            <p><strong>School access required.</strong> Open each link through your school Google account. Links open in a new tab.</p>
+          </aside>
+          <div class="unit-option-grid" id="textbook-unit-list"></div>
+        </section>
+
+        <nav class="textbook-stage__links" aria-label="Other KS3 pages">
+          <a href="ks3_hub.html">KS3 revision <span aria-hidden="true">→</span></a>
+          <a href="sparx.html">SPARX support <span aria-hidden="true">→</span></a>
+        </nav>
       </div>
     </section>
   </main>
   <div id="site-footer"></div>
   <script src="assets/site-shell.js" defer></script>
   <script src="assets/support-pages.js" defer></script>
-
 </body>
 </html>

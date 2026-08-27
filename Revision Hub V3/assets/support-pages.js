@@ -61,11 +61,16 @@
 
   const unitList = document.getElementById("textbook-unit-list");
   const unitHeading = document.getElementById("textbook-unit-heading");
+  const unitPanel = document.querySelector("[data-textbook-unit-panel]");
   const yearButtons = Array.from(document.querySelectorAll("[data-textbook-year]"));
   if (unitList && unitHeading && yearButtons.length) {
     const selectYear = (year) => {
       document.body.dataset.year = String(year);
-      yearButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.textbookYear === String(year))));
+      yearButtons.forEach((button) => {
+        const selected = button.dataset.textbookYear === String(year);
+        button.setAttribute("aria-pressed", String(selected));
+        button.setAttribute("aria-expanded", String(selected));
+      });
       unitHeading.textContent = `Year ${year} textbook units`;
       unitList.replaceChildren(...textbookUnits[year].map(([title, href], index) => {
         const link = document.createElement("a");
@@ -87,9 +92,13 @@
         link.append(number, copy);
         return link;
       }));
+      if (unitPanel) {
+        unitPanel.dataset.state = "open";
+        unitPanel.setAttribute("aria-hidden", "false");
+      }
     };
     yearButtons.forEach((button) => button.addEventListener("click", () => selectYear(Number(button.dataset.textbookYear))));
-    selectYear(7);
+    if (!document.body.hasAttribute("data-textbook-await-choice")) selectYear(7);
   }
 
   const revisionGrid = document.getElementById("revision-grid");
