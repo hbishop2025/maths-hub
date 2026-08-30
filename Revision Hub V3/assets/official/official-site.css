@@ -517,6 +517,38 @@ html[data-theme="dark"] .official-alevel-page { --year-accent:#ffd96f;--year-sof
 .year7-hero__line p:not(.section-label) { margin:0;color:var(--text); }
 .year7-hero__line .text-link { flex:0 0 auto;margin-bottom:.35rem; }
 
+/* Course hub gradients use deeper tones so white type remains clear. */
+.official-ks3-page .year7-hero--compact,
+.official-gcse-page .year7-hero--compact,
+.official-alevel-page .year7-hero--compact { position:relative;overflow:hidden;border-bottom-color:transparent;background:linear-gradient(118deg,#0e6973 0%,#355bc5 48%,#7550b8 100%);color:#fff; }
+.official-ks3-page .year7-hero--compact::before,
+.official-gcse-page .year7-hero--compact::before,
+.official-alevel-page .year7-hero--compact::before { position:absolute;top:-8rem;right:5%;width:20rem;height:20rem;border:1px solid rgba(255,255,255,.16);border-radius:50%;content:"";pointer-events:none; }
+.official-ks3-page .year7-hero--compact::after,
+.official-gcse-page .year7-hero--compact::after,
+.official-alevel-page .year7-hero--compact::after { position:absolute;right:-4rem;bottom:-9rem;display:block;width:18rem;height:18rem;border-radius:50%;background:rgba(255,255,255,.07);content:"";pointer-events:none; }
+.official-ks3-page .year7-hero__compact,
+.official-gcse-page .year7-hero__compact,
+.official-alevel-page .year7-hero__compact { position:relative;z-index:1; }
+.official-ks3-page .year7-hero--compact .future-breadcrumbs,
+.official-gcse-page .year7-hero--compact .future-breadcrumbs,
+.official-alevel-page .year7-hero--compact .future-breadcrumbs { color:rgba(255,255,255,.8); }
+.official-ks3-page .year7-hero--compact .future-breadcrumbs a:hover,
+.official-gcse-page .year7-hero--compact .future-breadcrumbs a:hover,
+.official-alevel-page .year7-hero--compact .future-breadcrumbs a:hover { color:#fff; }
+.official-ks3-page .year7-hero--compact .section-label,
+.official-gcse-page .year7-hero--compact .section-label,
+.official-alevel-page .year7-hero--compact .section-label,
+.official-ks3-page .year7-hero__line p:not(.section-label),
+.official-gcse-page .year7-hero__line p:not(.section-label),
+.official-alevel-page .year7-hero__line p:not(.section-label) { color:rgba(255,255,255,.86); }
+.official-ks3-page .year7-hero--compact .section-label > span,
+.official-gcse-page .year7-hero--compact .section-label > span,
+.official-alevel-page .year7-hero--compact .section-label > span { background:#f2bb16; }
+.official-ks3-page .year7-hero__line .text-link,
+.official-gcse-page .year7-hero__line .text-link,
+.official-alevel-page .year7-hero__line .text-link { border-bottom:1px solid rgba(255,255,255,.42);color:#fff; }
+
 /* Compact internal-page header */
 .internal-page-hero { padding-top:var(--header-height);border-bottom:1px solid color-mix(in srgb,var(--teal-600) 22%,var(--line));background:linear-gradient(135deg,var(--teal-soft),var(--canvas) 66%); }
 .internal-page-hero__inner { display:flex;min-height:12.5rem;align-items:end;justify-content:space-between;gap:clamp(2rem,7vw,7rem);padding-block:clamp(1.5rem,3vw,2.5rem); }
@@ -633,6 +665,37 @@ html[data-theme="dark"] .future-unit-page { --year-accent:#ffad68;--year-soft:#4
 .unit-hero__facts { grid-template-columns:repeat(3,4.7rem); }
 .unit-hero__facts div { min-height:4.7rem; }
 .unit-hero .hero-actions { margin-top:1.35rem; }
+
+/* Standard academic headers share the course-hub gradient and readable white type. */
+.internal-page-hero,
+.unit-hero { position:relative;overflow:hidden;border-bottom-color:transparent;background:linear-gradient(118deg,#0e6973 0%,#355bc5 48%,#7550b8 100%);color:#fff; }
+.internal-page-hero::before,
+.unit-hero::before { position:absolute;top:-9rem;right:6%;width:21rem;height:21rem;border:1px solid rgba(255,255,255,.16);border-radius:50%;content:"";pointer-events:none; }
+.internal-page-hero::after,
+.unit-hero::after { position:absolute;right:-4rem;bottom:-10rem;display:block;width:19rem;height:19rem;border:0;border-radius:50%;background:rgba(255,255,255,.07);content:"";pointer-events:none; }
+.internal-page-hero__inner,
+.unit-hero__inner { position:relative;z-index:1; }
+.internal-page-hero .future-breadcrumbs,
+.unit-hero .future-breadcrumbs { color:rgba(255,255,255,.8); }
+.internal-page-hero .future-breadcrumbs a:hover,
+.unit-hero .future-breadcrumbs a:hover { color:#fff; }
+.internal-page-hero .section-label,
+.unit-hero .section-label,
+.internal-page-hero__copy > p:not(.section-label),
+.unit-hero__content > div:first-child > p:last-child { color:rgba(255,255,255,.86); }
+.internal-page-hero .section-label > span,
+.unit-hero .section-label > span { background:#f2bb16; }
+.internal-page-hero .future-button--primary,
+.unit-hero .future-button--primary { border-color:#fff;background:#fff;color:#25307f; }
+.internal-page-hero .future-button--primary:hover,
+.unit-hero .future-button--primary:hover { border-color:#fff;background:rgba(255,255,255,.9);color:#1a2266; }
+.internal-page-hero .text-link,
+.unit-hero .text-link { border-bottom-color:rgba(255,255,255,.42);color:#fff; }
+.unit-hero__facts { border-color:rgba(255,255,255,.25);background:rgba(8,27,62,.2);color:#fff;box-shadow:0 18px 42px rgba(17,24,73,.2); }
+.unit-hero__facts div { border-right-color:rgba(255,255,255,.2); }
+.unit-hero__facts dt { color:rgba(255,255,255,.72); }
+.unit-textbook-button { border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.1);color:#fff; }
+.unit-textbook-button:hover { border-color:#fff;background:rgba(255,255,255,.18);color:#fff; }
 .data-stage { position:relative;min-height:28rem; }
 .data-chart { position:absolute;z-index:2;top:3rem;left:4%;display:flex;width:20rem;height:17rem;align-items:end;gap:1rem;border-bottom:2px solid var(--ink);border-left:2px solid var(--ink);border-radius:0 1.6rem 0 0;background:color-mix(in srgb,var(--surface) 88%,transparent);padding:2rem 1.5rem 0;box-shadow:var(--shadow-soft); }
 .data-chart i { width:2.2rem;height:var(--bar);border-radius:.6rem .6rem 0 0;background:var(--teal-600); }
