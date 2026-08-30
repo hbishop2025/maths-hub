@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bishop Botanics: an immersive Maths Lab for practising percentage change through limited plant drops.">
+  <meta name="theme-color" content="#090c09">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/official/bishop-botanics.css">
+  <title>Bishop Botanics | Plants. Pots. Percentages.</title>
+</head>
+<body>
+  <a class="botanics-exit" href="maths_labs.html" aria-label="Return to Maths Labs"><span aria-hidden="true">←</span><span>Maths Labs</span></a>
+
+  <header class="botanics-header" id="botanics-header">
+    <a class="botanics-brand" href="#top" aria-label="Bishop Botanics home"><i aria-hidden="true">BB</i><span>BISHOP<br>BOTANICS</span></a>
+    <nav aria-label="Bishop Botanics navigation">
+      <a href="#drop">The drop</a>
+      <a href="#last-chance">Last chance</a>
+      <a href="#mission">Basket mission</a>
+    </nav>
+    <button class="basket-trigger" type="button" id="basket-trigger" aria-controls="basket-drawer" aria-expanded="false"><span>Basket</span><b id="basket-count">0</b></button>
+  </header>
+
+  <main id="top">
+    <section class="botanics-hero" aria-labelledby="botanics-title">
+      <img class="botanics-hero__image" src="assets/bishop-botanics/monstera.webp" alt="Large Monstera leaves against a black background">
+      <div class="botanics-hero__wash" aria-hidden="true"></div>
+      <div class="botanics-hero__edition" aria-hidden="true"><span>DROP</span><b>04</b></div>
+      <div class="botanics-hero__content">
+        <p>Limited indoor release · Percentage Lab 01</p>
+        <h1 id="botanics-title">GROWN<br><em>DIFFERENT.</em></h1>
+        <div class="hero-product">
+          <span>SPLIT 01 / MONSTERA</span>
+          <strong>25% DROP</strong>
+          <small>Can you find the new price?</small>
+        </div>
+        <a href="#drop">Explore the drop <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="botanics-ticker" aria-hidden="true"><div><span>PLANTS</span><b>•</b><span>POTS</span><b>•</b><span>PERCENTAGES</span><b>•</b><span>NO CHECKOUT. JUST MATHS.</span><b>•</b><span>PLANTS</span><b>•</b><span>POTS</span><b>•</b><span>PERCENTAGES</span></div></div>
+    </section>
+
+    <section class="botanics-intro" id="drop" aria-labelledby="drop-title">
+      <div>
+        <p class="botanics-label">Fresh drop / 06 forms</p>
+        <h2 id="drop-title">THE PRICE TAG IS<br><span>YOURS TO FINISH.</span></h2>
+      </div>
+      <p>Every plant has a percentage-change problem built into its tag. Calculate the missing value to unlock the price and add it to your basket.</p>
+    </section>
+
+    <section class="product-grid" aria-label="Bishop Botanics plant collection">
+      <article class="plant-card plant-card--hero" data-product="split">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/monstera.webp" alt="Monstera plant" loading="lazy"><span>01</span></div>
+        <div class="plant-card__info"><small>Statement form · Monstera</small><h3>SPLIT 01</h3><p>Original tag £64. Today’s drop removes 25%.</p><div class="price-tag"><del>£64.00</del><strong data-price-display>£—</strong><span>25% off</span></div><button class="solve-button" type="button" data-solve="split">Unlock price <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="split" disabled>Add to basket</button></div>
+      </article>
+
+      <article class="plant-card" data-product="vertical">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/snake-plant.webp" alt="Snake plant in a ceramic pot" loading="lazy"><span>02</span></div>
+        <div class="plant-card__info"><small>Hard to kill · Snake plant</small><h3>VERTICAL 02</h3><p>Take 15% from the original £48 tag.</p><div class="price-tag"><del>£48.00</del><strong data-price-display>£—</strong><span>15% off</span></div><button class="solve-button" type="button" data-solve="vertical">Unlock price <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="vertical" disabled>Add to basket</button></div>
+      </article>
+
+      <article class="plant-card" data-product="cascade">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/pothos-white.webp" alt="Pothos plant in a white pot" loading="lazy"><span>03</span></div>
+        <div class="plant-card__info"><small>Desk drop · Pothos</small><h3>CASCADE 03</h3><p>£36 receives 20% off, followed by another 10%.</p><div class="price-tag"><del>£36.00</del><strong data-price-display>£—</strong><span>Double drop</span></div><button class="solve-button" type="button" data-solve="cascade">Unlock price <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="cascade" disabled>Add to basket</button></div>
+      </article>
+
+      <article class="plant-card" data-product="orbit">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/cactus.webp" alt="Cactus in a dark studio setting" loading="lazy"><span>04</span></div>
+        <div class="plant-card__info"><small>Compact form · Cactus</small><h3>ORBIT 04</h3><p>The launch tag of £20 increases by 20%.</p><div class="price-tag"><del>£20.00</del><strong data-price-display>£—</strong><span>20% rise</span></div><button class="solve-button" type="button" data-solve="orbit">Unlock price <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="orbit" disabled>Add to basket</button></div>
+      </article>
+
+      <article class="plant-card" data-product="fractal" id="last-chance">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/fern.webp" alt="Fern fronds in low light" loading="lazy"><span>05</span></div>
+        <div class="plant-card__info"><small>Last chance · Fern</small><h3>FRACTAL 05</h3><p>Now £31.50 after a 30% reduction. Find the original tag.</p><div class="price-tag"><del data-original-display>£—</del><strong data-price-display>£31.50</strong><span>Reverse %</span></div><button class="solve-button" type="button" data-solve="fractal">Restore tag <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="fractal" disabled>Add to basket</button></div>
+      </article>
+
+      <article class="plant-card" data-product="signal">
+        <div class="plant-card__visual"><img src="assets/bishop-botanics/palm.webp" alt="Indoor palm in a white ribbed pot" loading="lazy"><span>06</span></div>
+        <div class="plant-card__info"><small>Air form · Indoor palm</small><h3>SIGNAL 06</h3><p>The price falls from £42 to £35.70. Find the reduction.</p><div class="price-tag"><del>£42.00</del><strong data-price-display>£35.70</strong><span data-discount-display>?% off</span></div><button class="solve-button" type="button" data-solve="signal">Find reduction <span aria-hidden="true">→</span></button><button class="add-button" type="button" data-add="signal" disabled>Add to basket</button></div>
+      </article>
+    </section>
+
+    <section class="botanics-mission" id="mission" aria-labelledby="mission-title">
+      <img src="assets/bishop-botanics/pothos-green.webp" alt="Pothos plant in a green pot" loading="lazy">
+      <div class="botanics-mission__shade" aria-hidden="true"></div>
+      <div class="botanics-mission__copy">
+        <p class="botanics-label">Final mission / Budget £120</p>
+        <h2 id="mission-title">BUILD A THREE-PLANT SET.</h2>
+        <p>Unlock the prices, choose exactly three forms and keep the final basket at or below £120.</p>
+        <button type="button" id="open-basket">Open basket <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="botanics-mission__number" aria-hidden="true">120</div>
+    </section>
+  </main>
+
+  <footer class="botanics-footer"><span>BISHOP BOTANICS / MATHS LAB 02</span><span>Educational simulation · Nothing is sold</span><a href="maths_labs.html">Exit to Maths Labs →</a></footer>
+
+  <div class="challenge-backdrop" id="challenge-backdrop" hidden>
+    <section class="challenge-dialog" id="challenge-dialog" role="dialog" aria-modal="true" aria-labelledby="challenge-title">
+      <button class="dialog-close" type="button" id="challenge-close" aria-label="Close calculation">×</button>
+      <p class="botanics-label" id="challenge-label">Price check</p>
+      <h2 id="challenge-title">UNLOCK THE TAG.</h2>
+      <p id="challenge-question"></p>
+      <form id="challenge-form">
+        <label for="challenge-answer" id="challenge-answer-label">Your answer</label>
+        <div class="challenge-input"><span id="challenge-prefix">£</span><input id="challenge-answer" name="answer" type="number" step="0.01" inputmode="decimal" required autocomplete="off"><span id="challenge-suffix"></span></div>
+        <button type="submit">Check answer</button>
+      </form>
+      <p class="challenge-feedback" id="challenge-feedback" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <aside class="basket-drawer" id="basket-drawer" aria-labelledby="basket-title" aria-hidden="true">
+    <div class="basket-drawer__head"><div><p class="botanics-label">Basket mission</p><h2 id="basket-title">YOUR SET</h2></div><button type="button" id="basket-close" aria-label="Close basket">×</button></div>
+    <div class="basket-items" id="basket-items"><p>Unlock a price, then add a plant.</p></div>
+    <div class="basket-total"><span>Total</span><strong id="basket-total">£0.00</strong></div>
+    <button class="basket-check" id="basket-check" type="button">Check my basket</button>
+    <p class="basket-feedback" id="basket-feedback" aria-live="polite"></p>
+  </aside>
+  <div class="basket-shade" id="basket-shade" hidden></div>
+
+  <script src="assets/bishop-botanics.js" defer></script>
+</body>
+</html>
