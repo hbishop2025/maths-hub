@@ -53,7 +53,7 @@ html[data-theme="dark"] #site-header .nav-disclosure[open] > summary { backgroun
 #site-header .bell-icon::after { position:absolute;bottom:-.3rem;left:50%;width:1.2rem;height:.35rem;border-top:2px solid currentColor;border-radius:50%;content:"";transform:translateX(-50%); }
 #site-header .updates-badge { position:absolute;top:-.15rem;right:-.15rem;display:grid;min-width:1.15rem;height:1.15rem;place-items:center;border:2px solid var(--shell-surface);border-radius:999px;background:var(--shell-yellow);color:#443000;font-size:.56rem;font-weight:800; }
 #site-header .nav-popover { position:absolute;z-index:120;top:calc(100% + 1rem);border:1px solid var(--shell-line);border-radius:1.35rem;background:var(--shell-surface);box-shadow:0 10px 35px rgba(16,42,46,.16); }
-#site-header .nav-popover--tools { left:50%;display:grid;width:min(25rem,calc(100vw - 2rem));gap:.25rem;padding:.65rem;transform:translateX(-50%); }
+#site-header .nav-popover--tools { left:50%;display:grid;width:min(25rem,calc(100vw - 2rem));max-height:min(38rem,calc(100vh - 7rem));gap:.25rem;overflow:auto;padding:.65rem;transform:translateX(-50%); }
 #site-header .nav-popover--tools a { display:grid;align-items:center;gap:.7rem;grid-template-columns:2.3rem 1fr;border-radius:.85rem;padding:.65rem; }
 #site-header .nav-popover--tools a:hover { background:var(--shell-soft); }
 #site-header .nav-popover--tools a > span:not(.mini-icon) { display:grid; }

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore SJWMS Maths Labs: themed maths experiences and quick practice games.">
+  <meta name="theme-color" content="#080d12">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="assets/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/official/maths-labs.css">
+  <title>SJWMS Maths | Maths Labs</title>
+</head>
+<body class="maths-labs-page" data-root="." data-section="labs" data-theme-control="false">
+  <div id="site-header"></div>
+
+  <main id="main-content">
+    <section class="labs-hero" aria-labelledby="labs-title">
+      <div class="labs-hero__aurora" aria-hidden="true"></div>
+      <div class="labs-hero__content">
+        <p class="labs-eyebrow">A different way to practise</p>
+        <div class="labs-lockup">
+          <img src="assets/favicon.svg" alt="" width="72" height="72">
+          <div><span>SJWMS</span><strong>MATHS LABS</strong></div>
+        </div>
+        <h1 id="labs-title">Mathematics,<br><em>placed in another world.</em></h1>
+        <p>Step into themed lessons, investigate unfamiliar settings and sharpen your skills with quick games.</p>
+        <a class="labs-hero__action" href="#featured-labs">Start exploring <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="labs-hero__art" aria-hidden="true">
+        <div class="labs-hero__poster labs-hero__poster--shakes"><img src="bishop_shakes/shakes_hero.svg" alt=""></div>
+        <div class="labs-hero__poster labs-hero__poster--airways"><img src="assets/Airways-hero.jpg" alt=""></div>
+        <div class="labs-hero__poster labs-hero__poster--game"><span>√</span><b>LEVEL<br>READY</b></div>
+      </div>
+      <div class="labs-hero__rail" aria-hidden="true"><span>BISHOP SHAKES</span><span>QUICK GAMES</span><span>CLASSROOM LABS</span></div>
+    </section>
+
+    <section class="labs-section labs-featured" id="featured-labs" aria-labelledby="featured-title">
+      <div class="labs-container">
+        <header class="labs-heading">
+          <div><p class="labs-eyebrow">Featured experiences</p><h2 id="featured-title">Enter a Maths Lab</h2></div>
+          <p>Each lab turns familiar maths into a new setting. Read the brief, explore the world and solve what you find.</p>
+        </header>
+
+        <div class="labs-feature-grid">
+          <a class="lab-feature lab-feature--shakes" href="bishop_shakes.html">
+            <div class="lab-feature__image"><img src="bishop_shakes/shakes_hero.svg" alt="Colourful Bishop Shakes drinks and ingredients"></div>
+            <div class="lab-feature__shade" aria-hidden="true"></div>
+            <div class="lab-feature__copy">
+              <span class="lab-tag">Open now</span>
+              <small>Food, ratios and problem solving</small>
+              <h3>Bishop Shakes</h3>
+              <p>Explore the menu, ingredients and hidden maths inside the shake lab.</p>
+              <strong>Enter the lab <b aria-hidden="true">→</b></strong>
+            </div>
+          </a>
+
+          <article class="lab-feature lab-feature--airways is-locked" aria-labelledby="airways-title">
+            <div class="lab-feature__image"><img src="assets/Airways-hero.jpg" alt="Bishop Airways aircraft" loading="lazy"></div>
+            <div class="lab-feature__shade" aria-hidden="true"></div>
+            <div class="lab-feature__copy">
+              <span class="lab-tag lab-tag--locked"><span aria-hidden="true">▣</span> Teacher-led</span>
+              <small>Flight planning and applied maths</small>
+              <h3 id="airways-title">Bishop Airways</h3>
+              <p>This experience is opened by your teacher during its lesson.</p>
+              <span class="lab-locked-note">Not available from this page</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="labs-section labs-games" id="games" aria-labelledby="games-title">
+      <div class="labs-container">
+        <header class="labs-heading labs-heading--games">
+          <div><p class="labs-eyebrow">Pick up and play</p><h2 id="games-title">Maths games</h2></div>
+          <p>Choose a short challenge, practise one skill and try to improve your score.</p>
+        </header>
+
+        <div class="game-filter" role="group" aria-label="Filter maths games">
+          <button class="is-active" type="button" data-game-filter="all" aria-pressed="true">All games</button>
+          <button type="button" data-game-filter="number" aria-pressed="false">Number</button>
+          <button type="button" data-game-filter="algebra" aria-pressed="false">Algebra</button>
+          <button type="button" data-game-filter="geometry" aria-pressed="false">Geometry</button>
+        </div>
+
+        <div class="game-grid" id="game-grid">
+          <a class="game-card game-card--indices" href="games/year9_indices_quiz.html" data-game-category="number algebra">
+            <span class="game-card__art" aria-hidden="true"><b>x</b><sup>n</sup><i>3²</i></span>
+            <span class="game-card__body"><small>Number · Algebra</small><strong>Indices Quickfire</strong><span>Three choices. One correct answer. Keep the run alive.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--cube" href="games/Cube_Manipulation.html" data-game-category="geometry">
+            <span class="game-card__art" aria-hidden="true"><b>◇</b><i>3D</i></span>
+            <span class="game-card__body"><small>Geometry</small><strong>IsoBuilder 3D</strong><span>Build, rotate and understand shapes from every angle.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--bounds" href="games/bounds_quiz.html" data-game-category="number">
+            <span class="game-card__art" aria-hidden="true"><b>±</b><i>LIMIT</i></span>
+            <span class="game-card__body"><small>Number</small><strong>Bounds Builder</strong><span>Find upper and lower bounds before time runs out.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--elimination" href="games/elimination_agent.html" data-game-category="algebra">
+            <span class="game-card__art" aria-hidden="true"><b>×</b><i>AGENT 02</i></span>
+            <span class="game-card__body"><small>Algebra</small><strong>Elimination Agent</strong><span>Crack simultaneous equations one mission at a time.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--surd" href="games/learn_surds.html" data-game-category="number algebra">
+            <span class="game-card__art" aria-hidden="true"><b>√</b><i>CONQUEST</i></span>
+            <span class="game-card__body"><small>Number · Algebra</small><strong>Surd Conquest</strong><span>Learn the rules, simplify radicals and conquer each stage.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--surdo" href="games/surd-o.html" data-game-category="number algebra">
+            <span class="game-card__art" aria-hidden="true"><b>√O</b><i>MATCH</i></span>
+            <span class="game-card__body"><small>Number · Algebra</small><strong>Surd-O</strong><span>Match equivalent surds in a fast card challenge.</span><b>Play now →</b></span>
+          </a>
+          <a class="game-card game-card--trig" href="games/trig_identify.html" data-game-category="geometry">
+            <span class="game-card__art" aria-hidden="true"><b>△</b><i>SOH CAH TOA</i></span>
+            <span class="game-card__body"><small>Geometry</small><strong>Trig Commander</strong><span>Identify the right trigonometric ratio and make the call.</span><b>Play now →</b></span>
+          </a>
+        </div>
+        <p class="game-empty" id="game-empty" hidden>No games match this filter yet.</p>
+      </div>
+    </section>
+
+    <section class="labs-section labs-next" aria-labelledby="next-title">
+      <div class="labs-container">
+        <article class="labs-next__card">
+          <img src="assets/bishop_kicks_hero.jpg" alt="Bishop Kicks maths experience artwork" loading="lazy">
+          <div class="labs-next__veil" aria-hidden="true"></div>
+          <div class="labs-next__copy">
+            <span>In development</span>
+            <h2 id="next-title">A new lab is taking shape.</h2>
+            <p>More themed maths experiences will appear here when they are ready for class.</p>
+            <strong>Coming soon</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/site-shell.js" defer></script>
+  <script src="assets/maths-labs.js" defer></script>
+</body>
+</html>
