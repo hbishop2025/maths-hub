@@ -1,34 +1,26 @@
 {
   "items": [
     {
+      "active": true,
+      "title": "Get ready for this years UKMT",
+      "btnText": "UKMT Information",
+      "btnLink": "https://www.sjwmsmaths.co.uk/ukmt",
+      "text": "Get ready for the UKMT this year. Access dates for 2026/27 and learn how to be best ready.",
+      "date": "30 August 2026"
+    },
+    {
       "icon": "sparkles",
       "title": "The refreshed SJWMS Maths is live",
-      "date": "26 August 2026",
+      "date": "24 August 2026",
       "text": "A clearer design now connects courses, unit revision, assessments and KS3 textbooks across the website.",
       "btnText": "Choose a course",
       "btnLink": "index.html#courses",
       "active": true
     },
     {
-      "icon": "sparkles",
-      "title": "A clearer SJWMS Maths",
-      "date": "22 July 2026",
-      "text": "The clearer visual identity now runs across KS3, GCSE, unit pages and the main learning tools.",
-      "btnText": "Explore KS3",
-      "btnLink": "ks3_hub.html"
-    },
-    {
-      "icon": "books",
-      "title": "More unit pages available",
-      "date": "22 July 2026",
-      "text": "Year 7 now includes all ten units and the GCSE course includes units 1 to 19.",
-      "btnText": "Browse Year 7",
-      "btnLink": "ks3_hub.html#year-7"
-    },
-    {
       "icon": "info",
       "title": "Accessing SPARX",
-      "date": "22 July 2026",
+      "date": "30 August 2026",
       "text": "New to SJWMS? Use the setup guide to get SPARX ready for homework assignments in Years 7 to 11.",
       "btnText": "SPARX help",
       "btnLink": "sparx.html"
