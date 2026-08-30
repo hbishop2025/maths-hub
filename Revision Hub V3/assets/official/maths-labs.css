@@ -44,7 +44,7 @@ body.maths-labs-page { overflow-x:hidden;background:#080d12;color:#f4f8f7;font-f
 .labs-hero__poster { position:absolute;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:1.25rem;background:#131d22;box-shadow:0 30px 70px rgba(0,0,0,.45); }
 .labs-hero__poster img { width:100%;height:100%;object-fit:cover; }
 .labs-hero__poster--shakes { z-index:3;right:0;bottom:3%;width:72%;height:56%;transform:rotate(3deg); }
-.labs-hero__poster--shakes img { background:linear-gradient(145deg,#f6e0ba,#eaa164);object-fit:contain;padding:6%; }
+.labs-hero__poster--shakes img { background:linear-gradient(145deg,#ffe4e6,#fecfef);object-fit:contain;padding:6%; }
 .labs-hero__poster--airways { z-index:2;top:0;left:0;width:62%;height:48%;transform:rotate(-5deg); }
 .labs-hero__poster--game { z-index:4;top:19%;right:0;display:grid;width:34%;height:26%;place-items:center;background:linear-gradient(135deg,#f2bb16,#b87706);color:#1f1702;transform:rotate(7deg); }
 .labs-hero__poster--game span { font-size:4.5rem;font-weight:800;letter-spacing:-.15em; }
@@ -61,7 +61,7 @@ body.maths-labs-page { overflow-x:hidden;background:#080d12;color:#f4f8f7;font-f
 .lab-feature { position:relative;display:grid;min-height:35rem;align-content:end;overflow:hidden;border:1px solid rgba(255,255,255,.09);border-radius:1.5rem;background:#131b20;isolation:isolate; }
 .lab-feature__image,.lab-feature__shade { position:absolute;inset:0;z-index:-2; }
 .lab-feature__image img { width:100%;height:100%;object-fit:cover;transition:transform 800ms cubic-bezier(.2,.8,.2,1); }
-.lab-feature--shakes .lab-feature__image { background:linear-gradient(145deg,#f4c991,#ce7748); }
+.lab-feature--shakes .lab-feature__image { background:linear-gradient(145deg,#ffe4e6,#fecfef); }
 .lab-feature--shakes .lab-feature__image img { object-fit:contain;padding:4%; }
 .lab-feature__shade { z-index:-1;background:linear-gradient(to top,rgba(5,8,10,.98) 2%,rgba(5,8,10,.72) 38%,rgba(5,8,10,.05) 76%); }
 .lab-feature__copy { display:grid;justify-items:start;padding:clamp(1.5rem,4vw,2.5rem); }
