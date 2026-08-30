@@ -88,7 +88,6 @@ html[data-theme="dark"] #site-header .nav-disclosure[open] > summary { backgroun
 #site-footer .future-footer__bottom { display:flex;align-items:center;justify-content:space-between;gap:1rem;border-top:1px solid rgba(255,255,255,.14);padding-block:1.25rem;color:#9ebbb5;font-size:.7rem; }
 #site-footer .future-footer__bottom p { margin:0; }
 #site-footer .future-footer__bottom p:last-child { display:flex;align-items:center;gap:.5rem; }
-#site-footer .future-footer__bottom span { width:.45rem;height:.45rem;border-radius:50%;background:var(--shell-yellow); }
 
 @media (max-width:959px) {
   #site-header .desktop-nav { display:none; }

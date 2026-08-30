@@ -441,7 +441,6 @@ html[data-theme="dark"] .sparx-article__icon { color:#a6e4de; }
 .future-footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.14); padding-block: 1.25rem; color: #9ebbb5; font-size: 0.7rem; }
 .future-footer__bottom p { margin: 0; }
 .future-footer__bottom p:last-child { display: flex; align-items: center; gap: 0.5rem; }
-.future-footer__bottom span { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--yellow-500); }
 
 /* Responsive layouts */
 /* Assessments prototype */
