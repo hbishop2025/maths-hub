@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <title>SJWMS Maths — Elimination Agent</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="../assets/official/game-utilities.css">
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
   <!-- Shared layout / stripes / sidebar spacing -->
-  <link rel="stylesheet" href="/assets/main.css"/>
+  <link rel="stylesheet" href="../assets/main.css"/>
 
   <style>
     :root{
@@ -26,24 +25,6 @@
     body { font-family: 'Inter', sans-serif; }
     .material-icons { font-size: 24px; }
     html { scroll-behavior: smooth; }
-
-    /* Stripes background */
-    body[data-page="game-template"] .bg-stripes{
-      position: relative;
-      background: linear-gradient(135deg, #f5f3ff, #ffffff); /* very light violet to white */
-    }
-    body[data-page="game-template"] .bg-stripes::after{
-      content:"";
-      position:absolute; inset:0; pointer-events:none;
-      background: repeating-linear-gradient(
-        -45deg,
-        rgba(139, 92, 246, 0.05) 0px,
-        rgba(139, 92, 246, 0.05) 8px,
-        transparent 8px,
-        transparent 16px
-      );
-      opacity:.7;
-    }
 
     /* Equation Card Styles */
     .eq-card {
@@ -83,16 +64,14 @@
     }
   </style>
   <script src="../assets/theme-init.js"></script>
-  <link rel="stylesheet" href="../assets/design-system.css">
-  <link rel="stylesheet" href="../assets/foundation.css">
-  <link rel="stylesheet" href="../assets/legacy-theme.css">
+  <link rel="stylesheet" href="../assets/official/game-shell.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 design-v3 experience-v3"
-      data-page="game-template" data-root=".." data-section="ks3">
+<body class="bg-gray-100 design-v3 experience-v3 labs-game labs-game--template"
+      data-page="maths-lab-game" data-root=".." data-section="labs" data-theme-control="false" data-game-title="Elimination Agent" data-game-topic="Simultaneous equations" style="--game-accent:#8b5cf6;--game-accent-rgb:139,92,246">
   <div id="site-header"></div>
-  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Interactive mathematics</strong> · Part of the shared learning library</span><a href="../index.html">Return to the hub →</a></div></div>
+  <div class="experience-ribbon"><div class="experience-ribbon__inner"><span><strong>Maths Labs</strong> · Elimination Agent</span><a href="../maths_labs.html">Back to Maths Labs</a></div></div>
   <div class="layout">
     <!-- Sidebar -->
 
@@ -101,9 +80,9 @@
       <!-- Top: back + title -->
       <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <a href="/index.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
+          <a href="../maths_labs.html" class="inline-flex items-center text-gray-600 hover:text-gray-900">
             <span class="material-icons mr-1">arrow_back</span>
-            Back to Maths Hub
+            Back to Maths Labs
           </a>
         </div>
       </header>
@@ -653,6 +632,7 @@
     })();
   </script>
   <div id="site-footer"></div>
+  <script src="../assets/game-shell.js" defer></script>
   <script src="../assets/site-shell.js" defer></script>
 </body>
 </html>
