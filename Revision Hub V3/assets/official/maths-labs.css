@@ -47,7 +47,7 @@ body.maths-labs-page { overflow-x:hidden;background:#080d12;color:#f4f8f7;font-f
 .labs-hero__poster--botanics { z-index:2;top:0;left:0;width:62%;height:48%;transform:rotate(-5deg); }
 .labs-hero__poster--botanics img { filter:saturate(.84) contrast(1.04); }
 .labs-hero__poster--shakes { z-index:4;top:19%;right:0;width:34%;height:26%;transform:rotate(7deg); }
-.labs-hero__poster--shakes img { background:linear-gradient(145deg,#ffe4e6,#fecfef);object-fit:contain;padding:7%; }
+.labs-hero__poster--shakes img { object-position:70% center; }
 .labs-hero__rail { position:absolute;right:0;bottom:0;left:0;display:flex;justify-content:space-around;gap:2rem;border-top:1px solid rgba(255,255,255,.08);background:rgba(3,7,9,.35);padding:1rem;color:#627374;font-size:.59rem;font-weight:800;letter-spacing:.15em; }
 
 .labs-section { padding:clamp(5.5rem,10vw,9rem) 0; }
@@ -65,8 +65,7 @@ body.maths-labs-page { overflow-x:hidden;background:#080d12;color:#f4f8f7;font-f
 .lab-slide.is-active { opacity:1;pointer-events:auto;transform:none; }
 .lab-slide>img,.lab-slide__shade { position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover; }
 .lab-slide--botanics>img { object-position:center 34%;filter:saturate(.82) contrast(1.04); }
-.lab-slide--shakes { background:linear-gradient(145deg,#ffe4e6,#f3a6ca); }
-.lab-slide--shakes>img { object-fit:contain;padding:3%; }
+.lab-slide--shakes>img { object-position:center; }
 .lab-slide--airways>img { filter:saturate(.72) brightness(.82); }
 .lab-slide__shade { z-index:-1;background:linear-gradient(90deg,rgba(5,8,10,.96) 0%,rgba(5,8,10,.75) 43%,rgba(5,8,10,.1) 75%),linear-gradient(to top,rgba(5,8,10,.78),transparent 55%); }
 .lab-slide__copy { display:grid;max-width:43rem;justify-items:start;padding:clamp(1.6rem,5vw,3.4rem); }
@@ -84,8 +83,8 @@ body.maths-labs-page { overflow-x:hidden;background:#080d12;color:#f4f8f7;font-f
 .lab-carousel__nav>button.is-active { border-color:rgba(145,221,214,.4);background:#17252b; }
 .lab-carousel__nav>button>img,.lab-carousel__shake-thumb { display:block;width:4.8rem;height:4.8rem;overflow:hidden;border-radius:.75rem;background:#202a2f; }
 .lab-carousel__nav>button>img,.lab-carousel__shake-thumb img { object-fit:cover; }
-.lab-carousel__shake-thumb { background:linear-gradient(145deg,#ffe4e6,#fecfef); }
-.lab-carousel__shake-thumb img { width:100%;height:100%;padding:.35rem; }
+.lab-carousel__shake-thumb { background:#202a2f; }
+.lab-carousel__shake-thumb img { width:100%;height:100%;object-fit:cover;object-position:68% center; }
 .lab-carousel__nav>button>span:not(.lab-carousel__shake-thumb) { display:grid;min-width:0; }
 .lab-carousel__nav small { color:#f2bb16;font-size:.52rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase; }
 .lab-carousel__nav strong { margin:.15rem 0;font-size:.77rem; }

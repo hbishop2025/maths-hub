@@ -62,27 +62,47 @@
   }
 
   function stopRotation() {
-    window.clearInterval(timer);
+    window.clearTimeout(timer);
     timer = null;
   }
 
   function startRotation() {
     if (reduceMotion || timer) return;
-    timer = window.setInterval(() => activate(activeIndex + 1), 7000);
+    timer = window.setTimeout(() => {
+      timer = null;
+      activate(activeIndex + 1);
+      startRotation();
+    }, 6000);
+  }
+
+  function restartRotation(delay = 6000) {
+    stopRotation();
+    if (reduceMotion) return;
+    timer = window.setTimeout(() => {
+      timer = null;
+      activate(activeIndex + 1);
+      startRotation();
+    }, delay);
   }
 
   tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => { activate(index); stopRotation(); startRotation(); });
+    tab.addEventListener("click", () => { activate(index); restartRotation(12000); });
     tab.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") { event.preventDefault(); activate(activeIndex + 1, true); }
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") { event.preventDefault(); activate(activeIndex - 1, true); }
-      if (event.key === "Home") { event.preventDefault(); activate(0, true); }
-      if (event.key === "End") { event.preventDefault(); activate(slides.length - 1, true); }
+      let handled = true;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") activate(activeIndex + 1, true);
+      else if (event.key === "ArrowLeft" || event.key === "ArrowUp") activate(activeIndex - 1, true);
+      else if (event.key === "Home") activate(0, true);
+      else if (event.key === "End") activate(slides.length - 1, true);
+      else handled = false;
+      if (handled) {
+        event.preventDefault();
+        restartRotation(12000);
+      }
     });
   });
 
-  carousel.querySelector("[data-lab-previous]")?.addEventListener("click", () => { activate(activeIndex - 1); stopRotation(); startRotation(); });
-  carousel.querySelector("[data-lab-next]")?.addEventListener("click", () => { activate(activeIndex + 1); stopRotation(); startRotation(); });
+  carousel.querySelector("[data-lab-previous]")?.addEventListener("click", () => { activate(activeIndex - 1); restartRotation(12000); });
+  carousel.querySelector("[data-lab-next]")?.addEventListener("click", () => { activate(activeIndex + 1); restartRotation(12000); });
   carousel.addEventListener("pointerenter", stopRotation);
   carousel.addEventListener("pointerleave", startRotation);
   carousel.addEventListener("focusin", stopRotation);
