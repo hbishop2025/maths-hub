@@ -30,11 +30,11 @@
         <a class="labs-hero__action" href="#featured-labs">Start exploring <span aria-hidden="true">↓</span></a>
       </div>
       <div class="labs-hero__art" aria-hidden="true">
-        <div class="labs-hero__poster labs-hero__poster--shakes"><img src="bishop_shakes/shakes_hero.svg" alt=""></div>
         <div class="labs-hero__poster labs-hero__poster--airways"><img src="assets/Airways-hero.jpg" alt=""></div>
-        <div class="labs-hero__poster labs-hero__poster--game"><span>√</span><b>LEVEL<br>READY</b></div>
+        <div class="labs-hero__poster labs-hero__poster--botanics"><img src="assets/bishop-botanics/monstera.webp" alt=""></div>
+        <div class="labs-hero__poster labs-hero__poster--shakes"><img src="bishop_shakes/shakes_hero.svg" alt=""></div>
       </div>
-      <div class="labs-hero__rail" aria-hidden="true"><span>BISHOP SHAKES</span><span>QUICK GAMES</span><span>CLASSROOM LABS</span></div>
+      <div class="labs-hero__rail" aria-hidden="true"><span>BISHOP AIRWAYS</span><span>BISHOP BOTANICS</span><span>BISHOP SHAKES</span></div>
     </section>
 
     <section class="labs-section labs-featured" id="featured-labs" aria-labelledby="featured-title">
@@ -44,30 +44,64 @@
           <p>Each lab turns familiar maths into a new setting. Read the brief, explore the world and solve what you find.</p>
         </header>
 
-        <div class="labs-feature-grid">
-          <a class="lab-feature lab-feature--shakes" href="bishop_shakes.html">
-            <div class="lab-feature__image"><img src="bishop_shakes/shakes_hero.svg" alt="Colourful Bishop Shakes drinks and ingredients"></div>
-            <div class="lab-feature__shade" aria-hidden="true"></div>
-            <div class="lab-feature__copy">
-              <span class="lab-tag">Open now</span>
-              <small>Food, ratios and problem solving</small>
-              <h3>Bishop Shakes</h3>
-              <p>Explore the menu, ingredients and hidden maths inside the shake lab.</p>
-              <strong>Enter the lab <b aria-hidden="true">→</b></strong>
-            </div>
-          </a>
+        <div class="lab-carousel" data-lab-carousel>
+          <div class="lab-carousel__stage">
+            <article class="lab-slide lab-slide--botanics is-active" data-lab-slide="botanics">
+              <img src="assets/bishop-botanics/monstera.webp" alt="Monstera leaves from Bishop Botanics">
+              <div class="lab-slide__shade" aria-hidden="true"></div>
+              <div class="lab-slide__copy">
+                <span class="lab-tag">New lab</span>
+                <small>Percentage change and problem solving</small>
+                <h3>Bishop Botanics</h3>
+                <p>Unlock limited plant drops, calculate changing prices and build a three-plant set within budget.</p>
+                <a href="bishop_botanics.html">Enter the store <b aria-hidden="true">→</b></a>
+              </div>
+            </article>
 
-          <article class="lab-feature lab-feature--airways is-locked" aria-labelledby="airways-title">
-            <div class="lab-feature__image"><img src="assets/Airways-hero.jpg" alt="Bishop Airways aircraft" loading="lazy"></div>
-            <div class="lab-feature__shade" aria-hidden="true"></div>
-            <div class="lab-feature__copy">
-              <span class="lab-tag lab-tag--locked"><span aria-hidden="true">▣</span> Teacher-led</span>
-              <small>Flight planning and applied maths</small>
-              <h3 id="airways-title">Bishop Airways</h3>
-              <p>This experience is opened by your teacher during its lesson.</p>
-              <span class="lab-locked-note">Not available from this page</span>
+            <article class="lab-slide lab-slide--shakes" data-lab-slide="shakes" aria-hidden="true">
+              <img src="bishop_shakes/shakes_hero.svg" alt="Colourful Bishop Shakes drinks and ingredients" loading="lazy">
+              <div class="lab-slide__shade" aria-hidden="true"></div>
+              <div class="lab-slide__copy">
+                <span class="lab-tag">Open now</span>
+                <small>Food, ratios and problem solving</small>
+                <h3>Bishop Shakes</h3>
+                <p>Explore the menu, ingredients and hidden maths inside the shake lab.</p>
+                <a href="bishop_shakes.html">Enter the lab <b aria-hidden="true">→</b></a>
+              </div>
+            </article>
+
+            <article class="lab-slide lab-slide--airways is-locked" data-lab-slide="airways" aria-hidden="true">
+              <img src="assets/Airways-hero.jpg" alt="Bishop Airways aircraft" loading="lazy">
+              <div class="lab-slide__shade" aria-hidden="true"></div>
+              <div class="lab-slide__copy">
+                <span class="lab-tag lab-tag--locked"><span aria-hidden="true">▣</span> Teacher-led</span>
+                <small>Flight planning and applied maths</small>
+                <h3>Bishop Airways</h3>
+                <p>This experience is opened by your teacher during its lesson.</p>
+                <span class="lab-locked-note">Not available from this page</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="lab-carousel__nav" role="tablist" aria-label="Choose a featured Maths Lab">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-lab-target="botanics">
+              <img src="assets/bishop-botanics/monstera.webp" alt="">
+              <span><small>New</small><strong>Bishop Botanics</strong><b>Percentage change</b></span>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-lab-target="shakes">
+              <span class="lab-carousel__shake-thumb"><img src="bishop_shakes/shakes_hero.svg" alt=""></span>
+              <span><small>Open now</small><strong>Bishop Shakes</strong><b>Ratios and ingredients</b></span>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-lab-target="airways">
+              <img src="assets/Airways-hero.jpg" alt="">
+              <span><small>Teacher-led</small><strong>Bishop Airways</strong><b>Flight planning</b></span>
+            </button>
+            <div class="lab-carousel__controls">
+              <button type="button" data-lab-previous aria-label="Previous featured lab">←</button>
+              <span><i id="lab-carousel-position">1</i> / 3</span>
+              <button type="button" data-lab-next aria-label="Next featured lab">→</button>
             </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -120,20 +154,6 @@
       </div>
     </section>
 
-    <section class="labs-section labs-next" aria-labelledby="next-title">
-      <div class="labs-container">
-        <a class="labs-next__card" href="bishop_botanics.html">
-          <img src="assets/bishop-botanics/monstera.webp" alt="Monstera leaves from Bishop Botanics" loading="lazy">
-          <div class="labs-next__veil" aria-hidden="true"></div>
-          <div class="labs-next__copy">
-            <span>New Maths Lab</span>
-            <h2 id="next-title">Bishop Botanics</h2>
-            <p>Unlock plant drops, calculate percentage changes and build a three-plant set within budget.</p>
-            <strong>Enter the store →</strong>
-          </div>
-        </a>
-      </div>
-    </section>
   </main>
 
   <div id="site-footer"></div>
