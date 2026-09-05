@@ -19,23 +19,30 @@
     ["gcse", "GCSE", "gcse_hub.html"],
     ["alevel", "A-level", "alevel_hub.html"]
   ];
-  const tools = [
-    ["✣", "Maths Labs", "Themed lessons and quick maths games", "maths_labs.html", false],
-    ["ƒ", "Farsight", "Student-created graphing and maths workspace", "farsight.html", false],
-    ["▤", "KS3 textbooks", "Open a digital textbook by unit", "dashboard.html", false],
-    ["√", "SPARX support", "Sign-in, bookwork and homework help", "sparx.html", false],
-    ["✓", "Assessments", "Checklists and practice papers", "ks3_eoy.html", false],
-    ["◇", "UKMT challenges", "Dates, formats and preparation", "ukmt.html", false],
-    ["✦", "AI guidance", "Use AI without sharing data or copying answers", "ai_usage.html", false],
-    ["i", "Privacy and policy", "How the website handles access and data", "policy.html", false],
-    ["∑", "Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true],
-    ["A", "Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true]
+  const toolGroups = [
+    ["Learn and revise", [
+      ["▤", "KS3 textbooks", "Open a digital textbook by unit", "dashboard.html", false],
+      ["√", "SPARX support", "Sign-in, bookwork and homework help", "sparx.html", false],
+      ["✓", "Assessments", "Checklists and practice papers", "ks3_eoy.html", false]
+    ]],
+    ["Practise and explore", [
+      ["ƒ", "Farsight", "Student-created graphing and maths workspace", "farsight.html", false],
+      ["✣", "Maths Labs", "Themed lessons and quick maths games", "maths_labs.html", false],
+      ["◇", "UKMT challenges", "Dates, formats and preparation", "ukmt.html", false]
+    ]],
+    ["Guidance and links", [
+      ["✦", "AI guidance", "Use AI without sharing data or copying answers", "ai_usage.html", false],
+      ["i", "Privacy and policy", "How the website handles access and data", "policy.html", false],
+      ["∑", "Dr Frost Maths", "Independent practice and revision", "https://www.drfrost.org/", true],
+      ["A", "Pearson ActiveHub", "Open other digital textbooks", "https://activehub.pearson.com/", true]
+    ]]
   ];
+  const tools = toolGroups.flatMap(([, items]) => items);
 
   const headerSlot = document.getElementById("site-header");
   if (headerSlot) {
     const nav = mainLinks.map(([key, label, href]) => `<a href="${path(href)}"${active === key ? ' aria-current="page"' : ""}>${label}</a>`).join("");
-    const toolLinks = tools.map(([icon, label, description, href, external]) => `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><span class="mini-icon" aria-hidden="true">${icon}</span><span><strong>${label}${external ? " ↗" : ""}</strong><small>${description}</small></span></a>`).join("");
+    const toolLinks = toolGroups.map(([group, items]) => `<section class="nav-tool-group"><p>${group}</p><div>${items.map(([icon, label, description, href, external]) => `<a href="${external ? href : path(href)}"${external ? ' target="_blank" rel="noopener"' : ""}><span class="mini-icon" aria-hidden="true">${icon}</span><span><strong>${label}${external ? " ↗" : ""}</strong><small>${description}</small></span></a>`).join("")}</div></section>`).join("");
     const mobileTools = tools.filter((item) => !item[4]).map(([, label,, href]) => `<a href="${path(href)}">${label}</a>`).join("");
 
     headerSlot.innerHTML = `
