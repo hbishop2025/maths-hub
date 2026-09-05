@@ -1,4 +1,13 @@
 {
-  "items": [],
+  "items": [
+    { "active": true, "title": "Solving equations", "url": "https://corbettmaths.com/2012/08/24/solving-equations/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Solving equations practice questions", "url": "https://corbettmaths.com/2019/08/28/solving-equations-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Substitution into expressions", "url": "https://corbettmaths.com/2012/08/20/substitution-into-expressions/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Substitution practice questions", "url": "https://corbettmaths.com/2019/08/22/substitution-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Forming and solving equations", "url": "https://corbettmaths.com/2013/04/20/forming-and-solving-equations/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Forming equations practice questions", "url": "https://corbettmaths.com/2018/04/04/forming-equations/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Collecting like terms", "url": "https://corbettmaths.com/2013/12/28/collecting-like-terms-video-9/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Collecting like terms practice", "url": "https://corbettmaths.com/2019/08/22/collecting-like-terms-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" }
+  ],
   "sparx_codes": []
 }

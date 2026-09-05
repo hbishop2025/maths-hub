@@ -1,4 +1,13 @@
 {
-  "items": [],
+  "items": [
+    { "active": true, "title": "Drawing bar charts", "url": "https://corbettmaths.com/2013/04/15/drawing-bar-charts/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Bar charts practice questions", "url": "https://corbettmaths.com/2024/07/21/bar-charts-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Finding the mean", "url": "https://corbettmaths.com/2012/08/02/the-mean/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Mean, median, mode and range practice", "url": "https://corbettmaths.com/2019/08/28/mean-mode-median-range-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Drawing pie charts", "url": "https://corbettmaths.com/2013/02/27/drawing-a-pie-chart/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Drawing pie charts practice questions", "url": "https://corbettmaths.com/2019/09/02/drawing-pie-charts-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Scatter graphs", "url": "https://corbettmaths.com/2012/08/10/scatter-graphs/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Scatter graphs practice questions", "url": "https://corbettmaths.com/2019/08/29/scatter-graphs-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" }
+  ],
   "sparx_codes": []
 }

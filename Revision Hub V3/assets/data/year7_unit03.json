@@ -1,4 +1,13 @@
 {
-  "items": [],
+  "items": [
+    { "active": true, "title": "Collecting like terms", "url": "https://corbettmaths.com/2013/12/28/collecting-like-terms-video-9/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Collecting like terms practice", "url": "https://corbettmaths.com/2019/08/22/collecting-like-terms-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Forming algebraic expressions", "url": "https://corbettmaths.com/2013/03/12/forming-algebraic-notation/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Forming expressions practice questions", "url": "https://corbettmaths.com/2019/08/22/forming-expressions-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Expanding brackets", "url": "https://corbettmaths.com/2013/12/23/expanding-brackets-video-13/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Expanding brackets practice questions", "url": "https://corbettmaths.com/2019/08/22/expanding-brackets-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Factorising expressions", "url": "https://corbettmaths.com/2013/02/06/factorisation/", "blockkey": "videos", "addediso": "2026-09-05T12:00:00+01:00" },
+    { "active": true, "title": "Factorising practice questions", "url": "https://corbettmaths.com/2019/08/29/factorising-practice-questions/", "blockkey": "worksheets", "addediso": "2026-09-05T12:00:00+01:00" }
+  ],
   "sparx_codes": []
 }
