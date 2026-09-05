@@ -209,6 +209,8 @@ html[data-theme="dark"] .course-card__footer b { color:#a9e6df; }
 .tools-workspace a { display: grid; min-height: 8rem; align-items: center; gap: 1rem; grid-template-columns: 3rem 1fr auto; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.35rem; transition: background-color 150ms ease; }
 .tools-workspace a:nth-child(2n) { border-right: 0; }
 .tools-workspace a:nth-last-child(-n+2) { border-bottom: 0; }
+.tools-workspace a:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+.tools-workspace a:nth-last-child(2):nth-child(even) { border-bottom: 1px solid var(--line); }
 .tools-workspace a:hover { background: var(--surface-soft); }
 .tool-symbol { display: grid; width: 3rem; height: 3rem; place-items: center; border-radius: 50%; background: var(--teal-soft); color: var(--teal-800); font-size: 1rem; font-weight: 800; }
 html[data-theme="dark"] .tool-symbol { color: #bde9e3; }

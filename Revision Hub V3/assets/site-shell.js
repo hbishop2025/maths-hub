@@ -21,6 +21,7 @@
   ];
   const tools = [
     ["✣", "Maths Labs", "Themed lessons and quick maths games", "maths_labs.html", false],
+    ["ƒ", "Farsight", "Student-created graphing and maths workspace", "farsight.html", false],
     ["▤", "KS3 textbooks", "Open a digital textbook by unit", "dashboard.html", false],
     ["√", "SPARX support", "Sign-in, bookwork and homework help", "sparx.html", false],
     ["✓", "Assessments", "Checklists and practice papers", "ks3_eoy.html", false],
